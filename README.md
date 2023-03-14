@@ -1,13 +1,13 @@
 # Sunsynk-Home-Assistant-Power-Flow-Card
-A Home Assistant card to emulate the Sunsynk power flow thats show on the Inverter screen. There is also an animated version of the card that emulates power flow based on sensor conditions i.e. Power flowing to the battery or from the battery
+A Home Assistant card to emulate the Sunsynk power flow thats show on the Inverter screen. There is also an animated version of the card that emulates power flow based on sensor conditions i.e. Power flowing to the battery or from the battery. The battery image will update based on SOC from empty->low->medium->high
 
-![image](https://user-images.githubusercontent.com/7227275/224839865-05050150-6b72-46b5-8cb2-b1bd5b08ba9c.png)
+![image](https://user-images.githubusercontent.com/7227275/225121107-5830cf18-1e5a-40be-ad51-af0b59e44d97.png)
 
-*Simple Version*
+*Simple Animated Version*
 
 ![image](https://user-images.githubusercontent.com/7227275/224840218-0e450540-7870-46fd-a0bf-53352a6413d2.png)
 
-*Full Version*
+*Full Static Version*
 
 ![Sunsynk-simple-animated](https://user-images.githubusercontent.com/7227275/224926146-ce121e6d-75a6-4299-ae61-52536937bb1b.svg)
 ![Sunsynk-full-animated](https://user-images.githubusercontent.com/7227275/224926168-f1c1441c-67c7-4b72-a289-9a4cba3cc1c9.svg)
