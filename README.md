@@ -1,5 +1,5 @@
 # Sunsynk-Home-Assistant-Power-Flow-Card
-A Home Assistant card to emulate the Sunsynk power flow thats show on the Inverter screen
+A Home Assistant card to emulate the Sunsynk power flow thats show on the Inverter screen. There is also an animated version of the card that emulates power flow based on sensor conditions i.e. Power flowing to the battery or from the battery
 
 ![image](https://user-images.githubusercontent.com/7227275/224839865-05050150-6b72-46b5-8cb2-b1bd5b08ba9c.png)
 
@@ -8,6 +8,9 @@ A Home Assistant card to emulate the Sunsynk power flow thats show on the Invert
 ![image](https://user-images.githubusercontent.com/7227275/224840218-0e450540-7870-46fd-a0bf-53352a6413d2.png)
 
 *Full Version*
+
+![Sunsynk-simple-animated](https://user-images.githubusercontent.com/7227275/224926146-ce121e6d-75a6-4299-ae61-52536937bb1b.svg)
+![Sunsynk-full-animated](https://user-images.githubusercontent.com/7227275/224926168-f1c1441c-67c7-4b72-a289-9a4cba3cc1c9.svg)
 
 If you want to try this card in Home Assistant follow these steps.
 
@@ -21,7 +24,7 @@ If you want to try this card in Home Assistant follow these steps.
 
 ![image](https://user-images.githubusercontent.com/7227275/224839119-278e002b-4465-4e9e-b87c-8e15f6067ef4.png)
 
-5. Replace all the code with the contents of the card configuration file. Choose either the simple or full configuration file. See images above
+5. Replace all the code with the contents of the applicable card configuration file. Choose either the static or animated card and the varient i.e. simple or full configuration files. See images above
 
 ![image](https://user-images.githubusercontent.com/7227275/224839288-6ca158f8-fdc7-4f72-a2b8-7e1f1854e3c4.png)
 
