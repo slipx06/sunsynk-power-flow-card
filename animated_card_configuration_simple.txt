@@ -201,7 +201,7 @@ bindings:
     selector: '#grid'
     type: fill
   - bind: >-
-      return hass.states["sensor.grid_external_power"].state == "0" ?
+      return hass.states["sensor.grid_external_power"].state <= "0" ?
       "transparent" : "#558fc1"
     selector: '#grid-dot'
     type: fill
