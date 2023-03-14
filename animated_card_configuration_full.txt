@@ -293,12 +293,12 @@ bindings:
     selector: '#bat-high'
     type: opacity
   - bind: >-
-      return hass.states["sensor.battery_soc"].state  <= "80" && hass.states["sensor.battery_soc"].state  >= "50" && ? 
+      return hass.states["sensor.battery_soc"].state  <= "80" && hass.states["sensor.battery_soc"].state  >= "50" ? 
       "1" : "0"
     selector: '#bat-med'
     type: opacity
   - bind: >-
-      return hass.states["sensor.battery_soc"].state  <= "49" && hass.states["sensor.battery_soc"].state  >= "30" && ? 
+      return hass.states["sensor.battery_soc"].state  <= "49" && hass.states["sensor.battery_soc"].state  >= "30" ? 
       "1" : "0"
     selector: '#bat-low'
     type: opacity
