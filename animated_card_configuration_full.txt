@@ -192,7 +192,8 @@ bindings:
     selector: '#grid-dot'
     type: fill
   - bind: >-
-      return hass.states["binary_sensor.grid_connected_status"].state == "off" ?
+      return parseInt(hass.states["sensor.grid_external_power"].state) -
+      parseInt(hass.states["sensor.grid_inverter_load"].state) == 0 ?
       "transparent" : "#558fc1"
     selector: '#ne-dot'
     type: fill
