@@ -121,7 +121,10 @@ bindings:
   - bind: return hass.states["sensor.battery_soc"].state + ' %'
     selector: '#battery_soc_184'
     type: html
-  - bind: return hass.states["sensor.battery_output_power"].state + ' W'
+  - bind: >-
+      return hass.states["sensor.battery_output_power"].state < "0" ?
+      hass.states["sensor.battery_output_power"].state*-1 + ' W' :
+      hass.states["sensor.battery_output_power"].state + ' W'
     selector: '#battery_out_190'
     type: html
   - bind: return hass.states["sensor.inverter_output_power"].state + ' W'
