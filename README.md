@@ -30,7 +30,7 @@ If you want to try this card in Home Assistant follow these steps.
 
 ![image](https://user-images.githubusercontent.com/7227275/224839119-278e002b-4465-4e9e-b87c-8e15f6067ef4.png)
 
-5. Replace all the code with the contents of the applicable card configuration file. Choose either the static or animated card and the varient i.e. simple or full configuration files. See images above
+5. Replace all the code with the contents of the applicable card configuration file. Choose either the static or animated card and the varient i.e. lite, simple or full configuration files. See images above
 
 ![image](https://user-images.githubusercontent.com/7227275/224839288-6ca158f8-fdc7-4f72-a2b8-7e1f1854e3c4.png)
 
