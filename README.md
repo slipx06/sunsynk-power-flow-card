@@ -15,7 +15,7 @@ A Home Assistant card to emulate the Sunsynk power flow thats show on the Invert
 
 *Power Flows*
 
-![sunsynk-lite](https://user-images.githubusercontent.com/7227275/226335572-d891ad70-9a3e-4ce7-9641-c914004d1710.svg)
+![sunsynk-lite](https://user-images.githubusercontent.com/7227275/226348214-98dc4307-aac0-443c-83ce-b4ee6fffa69c.svg)
 
 ![Sunsynk-simple-animated](https://user-images.githubusercontent.com/7227275/224926146-ce121e6d-75a6-4299-ae61-52536937bb1b.svg)
 
