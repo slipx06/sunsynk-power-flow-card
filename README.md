@@ -1,20 +1,24 @@
 # Sunsynk-Home-Assistant-Power-Flow-Card
 A Home Assistant card to emulate the Sunsynk power flow thats show on the Inverter screen. There is also an animated version of the card that emulates power flow based on sensor conditions i.e. Power flowing to the battery or from the battery. The battery image will update based on SOC from empty->low->medium->high. The grid will display a red dot when disconnected and the inverter status (standby, normal, self-test, alarm, fault) is also displayed as a colour coded dot.
 
-![image](https://user-images.githubusercontent.com/7227275/226320438-3294057c-3316-4451-a476-8496b4dd3f73.png)
-
 *Lite Animated Version*
 
-![image](https://user-images.githubusercontent.com/7227275/225121107-5830cf18-1e5a-40be-ad51-af0b59e44d97.png)
+![image](https://user-images.githubusercontent.com/7227275/226320438-3294057c-3316-4451-a476-8496b4dd3f73.png)
 
 *Simple Animated Version*
 
-![image](https://user-images.githubusercontent.com/7227275/224840218-0e450540-7870-46fd-a0bf-53352a6413d2.png)
+![image](https://user-images.githubusercontent.com/7227275/225121107-5830cf18-1e5a-40be-ad51-af0b59e44d97.png)
 
 *Full Static Version*
 
-![sunsynk-simple-mod](https://user-images.githubusercontent.com/7227275/226320550-9059c5ea-dfa7-4935-954f-4d53b5bf291c.svg)
+![image](https://user-images.githubusercontent.com/7227275/224840218-0e450540-7870-46fd-a0bf-53352a6413d2.png)
+
+*Power Flows*
+
+![sunsynk-lite](https://user-images.githubusercontent.com/7227275/226335572-d891ad70-9a3e-4ce7-9641-c914004d1710.svg)
+
 ![Sunsynk-simple-animated](https://user-images.githubusercontent.com/7227275/224926146-ce121e6d-75a6-4299-ae61-52536937bb1b.svg)
+
 ![Sunsynk-full-animated](https://user-images.githubusercontent.com/7227275/224926168-f1c1441c-67c7-4b72-a289-9a4cba3cc1c9.svg)
 
 
