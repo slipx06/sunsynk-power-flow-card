@@ -1,6 +1,8 @@
 # Sunsynk-Home-Assistant-Power-Flow-Card
 A Home Assistant card to emulate the Sunsynk power flow thats show on the Inverter screen. There is also an animated version of the card that emulates power flow based on sensor conditions i.e. Power flowing to the battery or from the battery. The battery image will update based on SOC from empty->low->medium->high. The grid will display a red dot when disconnected and the inverter status (standby, normal, self-test, alarm, fault) is also displayed as a colour coded dot.
 
+Credits to iphong for his lovelace custom card approach and code. https://github.com/iphong/web-components/tree/master/src
+
 *Lite Animated Version*
 
 ![image](https://user-images.githubusercontent.com/7227275/226320438-3294057c-3316-4451-a476-8496b4dd3f73.png)
