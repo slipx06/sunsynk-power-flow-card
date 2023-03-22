@@ -180,7 +180,7 @@ bindings:
     selector: '#es-dot'
     type: fill
   - bind: >-
-      return hass.states["sensor.battery_output_power"].state  > "0" ?
+      return hass.states["sensor.battery_output_power"].state  >= "0" ?
       "transparent" : "#f3b1c9"
     selector: '#power-dot-discharge'
     type: fill
