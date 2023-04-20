@@ -5,7 +5,7 @@ Credits to iphong for his lovelace custom card approach and code. https://github
 
 *Lite Animated Version*
 
-![image](https://user-images.githubusercontent.com/7227275/233426874-15e43f8b-7770-47df-a641-92010ce749a1.png)
+![image](https://user-images.githubusercontent.com/7227275/233428009-e8b38d7c-c068-40eb-80a0-3862eb3e244a.png)
 
 *Simple Animated Version*
 
