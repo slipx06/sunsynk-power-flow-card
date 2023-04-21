@@ -7,7 +7,7 @@ content: >-
   var(--card-background-color); padding: 0px; }</style><div>       <svg
   xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
   version="1.1" width="100%" height="405px" viewBox="-0.5 -0.5 483
-  406"><defs/><g> 
+  406"><defs/><g>
   <style type="text/css"> 
     text { text-anchor: middle; alignment-baseline: middle; } 
     .left-align {text-anchor: start;} 
@@ -21,17 +21,17 @@ content: >-
     .st8{font-weight:500} 
     .st9{fill:#959595;} 
     .st10{font-size:16px;}
-  </style>   
-  <text id="daily_bat_charge_value" x="66%" y="85%" class="st10 st2 left-align" >0</text>  
-  <text id="daily_bat_charge" x="66%" y="88%" class="st3 st2 left-align" >DAILY CHARGE</text>  
-  <text id="daily_bat_discharge_value" x="66%" y="93.75%" class="st10 st2 left-align" >0</text>  
-  <text id="daily_bat_charge" x="66%" y="97%" class="st3 st2 left-align" >DAILY DISCHARGE</text> 
-  <text id="daily_load_value" x="83%" y="66%" class="st10 st6 left-align" >0</text> 
+  </style>    
+  <text id="daily_bat_charge_value" x="66%" y="85%" class="st10 st2 left-align" >0</text>
+  <text id="daily_bat_charge" x="66%" y="88%" class="st3 st2 left-align" >DAILY CHARGE</text>
+  <text id="daily_bat_discharge_value" x="66%" y="93.75%" class="st10 st2 left-align" >0</text>
+  <text id="daily_bat_charge" x="66%" y="97%" class="st3 st2 left-align" >DAILY DISCHARGE</text>
+  <text id="daily_load_value" x="83%" y="66%" class="st10 st6 left-align" >0</text>
   <text id="daily_load" x="83%" y="69.5%" class="st3 st6 left-align" >DAILY LOAD</text>
   <text id="daily_grid_value" x="3%" y="66%" class="st10 st7 left-align" >0</text>
   <text id="daily_grid" x="3%" y="69.5%" class="st3 st7 left-align" >DAILY GRID</text>
-  <text id="daily_solar_value" x="13%" y="4%" class="st10 st1 left-align" >0</text>
-  <text id="daily_solar" x="13%" y="7.5%" class="st3 st1 left-align" >DAILY SOLAR</text>
+  <text id="daily_solar_value" x="47%" y="4%" class="st10 st1 left-align" >0</text>
+  <text id="daily_solar" x="47%" y="7.5%" class="st3 st1 left-align" >DAILY SOLAR</text>
   <text id="inverter_grid_voltage_154" x="56%" y="63.25%" class="st3 st9 left-align" >0</text>
   <text id="inverter_load_freq_192" x="56%" y="66.25%" class="st3 st9 left-align">0</text>
   <text id="inverter_out_164" x="56%" y="69.25%" class="st3 st9 left-align">0</text>
@@ -45,36 +45,31 @@ content: >-
   <text id="battery_out_190" x="40%" y="95%" class="st2 st4 st8">0</text>
   <text id="ess_power" x="70.5%" y="54%" class="st4 st6 st8">0</text>
   <text id="grid_external_power_172" x="28%" y="54%" class="st4 st7 st8">0</text>
-  
+
   <circle id="standby" cx="54%" cy="65%" r="3.5" fill="transparent"/>
   <circle id="selftest" cx="54%" cy="66%" r="3.5" fill="transparent"/>
   <circle id="normal" cx="54%" cy="66%" r="3.5" fill="transparent"/>
   <circle id="alarm" cx="54%" cy="66%" r="3.5" fill="transparent"/>
   <circle id="fault" cx="54%" cy="66%" r="3.5" fill="transparent"/>
   <circle id="grid" cx="6.5%" cy="62%" r="3.5" fill="transparent"/>
-  
-  <path id="pv1-line" d="M 189 84.5 L 189 122.03 Q
-  189 132.03 197 132.03 L 205 132.03" fill="none" stroke="#ff9933"
-  stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2"
-  pointer-events="stroke"/>
+
+  <path id="pv1-line" d="M 189 84.5 L 189 122.03 Q 189 132.03 197 132.03 L 205 132.03" fill="none" stroke="#ff9933" stroke-width="2" stroke-miterlimit="10"
+  stroke-dasharray="2 2" pointer-events="stroke"/>
    <circle id="pv1-dot" cx="0" cy="0" r="3" fill="#ff9933">
     <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
       <mpath xlink:href="#pv1-line"/>
     </animateMotion>
    </circle>
-  <path id="pv2-line" d="M 289 84.5 L 289 121.48 Q 289 131.48 282 131.49 L 275
-  131.5" fill="none" stroke="#ff9933" stroke-width="2" stroke-miterlimit="10"
+  <path id="pv2-line" d="M 289 84.5 L 289 121.48 Q 289 131.48 282 131.49 L 275 131.5" fill="none" stroke="#ff9933" stroke-width="2" stroke-miterlimit="10"
   stroke-dasharray="2 2" pointer-events="stroke"/>
    <circle id="pv2-dot" cx="0" cy="0" r="3" fill="#ff9933">
     <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
       <mpath xlink:href="#pv2-line"/>
     </animateMotion>
    </circle>
-  <rect x="205" y="116.5" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-  stroke="#ff9933" pointer-events="all"/> <path id="bat-line" d="M 239.23 260 L
+  <rect x="205" y="116.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="#ff9933" pointer-events="all"/> <path id="bat-line" d="M 239.23 260 L
   239.21 288.03 Q 239.21 298.03 239.1 308.02 L 239 318" fill="none"
-  stroke="#f3b1c9" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2
-  2" pointer-events="stroke"/> <circle id="power-dot-charge" cx="0" cy="0" r="3"
+  stroke="#f3b1c9" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/> <circle id="power-dot-charge" cx="0" cy="0" r="3"
   fill="transparent">
    <animateMotion dur="6s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
     <mpath xlink:href="#bat-line"/>
@@ -125,12 +120,10 @@ content: >-
     <mpath xlink:href="#es-line1"/>
    </animateMotion>
   </circle> <rect x="304" y="203.5" width="70" height="30" rx="4.5" ry="4.5"
-  fill="none" stroke="#5fb5ab" pointer-events="all"/> <image x="160.5" y="0"
+  fill="none" stroke="#5fb5ab" pointer-events="all"/> <image x="160" y="0"
   width="56" height="56" 
   xlink:href="data:image/png;base64,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"
-  preserveAspectRatio="none"/> <image x="261.5" y="0" width="56" height="56"
-  xlink:href="data:image/png;base64,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"
-  preserveAspectRatio="none"/> <svg xmlns="http://www.w3.org/2000/svg"
+  preserveAspectRatio="none"/> < <svg xmlns="http://www.w3.org/2000/svg"
   id="bat-high" x="232.5" y="325.5" width="78.75" height="78.75"
   preserveAspectRatio="none" opacity="0" viewBox="0 0 24 24"> <path
   fill="#f3b1c9" d="M12 20H4V6h8m.67-2H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2
