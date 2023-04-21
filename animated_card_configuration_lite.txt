@@ -3,8 +3,11 @@ view_layout:
   grid-area: flow
 entities: null
 content: >-
-  <style>div {border-radius: 5px; background-color:
-  var(--card-background-color); padding: 0px; }</style><div>       <svg
+  <style>div {border-radius: var(--ha-card-border-radius,10px);
+  background-color: var(--card-background-color); padding: 0px; border-width:
+  var(--ha-card-border-width); box-shadow: var(--ha-card-box-shadow,  0px
+  0px 0px 1px rgba(0, 0, 0, 0.12),  0px 0px 0px 0px rgba(0, 0, 0, 0.12),  0px
+  0px 0px 0px rgba(0, 0, 0, 0.12));  }</style><div>       <svg
   xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
   version="1.1" width="100%" height="405px" viewBox="-0.5 -0.5 483
   406"><defs/><g>
