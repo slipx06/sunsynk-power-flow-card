@@ -45,7 +45,11 @@ content: >-
   <text id="battery_out_190" x="40%" y="95%" class="st2 st4 st8">0</text>
   <text id="ess_power" x="70.5%" y="54%" class="st4 st6 st8">0</text>
   <text id="grid_external_power_172" x="28%" y="54%" class="st4 st7 st8">0</text>
-
+  <text id="pv1_v" x="25%" y="16%" class="st3 st1 left-align" >0</text>
+  <text id="pv1_i" x="25%" y="19%" class="st3 st1 left-align" >0</text>
+  <text id="pv2_v" x="68.75%" y="16%" class="st3 st1 left-align" >0</text>
+  <text id="pv2_i" x="68.75%" y="19%" class="st3 st1 left-align" >0</text>
+  
   <circle id="standby" cx="54%" cy="65%" r="3.5" fill="transparent"/>
   <circle id="selftest" cx="54%" cy="66%" r="3.5" fill="transparent"/>
   <circle id="normal" cx="54%" cy="66%" r="3.5" fill="transparent"/>
@@ -178,6 +182,18 @@ bindings:
   - bind: return hass.states["sensor.sunsynk_totalsolar"].state + ' W'
     selector: '#pvtotal_power'
     type: html
+  - bind: return hass.states["sensor.dc1_voltage"].state + ' V'
+    selector: '#pv1_v'
+    type: html
+  - bind: return hass.states["sensor.dc1_current"].state + ' A'
+    selector: '#pv1_i'
+    type: html
+  - bind: return hass.states["sensor.dc2_voltage"].state + ' V'
+    selector: '#pv2_v'
+    type: html
+  - bind: return hass.states["sensor.dc2_current"].state + ' A'
+    selector: '#pv2_i'
+    type: html  
   - bind: return hass.states["sensor.battery_voltage"].state + ' V'
     selector: '#battery_voltage_183'
     type: html
