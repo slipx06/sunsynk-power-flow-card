@@ -32,6 +32,8 @@ If you want to try this card in Home Assistant follow these steps.
 
 ![image](https://user-images.githubusercontent.com/7227275/224839022-a08f7819-59e2-420b-82e3-354052de1f19.png)
 
+![image](https://user-images.githubusercontent.com/7227275/233791175-2835ad0e-8e7a-49d1-83ea-4651d6c99f38.png)
+
 4. Add the Custom: Sunsynk Card to your Dashboard view. Select Show Code editor
 
 ![image](https://user-images.githubusercontent.com/7227275/224839119-278e002b-4465-4e9e-b87c-8e15f6067ef4.png)
