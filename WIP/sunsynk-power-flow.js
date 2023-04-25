@@ -73,7 +73,7 @@ class SunsynkPowerFlowCard extends LitElement {
         inverter_load_freq_192: "sensor.load_frequency",
         inverter_out_164: "sensor.inverter_output_current",
         inverter_out_175: "sensor.inverter_output_power",
-        inverter_load_grid_167: "sensor.grid_inverter_load",
+        inverter_load_grid_169: "sensor.grid_inverter_load",
         pv2_power_187: "sensor.pv2_power",
         pv1_power_186: "sensor.pv1_power",
         pvtotal_power: "sensor.sunsynk_totalsolar",
@@ -117,7 +117,7 @@ class SunsynkPowerFlowCard extends LitElement {
     const stateObj20 = this.hass.states[config.grid_status];
     const stateObj21 = this.hass.states[config.inverter_status];
     const stateObj22 = this.hass.states[config.inverter_out_175];
-    const stateObj23 = this.hass.states[config.inverter_load_grid_167];
+    const stateObj23 = this.hass.states[config.inverter_load_grid_169];
 
     if (config.cardstyle === 'full') {
       return html`<div>Card Style is full</div>`;
