@@ -158,7 +158,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <text id="daily_load_value" x="85%" y="5%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st6 left-align'}" >${stateObj2.state ? stateObj2.state : '0'} kWh</text>
             <text id="daily_load" x="85%" y="8.5%" class="${config.dailyusage === 'no' ? 'st11' : 'st3 st6 left-align'}" >DAILY LOAD</text>
             <text id="inverter_out_175" x="45%" y="42.5%" class="st4 st8 st9">${stateObj22.state ? stateObj22.state : '0'} W</text>
-            <text id="inverter_load_grid_167" x="69%" y="49.5%" class="st4 st7 st8">${stateObj23.state ? stateObj23.state : '0'} W</text>
+            <text id="inverter_load_grid_169" x="69%" y="49.5%" class="st4 st7 st8">${stateObj23.state ? stateObj23.state : '0'} W</text>
 
             <circle id="standby" cx="41%" cy="81.75%" r="3.5" fill="${stateObj21.state === '0' ? 'blue' : 'transparent'}"/>
             <circle id="selftest" cx="41%" cy="81.75%" r="3.5" fill="${stateObj21.state === '1' ? 'yellow' : 'transparent'}"/>
