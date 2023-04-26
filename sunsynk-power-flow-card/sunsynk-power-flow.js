@@ -526,10 +526,30 @@ class SunsynkPowerFlowCard extends LitElement {
     }
   }
 
+  
   setConfig(config) {
     if (!config.cardstyle) {
-      throw new Error('Please define the card style, full, simple or lite');
+      throw new Error('Please include the cardstyle attribute and value; lite, simple or full e.g. cardstyle: simple');
     }
+    if (!config.dailyusage) {
+      throw new Error('Please include the dailyusage attribute and value; yes or no e.g. dailyusage: no');
+    }
+
+    const attributes = [
+      'batdischargeday', 'batchargeday', 'loadday', 
+      'gridday', 'solarday', 'inverter_grid_voltage_154', 'inverter_load_freq_192', 
+      'inverter_out_164', 'inverter_out_175', 'inverter_load_grid_169', 'pv2_power_187', 
+      'pv1_power_186', 'pvtotal_power', 'battery_voltage_183', 'battery_soc_184', 
+      'battery_out_190', 'ess_power', 'grid_external_power_172', 'pv1_v', 'pv1_i', 
+      'pv2_v', 'pv2_i', 'grid_status', 'inverter_status', 'aux_power_166', 'non_ess_power'
+    ];
+  
+    for (const attr of attributes) {
+      if (!config[attr]) {
+        throw new Error(`Please include the ${attr} attribute and entity ID e.g. ${attr}: sensor.example`);
+      }
+    }    
+
     this._config = config;
   }
 
