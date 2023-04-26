@@ -25,7 +25,7 @@ If you want to try this card in Home Assistant:
 
 ![image](https://user-images.githubusercontent.com/7227275/234656611-b2102a54-f41d-4245-b460-efffa2d06554.png)
 
-5. The card requires that you have all the sensors available before it will render the preview.
+5. The card requires that all of these attributes be defined. If you have missing sensors for any attribute set it to null i.e. "solarday: null" and it will use a default value of 0
 
 | Attribute | Default | Description |
 | --- | --- | --- |
