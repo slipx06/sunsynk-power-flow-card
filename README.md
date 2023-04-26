@@ -13,7 +13,7 @@ An animated Home Assistant card to emulate the Sunsynk power flow that's show on
 
 ![image](https://user-images.githubusercontent.com/7227275/234655663-117bffbd-6a4b-499b-83ed-df72a259a3c2.png)
 
-If you want to try this card in Home Assistant follow these steps.
+If you want to try this card in Home Assistant:
 
 1. Create a new directory under www/community/ and name it sunsynk-power-flow-card. If you don't have HACS installed you can create directory directly under www and reference in step 3 below.
 2. Copy the sunsynk-power-flow.js into the directory
@@ -69,11 +69,6 @@ If you want to try this card in Home Assistant follow these steps.
         friendly_name: "Total Solar Generation"
         value_template: "{{ (states('sensor.pv1_power') | float(0) + states('sensor.pv2_power') | float(0)) | round(0) }}"
         unit_of_measurement: 'W'
-      sunsynk_solar_load:
-        friendly_name: "Solar Load"
-        value_template: "{{ (states('sensor.daily_pv_power_kwh') | float(0) - states('sensor.battery_charge_day') | float(0)) |round(1) }}"
-        unit_of_measurement: 'kWh'
-        device_class: energy
       sunsynk_essential_load:
         friendly_name: "Essential Load"
         value_template: "{{ (states('sensor.inverter_output_power') |float(0)  - (states('sensor.aux_output_power') |float(0) - states('sensor.grid_inverter_load') |float(0) )) | round(0)}}"
