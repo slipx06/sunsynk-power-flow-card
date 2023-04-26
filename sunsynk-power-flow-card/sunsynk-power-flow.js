@@ -565,5 +565,5 @@ window.customCards.push({
   type: "sunsynk-power-flow-card",
   name: "Sunsynk Power Flow Card",
   preview: false, // Optional - defaults to false
-  description: "A Home Assistant card to emulate the Sunsynk power flow thats show on the Inverter screen", // Optional
+  description: "A Home Assistant card to emulate the Sunsynk power flow that's shown on the Inverter screen", // Optional
 });
