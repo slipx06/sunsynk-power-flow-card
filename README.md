@@ -53,7 +53,7 @@ If you want to try this card in Home Assistant:
 |pv1_v: | sensor.dc1_voltage | PV String 1 Voltage (V) |
 |pv1_i: | sensor.dc1_current | Pv String 1 Current (A)|
 |pv2_v: | sensor.dc2_voltage | PV String 2 Voltage (V)|
-|pv2_i: | sensor.dc2_current | Pv String 2 Current (A)|
+|pv2_i: | sensor.dc2_current | PV String 2 Current (A)|
 |grid_status: | binary_sensor.grid_connected_status | Grid Connected Status (on/off) |
 |inverter_status: | sensor.overall_state | Inverter Status (0,1,2,3,4) |
 |aux_power_166: | sensor.aux_output_power | Auxilary Power (W) |
