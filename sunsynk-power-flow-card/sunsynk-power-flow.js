@@ -96,32 +96,32 @@ class SunsynkPowerFlowCard extends LitElement {
 
   render() {
     const config = this._config;
-    const stateObj = this.hass.states[config.batdischargeday];
-    const stateObj1 = this.hass.states[config.batchargeday];
-    const stateObj2 = this.hass.states[config.loadday];
-    const stateObj3 = this.hass.states[config.gridday];
-    const stateObj4 = this.hass.states[config.solarday];
-    const stateObj5 = this.hass.states[config.inverter_grid_voltage_154];
-    const stateObj6 = this.hass.states[config.inverter_load_freq_192];
-    const stateObj7 = this.hass.states[config.inverter_out_164];
-    const stateObj8 = this.hass.states[config.pv2_power_187];
-    const stateObj9 = this.hass.states[config.pv1_power_186];
-    const stateObj10 = this.hass.states[config.pvtotal_power];
-    const stateObj11 = this.hass.states[config.battery_voltage_183];
-    const stateObj12 = this.hass.states[config.battery_soc_184];
-    const stateObj13 = this.hass.states[config.battery_out_190];
-    const stateObj14 = this.hass.states[config.ess_power];
-    const stateObj15 = this.hass.states[config.grid_external_power_172];
-    const stateObj16 = this.hass.states[config.pv1_v];
-    const stateObj17 = this.hass.states[config.pv1_i];
-    const stateObj18 = this.hass.states[config.pv2_v];
-    const stateObj19 = this.hass.states[config.pv2_i];
-    const stateObj20 = this.hass.states[config.grid_status];
-    const stateObj21 = this.hass.states[config.inverter_status];
-    const stateObj22 = this.hass.states[config.inverter_out_175];
-    const stateObj23 = this.hass.states[config.inverter_load_grid_169];
-    const stateObj24 = this.hass.states[config.aux_power_166];
-    const stateObj25 = this.hass.states[config.non_ess_power];
+    const stateObj = this.hass.states[config.batdischargeday] ? this.hass.states[config.batdischargeday] : { state: '0' };
+    const stateObj1 = this.hass.states[config.batchargeday] ? this.hass.states[config.batdischargeday] : { state: '0' };
+    const stateObj2 = this.hass.states[config.loadday] ? this.hass.states[config.loadday] : { state: '0' };
+    const stateObj3 = this.hass.states[config.gridday] ? this.hass.states[config.gridday] : { state: '0' };
+    const stateObj4 = this.hass.states[config.solarday] ? this.hass.states[config.solarday] : { state: '0' };
+    const stateObj5 = this.hass.states[config.inverter_grid_voltage_154] ? this.hass.states[config.inverter_grid_voltage_154] : { state: '0' };
+    const stateObj6 = this.hass.states[config.inverter_load_freq_192] ? this.hass.states[config.inverter_load_freq_192] : { state: '0' };
+    const stateObj7 = this.hass.states[config.inverter_out_164] ? this.hass.states[config.inverter_out_164] : { state: '0' };
+    const stateObj8 = this.hass.states[config.pv2_power_187] ? this.hass.states[config.pv2_power_187] : { state: '0' };
+    const stateObj9 = this.hass.states[config.pv1_power_186] ? this.hass.states[config.pv1_power_186] : { state: '0' };
+    const stateObj10 = this.hass.states[config.pvtotal_power] ? this.hass.states[config.pvtotal_power] : { state: '0' };
+    const stateObj11 = this.hass.states[config.battery_voltage_183] ? this.hass.states[config.battery_voltage_183] : { state: '0' };
+    const stateObj12 = this.hass.states[config.battery_soc_184] ? this.hass.states[config.battery_soc_184] : { state: '0' };
+    const stateObj13 = this.hass.states[config.battery_out_190] ? this.hass.states[config.battery_out_190] : { state: '0' };
+    const stateObj14 = this.hass.states[config.ess_power] ? this.hass.states[config.ess_power] : { state: '0' };
+    const stateObj15 = this.hass.states[config.grid_external_power_172] ? this.hass.states[config.grid_external_power_172] : { state: '0' };
+    const stateObj16 = this.hass.states[config.pv1_v] ? this.hass.states[config.pv1_v] : { state: '0' };
+    const stateObj17 = this.hass.states[config.pv1_i] ? this.hass.states[config.pv1_i] : { state: '0' };
+    const stateObj18 = this.hass.states[config.pv2_v] ? this.hass.states[config.pv2_v] : { state: '0' };
+    const stateObj19 = this.hass.states[config.pv2_i] ? this.hass.states[config.pv2_i] : { state: '0' };
+    const stateObj20 = this.hass.states[config.grid_status] ? this.hass.states[config.grid_status] : { state: 'on' };
+    const stateObj21 = this.hass.states[config.inverter_status] ? this.hass.states[config.inverter_status] : { state: '2' };
+    const stateObj22 = this.hass.states[config.inverter_out_175] ? this.hass.states[config.inverter_out_175] : { state: '0' };
+    const stateObj23 = this.hass.states[config.inverter_load_grid_169] ? this.hass.states[config.inverter_load_grid_169] : { state: '0' };
+    const stateObj24 = this.hass.states[config.aux_power_166] ? this.hass.states[config.aux_power_166] : { state: '0' };
+    const stateObj25 = this.hass.states[config.non_ess_power] ? this.hass.states[config.non_ess_power] : { state: '0' };
 
     if (config.cardstyle === 'full') {
       return html`
