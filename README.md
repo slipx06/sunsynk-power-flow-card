@@ -23,7 +23,7 @@ If you want to try this card in Home Assistant:
 
 4. Add the Custom: Sunsynk Card to your Dashboard view. Select Show Code editor
 
-![image](https://user-images.githubusercontent.com/7227275/234828051-1caffe34-c4a8-419a-a700-670e4fbc09cb.png)
+![image](https://user-images.githubusercontent.com/7227275/234855970-5d7f2d41-1bc9-480e-9c62-0ddb45c7cb9a.png)
 
 5. The card requires that all of these attributes be defined. If you have missing sensors for any attribute set it to null i.e. "solarday: null" and it will use a default value of 0
 
