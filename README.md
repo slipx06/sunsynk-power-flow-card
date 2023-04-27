@@ -58,7 +58,7 @@ If you want to try this card in Home Assistant:
 |inverter_status: | sensor.overall_state | Inverter Status (0,1,2,3,4) |
 |aux_power_166: | sensor.aux_output_power | Auxilary Power (W) |
 
-6. The card calculates the sensors below and based on supplied attribues.
+6. The card calculates the sensors below based on supplied attribues in the config so you dont need to define them in Home Assistant
  
  ```
  sensor:
