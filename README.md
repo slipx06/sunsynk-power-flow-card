@@ -1,17 +1,17 @@
 # Sunsynk-Home-Assistant-Power-Flow-Card
-An animated Home Assistant card to emulate the Sunsynk power flow that's show on the Inverter screen. The battery image will update based on SOC from empty->low->medium->high. The grid will display a red dot when disconnected and the inverter status (standby, normal, self-test, alarm, fault) is also displayed as a colour coded dot. There is an option to switch between three card styles: lite, simple or full as well as hide the daily totals
+An animated Home Assistant card to emulate the Sunsynk power flow that's show on the Inverter screen. The battery image will update based on SOC from empty->low->medium->high. The grid will display a red dot when disconnected and the inverter status (standby, normal, self-test, alarm, fault) is also displayed as a colour coded dot. There is an option to switch between three card styles: lite, simple or full. The remaining battery runtime at the current battery usage is displayed together with Daily totals. Both of these can be toggled on or off.
 
 *Lite Version*
 
-![image](https://user-images.githubusercontent.com/7227275/234655173-6a0cbae8-9198-4580-9676-1f836970f996.png)
+![image](https://user-images.githubusercontent.com/7227275/234833282-70399203-47d7-47d5-b6e1-ff8ef8518800.png)
 
 *Simple Version*
 
-![image](https://user-images.githubusercontent.com/7227275/234655405-85c4909c-ae73-488f-a106-45c6068fd790.png)
+![image](https://user-images.githubusercontent.com/7227275/234833488-e6c3c9ab-d22a-4d22-8319-8be9016e96f8.png)
 
 *Full Version*
 
-![image](https://user-images.githubusercontent.com/7227275/234655663-117bffbd-6a4b-499b-83ed-df72a259a3c2.png)
+![image](https://user-images.githubusercontent.com/7227275/234833660-89a2a805-09c3-49d3-8550-febaebeae645.png)
 
 If you want to try this card in Home Assistant:
 
@@ -32,7 +32,7 @@ If you want to try this card in Home Assistant:
 |type: | custom:sunsynk-power-flow-card | The custom card
 |cardstyle: | lite | Selects the card layout that is used  (lite, simple, full) |
 |dailyusage: | 'yes' | Toggles the Daily Totals (yes/no) |
-|battery_energy: | 15960 | Total Battery Energy (e.g. 3 x 5.32kWh = 15960  or set to "hidden" to hide|
+|battery_energy: | 15960 | Total Battery Energy in Wh (e.g. 3 x 5.32kWh = 15960) or set to "hidden" to hide|
 |batdischargeday: | sensor.battery_discharge_day | Daily Battery Usage (kWh) |
 |batchargeday: | sensor.battery_charge_day | Daily Battery Charge (kWh) |
 |loadday: | sensor.daily_load_power_kwh | Daily Load (kWh) |
