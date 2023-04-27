@@ -77,7 +77,7 @@ class SunsynkPowerFlowCard extends LitElement {
         inverter_load_grid_169: "sensor.grid_inverter_load",
         pv2_power_187: "sensor.pv2_power",
         pv1_power_186: "sensor.pv1_power",
-        pvtotal_power: "sensor.sunsynk_totalsolar",
+        //pvtotal_power: "sensor.sunsynk_totalsolar",
         battery_voltage_183: "sensor.battery_voltage",
         battery_soc_184: "sensor.battery_soc",
         battery_out_190: "sensor.battery_output_power",
@@ -90,7 +90,7 @@ class SunsynkPowerFlowCard extends LitElement {
         grid_status: "binary_sensor.grid_connected_status",
         inverter_status: "sensor.overall_state",
         aux_power_166: "sensor.aux_output_power",
-        non_ess_power: "sensor.sunsynk_non_essential_load"
+        //non_ess_power: "sensor.sunsynk_non_essential_load"
 
     }
   }
@@ -107,7 +107,7 @@ class SunsynkPowerFlowCard extends LitElement {
     const stateObj7 = this.hass.states[config.inverter_out_164] ? this.hass.states[config.inverter_out_164] : { state: '0' };
     const stateObj8 = this.hass.states[config.pv2_power_187] ? this.hass.states[config.pv2_power_187] : { state: '0' };
     const stateObj9 = this.hass.states[config.pv1_power_186] ? this.hass.states[config.pv1_power_186] : { state: '0' };
-    const stateObj10 = this.hass.states[config.pvtotal_power] ? this.hass.states[config.pvtotal_power] : { state: '0' };
+    //const stateObj10 = this.hass.states[config.pvtotal_power] ? this.hass.states[config.pvtotal_power] : { state: '0' };
     const stateObj11 = this.hass.states[config.battery_voltage_183] ? this.hass.states[config.battery_voltage_183] : { state: '0' };
     const stateObj12 = this.hass.states[config.battery_soc_184] ? this.hass.states[config.battery_soc_184] : { state: '0' };
     const stateObj13 = this.hass.states[config.battery_out_190] ? this.hass.states[config.battery_out_190] : { state: '0' };
@@ -122,10 +122,13 @@ class SunsynkPowerFlowCard extends LitElement {
     const stateObj22 = this.hass.states[config.inverter_out_175] ? this.hass.states[config.inverter_out_175] : { state: '0' };
     const stateObj23 = this.hass.states[config.inverter_load_grid_169] ? this.hass.states[config.inverter_load_grid_169] : { state: '0' };
     const stateObj24 = this.hass.states[config.aux_power_166] ? this.hass.states[config.aux_power_166] : { state: '0' };
-    const stateObj25 = this.hass.states[config.non_ess_power] ? this.hass.states[config.non_ess_power] : { state: '0' };
-
+    //const stateObj25 = this.hass.states[config.non_ess_power] ? this.hass.states[config.non_ess_power] : { state: '0' };
     
     
+    const totalsolar = (parseInt(stateObj8.state) + parseInt(stateObj9.state));
+    const nonessential = (parseInt(stateObj15.state) - parseInt(stateObj23.state));
+    const essential = (parseInt(stateObj22.state) - (parseInt(stateObj24.state) - parseInt(stateObj23.state)));
+        
 
     let duration = "";
     if (stateObj13.state > 0 && config.battery_energy !== "hidden") {
@@ -157,13 +160,13 @@ class SunsynkPowerFlowCard extends LitElement {
           <text id="inverter_out_164" x="39.5%" y="52%" class="st4 st8 st9">${stateObj7.state ? stateObj7.state : '0'} A</text>
           <text id="pv2_power_187" x="30%" y="18.5%" class="st1 st4 st8 ">${stateObj8.state ? stateObj8.state : '0'} W</text>
           <text id="pv1_power_186" x="8%" y="18.5%" class="st1 st4 st8">${stateObj9.state ? stateObj9.state : '0'} W</text>
-          <text id="pvtotal_power" x="19%" y="33.5%" class="st1 st4 st8">${stateObj10.state ? stateObj10.state : '0'} W</text>
+          <text id="pvtotal_power" x="19%" y="33.5%" class="st1 st4 st8">${totalsolar ? totalsolar : '0'} W</text>
           <text x="4%" y="25%" class="st1 st3 st8">PV1</text>
           <text x="26%" y="25%" class="st1 st3 st8">PV2</text>
           <text id="battery_voltage_183" x="9%" y="83%" class="st2 st4 st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
           <text id="battery_soc_184" x="9%" y="87.5%" class="st2 st4 st8">${stateObj12.state ? stateObj12.state : '0'} %</text>
           <text id="battery_out_190" x="9%" y="92%" class="st2 st4 st8">${stateObj13.state < '0' ? stateObj13.state *-1 : stateObj13.state} W</text>
-          <text id="ess_power" x="59%" y="31%" class="st4 st6 st8">${stateObj14.state ? stateObj14.state : '0'} W</text>
+          <text id="ess_power" x="59%" y="31%" class="st4 st6 st8">${essential ? essential : '0'} W</text>
           <text id="grid_external_power_172" x="92%" y="73.5%" class="st4 st7 st8">${stateObj15.state ? stateObj15.state : '0'} W</text>
           <text x="92%" y="98.5%" class="st3 st7 st8">Grid</text>
           <text x="40.5%" y="82%" class="st3 st7 st9">Status</text>
@@ -184,7 +187,7 @@ class SunsynkPowerFlowCard extends LitElement {
           <text id="inverter_load_grid_169" x="59%" y="54.5%" class="st4 st7 st8">${stateObj23.state ? stateObj23.state : '0'} W</text>
           <text id="aux_power_166" x="59%" y="12.5%" class="st4 st6 st8">${stateObj24.state ? stateObj24.state : '0'} W</text> 
           <text x="90%" y="21.5%" class="st3 st6 st8">Auxiliary</text> 
-          <text id="non_ess_power" x="74%" y="73.5%" class="st4 st7 st8">${stateObj25.state ? stateObj25.state : '0'} W</text>  
+          <text id="non_ess_power" x="74%" y="73.5%" class="st4 st7 st8">${nonessential ? nonessential : '0'} W</text>  
           <text x="74%" y="98.5%" class="st3 st7 st8"> Non Essential</text>
           
           <circle id="standby" cx="36%" cy="81.75%" r="3.5" fill="${stateObj21.state === '0' ? 'blue' : 'transparent'}"/>
@@ -222,7 +225,7 @@ class SunsynkPowerFlowCard extends LitElement {
           </circle>
 
           <path id="so-line" d="M 155 245.19 L 96 245.2 Q 86 245.2 86 235.2 L 86 142" fill="none" stroke="#ff9933" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/> 
-          <circle id="so-dot" cx="0" cy="0" r="3" fill="${stateObj10.state === '0' ? 'transparent' : '#ff9933'}">
+          <circle id="so-dot" cx="0" cy="0" r="3" fill="${totalsolar === '0' ? 'transparent' : '#ff9933'}">
             <animateMotion dur="9s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
               <mpath xlink:href="#so-line"/>
             </animateMotion>
@@ -255,13 +258,13 @@ class SunsynkPowerFlowCard extends LitElement {
           </circle>
           
           <path id="ne-line1" d="M 339 295 L 339 306" fill="none" stroke="#558fc1" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
-          <circle id="ne-dot1" cx="0" cy="0" r="3" fill="${stateObj25.state <= '0' ? 'transparent' : '#558fc1'}">
+          <circle id="ne-dot1" cx="0" cy="0" r="3" fill="${nonessential <= '0' ? 'transparent' : '#558fc1'}">
             <animateMotion dur="2s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
               <mpath xlink:href="#ne-line1"/>
             </animateMotion>
           </circle> 
           <path id="ne-line" d="M 339 265 L 339 190" fill="none" stroke="#558fc1" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/> 
-          <circle id="ne-dot" cx="0" cy="0" r="3" fill="${stateObj25.state <= '0' ? 'transparent' : '#558fc1'}">
+          <circle id="ne-dot" cx="0" cy="0" r="3" fill="${nonessential <= '0' ? 'transparent' : '#558fc1'}">
             <animateMotion dur="4s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
               <mpath xlink:href="#ne-line"/>
           </animateMotion>
@@ -280,7 +283,7 @@ class SunsynkPowerFlowCard extends LitElement {
 
 
           <path id="es-line2" d="M 306 118 L 330 118 Q 340 118 350 117.85 L 374 117.5" fill="none" stroke="#5fb5ab" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/> 
-          <circle id="es-dot" cx="0" cy="0" r="3" fill="${stateObj14.state === '0' ? 'transparent' : '#5fb5ab'}">
+          <circle id="es-dot" cx="0" cy="0" r="3" fill="${essential === '0' ? 'transparent' : '#5fb5ab'}">
             <animateMotion dur="8s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
               <mpath xlink:href="#es-line2"/>
             </animateMotion>
@@ -314,7 +317,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <text id="inverter_out_164" x="45%" y="47.5%" class="st4 st8 st9">${stateObj7.state ? stateObj7.state : '0'} A</text>
             <text id="pv2_power_187" x="30%" y="18.5%" class="st1 st4 st8 ">${stateObj8.state ? stateObj8.state : '0'} W</text>
             <text id="pv1_power_186" x="8%" y="18.5%" class="st1 st4 st8">${stateObj9.state ? stateObj9.state : '0'} W</text>
-            <text id="pvtotal_power" x="19%" y="33.5%" class="st1 st4 st8">${stateObj10.state ? stateObj10.state : '0'} W</text>
+            <text id="pvtotal_power" x="19%" y="33.5%" class="st1 st4 st8">${totalsolar ? totalsolar : '0'} W</text>
             <text x="4%" y="25%" class="st1 st3 st8">PV1</text>
             <text x="26%" y="25%" class="st1 st3 st8">PV2</text>
             <text id="battery_voltage_183" x="8%" y="79.5%" class="st2 st4 st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
@@ -385,7 +388,7 @@ class SunsynkPowerFlowCard extends LitElement {
             </circle>
 
             <path id="so-line" d="M 179 239.94 L 96 239.9 Q 86 239.9 86 229.9 L 86 142" fill="none" stroke="#ff9933" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/> 
-            <circle id="so-dot" cx="0" cy="0" r="3" fill="${stateObj10.state === '0' ? 'transparent' : '#ff9933'}">
+            <circle id="so-dot" cx="0" cy="0" r="3" fill="${totalsolar === '0' ? 'transparent' : '#ff9933'}">
               <animateMotion dur="9s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#so-line"/>
               </animateMotion>
@@ -459,7 +462,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <text id="inverter_out_164" x="56%" y="69.25%" class="st3 st9 left-align">${stateObj7.state ? stateObj7.state : '0'} A</text>
             <text id="pv2_power_187" x="60%" y="17.5%" class="st1 st4 st8 ">${stateObj8.state ? stateObj8.state : '0'} W</text>
             <text id="pv1_power_186" x="39%" y="17.5%" class="st1 st4 st8">${stateObj9.state ? stateObj9.state : '0'} W</text>
-            <text id="pvtotal_power" x="49.5%" y="33%" class="st1 st4 st8">${stateObj10.state ? stateObj10.state : '0'} W</text>
+            <text id="pvtotal_power" x="49.5%" y="33%" class="st1 st4 st8">${totalsolar ? totalsolar : '0'} W</text>
             <text x="36%" y="23%" class="st1 st3 st8">PV1</text>
             <text x="56.5%" y="23%" class="st1 st3 st8">PV2</text>
             <text id="battery_voltage_183" x="40%" y="85%" class="st2 st4 st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
@@ -509,7 +512,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <image x="213.5" y="179.5" width="50.45" height="80" xlink:href="data:image/png;base64,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" preserveAspectRatio="none"/>
             <rect x="159" y="329.75" width="70" height="70" rx="10.5" ry="10.5" fill="none" stroke="#f3b1c9" pointer-events="all"/>
             <path id="so-line" d="M 239.23 180 L 239.22 174.02 Q 239.21 168.03 239.1 158.04 L 239 148" fill="none" stroke="#ff9933" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
-            <circle id="so-dot" cx="0" cy="0" r="3" fill="${stateObj10.state === '0' ? 'transparent' : '#ff9933'}">
+            <circle id="so-dot" cx="0" cy="0" r="3" fill="${totalsolar === '0' ? 'transparent' : '#ff9933'}">
               <animateMotion dur="9s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#so-line"/>
               </animateMotion>
@@ -570,9 +573,9 @@ class SunsynkPowerFlowCard extends LitElement {
       'batdischargeday', 'batchargeday', 'loadday', 
       'gridday', 'solarday', 'inverter_grid_voltage_154', 'inverter_load_freq_192', 
       'inverter_out_164', 'inverter_out_175', 'inverter_load_grid_169', 'pv2_power_187', 
-      'pv1_power_186', 'pvtotal_power', 'battery_voltage_183', 'battery_soc_184', 
+      'pv1_power_186', 'battery_voltage_183', 'battery_soc_184', 
       'battery_out_190', 'ess_power', 'grid_external_power_172', 'pv1_v', 'pv1_i', 
-      'pv2_v', 'pv2_i', 'grid_status', 'inverter_status', 'aux_power_166', 'non_ess_power'
+      'pv2_v', 'pv2_i', 'grid_status', 'inverter_status', 'aux_power_166'
     ];
   
     for (const attr of attributes) {
