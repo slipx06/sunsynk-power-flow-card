@@ -23,7 +23,7 @@ If you want to try this card in Home Assistant:
 
 4. Add the Custom: Sunsynk Card to your Dashboard view. Select Show Code editor
 
-![image](https://user-images.githubusercontent.com/7227275/234656611-b2102a54-f41d-4245-b460-efffa2d06554.png)
+![image](https://user-images.githubusercontent.com/7227275/234828051-1caffe34-c4a8-419a-a700-670e4fbc09cb.png)
 
 5. The card requires that all of these attributes be defined. If you have missing sensors for any attribute set it to null i.e. "solarday: null" and it will use a default value of 0
 
@@ -32,6 +32,7 @@ If you want to try this card in Home Assistant:
 |type: | custom:sunsynk-power-flow-card | The custom card
 |cardstyle: | lite | Selects the card layout that is used  (lite, simple, full) |
 |dailyusage: | 'yes' | Toggles the Daily Totals (yes/no) |
+|battery_energy: | 15960 | Total Battery Energy (e.g. 3 x 5.32kWh = 15960  or set to "hidden" to hide|
 |batdischargeday: | sensor.battery_discharge_day | Daily Battery Usage (kWh) |
 |batchargeday: | sensor.battery_charge_day | Daily Battery Charge (kWh) |
 |loadday: | sensor.daily_load_power_kwh | Daily Load (kWh) |
