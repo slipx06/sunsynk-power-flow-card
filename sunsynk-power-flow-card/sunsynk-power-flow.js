@@ -64,6 +64,7 @@ class SunsynkPowerFlowCard extends LitElement {
     return {
         cardstyle: "lite",
         dailyusage: "yes",
+        battery_energy: "15960",
         batdischargeday: "sensor.battery_discharge_day",
         batchargeday: "sensor.battery_charge_day",
         loadday: "sensor.daily_load_power_kwh",
@@ -123,10 +124,34 @@ class SunsynkPowerFlowCard extends LitElement {
     const stateObj24 = this.hass.states[config.aux_power_166] ? this.hass.states[config.aux_power_166] : { state: '0' };
     const stateObj25 = this.hass.states[config.non_ess_power] ? this.hass.states[config.non_ess_power] : { state: '0' };
 
+    
+    
+
+    let duration = "";
+    if (stateObj13.state > 0) {
+      let totalSeconds = ((((parseInt(stateObj12.state) - 20) / 100) * (config.battery_energy || 15960) ) / (stateObj13.state || 1)) * 60 * 60;
+      const days = Math.floor(totalSeconds / (60 * 60 * 24));
+      const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
+      const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
+      if (days > 0) {
+        duration += `${days} days, `;
+      }
+      if (hours > 0 || days > 0) {
+        duration += `${hours} hrs, `;
+      }
+      duration += `${minutes} min`;
+    }
+    
+    if (stateObj13.state <= 0) {
+      duration = "Charging";
+    }
+
     if (config.cardstyle === 'full') {
       return html`
         <div class="container card">
           <svg viewBox="-0.5 -0.5 457 383" height="396px" width="100%" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+          <text id="duration" x="34%" y="92%" class="st2 st4 left-align" >${duration}</text>
+          <text id="duration_text" x="34%" y="96%" class="st2 st3 left-align" >BATTERY RUNTIME</text>
           <text id="inverter_grid_voltage_154" x="59%" y="44.5%" class="st4 st7 st8" >${stateObj5.state ? stateObj5.state : '0'} V</text>
           <text id="inverter_load_freq_192" x="59%" y="49.5%" class="st4 st7 st8">${stateObj6.state ? stateObj6.state : '0'} Hz</text>
           <text id="inverter_out_164" x="39.5%" y="52%" class="st4 st8 st9">${stateObj7.state ? stateObj7.state : '0'} A</text>
@@ -149,12 +174,12 @@ class SunsynkPowerFlowCard extends LitElement {
           <text id="pv1_i" x="16.5%" y="20%" class="st3 st1 left-align" >${stateObj17.state ? stateObj17.state : '0'} A</text>
           <text id="pv2_v" x="38.5%" y="17%" class="st3 st1 left-align" >${stateObj18.state ? stateObj18.state : '0'} V</text>
           <text id="pv2_i" x="38.5%" y="20%" class="st3 st1 left-align" >${stateObj19.state ? stateObj19.state : '0'} A</text>
-          <text id="daily_bat_charge_value" x="1%" y="60%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st2 left-align'}" >${stateObj1.state ? stateObj1.state : '0'} kWh</text>
-          <text id="daily_bat_charge" x="1%" y="63.5%" class="${config.dailyusage === 'no' ? 'st11' : 'st3 st2 left-align'}" >DAILY CHARGE</text>
-          <text id="daily_bat_discharge_value" x="1%" y="68.75%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st2 left-align'}" >${stateObj.state ? stateObj.state : '0'} kWh</text>
-          <text id="daily_bat_charge" x="1%" y="72%" class="${config.dailyusage === 'no' ? 'st11' : 'st3 st2 left-align'}" >DAILY DISCHARGE</text>
-          <text id="daily_grid_value" x="52%" y="86%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st7 left-align'}" >${stateObj3.state ? stateObj3.state : '0'} kWh</text>
-          <text id="daily_grid" x="52%" y="89.5%" class="${config.dailyusage === 'no' ? 'st11' : 'st3 st7 left-align'}" >DAILY GRID</text>
+          <text id="daily_bat_charge_value" x="1%" y="62%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st2 left-align'}" >${stateObj1.state ? stateObj1.state : '0'} kWh</text>
+          <text id="daily_bat_charge" x="1%" y="65.5%" class="${config.dailyusage === 'no' ? 'st11' : 'st3 st2 left-align'}" >DAILY CHARGE</text>
+          <text id="daily_bat_discharge_value" x="1%" y="70.75%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st2 left-align'}" >${stateObj.state ? stateObj.state : '0'} kWh</text>
+          <text id="daily_bat_charge" x="1%" y="74%" class="${config.dailyusage === 'no' ? 'st11' : 'st3 st2 left-align'}" >DAILY DISCHARGE</text>
+          <text id="daily_grid_value" x="77%" y="60%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st7 left-align'}" >${stateObj3.state ? stateObj3.state : '0'} kWh</text>
+          <text id="daily_grid" x="77%" y="63%" class="${config.dailyusage === 'no' ? 'st11' : 'st3 st7 left-align'}" >DAILY GRID</text>
           <text id="inverter_out_175" x="39.5%" y="46.5%" class="st4 st8 st9">${stateObj22.state ? stateObj22.state : '0'} W</text>
           <text id="inverter_load_grid_169" x="59%" y="54.5%" class="st4 st7 st8">${stateObj23.state ? stateObj23.state : '0'} W</text>
           <text id="aux_power_166" x="59%" y="12.5%" class="st4 st6 st8">${stateObj24.state ? stateObj24.state : '0'} W</text> 
@@ -534,7 +559,9 @@ class SunsynkPowerFlowCard extends LitElement {
     if (!config.dailyusage) {
       throw new Error('Please include the dailyusage attribute and value; yes or no e.g. dailyusage: no');
     }
-
+    if (!config.battery_energy) {
+      throw new Error('Please include the battery_energy attribute and value in Wh e.g. 5.32 Battery battery_energy: 5320');
+    }
     const attributes = [
       'batdischargeday', 'batchargeday', 'loadday', 
       'gridday', 'solarday', 'inverter_grid_voltage_154', 'inverter_load_freq_192', 
