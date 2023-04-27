@@ -441,13 +441,13 @@ class SunsynkPowerFlowCard extends LitElement {
     if (config.cardstyle === 'lite') {
       return html`
         <div class="container card">
-          <svg viewBox="-0.5 -0.5 483 406" height="405px" width="100%" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
-            <text id="daily_bat_charge_value" x="66%" y="85%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st2 left-align'}" >${stateObj1.state ? stateObj1.state : '0'} kWh</text>
-            <text id="daily_bat_charge" x="66%" y="88%" class="${config.dailyusage === 'no' ? 'st11' : 'st3 st2 left-align'}" >DAILY CHARGE</text>
-            <text id="duration" x="14%" y="93%" class="${config.battery_energy === 'hidden' ? 'st11' : 'st2 st4 left-align'}" >${duration}</text>
-            <text id="duration_text" x="14%" y="97%" class="${config.battery_energy === 'hidden' ? 'st11' : 'st2 st3 left-align'}" >BATTERY RUNTIME</text>
-            <text id="daily_bat_discharge_value" x="66%" y="93.75%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st2 left-align'}" >${stateObj.state ? stateObj.state : '0'} kWh</text>
-            <text id="daily_bat_charge" x="66%" y="97%" class="${config.dailyusage === 'no' ? 'st11' : 'st3 st2 left-align'}" >DAILY DISCHARGE</text>
+          <svg viewBox="-0.5 -0.5 483 406" height="396px" width="100%" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+            <text id="daily_bat_charge_value" x="16%" y="85%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st2 left-align'}" >${stateObj1.state ? stateObj1.state : '0'} kWh</text>
+            <text id="daily_bat_charge" x="16%" y="88%" class="${config.dailyusage === 'no' ? 'st11' : 'st3 st2 left-align'}" >DAILY CHARGE</text>
+            <text id="duration" x="66%" y="93%" class="${config.battery_energy === 'hidden' ? 'st11' : 'st2 st4 left-align'}" >${duration}</text>
+            <text id="duration_text" x="66%" y="97%" class="${config.battery_energy === 'hidden' ? 'st11' : 'st2 st3 left-align'}" >BATTERY RUNTIME</text>
+            <text id="daily_bat_discharge_value" x="16%" y="93.75%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st2 left-align'}" >${stateObj.state ? stateObj.state : '0'} kWh</text>
+            <text id="daily_bat_charge" x="16%" y="97%" class="${config.dailyusage === 'no' ? 'st11' : 'st3 st2 left-align'}" >DAILY DISCHARGE</text>
             <text id="daily_load_value" x="83%" y="66%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st6 left-align'}" >${stateObj2.state ? stateObj2.state : '0'} kWh</text>
             <text id="daily_load" x="83%" y="69.5%" class="${config.dailyusage === 'no' ? 'st11' : 'st3 st6 left-align'}" >DAILY LOAD</text>
             <text id="daily_grid_value" x="3%" y="66%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st7 left-align'}" >${stateObj3.state ? stateObj3.state : '0'} kWh</text>
