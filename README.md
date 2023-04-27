@@ -48,7 +48,7 @@ If you want to try this card in Home Assistant:
 |battery_voltage_183: | sensor.battery_voltage | Battery Voltage (V) |
 |battery_soc_184: | sensor.battery_soc | Battery State of Charge (%) |
 |battery_out_190: | sensor.battery_output_power | Battery Output Power (W) |
-|ess_power: | sensor.sunsynk_essential_load | THis sensor is only used for the simple and lite cards. You can use register 178. It is automtically calclated for the full card based on other attributes. (W) |
+|ess_power: | sensor.sunsynk_essential_load | THis sensor is only used for the simple and lite cards. You can use register 178. It is automatically calculated for the full card based on other attributes. (W) |
 |grid_external_power_172: | sensor.grid_external_power  | Grid External Power (W)|
 |pv1_v: | sensor.dc1_voltage | PV String 1 Voltage (V) |
 |pv1_i: | sensor.dc1_current | Pv String 1 Current (A)|
