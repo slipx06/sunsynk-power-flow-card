@@ -25,7 +25,7 @@ If you want to try this card in Home Assistant:
 
 ![image](https://user-images.githubusercontent.com/7227275/234855970-5d7f2d41-1bc9-480e-9c62-0ddb45c7cb9a.png)
 
-5. The card requires that all of these attributes be defined. If you have missing sensors for any attribute set it to null i.e. "solarday: null" and it will use a default value of 0
+5. The card requires that all of these attributes be defined. If you have missing sensors for any attribute set it to null i.e. "solarday: null" and it will use a default value of 0. Attributes have been appended with the modbus register # e.g. pv2_power_187 to indicate which register should be read when configuring your sensors
 
 | Attribute | Default | Description |
 | --- | --- | --- |
@@ -50,12 +50,12 @@ If you want to try this card in Home Assistant:
 |battery_out_190: | sensor.battery_output_power | Battery Output Power (W) |
 |ess_power: | sensor.sunsynk_essential_load | THis sensor is only used for the simple and lite cards. You can use register 178. It is automatically calculated for the full card based on other attributes. (W) |
 |grid_external_power_172: | sensor.grid_external_power  | Grid External Power (W)|
-|pv1_v: | sensor.dc1_voltage | PV String 1 Voltage (V) |
-|pv1_i: | sensor.dc1_current | Pv String 1 Current (A)|
-|pv2_v: | sensor.dc2_voltage | PV String 2 Voltage (V)|
-|pv2_i: | sensor.dc2_current | PV String 2 Current (A)|
-|grid_status: | binary_sensor.grid_connected_status | Grid Connected Status (on/off) |
-|inverter_status: | sensor.overall_state | Inverter Status (0,1,2,3,4) |
+|pv1_v_109: | sensor.dc1_voltage | PV String 1 Voltage (V) |
+|pv1_i_110: | sensor.dc1_current | Pv String 1 Current (A)|
+|pv2_v_111: | sensor.dc2_voltage | PV String 2 Voltage (V)|
+|pv2_i_112: | sensor.dc2_current | PV String 2 Current (A)|
+|grid_status_194: | binary_sensor.grid_connected_status | Grid Connected Status (on/off) |
+|inverter_status_59: | sensor.overall_state | Inverter Status (0,1,2,3,4) |
 |aux_power_166: | sensor.aux_output_power | Auxilary Power (W) |
 
 6. The card calculates the sensors below based on supplied attribues in the config so you dont need to define them in Home Assistant
