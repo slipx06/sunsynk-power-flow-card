@@ -98,7 +98,7 @@ class SunsynkPowerFlowCard extends LitElement {
   render() {
     const config = this._config;
     const stateObj = this.hass.states[config.batdischargeday_71] ? this.hass.states[config.batdischargeday_71] : { state: '0' };
-    const stateObj1 = this.hass.states[config.batchargeday_70] ? this.hass.states[config.chargeday_70] : { state: '0' };
+    const stateObj1 = this.hass.states[config.batchargeday_70] ? this.hass.states[config.batchargeday_70] : { state: '0' };
     const stateObj2 = this.hass.states[config.loadday_84] ? this.hass.states[config.loadday_84] : { state: '0' };
     const stateObj3 = this.hass.states[config.gridday_76] ? this.hass.states[config.gridday_76] : { state: '0' };
     const stateObj4 = this.hass.states[config.solarday_108] ? this.hass.states[config.solarday_108] : { state: '0' };
