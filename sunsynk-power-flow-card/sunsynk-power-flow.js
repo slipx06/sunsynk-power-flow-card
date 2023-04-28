@@ -83,12 +83,12 @@ class SunsynkPowerFlowCard extends LitElement {
         battery_out_190: "sensor.battery_output_power",
         ess_power: "sensor.load_power",
         grid_external_power_172: "sensor.grid_external_power",
-        pv1_v: "sensor.dc1_voltage",
-        pv1_i: "sensor.dc1_current",
-        pv2_v: "sensor.dc2_voltage",
-        pv2_i: "sensor.dc2_current",
-        grid_status: "binary_sensor.grid_connected_status",
-        inverter_status: "sensor.overall_state",
+        pv1_v_109: "sensor.dc1_voltage",
+        pv1_i_110: "sensor.dc1_current",
+        pv2_v_111: "sensor.dc2_voltage",
+        pv2_i_112: "sensor.dc2_current",
+        grid_status_194: "binary_sensor.grid_connected_status",
+        inverter_status_59: "sensor.overall_state",
         aux_power_166: "sensor.aux_output_power",
         //non_ess_power: "sensor.sunsynk_non_essential_load"
 
@@ -113,12 +113,12 @@ class SunsynkPowerFlowCard extends LitElement {
     const stateObj13 = this.hass.states[config.battery_out_190] ? this.hass.states[config.battery_out_190] : { state: '0' };
     const stateObj14 = this.hass.states[config.ess_power] ? this.hass.states[config.ess_power] : { state: '0' };
     const stateObj15 = this.hass.states[config.grid_external_power_172] ? this.hass.states[config.grid_external_power_172] : { state: '0' };
-    const stateObj16 = this.hass.states[config.pv1_v] ? this.hass.states[config.pv1_v] : { state: '0' };
-    const stateObj17 = this.hass.states[config.pv1_i] ? this.hass.states[config.pv1_i] : { state: '0' };
-    const stateObj18 = this.hass.states[config.pv2_v] ? this.hass.states[config.pv2_v] : { state: '0' };
-    const stateObj19 = this.hass.states[config.pv2_i] ? this.hass.states[config.pv2_i] : { state: '0' };
-    const stateObj20 = this.hass.states[config.grid_status] ? this.hass.states[config.grid_status] : { state: 'on' };
-    const stateObj21 = this.hass.states[config.inverter_status] ? this.hass.states[config.inverter_status] : { state: '2' };
+    const stateObj16 = this.hass.states[config.pv1_v_109] ? this.hass.states[config.pv1_v_109] : { state: '0' };
+    const stateObj17 = this.hass.states[config.pv1_i_110] ? this.hass.states[config.pv1_i_110] : { state: '0' };
+    const stateObj18 = this.hass.states[config.pv2_v_111] ? this.hass.states[config.pv2_v_111] : { state: '0' };
+    const stateObj19 = this.hass.states[config.pv2_i_112] ? this.hass.states[config.pv2_i_112] : { state: '0' };
+    const stateObj20 = this.hass.states[config.grid_status_194] ? this.hass.states[config.grid_status_194] : { state: 'on' };
+    const stateObj21 = this.hass.states[config.inverter_status_59] ? this.hass.states[config.inverter_status_59] : { state: '2' };
     const stateObj22 = this.hass.states[config.inverter_out_175] ? this.hass.states[config.inverter_out_175] : { state: '0' };
     const stateObj23 = this.hass.states[config.inverter_load_grid_169] ? this.hass.states[config.inverter_load_grid_169] : { state: '0' };
     const stateObj24 = this.hass.states[config.aux_power_166] ? this.hass.states[config.aux_power_166] : { state: '0' };
@@ -574,8 +574,8 @@ class SunsynkPowerFlowCard extends LitElement {
       'gridday_76', 'solarday_108', 'inverter_grid_voltage_154', 'inverter_load_freq_192', 
       'inverter_out_164', 'inverter_out_175', 'inverter_load_grid_169', 'pv2_power_187', 
       'pv1_power_186', 'battery_voltage_183', 'battery_soc_184', 
-      'battery_out_190', 'ess_power', 'grid_external_power_172', 'pv1_v', 'pv1_i', 
-      'pv2_v', 'pv2_i', 'grid_status', 'inverter_status', 'aux_power_166'
+      'battery_out_190', 'ess_power', 'grid_external_power_172', 'pv1_v_109', 'pv1_i_110', 
+      'pv2_v_111', 'pv2_i_112', 'grid_status_194', 'inverter_status_59', 'aux_power_166'
     ];
   
     for (const attr of attributes) {
