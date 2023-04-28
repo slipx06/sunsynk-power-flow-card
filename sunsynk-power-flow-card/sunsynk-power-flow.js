@@ -65,6 +65,7 @@ class SunsynkPowerFlowCard extends LitElement {
         cardstyle: "lite",
         dailyusage: "yes",
         battery_energy: "15960",
+        battery_shutdown_soc: "20",
         batdischargeday_71: "sensor.battery_discharge_day",
         batchargeday_70: "sensor.battery_charge_day",
         loadday_84: "sensor.daily_load_power_kwh",
@@ -124,7 +125,6 @@ class SunsynkPowerFlowCard extends LitElement {
     const stateObj24 = this.hass.states[config.aux_power_166] ? this.hass.states[config.aux_power_166] : { state: '0' };
     //const stateObj25 = this.hass.states[config.non_ess_power] ? this.hass.states[config.non_ess_power] : { state: '0' };
     
-    
     const totalsolar = (parseInt(stateObj8.state) + parseInt(stateObj9.state));
     const nonessential = (parseInt(stateObj15.state) - parseInt(stateObj23.state));
     const essential = (parseInt(stateObj22.state) - (parseInt(stateObj24.state) - parseInt(stateObj23.state)));
@@ -132,7 +132,7 @@ class SunsynkPowerFlowCard extends LitElement {
 
     let duration = "";
     if (stateObj13.state > 0 && config.battery_energy !== "hidden") {
-      let totalSeconds = ((((parseInt(stateObj12.state) - 20) / 100) * (config.battery_energy || 15960) ) / (stateObj13.state || 1)) * 60 * 60;
+      let totalSeconds = ((((parseInt(stateObj12.state) - config.battery_shutdown_soc) / 100) * (config.battery_energy || 15960) ) / (stateObj13.state || 1)) * 60 * 60;
       const days = Math.floor(totalSeconds / (60 * 60 * 24));
       const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
       const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
@@ -569,6 +569,11 @@ class SunsynkPowerFlowCard extends LitElement {
     if (!config.battery_energy) {
       throw new Error('Please include the battery_energy attribute and value in Wh e.g. 5.32 Battery battery_energy: 5320');
     }
+    if (!config.battery_shutdown_soc) {
+      throw new Error('Please include the battery shutdown percentage i.e. 20');
+    }
+
+    
     const attributes = [
       'batdischargeday_71', 'batchargeday_70', 'loadday_84', 
       'gridday_76', 'solarday_108', 'inverter_grid_voltage_154', 'inverter_load_freq_192', 
