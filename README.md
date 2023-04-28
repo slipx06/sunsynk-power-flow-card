@@ -55,7 +55,7 @@ If you want to try this card in Home Assistant:
 |pv2_v_111: | sensor.dc2_voltage | PV String 2 Voltage (V)|
 |pv2_i_112: | sensor.dc2_current | PV String 2 Current (A)|
 |grid_status_194: | binary_sensor.grid_connected_status | Grid Connected Status (on/off) |
-|inverter_status_59: | sensor.overall_state | Inverter Status (0,1,2,3,4) |
+|inverter_status_59: | sensor.overall_state | Inverter Status (0-standby, 1-selftest, 2-normal, 3-alarm, 4-fault) |
 |aux_power_166: | sensor.aux_output_power | Auxilary Power (W) |
 
 6. The card calculates the sensors below based on supplied attribues in the config so you dont need to define them in Home Assistant
