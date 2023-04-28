@@ -33,6 +33,7 @@ If you want to try this card in Home Assistant:
 |cardstyle: | lite | Selects the card layout that is used  (lite, simple, full) |
 |dailyusage: | 'yes' | Toggles the Daily Totals (yes/no) |
 |battery_energy: | 15960 | Total Battery Energy in Wh (e.g. 3 x 5.32kWh = 15960) or set to "hidden" to hide|
+|battery_shutdown_soc: | 20 |The battery shutdown percentage to calculate remaining runtime |
 |batdischargeday_71: | sensor.battery_discharge_day | Daily Battery Usage (kWh) |
 |batchargeday_70: | sensor.battery_charge_day | Daily Battery Charge (kWh) |
 |loadday_84: | sensor.daily_load_power_kwh | Daily Load (kWh) |
