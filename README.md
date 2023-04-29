@@ -1,27 +1,40 @@
 # Sunsynk-Home-Assistant-Power-Flow-Card
-An animated Home Assistant card to emulate the Sunsynk power flow that's show on the Inverter screen. The battery image will update based on SOC from empty->low->medium->high. The grid will display a red dot when disconnected and the inverter status (standby, normal, self-test, alarm, fault) is also displayed as a colour coded dot. There is an option to switch between three card styles: lite, simple or full. The remaining battery runtime at the current battery usage is displayed together with Daily totals. Both of these can be toggled on or off.
+An animated Home Assistant card to emulate the Sunsynk power flow that's show on the Inverter screen.
 
-*Lite Version*
+## Features
+* Option to switch between three card styles: **lite**, **simple** or **full**.
+* Animated power flow based on positive/negative/zero sensor values.
+* Dynamic battery image based on SOC (empty->low->medium->high). 
+* Grid connected status. A red dot is displayed when the grid is disconnected.
+* Inverter status (standby, normal, self-test, alarm, fault) is displayed as a colour coded dot.  
+* Configureable battery size and shutdown SOC to calculate and display remaining battery runtime based on current battery usage. Can be toggled off.
+* Daily Totals that can be toggled on or off.
+* Hide all solar data if not installed.
+* "Use Timer" setting and Energy Pattern setting (Priority Load or Priority Battery) shown as dynamic icons with ability to hide if not required.
+
+## Screenshots
 
 ![image](https://user-images.githubusercontent.com/7227275/235325991-f14d4a53-45a0-4468-8a92-36e65c36282f.png)
 
-*Simple Version*
+*Lite Version*
 
 ![image](https://user-images.githubusercontent.com/7227275/235306279-93b0748e-5f94-46ec-b3cc-07e112f5e117.png)
 
-*Full Version*
+*Simple Version*
 
 ![image](https://user-images.githubusercontent.com/7227275/235306297-ec7821b9-0b2b-4270-9539-618c650869cf.png)
 
-If you want to try this card in Home Assistant:
+*Full Version*
 
-1. Create a new directory under www/community/ and name it sunsynk-power-flow-card. If you don't have HACS installed you can create directory directly under www and reference in step 3 below.
-2. Copy the sunsynk-power-flow.js into the directory
-3. Add the resource to your Dashboard 
+## Usage
 
-![image](https://user-images.githubusercontent.com/7227275/234657217-05c7e10a-cc82-4277-a2c2-50bb2de0c599.png)
+1. Create a new directory under *www/community/* and name it *sunsynk-power-flow-card* e.g www/community/sunsynk-power-flow-card/
+2. Copy the **sunsynk-power-flow.js** into the directory
+3. Add the resource to your Dashboard. You can append the filename with a ?ver=x and increment x each time you download a new version to force a reload and avoid using a cached version. It is also a good idea to clear your browser cache.
 
-4. Add the Custom: Sunsynk Card to your Dashboard view. Select Show Code editor
+![image](https://user-images.githubusercontent.com/7227275/235327407-5930ff4f-baa2-4122-bb36-35fd1622ecb5.png)
+
+4. Add the Custom: Sunsynk Card to your Dashboard view. If required select Show Code editor
 
 ![image](https://user-images.githubusercontent.com/7227275/235312818-da2c0d73-d8e1-4f7c-8125-241ac11ef068.png)
 
@@ -31,7 +44,7 @@ If you want to try this card in Home Assistant:
 | --- | --- | --- |
 |type: | custom:sunsynk-power-flow-card | The custom card
 |cardstyle: | lite | Selects the card layout that is used  (lite, simple, full) |
-|dailyusage: | 'yes' | Toggles the Daily Totals (yes/no) |
+|dailyusage: | yes | Toggles the Daily Totals (yes/no) |
 |battery_energy: | 15960 | Total Battery Energy in Wh (e.g. 3 x 5.32kWh = 15960) or set to "hidden" to hide|
 |battery_shutdown_soc: | 20 |The battery shutdown percentage to calculate remaining runtime |
 |solar_installed:| yes | Toggle display of solar information (yes/no)|
@@ -55,7 +68,7 @@ If you want to try this card in Home Assistant:
 |ess_power: | sensor.sunsynk_essential_load | This sensor is only used for the simple and lite cards. You can use register 178. It is automatically calculated for the full card based on other attributes. (W) |
 |grid_external_power_172: | sensor.grid_external_power  | Grid External Power (W)|
 |pv1_v_109: | sensor.dc1_voltage | PV String 1 Voltage (V) |
-|pv1_i_110: | sensor.dc1_current | Pv String 1 Current (A)|
+|pv1_i_110: | sensor.dc1_current | PV String 1 Current (A)|
 |pv2_v_111: | sensor.dc2_voltage | PV String 2 Voltage (V)|
 |pv2_i_112: | sensor.dc2_current | PV String 2 Current (A)|
 |grid_status_194: | binary_sensor.grid_connected_status | Grid Connected Status (on/off) |
