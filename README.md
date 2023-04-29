@@ -3,7 +3,7 @@ An animated Home Assistant card to emulate the Sunsynk power flow that's show on
 
 *Lite Version*
 
-![image](https://user-images.githubusercontent.com/7227275/235306257-eccd9167-776d-499c-a8c6-15e2f1ec365a.png)
+![image](https://user-images.githubusercontent.com/7227275/235325991-f14d4a53-45a0-4468-8a92-36e65c36282f.png)
 
 *Simple Version*
 
@@ -25,7 +25,7 @@ If you want to try this card in Home Assistant:
 
 ![image](https://user-images.githubusercontent.com/7227275/235312818-da2c0d73-d8e1-4f7c-8125-241ac11ef068.png)
 
-5. The card requires that all of these attributes be defined. If you have missing sensors for any attribute set it to null i.e. "solarday: null" and it will use a default value of 0. Attributes have been appended with the modbus register # e.g. pv2_power_187 to indicate which register should be read when configuring your sensors
+5. The card requires that all of these attributes be defined. If you have missing sensors for any attribute set it to null i.e. "solarday_108: null" and it will use a default value of 0. Attributes have been appended with the modbus register # e.g. pv2_power_187 to indicate which register should be read when configuring your sensors. Replace the default sensors with your own specific sensor names.
 
 | Attribute | Default | Description |
 | --- | --- | --- |
@@ -51,8 +51,8 @@ If you want to try this card in Home Assistant:
 |pv1_power_186: | sensor.pv1_power | PV String 2 Power (W)|
 |battery_voltage_183: | sensor.battery_voltage | Battery Voltage (V) |
 |battery_soc_184: | sensor.battery_soc | Battery State of Charge (%) |
-|battery_out_190: | sensor.battery_output_power | Battery Output Power (W). Assumes a negative number is battery charging and a positive number is battery draining |
-|ess_power: | sensor.sunsynk_essential_load | THis sensor is only used for the simple and lite cards. You can use register 178. It is automatically calculated for the full card based on other attributes. (W) |
+|battery_out_190: | sensor.battery_output_power | Battery Output Power (W). Requires a negative number for battery charging and a positive number for battery discharging |
+|ess_power: | sensor.sunsynk_essential_load | This sensor is only used for the simple and lite cards. You can use register 178. It is automatically calculated for the full card based on other attributes. (W) |
 |grid_external_power_172: | sensor.grid_external_power  | Grid External Power (W)|
 |pv1_v_109: | sensor.dc1_voltage | PV String 1 Voltage (V) |
 |pv1_i_110: | sensor.dc1_current | Pv String 1 Current (A)|
@@ -65,21 +65,7 @@ If you want to try this card in Home Assistant:
 6. The card calculates the sensors below based on supplied attribues in the config so you dont need to define them in Home Assistant
  
  ```
- sensor:
-  - platform: template
-    sensors:
-      sunsynk_totalsolar:
-        friendly_name: "Total Solar Generation"
-        value_template: "{{ (states('sensor.pv1_power') | float(0) + states('sensor.pv2_power') | float(0)) | round(0) }}"
-        unit_of_measurement: 'W'
-      sunsynk_essential_load:
-        friendly_name: "Essential Load"
-        value_template: "{{ (states('sensor.inverter_output_power') |float(0)  - (states('sensor.aux_output_power') |float(0) - states('sensor.grid_inverter_load') |float(0) )) | round(0)}}"
-        unit_of_measurement: 'W'
-        device_class: power
-      sunsynk_non_essential_load:
-        friendly_name: "Non Essential Load"
-        value_template: "{{ (states('sensor.grid_external_power') |float(0)  - states('sensor.grid_inverter_load') |float(0)) | round(0)}}"
-        unit_of_measurement: "W"
-        device_class: power
+ totalsolar = pv1_power_186 + pv2_power_187
+ nonessential = grid_external_power_172 - inverter_load_grid_169
+ essential = inverter_out_175 - (aux_power_166 - inverter_load_grid_169 )
  ```
