@@ -75,7 +75,7 @@ An animated Home Assistant card to emulate the Sunsynk power flow that's show on
 |inverter_status_59: | sensor.overall_state | Inverter Status (0-standby, 1-selftest, 2-normal, 3-alarm, 4-fault) |
 |aux_power_166: | sensor.aux_output_power | Auxilary Power (W) |
 
-6. The card calculates the sensors below based on supplied attribues in the config so you dont need to define them in Home Assistant
+6. The card calculates the sensors below based on supplied attributes in the config so you dont need to define them in Home Assistant
  
  ```
  totalsolar = pv1_power_186 + pv2_power_187
