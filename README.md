@@ -3,15 +3,15 @@ An animated Home Assistant card to emulate the Sunsynk power flow that's show on
 
 *Lite Version*
 
-![image](https://user-images.githubusercontent.com/7227275/234833282-70399203-47d7-47d5-b6e1-ff8ef8518800.png)
+![image](https://user-images.githubusercontent.com/7227275/235306257-eccd9167-776d-499c-a8c6-15e2f1ec365a.png)
 
 *Simple Version*
 
-![image](https://user-images.githubusercontent.com/7227275/234833488-e6c3c9ab-d22a-4d22-8319-8be9016e96f8.png)
+![image](https://user-images.githubusercontent.com/7227275/235306279-93b0748e-5f94-46ec-b3cc-07e112f5e117.png)
 
 *Full Version*
 
-![image](https://user-images.githubusercontent.com/7227275/234833660-89a2a805-09c3-49d3-8550-febaebeae645.png)
+![image](https://user-images.githubusercontent.com/7227275/235306297-ec7821b9-0b2b-4270-9539-618c650869cf.png)
 
 If you want to try this card in Home Assistant:
 
@@ -23,7 +23,7 @@ If you want to try this card in Home Assistant:
 
 4. Add the Custom: Sunsynk Card to your Dashboard view. Select Show Code editor
 
-![image](https://user-images.githubusercontent.com/7227275/235298606-c4bce9e0-728a-4c62-bc37-4c352784f106.png)
+![image](https://user-images.githubusercontent.com/7227275/235306202-88299a4c-bc8b-4cb7-af0e-13f053d58350.png)
 
 5. The card requires that all of these attributes be defined. If you have missing sensors for any attribute set it to null i.e. "solarday: null" and it will use a default value of 0. Attributes have been appended with the modbus register # e.g. pv2_power_187 to indicate which register should be read when configuring your sensors
 
@@ -35,6 +35,8 @@ If you want to try this card in Home Assistant:
 |battery_energy: | 15960 | Total Battery Energy in Wh (e.g. 3 x 5.32kWh = 15960) or set to "hidden" to hide|
 |battery_shutdown_soc: | 20 |The battery shutdown percentage to calculate remaining runtime |
 |solar_installed:| yes | Toggle display of solar information (yes/no)|
+|use_timer_268: | switch.toggle_system_timer | Displays "Use timer" status as an icon next to the inverter. Set to "no" to hide |
+|priority_load_243: | switch.toggle_priority_load | Shows if energy pattern is set to Priority Load or Priority Battery as an icon next to the inverter. Set to "no" to hide|
 |batdischargeday_71: | sensor.battery_discharge_day | Daily Battery Usage (kWh) |
 |batchargeday_70: | sensor.battery_charge_day | Daily Battery Charge (kWh) |
 |loadday_84: | sensor.daily_load_power_kwh | Daily Load (kWh) |
