@@ -7,7 +7,7 @@ An animated Home Assistant card to emulate the Sunsynk power flow that's shown o
 * Dynamic battery image based on SOC (empty->low->medium->high). 
 * Grid connected status. A red dot is displayed when the grid is disconnected.
 * Inverter status (standby, normal, self-test, alarm, fault) is displayed as a colour coded dot.  
-* Configureable battery size and shutdown SOC to calculate and display remaining battery runtime based on current battery usage. Can be toggled off.
+* Configurable battery size and shutdown SOC to calculate and display remaining battery runtime based on current battery usage. Can be toggled off.
 * Daily Totals that can be toggled on or off.
 * Hide all solar data if not installed.
 * "Use Timer" setting and Energy Pattern setting (Priority Load or Priority Battery) shown as dynamic icons with ability to hide if not required.
