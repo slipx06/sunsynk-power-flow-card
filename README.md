@@ -23,7 +23,7 @@ If you want to try this card in Home Assistant:
 
 4. Add the Custom: Sunsynk Card to your Dashboard view. Select Show Code editor
 
-![image](https://user-images.githubusercontent.com/7227275/234855970-5d7f2d41-1bc9-480e-9c62-0ddb45c7cb9a.png)
+![image](https://user-images.githubusercontent.com/7227275/235298606-c4bce9e0-728a-4c62-bc37-4c352784f106.png)
 
 5. The card requires that all of these attributes be defined. If you have missing sensors for any attribute set it to null i.e. "solarday: null" and it will use a default value of 0. Attributes have been appended with the modbus register # e.g. pv2_power_187 to indicate which register should be read when configuring your sensors
 
@@ -34,6 +34,7 @@ If you want to try this card in Home Assistant:
 |dailyusage: | 'yes' | Toggles the Daily Totals (yes/no) |
 |battery_energy: | 15960 | Total Battery Energy in Wh (e.g. 3 x 5.32kWh = 15960) or set to "hidden" to hide|
 |battery_shutdown_soc: | 20 |The battery shutdown percentage to calculate remaining runtime |
+|solar_installed:| yes | Toggle display of solar information (yes/no)|
 |batdischargeday_71: | sensor.battery_discharge_day | Daily Battery Usage (kWh) |
 |batchargeday_70: | sensor.battery_charge_day | Daily Battery Charge (kWh) |
 |loadday_84: | sensor.daily_load_power_kwh | Daily Load (kWh) |
