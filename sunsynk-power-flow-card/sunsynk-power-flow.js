@@ -496,11 +496,11 @@ class SunsynkPowerFlowCard extends LitElement {
             <text id="pv2_v" x="68.75%" y="16%" class="${config.solar_installed === 'no' ? 'st12' : 'st3 st1 left-align'}" >${stateObj18.state ? stateObj18.state : '0'} V</text>
             <text id="pv2_i" x="68.75%" y="19%" class="${config.solar_installed === 'no' ? 'st12' : 'st3 st1 left-align'}" >${stateObj19.state ? stateObj19.state : '0'} A</text>
 
-            <circle id="standby" cx="54%" cy="65%" r="3.5" fill="${stateObj21.state === '0' || stateObj21.state === 'standby' ? 'blue' : 'transparent'}"/>
-            <circle id="selftest" cx="54%" cy="66%" r="3.5" fill="${stateObj21.state === '1' || stateObj21.state === 'selftest' ? 'yellow' : 'transparent'}"/>
+            <circle id="standby" cx="45%" cy="65%" r="3.5" fill="${stateObj21.state === '0' || stateObj21.state === 'standby' ? 'blue' : 'transparent'}"/>
+            <circle id="selftest" cx="45%" cy="66%" r="3.5" fill="${stateObj21.state === '1' || stateObj21.state === 'selftest' ? 'yellow' : 'transparent'}"/>
             <circle id="normal" cx="45%" cy="66%" r="3.5" fill="${stateObj21.state === '2' || stateObj21.state === 'normal' ? 'green' : 'transparent'}"/>
-            <circle id="alarm" cx="54%" cy="66%" r="3.5" fill="${stateObj21.state === '3' || stateObj21.state === 'alarm' ? 'orange' : 'transparent'}"/>
-            <circle id="fault" cx="54%" cy="66%" r="3.5" fill="${stateObj21.state === '4' || stateObj21.state === 'fault' ? 'red' : 'transparent'}"/>
+            <circle id="alarm" cx="45%" cy="66%" r="3.5" fill="${stateObj21.state === '3' || stateObj21.state === 'alarm' ? 'orange' : 'transparent'}"/>
+            <circle id="fault" cx="45%" cy="66%" r="3.5" fill="${stateObj21.state === '4' || stateObj21.state === 'fault' ? 'red' : 'transparent'}"/>
             <circle id="grid" cx="6.5%" cy="62%" r="3.5" fill="${stateObj20.state === 'off' ? 'red' : 'transparent'}"/>
 
             <path id="pv1-line" d="M 189 84.5 L 189 122.03 Q 189 132.03 197 132.03 L 205 132.03" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="none" stroke="#ff9933" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
