@@ -23,7 +23,7 @@ If you want to try this card in Home Assistant:
 
 4. Add the Custom: Sunsynk Card to your Dashboard view. Select Show Code editor
 
-![image](https://user-images.githubusercontent.com/7227275/235306202-88299a4c-bc8b-4cb7-af0e-13f053d58350.png)
+![image](https://user-images.githubusercontent.com/7227275/235312818-da2c0d73-d8e1-4f7c-8125-241ac11ef068.png)
 
 5. The card requires that all of these attributes be defined. If you have missing sensors for any attribute set it to null i.e. "solarday: null" and it will use a default value of 0. Attributes have been appended with the modbus register # e.g. pv2_power_187 to indicate which register should be read when configuring your sensors
 
@@ -35,7 +35,7 @@ If you want to try this card in Home Assistant:
 |battery_energy: | 15960 | Total Battery Energy in Wh (e.g. 3 x 5.32kWh = 15960) or set to "hidden" to hide|
 |battery_shutdown_soc: | 20 |The battery shutdown percentage to calculate remaining runtime |
 |solar_installed:| yes | Toggle display of solar information (yes/no)|
-|use_timer_268: | switch.toggle_system_timer | Displays "Use timer" status as an icon next to the inverter. Set to "no" to hide |
+|use_timer_248: | switch.toggle_system_timer | Displays "Use timer" status as an icon next to the inverter. Set to "no" to hide |
 |priority_load_243: | switch.toggle_priority_load | Shows if energy pattern is set to Priority Load or Priority Battery as an icon next to the inverter. Set to "no" to hide|
 |batdischargeday_71: | sensor.battery_discharge_day | Daily Battery Usage (kWh) |
 |batchargeday_70: | sensor.battery_charge_day | Daily Battery Charge (kWh) |
