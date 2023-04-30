@@ -14,15 +14,15 @@ An animated Home Assistant card to emulate the Sunsynk power flow that's shown o
 
 ## Screenshots
 
-![image](https://user-images.githubusercontent.com/7227275/235325991-f14d4a53-45a0-4468-8a92-36e65c36282f.png)
+![image](https://user-images.githubusercontent.com/7227275/235377924-bc4d7544-feec-4f09-81e0-d8ee382c52bf.png)
 
 *Lite Version*
 
-![image](https://user-images.githubusercontent.com/7227275/235306279-93b0748e-5f94-46ec-b3cc-07e112f5e117.png)
+![image](https://user-images.githubusercontent.com/7227275/235377935-8ca5c908-aee3-478d-94b9-a7e00bcb52b1.png)
 
 *Simple Version*
 
-![image](https://user-images.githubusercontent.com/7227275/235306297-ec7821b9-0b2b-4270-9539-618c650869cf.png)
+![image](https://user-images.githubusercontent.com/7227275/235377943-4351474f-0521-4576-b962-8e7c7522c772.png)
 
 *Full Version*
 
