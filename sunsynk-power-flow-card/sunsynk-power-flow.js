@@ -63,7 +63,6 @@ class SunsynkPowerFlowCard extends LitElement {
 
   static getStubConfig() {
     return {
-      type: 'custom:sunsynk-power-flow-card',
       cardstyle: 'lite',
       dailyusage: 'yes',
       battery_energy: 15960,
