@@ -1,4 +1,4 @@
-# Sunsynk-Home-Assistant-Power-Flow-Card
+# Sunsynk-Power-Flow-Card
 An animated Home Assistant card to emulate the Sunsynk power flow that's shown on the Inverter screen.
 
 ## Features
