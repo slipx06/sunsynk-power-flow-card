@@ -104,3 +104,6 @@ The card calculates the sensors below based on supplied attributes in the config
  nonessential = grid_external_power_172 - inverter_load_grid_169
  essential = inverter_out_175 - (aux_power_166 - inverter_load_grid_169 )
  ```
+The modbus registers can be visualised on the `full` card below:
+
+![image](https://user-images.githubusercontent.com/7227275/235479493-b322d5b2-f2b1-431f-9048-f845fc2989b4.png)
