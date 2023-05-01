@@ -29,10 +29,10 @@ An animated Home Assistant card to emulate the Sunsynk power flow that's shown o
 ## Usage
 
 1. Create a new directory under `www` and name it `sunsynk-power-flow-card` e.g www/sunsynk-power-flow-card/
-2. Copy the `sunsynk-power-flow.js` into the directory
+2. Copy the `sunsynk-power-flow-card.js` into the directory
 3. Add the resource to your Dashboard. You can append the filename with a `?ver=x` and increment x each time you download a new version to force a reload and avoid using a cached version. It is also a good idea to clear your browser cache.
 
-![image](https://user-images.githubusercontent.com/7227275/235327407-5930ff4f-baa2-4122-bb36-35fd1622ecb5.png)
+![image](https://user-images.githubusercontent.com/7227275/235441241-93ab0c7d-341d-428f-8ca8-60ec932dde2d.png)
 
 4. Add the `Custom: Sunsynk Power Flow Card` to your Dashboard view. 
 
