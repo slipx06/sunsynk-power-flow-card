@@ -1,6 +1,8 @@
 # Sunsynk-Power-Flow-Card
 An animated Home Assistant card to emulate the Sunsynk power flow that's shown on the Inverter screen.
 
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration) 
+
 ## Features
 * Option to switch between three card styles: `lite`, `simple` or `full`.
 * Animated power flow based on positive/negative/zero sensor values.
@@ -26,15 +28,22 @@ An animated Home Assistant card to emulate the Sunsynk power flow that's shown o
 
 *Full Version*
 
-## Usage
+## Installation
+The card can be installed manaully or via HACS
 
+### Manual Installation
 1. Create a new directory under `www` and name it `sunsynk-power-flow-card` e.g www/sunsynk-power-flow-card/
 2. Copy the `sunsynk-power-flow-card.js` into the directory
 3. Add the resource to your Dashboard. You can append the filename with a `?ver=x` and increment x each time you download a new version to force a reload and avoid using a cached version. It is also a good idea to clear your browser cache.
 
 ![image](https://user-images.githubusercontent.com/7227275/235441241-93ab0c7d-341d-428f-8ca8-60ec932dde2d.png)
 
-4. Add the `Custom: Sunsynk Power Flow Card` to your Dashboard view. 
+### Installation using HACS
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration)
+Add to HACS as a Custom Repo
+
+## Usage
+Add the `Custom: Sunsynk Power Flow Card` to your Dashboard view. 
 
 ![image](https://user-images.githubusercontent.com/7227275/235375690-65d17663-e117-4626-9151-1a41979a13b8.png)
 
