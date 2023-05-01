@@ -214,28 +214,28 @@ class SunsynkPowerFlowCard extends LitElement {
           <rect x="304" y="265" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="#558fc1" pointer-events="all"/>
 
 
-          <path id="pv1-line" d="M 35 92 L 35.02 117 Q 35.03 127 43.02 127 L 51 127" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="none" stroke="#ff9933" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
+          <path id="pv1-line" d="M 35 84 L 35.02 117 Q 35.03 127 43.02 127 L 51 127" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="none" stroke="#ff9933" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
           <circle id="pv1-dot" cx="0" cy="0" r="3" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="${stateObj9.state === '0' ? 'transparent' : '#ff9933'}">
             <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
               <mpath xlink:href="#pv1-line"/>
             </animateMotion>
           </circle>
 
-          <path id="pv2-line" d="M 135 92 L 135.02 117 Q 135.03 127 128.02 127 L 121 127" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="none" stroke="#ff9933" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/> 
+          <path id="pv2-line" d="M 135 84 L 135.02 117 Q 135.03 127 128.02 127 L 121 127" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="none" stroke="#ff9933" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
           <circle id="pv2-dot" cx="0" cy="0" r="3" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="${stateObj8.state === '0' ? 'transparent' : '#ff9933'}">
             <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
               <mpath xlink:href="#pv2-line"/>
             </animateMotion>
           </circle>
 
-          <path id="so-line" d="M 155 245.19 L 96 245.2 Q 86 245.2 86 235.2 L 86 142" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="none" stroke="#ff9933" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/> 
+          <path id="so-line" d="M 155 245.19 L 96 245.2 Q 86 245.2 86 235.2 L 86 142" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="none" stroke="#ff9933" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
           <circle id="so-dot" cx="0" cy="0" r="3" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="${totalsolar === 0 ? 'transparent' : '#ff9933'}">
             <animateMotion dur="9s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
               <mpath xlink:href="#so-line"/>
             </animateMotion>
           </circle>
 
-          <path id="bat-line" d="M 155 285.06 L 105.5 285.09 Q 95.5 285.1 95.5 290.92 L 95.5 296.75" fill="none" stroke="#f3b1c9" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
+          <path id="bat-line" d="M 155 285.06 L 105.5 285.09 Q 95.5 285.1 95.5 290.92 L 95.5 296.75" fill="none" stroke="#f3b1c9" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
           <circle id="power-dot-charge" cx="0" cy="0" r="3" fill="${parseInt(stateObj13.state) < '0' ? 'transparent' : '#f3b1c9'}">
             <animateMotion dur="6s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
               <mpath xlink:href="#bat-line"/>
@@ -247,52 +247,52 @@ class SunsynkPowerFlowCard extends LitElement {
             </animateMotion>
           </circle>
 
-          <path id="grid-line" d="M 304 188 L 411 188 Q 421 188 421 198 L421 265" fill="none" stroke="#558fc1" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
+          <path id="grid-line" d="M 304 188 L 411 188 Q 421 188 421 198 L421 265" fill="none" stroke="#558fc1" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
           <circle id="grid-dot" cx="0" cy="0" r="3" fill="${stateObj15.state <= '0' ? 'transparent' : '#558fc1'}">
             <animateMotion dur="8s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
               <mpath xlink:href="#grid-line"/>
             </animateMotion>
           </circle>
 
-          <path id="grid-line1" d="M 421 295 L 421 310.5" fill="none" stroke="#558fc1" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
+          <path id="grid-line1" d="M 421 295 L 421 310.5" fill="none" stroke="#558fc1" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
           <circle id="grid-dot" cx="0" cy="0" r="3" fill="${stateObj15.state <= '0' ? 'transparent' : '#558fc1'}">
             <animateMotion dur="4s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
               <mpath xlink:href="#grid-line1"/>
             </animateMotion>
           </circle>
           
-          <path id="ne-line1" d="M 339 295 L 339 310" fill="none" stroke="#558fc1" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
+          <path id="ne-line1" d="M 339 295 L 339 310" fill="none" stroke="#558fc1" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
           <circle id="ne-dot1" cx="0" cy="0" r="3" fill="${nonessential <= '0' ? 'transparent' : '#558fc1'}">
             <animateMotion dur="2s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
               <mpath xlink:href="#ne-line1"/>
             </animateMotion>
           </circle> 
-          <path id="ne-line" d="M 339 265 L 339 190" fill="none" stroke="#558fc1" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/> 
+          <path id="ne-line" d="M 339 265 L 339 188" fill="none" stroke="#558fc1" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
           <circle id="ne-dot" cx="0" cy="0" r="3" fill="${nonessential <= '0' ? 'transparent' : '#558fc1'}">
             <animateMotion dur="4s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
               <mpath xlink:href="#ne-line"/>
           </animateMotion>
           </circle> 
           
-          <path id="aux-line" d="M 307 47 L 371.5 47" fill="none" stroke="#5fb5ab" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/> 
+          <path id="aux-line" d="M 307 47 L 371.5 47" fill="none" stroke="#5fb5ab" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
           <circle id="aux-dot" cx="0" cy="0" r="3" fill="${stateObj24.state <= '0' ? 'transparent' : '#5fb5ab'}">
             <animateMotion dur="4s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
               <mpath xlink:href="#aux-line"/>
             </animateMotion>
           </circle>
 
-          <path id="aux-line2" d="M 200 162 L 200 57 Q 200 47 210 47 L 237 47" fill="none" stroke="#5fb5ab" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/> 
-          <path d="M 215.15 187 L 224.58 187 Q 234 187 234 187.5 L 234 188" fill="none" stroke="#558fc1" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
-          <path d="M 180.15 212 L 180.15 225.25" fill="none" stroke="#959595" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
+          <path id="aux-line2" d="M 200 162 L 200 57 Q 200 47 210 47 L 237 47" fill="none" stroke="#5fb5ab" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
+          <path d="M 215.15 187 L 224.58 187 Q 234 187 234 187.5 L 234 188" fill="none" stroke="#558fc1" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+          <path d="M 180.15 212 L 180.15 225.25" fill="none" stroke="#959595" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
 
 
-          <path id="es-line2" d="M 306 118 L 330 118 Q 340 118 350 117.85 L 374 117.5" fill="none" stroke="#5fb5ab" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/> 
+          <path id="es-line2" d="M 306 118 L 330 118 Q 340 118 350 117.85 L 374 117.5" fill="none" stroke="#5fb5ab" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
           <circle id="es-dot" cx="0" cy="0" r="3" fill="${essential === '0' ? 'transparent' : '#5fb5ab'}">
             <animateMotion dur="8s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
               <mpath xlink:href="#es-line2"/>
             </animateMotion>
           </circle>
-          <path id="es-line" d="M 236 118 L 211 118 Q 199 118 199 128 L 199 162" fill="none" stroke="#5fb5ab" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>  
+          <path id="es-line" d="M 235 118 L 212 118 Q 200 118 200 128 L 200 162" fill="none" stroke="#5fb5ab" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>  
 
           <image x="154.5" y="224.75" width="50.3" height="79.75" xlink:href="data:image/png;base64,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" preserveAspectRatio="none"/>
           <svg xmlns="http://www.w3.org/2000/svg" id="bat-high" x="74.5" y="296.25" width="82" height="82" preserveAspectRatio="none" opacity="${parseInt(stateObj12.state) > '80' ? '1' : '0'}" viewBox="0 0 24 24"><path fill="#f3b1c9" d="M12 20H4V6h8m.67-2H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M11 16H5v3h6v-3m0-9H5v3h6V7m0 4.5H5v3h6v-3M23 10h-3V3l-5 10h3v8"/></svg>
@@ -365,14 +365,14 @@ class SunsynkPowerFlowCard extends LitElement {
             <circle id="fault" cx="41%" cy="81.75%" r="3.5" fill="${stateObj21.state === '4' || stateObj21.state === 'fault' ? 'red' : 'transparent'}"/>
             <circle id="grid" cx="88%" cy="95.75%" r="3.5" fill="${stateObj20.state === 'off' ? 'red' : 'transparent'}"/>
             
-            <path id="pv1-line" d="M 35 92 L 35.02 117 Q 35.03 127 43.02 127 L 51 127" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="none" stroke="#ff9933" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
+            <path id="pv1-line" d="M 35 84 L 35.02 117 Q 35.03 127 43.02 127 L 51 127" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="none" stroke="#ff9933" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="pv1-dot" cx="0" cy="0" r="3" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="${stateObj9.state === '0' ? 'transparent' : '#ff9933'}">
               <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#pv1-line"/>
               </animateMotion>
             </circle>
 
-            <path id="pv2-line" d="M 135 92 L 135.02 117 Q 135.03 127 128.02 127 L 121 127" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="none" stroke="#ff9933" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/> 
+            <path id="pv2-line" d="M 135 84 L 135.02 117 Q 135.03 127 128.02 127 L 121 127" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="none" stroke="#ff9933" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
             <circle id="pv2-dot" cx="0" cy="0" r="3" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="${stateObj8.state === '0' ? 'transparent' : '#ff9933'}">
               <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#pv2-line"/>
@@ -388,7 +388,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <rect x="101" y="54" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="#ff9933" pointer-events="all" class="${config.solar_installed === 'no' ? 'st12' : ''}"/>
             <rect x="0" y="295" width="70" height="70" rx="10.5" ry="10.5" fill="none" stroke="#f3b1c9" pointer-events="all"/>
 
-            <path id="bat-line" d="M 179 259.87 L 105.03 259.89 Q 95.03 259.9 95.03 269.86 L 95.03 290" fill="none" stroke="#f3b1c9" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
+            <path id="bat-line" d="M 179 259.87 L 105.03 259.89 Q 95.03 259.9 95.03 269.86 L 95.03 290" fill="none" stroke="#f3b1c9" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="power-dot-charge" cx="0" cy="0" r="3" fill="${parseInt(stateObj13.state) < '0' ? 'transparent' : '#f3b1c9'}">
               <animateMotion dur="6s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#bat-line"/>
@@ -400,21 +400,21 @@ class SunsynkPowerFlowCard extends LitElement {
               </animateMotion>
             </circle>
 
-            <path id="so-line" d="M 179 239.94 L 96 239.9 Q 86 239.9 86 229.9 L 86 142" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="none" stroke="#ff9933" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/> 
+            <path id="so-line" d="M 179 239.94 L 96 239.9 Q 86 239.9 86 229.9 L 86 142" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="none" stroke="#ff9933" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
             <circle id="so-dot" cx="0" cy="0" r="3" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="${totalsolar === 0 ? 'transparent' : '#ff9933'}">
               <animateMotion dur="9s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#so-line"/>
               </animateMotion>
             </circle>
 
-            <path id="es-line-long" d="M 278 69 L 215.03 69 Q 205.03 69 205.03 79 L 205.03 110.03 Q 205.03 120.03 204.68 130.03 L 204.15 145" fill="none" stroke="#5fb5ab" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
+            <path id="es-line-long" d="M 278 69 L 215.03 69 Q 205.03 69 205.03 79 L 205.03 110.03 Q 205.03 120.03 204.68 130.03 L 204.15 145" fill="none" stroke="#5fb5ab" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="es-dot" cx="0" cy="0" r="3" fill="${stateObj14.state === '0' ? 'transparent' : '#5fb5ab'}">
               <animateMotion dur="8s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#es-line-long"/>
               </animateMotion>
             </circle>
 
-            <path id="es-line" d="M 348 69 L 377.5 69" fill="none" stroke="#5fb5ab" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
+            <path id="es-line" d="M 348 69 L 377.5 69" fill="none" stroke="#5fb5ab" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="es-dot" cx="0" cy="0" r="3" fill="${stateObj14.state === '0' ? 'transparent' : '#5fb5ab'}">
               <animateMotion dur="4s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#es-line"/>
@@ -422,14 +422,14 @@ class SunsynkPowerFlowCard extends LitElement {
             </circle>
 
 
-            <path id="grid-line" d="M 349 170 L 407.03 170.03 Q 417.03 170.03 417.03 180.03 L 417 243" fill="none" stroke="#558fc1" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
+            <path id="grid-line" d="M 349 170 L 407.03 170.03 Q 417.03 170.03 417.03 180.03 L 417 243" fill="none" stroke="#558fc1" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="grid-dot" cx="0" cy="0" r="3" fill="${stateObj15.state <= '0' ? 'transparent' : '#558fc1'}">
               <animateMotion dur="8s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line"/>
               </animateMotion>
             </circle>
 
-            <path id="grid-line1" d="M 417 273 L 417 293.5" fill="none" stroke="#558fc1" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
+            <path id="grid-line1" d="M 417 273 L 417 293.5" fill="none" stroke="#558fc1" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="grid-dot" cx="0" cy="0" r="3" fill="${stateObj15.state <= '0' ? 'transparent' : '#558fc1'}">
               <animateMotion dur="6s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line1"/>
@@ -437,8 +437,8 @@ class SunsynkPowerFlowCard extends LitElement {
             </circle>
 
 
-            <path d="M 239.15 170 L 279 170" fill="none" stroke="#558fc1" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
-            <path d="M 204.15 195 L 204.15 220" fill="none" stroke="#959595" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
+            <path d="M 239.15 170 L 279 170" fill="none" stroke="#558fc1" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+            <path d="M 204.15 195 L 204.15 220" fill="none" stroke="#959595" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             
             <image x="178.5" y="219.5" width="50.3" height="79.75" xlink:href="data:image/png;base64,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" preserveAspectRatio="none"/>
             <svg xmlns="http://www.w3.org/2000/svg" id="bat-high" x="73.5" y="290" width="82" height="82" preserveAspectRatio="none" opacity="${parseInt(stateObj12.state) > '80' ? '1' : '0'}" viewBox="0 0 24 24"><path fill="#f3b1c9" d="M12 20H4V6h8m.67-2H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M11 16H5v3h6v-3m0-9H5v3h6V7m0 4.5H5v3h6v-3M23 10h-3V3l-5 10h3v8"/></svg>
@@ -505,14 +505,14 @@ class SunsynkPowerFlowCard extends LitElement {
             <circle id="fault" cx="45%" cy="66%" r="3.5" fill="${stateObj21.state === '4' || stateObj21.state === 'fault' ? 'red' : 'transparent'}"/>
             <circle id="grid" cx="6.5%" cy="62%" r="3.5" fill="${stateObj20.state === 'off' ? 'red' : 'transparent'}"/>
 
-            <path id="pv1-line" d="M 189 84.5 L 189 122.03 Q 189 132.03 197 132.03 L 205 132.03" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="none" stroke="#ff9933" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
+            <path id="pv1-line" d="M 189 84.5 L 189 122.03 Q 189 132.03 197 132.03 L 205 132.03" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="none" stroke="#ff9933" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="pv1-dot" cx="0" cy="0" r="3" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="${stateObj9.state === '0' ? 'transparent' : '#ff9933'}">
               <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#pv1-line"/>
               </animateMotion>
             </circle>
 
-            <path id="pv2-line" d="M 289 84.5 L 289 121.48 Q 289 131.48 282 131.49 L 275 131.5" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="none" stroke="#ff9933" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
+            <path id="pv2-line" d="M 289 84.5 L 289 121.48 Q 289 131.48 282 131.49 L 275 131.5" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="none" stroke="#ff9933" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="pv2-dot" cx="0" cy="0" r="3" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="${stateObj8.state === '0' ? 'transparent' : '#ff9933'}">
               <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#pv2-line"/>  
@@ -520,7 +520,7 @@ class SunsynkPowerFlowCard extends LitElement {
             </circle>
 
             <rect x="205" y="116.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="#ff9933" pointer-events="all" class="${config.solar_installed === 'no' ? 'st12' : ''}"/>
-            <path id="bat-line" d="M 239.23 260 L 239.21 288.03 Q 239.21 298.03 239.1 308.02 L 239 318" fill="none" stroke="#f3b1c9" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
+            <path id="bat-line" d="M 239.23 260 L 239.21 288.03 Q 239.21 298.03 239.1 308.02 L 239 324" fill="none" stroke="#f3b1c9" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="power-dot-charge" cx="0" cy="0" r="3" fill="${parseInt(stateObj13.state) < '0' ? 'transparent' : '#f3b1c9'}">
               <animateMotion dur="6s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#bat-line"/>
@@ -534,32 +534,32 @@ class SunsynkPowerFlowCard extends LitElement {
 
             <image x="213.5" y="179.5" width="50.45" height="80" xlink:href="data:image/png;base64,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" preserveAspectRatio="none"/>
             <rect x="159" y="329.75" width="70" height="70" rx="10.5" ry="10.5" fill="none" stroke="#f3b1c9" pointer-events="all"/>
-            <path id="so-line" d="M 239.23 180 L 239.22 174.02 Q 239.21 168.03 239.1 158.04 L 239 148" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="none" stroke="#ff9933" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
+            <path id="so-line" d="M 239.23 180 L 239.22 174.02 Q 239.21 168.03 239.1 158.04 L 239 147" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="none" stroke="#ff9933" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="so-dot" cx="0" cy="0" r="3" class="${config.solar_installed === 'no' ? 'st12' : ''}" fill="${totalsolar === 0 ? 'transparent' : '#ff9933'}">
               <animateMotion dur="9s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#so-line"/>
               </animateMotion>
             </circle>
-            <path id="grid-line" d="M 173 218.25 L 214 218" fill="none" stroke="#558fc1" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
+            <path id="grid-line" d="M 173 218.25 L 214 218" fill="none" stroke="#558fc1" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="grid-dot" cx="0" cy="0" r="3" fill="${stateObj15.state <= '0' ? 'transparent' : '#558fc1'}">
               <animateMotion dur="8s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line"/>
               </animateMotion>
             </circle>
-            <path id="grid-line1" d="M 103 218.25 L 64.5 218.25" fill="none" stroke="#558fc1" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
+            <path id="grid-line1" d="M 103 218.25 L 64.5 218.25" fill="none" stroke="#558fc1" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="grid-dot1" cx="0" cy="0" r="3" fill="${stateObj15.state <= '0' ? 'transparent' : '#558fc1'}">
               <animateMotion dur="8s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line1"/>
               </animateMotion>
             </circle>
             <rect x="103" y="203.5" width="70" height="29.5" rx="4.42" ry="4.42" fill="none" stroke="#558fc1" pointer-events="all"/>
-            <path id="es-line" d="M 304 218.5 L 264.7 218.48" fill="none" stroke="#5fb5ab" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
+            <path id="es-line" d="M 304 218.5 L 264.7 218.48" fill="none" stroke="#5fb5ab" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="es-dot" cx="0" cy="0" r="3" fill="${stateObj14.state === '0' ? 'transparent' : '#5fb5ab'}">
               <animateMotion dur="4s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#es-line"/>
               </animateMotion>
             </circle>
-            <path id="es-line1" d="M 374 218.5 L 402.38 218.52" fill="none" stroke="#5fb5ab" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2 2" pointer-events="stroke"/>
+            <path id="es-line1" d="M 374 218.5 L 402.38 218.52" fill="none" stroke="#5fb5ab" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="es-dot" cx="0" cy="0" r="3" fill="${stateObj14.state === '0' ? 'transparent' : '#5fb5ab'}">
               <animateMotion dur="4s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#es-line1"/>
