@@ -29,7 +29,7 @@ An animated Home Assistant card to emulate the Sunsynk power flow that's shown o
 *Full Version*
 
 ## Installation
-The card can be installed manaully or via HACS
+The card can be installed manually or via HACS
 
 ### Manual Installation
 1. Create a new directory under `www` and name it `sunsynk-power-flow-card` e.g www/sunsynk-power-flow-card/
