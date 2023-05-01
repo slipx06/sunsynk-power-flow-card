@@ -1,4 +1,5 @@
 {
     "name": "sunsynk-power-flow-card",
-    "render_readme": true
+    "render_readme": true,
+    "content_in_root": false
 }
