@@ -40,7 +40,7 @@ The card can be installed manaully or via HACS
 
 ### Installation using HACS
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration)
-YOu can add to HACS as a Custom Repo
+You can add to HACS as a Custom Repo
 
 ## Usage
 Add the `Custom: Sunsynk Power Flow Card` to your Dashboard view. 
