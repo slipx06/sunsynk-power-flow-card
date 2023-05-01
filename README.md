@@ -14,15 +14,15 @@ An animated Home Assistant card to emulate the Sunsynk power flow that's shown o
 
 ## Screenshots
 
-![image](https://user-images.githubusercontent.com/7227275/235377924-bc4d7544-feec-4f09-81e0-d8ee382c52bf.png)
+![image](https://user-images.githubusercontent.com/7227275/235432195-08f35c72-fa6f-4a31-af80-dcfa7657a14c.png)
 
 *Lite Version*
 
-![image](https://user-images.githubusercontent.com/7227275/235377935-8ca5c908-aee3-478d-94b9-a7e00bcb52b1.png)
+![image](https://user-images.githubusercontent.com/7227275/235432326-70ad2f47-fd50-42f8-af5f-d7a4d1da08ea.png)
 
 *Simple Version*
 
-![image](https://user-images.githubusercontent.com/7227275/235377943-4351474f-0521-4576-b962-8e7c7522c772.png)
+![image](https://user-images.githubusercontent.com/7227275/235432368-a083301d-601c-4e21-9415-e4a5ee09e8a6.png)
 
 *Full Version*
 
@@ -40,7 +40,7 @@ An animated Home Assistant card to emulate the Sunsynk power flow that's shown o
 
 It will show the following:
 
-![image](https://user-images.githubusercontent.com/7227275/235375757-b635c538-cf29-45e3-9db2-5425a00724cb.png)
+![image](https://user-images.githubusercontent.com/7227275/235432425-34bb878f-1aae-4adc-bd96-3d0d8bd4ad2a.png)
 
 ### Card Options
 
@@ -49,20 +49,20 @@ The card requires that all of these attributes be defined.
 | Attribute | Default | Description |
 | --- | --- | --- |
 |type: | `custom:sunsynk-power-flow-card` | The custom card |
-|cardstyle: | `lite` | Selects the card layout that is used  (lite, simple, full) |
-|dailyusage: | `yes` | Toggles the Daily Totals (yes/no) |
-|battery_energy: | `15960` | Total Battery Energy in Wh (e.g. 3 x 5.32kWh = 15960) or set to "hidden" to hide|
+|cardstyle: | `lite` | Selects the card layout that is used  `lite, simple, full` |
+|dailyusage: | `yes` | Toggles the Daily Totals `yes/no` |
+|battery_energy: | `15960` | Total Battery Energy in Wh (e.g. 3 x 5.32kWh = 15960) or set to `hidden` to hide|
 |battery_shutdown_soc: | `20` |The battery shutdown percentage to calculate remaining runtime |
-|solar_installed:| `yes` | Toggle display of solar information (yes/no)|
+|solar_installed:| `yes` | Toggle display of solar information `yes/no`|
 |entities:||List of sensor entities. See required [Entities](#entities) below|
 
 ### Entities
-Entity attributes below have been appended with the modbus register # e.g. `pv2_power_187` to indicate which Sunsynk register should be read when configuring your sensors. Replace the default sensors with your own specific sensor names. It is important that your sensors read the expected modbus register value. If you have missing sensors for any attribute set it to `none` i.e. `solarday_108: none` and it will use a default value of 0.
+Entity attributes below have been appended with the modbus register # e.g. `pv2_power_187` to indicate which Sunsynk register should be read when configuring your sensors. Replace the default sensors with your own specific sensor names. It is important that your sensors read the expected modbus register value. If you have missing sensors for any attribute set it to none i.e. `solarday_108: none` and it will use a default value of 0.
 
 | Attribute | Default | Description |
 | --- | --- | --- |
-|use_timer_248: | `switch.toggle_system_timer` | Displays "Use timer" status as an icon next to the inverter. Set to "no" to hide |
-|priority_load_243: | `switch.toggle_priority_load` | Shows if energy pattern is set to Priority Load or Priority Battery as an icon next to the inverter. Set to "no" to hide|
+|use_timer_248: | `switch.toggle_system_timer` | Displays "Use timer" status as an icon next to the inverter. Set to `no` to hide |
+|priority_load_243: | `switch.toggle_priority_load` | Shows if energy pattern is set to Priority Load or Priority Battery as an icon next to the inverter. Set to `no` to hide|
 |batdischargeday_71: | `sensor.battery_discharge_day` | Daily Battery Usage (kWh) |
 |batchargeday_70: | `sensor.battery_charge_day` | Daily Battery Charge (kWh) |
 |loadday_84: | `sensor.daily_load_power_kwh` | Daily Load (kWh) |
@@ -84,8 +84,8 @@ Entity attributes below have been appended with the modbus register # e.g. `pv2_
 |pv1_i_110: | `sensor.dc1_current` | PV String 1 Current (A)|
 |pv2_v_111: | `sensor.dc2_voltage` | PV String 2 Voltage (V)|
 |pv2_i_112: | `sensor.dc2_current` | PV String 2 Current (A)|
-|grid_status_194: | `binary_sensor.grid_connected_status` | Grid Connected Status (on/off) |
-|inverter_status_59: | `sensor.overall_state` | Inverter Status (0-standby, 1-selftest, 2-normal, 3-alarm, 4-fault) |
+|grid_status_194: | `binary_sensor.grid_connected_status` | Grid Connected Status `on/off` |
+|inverter_status_59: | `sensor.overall_state` | Inverter Status `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault` |
 |aux_power_166: | `sensor.aux_output_power` | Auxilary Power (W) |
 
 The card calculates the sensors below based on supplied attributes in the config so you dont need to define them in Home Assistant
