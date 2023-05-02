@@ -64,7 +64,7 @@ class SunsynkPowerFlowCard extends LitElement {
   static getStubConfig() {
     return {
       cardstyle: 'lite',
-      dailyusage: 'yes',
+      show_daily: 'yes',
       battery_energy: 15960,
       battery_shutdown_soc: 20,
       show_solar: 'yes',
@@ -174,18 +174,18 @@ class SunsynkPowerFlowCard extends LitElement {
           <text x="92%" y="98.5%" class="st3 st7 st8">Grid</text>
           <text x="40.5%" y="82%" class="st3 st7 st9">Status</text>
           <text x="90%" y="41%" class="st3 st6 st8">Essential</text>
-          <text id="daily_solar_value" x="85" y="5%" class="${config.dailyusage === 'no' || config.show_solar === 'no' ? 'st11' : 'st10 st1 left-align'}" >${stateObj4.state ? stateObj4.state : '0'} kWh</text>
-          <text id="daily_solar" x="85" y="8.5%" class="${config.dailyusage === 'no' || config.show_solar === 'no'  ? 'st11' : 'st3 st1 left-align'}" >DAILY SOLAR</text>
+          <text id="daily_solar_value" x="85" y="5%" class="${config.show_daily === 'no' || config.show_solar === 'no' ? 'st11' : 'st10 st1 left-align'}" >${stateObj4.state ? stateObj4.state : '0'} kWh</text>
+          <text id="daily_solar" x="85" y="8.5%" class="${config.show_daily === 'no' || config.show_solar === 'no'  ? 'st11' : 'st3 st1 left-align'}" >DAILY SOLAR</text>
           <text id="pv1_v" x="15.75%" y="17%" class="${config.show_solar === 'no' ? 'st12' : 'st3 st1 left-align'}" >${stateObj16.state ? stateObj16.state : '0'} V</text>
           <text id="pv1_i" x="15.75%" y="20%" class="${config.show_solar === 'no' ? 'st12' : 'st3 st1 left-align'}" >${stateObj17.state ? stateObj17.state : '0'} A</text>
           <text id="pv2_v" x="37.75%" y="17%" class="${config.show_solar === 'no' ? 'st12' : 'st3 st1 left-align'}" >${stateObj18.state ? stateObj18.state : '0'} V</text>
           <text id="pv2_i" x="37.75%" y="20%" class="${config.show_solar === 'no' ? 'st12' : 'st3 st1 left-align'}" >${stateObj19.state ? stateObj19.state : '0'} A</text>
-          <text id="daily_bat_charge_value" x="1%" y="62%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st2 left-align'}" >${stateObj1.state ? stateObj1.state : '0'} kWh</text>
-          <text id="daily_bat_charge" x="1%" y="65.5%" class="${config.dailyusage === 'no' ? 'st11' : 'st3 st2 left-align'}" >DAILY CHARGE</text>
-          <text id="daily_bat_discharge_value" x="1%" y="70.75%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st2 left-align'}" >${stateObj.state ? stateObj.state : '0'} kWh</text>
-          <text id="daily_bat_charge" x="1%" y="74%" class="${config.dailyusage === 'no' ? 'st11' : 'st3 st2 left-align'}" >DAILY DISCHARGE</text>
-          <text id="daily_grid_value" x="77%" y="60%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st7 left-align'}" >${stateObj3.state ? stateObj3.state : '0'} kWh</text>
-          <text id="daily_grid" x="77%" y="63%" class="${config.dailyusage === 'no' ? 'st11' : 'st3 st7 left-align'}" >DAILY GRID</text>
+          <text id="daily_bat_charge_value" x="1%" y="62%" class="${config.show_daily === 'no' ? 'st11' : 'st10 st2 left-align'}" >${stateObj1.state ? stateObj1.state : '0'} kWh</text>
+          <text id="daily_bat_charge" x="1%" y="65.5%" class="${config.show_daily === 'no' ? 'st11' : 'st3 st2 left-align'}" >DAILY CHARGE</text>
+          <text id="daily_bat_discharge_value" x="1%" y="70.75%" class="${config.show_daily === 'no' ? 'st11' : 'st10 st2 left-align'}" >${stateObj.state ? stateObj.state : '0'} kWh</text>
+          <text id="daily_bat_charge" x="1%" y="74%" class="${config.show_daily === 'no' ? 'st11' : 'st3 st2 left-align'}" >DAILY DISCHARGE</text>
+          <text id="daily_grid_value" x="77%" y="60%" class="${config.show_daily === 'no' ? 'st11' : 'st10 st7 left-align'}" >${stateObj3.state ? stateObj3.state : '0'} kWh</text>
+          <text id="daily_grid" x="77%" y="63%" class="${config.show_daily === 'no' ? 'st11' : 'st3 st7 left-align'}" >DAILY GRID</text>
           <text id="inverter_out_175" x="39.5%" y="46.5%" class="st4 st8 st9">${stateObj22.state ? stateObj22.state : '0'} W</text>
           <text id="inverter_load_grid_169" x="59%" y="54.5%" class="st4 st7 st8">${stateObj23.state ? stateObj23.state : '0'} W</text>
           <text id="aux_power_166" x="59%" y="12.5%" class="st4 st6 st8">${stateObj24.state ? stateObj24.state : '0'} W</text> 
@@ -341,20 +341,20 @@ class SunsynkPowerFlowCard extends LitElement {
             <text x="91.5%" y="96%" class="st3 st7 st8">Grid</text>
             <text x="45.5%" y="82%" class="st3 st7 st9">Status</text>
             <text x="92%" y="29%" class="st3 st6 st8">Essential</text>
-            <text id="daily_solar_value" x="85" y="5%" class="${config.dailyusage === 'no' || config.show_solar === 'no'  ? 'st11' : 'st10 st1 left-align'}" >${stateObj4.state ? stateObj4.state : '0'} kWh</text>
-            <text id="daily_solar" x="85" y="8.5%" class="${config.dailyusage === 'no' || config.show_solar === 'no' ? 'st11' : 'st3 st1 left-align'}" >DAILY SOLAR</text>
+            <text id="daily_solar_value" x="85" y="5%" class="${config.show_daily === 'no' || config.show_solar === 'no'  ? 'st11' : 'st10 st1 left-align'}" >${stateObj4.state ? stateObj4.state : '0'} kWh</text>
+            <text id="daily_solar" x="85" y="8.5%" class="${config.show_daily === 'no' || config.show_solar === 'no' ? 'st11' : 'st3 st1 left-align'}" >DAILY SOLAR</text>
             <text id="pv1_v" x="16.5%" y="17%" class="${config.show_solar === 'no' ? 'st12' : 'st3 st1 left-align'}" >${stateObj16.state ? stateObj16.state : '0'} V</text>
             <text id="pv1_i" x="16.5%" y="20%" class="${config.show_solar === 'no' ? 'st12' : 'st3 st1 left-align'}" >${stateObj17.state ? stateObj17.state : '0'} A</text>
             <text id="pv2_v" x="38.5%" y="17%" class="${config.show_solar === 'no' ? 'st12' : 'st3 st1 left-align'}" >${stateObj18.state ? stateObj18.state : '0'} V</text>
             <text id="pv2_i" x="38.5%" y="20%" class="${config.show_solar === 'no' ? 'st12' : 'st3 st1 left-align'}" >${stateObj19.state ? stateObj19.state : '0'} A</text>
-            <text id="daily_bat_charge_value" x="1%" y="61%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st2 left-align'}" >${stateObj1.state ? stateObj1.state : '0'} kWh</text>
-            <text id="daily_bat_charge" x="1%" y="64.5%" class="${config.dailyusage === 'no' ? 'st11' : 'st3 st2 left-align'}" >DAILY CHARGE</text>
-            <text id="daily_bat_discharge_value" x="1%" y="69.75%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st2 left-align'}" >${stateObj.state ? stateObj.state : '0'} kWh</text>
-            <text id="daily_bat_charge" x="1%" y="73%" class="${config.dailyusage === 'no' ? 'st11' : 'st3 st2 left-align'}" >DAILY DISCHARGE</text>
-            <text id="daily_grid_value" x="70%" y="86%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st7 left-align'}" >${stateObj3.state ? stateObj3.state : '0'} kWh</text>
-            <text id="daily_grid" x="70%" y="89.5%" class="${config.dailyusage === 'no' ? 'st11' : 'st3 st7 left-align'}" >DAILY GRID</text>
-            <text id="daily_load_value" x="83%" y="5%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st6 left-align'}" >${stateObj2.state ? stateObj2.state : '0'} kWh</text>
-            <text id="daily_load" x="83%" y="8.5%" class="${config.dailyusage === 'no' ? 'st11' : 'st3 st6 left-align'}" >DAILY LOAD</text>
+            <text id="daily_bat_charge_value" x="1%" y="61%" class="${config.show_daily === 'no' ? 'st11' : 'st10 st2 left-align'}" >${stateObj1.state ? stateObj1.state : '0'} kWh</text>
+            <text id="daily_bat_charge" x="1%" y="64.5%" class="${config.show_daily === 'no' ? 'st11' : 'st3 st2 left-align'}" >DAILY CHARGE</text>
+            <text id="daily_bat_discharge_value" x="1%" y="69.75%" class="${config.show_daily === 'no' ? 'st11' : 'st10 st2 left-align'}" >${stateObj.state ? stateObj.state : '0'} kWh</text>
+            <text id="daily_bat_charge" x="1%" y="73%" class="${config.show_daily === 'no' ? 'st11' : 'st3 st2 left-align'}" >DAILY DISCHARGE</text>
+            <text id="daily_grid_value" x="70%" y="86%" class="${config.show_daily === 'no' ? 'st11' : 'st10 st7 left-align'}" >${stateObj3.state ? stateObj3.state : '0'} kWh</text>
+            <text id="daily_grid" x="70%" y="89.5%" class="${config.show_daily === 'no' ? 'st11' : 'st3 st7 left-align'}" >DAILY GRID</text>
+            <text id="daily_load_value" x="83%" y="5%" class="${config.show_daily === 'no' ? 'st11' : 'st10 st6 left-align'}" >${stateObj2.state ? stateObj2.state : '0'} kWh</text>
+            <text id="daily_load" x="83%" y="8.5%" class="${config.show_daily === 'no' ? 'st11' : 'st3 st6 left-align'}" >DAILY LOAD</text>
             <text id="inverter_out_175" x="45%" y="42.5%" class="st4 st8 st9">${stateObj22.state ? stateObj22.state : '0'} W</text>
             <text id="inverter_load_grid_169" x="69%" y="49.5%" class="st4 st7 st8">${stateObj23.state ? stateObj23.state : '0'} W</text>
 
@@ -468,18 +468,18 @@ class SunsynkPowerFlowCard extends LitElement {
       return html`
         <div class="container card">
           <svg viewBox="-0.5 -0.5 483 406" height="396px" width="100%" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
-            <text id="daily_bat_charge_value" x="16%" y="85%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st2 left-align'}" >${stateObj1.state ? stateObj1.state : '0'} kWh</text>
-            <text id="daily_bat_charge" x="16%" y="88%" class="${config.dailyusage === 'no' ? 'st11' : 'st3 st2 left-align'}" >DAILY CHARGE</text>
+            <text id="daily_bat_charge_value" x="16%" y="85%" class="${config.show_daily === 'no' ? 'st11' : 'st10 st2 left-align'}" >${stateObj1.state ? stateObj1.state : '0'} kWh</text>
+            <text id="daily_bat_charge" x="16%" y="88%" class="${config.show_daily === 'no' ? 'st11' : 'st3 st2 left-align'}" >DAILY CHARGE</text>
             <text id="duration" x="66%" y="93%" class="${config.battery_energy === 'hidden' ? 'st11' : 'st2 st4 left-align'}" >${duration}</text>
             <text id="duration_text" x="66%" y="97%" class="${config.battery_energy === 'hidden' ? 'st11' : 'st2 st3 left-align'}" >BATTERY RUNTIME</text>
-            <text id="daily_bat_discharge_value" x="16%" y="93.75%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st2 left-align'}" >${stateObj.state ? stateObj.state : '0'} kWh</text>
-            <text id="daily_bat_charge" x="16%" y="97%" class="${config.dailyusage === 'no' ? 'st11' : 'st3 st2 left-align'}" >DAILY DISCHARGE</text>
-            <text id="daily_load_value" x="83%" y="66%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st6 left-align'}" >${stateObj2.state ? stateObj2.state : '0'} kWh</text>
-            <text id="daily_load" x="83%" y="69.5%" class="${config.dailyusage === 'no' ? 'st11' : 'st3 st6 left-align'}" >DAILY LOAD</text>
-            <text id="daily_grid_value" x="3%" y="66%" class="${config.dailyusage === 'no' ? 'st11' : 'st10 st7 left-align'}" >${stateObj3.state ? stateObj3.state : '0'} kWh</text>
-            <text id="daily_grid" x="3%" y="69.5%" class="${config.dailyusage === 'no' ? 'st11' : 'st3 st7 left-align'}" >DAILY GRID</text>
-            <text id="daily_solar_value" x="47%" y="4%" class="${config.dailyusage === 'no' || config.show_solar === 'no' ? 'st11' : 'st10 st1 left-align'}" >${stateObj4.state ? stateObj4.state : '0'} kWh</text>
-            <text id="daily_solar" x="47%" y="7.5%" class="${config.dailyusage === 'no' || config.show_solar === 'no' ? 'st11' : 'st3 st1 left-align'}" >DAILY SOLAR</text>
+            <text id="daily_bat_discharge_value" x="16%" y="93.75%" class="${config.show_daily === 'no' ? 'st11' : 'st10 st2 left-align'}" >${stateObj.state ? stateObj.state : '0'} kWh</text>
+            <text id="daily_bat_charge" x="16%" y="97%" class="${config.show_daily === 'no' ? 'st11' : 'st3 st2 left-align'}" >DAILY DISCHARGE</text>
+            <text id="daily_load_value" x="83%" y="66%" class="${config.show_daily === 'no' ? 'st11' : 'st10 st6 left-align'}" >${stateObj2.state ? stateObj2.state : '0'} kWh</text>
+            <text id="daily_load" x="83%" y="69.5%" class="${config.show_daily === 'no' ? 'st11' : 'st3 st6 left-align'}" >DAILY LOAD</text>
+            <text id="daily_grid_value" x="3%" y="66%" class="${config.show_daily === 'no' ? 'st11' : 'st10 st7 left-align'}" >${stateObj3.state ? stateObj3.state : '0'} kWh</text>
+            <text id="daily_grid" x="3%" y="69.5%" class="${config.show_daily === 'no' ? 'st11' : 'st3 st7 left-align'}" >DAILY GRID</text>
+            <text id="daily_solar_value" x="47%" y="4%" class="${config.show_daily === 'no' || config.show_solar === 'no' ? 'st11' : 'st10 st1 left-align'}" >${stateObj4.state ? stateObj4.state : '0'} kWh</text>
+            <text id="daily_solar" x="47%" y="7.5%" class="${config.show_daily === 'no' || config.show_solar === 'no' ? 'st11' : 'st3 st1 left-align'}" >DAILY SOLAR</text>
             <text id="inverter_grid_voltage_154" x="56%" y="41.5%" class="st3 st9 left-align" >${stateObj5.state ? stateObj5.state : '0'} V</text>
             <text id="inverter_load_freq_192" x="56%" y="44.5%" class="st3 st9 left-align">${stateObj6.state ? stateObj6.state : '0'} Hz</text>
             <text id="inverter_out_164" x="56%" y="47.5%" class="st3 st9 left-align">${stateObj7.state ? stateObj7.state : '0'} A</text>
@@ -597,8 +597,8 @@ class SunsynkPowerFlowCard extends LitElement {
     if (!config.cardstyle) {
       throw new Error('Please include the cardstyle attribute and value; lite, simple or full e.g. cardstyle: simple');
     }
-    if (!config.dailyusage) {
-      throw new Error('Please include the dailyusage attribute and value; yes or no e.g. dailyusage: no');
+    if (!config.show_daily) {
+      throw new Error('Please include the show_daily attribute and value; yes or no e.g. show_daily: no');
     }
     if (!config.battery_energy) {
       throw new Error('Please include the battery_energy attribute and value in Wh e.g. 5.32 Battery battery_energy: 5320');
