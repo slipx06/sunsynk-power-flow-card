@@ -49,7 +49,7 @@ Add the `Custom: Sunsynk Power Flow Card` to your Dashboard view.
 
 It will show the following:
 
-![image](https://user-images.githubusercontent.com/7227275/235432425-34bb878f-1aae-4adc-bd96-3d0d8bd4ad2a.png)
+![image](https://user-images.githubusercontent.com/7227275/235710241-56732e5f-89e4-4b02-b22f-254912c14d3a.png)
 
 ### Card Options
 
