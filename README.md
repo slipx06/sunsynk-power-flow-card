@@ -59,7 +59,7 @@ The card requires that all of these attributes be defined.
 | --- | --- | --- |
 |type: | `custom:sunsynk-power-flow-card` | The custom card |
 |cardstyle: | `lite` | Selects the card layout that is used  `lite, simple, full` |
-|dailyusage: | `yes` | Toggles the Daily Totals `yes/no` |
+|show_daily: | `yes` | Toggles the Daily Totals `yes/no` |
 |battery_energy: | `15960` | Total Battery Energy in Wh (e.g. 3 x 5.32kWh = 15960). If set to `hidden` the remaining battery runtime will be hidden|
 |battery_shutdown_soc: | `20` |The battery shutdown percentage used to calculate remaining runtime |
 |show_solar:| `yes` | Toggle display of solar information `yes/no`|
