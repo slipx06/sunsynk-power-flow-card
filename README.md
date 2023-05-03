@@ -99,7 +99,7 @@ Entity attributes below have been appended with the modbus register # e.g. `pv2_
 |pv1_i_110: | `sensor.dc1_current` | PV String 1 Current (A)|
 |pv2_v_111: | `sensor.dc2_voltage` | PV String 2 Voltage (V)|
 |pv2_i_112: | `sensor.dc2_current` | PV String 2 Current (A)|
-|grid_status_194: | `binary_sensor.grid_connected_status` | Grid Connected Status `on/off` |
+|grid_status_194: | `binary_sensor.grid_connected_status` | Grid Connected Status `on/off` or `1/0` |
 |inverter_status_59: | `sensor.overall_state` | Inverter Status `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault` |
 |aux_power_166: | `sensor.aux_output_power` | Auxilary Power (W) |
 
