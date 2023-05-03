@@ -68,6 +68,7 @@ class SunsynkPowerFlowCard extends LitElement {
       battery_energy: 15960,
       battery_shutdown_soc: 20,
       show_solar: 'yes',
+      panel_mode: 'no',
       entities: {
         use_timer_248: 'switch.toggle_system_timer',
         priority_load_243: 'switch.toggle_priority_load',
@@ -155,7 +156,7 @@ class SunsynkPowerFlowCard extends LitElement {
     if (config.cardstyle === 'full') {
       return html`
         <div class="container card">
-          <svg viewBox="-0.5 -0.5 457 383" height="396px" width="100%" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+          <svg viewBox="-0.5 -0.5 457 383" height="${config.panel_mode === 'no' ? '396px' : '100%'}" width="100%" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
           <text id="duration" x="34%" y="92%" class="${config.battery_energy === 'hidden' ? 'st11' : 'st2 st4 left-align'}" >${duration}</text>
           <text id="duration_text" x="34%" y="96%" class="${config.battery_energy === 'hidden' ? 'st11' : 'st2 st3 left-align'}" >BATTERY RUNTIME</text>
           <text id="inverter_grid_voltage_154" x="59%" y="44.5%" class="st4 st7 st8" >${stateObj5.state ? stateObj5.state : '0'} V</text>
@@ -322,7 +323,7 @@ class SunsynkPowerFlowCard extends LitElement {
     if (config.cardstyle === 'simple') {
       return html`
         <div class="container card">
-          <svg viewBox="-0.5 -0.5 456 380" height="396px" width="100%" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+          <svg viewBox="-0.5 -0.5 456 380" height="${config.panel_mode === 'no' ? '396px' : '100%'}" width="100%" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
             <text id="inverter_grid_voltage_154" x="69%" y="40%" class="st4 st7 st8" >${stateObj5.state ? stateObj5.state : '0'} V</text>
             <text id="inverter_load_freq_192" x="69%" y="45%" class="st4 st7 st8">${stateObj6.state ? stateObj6.state : '0'} Hz</text>
             <text id="duration" x="34%" y="91%" class="${config.battery_energy === 'hidden' ? 'st11' : 'st2 st4 left-align'}" >${duration}</text>
@@ -467,7 +468,7 @@ class SunsynkPowerFlowCard extends LitElement {
     if (config.cardstyle === 'lite') {
       return html`
         <div class="container card">
-          <svg viewBox="-0.5 ${config.show_solar === 'no' ? 145.33 : -0.5} 483 ${config.show_solar === 'no' ? 270.67 : 406}" height="${config.show_solar === 'no' ? '246px' : '396px'}" width="100%"  xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+          <svg viewBox="-0.5 ${config.show_solar === 'no' ? 145.33 : -0.5} 483 ${config.show_solar === 'no' ? 270.67 : 406}" height="${config.panel_mode === 'no' ? `${config.show_solar === 'no' ? '246px' : '396px'}` : `${config.show_solar === 'no' ? '75%' : '100%'}`}" width="100%"  xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
             <text id="daily_bat_charge_value" x="77.2" y="344.6" class="${config.show_daily === 'no' ? 'st11' : 'st10 st2 left-align'}" >${stateObj1.state ? stateObj1.state : '0'} kWh</text>
             <text id="daily_bat_charge" x="77.2" y="357.2" class="${config.show_daily === 'no' ? 'st11' : 'st3 st2 left-align'}" >DAILY CHARGE</text>
             <text id="duration" x="318.4" y="377.5" class="${config.battery_energy === 'hidden' ? 'st11' : 'st2 st4 left-align'}" >${duration}</text>
@@ -609,7 +610,10 @@ class SunsynkPowerFlowCard extends LitElement {
     if (!config.show_solar) {
       throw new Error('Please include the show_solar attribute and value; yes or no e.g. show_solar: yes');
     }
-
+    if (!config.panel_mode) {
+      throw new Error('Please include the panel_mode attribute and value; yes or no e.g. panel_mode: yes');
+    }
+    
     const attributes = [
       'use_timer_248', 'priority_load_243', 'batchargeday_70', 'batdischargeday_71', 'loadday_84', 
       'gridday_76', 'solarday_108', 'inverter_grid_voltage_154', 'inverter_load_freq_192', 
