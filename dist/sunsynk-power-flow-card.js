@@ -607,7 +607,7 @@ class SunsynkPowerFlowCard extends LitElement {
       throw new Error('Please include the battery shutdown percentage i.e. 20');
     }
     if (!config.show_solar) {
-      throw new Error('Please specify if solar should be displayed i.e. yes/no');
+      throw new Error('Please include the show_solar attribute and value; yes or no e.g. show_solar: yes');
     }
 
     const attributes = [
