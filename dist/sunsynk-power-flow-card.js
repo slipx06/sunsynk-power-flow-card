@@ -407,7 +407,7 @@ class SunsynkPowerFlowCard extends LitElement {
               </animateMotion>
             </circle>
 
-            <path id="es-line-long" d="M 278 69 L 215.03 69 Q 205.03 69 205.03 79 L 205.03 110.03 Q 205.03 120.03 204.68 130.03 L 204.15 145" fill="none" stroke="#5fb5ab" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+            <path id="es-line-long" d="M 278 69 L 215.03 69 Q 205.03 69 205.03 79 L 205.03 110.03 Q 205.03 120.03 205 130 L 205 145" fill="none" stroke="#5fb5ab" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="es-dot" cx="0" cy="0" r="3" fill="${stateObj14.state === '0' ? 'transparent' : '#5fb5ab'}">
               <animateMotion dur="8s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#es-line-long"/>
