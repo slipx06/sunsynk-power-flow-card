@@ -13,6 +13,7 @@ An animated Home Assistant card to emulate the Sunsynk power flow that's shown o
 * Daily Totals that can be toggled on or off.
 * Hide all solar data if not installed.
 * "Use Timer" setting and "Energy Pattern" setting (Priority Load or Priority Battery) shown as dynamic icons with ability to hide if not required.
+* Panel mode for bigger card
 
 ## Screenshots
 
@@ -67,6 +68,7 @@ The card requires that all of these attributes be defined.
 |battery_energy: | `15960` | Total Battery Energy in Wh (e.g. 3 x 5.32kWh = 15960). If set to `hidden` the remaining battery runtime will be hidden|
 |battery_shutdown_soc: | `20` |The battery shutdown percentage used to calculate remaining runtime |
 |show_solar:| `yes` | Toggle display of solar information `yes/no`|
+|panel_mode:| `no` | Toggles panel mode removing any card height restrictions. For use with Panel(1 card) view types or grid layouts|
 |entities:||List of sensor entities. See required [Entities](#entities) below|
 
 ### Entities
