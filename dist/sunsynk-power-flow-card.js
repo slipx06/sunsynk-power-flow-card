@@ -200,7 +200,7 @@ class SunsynkPowerFlowCard extends LitElement {
           <circle id="normal" cx="36%" cy="81.75%" r="3.5" fill="${stateObj21.state === '2' || stateObj21.state === 'normal' ? 'green' : 'transparent'}"/>
           <circle id="alarm" cx="36%" cy="81.75%" r="3.5" fill="${stateObj21.state === '3' || stateObj21.state === 'alarm' ? 'orange' : 'transparent'}"/>
           <circle id="fault" cx="36%" cy="81.75%" r="3.5" fill="${stateObj21.state === '4' || stateObj21.state === 'fault' ? 'red' : 'transparent'}"/>
-          <circle id="grid" cx="88.5%" cy="98.5%" r="3.5" fill="${stateObj20.state === 'off' ? 'red' : 'transparent'}"/>
+          <circle id="grid" cx="88.5%" cy="98.5%" r="3.5" fill="${stateObj20.state === 'off' || stateObj20.state === 0 ? 'red' : 'transparent'}"/>
 
 
           <rect x="51" y="112" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="#ff9933" pointer-events="all" class="${config.show_solar === 'no' ? 'st12' : ''}"/>
@@ -364,7 +364,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <circle id="normal" cx="41%" cy="81.75%" r="3.5" fill="${stateObj21.state === '2' || stateObj21.state === 'normal' ? 'green' : 'transparent'}"/>
             <circle id="alarm" cx="41%" cy="81.75%" r="3.5" fill="${stateObj21.state === '3' || stateObj21.state === 'alarm' ? 'orange' : 'transparent'}"/>
             <circle id="fault" cx="41%" cy="81.75%" r="3.5" fill="${stateObj21.state === '4' || stateObj21.state === 'fault' ? 'red' : 'transparent'}"/>
-            <circle id="grid" cx="88%" cy="95.75%" r="3.5" fill="${stateObj20.state === 'off' ? 'red' : 'transparent'}"/>
+            <circle id="grid" cx="88%" cy="95.75%" r="3.5" fill="${stateObj20.state === 'off' || stateObj20.state === 0 ? 'red' : 'transparent'}"/>
             
             <path id="pv1-line" d="M 35 84 L 35.02 117 Q 35.03 127 43.02 127 L 51 127" class="${config.show_solar === 'no' ? 'st12' : ''}" fill="none" stroke="#ff9933" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="pv1-dot" cx="0" cy="0" r="3" class="${config.show_solar === 'no' ? 'st12' : ''}" fill="${stateObj9.state === '0' ? 'transparent' : '#ff9933'}">
@@ -508,7 +508,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <circle id="normal" cx="217.1" cy="267.9" r="3.5" fill="${stateObj21.state === '2' || stateObj21.state === 'normal' ? 'green' : 'transparent'}"/>
             <circle id="alarm" cx="217.1" cy="267.9" r="3.5" fill="${stateObj21.state === '3' || stateObj21.state === 'alarm' ? 'orange' : 'transparent'}"/>
             <circle id="fault" cx="217.1" cy="267.9" r="3.5" fill="${stateObj21.state === '4' || stateObj21.state === 'fault' ? 'red' : 'transparent'}"/>
-            <circle id="grid" cx="31.3" cy="251.6" r="3.5" fill="${stateObj20.state === 'off' ? 'red' : 'transparent'}"/>
+            <circle id="grid" cx="31.3" cy="251.6" r="3.5" fill="${stateObj20.state === 'off' || stateObj20.state === 0 ? 'red' : 'transparent'}"/>
             
             <path id="pv1-line" d="M 189 84.5 L 189 122.03 Q 189 132.03 197 132.03 L 205 132.03" class="${config.show_solar === 'no' ? 'st12' : ''}" fill="none" stroke="#ff9933" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="pv1-dot" cx="0" cy="0" r="3" class="${config.show_solar === 'no' ? 'st12' : ''}" fill="${stateObj9.state === '0' ? 'transparent' : '#ff9933'}">
