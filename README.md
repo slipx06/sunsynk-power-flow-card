@@ -17,6 +17,7 @@ An animated Home Assistant card to emulate the Sunsynk power flow that's shown o
 * We all like a little colour. Modify the inverter colour
 
 ## Screenshots
+Note that the inverter image was changed after version 1.0.5 to create a more unified look and feel. I need to update the screenshots
 
 ![image](https://user-images.githubusercontent.com/7227275/235432195-08f35c72-fa6f-4a31-af80-dcfa7657a14c.png)
 ![sunsynk-power-flow-card_lite](https://user-images.githubusercontent.com/7227275/235974796-1b81c492-d06a-4542-bbd4-d074d24ddbae.gif)
