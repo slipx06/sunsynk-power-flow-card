@@ -71,7 +71,8 @@ The card requires that all of these attributes be defined.
 |battery_shutdown_soc: | `20` |The battery shutdown percentage used to calculate remaining runtime |
 |show_solar:| `yes` | Toggle display of solar information `yes/no`|
 |panel_mode:| `no` | Toggles panel mode removing any card height restrictions. For use with Panel(1 card) view types or grid layouts|
-|inverter_colour| `'#959595'`| Changes the colour of the inverter. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
+|inverter_colour:| `'#959595'`| Changes the colour of the inverter. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
+|invert_battery_power:| `no`|Set to `yes` if your sensor provides a positive number for battery charge and negative number for batter discharge|
 |entities:||List of sensor entities. See required [Entities](#entities) below|
 
 ### Entities
