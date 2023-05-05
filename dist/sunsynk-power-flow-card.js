@@ -154,6 +154,20 @@ class SunsynkPowerFlowCard extends LitElement {
       duration = "Charging";
     }
 
+      if (stateObj21.state === '0' || stateObj21.state === 'standby') {
+          inverterStateColour = 'blue'
+      } else if (stateObj21.state === '1' || stateObj21.state === 'selftest') {
+          inverterStateColour = 'yellow'
+      } else if (stateObj21.state === '2' || stateObj21.state === 'normal' || stateObj21.state === 'ok') {
+          inverterStateColour = 'green'
+      } else if (stateObj21.state === '3' || stateObj21.state === 'alarm') {
+          inverterStateColour = 'orange'
+      } else if (stateObj21.state === '4' || stateObj21.state === 'fault') {
+          inverterStateColour = 'red'
+      } else {
+          inverterStateColour = 'transparent'
+      }
+
     if (config.cardstyle === 'full') {
       return html`
         <div class="container card">
@@ -194,11 +208,7 @@ class SunsynkPowerFlowCard extends LitElement {
           <text x="90%" y="21.5%" class="st3 st6 st8">Auxiliary</text> 
           <text id="non_ess_power" x="74%" y="73.5%" class="st4 st7 st8">${nonessential ? nonessential : '0'} W</text>  
           <text x="74%" y="98.5%" class="st3 st7 st8"> Non Essential</text>
-          <circle id="standby" cx="36%" cy="79.75%" r="3.5" fill="${stateObj21.state === '0' || stateObj21.state === 'standby' ? 'blue' : 'transparent'}"/>
-          <circle id="selftest" cx="36%" cy="79.75%" r="3.5" fill="${stateObj21.state === '1' || stateObj21.state === 'selftest' ? 'yellow' : 'transparent'}"/>
-          <circle id="normal" cx="36%" cy="79.75%" r="3.5" fill="${stateObj21.state === '2' || stateObj21.state === 'normal' ? 'green' : 'transparent'}"/>
-          <circle id="alarm" cx="36%" cy="79.75%" r="3.5" fill="${stateObj21.state === '3' || stateObj21.state === 'alarm' ? 'orange' : 'transparent'}"/>
-          <circle id="fault" cx="36%" cy="79.75%" r="3.5" fill="${stateObj21.state === '4' || stateObj21.state === 'fault' ? 'red' : 'transparent'}"/>
+          <circle id="standby" cx="36%" cy="79.75%" r="3.5" fill="${inverterStateColour}"/>
           <circle id="grid" cx="88.5%" cy="98.5%" r="3.5" fill="${stateObj20.state === 'off' || stateObj20.state === '0' ? 'red' : 'transparent'}"/>
           <rect x="51" y="112" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="#ff9933" pointer-events="all" class="${config.show_solar === 'no' ? 'st12' : ''}"/>
           <rect x="6" y="300.75" width="70" height="70" rx="10.5" ry="10.5" fill="none" stroke="#f3b1c9" pointer-events="all"/>
@@ -345,11 +355,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <text id="daily_load" x="83%" y="8.5%" class="${config.show_daily === 'no' ? 'st11' : 'st3 st6 left-align'}" >DAILY LOAD</text>
             <text id="inverter_out_175" x="45%" y="42.5%" class="st4 st8 st9">${stateObj22.state ? stateObj22.state : '0'} W</text>
             <text id="inverter_load_grid_169" x="69%" y="49.5%" class="st4 st7 st8">${stateObj23.state ? stateObj23.state : '0'} W</text>
-            <circle id="standby" cx="41%" cy="78.75%" r="3.5" fill="${stateObj21.state === '0' || stateObj21.state === 'standby' ? 'blue' : 'transparent'}"/>
-            <circle id="selftest" cx="41%" cy="78.75%" r="3.5" fill="${stateObj21.state === '1' || stateObj21.state === 'selftest' ? 'yellow' : 'transparent'}"/>
-            <circle id="normal" cx="41%" cy="78.75%" r="3.5" fill="${stateObj21.state === '2' || stateObj21.state === 'normal' ? 'green' : 'transparent'}"/>
-            <circle id="alarm" cx="41%" cy="78.75%" r="3.5" fill="${stateObj21.state === '3' || stateObj21.state === 'alarm' ? 'orange' : 'transparent'}"/>
-            <circle id="fault" cx="41%" cy="78.75%" r="3.5" fill="${stateObj21.state === '4' || stateObj21.state === 'fault' ? 'red' : 'transparent'}"/>
+            <circle id="standby" cx="41%" cy="78.75%" r="3.5" fill="${inverterStateColour}"/>
             <circle id="grid" cx="88%" cy="95.75%" r="3.5" fill="${stateObj20.state === 'off' || stateObj20.state === '0' ? 'red' : 'transparent'}"/>
             <path id="pv1-line" d="M 35 84 L 35.02 117 Q 35.03 127 43.02 127 L 51 127" class="${config.show_solar === 'no' ? 'st12' : ''}" fill="none" stroke="#ff9933" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="pv1-dot" cx="0" cy="0" r="3" class="${config.show_solar === 'no' ? 'st12' : ''}" fill="${stateObj9.state === '0' ? 'transparent' : '#ff9933'}">
@@ -477,11 +483,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <text id="priority_text_batt"x="287" y="273" class="${stateObj25.state === 'off' && config.entities.priority_load_243 !== 'no' ? 'st3 st9 left-align' : 'st12'}">Priority Batt</text>
             <text id="priority_text_load"x="287" y="273" class="${stateObj25.state === 'on' && config.entities.priority_load_243 !== 'no' ? 'st3 st9 left-align' : 'st12'}">Priority Load</text>
             
-            <circle id="standby" cx="220" cy="260" r="3.5" fill="${stateObj21.state === '0' || stateObj21.state === 'standby' ? 'blue' : 'transparent'}"/>
-            <circle id="selftest" cx="220" cy="260" r="3.5" fill="${stateObj21.state === '1' || stateObj21.state === 'selftest' ? 'yellow' : 'transparent'}"/>
-            <circle id="normal" cx="220" cy="260" r="3.5" fill="${stateObj21.state === '2' || stateObj21.state === 'normal' ? 'green' : 'transparent'}"/>
-            <circle id="alarm" cx="220" cy="260" r="3.5" fill="${stateObj21.state === '3' || stateObj21.state === 'alarm' ? 'orange' : 'transparent'}"/>
-            <circle id="fault" cx="220" cy="260" r="3.5" fill="${stateObj21.state === '4' || stateObj21.state === 'fault' ? 'red' : 'transparent'}"/>
+            <circle id="standby" cx="220" cy="260" r="3.5" fill="${inverterStateColour}"/>
             <circle id="grid" cx="31.3" cy="251.6" r="3.5" fill="${stateObj20.state === 'off' || stateObj20.state === '0' ? 'red' : 'transparent'}"/>
             
             <path id="pv1-line" d="M 189 84.5 L 189 122.03 Q 189 132.03 197 132.03 L 205 132.03" class="${config.show_solar === 'no' ? 'st12' : ''}" fill="none" stroke="#ff9933" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
