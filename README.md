@@ -116,3 +116,45 @@ The card calculates the sensors below based on supplied attributes in the config
 The modbus registers can be visualised on the `full` card below:
 
 ![image](https://user-images.githubusercontent.com/7227275/235479493-b322d5b2-f2b1-431f-9048-f845fc2989b4.png)
+
+
+### Example Card Configuration
+
+```
+type: custom:sunsynk-power-flow-card
+cardstyle: simple
+show_daily: 'yes'
+battery_energy: 5320
+battery_shutdown_soc: 20
+show_solar: 'yes'
+panel_mode: 'yes'
+inverter_colour: '#959595'
+entities:
+  use_timer_248: switch.toggle_system_timer
+  priority_load_243: swithc.toggle_priority_load
+  batdischargeday_71: sensor.day_battery_discharge
+  batchargeday_70: sensor.day_battery_charge
+  loadday_84: sensor.day_load_energy
+  gridday_76: sensor.day_grid_import
+  solarday_108: sensor.day_solar_pv_kwh
+  inverter_grid_voltage_154: sensor.inverter_voltage
+  inverter_load_freq_192: sensor.inverter_frequency
+  inverter_out_164: sensor.inverter_current
+  inverter_out_175: sensor.inverter_power
+  inverter_load_grid_169: sensor.grid_power
+  pv2_power_187: sensor.pv2_power
+  pv1_power_186: sensor.pv1_power
+  battery_voltage_183: sensor.battery_voltage
+  battery_soc_184: sensor.battery_soc
+  battery_out_190: sensor.battery_power
+  epower: sensor.essential_power
+  grid_external_power_172: sensor.grid_ct_power
+  pv1_v_109: sensor.dc1_voltage
+  pv1_i_110: sensor.dc1_current
+  pv2_v_111: sensor.dc2_voltage
+  pv2_i_112: sensor.dc2_current
+  grid_status_194: sensor.grid_connected_status
+  inverter_status_59: sensor.overall_state
+  aux_power_166: sensor.aux_output_power
+
+```
