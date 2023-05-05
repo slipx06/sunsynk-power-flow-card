@@ -71,6 +71,7 @@ class SunsynkPowerFlowCard extends LitElement {
       panel_mode: 'no',
       modern_inverter: 'yes',
       inverter_colour: '#959595',
+      invert_battery_power: 'no',
       entities: {
         use_timer_248: 'switch.toggle_system_timer',
         priority_load_243: 'switch.toggle_priority_load',
@@ -135,10 +136,16 @@ class SunsynkPowerFlowCard extends LitElement {
     const nonessential = (parseInt(stateObj15.state) - parseInt(stateObj23.state));
     const essential = (parseInt(stateObj22.state) - (parseInt(stateObj24.state) - parseInt(stateObj23.state)));
         
+    let battery_power = "";
+    if (config.invert_battery_power === 'yes'){
+        battery_power = (stateObj13.state * -1)
+    } else {
+        battery_power = stateObj13.state
+    }
 
     let duration = "";
-    if (stateObj13.state > 0 && config.battery_energy !== "hidden") {
-      let totalSeconds = ((((parseInt(stateObj12.state) - config.battery_shutdown_soc) / 100) * (config.battery_energy || 15960) ) / (stateObj13.state || 1)) * 60 * 60;
+    if (battery_power > 0 && config.battery_energy !== "hidden") {
+      let totalSeconds = ((((parseInt(stateObj12.state) - config.battery_shutdown_soc) / 100) * (config.battery_energy || 15960) ) / (battery_power || 1)) * 60 * 60;
       const days = Math.floor(totalSeconds / (60 * 60 * 24));
       const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
       const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
@@ -151,7 +158,7 @@ class SunsynkPowerFlowCard extends LitElement {
       duration += `${minutes} min`;
     }
     
-    if (stateObj13.state <= 0) {
+    if (battery_power <= 0) {
       duration = "BATTERY CHARGING";
     }
     
@@ -174,9 +181,9 @@ class SunsynkPowerFlowCard extends LitElement {
       return html`
         <div class="container card">
           <svg viewBox="-0.5 -0.5 457 383" height="${config.panel_mode === 'no' ? '396px' : '100%'}" width="100%" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
-          <text id="duration" x="34%" y="92%" class="${config.battery_energy === 'hidden' || stateObj13.state <= 0 ? 'st11' : 'st2 st4 left-align'}" >${duration}</text>
-          <text id="duration_text" x="34%" y="96%" class="${config.battery_energy === 'hidden' || stateObj13.state <= 0 ? 'st11' : 'st2 st3 left-align'}" >BATTERY RUNTIME</text>
-          <text id="duration_text_charging" x="34%" y="96%" class="${config.battery_energy === 'hidden' || stateObj13.state > 0 ? 'st11' : 'st2 st3 left-align'}" >${duration}</text>
+          <text id="duration" x="34%" y="92%" class="${config.battery_energy === 'hidden' || battery_power <= 0 ? 'st11' : 'st2 st4 left-align'}" >${duration}</text>
+          <text id="duration_text" x="34%" y="96%" class="${config.battery_energy === 'hidden' || battery_power <= 0 ? 'st11' : 'st2 st3 left-align'}" >BATTERY RUNTIME</text>
+          <text id="duration_text_charging" x="34%" y="96%" class="${config.battery_energy === 'hidden' || battery_power > 0 ? 'st11' : 'st2 st3 left-align'}" >${duration}</text>
           <text id="inverter_grid_voltage_154" x="59%" y="44.5%" class="st4 st7 st8" >${stateObj5.state ? stateObj5.state : '0'} V</text>
           <text id="inverter_load_freq_192" x="59%" y="49.5%" class="st4 st7 st8">${stateObj6.state ? stateObj6.state : '0'} Hz</text>
           <text id="inverter_out_164" x="39.5%" y="52%" class="st4 st8 st9">${stateObj7.state ? stateObj7.state : '0'} A</text>
@@ -187,7 +194,7 @@ class SunsynkPowerFlowCard extends LitElement {
           <text x="26%" y="25%" class="${config.show_solar === 'no' ? 'st12' : 'st1 st3 st8'}">PV2</text>
           <text id="battery_voltage_183" x="9%" y="83%" class="st2 st4 st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
           <text id="battery_soc_184" x="9%" y="87.5%" class="st2 st4 st8">${stateObj12.state ? stateObj12.state : '0'} %</text>
-          <text id="battery_out_190" x="9%" y="92%" class="st2 st4 st8">${stateObj13.state < '0' ? stateObj13.state *-1 : stateObj13.state} W</text>
+          <text id="battery_out_190" x="9%" y="92%" class="st2 st4 st8">${battery_power < '0' ? battery_power *-1 : battery_power} W</text>
           <text id="ess_power" x="59%" y="31%" class="st4 st6 st8">${essential ? essential : '0'} W</text>
           <text id="grid_external_power_172" x="92%" y="73.5%" class="st4 st7 st8">${stateObj15.state ? stateObj15.state : '0'} W</text>
           <text x="92%" y="98.5%" class="st3 st7 st8">Grid</text>
@@ -242,12 +249,12 @@ class SunsynkPowerFlowCard extends LitElement {
             </animateMotion>
           </circle>
           <path id="bat-line" d="M 155 280 L 102 280 Q 96 280 96 286 L 96 297" fill="none" stroke="#f3b1c9" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
-          <circle id="power-dot-charge" cx="0" cy="0" r="3" fill="${parseInt(stateObj13.state) < '0' ? 'transparent' : '#f3b1c9'}">
+          <circle id="power-dot-charge" cx="0" cy="0" r="3" fill="${parseInt(battery_power) < '0' ? 'transparent' : '#f3b1c9'}">
             <animateMotion dur="6s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
               <mpath xlink:href="#bat-line"/>
             </animateMotion>
           </circle>
-          <circle id="power-dot-discharge" cx="0" cy="0" r="3" fill="${parseInt(stateObj13.state) >= '0' ? 'transparent' : '#f3b1c9'}">
+          <circle id="power-dot-discharge" cx="0" cy="0" r="3" fill="${parseInt(battery_power) >= '0' ? 'transparent' : '#f3b1c9'}">
             <animateMotion dur="6s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
               <mpath xlink:href="#bat-line"/>
             </animateMotion>
@@ -327,9 +334,9 @@ class SunsynkPowerFlowCard extends LitElement {
           <svg viewBox="-0.5 -0.5 456 380" height="${config.panel_mode === 'no' ? '396px' : '100%'}" width="100%" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
             <text id="inverter_grid_voltage_154" x="69%" y="40%" class="st4 st7 st8" >${stateObj5.state ? stateObj5.state : '0'} V</text>
             <text id="inverter_load_freq_192" x="69%" y="45%" class="st4 st7 st8">${stateObj6.state ? stateObj6.state : '0'} Hz</text>
-            <text id="duration" x="34%" y="91%" class="${config.battery_energy === 'hidden' || stateObj13.state <= 0 ? 'st11' : 'st2 st4 left-align'}" >${duration}</text>
-            <text id="duration_text" x="34%" y="95%" class="${config.battery_energy === 'hidden' || stateObj13.state <= 0 ? 'st11' : 'st2 st3 left-align'}" >BATTERY RUNTIME</text>  
-            <text id="duration_text_charging" x="34%" y="95%" class="${config.battery_energy === 'hidden' || stateObj13.state > 0 ? 'st11' : 'st2 st3 left-align'}" >${duration}</text>  
+            <text id="duration" x="34%" y="91%" class="${config.battery_energy === 'hidden' || battery_power <= 0 ? 'st11' : 'st2 st4 left-align'}" >${duration}</text>
+            <text id="duration_text" x="34%" y="95%" class="${config.battery_energy === 'hidden' || battery_power <= 0 ? 'st11' : 'st2 st3 left-align'}" >BATTERY RUNTIME</text>  
+            <text id="duration_text_charging" x="34%" y="95%" class="${config.battery_energy === 'hidden' || battery_power > 0 ? 'st11' : 'st2 st3 left-align'}" >${duration}</text>  
             <text id="inverter_out_164" x="45%" y="47.5%" class="st4 st8 st9">${stateObj7.state ? stateObj7.state : '0'} A</text>
             <text id="pv2_power_187" x="30%" y="18.5%" class="${config.show_solar === 'no' ? 'st12' : 'st1 st4 st8'}">${stateObj8.state ? stateObj8.state : '0'} W</text>
             <text id="pv1_power_186" x="8%" y="18.5%" class="${config.show_solar === 'no' ? 'st12' : 'st1 st4 st8'}">${stateObj9.state ? stateObj9.state : '0'} W</text>
@@ -338,7 +345,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <text x="26%" y="25%" class="${config.show_solar === 'no' ? 'st12' : 'st1 st3 st8'}">PV2</text>
             <text id="battery_voltage_183" x="8%" y="81.5%" class="st2 st4 st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
             <text id="battery_soc_184" x="8%" y="86.5%" class="st2 st4 st8">${stateObj12.state ? stateObj12.state : '0'} %</text>
-            <text id="battery_out_190" x="8%" y="92%" class="st2 st4 st8">${stateObj13.state < '0' ? stateObj13.state *-1 : stateObj13.state} W</text>
+            <text id="battery_out_190" x="8%" y="92%" class="st2 st4 st8">${battery_power < '0' ? battery_power *-1 : battery_power} W</text>
             <text id="ess_power" x="68.5%" y="18.5%" class="st4 st6 st8">${stateObj14.state ? stateObj14.state : '0'} W</text>
             <text id="grid_external_power_172" x="91.5%" y="68.5%" class="st4 st7 st8">${stateObj15.state ? stateObj15.state : '0'} W</text>
             <text x="91.5%" y="96%" class="st3 st7 st8">Grid</text>
@@ -383,12 +390,12 @@ class SunsynkPowerFlowCard extends LitElement {
             <rect x="101" y="54" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="#ff9933" pointer-events="all" class="${config.show_solar === 'no' ? 'st12' : ''}"/>
             <rect x="0" y="295" width="70" height="70" rx="10.5" ry="10.5" fill="none" stroke="#f3b1c9" pointer-events="all"/>
             <path id="bat-line" d="M 179 275 L 105 275 Q 95 275 95 285 L 95.03 290" fill="none" stroke="#f3b1c9" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
-            <circle id="power-dot-charge" cx="0" cy="0" r="3" fill="${parseInt(stateObj13.state) < '0' ? 'transparent' : '#f3b1c9'}">
+            <circle id="power-dot-charge" cx="0" cy="0" r="3" fill="${parseInt(battery_power) < '0' ? 'transparent' : '#f3b1c9'}">
               <animateMotion dur="6s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#bat-line"/>
               </animateMotion>
             </circle>
-            <circle id="power-dot-discharge" cx="0" cy="0" r="3" fill="${parseInt(stateObj13.state) >= '0' ? 'transparent' : '#f3b1c9'}">
+            <circle id="power-dot-discharge" cx="0" cy="0" r="3" fill="${parseInt(battery_power) >= '0' ? 'transparent' : '#f3b1c9'}">
               <animateMotion dur="6s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#bat-line"/>
               </animateMotion>
@@ -457,9 +464,9 @@ class SunsynkPowerFlowCard extends LitElement {
           <svg viewBox="-0.5 ${config.show_solar === 'no' ? 145.33 : -0.5} 483 ${config.show_solar === 'no' ? 270.67 : 406}" height="${config.panel_mode === 'no' ? `${config.show_solar === 'no' ? '246px' : '396px'}` : `${config.show_solar === 'no' ? '75%' : '100%'}`}" width="100%"  xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
             <text id="daily_bat_charge_value" x="77.2" y="344.6" class="${config.show_daily === 'no' ? 'st11' : 'st10 st2 left-align'}" >${stateObj1.state ? stateObj1.state : '0'} kWh</text>
             <text id="daily_bat_charge" x="77.2" y="357.2" class="${config.show_daily === 'no' ? 'st11' : 'st3 st2 left-align'}" >DAILY CHARGE</text>
-            <text id="duration" x="318.4" y="377.5" class="${config.battery_energy === 'hidden' || stateObj13.state <= 0 ? 'st11' : 'st2 st4 left-align'}" >${duration}</text>
-            <text id="duration_text" x="318.4" y="393.7" class="${config.battery_energy === 'hidden' || stateObj13.state <= 0 ? 'st11' : 'st2 st3 left-align'}" >BATTERY RUNTIME</text>
-            <text id="duration_text_charging" x="318.4" y="393.7" class="${config.battery_energy === 'hidden' || stateObj13.state > 0 ? 'st11' : 'st2 st3 left-align'}" >${duration}</text>
+            <text id="duration" x="318.4" y="377.5" class="${config.battery_energy === 'hidden' || battery_power <= 0 ? 'st11' : 'st2 st4 left-align'}" >${duration}</text>
+            <text id="duration_text" x="318.4" y="393.7" class="${config.battery_energy === 'hidden' || battery_power <= 0 ? 'st11' : 'st2 st3 left-align'}" >BATTERY RUNTIME</text>
+            <text id="duration_text_charging" x="318.4" y="393.7" class="${config.battery_energy === 'hidden' || battery_power > 0 ? 'st11' : 'st2 st3 left-align'}" >${duration}</text>
             <text id="daily_bat_discharge_value" x="77.2" y="380.1" class="${config.show_daily === 'no' ? 'st11' : 'st10 st2 left-align'}" >${stateObj.state ? stateObj.state : '0'} kWh</text>
             <text id="daily_bat_charge" x="77.2" y="393.7" class="${config.show_daily === 'no' ? 'st11' : 'st3 st2 left-align'}" >DAILY DISCHARGE</text>
             <text id="daily_load_value" x="400.4" y="267.9" class="${config.show_daily === 'no' ? 'st11' : 'st10 st6 left-align'}" >${stateObj2.state ? stateObj2.state : '0'} kWh</text>
@@ -478,7 +485,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <text x="272.6" y="93.3" class="${config.show_solar === 'no' ? 'st12' : 'st1 st3 st8'}">PV2</text>
             <text id="battery_voltage_183" x="193" y="345" class="st2 st4 st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
             <text id="battery_soc_184" x="193" y="365.3" class="st2 st4 st8">${stateObj12.state ? stateObj12.state : '0'} %</text>
-            <text id="battery_out_190" x="193" y="385.6" class="st2 st4 st8">${stateObj13.state < '0' ? stateObj13.state *-1 : stateObj13.state} W</text>
+            <text id="battery_out_190" x="193" y="385.6" class="st2 st4 st8">${battery_power < '0' ? battery_power *-1 : battery_power} W</text>
             <text id="ess_power" x="340.1" y="219.2" class="st4 st6 st8">${stateObj14.state ? stateObj14.state : '0'} W</text>
             <text id="grid_external_power_172" x="135.1" y="219.2" class="st4 st7 st8">${stateObj15.state ? stateObj15.state : '0'} W</text>
             <text id="pv1_v" x="120.6" y="64.9" class="${config.show_solar === 'no' ? 'st12' : 'st3 st1 left-align'}" >${stateObj16.state ? stateObj16.state : '0'} V</text>
@@ -507,12 +514,12 @@ class SunsynkPowerFlowCard extends LitElement {
             </circle>
             <rect x="205" y="116.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="#ff9933" pointer-events="all" class="${config.show_solar === 'no' ? 'st12' : ''}"/>
             <path id="bat-line" d="M 239.23 250 L 239.21 288.03 Q 239.21 298.03 239.1 308.02 L 239 324" fill="none" stroke="#f3b1c9" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
-            <circle id="power-dot-charge" cx="0" cy="0" r="3" fill="${parseInt(stateObj13.state) < '0' ? 'transparent' : '#f3b1c9'}">
+            <circle id="power-dot-charge" cx="0" cy="0" r="3" fill="${parseInt(battery_power) < '0' ? 'transparent' : '#f3b1c9'}">
               <animateMotion dur="6s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#bat-line"/>
               </animateMotion>
             </circle>
-            <circle id="power-dot-discharge" cx="0" cy="0" r="3" fill="${parseInt(stateObj13.state) >= '0' ? 'transparent' : '#f3b1c9'}">
+            <circle id="power-dot-discharge" cx="0" cy="0" r="3" fill="${parseInt(battery_power) >= '0' ? 'transparent' : '#f3b1c9'}">
               <animateMotion dur="6s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#bat-line"/>
               </animateMotion>
@@ -601,6 +608,9 @@ class SunsynkPowerFlowCard extends LitElement {
     }
     if (!config.modern_inverter) {
       throw new Error('Please include the modern_inverter attribute and value e.g. modern_inverter: yes');
+    }
+    if (!config.invert_battery_power) {
+      throw new Error('Please include the invert_battery_power attribute and value e.g. invert_battery_power: no');
     }
 
     const attributes = [
