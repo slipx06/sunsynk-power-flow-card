@@ -600,7 +600,7 @@ class SunsynkPowerFlowCard extends LitElement {
       throw new Error('Please include the inverter_colour attribute and value e.g. inverter_colour: red');
     }
     if (!config.modern_inverter) {
-      throw new Error('Please include the imodern_inverter attribute and value e.g. modern_inverter: yes');
+      throw new Error('Please include the modern_inverter attribute and value e.g. modern_inverter: yes');
     }
 
     const attributes = [
