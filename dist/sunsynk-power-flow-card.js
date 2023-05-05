@@ -154,19 +154,19 @@ class SunsynkPowerFlowCard extends LitElement {
       duration = "Charging";
     }
 
-      if (stateObj21.state === '0' || stateObj21.state === 'standby') {
-          inverterStateColour = 'blue'
-      } else if (stateObj21.state === '1' || stateObj21.state === 'selftest') {
-          inverterStateColour = 'yellow'
-      } else if (stateObj21.state === '2' || stateObj21.state === 'normal' || stateObj21.state === 'ok') {
-          inverterStateColour = 'green'
-      } else if (stateObj21.state === '3' || stateObj21.state === 'alarm') {
-          inverterStateColour = 'orange'
-      } else if (stateObj21.state === '4' || stateObj21.state === 'fault') {
-          inverterStateColour = 'red'
-      } else {
-          inverterStateColour = 'transparent'
-      }
+    if (stateObj21.state === '0' || stateObj21.state === 'standby') {
+        inverterStateColour = 'blue'
+    } else if (stateObj21.state === '1' || stateObj21.state === 'selftest') {
+        inverterStateColour = 'yellow'
+    } else if (stateObj21.state === '2' || stateObj21.state === 'normal' || stateObj21.state === 'ok') {
+        inverterStateColour = 'green'
+    } else if (stateObj21.state === '3' || stateObj21.state === 'alarm') {
+        inverterStateColour = 'orange'
+    } else if (stateObj21.state === '4' || stateObj21.state === 'fault') {
+        inverterStateColour = 'red'
+    } else {
+        inverterStateColour = 'transparent'
+    }
 
     if (config.cardstyle === 'full') {
       return html`
