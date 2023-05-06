@@ -84,6 +84,7 @@ class SunsynkPowerFlowCard extends LitElement {
       load: {
         colour: '#5fb6ad',
         show_daily: 'yes',
+        show_aux: 'yes',
       },
       grid:{
         colour: '#5490c2',
@@ -231,8 +232,8 @@ class SunsynkPowerFlowCard extends LitElement {
           <text id="daily_grid" x="77%" y="63%" class="st3 left-align" fill="${config.grid.show_daily === 'no' ? 'transparent' : `${config.grid.colour}`}" >DAILY GRID</text>
           <text id="inverter_out_175" x="39.5%" y="46.5%" class="st4 st8" fill="${config.inverter.colour}">${stateObj22.state ? stateObj22.state : '0'} W</text>
           <text id="inverter_load_grid_169" x="59%" y="54.5%" class="st4 st8" fill="${config.grid.colour}">${stateObj23.state ? stateObj23.state : '0'} W</text>
-          <text id="aux_power_166" x="59%" y="12.5%" class="st4 st8" fill="${config.load.colour}">${stateObj24.state ? stateObj24.state : '0'} W</text> 
-          <text x="90%" y="21.5%" class="st3 st8" fill="${config.load.colour}">Auxiliary</text> 
+          <text id="aux_power_166" x="59%" y="12.5%" class="st4 st8" display="${config.load.show_aux === 'no' ? 'none' : ''}" fill="${config.load.colour}">${stateObj24.state ? stateObj24.state : '0'} W</text> 
+          <text x="90%" y="21.5%" class="st3 st8" display="${config.load.show_aux === 'no' ? 'none' : ''}" fill="${config.load.colour}">Auxiliary</text> 
           <text id="non_ess_power" x="74%" y="73.5%" class="st4 st8" fill="${config.grid.colour}">${nonessential ? nonessential : '0'} W</text>  
           <text x="74%" y="98.5%" class="st3 st8" fill="${config.grid.colour}"> Non Essential</text>
           <circle id="standby" cx="36%" cy="79.75%" r="3.5" fill="${inverterStateColour}"/>
@@ -241,7 +242,7 @@ class SunsynkPowerFlowCard extends LitElement {
           <rect x="6" y="300.75" width="70" height="70" rx="10.5" ry="10.5" fill="none" stroke="${config.battery.colour}" pointer-events="all"/>
           <rect x="234" y="153" width="70" height="70" rx="10.5" ry="10.5" fill="none" stroke="${config.grid.colour}" pointer-events="all"/>
           <rect x="386" y="265" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${config.grid.colour}" pointer-events="all"/>
-          <rect x="237" y="32" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${config.load.colour}" pointer-events="all"/>
+          <rect x="237" y="32" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${config.load.colour}" pointer-events="all" class="${config.load.show_aux === 'no' ? 'st12' : ''}"/>
           <rect x="236" y="103" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${config.load.colour}" pointer-events="all"/>
           <rect x="145.15" y="162" width="70" height="50" rx="7.5" ry="7.5" fill="none" stroke="${config.inverter.colour}" pointer-events="all"/>
           <rect x="0" y="54" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${config.solar.colour}" pointer-events="all" class="${config.solar.show_solar === 'no' ? 'st12' : ''}"/>
@@ -302,13 +303,13 @@ class SunsynkPowerFlowCard extends LitElement {
           </animateMotion>
           </circle> 
           
-          <path id="aux-line" d="M 307 47 L 371.5 47" fill="none" stroke="${config.load.colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
-          <circle id="aux-dot" cx="0" cy="0" r="3" fill="${stateObj24.state <= '0' ? 'transparent' : `${config.load.colour}`}">
+          <path id="aux-line" d="M 307 47 L 371.5 47" fill="none" class="${config.load.show_aux === 'no' ? 'st12' : ''}" stroke="${config.load.colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
+          <circle id="aux-dot" cx="0" cy="0" r="3" class="${config.load.show_aux === 'no' ? 'st12' : ''}" fill="${stateObj24.state <= '0' ? 'transparent' : `${config.load.colour}`}">
             <animateMotion dur="4s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
               <mpath xlink:href="#aux-line"/>
             </animateMotion>
           </circle>
-          <path id="aux-line2" d="M 200 162 L 200 57 Q 200 47 210 47 L 237 47" fill="none" stroke="${config.load.colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
+          <path id="aux-line2" d="M 200 162 L 200 57 Q 200 47 210 47 L 237 47" fill="none" class="${config.load.show_aux === 'no' ? 'st12' : ''}" stroke="${config.load.colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
           <path d="M 215.15 187 L 224.58 187 Q 234 187 234 187.5 L 234 188" fill="none" stroke="${config.grid.colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
           <path d="M 180.15 212 L 180.15 235" fill="none" stroke="${config.inverter.colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
           <path id="es-line2" d="M 306 118 L 330 118 Q 340 118 350 117.85 L 374 117.5" fill="none" stroke="${config.load.colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
@@ -332,7 +333,7 @@ class SunsynkPowerFlowCard extends LitElement {
           <svg xmlns="http://www.w3.org/2000/svg" id="nonesssvg" x="300.5" y="305.5" width="76" height="76" viewBox="0 0 24 24"><path fill="${config.grid.colour}" d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8h5Z"/></svg>
 
           <svg xmlns="http://www.w3.org/2000/svg" id="essen" x="373.5" y="78.5" width="77" height="77" viewBox="0 0 24 24"><path fill="${config.load.colour}" d="M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z"/></svg>
-          <svg xmlns="http://www.w3.org/2000/svg" is="auxsvg" x="371" y="5" width="83" height="83" viewBox="0 0 24 24"><path fill="${config.load.colour}" d="M5 20v-8H2l10-9l10 9h-3v8H5m7-14.31l-5 4.5V18h10v-7.81l-5-4.5M11.5 18v-4H9l3.5-7v4H15l-3.5 7Z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" is="auxsvg" x="371" y="5" width="83" height="83" viewBox="0 0 24 24"><path class="${config.load.show_aux === 'no' ? 'st12' : ''}" fill="${config.load.colour}" d="M5 20v-8H2l10-9l10 9h-3v8H5m7-14.31l-5 4.5V18h10v-7.81l-5-4.5M11.5 18v-4H9l3.5-7v4H15l-3.5 7Z"/></svg>
           
           
           <svg xmlns="http://www.w3.org/2000/svg" id="timer" x="46%" y="65%" width="18" height="18" viewBox="0 0 24 24"><path display="${stateObj26.state == 'on' && config.entities.use_timer_248 !== 'no' ? '' : 'none'}" fill="${config.inverter.colour}" d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0 0 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9a8.994 8.994 0 0 0 7.03-14.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7s7 3.13 7 7s-3.13 7-7 7z"/></svg>
