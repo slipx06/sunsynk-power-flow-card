@@ -62,7 +62,6 @@ The card requires that all of these attributes be defined.
 |type: | `custom:sunsynk-power-flow-card` | The custom card |
 |cardstyle: | `lite` | Selects the card layout that is used  `lite, simple, full` |
 |panel_mode:| `no` | Toggles panel mode removing any card height restrictions. For use with Panel(1 card) view types or grid layouts|
-|show_daily: | `yes` | Toggles the Daily Totals `yes/no` |
 |inverter: |  | List of inverter attributes. See required [Inverter](#inverter) attributes below |
 |battery: |  | List of battery attributes. See required [Battery](#battery) attributes below |
 |solar: |  | List of solar attributes. See required [Solar](#solar) attributes below |
@@ -87,7 +86,8 @@ Requires the folowing:
 |energy: | `15960` | Total Battery Energy in Wh (e.g. 3 x 5.32kWh = 15960). If set to `hidden` the remaining battery runtime will be hidden|
 |shutdown_soc: | `20` |The battery shutdown percentage used to calculate remaining runtime |
 |invert_power:| `no`|Set to `yes` if your sensor provides a positive number for battery charge and negative number for batter discharge|
-|colour:| `pink`| Changes the colour of al the battery card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
+|colour:| `pink`| Changes the colour of all the battery card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
+|show_daily: | `yes` | Toggles the Daily Total `yes/no` |
 
 ### Solar
 Requires the folowing:
@@ -95,14 +95,18 @@ Requires the folowing:
 | Attribute | Default | Description |
 | --- | --- | --- |
 |show_solar:| `yes` | Toggle display of solar information `yes/no`|
-|colour:| `orange`| Changes the colour of al the solar card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
+|colour:| `orange`| Changes the colour of all the solar card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
+|show_daily: | `yes` | Toggles the Daily Total `yes/no` |
 
 ### Load
 Requires the folowing:
 
 | Attribute | Default | Description |
 | --- | --- | --- |
-|colour:| `'#5fb6ad'`| Changes the colour of al the load card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
+|colour:| `'#5fb6ad'`| Changes the colour of all the load card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
+|show_daily: | `yes` | Toggles the Daily Total `yes/no` |
+|show_aux: | `yes` | Toggles the diaplay of Aux `yes/no` |
+
 
 ### Grid
 Requires the folowing:
@@ -110,6 +114,7 @@ Requires the folowing:
 | Attribute | Default | Description |
 | --- | --- | --- |
 |colour:| `'#5490c2'`| Changes the colour of all the grid card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
+|show_daily: | `yes` | Toggles the Daily Total `yes/no` |
 
 ### Entities
 Entity attributes below have been appended with the modbus register # e.g. `pv2_power_187` to indicate which Sunsynk register should be read when configuring your sensors. Replace the default sensors with your own specific sensor names. It is important that your sensors read the expected modbus register value. If you have missing sensors for any attribute set it to none i.e. `solarday_108: none` and it will use a default value of 0.
@@ -170,13 +175,18 @@ battery:
   shutdown_soc: 20
   invert_power: 'no'
   colour: pink
+  show_daily: 'yes'
 solar:
   show_solar: 'yes'
   colour: orange
+  show_daily: 'yes'
 load:
   colour: '#5fb6ad'
+  show_daily: 'yes'
+  show_aux: 'yes'
 grid:
   colour: '#5490c2'
+  show_daily: 'yes'
 entities:
   use_timer_248: switch.toggle_system_timer
   priority_load_243: switch.toggle_priority_load
