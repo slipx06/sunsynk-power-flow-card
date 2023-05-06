@@ -164,7 +164,7 @@ panel_mode: 'yes'
 show_daily: 'yes'
 inverter:
   modern: 'yes'
-  colour: '#959595'
+  colour: 'grey'
 battery:
   energy: 15960
   shutdown_soc: 20
