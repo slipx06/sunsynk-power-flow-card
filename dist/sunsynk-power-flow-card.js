@@ -208,8 +208,8 @@ class SunsynkPowerFlowCard extends LitElement {
           <text id="pv2_power_187" x="30%" y="18.5%" class="st4 st8" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}">${stateObj8.state ? stateObj8.state : '0'} W</text>
           <text id="pv1_power_186" x="8%" y="18.5%" class="st4 st8" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}">${stateObj9.state ? stateObj9.state : '0'} W</text>
           <text id="pvtotal_power" x="19%" y="33.5%" class="st4 st8" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}">${totalsolar ? totalsolar : '0'} W</text>
-          <text x="4%" y="25%" class="st3 st8" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}">PV1</text>
-          <text x="26%" y="25%" class="st3 st8" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}">PV2</text>
+          <text x="2%" y="24.5%" class="st3 st8" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}">PV1</text>
+          <text x="24%" y="24.5%" class="st3 st8" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}">PV2</text>
           <text id="battery_voltage_183" x="9%" y="83%" fill=${config.battery.colour} class="st4 st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
           <text id="battery_soc_184" x="9%" y="87.5%" fill=${config.battery.colour} class=" st4 st8">${stateObj12.state ? stateObj12.state : '0'} %</text>
           <text id="battery_out_190" x="9%" y="92%" fill=${config.battery.colour} class="st4 st8">${battery_power < '0' ? battery_power *-1 : battery_power} W</text>
@@ -220,10 +220,10 @@ class SunsynkPowerFlowCard extends LitElement {
           <text x="90%" y="41%" class="st3 st8" fill="${config.load.colour}">Essential</text>
           <text id="daily_solar_value" x="85" y="5%" class="st10 left-align" fill="${config.solar.show_daily === 'no' || config.solar.show_solar === 'no' ? 'transparent' : `${config.solar.colour}`}" >${stateObj4.state ? stateObj4.state : '0'} kWh</text>
           <text id="daily_solar" x="85" y="8.5%" class="st3 left-align" fill="${config.solar.show_daily === 'no' || config.solar.show_solar === 'no' ? 'transparent' : `${config.solar.colour}`}" >DAILY SOLAR</text>
-          <text id="pv1_v" x="15.75%" y="17%" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj16.state ? stateObj16.state : '0'} V</text>
-          <text id="pv1_i" x="15.75%" y="20%" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj17.state ? stateObj17.state : '0'} A</text>
-          <text id="pv2_v" x="37.75%" y="17%" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj18.state ? stateObj18.state : '0'} V</text>
-          <text id="pv2_i" x="37.75%" y="20%" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj19.state ? stateObj19.state : '0'} A</text>
+          <text id="pv1_v" x="9%" y="24.5%" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj16.state ? stateObj16.state : '0'} V</text>
+          <text id="pv1_i" x="9%" y="27.5%" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj17.state ? stateObj17.state : '0'} A</text>
+          <text id="pv2_v" x="31%" y="24.5%" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj18.state ? stateObj18.state : '0'} V</text>
+          <text id="pv2_i" x="31%" y="27.5%" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj19.state ? stateObj19.state : '0'} A</text>
           <text id="daily_bat_charge_value" x="1%" y="62%" class= "st10 left-align" fill="${config.battery.show_daily === 'no' ? 'transparent' : `${config.battery.colour}`}" >${stateObj1.state ? stateObj1.state : '0'} kWh</text>
           <text id="daily_bat_charge" x="1%" y="65.5%" class="st3 left-align"  fill="${config.battery.show_daily === 'no' ? 'transparent' : `${config.battery.colour}`}" >DAILY CHARGE</text>
           <text id="daily_bat_discharge_value" x="1%" y="70.75%" class="st10 left-align" fill="${config.battery.show_daily === 'no' ? 'transparent' : `${config.battery.colour}`}" >${stateObj.state ? stateObj.state : '0'} kWh</text>
@@ -364,8 +364,8 @@ class SunsynkPowerFlowCard extends LitElement {
             <text id="pv2_power_187" x="30%" y="18.5%" class="st4 st8" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}">${stateObj8.state ? stateObj8.state : '0'} W</text>
             <text id="pv1_power_186" x="8%" y="18.5%" class="st4 st8" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}">${stateObj9.state ? stateObj9.state : '0'} W</text>
             <text id="pvtotal_power" x="19%" y="33.5%" class="st4 st8" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}">${totalsolar ? totalsolar : '0'} W</text>
-            <text x="4%" y="25%" class="st3 st8" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}">PV1</text>
-            <text x="26%" y="25%" class="st3 st8" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}">PV2</text>
+            <text x="2%" y="24.5%" class="st3 st8" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}">PV1</text>
+            <text x="24%" y="24.5%" class="st3 st8" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}">PV2</text>
             <text id="battery_voltage_183" x="8%" y="81.5%" fill=${config.battery.colour} class="st4 st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
             <text id="battery_soc_184" x="8%" y="86.5%" fill=${config.battery.colour} class="st4 st8"">${stateObj12.state ? stateObj12.state : '0'} %</text>
             <text id="battery_out_190" x="8%" y="92%" fill=${config.battery.colour} class="st4 st8">${battery_power < '0' ? battery_power *-1 : battery_power} W</text>
@@ -376,10 +376,10 @@ class SunsynkPowerFlowCard extends LitElement {
             <text x="92%" y="29%" class="st3 st8" fill="${config.load.colour}">Essential</text>
             <text id="daily_solar_value" x="85" y="5%" class="st10 left-align" fill="${config.solar.show_daily === 'no' || config.solar.show_solar === 'no' ? 'transparent' : `${config.solar.colour}`}" >${stateObj4.state ? stateObj4.state : '0'} kWh</text>
             <text id="daily_solar" x="85" y="8.5%" class="st3 left-align" fill="${config.solar.show_daily === 'no' || config.solar.show_solar === 'no' ? 'transparent' : `${config.solar.colour}`}" >DAILY SOLAR</text>
-            <text id="pv1_v" x="16.5%" y="17%" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj16.state ? stateObj16.state : '0'} V</text>
-            <text id="pv1_i" x="16.5%" y="20%" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj17.state ? stateObj17.state : '0'} A</text>
-            <text id="pv2_v" x="38.5%" y="17%" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj18.state ? stateObj18.state : '0'} V</text>
-            <text id="pv2_i" x="38.5%" y="20%" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj19.state ? stateObj19.state : '0'} A</text>
+            <text id="pv1_v" x="9%" y="24.5%" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj16.state ? stateObj16.state : '0'} V</text>
+            <text id="pv1_i" x="9%" y="27.5%" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj17.state ? stateObj17.state : '0'} A</text>
+            <text id="pv2_v" x="31%" y="24.5%" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj18.state ? stateObj18.state : '0'} V</text>
+            <text id="pv2_i" x="31%" y="27.5%" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj19.state ? stateObj19.state : '0'} A</text>
             <text id="daily_bat_charge_value" x="1%" y="61%" class= "st10 left-align" fill="${config.battery.show_daily === 'no' ? 'transparent' : `${config.battery.colour}`}" >${stateObj1.state ? stateObj1.state : '0'} kWh</text>
             <text id="daily_bat_charge" x="1%" y="64.5%" class="st3 left-align"  fill="${config.battery.show_daily === 'no' ? 'transparent' : `${config.battery.colour}`}"  >DAILY CHARGE</text>
             <text id="daily_bat_discharge_value" x="1%" y="69.75%" class="st10 left-align" fill="${config.battery.show_daily === 'no' ? 'transparent' : `${config.battery.colour}`}" >${stateObj.state ? stateObj.state : '0'} kWh</text>
@@ -505,17 +505,17 @@ class SunsynkPowerFlowCard extends LitElement {
             <text id="pv2_power_187" x="289.5" y="71" class="st4 st8" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}">${stateObj8.state ? stateObj8.state : '0'} W</text>
             <text id="pv1_power_186" x="188.1" y="71" class="st4 st8" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}">${stateObj9.state ? stateObj9.state : '0'} W</text>
             <text id="pvtotal_power" x="238.8" y="133.9" class="st4 st8" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}">${totalsolar ? totalsolar : '0'} W</text>
-            <text x="173.7" y="93.3" class="st3 st8" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}">PV1</text>
-            <text x="272.6" y="93.3" class="st3 st8" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}">PV2</text>
+            <text x="162" y="94" class="st3 st8" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}">PV1</text>
+            <text x="264" y="94" class="st3 st8" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}">PV2</text>
             <text id="battery_voltage_183" x="193" y="345" fill=${config.battery.colour} class="st4 st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
             <text id="battery_soc_184" x="193" y="365.3" fill=${config.battery.colour} class="st4 st8">${stateObj12.state ? stateObj12.state : '0'} %</text>
             <text id="battery_out_190" x="193" y="385.6" fill=${config.battery.colour} class="st4 st8">${battery_power < '0' ? battery_power *-1 : battery_power} W</text>
             <text id="ess_power" x="340.1" y="219.2" class="st4 st8" fill="${config.load.colour}">${stateObj14.state ? stateObj14.state : '0'} W</text>
             <text id="grid_external_power_172" x="135.1" y="219.2" class="st4 st8" fill="${config.grid.colour}">${stateObj15.state ? stateObj15.state : '0'} W</text>
-            <text id="pv1_v" x="120.6" y="64.9" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj16.state ? stateObj16.state : '0'} V</text>
-            <text id="pv1_i" x="120.6" y="77.1" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj17.state ? stateObj17.state : '0'} A</text>
-            <text id="pv2_v" x="332" y="64.9" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj18.state ? stateObj18.state : '0'} V</text>
-            <text id="pv2_i" x="332" y="77.1" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj19.state ? stateObj19.state : '0'} A</text>
+            <text id="pv1_v" x="196" y="94" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj16.state ? stateObj16.state : '0'} V</text>
+            <text id="pv1_i" x="196" y="106" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj17.state ? stateObj17.state : '0'} A</text>
+            <text id="pv2_v" x="296" y="94" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj18.state ? stateObj18.state : '0'} V</text>
+            <text id="pv2_i" x="296" y="106" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj19.state ? stateObj19.state : '0'} A</text>
             <text id="timer_text_off" x="287" y="254.7" class="st3 left-align" display="${stateObj26.state == 'off' && config.entities.use_timer_248 !== 'no' ? '' : 'none'}" fill="${config.inverter.colour}">Timer off</text>
             <text id="timer_text_on" x="287" y="254.7" class="st3 left-align" display="${stateObj26.state == 'on' && config.entities.use_timer_248 !== 'no' ? '' : 'none'}" fill="${config.inverter.colour}">Timer on</text>
             <text id="priority_text_batt"x="287" y="273" class="st3 left-align" display="${stateObj25.state === 'off' && config.entities.priority_load_243 !== 'no' ? '' : 'none'}" fill="${config.inverter.colour}">Priority Batt</text>
@@ -606,7 +606,6 @@ class SunsynkPowerFlowCard extends LitElement {
       `;
     }
   }
-
 
   
   setConfig(config) {
