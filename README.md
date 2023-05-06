@@ -17,19 +17,18 @@ An animated Home Assistant card to emulate the Sunsynk power flow that's shown o
 * Customisable - Change colours and inverter image
 
 ## Screenshots
-Note that the inverter image was changed after version 1.0.5 to create a more unified look and feel. I need to update the screenshots
 
-![image](https://user-images.githubusercontent.com/7227275/235432195-08f35c72-fa6f-4a31-af80-dcfa7657a14c.png)
+![image](https://user-images.githubusercontent.com/7227275/236638326-b3f48d9c-1e26-4e68-a69e-8529f12ca44e.png)
 ![sunsynk-power-flow-card_lite](https://user-images.githubusercontent.com/7227275/235974796-1b81c492-d06a-4542-bbd4-d074d24ddbae.gif)
 
 *Lite Version*
 
-![image](https://user-images.githubusercontent.com/7227275/235965281-d2e05df4-9206-44aa-83a3-2060cf7636f3.png)
+![image](https://user-images.githubusercontent.com/7227275/236638175-076e1e80-c4bc-460f-8ab6-bc08261a674e.png)
 ![sunsynk-power-flow-card_simple](https://user-images.githubusercontent.com/7227275/235974922-830b77e9-82b6-4132-b372-bc39c5b80870.gif)
 
 *Simple Version*
 
-![image](https://user-images.githubusercontent.com/7227275/235432368-a083301d-601c-4e21-9415-e4a5ee09e8a6.png)
+![image](https://user-images.githubusercontent.com/7227275/236638211-a891a0e1-5142-41d8-8bc4-cac1cdbb740e.png)
 ![sunsynk-power-flow-card_full](https://user-images.githubusercontent.com/7227275/235975070-05803deb-c855-4e07-930e-de8dec9ea7b5.gif)
 
 *Full Version*
