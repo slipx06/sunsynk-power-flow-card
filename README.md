@@ -74,7 +74,7 @@ Requires the folowing:
 | Attribute | Default | Description |
 | --- | --- | --- |
 |modern:| `no`| Changes the inverter image.|
-|colour:| `grey`| Changes the colour of the inverter. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
+|colour:| `'#959595'`| Changes the colour of the inverter. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 
 
 ### Battery
@@ -113,6 +113,7 @@ Requires the folowing:
 | Attribute | Default | Description |
 | --- | --- | --- |
 |colour:| `'#5490c2'`| Changes the colour of all the grid card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
+|no_grid_colour:|`'#a40013'`|Changes the colour of the grid disconnected icons. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc)|
 |show_daily: | `yes` | Toggles the Daily Total `yes/no` |
 
 ### Entities
@@ -164,11 +165,10 @@ The modbus registers can be visualised on the `full` card below:
 ```
 type: custom:sunsynk-power-flow-card
 cardstyle: lite
-panel_mode: 'yes'
-show_daily: 'yes'
+panel_mode: 'no'
 inverter:
   modern: 'yes'
-  colour: 'grey'
+  colour: '#959595'
 battery:
   energy: 15960
   shutdown_soc: 20
@@ -185,6 +185,7 @@ load:
   show_aux: 'yes'
 grid:
   colour: '#5490c2'
+  no_grid_colour: '#a40013'
   show_daily: 'yes'
 entities:
   use_timer_248: switch.toggle_system_timer
@@ -213,5 +214,6 @@ entities:
   grid_status_194: binary_sensor.grid_connected_status
   inverter_status_59: sensor.overall_state
   aux_power_166: sensor.aux_output_power
+
 
 ```
