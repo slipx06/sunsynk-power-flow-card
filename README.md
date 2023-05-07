@@ -84,7 +84,7 @@ Requires the folowing:
 | --- | --- | --- |
 |energy: | `15960` | Total Battery Energy in Wh (e.g. 3 x 5.32kWh = 15960). If set to `hidden` the remaining battery runtime will be hidden|
 |shutdown_soc: | `20` |The battery shutdown percentage used to calculate remaining runtime |
-|invert_power:| `no`|Set to `yes` if your sensor provides a positive number for battery charge and negative number for batter discharge|
+|invert_power:| `no`|Set to `yes` if your sensor provides a positive number for battery charge and negative number for battery discharge|
 |colour:| `pink`| Changes the colour of all the battery card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |show_daily: | `yes` | Toggles the Daily Total `yes/no` |
 
@@ -104,7 +104,7 @@ Requires the folowing:
 | --- | --- | --- |
 |colour:| `'#5fb6ad'`| Changes the colour of all the load card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |show_daily: | `yes` | Toggles the Daily Total `yes/no` Only displayed if `show_aux` is set to `no` |
-|show_aux: | `yes` | Toggles the diaplay of Aux `yes/no` |
+|show_aux: | `yes` | Toggles the display of Aux `yes/no` |
 
 
 ### Grid
@@ -113,7 +113,7 @@ Requires the folowing:
 | Attribute | Default | Description |
 | --- | --- | --- |
 |colour:| `'#5490c2'`| Changes the colour of all the grid card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
-|no_grid_colour:|`'#a40013'`|Changes the colour of the grid disconnected icons. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc)|
+|no_grid_colour:|`'#a40013'`|Changes the colour of the grid disconnected icon. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc)|
 |show_daily: | `yes` | Toggles the Daily Total `yes/no` |
 
 ### Entities
