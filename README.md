@@ -7,7 +7,7 @@ An animated Home Assistant card to emulate the Sunsynk power flow that's shown o
 * Option to switch between three card styles: `lite`, `simple` or `full`.
 * Animated power flow based on positive/negative/zero sensor values. (Supports inverted battery power).
 * Dynamic battery image based on SOC (empty->low->medium->high). 
-* Grid connected status. A red dot is displayed when the grid is disconnected.
+* Grid connected status.
 * Inverter status (standby, normal, self-test, alarm, fault) is displayed.  
 * Configurable battery size and shutdown SOC to calculate and display remaining battery runtime based on current battery usage. Can be toggled off.
 * Daily Totals that can be toggled on or off.
