@@ -137,7 +137,7 @@ Entity attributes below have been appended with the modbus register # e.g. `pv2_
 |pv1_power_186: | `sensor.pv1_power` | PV String 2 Power (W)|
 |battery_voltage_183: | `sensor.battery_voltage` | Battery Voltage (V) |
 |battery_soc_184: | `sensor.battery_soc` | Battery State of Charge (%) |
-|battery_out_190: | `sensor.battery_output_power` | Battery Output Power (W). Requires a negative number for battery charging and a positive number for battery discharging |
+|battery_out_190: | `sensor.battery_output_power` | Battery Output Power (W). Requires a negative number for battery charging and a positive number for battery discharging. Set the `invert_power:` battery attribute to `yes` if your sensor reports this the other way around |
 |ess_power: | `sensor.sunsynk_essential_load` | This sensor is only used for the simple and lite cards. You can use register 178. It is automatically calculated for the full card based on other attributes. (W) |
 |grid_external_power_172: | `sensor.grid_external_power`  | Grid External Power (W)|
 |pv1_v_109: | `sensor.dc1_voltage` | PV String 1 Voltage (V) |
