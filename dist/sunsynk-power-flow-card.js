@@ -30,7 +30,7 @@ class SunsynkPowerFlowCard extends LitElement {
 
       .card {
         border-radius: var(--ha-card-border-radius, 10px);
-        background-color: var(--card-background-color);
+        background: var(--ha-card-background, var(--card-background-color, white));
         padding: 0px;
         border-width: var(--ha-card-border-width);
         box-shadow: var(--ha-card-box-shadow, 0px 0px 0px 1px rgba(0, 0, 0, 0.12), 0px 0px 0px 0px rgba(0, 0, 0, 0.12), 0px 0px 0px 0px rgba(0, 0, 0, 0.12));
