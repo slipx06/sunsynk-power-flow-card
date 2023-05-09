@@ -85,6 +85,7 @@ class SunsynkPowerFlowCard extends LitElement {
         colour: '#5fb6ad',
         show_daily: 'yes',
         show_aux: 'yes',
+        invert_aux: 'no',
       },
       grid:{
         colour: '#5490c2',
@@ -160,6 +161,13 @@ class SunsynkPowerFlowCard extends LitElement {
         battery_power = (stateObj13.state * -1)
     } else {
         battery_power = stateObj13.state
+    }
+
+    let aux_power = "";
+    if (config.load.invert_aux === 'yes'){
+        aux_power = (stateObj24.state * -1)
+    } else {
+        aux_power = stateObj24.state
     }
 
     let duration = "";
@@ -240,7 +248,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <text id="daily_grid" x="77%" y="63%" class="st3 left-align" fill="${config.grid.show_daily === 'no' ? 'transparent' : `${config.grid.colour}`}" >DAILY GRID</text>
             <text id="inverter_out_175" x="39.5%" y="46.5%" class="st4 st8" fill="${config.inverter.colour}">${stateObj22.state ? stateObj22.state : '0'} W</text>
             <text id="inverter_load_grid_169" x="59%" y="54.5%" class="st4 st8" fill="${config.grid.colour}">${stateObj23.state ? stateObj23.state : '0'} W</text>
-            <text id="aux_power_166" x="59%" y="12.5%" class="st4 st8" display="${config.load.show_aux === 'no' ? 'none' : ''}" fill="${config.load.colour}">${stateObj24.state ? stateObj24.state : '0'} W</text> 
+            <text id="aux_power_166" x="59%" y="12.5%" class="st4 st8" display="${config.load.show_aux === 'no' ? 'none' : ''}" fill="${config.load.colour}">${aux_power ? aux_power : '0'} W</text> 
             <text x="90%" y="21.5%" class="st3 st8" display="${config.load.show_aux === 'no' ? 'none' : ''}" fill="${config.load.colour}">Auxiliary</text> 
             <text id="non_ess_power" x="74%" y="73.5%" class="st4 st8" fill="${config.grid.colour}">${nonessential ? nonessential : '0'} W</text>  
             <text x="74%" y="98.5%" class="st3 st8" fill="${config.grid.colour}"> Non Essential</text>
@@ -313,7 +321,7 @@ class SunsynkPowerFlowCard extends LitElement {
             </animateMotion>
             </circle> 
             <path id="aux-line" d="M 307 47 L 371.5 47" fill="none" class="${config.load.show_aux === 'no' ? 'st12' : ''}" stroke="${config.load.colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
-            <circle id="aux-dot" cx="0" cy="0" r="3" class="${config.load.show_aux === 'no' ? 'st12' : ''}" fill="${stateObj24.state <= '0' ? 'transparent' : `${config.load.colour}`}">
+            <circle id="aux-dot" cx="0" cy="0" r="3" class="${config.load.show_aux === 'no' ? 'st12' : ''}" fill="${aux_power <= '0' ? 'transparent' : `${config.load.colour}`}">
               <animateMotion dur="4s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#aux-line"/>
               </animateMotion>
@@ -673,6 +681,9 @@ class SunsynkPowerFlowCard extends LitElement {
     if (!config.load.show_aux) {
       throw new Error('Please include the load show_aux attribute and value; yes or no e.g. show_aux: no');
     }
+    if (!config.load.invert_aux) {
+      throw new Error('Please include the load invert_aux attribute and value; yes or no e.g. invert_aux: no');
+    }
     if (!config.grid.colour) {
       throw new Error('Please include the grid colour attribute and value e.g. colour: purple');
     }
@@ -705,6 +716,7 @@ class SunsynkPowerFlowCard extends LitElement {
     return 2;
   }
 }
+
 customElements.define('sunsynk-power-flow-card', SunsynkPowerFlowCard);
 customElements.define("sunsynk-power-flow-card-editor", SunsynkPowerFlowCardEditor);
 window.customCards = window.customCards || [];
