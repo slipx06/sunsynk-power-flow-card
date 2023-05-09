@@ -110,7 +110,7 @@ class SunsynkPowerFlowCard extends LitElement {
         pv1_power_186: 'sensor.pv1_power',
         pv2_power_187: 'sensor.pv2_power',
         pv3_power_188: 'sensor.pv3_power',
-        pv3_power_189: 'sensor.pv4_power',
+        pv4_power_189: 'sensor.pv4_power',
         battery_voltage_183: 'sensor.battery_voltage',
         battery_soc_184: 'sensor.battery_soc',
         battery_out_190: 'sensor.battery_output_power',
