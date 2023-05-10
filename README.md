@@ -135,7 +135,7 @@ Entity attributes below have been appended with the modbus register # e.g. `pv2_
 |pv1_power_186: | `sensor.pv1_power` | PV String 1 Power (W)|
 |pv2_power_187: | `sensor.pv2_power` | PV String 2 Power (W)  |
 |pv3_power_188: | `sensor.pv3_power` | PV String 3 Power (W)  |
-|pv4_power_188: | `sensor.pv4_power` | PV String 4 Power (W)  |
+|pv4_power_189: | `sensor.pv4_power` | PV String 4 Power (W)  |
 |battery_voltage_183: | `sensor.battery_voltage` | Battery Voltage (V) |
 |battery_soc_184: | `sensor.battery_soc` | Battery State of Charge (%) |
 |battery_out_190: | `sensor.battery_output_power` | Battery Output Power (W). Requires a negative number for battery charging and a positive number for battery discharging. Set the `invert_power:` battery attribute to `yes` if your sensor reports this the other way around |
@@ -145,10 +145,10 @@ Entity attributes below have been appended with the modbus register # e.g. `pv2_
 |pv1_i_110: | `sensor.dc1_current` | PV String 1 Current (A)|
 |pv2_v_111: | `sensor.dc2_voltage` | PV String 2 Voltage (V)|
 |pv2_i_112: | `sensor.dc2_current` | PV String 2 Current (A)|
-|pv3_v_113: | `sensor.dc1_voltage` | PV String 3 Voltage (V) |
-|pv3_i_114: | `sensor.dc1_current` | PV String 3 Current (A)|
-|pv4_v_115: | `sensor.dc2_voltage` | PV String 4 Voltage (V)|
-|pv5_i_116: | `sensor.dc2_current` | PV String 4 Current (A)|
+|pv3_v_113: | `sensor.dc3_voltage` | PV String 3 Voltage (V) |
+|pv3_i_114: | `sensor.dc3_current` | PV String 3 Current (A)|
+|pv4_v_115: | `sensor.dc4_voltage` | PV String 4 Voltage (V)|
+|pv5_i_116: | `sensor.dc4_current` | PV String 4 Current (A)|
 |grid_status_194: | `binary_sensor.grid_connected_status` | Grid Connected Status `on/off` or `1/0` |
 |inverter_status_59: | `sensor.overall_state` | Inverter Status `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault` |
 |aux_power_166: | `sensor.aux_output_power` | Auxilary Power (W) |
