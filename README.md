@@ -194,16 +194,18 @@ load:
   invert_aux: 'no'
 grid:
   colour: '#5490c2'
-  show_daily: 'yes'
+  show_daily_buy: 'yes'
+  show_daily_sell: 'yes'
   no_grid_colour: '#a40013'
-  show_nonessential: 'yes'
+  show_nonessential: 'no'
 entities:
   use_timer_248: switch.toggle_system_timer
   priority_load_243: switch.toggle_priority_load
   batchargeday_70: sensor.battery_charge_day
   batdischargeday_71: sensor.battery_discharge_day
   loadday_84: sensor.daily_load_power_kwh
-  gridday_76: sensor.grid_import_day_buy
+  grid_buy_day_76: sensor.grid_import_day_buy
+  grid_sell_day_77: none
   solarday_108: sensor.daily_pv_power_kwh
   inverter_grid_voltage_154: sensor.grid_inverter_voltage
   inverter_load_freq_192: sensor.load_frequency
