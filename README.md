@@ -52,7 +52,8 @@ Add the `Custom: Sunsynk Power Flow Card` to your Dashboard view.
 
 ### Card Options
 
-![sunsynk-power-flow-config](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/580e397a-289b-4361-90e5-6e76e20028cb)
+![sunsynk-power-flow-config_](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/ee689291-9519-48de-b614-cf66def9ab4e)
+
 
 The card requires that all of these attributes be defined. 
 
