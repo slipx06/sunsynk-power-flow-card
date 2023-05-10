@@ -660,14 +660,14 @@ class SunsynkPowerFlowCard extends LitElement {
 
     const attributes = [
       'use_timer_248', 'priority_load_243', 'batchargeday_70', 'batdischargeday_71', 'loadday_84', 
-      'grid_buy_day_76', 'solarday_108', 'inverter_grid_voltage_154', 'inverter_load_freq_192', 
+      'grid_buy_day_76', 'grid_sell_day_77', 'solarday_108', 'inverter_grid_voltage_154', 'inverter_load_freq_192', 
       'inverter_out_164', 'inverter_out_175', 'inverter_load_grid_169', 'pv2_power_187', 
       'pv1_power_186', 'pv3_power_188', 'pv4_power_189', 'battery_voltage_183', 'battery_soc_184', 
       'battery_out_190', 'ess_power', 'grid_external_power_172', 'pv1_v_109', 'pv1_i_110', 
       'pv2_v_111', 'pv2_i_112', 'pv3_v_113', 'pv3_i_114', 'pv4_v_115', 'pv4_i_116', 'grid_status_194', 
       'inverter_status_59', 'aux_power_166'
     ];
-  
+    
     for (const attr of attributes) {
       if (!config.entities[attr]) {
         throw new Error(`Please include the ${attr} attribute and entity ID e.g. ${attr}: sensor.example`);
