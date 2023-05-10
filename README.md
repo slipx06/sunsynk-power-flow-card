@@ -19,13 +19,13 @@ An animated Home Assistant card to emulate the Sunsynk power flow that's shown o
 
 ## Screenshots
 
-![image](https://user-images.githubusercontent.com/7227275/236638326-b3f48d9c-1e26-4e68-a69e-8529f12ca44e.png)
+![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/38e72698-9671-4241-9796-495ae617d877)
 ![sunsynk-power-flow-lite](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/ef9809ed-c060-4ea0-8ee3-094212329121)
 
 
 *Lite Version*
 
-![image](https://user-images.githubusercontent.com/7227275/236638211-a891a0e1-5142-41d8-8bc4-cac1cdbb740e.png)
+![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/b8137afa-423d-45ea-9426-2c6c6e6fe4b7)
 ![sunsynk-power-flow-full](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/c5ed0518-a867-4804-90b7-36e2c90223a4)
 
 
