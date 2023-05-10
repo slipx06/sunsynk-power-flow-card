@@ -116,7 +116,8 @@ class SunsynkPowerFlowCard extends LitElement {
         battery_voltage_183: 'sensor.battery_voltage',
         battery_soc_184: 'sensor.battery_soc',
         battery_out_190: 'sensor.battery_output_power',
-        ess_power: 'sensor.sunsynk_essential_load',
+        essential_power: 'sensor.sunsynk_essential_load',
+        nonessential_power: 'none',
         grid_external_power_172: 'sensor.grid_external_power',
         pv1_v_109: 'sensor.dc1_voltage',
         pv1_i_110: 'sensor.dc1_current',
@@ -148,7 +149,7 @@ class SunsynkPowerFlowCard extends LitElement {
     const stateObj11 = this.hass.states[config.entities.battery_voltage_183] || { state: '0' };
     const stateObj12 = this.hass.states[config.entities.battery_soc_184] || { state: '0' };
     const stateObj13 = this.hass.states[config.entities.battery_out_190] || { state: '0' };
-    const stateObj14 = this.hass.states[config.entities.ess_power] || { state: '0' };
+    const stateObj14 = this.hass.states[config.entities.essential_power] || { state: '0' };
     const stateObj15 = this.hass.states[config.entities.grid_external_power_172] || { state: '0' };
     const stateObj16 = this.hass.states[config.entities.pv1_v_109] || { state: '0' };
     const stateObj17 = this.hass.states[config.entities.pv1_i_110] || { state: '0' };
@@ -168,12 +169,26 @@ class SunsynkPowerFlowCard extends LitElement {
     const stateObj31 = this.hass.states[config.entities.pv3_power_188] || { state: '0' };
     const stateObj32 = this.hass.states[config.entities.pv4_power_189] || { state: '0' };
     const stateObj33 = this.hass.states[config.entities.grid_sell_day_77] || { state: '0' };
-    
+    const stateObj34 = this.hass.states[config.entities.nonessential_power] || { state: '0' };
 
     const totalsolar = (parseInt(stateObj8.state || 0) + parseInt(stateObj9.state || 0) + parseInt(stateObj31.state || 0) + parseInt(stateObj32.state || 0));
-    const nonessential = (parseInt(stateObj15.state) - parseInt(stateObj23.state));
-    const essential = (parseInt(stateObj22.state) - (parseInt(stateObj24.state) - parseInt(stateObj23.state)));
-        
+    //const nonessential = (parseInt(stateObj15.state) - parseInt(stateObj23.state));
+    //const essential = (parseInt(stateObj22.state) - (parseInt(stateObj24.state) - parseInt(stateObj23.state)));
+    
+    let essential = "";
+    if (config.entities.essential_power === 'none'){
+        essential = (parseInt(stateObj22.state) - (parseInt(stateObj24.state) - parseInt(stateObj23.state)))
+    } else {
+        essential = parseInt(stateObj14.state)
+    }
+
+    let nonessential = "";
+    if (config.entities.nonessential_power === 'none'){
+        nonessential = (parseInt(stateObj15.state) - parseInt(stateObj23.state))
+    } else {
+        nonessential = parseInt(stateObj34.state)
+    }
+
     let battery_power = "";
     if (config.battery.invert_power === 'yes'){
         battery_power = (stateObj13.state * -1)
@@ -463,7 +478,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <text id="battery_voltage_183" x="193" y="345" fill=${config.battery.colour} class="st4 st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
             <text id="battery_soc_184" x="193" y="365.3" fill=${config.battery.colour} class="st4 st8">${stateObj12.state ? stateObj12.state : '0'} %</text>
             <text id="battery_out_190" x="193" y="385.6" fill=${config.battery.colour} class="st4 st8">${battery_power < '0' ? battery_power *-1 : battery_power} W</text>
-            <text id="ess_power" x="340.1" y="219.2" class="st4 st8" fill="${config.load.colour}">${stateObj14.state ? stateObj14.state : '0'} W</text>
+            <text id="ess_power" x="340.1" y="219.2" class="st4 st8" fill="${config.load.colour}">${essential ? essential : '0'} W</text>
             <text id="grid_external_power_172" x="135.1" y="219.2" class="st4 st8" fill="${config.grid.colour}">${stateObj15.state ? stateObj15.state : '0'} W</text>
             <text id="pv1_v" x="194" y="106" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj16.state ? stateObj16.state : '0'} V</text>
             <text id="pv1_i" x="194" y="94" class="st3 left-align" display="${config.solar.show_solar === 'no' ? 'none' : ''}" fill="${config.solar.colour}" >${stateObj17.state ? stateObj17.state : '0'} A</text>
@@ -545,13 +560,13 @@ class SunsynkPowerFlowCard extends LitElement {
               </animateMotion>
             </circle>
             <path id="es-line" d="M 304 218.5 L 264.7 218.48" fill="none" stroke="${config.load.colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
-            <circle id="es-dot" cx="0" cy="0" r="3" fill="${stateObj14.state === '0' ? 'transparent' : `${config.load.colour}`}">
+            <circle id="es-dot" cx="0" cy="0" r="3" fill="${essential === 0 ? 'transparent' : `${config.load.colour}`}">
               <animateMotion dur="4s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#es-line"/>
               </animateMotion>
             </circle>
             <path id="es-line1" d="M 374 218.5 L 402.38 218.52" fill="none" stroke="${config.load.colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
-            <circle id="es-dot" cx="0" cy="0" r="3" fill="${stateObj14.state === '0' ? 'transparent' : `${config.load.colour}`}">
+            <circle id="es-dot" cx="0" cy="0" r="3" fill="${essential === 0 ? 'transparent' : `${config.load.colour}`}">
               <animateMotion dur="4s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#es-line1"/>
               </animateMotion>
@@ -663,11 +678,11 @@ class SunsynkPowerFlowCard extends LitElement {
       'grid_buy_day_76', 'grid_sell_day_77', 'solarday_108', 'inverter_grid_voltage_154', 'inverter_load_freq_192', 
       'inverter_out_164', 'inverter_out_175', 'inverter_load_grid_169', 'pv2_power_187', 
       'pv1_power_186', 'pv3_power_188', 'pv4_power_189', 'battery_voltage_183', 'battery_soc_184', 
-      'battery_out_190', 'ess_power', 'grid_external_power_172', 'pv1_v_109', 'pv1_i_110', 
+      'battery_out_190', 'essential_power', 'nonessential_power', 'grid_external_power_172', 'pv1_v_109', 'pv1_i_110', 
       'pv2_v_111', 'pv2_i_112', 'pv3_v_113', 'pv3_i_114', 'pv4_v_115', 'pv4_i_116', 'grid_status_194', 
       'inverter_status_59', 'aux_power_166'
     ];
-    
+  
     for (const attr of attributes) {
       if (!config.entities[attr]) {
         throw new Error(`Please include the ${attr} attribute and entity ID e.g. ${attr}: sensor.example`);
