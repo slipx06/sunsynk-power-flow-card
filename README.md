@@ -225,7 +225,8 @@ entities:
   battery_voltage_183: sensor.battery_voltage
   battery_soc_184: sensor.battery_soc
   battery_out_190: sensor.battery_output_power
-  ess_power: sensor.load_power
+  essential_power: none
+  nonessential_power: none
   grid_external_power_172: sensor.grid_external_power
   pv1_v_109: sensor.dc1_voltage
   pv1_i_110: sensor.dc1_current
