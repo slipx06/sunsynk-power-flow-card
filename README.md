@@ -20,12 +20,14 @@ An animated Home Assistant card to emulate the Sunsynk power flow that's shown o
 ## Screenshots
 
 ![image](https://user-images.githubusercontent.com/7227275/236638326-b3f48d9c-1e26-4e68-a69e-8529f12ca44e.png)
-![sunsynk-power-flow-card_lite](https://user-images.githubusercontent.com/7227275/235974796-1b81c492-d06a-4542-bbd4-d074d24ddbae.gif)
+![sunsynk-power-flow-lite](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/ef9809ed-c060-4ea0-8ee3-094212329121)
+
 
 *Lite Version*
 
 ![image](https://user-images.githubusercontent.com/7227275/236638211-a891a0e1-5142-41d8-8bc4-cac1cdbb740e.png)
-![sunsynk-power-flow-card_full](https://user-images.githubusercontent.com/7227275/235975070-05803deb-c855-4e07-930e-de8dec9ea7b5.gif)
+![sunsynk-power-flow-full](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/c5ed0518-a867-4804-90b7-36e2c90223a4)
+
 
 *Full Version*
 
@@ -49,6 +51,8 @@ Add the `Custom: Sunsynk Power Flow Card` to your Dashboard view.
 ![image](https://user-images.githubusercontent.com/7227275/235375690-65d17663-e117-4626-9151-1a41979a13b8.png)
 
 ### Card Options
+
+![sunsynk-power-flow-config](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/580e397a-289b-4361-90e5-6e76e20028cb)
 
 The card requires that all of these attributes be defined. 
 
