@@ -91,7 +91,8 @@ class SunsynkPowerFlowCard extends LitElement {
       grid:{
         colour: '#5490c2',
         no_grid_colour: '#a40013',
-        show_daily: 'yes',
+        show_daily_buy: 'yes',
+        show_daily_sell: 'yes',
         show_nonessential: 'yes'
       },
       entities: {
@@ -100,7 +101,8 @@ class SunsynkPowerFlowCard extends LitElement {
         batchargeday_70: 'sensor.battery_charge_day',
         batdischargeday_71: 'sensor.battery_discharge_day',
         loadday_84: 'sensor.daily_load_power_kwh',
-        gridday_76: 'sensor.grid_import_day_buy',
+        grid_buy_day_76: 'sensor.grid_import_day_buy',
+        grid_sell_day_77: 'sensor.grid_export_day_sell',
         solarday_108: 'sensor.daily_pv_power_kwh',
         inverter_grid_voltage_154: 'sensor.grid_inverter_voltage',
         inverter_load_freq_192: 'sensor.load_frequency',
@@ -136,7 +138,7 @@ class SunsynkPowerFlowCard extends LitElement {
     const stateObj = this.hass.states[config.entities.batdischargeday_71] || { state: '0' };
     const stateObj1 = this.hass.states[config.entities.batchargeday_70] || { state: '0' };
     const stateObj2 = this.hass.states[config.entities.loadday_84] || { state: '0' };
-    const stateObj3 = this.hass.states[config.entities.gridday_76] || { state: '0' };
+    const stateObj3 = this.hass.states[config.entities.grid_buy_day_76] || { state: '0' };
     const stateObj4 = this.hass.states[config.entities.solarday_108] || { state: '0' };
     const stateObj5 = this.hass.states[config.entities.inverter_grid_voltage_154] || { state: '0' };
     const stateObj6 = this.hass.states[config.entities.inverter_load_freq_192] || { state: '0' };
@@ -165,7 +167,8 @@ class SunsynkPowerFlowCard extends LitElement {
     const stateObj30 = this.hass.states[config.entities.pv4_i_116] || { state: '0' };
     const stateObj31 = this.hass.states[config.entities.pv3_power_188] || { state: '0' };
     const stateObj32 = this.hass.states[config.entities.pv4_power_189] || { state: '0' };
-
+    const stateObj33 = this.hass.states[config.entities.grid_sell_day_77] || { state: '0' };
+    
 
     const totalsolar = (parseInt(stateObj8.state || 0) + parseInt(stateObj9.state || 0) + parseInt(stateObj31.state || 0) + parseInt(stateObj32.state || 0));
     const nonessential = (parseInt(stateObj15.state) - parseInt(stateObj23.state));
@@ -268,8 +271,10 @@ class SunsynkPowerFlowCard extends LitElement {
             <text id="daily_bat_charge" x="1%" y="65.5%" class="st3 left-align"  fill="${config.battery.show_daily === 'no' ? 'transparent' : `${config.battery.colour}`}" >DAILY CHARGE</text>
             <text id="daily_bat_discharge_value" x="1%" y="70.75%" class="st10 left-align" fill="${config.battery.show_daily === 'no' ? 'transparent' : `${config.battery.colour}`}" >${stateObj.state ? stateObj.state : '0'} kWh</text>
             <text id="daily_bat_charge" x="1%" y="74%" class="st3 left-align"  fill="${config.battery.show_daily === 'no' ? 'transparent' : `${config.battery.colour}`}" >DAILY DISCHARGE</text>
-            <text id="daily_grid_value" x="${config.grid.show_nonessential === 'no' ? '70%' : '77%'}" y="${config.grid.show_nonessential === 'no' ? '86%' : '60%'}" class="st10 left-align" fill="${config.grid.show_daily === 'no' ? 'transparent' : `${config.grid.colour}`}" >${stateObj3.state ? stateObj3.state : '0'} kWh</text>
-            <text id="daily_grid" x="${config.grid.show_nonessential === 'no' ? '70%' : '77%'}" y="${config.grid.show_nonessential === 'no' ? '89.5%' : '63%'}" class="st3 left-align" fill="${config.grid.show_daily === 'no' ? 'transparent' : `${config.grid.colour}`}" >DAILY GRID</text>
+            <text id="daily_grid_buy_value" x="${config.grid.show_nonessential === 'no' ? '68%' : '76%'}" y="${config.grid.show_nonessential === 'no' ? '93%' : '63%'}" class="st10 left-align" fill="${config.grid.show_daily_buy === 'no' ? 'transparent' : `${config.grid.colour}`}" >${stateObj3.state ? stateObj3.state : '0'} kWh</text>
+            <text id="daily_grid_buy" x="${config.grid.show_nonessential === 'no' ? '68%' : '76%'}" y="${config.grid.show_nonessential === 'no' ? '96%' : '66%'}" class="st3 left-align" fill="${config.grid.show_daily_buy === 'no' ? 'transparent' : `${config.grid.colour}`}" >DAILY GRID BUY</text>
+            <text id="daily_grid_sell_value" x="${config.grid.show_nonessential === 'no' ? '68%' : '76%'}" y="${config.grid.show_nonessential === 'no' ? '85%' : '55%'}" class="st10 left-align" fill="${config.grid.show_daily_sell === 'no' ? 'transparent' : `${config.grid.colour}`}" >${stateObj33.state ? stateObj3.state : '0'} kWh</text>
+            <text id="daily_grid_sell" x="${config.grid.show_nonessential === 'no' ? '68%' : '76%'}" y="${config.grid.show_nonessential === 'no' ? '88%' : '58%'}" class="st3 left-align" fill="${config.grid.show_daily_sell === 'no' ? 'transparent' : `${config.grid.colour}`}" >DAILY GRID SELL</text>
             <text id="inverter_out_175" x="39.5%" y="46.5%" class="st4 st8" fill="${config.inverter.colour}">${stateObj22.state ? stateObj22.state : '0'} W</text>
             <text id="inverter_load_grid_169" x="59%" y="54.5%" class="st4 st8" fill="${config.grid.colour}">${stateObj23.state ? stateObj23.state : '0'} W</text>
             <text id="aux_power_166" x="59%" y="12.5%" class="st4 st8" display="${config.load.show_aux === 'no' ? 'none' : ''}" fill="${config.load.colour}">${aux_power < '0' ? aux_power *-1 : aux_power} W</text> 
@@ -437,8 +442,10 @@ class SunsynkPowerFlowCard extends LitElement {
             <text id="daily_bat_charge" x="77.2" y="393.7" class="st3 left-align"  fill="${config.battery.show_daily === 'no' ? 'transparent' : `${config.battery.colour}`}"  >DAILY DISCHARGE</text>
             <text id="daily_load_value" x="400.4" y="267.9" class="st10 left-align" fill="${config.load.show_daily === 'no' ? 'transparent' : `${config.load.colour}`}" >${stateObj2.state ? stateObj2.state : '0'} kWh</text>
             <text id="daily_load" x="400.4" y="282.1" class="st3 left-align" fill="${config.load.show_daily === 'no' ? 'transparent' : `${config.load.colour}`}" >DAILY LOAD</text>
-            <text id="daily_grid_value" x="14.4" y="267.9" class="st10 left-align" fill="${config.grid.show_daily === 'no' ? 'transparent' : `${config.grid.colour}`}" >${stateObj3.state ? stateObj3.state : '0'} kWh</text>
-            <text id="daily_grid" x="14.4" y="282.1" class="st3 left-align" fill="${config.grid.show_daily === 'no' ? 'transparent' : `${config.grid.colour}`}" >DAILY GRID</text>
+            <text id="daily_grid_buy_value" x="5" y="267.9" class="st10 left-align" fill="${config.grid.show_daily_buy === 'no' ? 'transparent' : `${config.grid.colour}`}" >${stateObj3.state ? stateObj3.state : '0'} kWh</text>
+            <text id="daily_grid_buy" x="5" y="282.1" class="st3 left-align" fill="${config.grid.show_daily_buy === 'no' ? 'transparent' : `${config.grid.colour}`}" >DAILY GRID BUY</text>
+            <text id="daily_grid_sell_value" x="5" y="165" class="st10 left-align" fill="${config.grid.show_daily_sell === 'no' ? 'transparent' : `${config.grid.colour}`}" >${stateObj33.state ? stateObj33.state : '0'} kWh</text>
+            <text id="daily_grid_sell" x="5" y="179" class="st3 left-align" fill="${config.grid.show_daily_sell === 'no' ? 'transparent' : `${config.grid.colour}`}" >DAILY GRID SELL</text>
             <text id="daily_solar_value" x="226.7" y="16.2" class="st10 left-align" fill="${config.solar.show_daily === 'no' || config.solar.show_solar === 'no' ? 'transparent' : `${config.solar.colour}`}">${stateObj4.state ? stateObj4.state : '0'} kWh</text>
             <text id="daily_solar" x="226.7" y="30.4" class="st3 left-align" fill="${config.solar.show_daily === 'no' || config.solar.show_solar === 'no' ? 'transparent' : `${config.solar.colour}`}">DAILY SOLAR</text>
             <text id="inverter_grid_voltage_154" x="270.2" y="168.2" class="st3 left-align" fill="${config.inverter.colour}" >${stateObj5.state ? stateObj5.state : '0'} V</text>
@@ -641,8 +648,11 @@ class SunsynkPowerFlowCard extends LitElement {
     if (!config.grid.no_grid_colour) {
       throw new Error('Please include the grid no_grid_colour attribute and value e.g. no_grid_colour: purple');
     }
-    if (!config.grid.show_daily) {
-      throw new Error('Please include the grid show_daily attribute and value; yes or no e.g. show_daily: no');
+    if (!config.grid.show_daily_buy) {
+      throw new Error('Please include the grid show_daily_buy attribute and value; yes or no e.g. show_daily_buy: no');
+    }
+    if (!config.grid.show_daily_sell) {
+      throw new Error('Please include the grid show_daily_sell attribute and value; yes or no e.g. show_daily_sell: no');
     }
     if (!config.grid.show_nonessential) {
       throw new Error('Please include the grid show_nonessential attribute and value; yes or no e.g. show_nonessential: no');
@@ -650,7 +660,7 @@ class SunsynkPowerFlowCard extends LitElement {
 
     const attributes = [
       'use_timer_248', 'priority_load_243', 'batchargeday_70', 'batdischargeday_71', 'loadday_84', 
-      'gridday_76', 'solarday_108', 'inverter_grid_voltage_154', 'inverter_load_freq_192', 
+      'grid_buy_day_76', 'solarday_108', 'inverter_grid_voltage_154', 'inverter_load_freq_192', 
       'inverter_out_164', 'inverter_out_175', 'inverter_load_grid_169', 'pv2_power_187', 
       'pv1_power_186', 'pv3_power_188', 'pv4_power_189', 'battery_voltage_183', 'battery_soc_184', 
       'battery_out_190', 'ess_power', 'grid_external_power_172', 'pv1_v_109', 'pv1_i_110', 
