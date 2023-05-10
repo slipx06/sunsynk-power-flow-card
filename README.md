@@ -135,7 +135,7 @@ Entity attributes below have been appended with the modbus register # e.g. `pv2_
 |pv1_power_186: | `sensor.pv1_power` | PV String 1 Power (W)|
 |pv2_power_187: | `sensor.pv2_power` | PV String 2 Power (W)  |
 |pv3_power_188: | `sensor.pv3_power` | PV String 3 Power (W)  |
-|pv4_power_188: | `sensor.pv5_power` | PV String 4 Power (W)  |
+|pv4_power_188: | `sensor.pv4_power` | PV String 4 Power (W)  |
 |battery_voltage_183: | `sensor.battery_voltage` | Battery Voltage (V) |
 |battery_soc_184: | `sensor.battery_soc` | Battery State of Charge (%) |
 |battery_out_190: | `sensor.battery_output_power` | Battery Output Power (W). Requires a negative number for battery charging and a positive number for battery discharging. Set the `invert_power:` battery attribute to `yes` if your sensor reports this the other way around |
