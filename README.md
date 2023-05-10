@@ -113,7 +113,7 @@ Requires the folowing:
 |colour:| `'#5490c2'`| Changes the colour of all the grid card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |no_grid_colour:|`'#a40013'`|Changes the colour of the grid disconnected icon. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc)|
 |show_daily: | `yes` | Toggles the Daily Total `yes/no` |
-|show_nonessential: | 'yes' | Toggles the display of Non-Essential `yes/no`|
+|show_nonessential: | `yes` | Toggles the display of Non-Essential `yes/no`|
 
 ### Entities
 Entity attributes below have been appended with the modbus register # e.g. `pv2_power_187` to indicate which Sunsynk register should be read when configuring your sensors. Replace the default sensors with your own specific sensor names. It is important that your sensors read the expected modbus register value. If you have missing sensors for any attribute set it to none i.e. `solarday_108: none` and it will use a default value of 0.
