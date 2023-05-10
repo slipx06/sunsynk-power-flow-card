@@ -296,25 +296,25 @@ class SunsynkPowerFlowCard extends LitElement {
             
             <path id="pv1-line" d="M 86 162 L 86 56 Q 86 56 86 56 L 70 56" class="${config.solar.show_solar === 'no' ? 'st12' : ''}" fill="none" stroke="${config.solar.colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="pv1-dot" cx="0" cy="0" r="3" class="${config.solar.show_solar === 'no' ? 'st12' : ''}" fill="${stateObj9.state === '0' ? 'transparent' : `${config.solar.colour}`}">
-              <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="9s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#pv1-line"/>
               </animateMotion>
             </circle>
             <path id="pv2-line" d="M 86 162 L 86 56 Q 86 56 86 56 L 101 56" class="${config.solar.show_solar === 'no' || config.solar.mppts === 'one' ? 'st12' : ''}" fill="none" stroke="${config.solar.colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
             <circle id="pv2-dot" cx="0" cy="0" r="3" class="${config.solar.show_solar === 'no' || config.solar.mppts === 'one' ? 'st12' : ''}" fill="${stateObj8.state === '0' ? 'transparent' : `${config.solar.colour}`}">
-              <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="9s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#pv2-line"/>
               </animateMotion>
             </circle>
             <path id="pv3-line" d="M 86 162 L 86 115 Q 86 115 86 115 L 70 115" class="${config.solar.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'st12' : ''}" fill="none" stroke="${config.solar.colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
-            <circle id="pv3-dot" cx="0" cy="0" r="3" class="${config.solar.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two'  ? 'st12' : ''}" fill="${stateObj8.state === '0' ? 'transparent' : `${config.solar.colour}`}">
-              <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+            <circle id="pv3-dot" cx="0" cy="0" r="3" class="${config.solar.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two'  ? 'st12' : ''}" fill="${stateObj31.state === '0' ? 'transparent' : `${config.solar.colour}`}">
+              <animateMotion dur="9s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#pv3-line"/>
               </animateMotion>
             </circle>
             <path id="pv4-line" d="M 86 162 L 86 115 Q 86 115 86 115 L 101 115" class="${config.solar.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'st12' : ''}" fill="none" stroke="${config.solar.colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
-            <circle id="pv4-dot" cx="0" cy="0" r="3" class="${config.solar.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'st12' : ''}" fill="${stateObj8.state === '0' ? 'transparent' : `${config.solar.colour}`}">
-              <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+            <circle id="pv4-dot" cx="0" cy="0" r="3" class="${config.solar.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'st12' : ''}" fill="${stateObj32.state === '0' ? 'transparent' : `${config.solar.colour}`}">
+              <animateMotion dur="9s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#pv4-line"/>
               </animateMotion>
             </circle>
@@ -472,13 +472,13 @@ class SunsynkPowerFlowCard extends LitElement {
               </animateMotion>
             </circle>
             <path id="pv3-line" d="M 113 84 L 113 125 Q 113 132 120 132 L 205 132.03" class="${config.solar.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'st12' : ''}" fill="none" stroke="${config.solar.colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
-            <circle id="pv3-dot" cx="0" cy="0" r="3" class="${config.solar.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'st12' : ''}" fill="${stateObj8.state === '0' ? 'transparent' : `${config.solar.colour}`}">
+            <circle id="pv3-dot" cx="0" cy="0" r="3" class="${config.solar.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'st12' : ''}" fill="${stateObj31.state === '0' ? 'transparent' : `${config.solar.colour}`}">
             <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
               <mpath xlink:href="#pv3-line"/>  
             </animateMotion>
             </circle>
             <path id="pv4-line" d="M 365 85 L 365 125 Q 365 132 358 132 L 275 132" class="${config.solar.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'st12' : ''}" fill="none" stroke="${config.solar.colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
-            <circle id="pv4-dot" cx="0" cy="0" r="3" class="${config.solar.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'st12' : ''}" fill="${stateObj8.state === '0' ? 'transparent' : `${config.solar.colour}`}">
+            <circle id="pv4-dot" cx="0" cy="0" r="3" class="${config.solar.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'st12' : ''}" fill="${stateObj32.state === '0' ? 'transparent' : `${config.solar.colour}`}">
             <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
               <mpath xlink:href="#pv4-line"/>  
             </animateMotion>
@@ -555,7 +555,6 @@ class SunsynkPowerFlowCard extends LitElement {
       `;
     }
   }
-
 
   
   setConfig(config) {
