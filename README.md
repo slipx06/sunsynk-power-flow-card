@@ -112,7 +112,8 @@ Requires the folowing:
 | --- | --- | --- |
 |colour:| `'#5490c2'`| Changes the colour of all the grid card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |no_grid_colour:|`'#a40013'`|Changes the colour of the grid disconnected icon. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc)|
-|show_daily: | `yes` | Toggles the Daily Total `yes/no` |
+|show_daily_buy: | `yes` | Toggles the Daily Buy Total `yes/no` |
+|show_daily_sell: | `no` | Toggles the Daily Sell Total `yes/no` |
 |show_nonessential: | `yes` | Toggles the display of Non-Essential `yes/no`|
 
 ### Entities
@@ -125,7 +126,8 @@ Entity attributes below have been appended with the modbus register # e.g. `pv2_
 |batdischargeday_71: | `sensor.battery_discharge_day` | Daily Battery Usage (kWh) |
 |batchargeday_70: | `sensor.battery_charge_day` | Daily Battery Charge (kWh) |
 |loadday_84: | `sensor.daily_load_power_kwh` | Daily Load (kWh) |
-|gridday_76: | `sensor.grid_import_day_buy` | Daily Grid Import (kWh) |
+|grid_buy_day_76: | `sensor.grid_import_day_buy` | Daily Grid Import (kWh) |
+|grid_sell_day_77: | `sensor.grid_export_day_sell` | Daily Grid Export (kWh) |
 |solarday_108: | `sensor.daily_pv_power_kwh` | Daily Solar Usage (kWh |
 |inverter_grid_voltage_154: | `sensor.grid_inverter_voltage` | Grid Voltage (V) |
 |inverter_load_freq_192: | `sensor.load_frequency` | Load Frequency (Hz) |
