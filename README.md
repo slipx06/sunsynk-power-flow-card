@@ -12,10 +12,11 @@ An animated Home Assistant card to emulate the Sunsynk power flow that's shown o
 * Configurable battery size and shutdown SOC to calculate and display remaining battery runtime based on current battery usage. Can be toggled off.
 * Daily Totals that can be toggled on or off.
 * Hide all solar data if not installed or specify number of mppts in use.
-* "Use Timer" setting and "Energy Pattern" setting (Priority Load or Priority Battery) shown as dynamic icons with ability to hide if not required.
+* "Use Timer" setting and "Energy Pattern" setting (Priority Load or Priority Battery) shown as dynamic icons with ability to hide if not required. If setup as switches can be toggled by clicking on the card
 * Panel mode for bigger card
 * AUX and Non-essential can be hidden from the full card.
 * Customisable - Change colours and inverter image
+* Most entities can be clicked to show more-info dialog
 
 ## Screenshots
 
