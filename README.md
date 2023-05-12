@@ -53,114 +53,101 @@ Add the `Custom: Sunsynk Power Flow Card` to your Dashboard view.
 
 ### Card Options
 
-![sunsynk-power-flow-config_](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/ee689291-9519-48de-b614-cf66def9ab4e)
+The card can be configured through the following attributes: 
 
-
-The card requires that all of these attributes be defined. 
-
-| Attribute | Default | Description |
-| --- | --- | --- |
-|type: | `custom:sunsynk-power-flow-card` | The custom card |
-|cardstyle: | `lite` | Selects the card layout that is used  `lite, simple, full` |
-|panel_mode:| `no` | Toggles panel mode removing any card height restrictions. For use with Panel(1 card) view types or grid layouts|
-|inverter: |  | List of inverter attributes. See required [Inverter](#inverter) attributes below |
-|battery: |  | List of battery attributes. See required [Battery](#battery) attributes below |
-|solar: |  | List of solar attributes. See required [Solar](#solar) attributes below |
-|load: |  | List of load attributes. See required [Load](#load) attributes below |
-|grid: |  | List of grid attributes. See required [Grid](#grid) attributes below |
-|entities:||List of sensor entities. See required [Entities](#entities) attributes below|
+| Attribute | Requirement | Default |Description |
+| --- | --- | --- | --- |
+|type: | **Required** | `custom:sunsynk-power-flow-card`| The custom card |
+|cardstyle: | **Required** | `lite` | Selects the card layout that is used  `lite, simple, full` |
+|panel_mode:| Optional | `no` |Toggles panel mode removing any card height restrictions. For use with Panel(1 card) view types or grid layouts|
+|show_solar:|**Required** |`yes` | Toggle display of solar information `yes/no`|
+|inverter: | Optional | See optional [Inverter](#inverter) attributes below  |List of inverter attributes.  |
+|battery: | **Required**  |See required [Battery](#battery) attributes below | List of battery attributes.  |
+|solar: | Optional |See optonal [Solar](#solar) attributes below | List of solar attributes.  |
+|load: | **Required** | See required [Load](#load) attributes below|List of load attributes.  |
+|grid: | Optional | See optional [Grid](#grid) attributes below| List of grid attributes.  |
+|entities:|**Required** |See required [Entities](#entities) attributes below | List of sensor entities. |
 
 ### Inverter
-Requires the folowing:
-
-| Attribute | Default | Description |
-| --- | --- | --- |
-|modern:| `no`| Changes the inverter image.|
-|colour:| `'#959595'`| Changes the colour of the inverter. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
+| Attribute | Requirement |Default | Description |
+| --- | --- | --- |--- |
+|modern:| Optional |`yes`| Changes the inverter image.|
+|colour:| Optional |`'#959595'`| Changes the colour of the inverter. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 
 
 ### Battery
-Requires the folowing:
-
-| Attribute | Default | Description |
-| --- | --- | --- |
-|energy: | `15960` | Total Battery Energy in Wh (e.g. 3 x 5.32kWh = 15960). If set to `hidden` the remaining battery runtime will be hidden|
-|shutdown_soc: | `20` |The battery shutdown percentage used to calculate remaining runtime |
-|invert_power:| `no`|Set to `yes` if your sensor provides a positive number for battery charge and negative number for battery discharge|
-|colour:| `pink`| Changes the colour of all the battery card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
-|show_daily: | `yes` | Toggles the Daily Total `yes/no` |
+| Attribute | Requirement |Default | Description |
+| --- | --- | --- |--- |
+|energy: | **Required** | `15960` | Total Battery Energy in Wh (e.g. 3 x 5.32kWh = 15960). If set to `hidden` the remaining battery runtime will be hidden|
+|shutdown_soc: | **Required** | `20` |The battery shutdown percentage used to calculate remaining runtime |
+|invert_power:| Optional | `no`|Set to `yes` if your sensor provides a positive number for battery charge and negative number for battery discharge|
+|colour:| Optional| `pink`| Changes the colour of all the battery card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
+|show_daily: | Optional| `yes` | Toggles the Daily Total `yes/no` |
 
 ### Solar
-Requires the folowing:
-
-| Attribute | Default | Description |
-| --- | --- | --- |
-|show_solar:| `yes` | Toggle display of solar information `yes/no`|
-|colour:| `orange`| Changes the colour of all the solar card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
-|show_daily: | `yes` | Toggles the Daily Total `yes/no` |
-|mppts: | `two` | Specify the number of MPPT's in use `one`, `two`, `three` or `four` |
+These attributes are only needed if `show_solar` is set to `yes` 
+| Attribute | Requirement |Default | Description |
+| --- | --- | --- |--- |
+|colour:| Optional | `orange` | Changes the colour of all the solar card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
+|show_daily: | Optional | `yes` | Toggles the Daily Total `yes/no` |
+|mppts: | **Required** | `two` | Specify the number of MPPT's in use `one`, `two`, `three` or `four` |
 
 ### Load
-Requires the folowing:
-
-| Attribute | Default | Description |
-| --- | --- | --- |
-|colour:| `'#5fb6ad'`| Changes the colour of all the load card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
-|show_daily: | `yes` | Toggles the Daily Total `yes/no` Only displayed if `show_aux` is set to `no` |
-|show_aux: | `yes` | Toggles the display of Aux `yes/no` |
-|invert_aux: | `no` | Set to `yes` if your sensor provides a positive number for AUX input and negative number for AUX output  |
-
+| Attribute | Requirement | Default | Description |
+| --- | --- | --- |--- |
+|colour:| Optional |`'#5fb6ad'`| Changes the colour of all the load card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
+|show_daily: | Optional |`yes` | Toggles the Daily Total `yes/no` Only displayed if `show_aux` is set to `no` |
+|show_aux: | **Required** | `yes` | Toggles the display of Aux `yes/no` |
+|invert_aux: | Optional | `no` | Set to `yes` if your sensor provides a positive number for AUX input and negative number for AUX output  |
 
 ### Grid
-Requires the folowing:
-
-| Attribute | Default | Description |
-| --- | --- | --- |
-|colour:| `'#5490c2'`| Changes the colour of all the grid card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
-|no_grid_colour:|`'#a40013'`|Changes the colour of the grid disconnected icon. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc)|
-|show_daily_buy: | `yes` | Toggles the Daily Buy Total `yes/no` |
-|show_daily_sell: | `no` | Toggles the Daily Sell Total `yes/no` |
-|show_nonessential: | `yes` | Toggles the display of Non-Essential `yes/no`|
+| Attribute | Requirement | Default | Description |
+| --- | --- | --- | --- |
+|colour:| Optional | `'#5490c2'`| Changes the colour of all the grid card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
+|no_grid_colour:| Optional | `'#a40013'`|Changes the colour of the grid disconnected icon. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc)|
+|show_daily_buy: | Optional | `yes` | Toggles the Daily Buy Total `yes/no` |
+|show_daily_sell: | Optional | `no` | Toggles the Daily Sell Total `yes/no` |
+|show_nonessential: | Optional |`yes` | Toggles the display of Non-Essential `yes/no`|
 
 ### Entities
 Entity attributes below have been appended with the modbus register # e.g. `pv2_power_187` to indicate which Sunsynk register should be read when configuring your sensors. Replace the default sensors with your own specific sensor names. It is important that your sensors read the expected modbus register value. If you have missing sensors for any attribute set it to none i.e. `solarday_108: none` and it will use a default value of 0.
 
-| Attribute | Default | Description |
-| --- | --- | --- |
-|use_timer_248: | `switch.toggle_system_timer` | Displays "Use timer" status as an icon next to the inverter. Set to `no` to hide |
-|priority_load_243: | `switch.toggle_priority_load` | Shows if energy pattern is set to Priority Load or Priority Battery as an icon next to the inverter. Set to `no` to hide|
-|batdischargeday_71: | `sensor.battery_discharge_day` | Daily Battery Usage (kWh) |
-|batchargeday_70: | `sensor.battery_charge_day` | Daily Battery Charge (kWh) |
-|loadday_84: | `sensor.daily_load_power_kwh` | Daily Load (kWh) |
-|grid_buy_day_76: | `sensor.grid_import_day_buy` | Daily Grid Import (kWh) |
-|grid_sell_day_77: | `sensor.grid_export_day_sell` | Daily Grid Export (kWh) |
-|solarday_108: | `sensor.daily_pv_power_kwh` | Daily Solar Usage (kWh |
-|inverter_grid_voltage_154: | `sensor.grid_inverter_voltage` | Grid Voltage (V) |
-|inverter_load_freq_192: | `sensor.load_frequency` | Load Frequency (Hz) |
-|inverter_out_164: | `sensor.inverter_output_current` | Inverter Output Current (A) |
-|inverter_out_175: | `sensor.inverter_output_power` | Inverter Output Power (W) |
-|inverter_load_grid_169: | `sensor.grid_inverter_load` | Inverter Load (W) |
-|pv1_power_186: | `sensor.pv1_power` | PV String 1 Power (W)|
-|pv2_power_187: | `sensor.pv2_power` | PV String 2 Power (W)  |
-|pv3_power_188: | `sensor.pv3_power` | PV String 3 Power (W)  |
-|pv4_power_189: | `sensor.pv4_power` | PV String 4 Power (W)  |
-|battery_voltage_183: | `sensor.battery_voltage` | Battery Voltage (V) |
-|battery_soc_184: | `sensor.battery_soc` | Battery State of Charge (%) |
-|battery_out_190: | `sensor.battery_output_power` | Battery Output Power (W). Requires a negative number for battery charging and a positive number for battery discharging. Set the `invert_power:` battery attribute to `yes` if your sensor reports this the other way around |
-|essential_power: | `none` | The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures essential power e.g. register 178 or `Load power Essential` in the case of Solar Assistant.  (W) |
-|nonessential_power| `none`| The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures non-essential power e.g.  `Load power Non-Essential` in the case of Solar Assistant.  (W)
-|grid_external_power_172: | `sensor.grid_external_power`  | Grid External Power (W)|
-|pv1_v_109: | `sensor.dc1_voltage` | PV String 1 Voltage (V) |
-|pv1_i_110: | `sensor.dc1_current` | PV String 1 Current (A)|
-|pv2_v_111: | `sensor.dc2_voltage` | PV String 2 Voltage (V)|
-|pv2_i_112: | `sensor.dc2_current` | PV String 2 Current (A)|
-|pv3_v_113: | `sensor.dc3_voltage` | PV String 3 Voltage (V) |
-|pv3_i_114: | `sensor.dc3_current` | PV String 3 Current (A)|
-|pv4_v_115: | `sensor.dc4_voltage` | PV String 4 Voltage (V)|
-|pv4_i_116: | `sensor.dc4_current` | PV String 4 Current (A)|
-|grid_status_194: | `binary_sensor.grid_connected_status` | Grid Connected Status `on/off` or `1/0` |
-|inverter_status_59: | `sensor.overall_state` | Inverter Status `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault` |
-|aux_power_166: | `sensor.aux_output_power` | Auxilary Power (W) |
+| Attribute |  Requirement | Default | Description |
+| --- | --- | --- | --- |
+|use_timer_248: | Optional | `switch.toggle_system_timer` | Displays "Use timer" status as an icon next to the inverter. Set to `no` to hide |
+|priority_load_243: | Optional |`switch.toggle_priority_load` | Shows if energy pattern is set to Priority Load or Priority Battery as an icon next to the inverter. Set to `no` to hide|
+|batdischargeday_71: | Optional |`sensor.battery_discharge_day` | Daily Battery Usage (kWh) |
+|batchargeday_70: | Optional |`sensor.battery_charge_day` | Daily Battery Charge (kWh) |
+|loadday_84: | Optional | `sensor.daily_load_power_kwh` | Daily Load (kWh) |
+|grid_buy_day_76: | Optional | `sensor.grid_import_day_buy` | Daily Grid Import (kWh) |
+|grid_sell_day_77: | Optional | `sensor.grid_export_day_sell` | Daily Grid Export (kWh) |
+|solarday_108: | Optional | `sensor.daily_pv_power_kwh` | Daily Solar Usage (kWh |
+|inverter_grid_voltage_154: | **Required** | `sensor.grid_inverter_voltage` | Grid Voltage (V) |
+|inverter_load_freq_192: | **Required** | `sensor.load_frequency` | Load Frequency (Hz) |
+|inverter_out_164: | **Required** | `sensor.inverter_output_current` | Inverter Output Current (A) |
+|inverter_out_175: | **Required** | `sensor.inverter_output_power` | Inverter Output Power (W) |
+|inverter_load_grid_169: | **Required** | `sensor.grid_inverter_load` | Inverter Load (W) |
+|pv1_power_186: | Optional | `sensor.pv1_power` | PV String 1 Power (W)|
+|pv2_power_187: | Optional | `sensor.pv2_power` | PV String 2 Power (W)  |
+|pv3_power_188: | Optional | `sensor.pv3_power` | PV String 3 Power (W)  |
+|pv4_power_189: | Optional | `sensor.pv4_power` | PV String 4 Power (W)  |
+|battery_voltage_183: | **Required** | `sensor.battery_voltage` | Battery Voltage (V) |
+|battery_soc_184: | **Required** | `sensor.battery_soc` | Battery State of Charge (%) |
+|battery_out_190: | **Required** | `sensor.battery_output_power` | Battery Output Power (W). Requires a negative number for battery charging and a positive number for battery discharging. Set the `invert_power:` battery attribute to `yes` if your sensor reports this the other way around |
+|essential_power: | Optional | `none` | The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures essential power e.g. register 178 or `Load power Essential` in the case of Solar Assistant.  (W) |
+|nonessential_power| Optional | `none`| The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures non-essential power e.g.  `Load power Non-Essential` in the case of Solar Assistant.  (W)
+|grid_external_power_172: | **Required** | `sensor.grid_external_power`  | Grid External Power (W)|
+|pv1_v_109: | Optional | `sensor.dc1_voltage` | PV String 1 Voltage (V) |
+|pv1_i_110: | Optional | `sensor.dc1_current` | PV String 1 Current (A)|
+|pv2_v_111: | Optional | `sensor.dc2_voltage` | PV String 2 Voltage (V)|
+|pv2_i_112: | Optional | `sensor.dc2_current` | PV String 2 Current (A)|
+|pv3_v_113: | Optional | `sensor.dc3_voltage` | PV String 3 Voltage (V) |
+|pv3_i_114: | Optional | `sensor.dc3_current` | PV String 3 Current (A)|
+|pv4_v_115: | Optional | `sensor.dc4_voltage` | PV String 4 Voltage (V)|
+|pv4_i_116: | Optional | `sensor.dc4_current` | PV String 4 Current (A)|
+|grid_status_194: | **Required** | `binary_sensor.grid_connected_status` | Grid Connected Status `on/off` or `1/0` |
+|inverter_status_59: | **Required** | `sensor.overall_state` | Inverter Status `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault` |
+|aux_power_166: | Optional | `sensor.aux_output_power` | Auxilary Power (W) |
 
 The card calculates the sensors below based on supplied attributes in the config so you dont need to define them in Home Assistant
  
@@ -175,11 +162,122 @@ The modbus registers can be visualised on the `full` card below:
 
 
 ### Example Card Configuration
+#### Minimum Configuration (No Solar) #####
 
+```yaml
+type: custom:sunsynk-power-flow-card
+cardstyle: full
+show_solar: 'no'
+battery:
+  energy: 15960
+  shutdown_soc: 20
+load:
+  show_aux: 'no'
+entities:
+  inverter_grid_voltage_154: sensor.grid_inverter_voltage
+  inverter_load_freq_192: sensor.load_frequency
+  inverter_out_164: sensor.inverter_output_current
+  inverter_out_175: sensor.inverter_output_power
+  inverter_load_grid_169: sensor.grid_inverter_load
+  battery_voltage_183: sensor.battery_voltage
+  battery_soc_184: sensor.battery_soc
+  battery_out_190: sensor.battery_output_power
+  grid_external_power_172: sensor.grid_external_power
+  grid_status_194: binary_sensor.grid_connected_status
+  inverter_status_59: sensor.overall_state
 ```
+#### Minimum Configuration (Solar) #####
+
+```yaml
+type: custom:sunsynk-power-flow-card
+cardstyle: full
+show_solar: 'yes'
+solar:
+  mppts: two
+battery:
+  energy: 15960
+  shutdown_soc: 20
+load:
+  show_aux: 'no'
+entities:
+  inverter_grid_voltage_154: sensor.grid_inverter_voltage
+  inverter_load_freq_192: sensor.load_frequency
+  inverter_out_164: sensor.inverter_output_current
+  inverter_out_175: sensor.inverter_output_power
+  inverter_load_grid_169: sensor.grid_inverter_load
+  battery_voltage_183: sensor.battery_voltage
+  battery_soc_184: sensor.battery_soc
+  battery_out_190: sensor.battery_output_power
+  grid_external_power_172: sensor.grid_external_power
+  grid_status_194: binary_sensor.grid_connected_status
+  inverter_status_59: sensor.overall_state
+  pv1_power_186: sensor.pv1_power
+  pv2_power_187: sensor.pv2_power
+  pv3_power_188: none
+  pv4_power_189: none
+  pv1_v_109: sensor.dc1_voltage
+  pv1_i_110: sensor.dc1_current
+  pv2_v_111: sensor.dc2_voltage
+  pv2_i_112: sensor.dc2_current
+  pv3_v_113: none
+  pv3_i_114: none
+  pv4_v_115: none
+  pv4_i_116: none
+```
+#### Minimum Configuration (Solar + Daily Totals) #####
+
+```yaml
+cardstyle: full
+show_solar: 'yes'
+solar:
+  mppts: two
+  show_daily: 'yes'
+battery:
+  energy: 15960
+  shutdown_soc: 20
+  show_daily: 'yes'
+load:
+  show_aux: 'no'
+  show_daily: 'yes'
+grid:
+  show_daily_buy: 'yes'
+entities:
+  inverter_grid_voltage_154: sensor.grid_inverter_voltage
+  inverter_load_freq_192: sensor.load_frequency
+  inverter_out_164: sensor.inverter_output_current
+  inverter_out_175: sensor.inverter_output_power
+  inverter_load_grid_169: sensor.grid_inverter_load
+  battery_voltage_183: sensor.battery_voltage
+  battery_soc_184: sensor.battery_soc
+  battery_out_190: sensor.battery_output_power
+  grid_external_power_172: sensor.grid_external_power
+  grid_status_194: binary_sensor.grid_connected_status
+  inverter_status_59: sensor.overall_state
+  pv1_power_186: sensor.pv1_power
+  pv2_power_187: sensor.pv2_power
+  pv3_power_188: none
+  pv4_power_189: none
+  pv1_v_109: sensor.dc1_voltage
+  pv1_i_110: sensor.dc1_current
+  pv2_v_111: sensor.dc2_voltage
+  pv2_i_112: sensor.dc2_current
+  pv3_v_113: none
+  pv3_i_114: none
+  pv4_v_115: none
+  pv4_i_116: none
+  solarday_108: sensor.daily_pv_power_kwh
+  batchargeday_70: sensor.battery_charge_day
+  batdischargeday_71: sensor.battery_discharge_day
+  loadday_84: sensor.daily_load_power_kwh
+  grid_buy_day_76: sensor.grid_import_day_buy
+```
+#### Full Configuration (All Options) #####
+
+```yaml
 type: custom:sunsynk-power-flow-card
 cardstyle: full
 panel_mode: 'no'
+show_solar: 'yes'
 inverter:
   modern: 'yes'
   colour: '#959595'
@@ -190,7 +288,6 @@ battery:
   colour: pink
   show_daily: 'yes'
 solar:
-  show_solar: 'yes'
   colour: orange
   show_daily: 'yes'
   mppts: two
@@ -240,6 +337,4 @@ entities:
   grid_status_194: binary_sensor.grid_connected_status
   inverter_status_59: sensor.overall_state
   aux_power_166: sensor.aux_output_power
-
-
 ```
