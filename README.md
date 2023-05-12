@@ -82,7 +82,7 @@ The card can be configured through the following attributes:
 |shutdown_soc: | **Required** | `20` |The battery shutdown percentage used to calculate remaining runtime |
 |invert_power:| Optional | `no`|Set to `yes` if your sensor provides a positive number for battery charge and negative number for battery discharge|
 |colour:| Optional| `pink`| Changes the colour of all the battery card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
-|show_daily: | Optional| `yes` | Toggles the Daily Total `yes/no` |
+|show_daily: | Optional| `no` | Toggles the Daily Total `yes/no` |
 
 ### Solar
 These attributes are only needed if `show_solar` is set to `yes` 
