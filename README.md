@@ -367,7 +367,7 @@ sensors:
       {% endif %}
 ```
 
-#### Configuration (Solarman Sennors) #####
+#### Configuration (Solarman Sensors) #####
 ```yaml
 type: custom:sunsynk-power-flow-card
 cardstyle: lite
