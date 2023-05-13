@@ -172,7 +172,14 @@ class SunsynkPowerFlowCard extends LitElement {
     const stateObj34 = this.hass.states[config.entities.nonessential_power] || { state: '0' };
 
     const totalsolar = (parseInt(stateObj8.state || 0) + parseInt(stateObj9.state || 0) + parseInt(stateObj31.state || 0) + parseInt(stateObj32.state || 0));
-    
+
+    let panel = "";
+    if (config && config.panel_mode) {
+    panel = config.panel_mode; // set default value
+    } else {
+    panel = 'no'; // override with provided value
+    }  
+
     let usetimer ="";
     if (config.entities.use_timer_248 === 'no' || !config.entities.use_timer_248) {
       usetimer = 'no';
@@ -350,7 +357,7 @@ class SunsynkPowerFlowCard extends LitElement {
     if (config.cardstyle === 'full') {
       return html`
         <div class="container card">
-          <svg viewBox="-0.5 -0.5 457 383" height="${config.panel_mode === 'no' ? '396px' : '100%'}" width="100%" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+          <svg viewBox="-0.5 -0.5 457 383" height="${panel === 'no' ? '396px' : '100%'}" width="100%" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
             <rect x="51" y="162" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === 'no' ? 'st12' : ''}"/>
             <rect x="6" y="300.75" width="70" height="70" rx="10.5" ry="10.5" fill="none" stroke="${battery_colour}" pointer-events="all"/>
             <rect x="234" y="153" width="70" height="70" rx="10.5" ry="10.5" fill="none" stroke="${grid_colour}" pointer-events="all" />
@@ -623,7 +630,7 @@ class SunsynkPowerFlowCard extends LitElement {
     if (config.cardstyle === 'lite') {
       return html`
         <div class="container card">
-          <svg viewBox="-0.5 ${config.show_solar === 'no' ? 145.33 : -0.5} 483 ${config.show_solar === 'no' ? 270.67 : 406}" height="${config.panel_mode === 'no' ? `${config.show_solar === 'no' ? '246px' : '396px'}` : `${config.show_solar === 'no' ? '75%' : '100%'}`}" width="100%"  xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+          <svg viewBox="-0.5 ${config.show_solar === 'no' ? 145.33 : -0.5} 483 ${config.show_solar === 'no' ? 270.67 : 406}" height="${panel === 'no' ? `${config.show_solar === 'no' ? '246px' : '396px'}` : `${config.show_solar === 'no' ? '75%' : '100%'}`}" width="100%"  xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
             <rect x="304" y="203.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${load_colour}" pointer-events="all"/>
             <rect x="205" y="116.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === 'no' ? 'st12' : ''}"/>
             <rect x="159" y="329.75" width="70" height="70" rx="10.5" ry="10.5" fill="none" stroke="${battery_colour}" pointer-events="all"/>
