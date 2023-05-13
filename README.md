@@ -227,6 +227,7 @@ entities:
 #### Minimum Configuration (Solar + Daily Totals) #####
 
 ```yaml
+type: custom:sunsynk-power-flow-card
 cardstyle: full
 show_solar: 'yes'
 solar:
