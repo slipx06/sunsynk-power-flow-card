@@ -339,3 +339,82 @@ entities:
   inverter_status_59: sensor.overall_state
   aux_power_166: sensor.aux_output_power
 ```
+## Solarman ##
+If you are using Solarman you can configre your card using the following sensors. You will also needs to create the template sensors below for grid_status_194 and inverter_status_59.
+
+#### Template Sensors ####
+```yaml
+sensors:
+  sunsynkcard_gridstatus:
+    friendly_name: Gridstatus
+    value_template: |
+      {% if is_state('sensor.solarman_grid_connected_status', 'On-Grid') %}
+        1
+      {% else %}
+        0
+      {% endif %}
+  sunsynkcard_inverterstatus:
+    friendly_name: InverterStatus
+    value_template: |
+      {% if is_state('sensor.solarman_running_status', 'Stand-by') %}
+        0
+      {% elif is_state('sensor.solarman_running_status', 'Self-Checking') %}
+        1
+      {% elif is_state('sensor.solarman_running_status', 'Normal') %}
+        2
+      {% elif is_state('sensor.solarman_running_status', 'Fault') %}
+        4
+      {% endif %}
+```
+
+#### Configuration (Solarman Sennors) #####
+```yaml
+type: custom:sunsynk-power-flow-card
+cardstyle: lite
+panel_mode: 'no'
+show_solar: 'yes'
+battery:
+  energy: 15960
+  shutdown_soc: 20
+  show_daily: 'yes'
+solar:
+  show_daily: 'yes'
+  mppts: two
+load:
+  show_daily: 'yes'
+  show_aux: 'no'
+grid:
+  show_daily_buy: 'yes'
+entities:
+  batchargeday_70: sensor.solarman_daily_battery_charge
+  batdischargeday_71: sensor.solarman_daily_battery_discharge
+  loadday_84: sensor.solarman_daily_load_consumption
+  grid_buy_day_76: sensor.solarman_daily_energy_bought
+  grid_sell_day_77: sensor.solarman_daily_energy_sold
+  solarday_108: sensor.solarman_daily_production
+  inverter_grid_voltage_154: sensor.solarman_grid_voltage_l1
+  inverter_load_freq_192: sensor.solarman_load_frequency
+  inverter_out_164: sensor.solarman_current_l1
+  inverter_out_175: sensor.solarman_total_power
+  inverter_load_grid_169: sensor.solarman_total_load_power
+  pv1_power_186: sensor.solarman_pv1_power
+  pv2_power_187: sensor.solarman_pv2_power
+  pv3_power_188: none
+  pv4_power_189: none
+  battery_voltage_183: sensor.solarman_battery_voltage
+  battery_soc_184: sensor.solarman_battery_soc
+  battery_out_190: sensor.solarman_battery_power
+  essential_power: sensor.solarman_total_load_power
+  grid_external_power_172: sensor.solarman_total_grid_power
+  pv1_v_109: sensor.solarman_pv1_voltage
+  pv1_i_110: sensor.solarman_pv1_current
+  pv2_v_111: sensor.solarman_pv2_voltage
+  pv2_i_112: sensor.solarman_pv2_current
+  pv3_v_113: none
+  pv3_i_114: none
+  pv4_v_115: none
+  pv4_i_116: none
+  grid_status_194: sensor.sunsynkcard_gridstatus
+  inverter_status_59: sensor.solarman_running_status
+  aux_power_166: sensor.aux_output_power
+  ```
