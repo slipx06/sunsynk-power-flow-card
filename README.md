@@ -122,11 +122,11 @@ Entity attributes below have been appended with the modbus register # e.g. `pv2_
 |grid_buy_day_76: | Optional | `sensor.grid_import_day_buy` | Daily Grid Import (kWh) |
 |grid_sell_day_77: | Optional | `sensor.grid_export_day_sell` | Daily Grid Export (kWh) |
 |solarday_108: | Optional | `sensor.daily_pv_power_kwh` | Daily Solar Usage (kWh |
-|inverter_grid_voltage_154: | **Required** | `sensor.grid_inverter_voltage` | Grid Voltage (V) |
+|inverter_grid_voltage_154: | **Required** | `sensor.grid_inverter_voltage` | Inverter Output Voltage (V) |
 |inverter_load_freq_192: | **Required** | `sensor.load_frequency` | Load Frequency (Hz) |
 |inverter_out_164: | **Required** | `sensor.inverter_output_current` | Inverter Output Current (A) |
 |inverter_out_175: | **Required** | `sensor.inverter_output_power` | Inverter Output Power (W) |
-|inverter_load_grid_169: | **Required** | `sensor.grid_inverter_load` | Inverter Load (W) |
+|inverter_load_grid_169: | **Required** | `sensor.grid_inverter_load` | Total Grid Power (W) |
 |pv1_power_186: | Optional | `sensor.pv1_power` | PV String 1 Power (W)|
 |pv2_power_187: | Optional | `sensor.pv2_power` | PV String 2 Power (W)  |
 |pv3_power_188: | Optional | `sensor.pv3_power` | PV String 3 Power (W)  |
