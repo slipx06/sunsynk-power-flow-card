@@ -136,6 +136,7 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |battery_voltage_183: | **Required** | `sensor.battery_voltage` | Battery Voltage (V) |
 |battery_soc_184: | **Required** | `sensor.battery_soc` | Battery State of Charge (%) |
 |battery_out_190: | **Required** | `sensor.battery_output_power` | Battery Output Power (W). Requires a negative number for battery charging and a positive number for battery discharging. Set the `invert_power:` battery attribute to `yes` if your sensor reports this the other way around |
+|battery_current_191: | **Required** |`sensor.battery_output_current` | Battery Current (A) | 
 |essential_power: | Optional | `none` | The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures essential power e.g. register 178 or `Load power Essential` in the case of Solar Assistant.  (W) |
 |nonessential_power| Optional | `none`| The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures non-essential power e.g.  `Load power Non-Essential` in the case of Solar Assistant.  (W)
 |grid_external_power_172: | **Required** | `sensor.grid_external_power`  | Grid External Power (W)|
@@ -184,6 +185,7 @@ entities:
   battery_voltage_183: sensor.battery_voltage
   battery_soc_184: sensor.battery_soc
   battery_out_190: sensor.battery_output_power
+  battery_current_191: sensor.battery_output_current
   grid_external_power_172: sensor.grid_external_power
   grid_status_194: binary_sensor.grid_connected_status
   inverter_status_59: sensor.overall_state
@@ -210,6 +212,7 @@ entities:
   battery_voltage_183: sensor.battery_voltage
   battery_soc_184: sensor.battery_soc
   battery_out_190: sensor.battery_output_power
+  battery_current_191: sensor.battery_output_current
   grid_external_power_172: sensor.grid_external_power
   grid_status_194: binary_sensor.grid_connected_status
   inverter_status_59: sensor.overall_state
@@ -253,6 +256,7 @@ entities:
   battery_voltage_183: sensor.battery_voltage
   battery_soc_184: sensor.battery_soc
   battery_out_190: sensor.battery_output_power
+  battery_current_191: sensor.battery_output_current
   grid_external_power_172: sensor.grid_external_power
   grid_status_194: binary_sensor.grid_connected_status
   inverter_status_59: sensor.overall_state
@@ -326,6 +330,7 @@ entities:
   battery_voltage_183: sensor.battery_voltage
   battery_soc_184: sensor.battery_soc
   battery_out_190: sensor.battery_output_power
+  battery_current_191: sensor.battery_output_current
   essential_power: none
   nonessential_power: none
   grid_external_power_172: sensor.grid_external_power
@@ -407,6 +412,7 @@ entities:
   battery_soc_184: sensor.solarman_battery_soc
   battery_out_190: sensor.solarman_battery_power
   essential_power: sensor.solarman_total_load_power
+  battery_current_191: sensor.solarman_battery_current
   grid_external_power_172: sensor.solarman_total_grid_power
   pv1_v_109: sensor.solarman_pv1_voltage
   pv1_i_110: sensor.solarman_pv1_current
