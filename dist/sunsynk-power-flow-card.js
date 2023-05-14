@@ -591,10 +591,10 @@ class SunsynkPowerFlowCard extends LitElement {
               <text id="inverter_out_164" x="39.5%" y="52%" class="st4 st8" fill="${inverter_colour}">${stateObj7.state ? stateObj7.state : '0'} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_voltage_183)}>
-            <text id="battery_voltage_183" x="5%" y="87.5%" fill=${battery_colour} class="st3 st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
+            <text id="battery_voltage_183" x="5%" y="88%" fill=${battery_colour} class="st3 st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_current_191)}>
-            <text id="battery_current_191" x="13%" y="87.5%" fill=${battery_colour} class="st3 st8">${stateObj35.state ? stateObj35.state : '0'} A</text>
+            <text id="battery_current_191" x="13%" y="88%" fill=${battery_colour} class="st3 st8">${stateObj35.state ? stateObj35.state : '0'} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
             <text id="battery_soc_184" x="9%" y="82%" fill=${battery_colour} class=" st4 st8">${stateObj12.state ? stateObj12.state : '0'} %</text>
