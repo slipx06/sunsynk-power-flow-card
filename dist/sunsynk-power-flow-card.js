@@ -98,27 +98,31 @@ class SunsynkPowerFlowCard extends LitElement {
       entities: {
         use_timer_248: 'switch.toggle_system_timer',
         priority_load_243: 'switch.toggle_priority_load',
-        batchargeday_70: 'sensor.battery_charge_day',
-        batdischargeday_71: 'sensor.battery_discharge_day',
-        loadday_84: 'sensor.daily_load_power_kwh',
-        grid_buy_day_76: 'sensor.grid_import_day_buy',
-        grid_sell_day_77: 'sensor.grid_export_day_sell',
-        solarday_108: 'sensor.daily_pv_power_kwh',
         inverter_grid_voltage_154: 'sensor.grid_inverter_voltage',
         inverter_load_freq_192: 'sensor.load_frequency',
         inverter_out_164: 'sensor.inverter_output_current',
         inverter_out_175: 'sensor.inverter_output_power',
+        grid_status_194: 'binary_sensor.grid_connected_status',
+        inverter_status_59: 'sensor.overall_state',
+        batchargeday_70: 'sensor.battery_charge_day',
+        batdischargeday_71: 'sensor.battery_discharge_day',
+        battery_voltage_183: 'sensor.battery_voltage',
+        battery_soc_184: 'sensor.battery_soc',
+        battery_out_190: 'sensor.battery_output_power',
+        battery_current_191: 'sensor.battery_output_current',
         inverter_load_grid_169: 'sensor.grid_inverter_load',
+        grid_buy_day_76: 'sensor.grid_import_day_buy',
+        grid_sell_day_77: 'sensor.grid_export_day_sell',
+        grid_external_power_172: 'sensor.grid_external_power',
+        loadday_84: 'sensor.daily_load_power_kwh',
+        essential_power: 'none',
+        nonessential_power: 'none',
+        aux_power_166: 'sensor.aux_output_power',
+        solarday_108: 'sensor.daily_pv_power_kwh',
         pv1_power_186: 'sensor.pv1_power',
         pv2_power_187: 'sensor.pv2_power',
         pv3_power_188: 'sensor.pv3_power',
         pv4_power_189: 'sensor.pv4_power',
-        battery_voltage_183: 'sensor.battery_voltage',
-        battery_soc_184: 'sensor.battery_soc',
-        battery_out_190: 'sensor.battery_output_power',
-        essential_power: 'none',
-        nonessential_power: 'none',
-        grid_external_power_172: 'sensor.grid_external_power',
         pv1_v_109: 'sensor.dc1_voltage',
         pv1_i_110: 'sensor.dc1_current',
         pv2_v_111: 'sensor.dc2_voltage',
@@ -126,10 +130,7 @@ class SunsynkPowerFlowCard extends LitElement {
         pv3_v_113: 'sensor.dc3_voltage',
         pv3_i_114: 'sensor.dc3_current',
         pv4_v_115: 'sensor.dc4_voltage',
-        pv4_i_116: 'sensor.dc4_current',
-        grid_status_194: 'binary_sensor.grid_connected_status',
-        inverter_status_59: 'sensor.overall_state',
-        aux_power_166: 'sensor.aux_output_power',
+        pv4_i_116: 'sensor.dc4_current', 
       }
     };
   }
@@ -170,6 +171,7 @@ class SunsynkPowerFlowCard extends LitElement {
     const stateObj32 = this.hass.states[config.entities.pv4_power_189] || { state: '0' };
     const stateObj33 = this.hass.states[config.entities.grid_sell_day_77] || { state: '0' };
     const stateObj34 = this.hass.states[config.entities.nonessential_power] || { state: '0' };
+    const stateObj35 = this.hass.states[config.entities.battery_current_191] || { state: '0' };
 
     const totalsolar = (parseInt(stateObj8.state || 0) + parseInt(stateObj9.state || 0) + parseInt(stateObj31.state || 0) + parseInt(stateObj32.state || 0));
 
@@ -489,7 +491,12 @@ class SunsynkPowerFlowCard extends LitElement {
               </animateMotion>
             </circle>
             <path id="es-line" d="M 235 118 L 212 118 Q 200 118 200 128 L 200 162" fill="none" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>  
+            <path id="bat-line1" d="M 6 347 L 76 347" fill="none" stroke="${battery_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+            <path id="bat-line2" d="M 6 323 L 76 323" fill="none" stroke="${battery_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+            <path id="bat-line3" d="M 41 323 V 347" fill="none" stroke="${battery_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             
+            
+
             <svg version="1.0" xmlns="http://www.w3.org/2000/svg" x="154.5" y="224.75" width="54" height="79" viewBox="0 0 74 91"  preserveAspectRatio="xMidYMid meet"> <g transform="translate(0.000000,91.000000) scale(0.100000,-0.100000)" fill="${inverter_colour}" stroke="none"> <path d="M35 887 l-27 -23 0 -404 0 -404 27 -23 c26 -23 28 -23 329 -23 284 0 305 1 327 19 l24 19 0 412 0 412 -24 19 c-22 18 -43 19 -327 19 -301 0 -303 0 -329 -23z m585 -157 l0 -80 -255 0 -255 0 0 80 0 80 255 0 255 0 0 -80z m-242 -229 c44 -34 40 -46 -14 -46 -60 0 -97 -38 -93 -94 5 -64 -23 -80 -35 -20 -9 44 24 113 63 134 35 18 34 15 21 50 -11 29 -14 30 58 -24z m110 -129 c4 -51 -19 -97 -59 -117 -27 -14 -30 -20 -23 -48 l6 -31 -51 43 c-29 24 -49 46 -46 49 3 4 23 5 44 3 58 -4 95 32 97 95 3 60 1 57 17 52 6 -3 13 -23 15 -46z"/> </g> </svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="bat-high" x="74.5" y="296.25" width="82" height="82" preserveAspectRatio="none" opacity="${parseInt(stateObj12.state) > '80' ? '1' : '0'}" viewBox="0 0 24 24"><path fill="${battery_colour}" d="M12 20H4V6h8m.67-2H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M11 16H5v3h6v-3m0-9H5v3h6V7m0 4.5H5v3h6v-3M23 10h-3V3l-5 10h3v8"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="bat-med" x="74.5" y="296.25" width="82" height="82" preserveAspectRatio="none" opacity="${parseInt(stateObj12.state) >= 50 && parseInt(stateObj12.state) <= 80 ? '1' : '0'}" viewBox="0 0 24 24"><path fill="${battery_colour}" d="M12 20H4V6h8m.67-2H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M11 16H5v3h6v-3m0-4.5H5v3h6v-3M23 10h-3V3l-5 10h3v8"/></svg>
@@ -584,13 +591,16 @@ class SunsynkPowerFlowCard extends LitElement {
               <text id="inverter_out_164" x="39.5%" y="52%" class="st4 st8" fill="${inverter_colour}">${stateObj7.state ? stateObj7.state : '0'} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_voltage_183)}>
-            <text id="battery_voltage_183" x="9%" y="83%" fill=${battery_colour} class="st4 st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
+            <text id="battery_voltage_183" x="5%" y="87.5%" fill=${battery_colour} class="st3 st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_current_191)}>
+            <text id="battery_current_191" x="13%" y="87.5%" fill=${battery_colour} class="st3 st8">${stateObj35.state ? stateObj35.state : '0'} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
-            <text id="battery_soc_184" x="9%" y="87.5%" fill=${battery_colour} class=" st4 st8">${stateObj12.state ? stateObj12.state : '0'} %</text>
+            <text id="battery_soc_184" x="9%" y="82%" fill=${battery_colour} class=" st4 st8">${stateObj12.state ? stateObj12.state : '0'} %</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_out_190)}>
-            <text id="battery_out_190" x="9%" y="92%" fill=${battery_colour} class="st4 st8">${battery_power < '0' ? battery_power *-1 : battery_power} W</text>
+            <text id="battery_out_190" x="9%" y="94%" fill=${battery_colour} class="st4 st8">${battery_power < '0' ? battery_power *-1 : battery_power} W</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_out_175)}>
             <text id="inverter_out_175" x="39.5%" y="46.5%" class="st4 st8" fill="${inverter_colour}">${stateObj22.state ? stateObj22.state : '0'} W</text>
@@ -733,6 +743,11 @@ class SunsynkPowerFlowCard extends LitElement {
               </animateMotion>
             </circle>
 
+            <path id="bat-line1" d="M 229 377 L 159 377" fill="none" stroke="${battery_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+            <path id="bat-line2" d="M 229 353 L 159 353" fill="none" stroke="${battery_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+            <path id="bat-line3" d="M 194 353 V 377" fill="none" stroke="${battery_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+ 
+
             <svg xmlns="http://www.w3.org/2000/svg" id="sun" x="160" y="0" width="56" height="56" viewBox="0 0 24 24"><path class="${config.show_solar === 'no' ? 'st12' : ''}" fill="${solar_colour}" d="M11.45 2v3.55L15 3.77L11.45 2m-1 6L8 10.46l3.75 1.25L10.45 8M2 11.45L3.77 15l1.78-3.55H2M10 2H2v8c.57.17 1.17.25 1.77.25c3.58.01 6.49-2.9 6.5-6.5c-.01-.59-.1-1.18-.27-1.75m7 20v-6h-3l5-9v6h3l-5 9Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="bat-high" x="232.5" y="325.5" width="78.75" height="78.75" preserveAspectRatio="none" opacity="${parseInt(stateObj12.state) > '80' ? '1' : '0'}" viewBox="0 0 24 24"> <path fill="${battery_colour}" d="M12 20H4V6h8m.67-2H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M11 16H5v3h6v-3m0-9H5v3h6V7m0 4.5H5v3h6v-3M23 10h-3V3l-5 10h3v8"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="bat-med" x="232.5" y="325.5" width="78.75" height="78.75" preserveAspectRatio="none" opacity="${parseInt(stateObj12.state) >= 50 && parseInt(stateObj12.state) <= 80 ? '1' : '0'}" viewBox="0 0 24 24"><path fill="${battery_colour}" d="M12 20H4V6h8m.67-2H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M11 16H5v3h6v-3m0-4.5H5v3h6v-3M23 10h-3V3l-5 10h3v8"/></svg>
@@ -786,13 +801,16 @@ class SunsynkPowerFlowCard extends LitElement {
               <text id="inverter_out_164" x="270.2" y="192.6" class="st3 left-align" fill="${inverter_colour}">${stateObj7.state ? stateObj7.state : '0'} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_voltage_183)}>
-              <text id="battery_voltage_183" x="193" y="345" fill=${battery_colour} class="st4 st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
+              <text id="battery_voltage_183" x="177" y="366" fill=${battery_colour} class="st3 st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_current_191)}>
+            <text id="battery_current_191" x="212" y="366" fill=${battery_colour} class="st3 st8">${stateObj35.state ? stateObj35.state : '0'} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
-              <text id="battery_soc_184" x="193" y="365.3" fill=${battery_colour} class="st4 st8">${stateObj12.state ? stateObj12.state : '0'} %</text>
+              <text id="battery_soc_184" x="193" y="342" fill=${battery_colour} class="st4 st8">${stateObj12.state ? stateObj12.state : '0'} %</text>
             </a>  
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_out_190)}>
-              <text id="battery_out_190" x="193" y="385.6" fill=${battery_colour} class="st4 st8">${battery_power < '0' ? battery_power *-1 : battery_power} W</text>
+              <text id="battery_out_190" x="193" y="390" fill=${battery_colour} class="st4 st8">${battery_power < '0' ? battery_power *-1 : battery_power} W</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_external_power_172)}>
               <text id="grid_external_power_172" x="135.1" y="219.2" class="st4 st8" fill="${grid_colour}">${stateObj15.state ? stateObj15.state : '0'} W</text>
@@ -903,7 +921,7 @@ class SunsynkPowerFlowCard extends LitElement {
 
     const all_attributes = [
       'inverter_grid_voltage_154', 'inverter_load_freq_192', 'inverter_out_164', 'inverter_out_175', 'inverter_load_grid_169', 
-      'battery_voltage_183', 'battery_soc_184', 'battery_out_190', 'grid_external_power_172', 'grid_status_194', 'inverter_status_59'     
+      'battery_voltage_183', 'battery_soc_184', 'battery_out_190', 'battery_current_191', 'grid_external_power_172', 'grid_status_194', 'inverter_status_59'     
     ];
 
     for (const attr of all_attributes) {
@@ -945,6 +963,7 @@ class SunsynkPowerFlowCard extends LitElement {
       }
     }
   }
+
 
   getCardSize() {
     return 2;
