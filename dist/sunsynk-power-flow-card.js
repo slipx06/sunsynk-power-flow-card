@@ -589,7 +589,7 @@ class SunsynkPowerFlowCard extends LitElement {
               <text id="battery_voltage_183" x="9%" y="82.75%" fill=${battery_colour} class="st4 st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
-              <text id="battery_soc_184" x="39.75%" y="87%" fill=${battery_colour} class="st13 st8">${stateObj12.state ? stateObj12.state : '0'} %</text>
+              <text id="battery_soc_184" x="35%" y="87%" fill=${battery_colour} class="st13 st8 left-align">${stateObj12.state ? stateObj12.state : '0'} %</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_out_190)}>
               <text id="battery_out_190" x="9%" y="93%" fill=${battery_colour} class="st4 st8">${battery_power < '0' ? battery_power *-1 : battery_power} W</text>
@@ -794,7 +794,7 @@ class SunsynkPowerFlowCard extends LitElement {
               <text id="battery_voltage_183" x="193" y="346" fill=${battery_colour} class="st4 st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
-              <text id="battery_soc_184" x="340" y="362" fill=${battery_colour} class="st13 st8">${stateObj12.state ? stateObj12.state : '0'} %</text>
+              <text id="battery_soc_184" x="318.4" y="362" fill=${battery_colour} class="st13 st8 left-align">${stateObj12.state ? stateObj12.state : '0'} %</text>
             </a>  
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_out_190)}>
               <text id="battery_out_190" x="193" y="386" fill=${battery_colour} class="st4 st8">${battery_power < '0' ? battery_power *-1 : battery_power} W</text>
