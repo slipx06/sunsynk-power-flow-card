@@ -521,7 +521,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <image x="154.5" y="224.75" width="52" height="72" class="${inverter_modern === 'no' ? '' : 'st12'}" xlink:href="data:image/png;base64,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" preserveAspectRatio="none"/>
 
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.solarday_108)}>
-            <text id="daily_solar_value" x="75" y="4%" class="st10 left-align" display="${solar_showdaily === 'no' || config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}" >${stateObj4.state ? stateObj4.state : '0'} kWh</text>
+              <text id="daily_solar_value" x="75" y="4%" class="st10 left-align" display="${solar_showdaily === 'no' || config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}" >${stateObj4.state ? stateObj4.state : '0'} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.loadday_84)}>
               <text id="daily_load_value" x="83%" y="15%" class="st10 left-align" display="${load_showdaily === 'no' || config.load.show_aux === 'yes' ? 'none' : ''}" fill="${load_colour}" >${stateObj2.state ? stateObj2.state : '0'} kWh</text>
@@ -553,28 +553,28 @@ class SunsynkPowerFlowCard extends LitElement {
             </a>
             ${config.entities.aux_power_166 !== 'none'
             ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.aux_power_166)}>
-            <text id="aux_power_166" x="59%" y="12.5%" class="st4 st8" display="${config.load.show_aux === 'no' ? 'none' : ''}" fill="${load_colour}">${aux_power < '0' ? aux_power *-1 : aux_power} W</text> 
-            </a>`
+                    <text id="aux_power_166" x="59%" y="12.5%" class="st4 st8" display="${config.load.show_aux === 'no' ? 'none' : ''}" fill="${load_colour}">${aux_power < '0' ? aux_power *-1 : aux_power} W</text> 
+                  </a>`
             : svg`<text id="aux_power_166" x="59%" y="12.5%" class="st4 st8" display="${config.load.show_aux === 'no' ? 'none' : ''}" fill="${load_colour}">${aux_power < '0' ? aux_power *-1 : aux_power} W</text> `}
             ${config.entities.pv1_power_186 !== 'none'
             ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_power_186)}>
-            <text id="pv1_power_186" x="8%" y="14.75%" class="st4 st8" display="${config.show_solar === 'no'  ? 'none' : ''}" fill="${solar_colour}" >${stateObj9.state ? stateObj9.state : '0'} W</text>
-            </a>`
+                    <text id="pv1_power_186" x="8%" y="14.75%" class="st4 st8" display="${config.show_solar === 'no'  ? 'none' : ''}" fill="${solar_colour}" >${stateObj9.state ? stateObj9.state : '0'} W</text>
+                  </a>`
             : svg`<text id="pv1_power_186" x="8%" y="14.75%" class="st4 st8" display="${config.show_solar === 'no'  ? 'none' : ''}" fill="${solar_colour}" >${stateObj9.state ? stateObj9.state : '0'} W</text>`}
             ${config.entities.pv2_power_187 !== 'none'
             ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_power_187)}>
-            <text id="pv2_power_187" x="30%" y="14.75%" class="st4 st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}">${stateObj8.state ? stateObj8.state : '0'} W</text>
-            </a>`
+                    <text id="pv2_power_187" x="30%" y="14.75%" class="st4 st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}">${stateObj8.state ? stateObj8.state : '0'} W</text>
+                  </a>`
             : svg`<text id="pv2_power_187" x="30%" y="14.75%" class="st4 st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}">${stateObj8.state ? stateObj8.state : '0'} W</text>`}
             ${config.entities.pv3_power_188 !== 'none'
             ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_power_188)}>
-            <text id="pv3_power_188" x="8%" y="30.5%" class="st4 st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two'? 'none' : ''}" fill="${solar_colour}">${stateObj31.state ? stateObj31.state : '0'} W</text>
-            </a>`
+                    <text id="pv3_power_188" x="8%" y="30.5%" class="st4 st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two'? 'none' : ''}" fill="${solar_colour}">${stateObj31.state ? stateObj31.state : '0'} W</text>
+                  </a>`
             : svg`<text id="pv3_power_188" x="8%" y="30.5%" class="st4 st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two'? 'none' : ''}" fill="${solar_colour}">${stateObj31.state ? stateObj31.state : '0'} W</text>`}
             ${config.entities.pv4_power_189 !== 'none'
             ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_power_189)}>
-            <text id="pv4_power_189" x="30%" y="30.5%" class="st4 st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}">${stateObj32.state ? stateObj32.state : '0'} W</text>
-            </a>`
+                    <text id="pv4_power_189" x="30%" y="30.5%" class="st4 st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}">${stateObj32.state ? stateObj32.state : '0'} W</text>
+                  </a>`
             : svg`<text id="pv4_power_189" x="30%" y="30.5%" class="st4 st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}">${stateObj32.state ? stateObj32.state : '0'} W</text>`}
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_grid_voltage_154)}>
               <text id="inverter_grid_voltage_154" x="59%" y="44.5%" class="st4 st8" fill="${grid_colour}" >${stateObj5.state ? stateObj5.state : '0'} V</text>
@@ -586,46 +586,46 @@ class SunsynkPowerFlowCard extends LitElement {
               <text id="inverter_out_164" x="39.5%" y="52%" class="st4 st8" fill="${inverter_colour}">${stateObj7.state ? stateObj7.state : '0'} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_voltage_183)}>
-            <text id="battery_voltage_183" x="9%" y="82.75%" fill=${battery_colour} class="st4 st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
+              <text id="battery_voltage_183" x="9%" y="82.75%" fill=${battery_colour} class="st4 st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
-            <text id="battery_soc_184" x="39.75%" y="87%" fill=${battery_colour} class="st13 st8">${stateObj12.state ? stateObj12.state : '0'} %</text>
+              <text id="battery_soc_184" x="39.75%" y="87%" fill=${battery_colour} class="st13 st8">${stateObj12.state ? stateObj12.state : '0'} %</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_out_190)}>
-            <text id="battery_out_190" x="9%" y="93%" fill=${battery_colour} class="st4 st8">${battery_power < '0' ? battery_power *-1 : battery_power} W</text>
+              <text id="battery_out_190" x="9%" y="93%" fill=${battery_colour} class="st4 st8">${battery_power < '0' ? battery_power *-1 : battery_power} W</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_current_191)}>
-            <text id="battery_current_191" x="9%" y="87.75%" fill=${battery_colour} class="st4 st8">${stateObj35.state ? stateObj35.state : '0'} A</text>
+              <text id="battery_current_191" x="9%" y="87.75%" fill=${battery_colour} class="st4 st8">${stateObj35.state ? stateObj35.state : '0'} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_out_175)}>
-            <text id="inverter_out_175" x="39.5%" y="46.5%" class="st4 st8" fill="${inverter_colour}">${stateObj22.state ? stateObj22.state : '0'} W</text>
+              <text id="inverter_out_175" x="39.5%" y="46.5%" class="st4 st8" fill="${inverter_colour}">${stateObj22.state ? stateObj22.state : '0'} W</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_load_grid_169)}>
-            <text id="inverter_load_grid_169" x="59%" y="54.5%" class="st4 st8" fill="${grid_colour}">${stateObj23.state ? stateObj23.state : '0'} W</text>
+              <text id="inverter_load_grid_169" x="59%" y="54.5%" class="st4 st8" fill="${grid_colour}">${stateObj23.state ? stateObj23.state : '0'} W</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_v_109)}>
-            <text id="pv1_v" x="9%" y="20.5%" class="st3 left-align" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}" >${stateObj16.state ? stateObj16.state : '0'} V</text>
+              <text id="pv1_v" x="9%" y="20.5%" class="st3 left-align" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}" >${stateObj16.state ? stateObj16.state : '0'} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_i_110)}>
-            <text id="pv1_i" x="9%" y="23.5%" class="st3 left-align" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}" >${stateObj17.state ? stateObj17.state : '0'} A</text>
+              <text id="pv1_i" x="9%" y="23.5%" class="st3 left-align" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}" >${stateObj17.state ? stateObj17.state : '0'} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_v_111)}>
-            <text id="pv2_v" x="31%" y="20.5%" class="st3 left-align" display="${config.show_solar === 'no' || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}" >${stateObj18.state ? stateObj18.state : '0'} V</text>
+              <text id="pv2_v" x="31%" y="20.5%" class="st3 left-align" display="${config.show_solar === 'no' || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}" >${stateObj18.state ? stateObj18.state : '0'} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_i_112)}>
-            <text id="pv2_i" x="31%" y="23.5%" class="st3 left-align" display="${config.show_solar === 'no' || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}" >${stateObj19.state ? stateObj19.state : '0'} A</text>
+              <text id="pv2_i" x="31%" y="23.5%" class="st3 left-align" display="${config.show_solar === 'no' || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}" >${stateObj19.state ? stateObj19.state : '0'} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_v_113)}>
-            <text id="pv3_v" x="9%" y="36.25%" class="st3 left-align" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}" >${stateObj27.state ? stateObj27.state : '0'} V</text>
+              <text id="pv3_v" x="9%" y="36.25%" class="st3 left-align" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}" >${stateObj27.state ? stateObj27.state : '0'} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_i_114)}>
-            <text id="pv3_i" x="9%" y="39.25%" class="st3 left-align" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}" >${stateObj28.state ? stateObj28.state : '0'} A</text>
+              <text id="pv3_i" x="9%" y="39.25%" class="st3 left-align" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}" >${stateObj28.state ? stateObj28.state : '0'} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_v_115)}>
-            <text id="pv4_v" x="31%" y="36.25%" class="st3 left-align" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj29.state ? stateObj29.state : '0'} V</text>
+              <text id="pv4_v" x="31%" y="36.25%" class="st3 left-align" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj29.state ? stateObj29.state : '0'} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_i_116)}>
-            <text id="pv4_i" x="31%" y="39.25%" class="st3 left-align" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj30.state ? stateObj30.state : '0'} A</text>
+              <text id="pv4_i" x="31%" y="39.25%" class="st3 left-align" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj30.state ? stateObj30.state : '0'} A</text>
             </a>
           </svg>
         </div>
@@ -764,10 +764,10 @@ class SunsynkPowerFlowCard extends LitElement {
             <image x="213.5" y="179.5" width="52" height="72" class="${inverter_modern === 'no' ? '' : 'st12'}" xlink:href="data:image/png;base64,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" preserveAspectRatio="none"/>
 
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.batchargeday_70)}>
-            <text id="daily_bat_charge_value" x="77.2" y="344.6" class= "st10 left-align" display="${battery_showdaily === 'no' ? 'none' : ''}" fill="${battery_colour}">${stateObj1.state ? stateObj1.state : '0'} kWh</text>
+              <text id="daily_bat_charge_value" x="77.2" y="344.6" class= "st10 left-align" display="${battery_showdaily === 'no' ? 'none' : ''}" fill="${battery_colour}">${stateObj1.state ? stateObj1.state : '0'} kWh</text>
             </a> 
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.solarday_108)}>
-            <text id="daily_solar_value" x="226.7" y="16.2" class="st10 left-align" display="${solar_showdaily === 'no' || config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}" >${stateObj4.state ? stateObj4.state : '0'} kWh</text>
+              <text id="daily_solar_value" x="226.7" y="16.2" class="st10 left-align" display="${solar_showdaily === 'no' || config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}" >${stateObj4.state ? stateObj4.state : '0'} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.batdischargeday_71)}>
               <text id="daily_bat_discharge_value" x="77.2" y="380.1" class="st10 left-align" display="${battery_showdaily === 'no' ? 'none' : ''}" fill="${battery_colour}" >${stateObj.state ? stateObj.state : '0'} kWh</text>
@@ -831,23 +831,23 @@ class SunsynkPowerFlowCard extends LitElement {
             </a>
             ${config.entities.pv1_power_186 !== 'none'
             ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_power_186)}>
-            <text id="pv1_power_186" x="188.1" y="71" class="st4 st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${stateObj9.state ? stateObj9.state : '0'} W</text>
-            </a>`
+                    <text id="pv1_power_186" x="188.1" y="71" class="st4 st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${stateObj9.state ? stateObj9.state : '0'} W</text>
+                  </a>`
             : svg`<text id="pv1_power_186" x="188.1" y="71" class="st4 st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${stateObj9.state ? stateObj9.state : '0'} W</text>`}
             ${config.entities.pv2_power_187 !== 'none'
             ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_power_187)}>
-            <text id="pv2_power_187" x="289.5" y="71" class="st4 st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}">${stateObj8.state ? stateObj8.state : '0'} W</text>
-            </a>`
+                    <text id="pv2_power_187" x="289.5" y="71" class="st4 st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}">${stateObj8.state ? stateObj8.state : '0'} W</text>
+                  </a>`
             : svg`<text id="pv2_power_187" x="289.5" y="71" class="st4 st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}">${stateObj8.state ? stateObj8.state : '0'} W</text>`}
             ${config.entities.pv3_power_188 !== 'none'
             ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_power_188)}>
-            <text id="pv3_power_188" x="113" y="71" class="st4 st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}">${stateObj31.state ? stateObj31.state : '0'} W</text>
-            </a>`
+                    <text id="pv3_power_188" x="113" y="71" class="st4 st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}">${stateObj31.state ? stateObj31.state : '0'} W</text>
+                  </a>`
             : svg`<text id="pv3_power_188" x="113" y="71" class="st4 st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}">${stateObj31.state ? stateObj31.state : '0'} W</text>`}
             ${config.entities.pv4_power_189 !== 'none'
             ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_power_189)}>
-            <text id="pv4_power_189" x="366" y="71" class="st4 st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}">${stateObj32.state ? stateObj32.state : '0'} W</text>
-            </a>`
+                    <text id="pv4_power_189" x="366" y="71" class="st4 st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}">${stateObj32.state ? stateObj32.state : '0'} W</text>
+                  </a>`
             : svg`<text id="pv4_power_189" x="366" y="71" class="st4 st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}">${stateObj32.state ? stateObj32.state : '0'} W</text>`}
             ${config.entities.essential_power !== 'none'
             ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_power)}>
@@ -859,7 +859,7 @@ class SunsynkPowerFlowCard extends LitElement {
       `;
     }
   }
-
+  
   setConfig(config) {
     if (!config.cardstyle) {
       throw Error('Please include the cardstyle attribute and value; lite, simple or full e.g. cardstyle: simple');
