@@ -73,7 +73,7 @@ The card can be configured through the following attributes:
 | Attribute | Requirement |Default | Description |
 | --- | --- | --- |--- |
 |modern:| Optional |`yes`| Changes the inverter image.|
-|colour:| Optional |`'#959595'`| Changes the colour of the inverter. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
+|colour:| Optional |`grey`| Changes the colour of the inverter. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 
 
 ### Battery
@@ -289,7 +289,7 @@ large_font: 'no'
 show_solar: 'yes'
 inverter:
   modern: 'yes'
-  colour: '#959595'
+  colour: 'grey'
 battery:
   energy: 15960
   shutdown_soc: 20
