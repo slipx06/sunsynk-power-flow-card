@@ -349,7 +349,7 @@ entities:
   aux_power_166: sensor.aux_output_power
 ```
 ## Solarman ##
-If you are using Solarman you can configre your card using the following sensors. You will also needs to create the template sensors below for grid_status_194 and inverter_status_59.
+If you are using Solarman you can configre your card using the following sensors. You will also need to create the template sensors below for grid_status_194 and inverter_status_59.
 
 #### Template Sensors ####
 ```yaml
