@@ -15,7 +15,7 @@ class SunsynkPowerFlowCardEditor extends LitElement {
   }
 }
 
-class SunsynkCard extends LitElement {
+class SunsynkPowerFlowCard extends LitElement {
   static get styles() {
     return css`
       .container {
