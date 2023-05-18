@@ -60,6 +60,7 @@ The card can be configured through the following attributes:
 |type: | **Required** | `custom:sunsynk-power-flow-card`| The custom card |
 |cardstyle: | **Required** | `lite` | Selects the card layout that is used  `lite, simple, full` |
 |panel_mode:| Optional | `no` |Toggles panel mode removing any card height restrictions. For use with Panel(1 card) view types or grid layouts|
+|large_font:| Optional | `no` | Increases font size of sensor data `yes/no`|
 |show_solar:|**Required** |`yes` | Toggle display of solar information `yes/no`|
 |inverter: | Optional | See optional [Inverter](#inverter) attributes below  |List of inverter attributes.  |
 |battery: | **Required**  |See required [Battery](#battery) attributes below | List of battery attributes.  |
@@ -284,6 +285,7 @@ entities:
 type: custom:sunsynk-power-flow-card
 cardstyle: full
 panel_mode: 'no'
+large_font: 'no'
 show_solar: 'yes'
 inverter:
   modern: 'yes'
