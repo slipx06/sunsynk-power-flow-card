@@ -77,6 +77,8 @@ The card can be configured through the following attributes:
 
 
 ### Battery
+Note that the card will always display batter power as a positive number regardless of your sensor value. The animated dot will change direction depending on the charging or discharging state. The `invert_power` attribute can be used to reverse direction if needed by your sensor.
+
 | Attribute | Requirement |Default | Description |
 | --- | --- | --- |--- |
 |energy: | **Required** | `15960` | Total Battery Energy in Wh (e.g. 3 x 5.32kWh = 15960). If set to `hidden` the remaining battery runtime will be hidden|
