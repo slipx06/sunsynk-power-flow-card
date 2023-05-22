@@ -1,5 +1,5 @@
 # Sunsynk-Power-Flow-Card
-An animated Home Assistant card to emulate the Sunsynk power flow that's shown on the Inverter screen.
+An animated Home Assistant card to emulate the Sunsynk power flow that's shown on the Inverter screen. See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki) for integration methods and examples.
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/slipx06/sunsynk-power-flow-card?style=for-the-badge)
 
