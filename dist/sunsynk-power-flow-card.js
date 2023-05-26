@@ -223,7 +223,7 @@ class SunsynkPowerFlowCard extends LitElement {
     }
 
     let duration = "";
-    if (battery_power > 0 && config.battery.energy !== "hidden") {
+    if (battery_power >= 0 && config.battery.energy !== "hidden") {
       let totalSeconds = ((((parseInt(stateObj12.state) - config.battery.shutdown_soc) / 100) * (config.battery.energy || 15960) ) / (battery_power || 1)) * 60 * 60;
       const days = Math.floor(totalSeconds / (60 * 60 * 24));
       const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
@@ -236,9 +236,27 @@ class SunsynkPowerFlowCard extends LitElement {
       }
       duration += `${minutes} min`;
     }
+    else if (battery_power < 0 && config.battery.energy !== "hidden") {
+      let remainingEnergy = (config.battery.energy - (config.battery.energy * (parseInt(stateObj12.state)/100) || 1));
+      let totalSeconds = ((remainingEnergy / battery_power || 1) * 60 * 60  *-1);
+      const days = Math.floor(totalSeconds / (60 * 60 * 24));
+      const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
+      const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
+      if (days > 0) {
+        duration += `${days} days, `;
+      }
+      if (hours > 0 || days > 0) {
+        duration += `${hours} hrs, `;
+      }
+      duration += `${minutes} min`;      
+    }
     
-    if (battery_power <= 0) {
-      duration = "BATTERY CHARGING";
+    let float = "";
+    if ((-2 <= parseInt(stateObj35.state)) && (parseInt(stateObj35.state) <= 2) && (parseInt(stateObj12.state) >= 99)) {
+      float = "True";
+    }
+    else {
+      float = "False";
     }
     
     let inverterStateColour = "";
@@ -371,9 +389,10 @@ class SunsynkPowerFlowCard extends LitElement {
             <rect id="pv4" x="101" y="100" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'st12' : ''}"/>
             <rect x="304" y="265" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${grid_colour}" pointer-events="all" class="${grid_show_noness === 'no' ? 'st12' : ''}"/>
 
-            <text id="duration" x="35%" y="92%" class="${font === 'no' ? 'st14' : 'st4'} left-align" fill="${config.battery.energy === 'hidden' || battery_power <= 0 ? 'transparent' : `${battery_colour}`}" >${duration}</text>
-            <text id="duration_text" x="35%" y="96%" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power <= 0 ? 'transparent' : `${battery_colour}`}" >BATTERY RUNTIME</text>
-            <text id="duration_text_charging" x="35%" y="96%" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power > 0 ? 'transparent' : `${battery_colour}`}" >${duration}</text>
+            <text id="duration" x="35%" y="92%" class="${font === 'no' ? 'st14' : 'st4'} left-align" fill="${config.battery.energy === 'hidden' || float === 'True' ? 'transparent' : `${battery_colour}`}" >${duration}</text>
+            <text id="duration_text" x="35%" y="96%" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power <= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >BATTERY RUNTIME</text>
+            <text id="duration_text_charging" x="35%" y="96%" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power > 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >TO FULL CHARGE</text>
+            <text id="floating" x="35%" y="96%" class="st3 left-align" fill="${config.battery.energy === 'hidden' || float === 'False' ? 'transparent' : `${battery_colour}`}" >BATTERY FLOATING</text>
             <text id="pvtotal_power" x="19%" y="46.5%" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${totalsolar ? totalsolar : '0'} W</text>
             <text x="2%" y="20.5%" class="st3 st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">PV1</text>
             <text x="24%" y="20.5%" class="st3 st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one'? 'none' : ''}" fill="${solar_colour}">PV2</text>
@@ -642,10 +661,11 @@ class SunsynkPowerFlowCard extends LitElement {
             <rect id="pv3" x="78" y="54.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'st12' : ''}"/>
             <rect id="pv4" x="330" y="54.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'st12' : ''}"/>
             
+            <text id="duration" x="318.4" y="377.5" class="${font === 'no' ? 'st14' : 'st4'} left-align" fill="${config.battery.energy === 'hidden' || float === 'True' ? 'transparent' : `${battery_colour}`}" >${duration}</text>
+            <text id="duration_text" x="318.4" y="393.7" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power <= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >BATTERY RUNTIME</text>
+            <text id="duration_text_charging" x="318.4" y="393.7" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power > 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >TO FULL CHARGE</text>
+            <text id="floating" x="318.4" y="393.7" class="st3 left-align" fill="${config.battery.energy === 'hidden' || float === 'False' ? 'transparent' : `${battery_colour}`}" >BATTERY FLOATING</text>
             <text id="daily_bat_charge" x="77.2" y="357.2" class="st3 left-align"  fill="${battery_showdaily === 'no' ? 'transparent' : `${battery_colour}`}"  >DAILY CHARGE</text>
-            <text id="duration" x="318.4" y="377.5" class="${font === 'no' ? 'st14' : 'st4'} left-align" fill="${config.battery.energy === 'hidden' || battery_power <= 0 ? 'transparent' : `${battery_colour}`}" >${duration}</text>
-            <text id="duration_text" x="318.4" y="393.7" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power <= 0 ? 'transparent' : `${battery_colour}`}" >BATTERY RUNTIME</text>
-            <text id="duration_text_charging" x="318.4" y="393.7" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power > 0 ? 'transparent' : `${battery_colour}`}" >${duration}</text>
             <text id="daily_bat_dischcharge" x="77.2" y="393.7" class="st3 left-align"  fill="${battery_showdaily === 'no' ? 'transparent' : `${battery_colour}`}" >DAILY DISCHARGE</text>
             <text id="daily_load" x="400.4" y="282.1" class="st3 left-align" fill="${load_showdaily === 'no' ? 'transparent' : `${load_colour}`}" >DAILY LOAD</text>
             <text id="daily_grid_buy" x="5" y="282.1" class="st3 left-align" fill="${grid_showdailybuy === 'no' ? 'transparent' : `${grid_colour}`}" >DAILY GRID BUY</text>
