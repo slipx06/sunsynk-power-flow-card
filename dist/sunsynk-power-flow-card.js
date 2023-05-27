@@ -551,7 +551,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.solarday_108)}>
               <text id="daily_solar_value" x="43.5" y="4%" class="st10 left-align" display="${solar_showdaily === 'no' || config.show_solar === 'no' || remaining_solar != 'false' ? 'none' : ''}" fill="${solar_colour}" >${stateObj4.state ? stateObj4.state : '0'} kWh</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.remaining_solar)}>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.solarday_108)}>
               <text id="remaining_solar_value" x="43.5" y="4%" class="st10 left-align" display="${solar_showdaily === 'no' || config.show_solar === 'no' || remaining_solar === 'false' ? 'none' : ''}" fill="${solar_colour}" >${stateObj4.state ? stateObj4.state : '0'} kWh / ${remaining_solar} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.loadday_84)}>
@@ -802,7 +802,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.solarday_108)}>
               <text id="daily_solar_value" x="200" y="26" class="st10 left-align" display="${solar_showdaily === 'no' || config.show_solar === 'no' || remaining_solar != 'false' ? 'none' : ''}" fill="${solar_colour}" >${stateObj4.state ? stateObj4.state : '0'} kWh</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.remaining_solar)}>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.solarday_108)}>
               <text id="remaining_solar_value" x="200" y="26" class="st10 left-align" display="${solar_showdaily === 'no' || config.show_solar === 'no' || remaining_solar === 'false' ? 'none' : ''}" fill="${solar_colour}" >${stateObj4.state ? stateObj4.state : '0'} kWh / ${remaining_solar} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.batdischargeday_71)}>
