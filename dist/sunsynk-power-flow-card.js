@@ -982,8 +982,7 @@ class SunsynkPowerFlowCard extends LitElement {
     }    
 
     const solar_attributes = [
-      'pv2_power_187', 'pv1_power_186', 'pv3_power_188', 'pv4_power_189',  'pv1_v_109', 'pv1_i_110', 
-      'pv2_v_111', 'pv2_i_112', 'pv3_v_113', 'pv3_i_114', 'pv4_v_115', 'pv4_i_116'
+      'pv2_power_187', 'pv1_power_186', 'pv1_v_109', 'pv1_i_110', 'pv2_v_111', 'pv2_i_112'
     ];
 
     for (const attr1 of solar_attributes) {
