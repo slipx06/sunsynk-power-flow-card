@@ -65,7 +65,7 @@ The card can be configured through the following attributes:
 |inverter: | Optional | See optional [Inverter](#inverter) attributes below  |List of inverter attributes.  |
 |battery: | **Required**  |See required [Battery](#battery) attributes below | List of battery attributes.  |
 |solar: | Optional |See optonal [Solar](#solar) attributes below | List of solar attributes.  |
-|load: | **Required** | See required [Load](#load) attributes below|List of load attributes.  |
+|load: | Optional | See optional [Load](#load) attributes below|List of load attributes.  |
 |grid: | Optional | See optional [Grid](#grid) attributes below| List of grid attributes.  |
 |entities:|**Required** |See required [Entities](#entities) attributes below | List of sensor entities. |
 
