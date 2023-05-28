@@ -78,12 +78,11 @@ class SunsynkPowerFlowCard extends LitElement {
       },
       load: {
         show_daily: 'yes',
-        show_aux: 'no',
       },
       grid:{
         show_daily_buy: 'yes',
         show_daily_sell: 'no',
-        show_nonessential: 'yes'
+        show_nonessential: 'yes',
       },
       entities: {
         use_timer_248: 'switch.toggle_system_timer',
@@ -111,16 +110,10 @@ class SunsynkPowerFlowCard extends LitElement {
         solarday_108: 'sensor.daily_pv_power_kwh',
         pv1_power_186: 'sensor.pv1_power',
         pv2_power_187: 'sensor.pv2_power',
-        pv3_power_188: 'sensor.pv3_power',
-        pv4_power_189: 'sensor.pv4_power',
         pv1_v_109: 'sensor.dc1_voltage',
         pv1_i_110: 'sensor.dc1_current',
         pv2_v_111: 'sensor.dc2_voltage',
         pv2_i_112: 'sensor.dc2_current',
-        pv3_v_113: 'sensor.dc3_voltage',
-        pv3_i_114: 'sensor.dc3_current',
-        pv4_v_115: 'sensor.dc4_voltage',
-        pv4_i_116: 'sensor.dc4_current', 
       }
     };
   }
@@ -216,8 +209,15 @@ class SunsynkPowerFlowCard extends LitElement {
         battery_power = parseInt(stateObj13.state);
     }
 
+    let invert_aux = "";
+    if (config && config.load && config.load.invert_aux) {
+      invert_aux = config.load.invert_aux; // set default value
+    } else {
+      invert_aux = 'no'; // override with provided value
+    }
+
     let aux_power = "";
-    if (config.load.invert_aux === 'yes'){
+    if (invert_aux === 'yes'){
         aux_power = (parseInt(stateObj24.state) * -1);
     } else {
         aux_power = parseInt(stateObj24.state);
@@ -404,6 +404,13 @@ class SunsynkPowerFlowCard extends LitElement {
     solar_showdaily = 'no'; // override with provided value
     }    
 
+    let show_aux = "";
+    if (config && config.load && config.load.show_aux) {
+    show_aux = config.load.show_aux; // set default value
+    } else {
+    show_aux = 'no'; // override with provided value
+    }
+
     let remaining_solar ="";
     if (!config.entities.remaining_solar) {
       remaining_solar = 'false';
@@ -419,7 +426,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <rect x="6" y="300.75" width="70" height="70" rx="10.5" ry="10.5" fill="none" stroke="${battery_colour}" pointer-events="all"/>
             <rect x="234" y="153" width="70" height="70" rx="10.5" ry="10.5" fill="none" stroke="${grid_colour}" pointer-events="all" />
             <rect x="386" y="265" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${grid_colour}" pointer-events="all" />
-            <rect x="237" y="32" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${load_colour}" pointer-events="all" class="${config.load.show_aux === 'no' ? 'st12' : ''}"/>
+            <rect x="237" y="32" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${load_colour}" pointer-events="all" class="${show_aux === 'no' ? 'st12' : ''}"/>
             <rect x="236" y="103" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${load_colour}" pointer-events="all"/>
             <rect x="145.15" y="162" width="70" height="50" rx="7.5" ry="7.5" fill="none" stroke="${inverter_colour}" pointer-events="all"/>
             <rect id="pv1" x="0" y="40" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === 'no' ? 'st12' : ''}"/>
@@ -440,14 +447,15 @@ class SunsynkPowerFlowCard extends LitElement {
             <text x="92%" y="98.5%" class="st3 st8" fill="${grid_colour}">Grid</text>
             <text x="40.5%" y="80%" class="st3" fill="${inverter_colour}">${inverterStateMsg}</text>
             <text x="90%" y="41%" class="st3 st8" fill="${load_colour}">Essential</text>
-            <text id="daily_load" x="83%" y="18.5%" class="st3 left-align" fill="${load_showdaily === 'no' || config.load.show_aux === 'yes' ? 'transparent' : `${load_colour}`}" >DAILY LOAD</text>
+            <text id="daily_load_aux" x="67%" y="24.25%" class="st3 left-align" fill="${load_showdaily === 'no' || show_aux === 'no' ? 'transparent' : `${load_colour}`}" >DAILY LOAD</text>
+            <text id="daily_load" x="83%" y="18.5%" class="st3 left-align" fill="${load_showdaily === 'no' || show_aux === 'yes' ? 'transparent' : `${load_colour}`}" >DAILY LOAD</text>
             <text id="daily_solar" x="43.5" y="7.5%" class="st3 left-align" fill="${solar_showdaily === 'no' || config.show_solar === 'no' || remaining_solar != 'false' ? 'transparent' : `${solar_colour}`}" >DAILY SOLAR</text>
             <text id="remaining_solar" x="43.5" y="7.5%" class="st3 left-align" fill="${solar_showdaily === 'no' || config.show_solar === 'no' || remaining_solar === 'false' ? 'transparent' : `${solar_colour}`}" >DAILY SOLAR / LEFT TODAY</text>
             <text id="daily_bat_charge" x="1%" y="65.5%" class="st3 left-align"  fill="${battery_showdaily === 'no' ? 'transparent' : `${battery_colour}`}" >DAILY CHARGE</text>
             <text id="daily_bat_discharge" x="1%" y="74%" class="st3 left-align"  fill="${battery_showdaily === 'no' ? 'transparent' : `${battery_colour}`}" >DAILY DISCHARGE</text>
             <text id="daily_grid_buy" x="${grid_show_noness === 'no' ? '68%' : '76%'}" y="${grid_show_noness === 'no' ? '96%' : '66%'}" class="st3 left-align" fill="${grid_showdailybuy === 'no' ? 'transparent' : `${grid_colour}`}" >DAILY GRID BUY</text>
             <text id="daily_grid_sell" x="${grid_show_noness === 'no' ? '68%' : '76%'}" y="${grid_show_noness === 'no' ? '88%' : '58%'}" class="st3 left-align" fill="${grid_showdailysell === 'no' ? 'transparent' : `${grid_colour}`}" >DAILY GRID SELL</text>
-            <text x="90%" y="21.5%" class="st3 st8" display="${config.load.show_aux === 'no' ? 'none' : ''}" fill="${load_colour}">Auxiliary</text> 
+            <text x="90%" y="21.5%" class="st3 st8" display="${show_aux === 'no' ? 'none' : ''}" fill="${load_colour}">Auxiliary</text> 
             <text x="74%" y="98.5%" class="st3 st8" display="${grid_show_noness === 'no' ? 'none' : ''}" fill="${grid_colour}"> Non Essential</text>
             
             <circle id="standby" cx="36%" cy="79.75%" r="3.5" fill="${inverterStateColour}"/>
@@ -527,18 +535,18 @@ class SunsynkPowerFlowCard extends LitElement {
                 <mpath xlink:href="#ne-line"/>
             </animateMotion>
             </circle> 
-            <path id="aux-line" d="M 307 47 L 371.5 47" fill="none" class="${config.load.show_aux === 'no' ? 'st12' : ''}" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
-            <circle id="aux-dot" cx="0" cy="0" r="3" class="${config.load.show_aux === 'no' || aux_power === 0 ? 'st12' : ''}" fill="${parseInt(aux_power) < 0  ? 'transparent' : `${load_colour}`}">
+            <path id="aux-line" d="M 307 47 L 371.5 47" fill="none" class="${show_aux === 'no' ? 'st12' : ''}" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
+            <circle id="aux-dot" cx="0" cy="0" r="3" class="${show_aux === 'no' || aux_power === 0 ? 'st12' : ''}" fill="${parseInt(aux_power) < 0  ? 'transparent' : `${load_colour}`}">
               <animateMotion dur="4s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#aux-line"/>
               </animateMotion>
             </circle>
-            <circle id="aux-dot" cx="0" cy="0" r="3" class="${config.load.show_aux === 'no' || aux_power === 0 ? 'st12' : ''}" fill="${parseInt(aux_power) > 0  ? 'transparent' : `${load_colour}`}">
+            <circle id="aux-dot" cx="0" cy="0" r="3" class="${show_aux === 'no' || aux_power === 0 ? 'st12' : ''}" fill="${parseInt(aux_power) > 0  ? 'transparent' : `${load_colour}`}">
               <animateMotion dur="4s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#aux-line"/>
               </animateMotion>
             </circle>
-            <path id="aux-line2" d="M 200 162 L 200 57 Q 200 47 210 47 L 237 47" fill="none" class="${config.load.show_aux === 'no' ? 'st12' : ''}" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
+            <path id="aux-line2" d="M 200 162 L 200 57 Q 200 47 210 47 L 237 47" fill="none" class="${show_aux === 'no' ? 'st12' : ''}" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
             <path d="M 215.15 187 L 224.58 187 Q 234 187 234 187.5 L 234 188" fill="none" stroke="${grid_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <path d="M 180.15 212 L 180.15 235" fill="none" stroke="${inverter_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <path id="es-line2" d="M 306 118 L 330 118 Q 340 118 350 117.85 L 374 117.5" fill="none" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
@@ -561,7 +569,7 @@ class SunsynkPowerFlowCard extends LitElement {
             </a>
             <svg xmlns="http://www.w3.org/2000/svg" id="nonesssvg" x="300.5" y="305.5" width="76" height="76" viewBox="0 0 24 24"><path class="${grid_show_noness === 'no' ? 'st12' : ''}" fill="${grid_colour}" d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8h5Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="essen" x="373.5" y="78.5" width="77" height="77" viewBox="0 0 24 24"><path fill="${load_colour}" d="M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" is="auxsvg" x="371" y="5" width="83" height="83" viewBox="0 0 24 24"><path class="${config.load.show_aux === 'no' ? 'st12' : ''}" fill="${load_colour}" d="M5 20v-8H2l10-9l10 9h-3v8H5m7-14.31l-5 4.5V18h10v-7.81l-5-4.5M11.5 18v-4H9l3.5-7v4H15l-3.5 7Z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" id="auxsvg" x="371" y="5" width="83" height="83" viewBox="0 0 24 24"><path class="${show_aux === 'no' ? 'st12' : ''}" fill="${load_colour}" d="M5 20v-8H2l10-9l10 9h-3v8H5m7-14.31l-5 4.5V18h10v-7.81l-5-4.5M11.5 18v-4H9l3.5-7v4H15l-3.5 7Z"/></svg>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.use_timer_248)}>
               <svg xmlns="http://www.w3.org/2000/svg" id="timer" x="46%" y="65%" width="18" height="18" viewBox="0 0 24 24"><path display="${stateObj26.state == 'on' && usetimer !== 'no' ? '' : 'none'}" fill="${inverter_colour}" d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0 0 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9a8.994 8.994 0 0 0 7.03-14.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7s7 3.13 7 7s-3.13 7-7 7z"/></svg>
               <svg xmlns="http://www.w3.org/2000/svg" id="timer_off" x="46%" y="65%" width="18" height="18" viewBox="0 0 24 24"><path display="${stateObj26.state == 'off' && usetimer !== 'no' ? '' : 'none'}" fill="${inverter_colour}" d="m19.95 17.15l-1.5-1.5q.275-.675.413-1.337T19 13q0-2.9-2.05-4.95T12 6q-.6 0-1.275.125t-1.4.4l-1.5-1.5q.95-.5 2.012-.763T12 4q1.5 0 2.938.5t2.712 1.45l1.4-1.4l1.4 1.4l-1.4 1.4q.95 1.275 1.45 2.713T21 13q0 1.05-.263 2.087t-.787 2.063ZM13 10.2V8h-2v.2l2 2Zm6.8 12.4l-2.4-2.4q-1.2.875-2.588 1.338T12 22q-1.85 0-3.488-.713T5.65 19.35q-1.225-1.225-1.938-2.863T3 13q0-1.5.463-2.888T4.8 7.6L1.4 4.2l1.4-1.4l18.4 18.4l-1.4 1.4ZM12 20q1.05 0 2.05-.325t1.875-.925L6.2 9.025q-.6.875-.9 1.875T5 13q0 2.9 2.05 4.95T12 20ZM9 3V1h6v2H9Zm2.075 10.875Zm2.825-2.8Z"/></svg>
@@ -577,25 +585,28 @@ class SunsynkPowerFlowCard extends LitElement {
             <image x="155" y="224.75" width="53" height="72" class="${inverter_modern === 'no' ? '' : 'st12'}" xlink:href="data:image/png;base64,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" preserveAspectRatio="none"/>
 
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.solarday_108)}>
-              <text id="daily_solar_value" x="43.5" y="4%" class="st10 left-align" display="${solar_showdaily === 'no' || config.show_solar === 'no' || remaining_solar != 'false' ? 'none' : ''}" fill="${solar_colour}" >${stateObj4.state ? stateObj4.state : '0'} kWh</text>
+              <text id="daily_solar_value" x="43.5" y="4%" class="st10 left-align" display="${solar_showdaily === 'no' || config.show_solar === 'no' || remaining_solar != 'false' ? 'none' : ''}" fill="${solar_colour}" >${parseInt(stateObj4.state).toFixed(1) ? parseInt(stateObj4.state).toFixed(1) : '0'} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.solarday_108)}>
-              <text id="remaining_solar_value" x="43.5" y="4%" class="st10 left-align" display="${solar_showdaily === 'no' || config.show_solar === 'no' || remaining_solar === 'false' ? 'none' : ''}" fill="${solar_colour}" >${stateObj4.state ? stateObj4.state : '0'} kWh / ${remaining_solar} kWh</text>
+              <text id="remaining_solar_value" x="43.5" y="4%" class="st10 left-align" display="${solar_showdaily === 'no' || config.show_solar === 'no' || remaining_solar === 'false' ? 'none' : ''}" fill="${solar_colour}" >${parseInt(stateObj4.state).toFixed(1) ? parseInt(stateObj4.state).toFixed(1) : '0'} kWh / ${remaining_solar} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.loadday_84)}>
-              <text id="daily_load_value" x="83%" y="15%" class="st10 left-align" display="${load_showdaily === 'no' || config.load.show_aux === 'yes' ? 'none' : ''}" fill="${load_colour}" >${stateObj2.state ? stateObj2.state : '0'} kWh</text>
+              <text id="daily_load_value_aux" x="67%" y="21%" class="st10 left-align" display="${load_showdaily === 'no' || show_aux === 'no' ? 'none' : ''}" fill="${load_colour}" >${parseInt(stateObj2.state).toFixed(1) ? parseInt(stateObj2.state).toFixed(1) : '0'} kWh</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.loadday_84)}>
+              <text id="daily_load_value" x="83%" y="15%" class="st10 left-align" display="${load_showdaily === 'no' || show_aux === 'yes' ? 'none' : ''}" fill="${load_colour}" >${parseInt(stateObj2.state).toFixed(1) ? parseInt(stateObj2.state).toFixed(1) : '0'} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.batchargeday_70)}>
-              <text id="daily_bat_charge_value" x="1%" y="62%" class= "st10 left-align" display="${battery_showdaily === 'no' ? 'none' : ''}" fill="${battery_colour}">${stateObj1.state ? stateObj1.state : '0'} kWh</text>
+              <text id="daily_bat_charge_value" x="1%" y="62%" class= "st10 left-align" display="${battery_showdaily === 'no' ? 'none' : ''}" fill="${battery_colour}">${parseInt(stateObj1.state).toFixed(1) ? parseInt(stateObj1.state).toFixed(1) : '0'} kWh</text>
             </a> 
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.batdischargeday_71)}>
-              <text id="daily_bat_discharge_value" x="1%" y="70.75%" class="st10 left-align" display="${battery_showdaily === 'no' ? 'none' : ''}" fill="${battery_colour}" >${stateObj.state ? stateObj.state : '0'} kWh</text>
+              <text id="daily_bat_discharge_value" x="1%" y="70.75%" class="st10 left-align" display="${battery_showdaily === 'no' ? 'none' : ''}" fill="${battery_colour}" >${parseInt(stateObj.state).toFixed(1) ? parseInt(stateObj.state).toFixed(1) : '0'} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_buy_day_76)}>
-              <text id="daily_grid_buy_value" x="${grid_show_noness === 'no' ? '68%' : '76%'}" y="${grid_show_noness === 'no' ? '92.5%' : '62.5%'}" class="st10 left-align" display="${grid_showdailybuy === 'no' ? 'none' : ''}" fill="${grid_colour}" >${stateObj3.state ? stateObj3.state : '0'} kWh</text>
+              <text id="daily_grid_buy_value" x="${grid_show_noness === 'no' ? '68%' : '76%'}" y="${grid_show_noness === 'no' ? '92.5%' : '62.5%'}" class="st10 left-align" display="${grid_showdailybuy === 'no' ? 'none' : ''}" fill="${grid_colour}" >${parseInt(stateObj3.state).toFixed(1) ? parseInt(stateObj3.state).toFixed(1) : '0'} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_sell_day_77)}>
-              <text id="daily_grid_sell_value" x="${grid_show_noness === 'no' ? '68%' : '76%'}" y="${grid_show_noness === 'no' ? '84.25%' : '54.5%'}" class="st10 left-align" display="${grid_showdailysell === 'no' ? 'none' : ''}" fill="${grid_colour}" >${stateObj33.state ? stateObj33.state : '0'} kWh</text>
+              <text id="daily_grid_sell_value" x="${grid_show_noness === 'no' ? '68%' : '76%'}" y="${grid_show_noness === 'no' ? '84.25%' : '54.5%'}" class="st10 left-align" display="${grid_showdailysell === 'no' ? 'none' : ''}" fill="${grid_colour}" >${parseInt(stateObj33.state).toFixed(1) ? parseInt(stateObj33.state).toFixed(1) : '0'} kWh</text>
             </a>
             ${config.entities.essential_power !== 'none'
             ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_power)}>
@@ -612,9 +623,9 @@ class SunsynkPowerFlowCard extends LitElement {
             </a>
             ${config.entities.aux_power_166 !== 'none'
             ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.aux_power_166)}>
-                    <text id="aux_power_166" x="59%" y="12.5%" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.load.show_aux === 'no' ? 'none' : ''}" fill="${load_colour}">${aux_power < '0' ? aux_power *-1 : aux_power} W</text> 
+                    <text id="aux_power_166" x="59%" y="12.5%" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${show_aux === 'no' ? 'none' : ''}" fill="${load_colour}">${aux_power < '0' ? aux_power *-1 : aux_power} W</text> 
                   </a>`
-            : svg`<text id="aux_power_166" x="59%" y="12.5%" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.load.show_aux === 'no' ? 'none' : ''}" fill="${load_colour}">${aux_power < '0' ? aux_power *-1 : aux_power} W</text> `}
+            : svg`<text id="aux_power_166" x="59%" y="12.5%" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${show_aux === 'no' ? 'none' : ''}" fill="${load_colour}">${aux_power < '0' ? aux_power *-1 : aux_power} W</text> `}
             ${config.entities.pv1_power_186 !== 'none'
             ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_power_186)}>
                     <text id="pv1_power_186" x="8%" y="14.75%" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no'  ? 'none' : ''}" fill="${solar_colour}" >${stateObj9.state ? stateObj9.state : '0'} W</text>
@@ -959,20 +970,6 @@ class SunsynkPowerFlowCard extends LitElement {
       throw Error('Please include the grid_buy_day_76 and grid_sell_day_77 attributes and entity IDs');
       }
     
-    if (!config.load) {
-      throw Error('No load attributes defined');
-    } else {
-      if (!config.load.show_aux) {
-        throw Error('Please include the load show_aux attribute and value; yes or no e.g. show_aux: no');
-      }
-      if (config.load.show_daily === 'yes' && !config.entities.loadday_84) {
-        throw Error('Please include the loadday_84 attributes and entity ID');
-      }
-      if (config.load.show_aux === 'yes' && !config.entities.aux_power_166) {
-        throw Error('Please include the aux_power_166 attributes and entity ID');
-      }
-    }
-
     const all_attributes = [
       'inverter_grid_voltage_154', 'inverter_load_freq_192', 'inverter_out_164', 'inverter_out_175', 'inverter_load_grid_169', 
       'battery_voltage_183', 'battery_soc_184', 'battery_out_190', 'battery_current_191', 'grid_external_power_172', 'grid_status_194', 'inverter_status_59'     
