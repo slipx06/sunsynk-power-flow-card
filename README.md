@@ -100,7 +100,7 @@ These attributes are only needed if `show_solar` is set to `yes`
 | --- | --- | --- |--- |
 |colour:| Optional |`'#5fb6ad'`| Changes the colour of all the load card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |show_daily: | Optional |`no` | Toggles the Daily Total `yes/no` Only displayed if `show_aux` is set to `no` |
-|show_aux: | **Required** | `yes` | Toggles the display of Aux `yes/no` |
+|show_aux: | Optional | `no` | Toggles the display of Aux `yes/no` |
 |invert_aux: | Optional | `no` | Set to `yes` if your sensor provides a positive number for AUX input and negative number for AUX output  |
 
 ### Grid
@@ -178,8 +178,6 @@ show_solar: 'no'
 battery:
   energy: 15960
   shutdown_soc: 20
-load:
-  show_aux: 'no'
 entities:
   inverter_grid_voltage_154: sensor.grid_inverter_voltage
   inverter_load_freq_192: sensor.load_frequency
