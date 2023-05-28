@@ -220,16 +220,10 @@ entities:
   inverter_status_59: sensor.overall_state
   pv1_power_186: sensor.pv1_power
   pv2_power_187: sensor.pv2_power
-  pv3_power_188: none
-  pv4_power_189: none
   pv1_v_109: sensor.dc1_voltage
   pv1_i_110: sensor.dc1_current
   pv2_v_111: sensor.dc2_voltage
   pv2_i_112: sensor.dc2_current
-  pv3_v_113: none
-  pv3_i_114: none
-  pv4_v_115: none
-  pv4_i_116: none
 ```
 #### Minimum Configuration (Solar + Daily Totals) #####
 
@@ -245,7 +239,6 @@ battery:
   shutdown_soc: 20
   show_daily: 'yes'
 load:
-  show_aux: 'no'
   show_daily: 'yes'
 grid:
   show_daily_buy: 'yes'
@@ -264,16 +257,10 @@ entities:
   inverter_status_59: sensor.overall_state
   pv1_power_186: sensor.pv1_power
   pv2_power_187: sensor.pv2_power
-  pv3_power_188: none
-  pv4_power_189: none
   pv1_v_109: sensor.dc1_voltage
   pv1_i_110: sensor.dc1_current
   pv2_v_111: sensor.dc2_voltage
   pv2_i_112: sensor.dc2_current
-  pv3_v_113: none
-  pv3_i_114: none
-  pv4_v_115: none
-  pv4_i_116: none
   solarday_108: sensor.daily_pv_power_kwh
   batchargeday_70: sensor.battery_charge_day
   batdischargeday_71: sensor.battery_discharge_day
