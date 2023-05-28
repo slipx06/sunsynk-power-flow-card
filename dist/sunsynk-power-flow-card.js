@@ -224,8 +224,20 @@ class SunsynkPowerFlowCard extends LitElement {
     }
 
     let duration = "";
+    let formattedResultTime = "";
     if (battery_power > 0 && config.battery.energy !== "hidden") {
       let totalSeconds = ((((parseInt(stateObj12.state) - config.battery.shutdown_soc) / 100) * (config.battery.energy || 15960) ) / (battery_power || 1)) * 60 * 60;
+      
+      const currentTime = new Date(); // Create a new Date object representing the current time
+      const durationMilliseconds = totalSeconds * 1000; // Convert the duration to milliseconds
+      const resultTime = new Date(currentTime.getTime() + durationMilliseconds); // Add the duration in milliseconds
+      const resultHours = resultTime.getHours(); // Get the hours component of the resulting time
+      const resultMinutes = resultTime.getMinutes(); // Get the minutes component of the resulting time
+      const formattedMinutes = resultMinutes.toString().padStart(2, "0");
+      const formattedHours = resultHours.toString().padStart(2, "0");
+      formattedResultTime = `${formattedHours}:${formattedMinutes}`;
+
+
       const days = Math.floor(totalSeconds / (60 * 60 * 24));
       const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
       const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
@@ -240,6 +252,16 @@ class SunsynkPowerFlowCard extends LitElement {
     else if (battery_power < 0 && config.battery.energy !== "hidden") {
       let remainingEnergy = (config.battery.energy - (config.battery.energy * (parseInt(stateObj12.state)/100) || 1));
       let totalSeconds = ((remainingEnergy / battery_power || 1) * 60 * 60  *-1);
+
+      const currentTime = new Date(); // Create a new Date object representing the current time
+      const durationMilliseconds = totalSeconds * 1000; // Convert the duration to milliseconds
+      const resultTime = new Date(currentTime.getTime() + durationMilliseconds); // Add the duration in milliseconds
+      const resultHours = resultTime.getHours(); // Get the hours component of the resulting time
+      const resultMinutes = resultTime.getMinutes(); // Get the minutes component of the resulting time
+      const formattedMinutes = resultMinutes.toString().padStart(2, "0");
+      const formattedHours = resultHours.toString().padStart(2, "0");
+      formattedResultTime = `${formattedHours}:${formattedMinutes}`;
+
       const days = Math.floor(totalSeconds / (60 * 60 * 24));
       const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
       const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
@@ -263,6 +285,12 @@ class SunsynkPowerFlowCard extends LitElement {
       float = "False";
     }
     
+//    let rateofcharge = "";
+//    rateofcharge = (parseInt(stateObj35.state) / 312 * 100).toFixed(0);
+//    if (rateofcharge < 0 ){
+//      rateofcharge = ((parseInt(stateObj35.state) / 312 * 100).toFixed(0) * -1);
+//    }
+
     let inverterStateColour = "";
     let inverterStateMsg = "";
     if (stateObj21.state === '0' || stateObj21.state === 'standby') {
@@ -399,10 +427,10 @@ class SunsynkPowerFlowCard extends LitElement {
             <rect id="pv3" x="0" y="100" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'st12' : ''}"/>
             <rect id="pv4" x="101" y="100" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'st12' : ''}"/>
             <rect x="304" y="265" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${grid_colour}" pointer-events="all" class="${grid_show_noness === 'no' ? 'st12' : ''}"/>
-
+            
             <text id="duration" x="35%" y="92%" class="${font === 'no' ? 'st14' : 'st4'} left-align" fill="${config.battery.energy === 'hidden' || float === 'True' || battery_power === 0 ? 'transparent' : `${battery_colour}`}" >${duration}</text>
-            <text id="duration_text" x="35%" y="96%" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power <= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >BATTERY RUNTIME</text>
-            <text id="duration_text_charging" x="35%" y="96%" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power >= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >TO FULL CHARGE</text>
+            <text id="duration_text" x="35%" y="96%" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power <= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >RUNTIME TO ${formattedResultTime}</text>
+            <text id="duration_text_charging" x="35%" y="96%" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power >= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >TO FULL CHARGE @${formattedResultTime}</text>
             <text id="floating" x="35%" y="96%" class="st3 left-align" fill="${config.battery.energy === 'hidden' || float === 'False' ? 'transparent' : `${battery_colour}`}" >BATTERY FLOATING</text>
             <text id="pvtotal_power" x="19%" y="46.5%" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${totalsolar ? totalsolar : '0'} W</text>
             <text x="2%" y="20.5%" class="st3 st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">PV1</text>
@@ -677,8 +705,8 @@ class SunsynkPowerFlowCard extends LitElement {
             <rect id="pv4" x="330" y="54.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'st12' : ''}"/>
             
             <text id="duration" x="318.4" y="377.5" class="${font === 'no' ? 'st14' : 'st4'} left-align" fill="${config.battery.energy === 'hidden' || float === 'True' || battery_power === 0 ? 'transparent' : `${battery_colour}`}" >${duration}</text>
-            <text id="duration_text" x="318.4" y="393.7" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power <= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >BATTERY RUNTIME</text>
-            <text id="duration_text_charging" x="318.4" y="393.7" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power >= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >TO FULL CHARGE</text>
+            <text id="duration_text" x="318.4" y="393.7" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power <= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >RUNTIME TO ${formattedResultTime}</text>
+            <text id="duration_text_charging" x="318.4" y="393.7" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power >= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >TO FULL CHARGE @${formattedResultTime}</text>
             <text id="floating" x="318.4" y="393.7" class="st3 left-align" fill="${config.battery.energy === 'hidden' || float === 'False' ? 'transparent' : `${battery_colour}`}" >BATTERY FLOATING</text>
             <text id="daily_bat_charge" x="77.2" y="357.2" class="st3 left-align"  fill="${battery_showdaily === 'no' ? 'transparent' : `${battery_colour}`}"  >DAILY CHARGE</text>
             <text id="daily_bat_dischcharge" x="77.2" y="393.7" class="st3 left-align"  fill="${battery_showdaily === 'no' ? 'transparent' : `${battery_colour}`}" >DAILY DISCHARGE</text>
