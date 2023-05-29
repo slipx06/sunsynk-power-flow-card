@@ -58,7 +58,7 @@ The card can be configured through the following attributes:
 | Attribute | Requirement | Default |Description |
 | --- | --- | --- | --- |
 |type: | **Required** | `custom:sunsynk-power-flow-card`| The custom card |
-|cardstyle: | **Required** | `lite` | Selects the card layout that is used  `lite, simple, full` |
+|cardstyle: | **Required** | `lite` | Selects the card layout that is used  `lite or full` |
 |panel_mode:| Optional | `no` |Toggles panel mode removing any card height restrictions. For use with Panel(1 card) view types or grid layouts|
 |large_font:| Optional | `no` | Increases font size of sensor data `yes/no`|
 |show_solar:|**Required** |`yes` | Toggle display of solar information `yes/no`|
