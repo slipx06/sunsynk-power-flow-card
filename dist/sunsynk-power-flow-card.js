@@ -292,7 +292,7 @@ class SunsynkPowerFlowCard extends LitElement {
 //    }
 
     const Autarky = parseInt((Math.min(((parseFloat(stateObj4.state) + parseFloat(stateObj.state) + parseFloat(stateObj33.state)) * 100 / (parseFloat(stateObj2.state) + parseFloat(stateObj3.state) + parseFloat(stateObj1.state))), 100) || 0).toFixed(0));
-    const Ratio = ((((parseFloat(stateObj2.state) + parseFloat(stateObj3.state) + parseFloat(stateObj1.state)) / (parseFloat(stateObj4.state) + parseFloat(stateObj.state) + parseFloat(stateObj33.state))) *100) || 0).toFixed(0);
+    const Ratio = parseInt((Math.min((((parseFloat(stateObj2.state) + parseFloat(stateObj3.state) + parseFloat(stateObj1.state)) / (parseFloat(stateObj4.state) + parseFloat(stateObj.state) + parseFloat(stateObj33.state))) * 100), 100) || 0).toFixed(0));
 
     let inverterStateColour = "";
     let inverterStateMsg = "";
