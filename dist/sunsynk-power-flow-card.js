@@ -157,7 +157,7 @@ class SunsynkPowerFlowCard extends LitElement {
     const stateObj35 = this.hass.states[config.entities.battery_current_191] || { state: '0' };
     const stateObj36 = this.hass.states[config.entities.remaining_solar] || { state: '0' };
 
-    const totalsolar = (parseFloat(stateObj8.state || 0) + parseFloat(stateObj9.state || 0) + parseFloat(stateObj31.state || 0) + parseFloat(stateObj32.state || 0));
+    const totalsolar = (parseInt(stateObj8.state || 0) + parseInt(stateObj9.state || 0) + parseInt(stateObj31.state || 0) + parseInt(stateObj32.state || 0));
 
     
     let font = "";
@@ -190,23 +190,23 @@ class SunsynkPowerFlowCard extends LitElement {
 
     let essential = "";
     if (config.entities.essential_power === 'none' || !config.entities.essential_power) {
-      essential = (parseFloat(stateObj22.state) - (parseFloat(stateObj24.state) - parseFloat(stateObj23.state)));
+      essential = (parseInt(stateObj22.state) - (parseInt(stateObj24.state) - parseInt(stateObj23.state)));
     } else {
-      essential = parseFloat(stateObj14.state);
+      essential = parseInt(stateObj14.state);
     }
 
     let nonessential = "";
     if (config.entities.nonessential_power === 'none' || !config.entities.nonessential_power){
-        nonessential = (parseFloat(stateObj15.state) - parseFloat(stateObj23.state));
+        nonessential = (parseInt(stateObj15.state) - parseInt(stateObj23.state));
     } else {
-        nonessential = parseFloat(stateObj34.state);
+        nonessential = parseInt(stateObj34.state);
     }
 
     let battery_power = "";
     if (config.battery.invert_power === 'yes'){
-        battery_power = (parseFloat(stateObj13.state) * -1);
+        battery_power = (parseInt(stateObj13.state) * -1);
     } else {
-        battery_power = parseFloat(stateObj13.state);
+        battery_power = parseInt(stateObj13.state);
     }
 
     let invert_aux = "";
@@ -218,9 +218,9 @@ class SunsynkPowerFlowCard extends LitElement {
 
     let aux_power = "";
     if (invert_aux === 'yes'){
-        aux_power = (parseFloat(stateObj24.state) * -1);
+        aux_power = (parseInt(stateObj24.state) * -1);
     } else {
-        aux_power = parseFloat(stateObj24.state);
+        aux_power = parseInt(stateObj24.state);
     }
 
     let duration = "";
@@ -291,6 +291,9 @@ class SunsynkPowerFlowCard extends LitElement {
 //      rateofcharge = ((parseInt(stateObj35.state) / 312 * 100).toFixed(0) * -1);
 //    }
 
+    const Autarky = parseInt((Math.min(((parseFloat(stateObj4.state) + parseFloat(stateObj.state) + parseFloat(stateObj33.state)) * 100 / (parseFloat(stateObj2.state) + parseFloat(stateObj3.state) + parseFloat(stateObj1.state))), 100) || 0).toFixed(0));
+    const Ratio = ((((parseFloat(stateObj2.state) + parseFloat(stateObj3.state) + parseFloat(stateObj1.state)) / (parseFloat(stateObj4.state) + parseFloat(stateObj.state) + parseFloat(stateObj33.state))) *100) || 0).toFixed(0);
+
     let inverterStateColour = "";
     let inverterStateMsg = "";
     if (stateObj21.state === '0' || stateObj21.state === 'standby') {
@@ -318,6 +321,13 @@ class SunsynkPowerFlowCard extends LitElement {
     inverter_colour = config.inverter.colour; // override with provided value
     } else {
     inverter_colour = 'grey'; // set default value
+    }
+
+    let useautarky ="";
+    if (config && config.inverter && config.inverter.autarky) {
+      useautarky = config.inverter.autarky;
+    } else {
+      useautarky = 'yes';
     }
 
     let inverter_modern = "";
@@ -457,7 +467,12 @@ class SunsynkPowerFlowCard extends LitElement {
             <text id="daily_grid_sell" x="${grid_show_noness === 'no' ? '68%' : '76%'}" y="${grid_show_noness === 'no' ? '88%' : '58%'}" class="st3 left-align" fill="${grid_showdailysell === 'no' ? 'transparent' : `${grid_colour}`}" >DAILY GRID SELL</text>
             <text x="90%" y="21.5%" class="st3 st8" display="${show_aux === 'no' ? 'none' : ''}" fill="${load_colour}">Auxiliary</text> 
             <text x="74%" y="98.5%" class="st3 st8" display="${grid_show_noness === 'no' ? 'none' : ''}" fill="${grid_colour}"> Non Essential</text>
+            <text id="autarky_value" x="46.5%" y="74%" class="st4 st8 left-align" fill="${useautarky === 'no' ? 'transparent' : `${inverter_colour}`}" >${Autarky}%</text>
+            <text id="ratio_value" x="55%" y="74%" class="st4 st8 left-align" fill="${useautarky === 'no' ? 'transparent' : `${inverter_colour}`}" >${Ratio}%</text>
+            <text id="autarky" x="46.5%" y="77%" class="st3 left-align" fill="${useautarky === 'no' ? 'transparent' : `${inverter_colour}`}" >Autarky</text>
+            <text id="ratio" x="55%" y="77%" class="st3 left-align" fill="${useautarky === 'no' ? 'transparent' : `${inverter_colour}`}" >Ratio</text>
             
+
             <circle id="standby" cx="36%" cy="79.75%" r="3.5" fill="${inverterStateColour}"/>
 
             <path id="pv1-line" d="M 86 162 L 86 56 Q 86 56 86 56 L 70 56" class="${config.show_solar === 'no' ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
@@ -571,16 +586,16 @@ class SunsynkPowerFlowCard extends LitElement {
             <svg xmlns="http://www.w3.org/2000/svg" id="essen" x="373.5" y="78.5" width="77" height="77" viewBox="0 0 24 24"><path fill="${load_colour}" d="M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="auxsvg" x="371" y="5" width="83" height="83" viewBox="0 0 24 24"><path class="${show_aux === 'no' ? 'st12' : ''}" fill="${load_colour}" d="M5 20v-8H2l10-9l10 9h-3v8H5m7-14.31l-5 4.5V18h10v-7.81l-5-4.5M11.5 18v-4H9l3.5-7v4H15l-3.5 7Z"/></svg>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.use_timer_248)}>
-              <svg xmlns="http://www.w3.org/2000/svg" id="timer" x="46%" y="65%" width="18" height="18" viewBox="0 0 24 24"><path display="${stateObj26.state == 'on' && usetimer !== 'no' ? '' : 'none'}" fill="${inverter_colour}" d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0 0 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9a8.994 8.994 0 0 0 7.03-14.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7s7 3.13 7 7s-3.13 7-7 7z"/></svg>
-              <svg xmlns="http://www.w3.org/2000/svg" id="timer_off" x="46%" y="65%" width="18" height="18" viewBox="0 0 24 24"><path display="${stateObj26.state == 'off' && usetimer !== 'no' ? '' : 'none'}" fill="${inverter_colour}" d="m19.95 17.15l-1.5-1.5q.275-.675.413-1.337T19 13q0-2.9-2.05-4.95T12 6q-.6 0-1.275.125t-1.4.4l-1.5-1.5q.95-.5 2.012-.763T12 4q1.5 0 2.938.5t2.712 1.45l1.4-1.4l1.4 1.4l-1.4 1.4q.95 1.275 1.45 2.713T21 13q0 1.05-.263 2.087t-.787 2.063ZM13 10.2V8h-2v.2l2 2Zm6.8 12.4l-2.4-2.4q-1.2.875-2.588 1.338T12 22q-1.85 0-3.488-.713T5.65 19.35q-1.225-1.225-1.938-2.863T3 13q0-1.5.463-2.888T4.8 7.6L1.4 4.2l1.4-1.4l18.4 18.4l-1.4 1.4ZM12 20q1.05 0 2.05-.325t1.875-.925L6.2 9.025q-.6.875-.9 1.875T5 13q0 2.9 2.05 4.95T12 20ZM9 3V1h6v2H9Zm2.075 10.875Zm2.825-2.8Z"/></svg>
-              <text id="timer_text_on"x="50%" y="68%" class="st3 left-align" display="${stateObj26.state == 'on' && usetimer !== 'no' ? '' : 'none'}" fill="${inverter_colour}">Timer On</text>
-              <text id="timer_text_off"x="50%" y="68%" class="st3 left-align" display="${stateObj26.state == 'off' && usetimer !== 'no' ? '' : 'none'}" fill="${inverter_colour}">Timer Off</text>
+              <svg xmlns="http://www.w3.org/2000/svg" id="timer" x="46%" y="${useautarky === 'yes' ? "60.5%" : "65%"}" width="18" height="18" viewBox="0 0 24 24"><path display="${stateObj26.state == 'on' && usetimer !== 'no' ? '' : 'none'}" fill="${inverter_colour}" d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0 0 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9a8.994 8.994 0 0 0 7.03-14.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7s7 3.13 7 7s-3.13 7-7 7z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" id="timer_off" x="46%" y="${useautarky === 'yes' ? "60.5%" : "65%"}" width="18" height="18" viewBox="0 0 24 24"><path display="${stateObj26.state == 'off' && usetimer !== 'no' ? '' : 'none'}" fill="${inverter_colour}" d="m19.95 17.15l-1.5-1.5q.275-.675.413-1.337T19 13q0-2.9-2.05-4.95T12 6q-.6 0-1.275.125t-1.4.4l-1.5-1.5q.95-.5 2.012-.763T12 4q1.5 0 2.938.5t2.712 1.45l1.4-1.4l1.4 1.4l-1.4 1.4q.95 1.275 1.45 2.713T21 13q0 1.05-.263 2.087t-.787 2.063ZM13 10.2V8h-2v.2l2 2Zm6.8 12.4l-2.4-2.4q-1.2.875-2.588 1.338T12 22q-1.85 0-3.488-.713T5.65 19.35q-1.225-1.225-1.938-2.863T3 13q0-1.5.463-2.888T4.8 7.6L1.4 4.2l1.4-1.4l18.4 18.4l-1.4 1.4ZM12 20q1.05 0 2.05-.325t1.875-.925L6.2 9.025q-.6.875-.9 1.875T5 13q0 2.9 2.05 4.95T12 20ZM9 3V1h6v2H9Zm2.075 10.875Zm2.825-2.8Z"/></svg>
+              <text id="timer_text_on"x="50%" y="${useautarky === 'yes' ? "63.5%" : "68%"}" class="st3 left-align" display="${stateObj26.state == 'on' && usetimer !== 'no' ? '' : 'none'}" fill="${inverter_colour}">Timer On</text>
+              <text id="timer_text_off"x="50%" y="${useautarky === 'yes' ? "63.5%" : "68%"}" class="st3 left-align" display="${stateObj26.state == 'off' && usetimer !== 'no' ? '' : 'none'}" fill="${inverter_colour}">Timer Off</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.priority_load_243)}>
-              <svg xmlns="http://www.w3.org/2000/svg" id="pbat" x="46%" y="70%" width="18" height="18" viewBox="0 0 24 24"><path display="${stateObj25.state === 'off' && priority !== 'no' ? '' : 'none'}" fill="${inverter_colour}" d="M15.95 21.175L13.1 18.35l1.425-1.4l1.425 1.4l3.525-3.525l1.425 1.4l-4.95 4.95ZM8 22q-.425 0-.713-.288T7 21V5q0-.425.288-.713T8 4h2V2h4v2h2q.425 0 .713.288T17 5v7q-.525 0-1.025.088T15 12.35V6H9v14h2.35q.2.575.488 1.075t.687.925H8Zm1-2h2.35H11h.35H9Z"/></svg>
-              <svg xmlns="http://www.w3.org/2000/svg" id="pload" x="46%" y="70%" width="18" height="18" viewBox="0 0 24 24"><path display="${stateObj25.state === 'on' && priority !== 'no' ? '' : 'none'}" fill="${inverter_colour}" d="m15 13l-4 4v-3H2v-2h9V9l4 4M5 20v-4h2v2h10v-7.81l-5-4.5L7.21 10H4.22L12 3l10 9h-3v8H5Z"/></svg>
-              <text id="priority_text_load"x="50%" y="73%" class="st3 left-align" display="${stateObj25.state === 'on' && priority !== 'no' ? '' : 'none'}" fill="${inverter_colour}">Priority Load</text>
-              <text id="priority_text_batt"x="50%" y="73%" class="st3 left-align" display="${stateObj25.state === 'off' && priority !== 'no' ? '' : 'none'}" fill="${inverter_colour}">Priority Batt</text>
+              <svg xmlns="http://www.w3.org/2000/svg" id="pbat" x="46%" y="${useautarky === 'yes' ? "65.5%" : "70%"}" width="18" height="18" viewBox="0 0 24 24"><path display="${stateObj25.state === 'off' && priority !== 'no' ? '' : 'none'}" fill="${inverter_colour}" d="M15.95 21.175L13.1 18.35l1.425-1.4l1.425 1.4l3.525-3.525l1.425 1.4l-4.95 4.95ZM8 22q-.425 0-.713-.288T7 21V5q0-.425.288-.713T8 4h2V2h4v2h2q.425 0 .713.288T17 5v7q-.525 0-1.025.088T15 12.35V6H9v14h2.35q.2.575.488 1.075t.687.925H8Zm1-2h2.35H11h.35H9Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" id="pload" x="46%" y="${useautarky === 'yes' ? "65.5%" : "70%"}" width="18" height="18" viewBox="0 0 24 24"><path display="${stateObj25.state === 'on' && priority !== 'no' ? '' : 'none'}" fill="${inverter_colour}" d="m15 13l-4 4v-3H2v-2h9V9l4 4M5 20v-4h2v2h10v-7.81l-5-4.5L7.21 10H4.22L12 3l10 9h-3v8H5Z"/></svg>
+              <text id="priority_text_load"x="50%" y="${useautarky === 'yes' ? "68.5%" : "73%"}" class="st3 left-align" display="${stateObj25.state === 'on' && priority !== 'no' ? '' : 'none'}" fill="${inverter_colour}">Priority Load</text>
+              <text id="priority_text_batt"x="50%" y="${useautarky === 'yes' ? "68.5%" : "73%"}" class="st3 left-align" display="${stateObj25.state === 'off' && priority !== 'no' ? '' : 'none'}" fill="${inverter_colour}">Priority Batt</text>
             </a>
             <image x="155" y="224.75" width="53" height="72" class="${inverter_modern === 'no' ? '' : 'st12'}" xlink:href="data:image/png;base64,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" preserveAspectRatio="none"/>
 
@@ -731,6 +746,10 @@ class SunsynkPowerFlowCard extends LitElement {
             <text x="264" y="94" class="st3 st8" display="${config.show_solar === 'no'  || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}">PV2</text>
             <text x="88" y="94" class="st3 st8" display="${config.show_solar === 'no'  || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}">PV3</text>
             <text x="340" y="94" class="st3 st8" display="${config.show_solar === 'no'  || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}">PV4</text>            
+            <text id="autarky_value" x="130" y="260" class="st4 st8 left-align" fill="${useautarky === 'no' ? 'transparent' : `${inverter_colour}`}" >${Autarky}%</text>
+            <text id="ratio_value" x="173" y="260" class="st4 st8 left-align" fill="${useautarky === 'no' ? 'transparent' : `${inverter_colour}`}" >${Ratio}%</text>
+            <text id="autarky" x="130" y="273" class="st3 left-align" fill="${useautarky === 'no' ? 'transparent' : `${inverter_colour}`}" >Autarky</text>
+            <text id="ratio" x="173" y="273" class="st3 left-align" fill="${useautarky === 'no' ? 'transparent' : `${inverter_colour}`}" >Ratio</text>
             
             <circle id="standby" cx="220" cy="260" r="3.5" fill="${inverterStateColour}"/>
             
