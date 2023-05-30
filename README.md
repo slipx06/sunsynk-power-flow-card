@@ -74,6 +74,7 @@ The card can be configured through the following attributes:
 | --- | --- | --- |--- |
 |modern:| Optional |`yes`| Changes the inverter image.|
 |colour:| Optional |`grey`| Changes the colour of the inverter. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
+|autarky:| Optional| `yes`| Display autarky and ratio as a prercentage. Set to `no` to hide (`yes/no`)|
 
 
 ### Battery
@@ -85,14 +86,14 @@ Note that the card will always display batter power as a positive number regardl
 |shutdown_soc: | **Required** | `20` |The battery shutdown percentage used to calculate remaining runtime |
 |invert_power:| Optional | `no`|Set to `yes` if your sensor provides a positive number for battery charge and negative number for battery discharge|
 |colour:| Optional| `pink`| Changes the colour of all the battery card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
-|show_daily: | Optional| `no` | Toggles the Daily Total `yes/no` |
+|show_daily: | Optional| `no` | Toggles the Daily Total (`yes/no`) |  
 
 ### Solar
 These attributes are only needed if `show_solar` is set to `yes` 
 | Attribute | Requirement |Default | Description |
 | --- | --- | --- |--- |
 |colour:| Optional | `orange` | Changes the colour of all the solar card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
-|show_daily: | Optional | `no` | Toggles the Daily Total `yes/no` |
+|show_daily: | Optional | `no` | Toggles the Daily Total (`yes/no`) |
 |mppts: | **Required** | `two` | Specify the number of MPPT's in use `one`, `two`, `three` or `four` |
 
 ### Load
@@ -100,7 +101,7 @@ These attributes are only needed if `show_solar` is set to `yes`
 | --- | --- | --- |--- |
 |colour:| Optional |`'#5fb6ad'`| Changes the colour of all the load card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |show_daily: | Optional |`no` | Toggles the Daily Total `yes/no` Only displayed if `show_aux` is set to `no` |
-|show_aux: | Optional | `no` | Toggles the display of Aux `yes/no` |
+|show_aux: | Optional | `no` | Toggles the display of Aux (`yes/no`) |
 |invert_aux: | Optional | `no` | Set to `yes` if your sensor provides a positive number for AUX input and negative number for AUX output  |
 
 ### Grid
@@ -108,9 +109,9 @@ These attributes are only needed if `show_solar` is set to `yes`
 | --- | --- | --- | --- |
 |colour:| Optional | `'#5490c2'`| Changes the colour of all the grid card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |no_grid_colour:| Optional | `'#a40013'`|Changes the colour of the grid disconnected icon. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc)|
-|show_daily_buy: | Optional | `no` | Toggles the Daily Buy Total `yes/no` |
-|show_daily_sell: | Optional | `no` | Toggles the Daily Sell Total `yes/no` |
-|show_nonessential: | Optional |`yes` | Toggles the display of Non-Essential `yes/no`|
+|show_daily_buy: | Optional | `no` | Toggles the Daily Buy Total (`yes/no`) |
+|show_daily_sell: | Optional | `no` | Toggles the Daily Sell Total (`yes/no`) |
+|show_nonessential: | Optional |`yes` | Toggles the display of Non-Essential (`yes/no`)|
 
 ### Entities
 Entity attributes below have been appended with the modbus register # e.g. `pv2_power_187` to indicate which Sunsynk register should be read when configuring your sensors. Replace the default sensors with your own specific sensor names. It is important that your sensors read the expected modbus register value. If you have missing sensors for any attribute set it to none i.e. `solarday_108: none` and it will use a default value of 0.
