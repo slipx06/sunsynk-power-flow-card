@@ -290,27 +290,36 @@ show_solar: 'yes'
 inverter:
   modern: 'yes'
   colour: 'grey'
+  autarky: 'yes'
 battery:
   energy: 15960
   shutdown_soc: 20
   invert_power: 'no'
   colour: pink
   show_daily: 'yes'
+  animation_speed: 6
+  max_power: 8000
 solar:
   colour: orange
   show_daily: 'yes'
   mppts: two
+  animation_speed: 9
+  max_power: 8000
 load:
   colour: '#5fb6ad'
   show_daily: 'yes'
   show_aux: 'yes'
   invert_aux: 'no'
+  animation_speed: 8
+  max_power: 8000
 grid:
   colour: '#5490c2'
   show_daily_buy: 'yes'
   show_daily_sell: 'yes'
   no_grid_colour: '#a40013'
   show_nonessential: 'no'
+  animation_speed: 8
+  max_power: 8000
 entities:
   use_timer_248: switch.toggle_system_timer
   priority_load_243: switch.toggle_priority_load
