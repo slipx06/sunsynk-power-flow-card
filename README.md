@@ -75,7 +75,7 @@ The card can be configured through the following attributes:
 | --- | --- | --- |--- |
 |modern:| Optional |`yes`| Changes the inverter image.|
 |colour:| Optional |`grey`| Changes the colour of the inverter. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
-|autarky:| Optional| `yes`| Display autarky and ratio as a prercentage. Set to `no` to hide (`yes/no`)|
+|autarky:| Optional| `yes`| Display autarky and ratio as a prercentage. Set to `no` to hide (`yes/no`). <br />Autarky is the percentage of self sufficiency through Home Production. Ratio is the percentage of produced electricity used by the home. <br />It is calculated based on the formula below and borrowed from the [Power Distribution Card](https://github.com/JonahKr/power-distribution-card)  <br /><ul><li>Autarky in Percent = Home Production(Daily Solar + Daily Battery Discharge + Daily Grid Sell)*100 / Home Consumption (Daily Load + Daily Grid Buy + Daily Battery Charge)</li><li>Ratio in Percent = Home Consumption(Daily Load + Daily Grid Buy +Daily Battery Charge) / Home Production(Daily Solar + Daily Battery Discharge + Daily Grid Sell)*100</li></ul>|
 
 
 ### Battery
