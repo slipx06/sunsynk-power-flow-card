@@ -431,7 +431,7 @@ class SunsynkPowerFlowCard extends LitElement {
       remaining_solar = parseFloat(stateObj36.state).toFixed(1);
     }
 
-    //Calculate power use annimation speeds depending on Inverter size
+    //Calculate power use animation speeds depending on Inverter size
     let solar_animation_speed = "9"
     if (config && config.solar && config.solar.animation_speed) {
       let speed = config.solar.animation_speed - ((config.solar.animation_speed-1) * (totalsolar / config.solar.max_power || totalsolar))
@@ -442,7 +442,7 @@ class SunsynkPowerFlowCard extends LitElement {
     
     let battery_animation_speed = "6"
     if (config && config.battery && config.battery.animation_speed) {
-      let speed = config.battery.animation_speed - ((config.battery.animation_speed-1) * (parseInt(stateObj13.state) / config.battery.max_power || parseInt(stateObj13.state)))
+      let speed = config.battery.animation_speed - ((config.battery.animation_speed-1) * (`${battery_power < '0' ? battery_power *-1 : battery_power}` / config.battery.max_power || `${battery_power < '0' ? battery_power *-1 : battery_power}`))
       battery_animation_speed = `${speed >= 1 ? speed : 1}` 
     } else {
       battery_animation_speed = "6"
@@ -458,7 +458,7 @@ class SunsynkPowerFlowCard extends LitElement {
 
     let aux_animation_speed = "4"
     if (config && config.load && config.load.animation_speed) {
-      let speed = config.load.animation_speed - ((config.load.animation_speed-1) * (parseInt(stateObj24.state) / config.load.max_power || parseInt(stateObj24.state)))
+      let speed = config.load.animation_speed - ((config.load.animation_speed-1) * (`${parseInt(stateObj24.state) < '0' ? parseInt(stateObj24.state) *-1 : parseInt(stateObj24.state)}` / config.load.max_power || `${parseInt(stateObj24.state) < '0' ? parseInt(stateObj24.state) *-1 : parseInt(stateObj24.state)}`))
       aux_animation_speed = `${speed >= 1 ? speed : 1}` 
     } else {
       aux_animation_speed = "4"
@@ -466,7 +466,7 @@ class SunsynkPowerFlowCard extends LitElement {
     
     let grid_animation_speed = "8"
     if (config && config.grid && config.grid.animation_speed) {
-      let speed = config.grid.animation_speed - ((config.grid.animation_speed-1) * (parseInt(stateObj15.state) / config.grid.max_power || parseInt(stateObj15.state)))
+      let speed = config.grid.animation_speed - ((config.grid.animation_speed-1) * (`${parseInt(stateObj15.state) < '0' ? parseInt(stateObj15.state) *-1 : parseInt(stateObj15.state)}` / config.grid.max_power || `${parseInt(stateObj15.state) < '0' ? parseInt(stateObj15.state) *-1 : parseInt(stateObj15.state)}`))
       grid_animation_speed = `${speed >= 1 ? speed : 1}` 
     } else {
       grid_animation_speed = "8"
