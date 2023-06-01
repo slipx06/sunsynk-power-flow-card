@@ -87,6 +87,8 @@ Note that the card will always display batter power as a positive number regardl
 |invert_power:| Optional | `no`|Set to `yes` if your sensor provides a positive number for battery charge and negative number for battery discharge|
 |colour:| Optional| `pink`| Changes the colour of all the battery card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |show_daily: | Optional| `no` | Toggles the Daily Total (`yes/no`) |  
+|animation_speed: | Optional | `6` | Set slowest animation speed in seconds, depending on Power draw | 
+|max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
 
 ### Solar
 These attributes are only needed if `show_solar` is set to `yes` 
@@ -95,6 +97,8 @@ These attributes are only needed if `show_solar` is set to `yes`
 |colour:| Optional | `orange` | Changes the colour of all the solar card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |show_daily: | Optional | `no` | Toggles the Daily Total (`yes/no`) |
 |mppts: | **Required** | `two` | Specify the number of MPPT's in use `one`, `two`, `three` or `four` |
+|animation_speed: | Optional | `9` | Set slowest animation speed in seconds, depending on Power produced | 
+|max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
 
 ### Load
 | Attribute | Requirement | Default | Description |
@@ -103,6 +107,8 @@ These attributes are only needed if `show_solar` is set to `yes`
 |show_daily: | Optional |`no` | Toggles the Daily Total `yes/no` Only displayed if `show_aux` is set to `no` |
 |show_aux: | Optional | `no` | Toggles the display of Aux (`yes/no`) |
 |invert_aux: | Optional | `no` | Set to `yes` if your sensor provides a positive number for AUX input and negative number for AUX output  |
+|animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on Power draw | 
+|max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
 
 ### Grid
 | Attribute | Requirement | Default | Description |
@@ -112,6 +118,8 @@ These attributes are only needed if `show_solar` is set to `yes`
 |show_daily_buy: | Optional | `no` | Toggles the Daily Buy Total (`yes/no`) |
 |show_daily_sell: | Optional | `no` | Toggles the Daily Sell Total (`yes/no`) |
 |show_nonessential: | Optional |`yes` | Toggles the display of Non-Essential (`yes/no`)|
+|animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on Power draw | 
+|max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
 
 ### Entities
 Entity attributes below have been appended with the modbus register # e.g. `pv2_power_187` to indicate which Sunsynk register should be read when configuring your sensors. Replace the default sensors with your own specific sensor names. It is important that your sensors read the expected modbus register value. If you have missing sensors for any attribute set it to none i.e. `solarday_108: none` and it will use a default value of 0.
@@ -282,27 +290,36 @@ show_solar: 'yes'
 inverter:
   modern: 'yes'
   colour: 'grey'
+  autarky: 'yes'
 battery:
   energy: 15960
   shutdown_soc: 20
   invert_power: 'no'
   colour: pink
   show_daily: 'yes'
+  animation_speed: 6
+  max_power: 8000
 solar:
   colour: orange
   show_daily: 'yes'
   mppts: two
+  animation_speed: 9
+  max_power: 8000
 load:
   colour: '#5fb6ad'
   show_daily: 'yes'
   show_aux: 'yes'
   invert_aux: 'no'
+  animation_speed: 8
+  max_power: 8000
 grid:
   colour: '#5490c2'
   show_daily_buy: 'yes'
   show_daily_sell: 'yes'
   no_grid_colour: '#a40013'
   show_nonessential: 'no'
+  animation_speed: 8
+  max_power: 8000
 entities:
   use_timer_248: switch.toggle_system_timer
   priority_load_243: switch.toggle_priority_load

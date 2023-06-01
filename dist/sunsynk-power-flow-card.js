@@ -431,6 +431,55 @@ class SunsynkPowerFlowCard extends LitElement {
       remaining_solar = parseFloat(stateObj36.state).toFixed(1);
     }
 
+    //Calculate power use animation speeds depending on Inverter size
+    let solar_animation_speed = "9"
+    if (config && config.solar && config.solar.animation_speed) {
+      let speed = config.solar.animation_speed - ((config.solar.animation_speed-1) * (totalsolar / config.solar.max_power || totalsolar))
+      solar_animation_speed = `${speed >= 1 ? speed : 1}` 
+    } else {
+      solar_animation_speed = "9"
+    }
+    
+    let battery_animation_speed = "6"
+    if (config && config.battery && config.battery.animation_speed) {
+      let speed = config.battery.animation_speed - ((config.battery.animation_speed-1) * (`${battery_power < '0' ? battery_power *-1 : battery_power}` / config.battery.max_power || `${battery_power < '0' ? battery_power *-1 : battery_power}`))
+      battery_animation_speed = `${speed >= 1 ? speed : 1}` 
+    } else {
+      battery_animation_speed = "6"
+    }
+    
+    let load_animation_speed = "4"
+    if (config && config.load && config.load.animation_speed) {
+      let speed = config.load.animation_speed - ((config.load.animation_speed-1) * (essential / config.load.max_power || essential))
+      load_animation_speed = `${speed >= 1 ? speed : 1}` 
+    } else {
+      load_animation_speed = "4"
+    }
+
+    let aux_animation_speed = "4"
+    if (config && config.load && config.load.animation_speed) {
+      let speed = config.load.animation_speed - ((config.load.animation_speed-1) * (`${parseInt(stateObj24.state) < '0' ? parseInt(stateObj24.state) *-1 : parseInt(stateObj24.state)}` / config.load.max_power || `${parseInt(stateObj24.state) < '0' ? parseInt(stateObj24.state) *-1 : parseInt(stateObj24.state)}`))
+      aux_animation_speed = `${speed >= 1 ? speed : 1}` 
+    } else {
+      aux_animation_speed = "4"
+    }
+    
+    let grid_animation_speed = "8"
+    if (config && config.grid && config.grid.animation_speed) {
+      let speed = config.grid.animation_speed - ((config.grid.animation_speed-1) * (`${parseInt(stateObj15.state) < '0' ? parseInt(stateObj15.state) *-1 : parseInt(stateObj15.state)}` / config.grid.max_power || `${parseInt(stateObj15.state) < '0' ? parseInt(stateObj15.state) *-1 : parseInt(stateObj15.state)}`))
+      grid_animation_speed = `${speed >= 1 ? speed : 1}` 
+    } else {
+      grid_animation_speed = "8"
+    }
+
+    let ne_animation_speed = "4"
+    if (config && config.grid && config.grid.animation_speed) {
+      let speed = config.grid.animation_speed - ((config.grid.animation_speed-1) * (nonessential / config.grid.max_power || nonessential))
+      ne_animation_speed = `${speed >= 1 ? speed : 1}` 
+    } else {
+      ne_animation_speed = "4"
+    }
+
     if (config.cardstyle === 'full') {
       return html`
         <div class="container card">
@@ -479,87 +528,87 @@ class SunsynkPowerFlowCard extends LitElement {
 
             <path id="pv1-line" d="M 86 162 L 86 56 Q 86 56 86 56 L 70 56" class="${config.show_solar === 'no' ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="pv1-dot" cx="0" cy="0" r="3" class="${config.show_solar === 'no' ? 'st12' : ''}" fill="${parseInt(stateObj9.state) <= 0 ? 'transparent' : `${solar_colour}`}">
-              <animateMotion dur="9s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#pv1-line"/>
               </animateMotion>
             </circle>
             <path id="pv2-line" d="M 86 162 L 86 56 Q 86 56 86 56 L 101 56" class="${config.show_solar === 'no' || config.solar.mppts === 'one' ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
             <circle id="pv2-dot" cx="0" cy="0" r="3" class="${config.show_solar === 'no' || config.solar.mppts === 'one' ? 'st12' : ''}" fill="${parseInt(stateObj8.state) <= 0 ? 'transparent' : `${solar_colour}`}">
-              <animateMotion dur="9s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#pv2-line"/>
               </animateMotion>
             </circle>
             <path id="pv3-line" d="M 86 162 L 86 115 Q 86 115 86 115 L 70 115" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="pv3-dot" cx="0" cy="0" r="3" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two'  ? 'st12' : ''}" fill="${parseInt(stateObj31.state) <= 0 ? 'transparent' : `${solar_colour}`}">
-              <animateMotion dur="9s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#pv3-line"/>
               </animateMotion>
             </circle>
             <path id="pv4-line" d="M 86 162 L 86 115 Q 86 115 86 115 L 101 115" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="pv4-dot" cx="0" cy="0" r="3" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'st12' : ''}" fill="${parseInt(stateObj32.state) <= 0 ? 'transparent' : `${solar_colour}`}">
-              <animateMotion dur="9s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#pv4-line"/>
               </animateMotion>
             </circle>
             <path id="so-line" d="M 155 250 L 96 250 Q 86 250 86 240 L 86 192" class="${config.show_solar === 'no' ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
             <circle id="so-dot" cx="0" cy="0" r="3" class="${config.show_solar === 'no' ? 'st12' : ''}" fill="${totalsolar === 0 ? 'transparent' : `${solar_colour}`}">
-              <animateMotion dur="9s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#so-line"/>
               </animateMotion>
             </circle>
             <path id="bat-line" d="M 155 280 L 91 280 Q 85 280 86 286 L 86 297" fill="none" stroke="${battery_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="power-dot-charge" cx="0" cy="0" r="3" fill="${parseInt(battery_power) < 0 || parseInt(battery_power) === 0 ? 'transparent' : `${battery_colour}`}">
-              <animateMotion dur="6s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${battery_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#bat-line"/>
               </animateMotion>
             </circle>
             <circle id="power-dot-discharge" cx="0" cy="0" r="3" fill="${parseInt(battery_power) > 0 || parseInt(battery_power) === 0 ? 'transparent' : `${battery_colour}`}">
-              <animateMotion dur="6s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${battery_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#bat-line"/>
               </animateMotion>
             </circle>
             <path id="grid-line" d="M 304 188 L 411 188 Q 421 188 421 198 L421 265" fill="none" stroke="${grid_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="grid-dot" cx="0" cy="0" r="3" fill="${parseInt(stateObj15.state) < 0 || parseInt(stateObj15.state) === 0 ? 'transparent' : `${grid_colour}`}">
-              <animateMotion dur="8s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line"/>
               </animateMotion>
             </circle>
             <circle id="grid-dot" cx="0" cy="0" r="3" fill="${parseInt(stateObj15.state) > 0 || parseInt(stateObj15.state) === 0 ? 'transparent' : `${grid_colour}`}">
-              <animateMotion dur="8s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line"/>
               </animateMotion>
             </circle>
             <path id="grid-line1" d="M 421 295 L 421 310.5" fill="none" stroke="${grid_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="grid-dot" cx="0" cy="0" r="3" fill="${parseInt(stateObj15.state) < 0 || parseInt(stateObj15.state) === 0 ? 'transparent' : `${grid_colour}`}">
-              <animateMotion dur="4s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${grid_animation_speed/2}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line1"/>
               </animateMotion>
             </circle>
             <circle id="grid-dot" cx="0" cy="0" r="3" fill="${parseInt(stateObj15.state) > 0 || parseInt(stateObj15.state) === 0 ? 'transparent' : `${grid_colour}`}">
-              <animateMotion dur="4s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${grid_animation_speed/2}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line1"/>
               </animateMotion>
             </circle>
             <path id="ne-line1" d="M 339 295 L 339 310" fill="none" stroke="${grid_colour}" stroke-width="1" stroke-miterlimit="10" class="${grid_show_noness === 'no' ? 'st12' : ''}" pointer-events="stroke"/>
             <circle id="ne-dot1" cx="0" cy="0" r="3" class="${grid_show_noness === 'no' ? 'st12' : ''}" fill="${nonessential <= 0 ? 'transparent' : `${grid_colour}`}">
-              <animateMotion dur="2s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${ne_animation_speed/2}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#ne-line1"/>
               </animateMotion>
             </circle> 
             <path id="ne-line" d="M 339 265 L 339 188" fill="none" stroke="${grid_colour}" stroke-width="1" stroke-miterlimit="10" class="${grid_show_noness === 'no' ? 'st12' : ''}" pointer-events="stroke"/> 
             <circle id="ne-dot" cx="0" cy="0" r="3" class="${grid_show_noness === 'no' ? 'st12' : ''}" fill="${nonessential <= 0 ? 'transparent' : `${grid_colour}`}">
-              <animateMotion dur="4s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${ne_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#ne-line"/>
             </animateMotion>
             </circle> 
             <path id="aux-line" d="M 307 47 L 371.5 47" fill="none" class="${show_aux === 'no' ? 'st12' : ''}" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
             <circle id="aux-dot" cx="0" cy="0" r="3" class="${show_aux === 'no' || aux_power === 0 ? 'st12' : ''}" fill="${parseInt(aux_power) < 0  ? 'transparent' : `${load_colour}`}">
-              <animateMotion dur="4s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${aux_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#aux-line"/>
               </animateMotion>
             </circle>
             <circle id="aux-dot" cx="0" cy="0" r="3" class="${show_aux === 'no' || aux_power === 0 ? 'st12' : ''}" fill="${parseInt(aux_power) > 0  ? 'transparent' : `${load_colour}`}">
-              <animateMotion dur="4s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${aux_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#aux-line"/>
               </animateMotion>
             </circle>
@@ -568,7 +617,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <path d="M 180.15 212 L 180.15 235" fill="none" stroke="${inverter_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <path id="es-line2" d="M 306 118 L 330 118 Q 340 118 350 117.85 L 374 117.5" fill="none" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
             <circle id="es-dot" cx="0" cy="0" r="3" fill="${essential === '0' ? 'transparent' : `${load_colour}`}">
-              <animateMotion dur="8s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${load_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#es-line2"/>
               </animateMotion>
             </circle>
@@ -766,76 +815,76 @@ class SunsynkPowerFlowCard extends LitElement {
             
             <path id="pv1-line" d="M 187 84 L 187 122 Q 187 132 195 132 L 205 132.03" class="${config.show_solar === 'no' ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="pv1-dot" cx="0" cy="0" r="3" class="${config.show_solar === 'no' ? 'st12' : ''}" fill="${parseInt(stateObj9.state) <= 0 ? 'transparent' : `${solar_colour}`}">
-              <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#pv1-line"/>
               </animateMotion>
             </circle>
             <path id="pv2-line" d="M 289 84.5 L 289 125 Q 289 132 282 132 L 275 132" class="${config.show_solar === 'no' || config.solar.mppts === 'one' ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="pv2-dot" cx="0" cy="0" r="3" class="${config.show_solar === 'no' || config.solar.mppts === 'one' ? 'st12' : ''}" fill="${parseInt(stateObj8.state) <= 0 ? 'transparent' : `${solar_colour}`}">
-              <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#pv2-line"/>  
               </animateMotion>
             </circle>
             <path id="pv3-line" d="M 113 84 L 113 125 Q 113 132 120 132 L 205 132.03" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="pv3-dot" cx="0" cy="0" r="3" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'st12' : ''}" fill="${parseInt(stateObj31.state) <= 0 ? 'transparent' : `${solar_colour}`}">
-            <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+            <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
               <mpath xlink:href="#pv3-line"/>  
             </animateMotion>
             </circle>
             <path id="pv4-line" d="M 365 85 L 365 125 Q 365 132 358 132 L 275 132" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="pv4-dot" cx="0" cy="0" r="3" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'st12' : ''}" fill="${parseInt(stateObj32.state) <= 0 ? 'transparent' : `${solar_colour}`}">
-            <animateMotion dur="9s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+            <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
               <mpath xlink:href="#pv4-line"/>  
             </animateMotion>
             </circle>
             <path id="bat-line" d="M 239.23 250 L 239.21 288.03 Q 239.21 298.03 239.1 308.02 L 239 324" fill="none" stroke="${battery_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="power-dot-charge" cx="0" cy="0" r="3" fill="${parseInt(battery_power) < 0 || parseInt(battery_power) === 0 ? 'transparent' : `${battery_colour}`}">
-              <animateMotion dur="6s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${battery_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#bat-line"/>
               </animateMotion>
             </circle>
             <circle id="power-dot-discharge" cx="0" cy="0" r="3" fill="${parseInt(battery_power) > 0 || parseInt(battery_power) === 0 ? 'transparent' : `${battery_colour}`}">
-              <animateMotion dur="6s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${battery_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#bat-line"/>
               </animateMotion>
             </circle>
             <path id="so-line" d="M 239.23 190 L 239.22 174.02 Q 239.21 168.03 239.1 158.04 L 239 147" class="${config.show_solar === 'no' ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="so-dot" cx="0" cy="0" r="3" class="${config.show_solar === 'no' ? 'st12' : ''}" fill="${totalsolar === 0 ? 'transparent' : `${solar_colour}`}">
-              <animateMotion dur="9s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#so-line"/>
               </animateMotion>
             </circle>
             <path id="grid-line" d="M 173 218.25 L 214 218" fill="none" stroke="${grid_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="grid-dot" cx="0" cy="0" r="3" fill="${parseInt(stateObj15.state) < 0 || parseInt(stateObj15.state) === 0 ? 'transparent' : `${grid_colour}`}">
-              <animateMotion dur="8s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line"/>
               </animateMotion>
             </circle>
             <circle id="grid-dot" cx="0" cy="0" r="3" fill="${parseInt(stateObj15.state) > 0 || parseInt(stateObj15.state) === 0 ? 'transparent' : `${grid_colour}`}">
-              <animateMotion dur="8s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line"/>
               </animateMotion>
             </circle>
             <path id="grid-line1" d="M 103 218.25 L 64.5 218.25" fill="none" stroke="${grid_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="grid-dot1" cx="0" cy="0" r="3" fill="${parseInt(stateObj15.state) < 0 || parseInt(stateObj15.state) === 0 ? 'transparent' : `${grid_colour}`}">
-              <animateMotion dur="8s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line1"/>
               </animateMotion>
             </circle>
             <circle id="grid-dot1" cx="0" cy="0" r="3" fill="${parseInt(stateObj15.state) > 0 || parseInt(stateObj15.state) === 0 ? 'transparent' : `${grid_colour}`}">
-              <animateMotion dur="8s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line1"/>
               </animateMotion>
             </circle>
             <path id="es-line" d="M 304 218.5 L 264.7 218.48" fill="none" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="es-dot" cx="0" cy="0" r="3" fill="${essential === 0 ? 'transparent' : `${load_colour}`}">
-              <animateMotion dur="4s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${load_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#es-line"/>
               </animateMotion>
             </circle>
             <path id="es-line1" d="M 374 218.5 L 402.38 218.52" fill="none" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="es-dot" cx="0" cy="0" r="3" fill="${essential === 0 ? 'transparent' : `${load_colour}`}">
-              <animateMotion dur="4s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+              <animateMotion dur="${load_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#es-line1"/>
               </animateMotion>
             </circle>
