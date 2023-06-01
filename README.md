@@ -5,7 +5,7 @@ An animated Home Assistant card to emulate the power flow that's shown on the Su
 
 ## Features
 * Option to switch between two card styles: `lite` or `full`.
-* Animated power flow based on positive/negative/zero sensor values. (Supports inverted battery and AUX power).
+* Animated power flow based on positive/negative/zero sensor values with dynamic speed. (Supports inverted battery and AUX power).
 * Dynamic battery image based on SOC (empty->low->medium->high). 
 * Grid connected status.
 * Inverter status (standby, normal, self-test, alarm, fault).  
@@ -17,6 +17,7 @@ An animated Home Assistant card to emulate the power flow that's shown on the Su
 * AUX and Non-essential can be hidden from the full card.
 * Customisable - Change colours and inverter image
 * Most entities can be clicked to show more-info dialog
+* Optional data points include self suffeciency and ratio percentages, battery temperature, AC and DC temperature
 
 ## Screenshots
 
