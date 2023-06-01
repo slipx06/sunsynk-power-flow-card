@@ -450,7 +450,7 @@ class SunsynkPowerFlowCard extends LitElement {
     
     let load_animation_speed = "4"
     if (config && config.load && config.load.animation_speed) {
-      let speed = config.load.animation_speed - ((config.load.animation_speed-1) * (parseInt(stateObj14.state) / config.load.max_power || parseInt(stateObj14.state)))
+      let speed = config.load.animation_speed - ((config.load.animation_speed-1) * (essential / config.load.max_power || essential))
       load_animation_speed = `${speed >= 1 ? speed : 1}` 
     } else {
       load_animation_speed = "4"
