@@ -17,7 +17,7 @@ An animated Home Assistant card to emulate the power flow that's shown on the Su
 * AUX and Non-essential can be hidden from the full card.
 * Customisable - Change colours and inverter image
 * Most entities can be clicked to show more-info dialog
-* Optional data points include self suffeciency and ratio percentages, battery temperature, AC and DC temperature
+* Optional data points include self sufficiency and ratio percentages, battery temperature, AC and DC temperature
 
 ## Screenshots
 
