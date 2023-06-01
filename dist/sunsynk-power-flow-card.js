@@ -156,6 +156,9 @@ class SunsynkPowerFlowCard extends LitElement {
     const stateObj34 = this.hass.states[config.entities.nonessential_power] || { state: '0' };
     const stateObj35 = this.hass.states[config.entities.battery_current_191] || { state: '0' };
     const stateObj36 = this.hass.states[config.entities.remaining_solar] || { state: '0' };
+    const stateObj37 = this.hass.states[config.entities.battery_temp] || { state: '' };
+    const stateObj38 = this.hass.states[config.entities.inverter_dc_temp] || { state: '' };
+    const stateObj39 = this.hass.states[config.entities.inverter_ac_temp] || { state: '' };
 
     const totalsolar = (parseInt(stateObj8.state || 0) + parseInt(stateObj9.state || 0) + parseInt(stateObj31.state || 0) + parseInt(stateObj32.state || 0));
 
@@ -472,7 +475,6 @@ class SunsynkPowerFlowCard extends LitElement {
             <text id="autarky" x="46.5%" y="77%" class="st3 left-align" fill="${useautarky === 'no' ? 'transparent' : `${inverter_colour}`}" >Autarky</text>
             <text id="ratio" x="55%" y="77%" class="st3 left-align" fill="${useautarky === 'no' ? 'transparent' : `${inverter_colour}`}" >Ratio</text>
             
-
             <circle id="standby" cx="36%" cy="79.75%" r="3.5" fill="${inverterStateColour}"/>
 
             <path id="pv1-line" d="M 86 162 L 86 56 Q 86 56 86 56 L 70 56" class="${config.show_solar === 'no' ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
@@ -505,7 +507,7 @@ class SunsynkPowerFlowCard extends LitElement {
                 <mpath xlink:href="#so-line"/>
               </animateMotion>
             </circle>
-            <path id="bat-line" d="M 155 280 L 102 280 Q 96 280 96 286 L 96 297" fill="none" stroke="${battery_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+            <path id="bat-line" d="M 155 280 L 91 280 Q 85 280 86 286 L 86 297" fill="none" stroke="${battery_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="power-dot-charge" cx="0" cy="0" r="3" fill="${parseInt(battery_power) < 0 || parseInt(battery_power) === 0 ? 'transparent' : `${battery_colour}`}">
               <animateMotion dur="6s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#bat-line"/>
@@ -711,6 +713,15 @@ class SunsynkPowerFlowCard extends LitElement {
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_i_116)}>
               <text id="pv4_i" x="31%" y="39.25%" class="st3 left-align" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj30.state ? stateObj30.state : '0'} A</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_temp)}>
+              <text id="battery_temp" x="20.5%" y="77%" class="st3 left-align" fill="${battery_colour}" display="${!config.entities.battery_temp ? 'none' : ''}" >${stateObj37.state ? stateObj37.state : ''}°</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_ac_temp)}>
+              <text id="ac_temp" x="34.5%" y="40%" class="st3 left-align" fill="${inverter_colour}" display="${!config.entities.inverter_ac_temp ? 'none' : ''}" >AC: ${stateObj39.state ? stateObj39.state : ''}°</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_dc_temp)}>
+              <text id="dc_temp" x="24%" y="69.5%" class="st3 left-align" fill="${inverter_colour}" display="${!config.entities.inverter_dc_temp ? 'none' : ''}" >DC: ${stateObj38.state ? stateObj38.state : ''}°</text>
             </a>
           </svg>
         </div>
@@ -922,6 +933,15 @@ class SunsynkPowerFlowCard extends LitElement {
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_i_116)}>
               <text id="pv4_i" x="372" y="94" class="st3 left-align" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj30.state ? stateObj30.state : '0'} A</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_temp)}>
+              <text id="battery_temp" x="250" y="324.5" class="st3 left-align" fill="${battery_colour}" display="${!config.entities.battery_temp ? 'none' : ''}" >${stateObj37.state ? stateObj37.state : ''}°</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_ac_temp)}>
+            <text id="ac_temp" x="173" y="168.2" class="st3 left-align" fill="${inverter_colour}" display="${!config.entities.inverter_ac_temp ? 'none' : ''}" >AC: ${stateObj39.state ? stateObj39.state : ''}°</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_dc_temp)}>
+              <text id="dc_temp" x="173" y="180.4" class="st3 left-align" fill="${inverter_colour}" display="${!config.entities.inverter_dc_temp ? 'none' : ''}" >DC: ${stateObj38.state ? stateObj38.state : ''}°</text>
             </a>
             ${config.entities.pv1_power_186 !== 'none'
             ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_power_186)}>
