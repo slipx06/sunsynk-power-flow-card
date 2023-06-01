@@ -156,7 +156,10 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |inverter_status_59: | **Required** | `sensor.overall_state` | Inverter Status `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault` |
 |aux_power_166: | Optional | `sensor.aux_output_power` | Auxilary Power (W) |
 |remaining_solar: | Optional | `sensor.solcast_forecast_remaining_today`| The remaining solar forecast for the day (kWh) |
-
+|battery_temp:| Optional | `sensor.ss_battery_temperature` | Battery Temperature (℃)|
+|inverter_ac_temp:| Optional | `sensor.ss_dc_radiator_temperature` | Inverter AC Temperature (℃)|
+|inverter_dc_temp:| Optional | `sensor.ss_dc_transformer_temperature` | Inverter DC Temperature (℃)|
+   
 The card calculates the sensors below based on supplied attributes in the config so you dont need to define them in Home Assistant
  
  ```
@@ -336,6 +339,10 @@ entities:
   grid_status_194: binary_sensor.grid_connected_status
   inverter_status_59: sensor.overall_state
   aux_power_166: sensor.aux_output_power
+  remaining_solar: sensor.solcast_forecast_remaining_today
+  battery_temp: sensor.ss_battery_temperature
+  inverter_ac_temp: sensor.ss_dc_radiator_temperature
+  inverter_dc_temp: sensor.ss_dc_transformer_temperature
 ```
 ## Solarman ##
 If you are using Solarman you can configre your card using the following sensors. You will also need to create the template sensors below for grid_status_194 and inverter_status_59.
