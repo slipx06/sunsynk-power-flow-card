@@ -71,26 +71,18 @@ class SunsynkPowerFlowCard extends LitElement {
         energy: 15960,
         shutdown_soc: 20,
         show_daily: 'yes',
-        animation_speed: 6,
-        max_power: 8000,
       },
       solar: {        
         show_daily: 'yes',
         mppts: 'two',
-        animation_speed: 9,
-        max_power: 8000,
       },
       load: {
         show_daily: 'yes',
-        animation_speed: 4,
-        max_power: 8000,
       },
       grid:{
         show_daily_buy: 'yes',
         show_daily_sell: 'no',
         show_nonessential: 'yes',
-        animation_speed: 8,
-        max_power: 8000,
       },
       entities: {
         use_timer_248: 'switch.toggle_system_timer',
