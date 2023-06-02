@@ -215,12 +215,18 @@ class SunsynkPowerFlowCard extends LitElement {
       let prog_time5 = new Date(timer_now.getTime());
       let prog_time6 = new Date(timer_now.getTime());
 
-      prog_time1.setHours(prog1.time.state.split(":")[0]).setMinutes(prog1.time.state.split(":")[1]);
-      prog_time2.setHours(prog2.time.state.split(":")[0]).setMinutes(prog2.time.state.split(":")[1]);
-      prog_time3.setHours(prog3.time.state.split(":")[0]).setMinutes(prog3.time.state.split(":")[1]);
-      prog_time4.setHours(prog4.time.state.split(":")[0]).setMinutes(prog4.time.state.split(":")[1]);
-      prog_time5.setHours(prog5.time.state.split(":")[0]).setMinutes(prog5.time.state.split(":")[1]);
-      prog_time6.setHours(prog6.time.state.split(":")[0]).setMinutes(prog6.time.state.split(":")[1]);
+      prog_time1.setHours(prog1.time.state.split(":")[0]);
+      prog_time2.setHours(prog2.time.state.split(":")[0]);
+      prog_time3.setHours(prog3.time.state.split(":")[0]);
+      prog_time4.setHours(prog4.time.state.split(":")[0]);
+      prog_time5.setHours(prog5.time.state.split(":")[0]);
+      prog_time6.setHours(prog6.time.state.split(":")[0]);
+      prog_time1.setMinutes(prog1.time.state.split(":")[1]);
+      prog_time2.setMinutes(prog2.time.state.split(":")[1]);
+      prog_time3.setMinutes(prog3.time.state.split(":")[1]);
+      prog_time4.setMinutes(prog4.time.state.split(":")[1]);
+      prog_time5.setMinutes(prog5.time.state.split(":")[1]);
+      prog_time6.setMinutes(prog6.time.state.split(":")[1]);
 
       //Add one day
       if (prog_time1 < timer_now) {
