@@ -170,26 +170,126 @@ class SunsynkPowerFlowCard extends LitElement {
     const stateObj39 = this.hass.states[config.entities.inverter_ac_temp] || { state: '' };
 
     //Timer entities
-    //const prog1 = { 
-    //  time: {
-    //    state : this.hass.states[config.entities.prog1_time].state || '',
-    //  },
-    //  capacity: {
-    //    state : this.hass.states[config.entities.prog1_capacity].state || '',
-    //  },
-    //  charge: {
-    //    state : this.hass.states[config.entities.prog1_charge].state || '',
-    //  }        
-    //};
-    //const prog2_time = this.hass.states[config.entities.prog2_time] || { state: '' };
-    //const prog3_time = this.hass.states[config.entities.prog3_time] || { state: '' };
-    //const prog4_time = this.hass.states[config.entities.prog4_time] || { state: '' };
-    //const prog5_time = this.hass.states[config.entities.prog5_time] || { state: '' };
-    //const prog6_time = this.hass.states[config.entities.prog6_time] || { state: '' };
+    const prog1 = { 
+      time: this.hass.states[config.entities.prog1_time] || { state: '' },
+      capacity: this.hass.states[config.entities.prog1_capacity] || { state: '' },
+      charge: this.hass.states[config.entities.prog1_charge] || { state: '' }
+    };
+    const prog2 = { 
+      time: this.hass.states[config.entities.prog2_time] || { state: '' },
+      capacity: this.hass.states[config.entities.prog2_capacity] || { state: '' },
+      charge: this.hass.states[config.entities.prog2_charge] || { state: '' }
+    };
+    const prog3 = { 
+      time: this.hass.states[config.entities.prog3_time] || { state: '' },
+      capacity: this.hass.states[config.entities.prog3_capacity] || { state: '' },
+      charge: this.hass.states[config.entities.prog3_charge] || { state: '' }
+    };
+    const prog4 = { 
+      time: this.hass.states[config.entities.prog4_time] || { state: '' },
+      capacity: this.hass.states[config.entities.prog4_capacity] || { state: '' },
+      charge: this.hass.states[config.entities.prog4_charge] || { state: '' }
+    };
+    const prog5 = { 
+      time: this.hass.states[config.entities.prog5_time] || { state: '' },
+      capacity: this.hass.states[config.entities.prog5_capacity] || { state: '' },
+      charge: this.hass.states[config.entities.prog5_charge] || { state: '' }
+    };
+    const prog6 = { 
+      time: this.hass.states[config.entities.prog6_time] || { state: '' },
+      capacity: this.hass.states[config.entities.prog6_capacity] || { state: '' },
+      charge: this.hass.states[config.entities.prog6_charge] || { state: '' }
+    };
+    
+    let inverter_prog = {};
+    if (!prog1.time && !prog2.time && !prog3.time && !prog4.time && !prog5.time && !prog6.time) {
+      inverter_prog.show = 'no';
+    } else {
+      inverter_prog.show = 'yes';
+    
+      const timer_now = new Date(); // Create a new Date object representing the current time
+      let prog_time1 = new Date(timer_now.getTime());
+      let prog_time2 = new Date(timer_now.getTime());
+      let prog_time3 = new Date(timer_now.getTime());
+      let prog_time4 = new Date(timer_now.getTime());
+      let prog_time5 = new Date(timer_now.getTime());
+      let prog_time6 = new Date(timer_now.getTime());
 
-    let inverter_prog = {}
-    inverter_prog.show = 'yes'
-    inverter_prog.charge = 'both'
+      prog_time1.setHours(prog1.time.split(":")[0]).setMinutes(prog1.time.split(":")[1]);
+      prog_time2.setHours(prog2.time.split(":")[0]).setMinutes(prog2.time.split(":")[1]);
+      prog_time3.setHours(prog3.time.split(":")[0]).setMinutes(prog3.time.split(":")[1]);
+      prog_time4.setHours(prog4.time.split(":")[0]).setMinutes(prog4.time.split(":")[1]);
+      prog_time5.setHours(prog5.time.split(":")[0]).setMinutes(prog5.time.split(":")[1]);
+      prog_time6.setHours(prog6.time.split(":")[0]).setMinutes(prog6.time.split(":")[1]);
+
+      //Add one day
+      if (prog_time1 < timer_now) {
+        prog_time1.setTime(prog_time1.getTime() + (1*60*60*24*1000));
+      };
+      if (prog_time2 < timer_now) {
+        prog_time2.setTime(prog_time2.getTime() + (1*60*60*24*1000));
+      };
+      if (prog_time3 < timer_now) {
+        prog_time3.setTime(prog_time3.getTime() + (1*60*60*24*1000));
+      };
+      if (prog_time4 < timer_now) {
+        prog_time4.setTime(prog_time4.getTime() + (1*60*60*24*1000));
+      };
+      if (prog_time5 < timer_now) {
+        prog_time5.setTime(prog_time5.getTime() + (1*60*60*24*1000));
+      };
+      if (prog_time6 < timer_now) {
+        prog_time6.setTime(prog_time6.getTime() + (1*60*60*24*1000));
+      };
+
+    
+      if (prog_time1 < timer_now && prog_time2 > timer_now) {
+        if ( prog1.charge.state === 'No Grid or Gen' ) {
+          inverter_prog.charge = 'none';
+        } else {
+          inverter_prog.charge = 'both';
+        }
+        inverter_prog.capacity = prog1.capacity.state;
+      } else if (prog_time2 < timer_now && prog_time3 > timer_now) {
+        if ( prog2.charge.state === 'No Grid or Gen' ) {
+          inverter_prog.charge = 'none';
+        } else {
+          inverter_prog.charge = 'both';
+        }
+        inverter_prog.capacity = prog2.capacity.state;
+      } else if (prog_time3 < timer_now && prog_time4 > timer_now) {
+        if ( prog3.charge.state === 'No Grid or Gen' ) {
+          inverter_prog.charge = 'none';
+        } else {
+          inverter_prog.charge = 'both';
+        }
+        inverter_prog.capacity = prog3.capacity.state;
+      } else if (prog_time4 < timer_now && prog_time5 > timer_now) {
+        if ( prog4.charge.state === 'No Grid or Gen' ) {
+          inverter_prog.charge = 'none';
+        } else {
+          inverter_prog.charge = 'both';
+        }
+        inverter_prog.capacity = prog4.capacity.state;
+      } else if (prog_time5 < timer_now && prog_time6 > timer_now) {
+        if ( prog5.charge.state === 'No Grid or Gen' ) {
+          inverter_prog.charge = 'none';
+        } else {
+          inverter_prog.charge = 'both';
+        }
+        inverter_prog.capacity = prog5.capacity.state;
+      } else if (prog_time6 < timer_now && prog_time1 > timer_now) {
+        if ( prog6.charge.state === 'No Grid or Gen' ) {
+          inverter_prog.charge = 'none';
+        } else {
+          inverter_prog.charge = 'both';
+        }
+        inverter_prog.capacity = prog6.capacity.state;
+      };
+
+    }
+
+    
 
     const totalsolar = (parseInt(stateObj8.state || 0) + parseInt(stateObj9.state || 0) + parseInt(stateObj31.state || 0) + parseInt(stateObj32.state || 0));
 
@@ -761,7 +861,7 @@ class SunsynkPowerFlowCard extends LitElement {
               <text id="battery_soc_184" x="35%" y="87%" fill=${battery_colour} class="st13 st8 left-align">${stateObj12.state ? stateObj12.state : '0'}%</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
-              <text id="battery_soc_184" x="39%" y="87%" fill=${battery_colour} class="st13 st8 right-align" display="${inverter_prog.show === 'no' ? 'none' : ''}"> | ${inverter_prog.capacity ? inverter_prog.capacity : '0'}%</text>
+              <text id="battery_soc_184" x="62%" y="87%" fill=${battery_colour} class="st13 st8 right-align" display="${inverter_prog.show === 'no' ? 'none' : ''}"> | ${inverter_prog.capacity ? inverter_prog.capacity : '0'}%</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_out_190)}>
               <text id="battery_out_190" x="9%" y="93%" fill=${battery_colour} class="${font === 'no' ? 'st14' : 'st4'} st8">${battery_power < '0' ? battery_power *-1 : battery_power} W</text>
