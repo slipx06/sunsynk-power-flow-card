@@ -39,6 +39,7 @@ class SunsynkPowerFlowCard extends LitElement {
       text { text-anchor: middle; alignment-baseline: middle; }
 
       .left-align {text-anchor: start;}
+      .right-align {text-anchor: end;}
       .st1{fill:#ff9b30;}
       .st2{fill:#f3b3ca;}
       .st3{font-size:9px;}
@@ -162,6 +163,150 @@ class SunsynkPowerFlowCard extends LitElement {
 
     const totalsolar = (parseInt(stateObj8.state || 0) + parseInt(stateObj9.state || 0) + parseInt(stateObj31.state || 0) + parseInt(stateObj32.state || 0));
 
+    //Timer entities
+    const prog1 = { 
+      time: this.hass.states[config.entities.prog1_time] || { state: '' },
+      capacity: this.hass.states[config.entities.prog1_capacity] || { state: '' },
+      charge: this.hass.states[config.entities.prog1_charge] || { state: '' }
+    };
+    const prog2 = { 
+      time: this.hass.states[config.entities.prog2_time] || { state: '' },
+      capacity: this.hass.states[config.entities.prog2_capacity] || { state: '' },
+      charge: this.hass.states[config.entities.prog2_charge] || { state: '' }
+    };
+    const prog3 = { 
+      time: this.hass.states[config.entities.prog3_time] || { state: '' },
+      capacity: this.hass.states[config.entities.prog3_capacity] || { state: '' },
+      charge: this.hass.states[config.entities.prog3_charge] || { state: '' }
+    };
+    const prog4 = { 
+      time: this.hass.states[config.entities.prog4_time] || { state: '' },
+      capacity: this.hass.states[config.entities.prog4_capacity] || { state: '' },
+      charge: this.hass.states[config.entities.prog4_charge] || { state: '' }
+    };
+    const prog5 = { 
+      time: this.hass.states[config.entities.prog5_time] || { state: '' },
+      capacity: this.hass.states[config.entities.prog5_capacity] || { state: '' },
+      charge: this.hass.states[config.entities.prog5_charge] || { state: '' }
+    };
+    const prog6 = { 
+      time: this.hass.states[config.entities.prog6_time] || { state: '' },
+      capacity: this.hass.states[config.entities.prog6_capacity] || { state: '' },
+      charge: this.hass.states[config.entities.prog6_charge] || { state: '' }
+    };
+
+    let inverter_prog = {};
+    if (!config.entities.use_timer_248 || stateObj26.state == 'off') {
+      inverter_prog.show = 'no';
+    } else if (!config.entities.prog1_time 
+        || !config.entities.prog2_time 
+        || !config.entities.prog3_time 
+        || !config.entities.prog4_time
+        || !config.entities.prog5_time
+        || !config.entities.prog6_time
+      ) {
+      inverter_prog.show = 'no';
+    } else {
+      inverter_prog.show = 'yes';
+
+      const timer_now = new Date(); // Create a new Date object representing the current time
+      let prog_time1 = new Date(timer_now.getTime());
+      let prog_time2 = new Date(timer_now.getTime());
+      let prog_time3 = new Date(timer_now.getTime());
+      let prog_time4 = new Date(timer_now.getTime());
+      let prog_time5 = new Date(timer_now.getTime());
+      let prog_time6 = new Date(timer_now.getTime());
+
+      prog_time1.setHours(prog1.time.state.split(":")[0]);
+      prog_time2.setHours(prog2.time.state.split(":")[0]);
+      prog_time3.setHours(prog3.time.state.split(":")[0]);
+      prog_time4.setHours(prog4.time.state.split(":")[0]);
+      prog_time5.setHours(prog5.time.state.split(":")[0]);
+      prog_time6.setHours(prog6.time.state.split(":")[0]);
+      prog_time1.setMinutes(prog1.time.state.split(":")[1]);
+      prog_time2.setMinutes(prog2.time.state.split(":")[1]);
+      prog_time3.setMinutes(prog3.time.state.split(":")[1]);
+      prog_time4.setMinutes(prog4.time.state.split(":")[1]);
+      prog_time5.setMinutes(prog5.time.state.split(":")[1]);
+      prog_time6.setMinutes(prog6.time.state.split(":")[1]);
+
+      //Add one day
+      if (prog_time1 < timer_now) {
+        if (prog_time2 < timer_now) {
+          prog_time1.setTime(prog_time1.getTime() + (1*60*60*24*1000));
+        }
+      };
+      if (prog_time2 < timer_now) {
+        if (prog_time3 < timer_now) {
+          prog_time2.setTime(prog_time2.getTime() + (1*60*60*24*1000));
+        }
+      };
+      if (prog_time3 < timer_now) {
+        if (prog_time4 < timer_now) {
+          prog_time3.setTime(prog_time3.getTime() + (1*60*60*24*1000));
+        }
+      };
+      if (prog_time4 < timer_now) {
+        if (prog_time5 < timer_now) {
+          prog_time4.setTime(prog_time4.getTime() + (1*60*60*24*1000));
+        }
+      };
+      if (prog_time5 < timer_now) {
+        if (prog_time6 < timer_now) {
+          prog_time5.setTime(prog_time5.getTime() + (1*60*60*24*1000));
+        }
+      };
+      if (prog_time6 < timer_now) {
+        if (prog_time1 < timer_now) {
+          prog_time6.setTime(prog_time6.getTime() + (1*60*60*24*1000));
+        }
+      };
+
+      if (prog_time1 < timer_now && prog_time2 > timer_now) {
+        if ( prog1.charge.state === 'No Grid or Gen' ) {
+          inverter_prog.charge = 'none';
+        } else {
+          inverter_prog.charge = 'both';
+        }
+        inverter_prog.capacity = prog1.capacity.state;
+      } else if (prog_time2 < timer_now && prog_time3 > timer_now) {
+        if ( prog2.charge.state === 'No Grid or Gen' ) {
+          inverter_prog.charge = 'none';
+        } else {
+          inverter_prog.charge = 'both';
+        }
+        inverter_prog.capacity = prog2.capacity.state;
+      } else if (prog_time3 < timer_now && prog_time4 > timer_now) {
+        if ( prog3.charge.state === 'No Grid or Gen' ) {
+          inverter_prog.charge = 'none';
+        } else {
+          inverter_prog.charge = 'both';
+        }
+        inverter_prog.capacity = prog3.capacity.state;
+      } else if (prog_time4 < timer_now && prog_time5 > timer_now) {
+        if ( prog4.charge.state === 'No Grid or Gen' ) {
+          inverter_prog.charge = 'none';
+        } else {
+          inverter_prog.charge = 'both';
+        }
+        inverter_prog.capacity = prog4.capacity.state;
+      } else if (prog_time5 < timer_now && prog_time6 > timer_now) {
+        if ( prog5.charge.state === 'No Grid or Gen' ) {
+          inverter_prog.charge = 'none';
+        } else {
+          inverter_prog.charge = 'both';
+        }
+        inverter_prog.capacity = prog5.capacity.state;
+      } else if (prog_time6 < timer_now && prog_time1 > timer_now) {
+        if ( prog6.charge.state === 'No Grid or Gen' ) {
+          inverter_prog.charge = 'none';
+        } else {
+          inverter_prog.charge = 'both';
+        }
+        inverter_prog.capacity = prog6.capacity.state;
+      };
+
+    }
     
     let font = "";
     if (config && config.large_font) {
@@ -663,6 +808,8 @@ class SunsynkPowerFlowCard extends LitElement {
               <text id="priority_text_batt"x="50%" y="${useautarky === 'yes' ? "68.5%" : "73%"}" class="st3 left-align" display="${stateObj25.state === 'off' && priority !== 'no' ? '' : 'none'}" fill="${inverter_colour}">Priority Batt</text>
             </a>
             <image x="155" y="224.75" width="53" height="72" class="${inverter_modern === 'no' ? '' : 'st12'}" xlink:href="data:image/png;base64,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" preserveAspectRatio="none"/>
+            
+            <svg xmlns="http://www.w3.org/2000/svg" id="prog_grid" x="61.5%" y="82.5%" width="30" height="28" viewBox="0 0 24 24"><path class="${inverter_prog.charge === 'none' || inverter_prog.show === 'no' ? 'st12' : ''}" fill="${battery_colour}" d="m7 20v-6h-3l5-9v6h3l-5 9Z"/></svg>
 
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.solarday_108)}>
               <text id="daily_solar_value" x="43.5" y="4%" class="st10 left-align" display="${solar_showdaily === 'no' || config.show_solar === 'no' || remaining_solar != 'false' ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj4.state).toFixed(1) ? parseFloat(stateObj4.state).toFixed(1) : '0'} kWh</text>
@@ -739,7 +886,10 @@ class SunsynkPowerFlowCard extends LitElement {
               <text id="battery_voltage_183" x="9%" y="82.75%" fill=${battery_colour} class="${font === 'no' ? 'st14' : 'st4'} st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
-              <text id="battery_soc_184" x="35%" y="87%" fill=${battery_colour} class="st13 st8 left-align">${stateObj12.state ? stateObj12.state : '0'} %</text>
+              <text id="battery_soc_184" x="35%" y="87%" fill=${battery_colour} class="st13 st8 left-align">${stateObj12.state ? stateObj12.state : '0'}%</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
+              <text id="battery_soc_184" x="62%" y="87%" fill=${battery_colour} class="st13 st8 right-align" display="${inverter_prog.show === 'no' ? 'none' : ''}"> | ${inverter_prog.capacity ? inverter_prog.capacity : '0'}%</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_out_190)}>
               <text id="battery_out_190" x="9%" y="93%" fill=${battery_colour} class="${font === 'no' ? 'st14' : 'st4'} st8">${battery_power < '0' ? battery_power *-1 : battery_power} W</text>
