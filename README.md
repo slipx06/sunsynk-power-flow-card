@@ -89,7 +89,7 @@ Note that the card will always display batter power as a positive number regardl
 |colour:| Optional| `pink`| Changes the colour of all the battery card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |show_daily: | Optional| `no` | Toggles the Daily Total (`yes/no`) |  
 |animation_speed: | Optional | `6` | Set slowest animation speed in seconds, depending on Power draw | 
-|max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
+|max_power: | Optional | `4500` | Maximun Power draw to calculate animation speed |
 
 ### Solar
 These attributes are only needed if `show_solar` is set to `yes` 
@@ -119,6 +119,7 @@ These attributes are only needed if `show_solar` is set to `yes`
 |show_daily_buy: | Optional | `no` | Toggles the Daily Buy Total (`yes/no`) |
 |show_daily_sell: | Optional | `no` | Toggles the Daily Sell Total (`yes/no`) |
 |show_nonessential: | Optional |`yes` | Toggles the display of Non-Essential (`yes/no`)|
+|invert_grid:| Optional | `no`| Set to `yes` if your sensor provides a negative number for Grid import and positive number for Grid export |
 |animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on Power draw | 
 |max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
 
