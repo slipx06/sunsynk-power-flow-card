@@ -320,6 +320,7 @@ grid:
   show_daily_sell: 'yes'
   no_grid_colour: '#a40013'
   show_nonessential: 'no'
+  invert_grid: `no`
   animation_speed: 8
   max_power: 8000
 entities:
