@@ -236,22 +236,34 @@ class SunsynkPowerFlowCard extends LitElement {
 
       //Add one day
       if (prog_time1 < timer_now) {
-        prog_time1.setTime(prog_time1.getTime() + (1*60*60*24*1000));
+        if (prog_time2 < timer_now) {
+          prog_time1.setTime(prog_time1.getTime() + (1*60*60*24*1000));
+        }
       };
       if (prog_time2 < timer_now) {
-        prog_time2.setTime(prog_time2.getTime() + (1*60*60*24*1000));
+        if (prog_time3 < timer_now) {
+          prog_time2.setTime(prog_time2.getTime() + (1*60*60*24*1000));
+        }
       };
       if (prog_time3 < timer_now) {
-        prog_time3.setTime(prog_time3.getTime() + (1*60*60*24*1000));
+        if (prog_time4 < timer_now) {
+          prog_time3.setTime(prog_time3.getTime() + (1*60*60*24*1000));
+        }
       };
       if (prog_time4 < timer_now) {
-        prog_time4.setTime(prog_time4.getTime() + (1*60*60*24*1000));
+        if (prog_time5 < timer_now) {
+          prog_time4.setTime(prog_time4.getTime() + (1*60*60*24*1000));
+        }
       };
       if (prog_time5 < timer_now) {
-        prog_time5.setTime(prog_time5.getTime() + (1*60*60*24*1000));
+        if (prog_time6 < timer_now) {
+          prog_time5.setTime(prog_time5.getTime() + (1*60*60*24*1000));
+        }
       };
       if (prog_time6 < timer_now) {
-        prog_time6.setTime(prog_time6.getTime() + (1*60*60*24*1000));
+        if (prog_time1 < timer_now) {
+          prog_time6.setTime(prog_time6.getTime() + (1*60*60*24*1000));
+        }
       };
 
       if (prog_time1 < timer_now && prog_time2 > timer_now) {
@@ -297,14 +309,6 @@ class SunsynkPowerFlowCard extends LitElement {
         }
         inverter_prog.capacity = prog6.capacity.state;
       };
-
-      console.log(inverter_prog.capacity)
-      console.log(prog_time1)
-      console.log(prog_time2)
-      console.log(prog_time3)
-      console.log(prog_time4)
-      console.log(prog_time5)
-      console.log(prog_time6)
 
     }
 
