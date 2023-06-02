@@ -226,6 +226,20 @@ class SunsynkPowerFlowCard extends LitElement {
         aux_power = parseInt(stateObj24.state);
     }
 
+    let invert_grid = "";
+    if (config && config.grid && config.grid.invert_grid) {
+      invert_grid = config.grid.invert_grid; // set default value
+    } else {
+      invert_grid = 'no'; // override with provided value
+    }
+
+    let grid_power = "";
+    if (invert_grid === 'yes'){
+        grid_power = (parseInt(stateObj15.state) * -1);
+    } else {
+        grid_power = parseInt(stateObj15.state);
+    }
+
     let duration = "";
     let formattedResultTime = "";
     if (battery_power > 0 && config.battery.energy !== "hidden") {
@@ -568,23 +582,23 @@ class SunsynkPowerFlowCard extends LitElement {
               </animateMotion>
             </circle>
             <path id="grid-line" d="M 304 188 L 411 188 Q 421 188 421 198 L421 265" fill="none" stroke="${grid_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
-            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${parseInt(stateObj15.state) < 0 || parseInt(stateObj15.state) === 0 ? 'transparent' : `${grid_colour}`}">
+            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${grid_power < 0 || grid_power === 0 ? 'transparent' : `${grid_colour}`}">
               <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line"/>
               </animateMotion>
             </circle>
-            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${parseInt(stateObj15.state) > 0 || parseInt(stateObj15.state) === 0 ? 'transparent' : `${grid_colour}`}">
+            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${grid_power > 0 || grid_power === 0 ? 'transparent' : `${grid_colour}`}">
               <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line"/>
               </animateMotion>
             </circle>
             <path id="grid-line1" d="M 421 295 L 421 310.5" fill="none" stroke="${grid_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
-            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${parseInt(stateObj15.state) < 0 || parseInt(stateObj15.state) === 0 ? 'transparent' : `${grid_colour}`}">
+            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${grid_power < 0 || grid_power === 0 ? 'transparent' : `${grid_colour}`}">
               <animateMotion dur="${grid_animation_speed/2}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line1"/>
               </animateMotion>
             </circle>
-            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${parseInt(stateObj15.state) > 0 || parseInt(stateObj15.state) === 0 ? 'transparent' : `${grid_colour}`}">
+            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${grid_power > 0 || grid_power === 0 ? 'transparent' : `${grid_colour}`}">
               <animateMotion dur="${grid_animation_speed/2}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line1"/>
               </animateMotion>
@@ -685,7 +699,7 @@ class SunsynkPowerFlowCard extends LitElement {
                   </a>`
             : svg`<text id="non_ess_power" x="74%" y="73.5%" display="${grid_show_noness === 'no' ? 'none' : ''}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${grid_colour}">${nonessential ? nonessential : '0'} W</text> `}
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_external_power_172)}>
-              <text id="grid_external_power_172" x="92%" y="73.5%" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${grid_colour}">${stateObj15.state ? stateObj15.state : '0'} W</text>
+              <text id="grid_external_power_172" x="92%" y="73.5%" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${grid_colour}">${grid_power ? grid_power : '0'} W</text>
             </a>
             ${config.entities.aux_power_166 !== 'none'
             ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.aux_power_166)}>
@@ -855,23 +869,23 @@ class SunsynkPowerFlowCard extends LitElement {
               </animateMotion>
             </circle>
             <path id="grid-line" d="M 173 218.25 L 214 218" fill="none" stroke="${grid_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
-            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${parseInt(stateObj15.state) < 0 || parseInt(stateObj15.state) === 0 ? 'transparent' : `${grid_colour}`}">
+            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${grid_power < 0 || grid_power === 0 ? 'transparent' : `${grid_colour}`}">
               <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line"/>
               </animateMotion>
             </circle>
-            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${parseInt(stateObj15.state) > 0 || parseInt(stateObj15.state) === 0 ? 'transparent' : `${grid_colour}`}">
+            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${grid_power > 0 || grid_power === 0 ? 'transparent' : `${grid_colour}`}">
               <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line"/>
               </animateMotion>
             </circle>
             <path id="grid-line1" d="M 103 218.25 L 64.5 218.25" fill="none" stroke="${grid_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
-            <circle id="grid-dot1" cx="0" cy="0" r="3" fill="${parseInt(stateObj15.state) < 0 || parseInt(stateObj15.state) === 0 ? 'transparent' : `${grid_colour}`}">
+            <circle id="grid-dot1" cx="0" cy="0" r="3" fill="${grid_power < 0 || grid_power === 0 ? 'transparent' : `${grid_colour}`}">
               <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line1"/>
               </animateMotion>
             </circle>
-            <circle id="grid-dot1" cx="0" cy="0" r="3" fill="${parseInt(stateObj15.state) > 0 || parseInt(stateObj15.state) === 0 ? 'transparent' : `${grid_colour}`}">
+            <circle id="grid-dot1" cx="0" cy="0" r="3" fill="${grid_power > 0 || grid_power === 0 ? 'transparent' : `${grid_colour}`}">
               <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line1"/>
               </animateMotion>
@@ -957,7 +971,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <text id="battery_current_191" x="193" y="365.3" fill=${battery_colour} class="${font === 'no' ? 'st14' : 'st4'} st8">${stateObj35.state ? stateObj35.state : '0'} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_external_power_172)}>
-              <text id="grid_external_power_172" x="135.1" y="219.2" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${grid_colour}">${stateObj15.state ? stateObj15.state : '0'} W</text>
+              <text id="grid_external_power_172" x="135.1" y="219.2" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${grid_colour}">${grid_power ? grid_power : '0'} W</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_v_109)}>
               <text id="pv1_v" x="194" y="106" class="st3 left-align" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}" >${stateObj16.state ? stateObj16.state : '0'} V</text>
