@@ -196,7 +196,7 @@ class SunsynkPowerFlowCard extends LitElement {
     };
 
     let inverter_prog = {};
-    if (!config.entities.use_timer_248 || stateObj26.state == 'off') {
+    if (!config.entities.use_timer_248 || config.entities.use_timer_248 == 'no' || stateObj26.state == 'off') {
       inverter_prog.show = 'no';
     } else if (!config.entities.prog1_time 
         || !config.entities.prog2_time 
