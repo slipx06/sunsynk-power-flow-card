@@ -230,82 +230,52 @@ class SunsynkPowerFlowCard extends LitElement {
       prog_time5.setMinutes(prog5.time.state.split(":")[1]);
       prog_time6.setMinutes(prog6.time.state.split(":")[1]);
 
-      //Add one day
-      if (prog_time1 < timer_now) {
-        if (prog_time2 < timer_now) {
-          prog_time1.setTime(prog_time1.getTime() + (1*60*60*24*1000));
-        }
-      };
-      if (prog_time2 < timer_now) {
-        if (prog_time3 < timer_now) {
-          prog_time2.setTime(prog_time2.getTime() + (1*60*60*24*1000));
-        }
-      };
-      if (prog_time3 < timer_now) {
-        if (prog_time4 < timer_now) {
-          prog_time3.setTime(prog_time3.getTime() + (1*60*60*24*1000));
-        }
-      };
-      if (prog_time4 < timer_now) {
-        if (prog_time5 < timer_now) {
-          prog_time4.setTime(prog_time4.getTime() + (1*60*60*24*1000));
-        }
-      };
-      if (prog_time5 < timer_now) {
-        if (prog_time6 < timer_now) {
-          prog_time5.setTime(prog_time5.getTime() + (1*60*60*24*1000));
-        }
-      };
-      if (prog_time6 < timer_now) {
-        if (prog_time1 < timer_now) {
-          prog_time6.setTime(prog_time6.getTime() + (1*60*60*24*1000));
-        }
-      };
-
-      if (prog_time1 < timer_now && prog_time2 > timer_now) {
+      // Compare the current time with sellTime1 to sellTime6
+      if (timer_now >= prog_time1 && timer_now < prog_time2) {
         if (prog1.charge.state === 'No Grid or Gen' || prog1.charge.state === '0'|| prog1.charge.state === 'off' ) {
           inverter_prog.charge = 'none';
         } else {
           inverter_prog.charge = 'both';
         }
-        inverter_prog.capacity = prog1.capacity.state;
-      } else if (prog_time2 < timer_now && prog_time3 > timer_now) {
+        inverter_prog.capacity = parseInt(prog1.capacity.state);
+      } else if (timer_now >= prog_time2 && timer_now < prog_time3) {
         if ( prog2.charge.state === 'No Grid or Gen' || prog2.charge.state === '0'|| prog2.charge.state === 'off' ) {
           inverter_prog.charge = 'none';
         } else {
           inverter_prog.charge = 'both';
         }
-        inverter_prog.capacity = prog2.capacity.state;
-      } else if (prog_time3 < timer_now && prog_time4 > timer_now) {
+        inverter_prog.capacity = parseInt(prog2.capacity.state);
+      } else if (timer_now >= prog_time3 && timer_now < prog_time4) {
         if ( prog3.charge.state === 'No Grid or Gen' || prog3.charge.state === '0'|| prog3.charge.state === 'off' ) {
           inverter_prog.charge = 'none';
         } else {
           inverter_prog.charge = 'both';
         }
-        inverter_prog.capacity = prog3.capacity.state;
-      } else if (prog_time4 < timer_now && prog_time5 > timer_now) {
+        inverter_prog.capacity = parseInt(prog3.capacity.state);
+      } else if (timer_now >= prog_time4 && timer_now < prog_time5) {
         if ( prog4.charge.state === 'No Grid or Gen' || prog4.charge.state === '0'|| prog4.charge.state === 'off' ) {
           inverter_prog.charge = 'none';
         } else {
           inverter_prog.charge = 'both';
         }
-        inverter_prog.capacity = prog4.capacity.state;
-      } else if (prog_time5 < timer_now && prog_time6 > timer_now) {
+        inverter_prog.capacity = parseInt(prog4.capacity.state);
+      } else if (timer_now >= prog_time5 && timer_now < prog_time6) {
         if ( prog5.charge.state === 'No Grid or Gen' || prog5.charge.state === '0'|| prog5.charge.state === 'off' ) {
           inverter_prog.charge = 'none';
         } else {
           inverter_prog.charge = 'both';
         }
-        inverter_prog.capacity = prog5.capacity.state;
-      } else if (prog_time6 < timer_now && prog_time1 > timer_now) {
+        inverter_prog.capacity = parseInt(prog5.capacity.state);
+      } else if (timer_now >= prog_time6 || timer_now < prog_time1) {
         if ( prog6.charge.state === 'No Grid or Gen' || prog6.charge.state === '0'|| prog6.charge.state === 'off' ) {
           inverter_prog.charge = 'none';
         } else {
           inverter_prog.charge = 'both';
         }
-        inverter_prog.capacity = prog6.capacity.state;
-      };
-
+        inverter_prog.capacity = parseInt(prog6.capacity.state);
+      } else {
+        inverter_prog.capacity = parseInt(config.battery.shutdown_soc);
+      }
     }
     
     let font = "";
@@ -385,11 +355,41 @@ class SunsynkPowerFlowCard extends LitElement {
         grid_power = parseInt(stateObj15.state);
     }
 
-    let duration = "";
+    let battery_capacity = "";
+    if (battery_power > 0) {
+      if (stateObj20.state === "off" || inverter_prog.show == "no") {
+        battery_capacity = parseInt(config.battery.shutdown_soc);
+      }
+      else if (parseInt(stateObj12.state) <= inverter_prog.capacity ){
+        battery_capacity = parseInt(config.battery.shutdown_soc);
+      }
+      else {
+        battery_capacity = parseInt(inverter_prog.capacity);
+      }
+    }
+    else if (battery_power < 0) {
+      if (stateObj20.state === "off" || inverter_prog.show == "no" || parseInt(stateObj12.state) > inverter_prog.capacity ) {
+        battery_capacity = 100;
+      }
+      else if (parseInt(stateObj12.state) < inverter_prog.capacity ){
+        battery_capacity = parseInt(inverter_prog.capacity);
+      }
+    }
+
+    let totalSeconds = 0;
     let formattedResultTime = "";
-    if (battery_power > 0 && config.battery.energy !== "hidden") {
-      let totalSeconds = ((((parseInt(stateObj12.state) - config.battery.shutdown_soc) / 100) * (config.battery.energy || 15960) ) / (battery_power || 1)) * 60 * 60;
-      
+    let duration = "";
+    
+    if (config.battery.energy !== "hidden") {
+      if (battery_power === 0) {
+        totalSeconds = (((parseInt(stateObj12.state) - config.battery.shutdown_soc) / 100) * (config.battery.energy || 15960)) / 1 * 60 * 60;
+      } else if (battery_power > 0) {
+        totalSeconds = (((parseInt(stateObj12.state) - battery_capacity) / 100) * (config.battery.energy || 15960)) / battery_power * 60 * 60;
+      } else if (battery_power < 0) {
+        totalSeconds = ((((battery_capacity - parseInt(stateObj12.state)) / 100 ) * config.battery.energy) / battery_power) * 60 * 60 * -1;
+        //const remainingEnergy = config.battery.energy - (config.battery.energy * (parseInt(stateObj12.state) / 100) || 1);
+        //totalSeconds = (remainingEnergy / battery_power || 1) * 60 * 60 * -1;
+      }
       const currentTime = new Date(); // Create a new Date object representing the current time
       const durationMilliseconds = totalSeconds * 1000; // Convert the duration to milliseconds
       const resultTime = new Date(currentTime.getTime() + durationMilliseconds); // Add the duration in milliseconds
@@ -398,7 +398,6 @@ class SunsynkPowerFlowCard extends LitElement {
       const formattedMinutes = resultMinutes.toString().padStart(2, "0");
       const formattedHours = resultHours.toString().padStart(2, "0");
       formattedResultTime = `${formattedHours}:${formattedMinutes}`;
-
 
       const days = Math.floor(totalSeconds / (60 * 60 * 24));
       const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
@@ -411,34 +410,8 @@ class SunsynkPowerFlowCard extends LitElement {
       }
       duration += `${minutes} min`;
     }
-    else if (battery_power < 0 && config.battery.energy !== "hidden") {
-      let remainingEnergy = (config.battery.energy - (config.battery.energy * (parseInt(stateObj12.state)/100) || 1));
-      let totalSeconds = ((remainingEnergy / battery_power || 1) * 60 * 60  *-1);
-
-      const currentTime = new Date(); // Create a new Date object representing the current time
-      const durationMilliseconds = totalSeconds * 1000; // Convert the duration to milliseconds
-      const resultTime = new Date(currentTime.getTime() + durationMilliseconds); // Add the duration in milliseconds
-      const resultHours = resultTime.getHours(); // Get the hours component of the resulting time
-      const resultMinutes = resultTime.getMinutes(); // Get the minutes component of the resulting time
-      const formattedMinutes = resultMinutes.toString().padStart(2, "0");
-      const formattedHours = resultHours.toString().padStart(2, "0");
-      formattedResultTime = `${formattedHours}:${formattedMinutes}`;
-
-      const days = Math.floor(totalSeconds / (60 * 60 * 24));
-      const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
-      const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
-      if (days > 0) {
-        duration += `${days} days, `;
-      }
-      if (hours > 0 || days > 0) {
-        duration += `${hours} hrs, `;
-      }
-      duration += `${minutes} min`;      
-    }
-    else if (battery_power === 0 && config.battery.energy !== "hidden") {
-      duration = "";
-    }
     
+
     let float = "";
     if ((-2 <= parseInt(stateObj35.state)) && (parseInt(stateObj35.state) <= 2) && (parseInt(stateObj12.state) >= 99)) {
       float = "True";
@@ -447,17 +420,6 @@ class SunsynkPowerFlowCard extends LitElement {
       float = "False";
     }
     
-//    let rateofcharge = "";
-//    rateofcharge = (parseInt(stateObj35.state) / 312 * 100).toFixed(0);
-//    if (rateofcharge < 0 ){
-//      rateofcharge = ((parseInt(stateObj35.state) / 312 * 100).toFixed(0) * -1);
-//    }
-
- //   const Autarky = parseInt((Math.min(((parseFloat(stateObj4.state) + parseFloat(stateObj.state) + parseFloat(stateObj33.state)) * 100 / (parseFloat(stateObj2.state) + parseFloat(stateObj3.state) + parseFloat(stateObj1.state))), 100) || 0).toFixed(0));
- //   const Ratio = parseInt((Math.min((((parseFloat(stateObj2.state) + parseFloat(stateObj3.state) + parseFloat(stateObj1.state)) / (parseFloat(stateObj4.state) + parseFloat(stateObj.state) + parseFloat(stateObj33.state))) * 100), 100) || 0).toFixed(0));
-
-    const Autarky = parseInt((Math.min(((parseFloat(totalsolar) + parseFloat(`${battery_power > '0' ? battery_power : 0}`) + parseFloat(`${grid_power < '0' ? grid_power * -1 : 0}`) + parseFloat(`${aux_power < '0' ? aux_power * -1 : 0}`)) * 100 / (parseFloat(`${battery_power < '0' ? battery_power * -1 : 0}`) + parseFloat(`${grid_power > '0' ? grid_power : 0}`) + parseFloat(essential) + parseFloat(nonessential) + parseFloat(`${aux_power > '0' ? aux_power : 0}`))), 100) || 0).toFixed(0));
-    const Ratio = parseInt((Math.min(((parseFloat(`${battery_power < '0' ? battery_power * -1 : 0}`) + parseFloat(`${grid_power > '0' ? grid_power : 0}`) + parseFloat(essential) + parseFloat(nonessential) + parseFloat(`${aux_power > '0' ? aux_power : 0}`)) / (parseFloat(totalsolar) + parseFloat(`${battery_power > '0' ? battery_power : 0}`) + parseFloat(`${grid_power < '0' ? grid_power * -1 : 0}`) + parseFloat(`${aux_power < '0' ? aux_power * -1 : 0}`))) * 100), 100) || 0).toFixed(0);
 
     let inverterStateColour = "";
     let inverterStateMsg = "";
@@ -493,8 +455,13 @@ class SunsynkPowerFlowCard extends LitElement {
       useautarky = config.inverter.autarky;
     } else {
       useautarky = 'yes';
-    }
+    } 
 
+    const Autarky = parseInt((Math.min(((parseFloat(stateObj4.state) + parseFloat(stateObj.state) + parseFloat(stateObj33.state)) * 100 / (parseFloat(stateObj2.state) + parseFloat(stateObj3.state) + parseFloat(stateObj1.state))), 100) || 0).toFixed(0));
+    const Ratio = parseInt((Math.min((((parseFloat(stateObj2.state) + parseFloat(stateObj3.state) + parseFloat(stateObj1.state)) / (parseFloat(stateObj4.state) + parseFloat(stateObj.state) + parseFloat(stateObj33.state))) * 100), 100) || 0).toFixed(0));
+    //const Autarkyp = parseInt((Math.min(((parseFloat(totalsolar) + parseFloat(`${battery_power > '0' ? battery_power : 0}`) + parseFloat(`${grid_power < '0' ? grid_power * -1 : 0}`) + parseFloat(`${aux_power < '0' ? aux_power * -1 : 0}`)) * 100 / (parseFloat(`${battery_power < '0' ? battery_power * -1 : 0}`) + parseFloat(`${grid_power > '0' ? grid_power : 0}`) + parseFloat(essential) + parseFloat(nonessential) + parseFloat(`${aux_power > '0' ? aux_power : 0}`))), 100) || 0).toFixed(0));
+    //const Ratiop = parseInt((Math.min(((parseFloat(`${battery_power < '0' ? battery_power * -1 : 0}`) + parseFloat(`${grid_power > '0' ? grid_power : 0}`) + parseFloat(essential) + parseFloat(nonessential) + parseFloat(`${aux_power > '0' ? aux_power : 0}`)) / (parseFloat(totalsolar) + parseFloat(`${battery_power > '0' ? battery_power : 0}`) + parseFloat(`${grid_power < '0' ? grid_power * -1 : 0}`) + parseFloat(`${aux_power < '0' ? aux_power * -1 : 0}`))) * 100), 100) || 0).toFixed(0);
+    
     let inverter_modern = "";
     if (config && config.inverter && config.inverter.modern) {
     inverter_modern = config.inverter.modern; // set default value
@@ -659,9 +626,11 @@ class SunsynkPowerFlowCard extends LitElement {
             <rect id="pv4" x="101" y="100" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'st12' : ''}"/>
             <rect x="304" y="265" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${grid_colour}" pointer-events="all" class="${grid_show_noness === 'no' ? 'st12' : ''}"/>
             
+            <text x="50%" y="10%" class="st3 st8" fill="${load_colour}">${battery_capacity} ${parseInt(stateObj12.state)} ${battery_power} ${totalSeconds}</text>
+
             <text id="duration" x="35%" y="92%" class="${font === 'no' ? 'st14' : 'st4'} left-align" fill="${config.battery.energy === 'hidden' || float === 'True' || battery_power === 0 ? 'transparent' : `${battery_colour}`}" >${duration}</text>
-            <text id="duration_text" x="35%" y="96%" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power <= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >RUNTIME TO ${formattedResultTime}</text>
-            <text id="duration_text_charging" x="35%" y="96%" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power >= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >TO FULL CHARGE @${formattedResultTime}</text>
+            <text id="duration_text" x="35%" y="96%" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power <= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >RUNTIME TO ${battery_capacity}% @${formattedResultTime}</text>
+            <text id="duration_text_charging" x="35%" y="96%" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power >= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >TO ${battery_capacity}% CHARGE @${formattedResultTime}</text>
             <text id="floating" x="35%" y="96%" class="st3 left-align" fill="${config.battery.energy === 'hidden' || float === 'False' ? 'transparent' : `${battery_colour}`}" >BATTERY FLOATING</text>
             <text id="pvtotal_power" x="19%" y="46.5%" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${totalsolar ? totalsolar : '0'} W</text>
             <text x="2%" y="20.5%" class="st3 st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">PV1</text>
@@ -959,8 +928,8 @@ class SunsynkPowerFlowCard extends LitElement {
             <rect id="pv4" x="330" y="54.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'st12' : ''}"/>
             
             <text id="duration" x="318.4" y="377.5" class="${font === 'no' ? 'st14' : 'st4'} left-align" fill="${config.battery.energy === 'hidden' || float === 'True' || battery_power === 0 ? 'transparent' : `${battery_colour}`}" >${duration}</text>
-            <text id="duration_text" x="318.4" y="393.7" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power <= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >RUNTIME TO ${formattedResultTime}</text>
-            <text id="duration_text_charging" x="318.4" y="393.7" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power >= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >TO FULL CHARGE @${formattedResultTime}</text>
+            <text id="duration_text" x="318.4" y="393.7" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power <= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >RUNTIME TO ${battery_capacity}% @${formattedResultTime}</text>
+            <text id="duration_text_charging" x="318.4" y="393.7" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power >= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >TO ${battery_capacity}% CHARGE @${formattedResultTime}</text>
             <text id="floating" x="318.4" y="393.7" class="st3 left-align" fill="${config.battery.energy === 'hidden' || float === 'False' ? 'transparent' : `${battery_colour}`}" >BATTERY FLOATING</text>
             <text id="daily_bat_charge" x="77.2" y="357.2" class="st3 left-align"  fill="${battery_showdaily === 'no' ? 'transparent' : `${battery_colour}`}"  >DAILY CHARGE</text>
             <text id="daily_bat_dischcharge" x="77.2" y="393.7" class="st3 left-align"  fill="${battery_showdaily === 'no' ? 'transparent' : `${battery_colour}`}" >DAILY DISCHARGE</text>
