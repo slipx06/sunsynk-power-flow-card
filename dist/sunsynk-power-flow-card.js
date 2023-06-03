@@ -263,42 +263,42 @@ class SunsynkPowerFlowCard extends LitElement {
       };
 
       if (prog_time1 < timer_now && prog_time2 > timer_now) {
-        if ( prog1.charge.state === 'No Grid or Gen' ) {
+        if (prog1.charge.state === 'No Grid or Gen' || prog1.charge.state === '0'|| prog1.charge.state === 'off' ) {
           inverter_prog.charge = 'none';
         } else {
           inverter_prog.charge = 'both';
         }
         inverter_prog.capacity = prog1.capacity.state;
       } else if (prog_time2 < timer_now && prog_time3 > timer_now) {
-        if ( prog2.charge.state === 'No Grid or Gen' ) {
+        if ( prog2.charge.state === 'No Grid or Gen' || prog2.charge.state === '0'|| prog2.charge.state === 'off' ) {
           inverter_prog.charge = 'none';
         } else {
           inverter_prog.charge = 'both';
         }
         inverter_prog.capacity = prog2.capacity.state;
       } else if (prog_time3 < timer_now && prog_time4 > timer_now) {
-        if ( prog3.charge.state === 'No Grid or Gen' ) {
+        if ( prog3.charge.state === 'No Grid or Gen' || prog3.charge.state === '0'|| prog3.charge.state === 'off' ) {
           inverter_prog.charge = 'none';
         } else {
           inverter_prog.charge = 'both';
         }
         inverter_prog.capacity = prog3.capacity.state;
       } else if (prog_time4 < timer_now && prog_time5 > timer_now) {
-        if ( prog4.charge.state === 'No Grid or Gen' ) {
+        if ( prog4.charge.state === 'No Grid or Gen' || prog4.charge.state === '0'|| prog4.charge.state === 'off' ) {
           inverter_prog.charge = 'none';
         } else {
           inverter_prog.charge = 'both';
         }
         inverter_prog.capacity = prog4.capacity.state;
       } else if (prog_time5 < timer_now && prog_time6 > timer_now) {
-        if ( prog5.charge.state === 'No Grid or Gen' ) {
+        if ( prog5.charge.state === 'No Grid or Gen' || prog5.charge.state === '0'|| prog5.charge.state === 'off' ) {
           inverter_prog.charge = 'none';
         } else {
           inverter_prog.charge = 'both';
         }
         inverter_prog.capacity = prog5.capacity.state;
       } else if (prog_time6 < timer_now && prog_time1 > timer_now) {
-        if ( prog6.charge.state === 'No Grid or Gen' ) {
+        if ( prog6.charge.state === 'No Grid or Gen' || prog6.charge.state === '0'|| prog6.charge.state === 'off' ) {
           inverter_prog.charge = 'none';
         } else {
           inverter_prog.charge = 'both';
