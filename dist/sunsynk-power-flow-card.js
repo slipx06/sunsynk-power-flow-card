@@ -626,8 +626,6 @@ class SunsynkPowerFlowCard extends LitElement {
             <rect id="pv4" x="101" y="100" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'st12' : ''}"/>
             <rect x="304" y="265" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${grid_colour}" pointer-events="all" class="${grid_show_noness === 'no' ? 'st12' : ''}"/>
             
-            <text x="50%" y="10%" class="st3 st8" fill="${load_colour}">${battery_capacity} ${parseInt(stateObj12.state)} ${battery_power} ${totalSeconds}</text>
-
             <text id="duration" x="35%" y="92%" class="${font === 'no' ? 'st14' : 'st4'} left-align" fill="${config.battery.energy === 'hidden' || float === 'True' || battery_power === 0 ? 'transparent' : `${battery_colour}`}" >${duration}</text>
             <text id="duration_text" x="35%" y="96%" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power <= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >RUNTIME TO ${battery_capacity}% @${formattedResultTime}</text>
             <text id="duration_text_charging" x="35%" y="96%" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power >= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >TO ${battery_capacity}% CHARGE @${formattedResultTime}</text>
