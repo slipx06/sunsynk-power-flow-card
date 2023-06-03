@@ -887,7 +887,7 @@ class SunsynkPowerFlowCard extends LitElement {
               <text id="battery_voltage_183" x="9%" y="82.75%" fill=${battery_colour} class="${font === 'no' ? 'st14' : 'st4'} st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
-              <text id="battery_soc_184" x="35%" y="87%" fill=${battery_colour} class="st13 st8 left-align">${stateObj12.state ? stateObj12.state : '0'}%</text>
+              <text id="battery_soc_184" x="35%" y="87%" fill=${battery_colour} class="st13 st8 left-align">${stateObj12.state ? stateObj12.state : '0'} %</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
               <text id="battery_soc_184" x="49%" y="87%" fill=${battery_colour} class="st13 st8 left-align" display="${inverter_prog.show === 'no' ? 'none' : ''}"> | ${inverter_prog.capacity ? inverter_prog.capacity : '0'} %</text>
