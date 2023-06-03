@@ -169,6 +169,24 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |battery_temp:| Optional | `sensor.ss_battery_temperature` | Battery Temperature (℃)|
 |inverter_ac_temp:| Optional | `sensor.ss_dc_radiator_temperature` | Inverter AC Temperature (℃)|
 |inverter_dc_temp:| Optional | `sensor.ss_dc_transformer_temperature` | Inverter DC Temperature (℃)|
+|prog1_time:| Optional | `select.ss_prog1_time` | Program 1 start time (`HH:MM`)
+|prog1_capacity:| Optional | `number.ss_prog1_capacity` | Program 1 capacity (SOC) setting
+|prog1_charge:| Optional | `select.ss_prog1_charge` | Program 1 charge options (`on/off`, `0/1`, `No Grid or Gen`)
+|prog2_time:| Optional | `select.ss_prog2_time` | Program 2 start time (`HH:MM`)
+|prog2_capacity:| Optional | `number.ss_prog2_capacity` | Program 2 capacity (SOC) setting
+|prog2_charge:| Optional | `select.ss_prog2_charge` | Program 2 charge options (`on/off`, `0/1`, `No Grid or Gen`)
+|prog3_time:| Optional | `select.ss_prog3_time` | Program 3 start time (`HH:MM`)
+|prog3_capacity:| Optional | `number.ss_prog3_capacity` | Program 3 capacity (SOC) setting
+|prog3_charge:| Optional | `select.ss_prog3_charge` | Program 3 charge options (`on/off`, `0/1`, `No Grid or Gen`)
+|prog4_time:| Optional | `select.ss_prog4_time` | Program 4 start time (`HH:MM`)
+|prog4_capacity:| Optional | `number.ss_prog4_capacity` | Program 4 capacity (SOC) setting
+|prog4_charge:| Optional | `select.ss_prog4_charge` | Program 4 charge options (`on/off`, `0/1`, `No Grid or Gen`)
+|prog5_time:| Optional | `select.ss_prog5_time` | Program 5 start time (`HH:MM`)
+|prog5_capacity:| Optional | `number.ss_prog5_capacity` | Program 5 capacity (SOC) setting
+|prog5_charge:| Optional | `select.ss_prog5_charge` | Program 5 charge options (`on/off`, `0/1`, `No Grid or Gen`)
+|prog6_time:| Optional | `select.ss_prog6_time` | Program 6 start time (`HH:MM`)
+|prog6_capacity:| Optional | `number.ss_prog6_capacity` | Program 6 capacity (SOC) setting
+|prog6_charge:| Optional | `select.ss_prog6_charge` | Program 6 charge options (`on/off`, `0/1`, `No Grid or Gen`)
    
 The card calculates the sensors below based on supplied attributes in the config so you dont need to define them in Home Assistant
  
@@ -363,6 +381,24 @@ entities:
   battery_temp: sensor.ss_battery_temperature
   inverter_ac_temp: sensor.ss_dc_radiator_temperature
   inverter_dc_temp: sensor.ss_dc_transformer_temperature
+  prog1_time: select.ss_prog1_time
+  prog1_capacity: number.ss_prog1_capacity
+  prog1_charge: select.ss_prog1_charge
+  prog2_time: select.ss_prog2_time
+  prog2_capacity: number.ss_prog2_capacity
+  prog2_charge: select.ss_prog2_charge
+  prog3_time: select.ss_prog3_time
+  prog3_capacity: number.ss_prog3_capacity
+  prog3_charge: select.ss_prog3_charge
+  prog4_time: select.ss_prog4_time
+  prog4_capacity: number.ss_prog4_capacity
+  prog4_charge: select.ss_prog4_charge
+  prog5_time: select.ss_prog5_time
+  prog5_capacity: number.ss_prog5_capacity
+  prog5_charge: select.ss_prog5_charge
+  prog6_time: select.ss_prog6_time
+  prog6_capacity: number.ss_prog6_capacity
+  prog6_charge: select.ss_prog6_charge
 ```
 ## Solarman ##
 If you are using Solarman you can configre your card using the following sensors. You will also need to create the template sensors below for grid_status_194 and inverter_status_59.
