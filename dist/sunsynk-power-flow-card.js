@@ -368,7 +368,7 @@ class SunsynkPowerFlowCard extends LitElement {
       }
     }
     else if (battery_power < 0) {
-      if (stateObj20.state === "off" || inverter_prog.show == "no" || parseInt(stateObj12.state) > inverter_prog.capacity ) {
+      if (stateObj20.state === "off" || inverter_prog.show == "no" || parseInt(stateObj12.state) >= inverter_prog.capacity ) {
         battery_capacity = 100;
       }
       else if (parseInt(stateObj12.state) < inverter_prog.capacity ){
