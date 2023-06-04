@@ -5,11 +5,11 @@ An animated Home Assistant card to emulate the power flow that's shown on the Su
 
 ## Features
 * Option to switch between two card styles: `lite` or `full`.
-* Animated power flow based on positive/negative/zero sensor values with dynamic speed. (Supports inverted battery,AUX and grid power).
+* Animated power flow based on positive/negative/zero sensor values with configurable dynamic speed. (Supports inverted battery,AUX and grid power).
 * Dynamic battery image based on SOC (empty->low->medium->high). 
 * Grid connected status.
 * Inverter status (standby, normal, self-test, alarm, fault).  
-* Configurable battery size and shutdown SOC to calculate and display remaining battery runtime based on current battery usage. Can be toggled off.
+* Configurable battery size and shutdown SOC to calculate and display remaining battery runtime based on current battery usage and system time slot setting i.e. SOC, Grid Charge. Can be toggled off.
 * Daily Totals that can be toggled on or off.
 * Hide all solar data if not installed or specify number of mppts in use.
 * "Use Timer" setting and "Energy Pattern" setting (Priority Load or Priority Battery) shown as dynamic icons with ability to hide if not required. If setup as switches can be toggled by clicking on the card
@@ -21,13 +21,13 @@ An animated Home Assistant card to emulate the power flow that's shown on the Su
 
 ## Screenshots
 
-![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/7c05290e-1d8f-4b1b-b82a-134ebd90d29c)
+![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/bc693061-b6b2-48a2-a880-48b01bb3a5de)
 ![sunsynk-power-flow-lite](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/24a7367f-7593-4bf1-a83c-cdedf8a49622)
 
 
 *Lite Version*
 
-![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/ed73cde6-6368-4969-b50a-8ca6b4ec894a)
+![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/ccbad4d9-6ab9-4b60-af12-fdd51ce8c5d4)
 ![sunsynk-power-flow-full](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/34ce79d5-8024-442a-851f-da2a90cbf42f)
 
 
