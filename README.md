@@ -112,6 +112,8 @@ These attributes are only needed if `show_solar` is set to `yes`
 |animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on Power draw | 
 |max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
 |aux_name: | Optional | `Auxilary` | Set the display name for the Auxilary Load
+| additional_loads: | Optional | `no` | Display and additional load on the essential side (`one/no`) 
+| load1_name: | Optional | `Load 1` | Set the display name for the Essential Load 1
 
 ### Grid
 | Attribute | Requirement | Default | Description |
@@ -128,12 +130,6 @@ These attributes are only needed if `show_solar` is set to `yes`
 |invert_grid:| Optional | `no`| Set to `yes` if your sensor provides a negative number for Grid import and positive number for Grid export |
 |animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on Power draw | 
 |max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
-
- null
-  nonessential_dual: 'yes'
-  show_nonessential: 'yes'
-  load1_name: Load 1
-  load2_name: Load 2
 
 ### Entities
 Entity attributes below have been appended with the modbus register # e.g. `pv2_power_187` to indicate which Sunsynk register should be read when configuring your sensors. Replace the default sensors with your own specific sensor names. It is important that your sensors read the expected modbus register value. If you have missing sensors for any attribute set it to none i.e. `solarday_108: none` and it will use a default value of 0.
@@ -164,9 +160,10 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |battery_out_190: | **Required** | `sensor.battery_output_power` | Battery Output Power (W). Requires a negative number for battery charging and a positive number for battery discharging. Set the `invert_power:` battery attribute to `yes` if your sensor reports this the other way around |
 |battery_current_191: | **Required** |`sensor.battery_output_current` | Battery Current (A) | 
 |essential_power: | Optional | `none` | The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures essential power e.g. register 178 or `Load power Essential` in the case of Solar Assistant.  (W) |
+|essential_load1: | Optional | | Sensor that contains the power of your essential load 1 (W)|
 |nonessential_power| Optional | `none`| The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures non-essential power e.g.  `Load power Non-Essential` in the case of Solar Assistant.  (W)
-|non_essential_load1: | Optional | |Sensor that contains the power of your non-essential load (W)|
-|non_essential_load2: | Optional | |Sensor that contains the power of your non-essential load (W)
+|non_essential_load1: | Optional | |Sensor that contains the power of your non-essential load 1 (W)|
+|non_essential_load2: | Optional | |Sensor that contains the power of your non-essential load 2 (W)
 |grid_external_power_172: | **Required** | `sensor.grid_external_power`  | Grid External Power (W)|
 |pv1_v_109: | Optional | `sensor.dc1_voltage` | PV String 1 Voltage (V) |
 |pv1_i_110: | Optional | `sensor.dc1_current` | PV String 1 Current (A)|
@@ -347,6 +344,8 @@ load:
   aux_name: Auxiliary
   animation_speed: 8
   max_power: 8000
+  additional_loads: one
+  load1_name: Geyser
 grid:
   colour: '#5490c2'
   show_daily_buy: 'yes'
@@ -383,6 +382,7 @@ entities:
   battery_out_190: sensor.battery_output_power
   battery_current_191: sensor.battery_output_current
   essential_power: none
+  essential_load1: sensor.tuya_geyser_current_consumption
   nonessential_power: none
   non_essential_load1: sensor.nonessential1_power
   non_essential_load2: sensor.nonessential2_power
