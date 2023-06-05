@@ -19,7 +19,7 @@ An animated Home Assistant card to emulate the power flow that's shown on the Su
 * Most entities can be clicked to show more-info dialog
 * Optional data points include self sufficiency and ratio percentages, battery temperature, AC and DC temperature
 * Display two non-essential loads
-* Display an additioanl essential load
+* Display an additional essential load
 
 ## Screenshots
 
