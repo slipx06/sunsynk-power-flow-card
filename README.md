@@ -11,7 +11,7 @@ An animated Home Assistant card to emulate the power flow that's shown on the Su
 * Inverter status (standby, normal, self-test, alarm, fault).  
 * Configurable battery size and shutdown SOC to calculate and display remaining battery runtime based on current battery usage and system time slot setting i.e. SOC, Grid Charge. Can be toggled off.
 * Daily Totals that can be toggled on or off.
-* Hide all solar data if not installed or specify number of mppts in use.
+* Hide all solar data if not installed or specify number of mppts in use. Set custom MPPT labels
 * "Use Timer" setting and "Energy Pattern" setting (Priority Load or Priority Battery) shown as dynamic icons with ability to hide if not required. If setup as switches can be toggled by clicking on the card
 * Panel mode for bigger card
 * AUX and Non-essential can be hidden from the full card or assigned configurable labels
@@ -102,6 +102,10 @@ These attributes are only needed if `show_solar` is set to `yes`
 |mppts: | **Required** | `two` | Specify the number of MPPT's in use `one`, `two`, `three` or `four` |
 |animation_speed: | Optional | `9` | Set slowest animation speed in seconds, depending on Power produced | 
 |max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
+|pv1_name: | Optional | `PV1` | Set the disaply name for MPPT1
+|pv2_name: | Optional | `PV2` | Set the disaply name for MPPT1
+|pv3_name: | Optional | `PV3` | Set the disaply name for MPPT1
+|pv4_name: | Optional | `PV4` | Set the disaply name for MPPT1
 
 ### Load
 | Attribute | Requirement | Default | Description |
@@ -133,7 +137,7 @@ These attributes are only needed if `show_solar` is set to `yes`
 |max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
 
 ### Entities
-Entity attributes below have been appended with the modbus register # e.g. `pv2_power_187` to indicate which Sunsynk register should be read when configuring your sensors. Replace the default sensors with your own specific sensor names. It is important that your sensors read the expected modbus register value. If you have missing sensors for any attribute set it to none i.e. `solarday_108: none` and it will use a default value of 0.
+Entity attributes below have been appended with the modbus register # e.g. `pv2_power_187` to indicate which Sunsynk register should be read when configuring your sensors. Replace the default sensors with your own specific sensor names. It is important that your sensors read the expected modbus register value. If you have missing sensors for any attribute set it to none i.e. `solarday_108: none`. This will hide the sensor data from the card. To display a placeholder with a default value of 0 set it to `zero` or and other value i.e. `solarday_108: zero`.
 
 See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Mappings) for more information on sensor mappings if using other integration methods.
 
