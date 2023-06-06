@@ -654,10 +654,10 @@ class SunsynkPowerFlowCard extends LitElement {
             <text id="duration_text_charging" x="35%" y="96%" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power >= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >TO ${battery_capacity}% CHARGE @${formattedResultTime}</text>
             <text id="floating" x="35%" y="96%" class="st3 left-align" fill="${config.battery.energy === 'hidden' || float === 'False' ? 'transparent' : `${battery_colour}`}" >BATTERY FLOATING</text>
             <text id="pvtotal_power" x="19%" y="46.5%" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${totalsolar ? totalsolar : '0'} W</text>
-            <text x="2%" y="20.5%" class="st3 st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">PV1</text>
-            <text x="24%" y="20.5%" class="st3 st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one'? 'none' : ''}" fill="${solar_colour}">PV2</text>
-            <text x="2%" y="36.25%" class="st3 st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two'  ? 'none' : ''}" fill="${solar_colour}">PV3</text>
-            <text x="24%" y="36.25%" class="st3 st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}">PV4</text>
+            <text x="-0.25%" y="20.5%" class="st3 st8 left-align" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${!(config.solar.pv1_name) ? 'PV1' : `${config.solar.pv1_name}`}</text>
+            <text x="21.75%" y="20.5%" class="st3 st8 left-align" display="${config.show_solar === 'no' || config.solar.mppts === 'one'? 'none' : ''}" fill="${solar_colour}">${!(config.solar.pv2_name) ? 'PV2' : `${config.solar.pv2_name}`}</text>
+            <text x="-0.25%" y="36.25%" class="st3 st8 left-align" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two'  ? 'none' : ''}" fill="${solar_colour}">${!(config.solar.pv3_name) ? 'PV3' : `${config.solar.pv3_name}`}</text>
+            <text x="21.75%" y="36.25%" class="st3 st8 left-align" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}">${!(config.solar.pv4_name) ? 'PV4' : `${config.solar.pv4_name}`}</text>
             <text x="92%" y="98.5%" class="st3 st8" fill="${grid_colour}">Grid</text>
             <text x="40.5%" y="80%" class="st3" fill="${inverter_colour}">${inverterStateMsg}</text>
             <text x="90%" y="41%" class="st3 st8" display="${additional_load === 'one' && show_aux === 'yes'? 'none' : ''}" fill="${load_colour}">Essential</text>
@@ -938,7 +938,7 @@ class SunsynkPowerFlowCard extends LitElement {
               <text id="battery_temp" x="20.5%" y="77%" class="st3 left-align" fill="${battery_colour}" display="${!config.entities.battery_temp ? 'none' : ''}" >${stateObj37.state ? stateObj37.state : ''}°</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_ac_temp)}>
-              <text id="ac_temp" x="34.5%" y="40%" class="st3 left-align" fill="${inverter_colour}" display="${!config.entities.inverter_ac_temp ? 'none' : ''}" >AC: ${stateObj39.state ? stateObj39.state : ''}°</text>
+              <text id="ac_temp" x="${config.solar.mppts === 'four' ? "30%" : "34.5%"}"  y="${config.solar.mppts === 'four' ? "58%" : "40%"}" class="st3 left-align" fill="${inverter_colour}" display="${!config.entities.inverter_ac_temp ? 'none' : ''}" >AC: ${stateObj39.state ? stateObj39.state : ''}°</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_dc_temp)}>
               <text id="dc_temp" x="24%" y="69.5%" class="st3 left-align" fill="${inverter_colour}" display="${!config.entities.inverter_dc_temp ? 'none' : ''}" >DC: ${stateObj38.state ? stateObj38.state : ''}°</text>
@@ -974,10 +974,10 @@ class SunsynkPowerFlowCard extends LitElement {
             <text id="daily_solar" x="200" y="40" class="st3 left-align" fill="${solar_showdaily === 'no' || config.show_solar === 'no' || remaining_solar != 'false' ? 'transparent' : `${solar_colour}`}">DAILY SOLAR</text>
             <text id="remaining_solar" x="200" y="40" class="st3 left-align" fill="${solar_showdaily === 'no' || config.show_solar === 'no' || remaining_solar === 'false' ? 'transparent' : `${solar_colour}`}" >DAILY SOLAR / LEFT TODAY</text>
             <text id="pvtotal_power" x="238.8" y="133.9" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${totalsolar ? totalsolar : '0'} W</text>
-            <text x="162" y="94" class="st3 st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">PV1</text>
-            <text x="264" y="94" class="st3 st8" display="${config.show_solar === 'no'  || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}">PV2</text>
-            <text x="88" y="94" class="st3 st8" display="${config.show_solar === 'no'  || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}">PV3</text>
-            <text x="340" y="94" class="st3 st8" display="${config.show_solar === 'no'  || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}">PV4</text>            
+            <text x="162" y="94" class="st3 st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${!(config.solar.pv1_name) ? 'PV1' : `${config.solar.pv1_name}`}</text>
+            <text x="264" y="94" class="st3 st8" display="${config.show_solar === 'no'  || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}">${!(config.solar.pv2_name) ? 'PV2' : `${config.solar.pv2_name}`}</text>
+            <text x="88" y="94" class="st3 st8" display="${config.show_solar === 'no'  || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}">${!(config.solar.pv3_name) ? 'PV3' : `${config.solar.pv3_name}`}</text>
+            <text x="340" y="94" class="st3 st8" display="${config.show_solar === 'no'  || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}">${!(config.solar.pv4_name) ? 'PV4' : `${config.solar.pv4_name}`}</text>            
             <text id="autarky_value" x="130" y="260" class="st4 st8 left-align" fill="${useautarky === 'no' ? 'transparent' : `${inverter_colour}`}" >${Autarky}%</text>
             <text id="ratio_value" x="173" y="260" class="st4 st8 left-align" fill="${useautarky === 'no' ? 'transparent' : `${inverter_colour}`}" >${Ratio}%</text>
             <text id="autarky" x="130" y="273" class="st3 left-align" fill="${useautarky === 'no' ? 'transparent' : `${inverter_colour}`}" >Autarky</text>
