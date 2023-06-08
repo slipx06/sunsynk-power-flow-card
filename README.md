@@ -342,6 +342,10 @@ solar:
   mppts: two
   animation_speed: 9
   max_power: 8000
+  pv1_name: North
+  pv2_name: North
+  pv3_name: East
+  pv4_name: West
 load:
   colour: '#5fb6ad'
   show_daily: 'yes'
