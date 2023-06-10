@@ -326,7 +326,7 @@ large_font: 'no'
 show_solar: 'yes'
 inverter:
   modern: 'yes'
-  colour: 'grey'
+  colour: grey
   autarky: 'yes'
 battery:
   energy: 15960
@@ -361,8 +361,8 @@ grid:
   show_daily_buy: 'yes'
   show_daily_sell: 'yes'
   no_grid_colour: '#a40013'
-  show_nonessential: 'no'
-  invert_grid: `no`
+  show_nonessential: 'yes'
+  invert_grid: 'no'
   nonessential_name: Non Essential
   nonessential_dual: 'yes'
   load1_name: Load 1
