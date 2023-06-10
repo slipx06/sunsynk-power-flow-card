@@ -118,7 +118,7 @@ These attributes are only needed if `show_solar` is set to `yes`
 |animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on Power draw | 
 |max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
 |aux_name: | Optional | `Auxilary` | Set the display name for the Auxilary Load
-| additional_loads: | Optional | `no` | Display and additional load on the essential side (`one/no`) 
+| additional_loads: | Optional | `no` | Display an additional load on the essential side (`one/no`) 
 | load1_name: | Optional | `Load 1` | Set the display name for the Essential Load 1
 
 ### Grid
