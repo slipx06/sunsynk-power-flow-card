@@ -11,7 +11,7 @@ An animated Home Assistant card to emulate the power flow that's shown on the Su
 * Inverter status (standby, normal, self-test, alarm, fault).  
 * Configurable battery size and shutdown SOC to calculate and display remaining battery runtime based on current battery usage and system time slot setting i.e. SOC, Grid Charge. Can be toggled off.
 * Daily Totals that can be toggled on or off.
-* Hide all solar data if not installed or specify number of mppts in use. Set custom MPPT labels
+* Hide all solar data if not installed or specify number of mppts in use. Set custom MPPT labels. 
 * "Use Timer" setting and "Energy Pattern" setting (Priority Load or Priority Battery) shown as dynamic icons with ability to hide if not required. If setup as switches can be toggled by clicking on the card
 * Panel mode for bigger card
 * AUX and Non-essential can be hidden from the full card or assigned configurable labels
@@ -20,6 +20,7 @@ An animated Home Assistant card to emulate the power flow that's shown on the Su
 * Optional data points include self sufficiency and ratio percentages, battery temperature, AC and DC temperature
 * Display two non-essential loads
 * Display an additional essential load
+* Display energy cost per kWh and solar sell status
 
 ## Screenshots
 
@@ -204,6 +205,8 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |prog6_time:| Optional | `select.ss_prog6_time` | Program 6 start time (`HH:MM`)
 |prog6_capacity:| Optional | `number.ss_prog6_capacity` | Program 6 capacity (SOC) setting
 |prog6_charge:| Optional | `select.ss_prog6_charge` | Program 6 charge options (`on/off`, `0/1`, `No Grid or Gen`)
+|energy_cost:| Optional | | Sensor that provides current energy cost per kWh
+|solar_sell_247:|Optional | `switch.toggle_solar_sell` | Displays icons to indicate if sell solar is active or not. The switch can be toggled by clicking on the icon (`on/off`)
    
 The card calculates the sensors below based on supplied attributes in the config so you dont need to define them in Home Assistant
  
@@ -430,4 +433,6 @@ entities:
   prog6_time: select.ss_prog6_time
   prog6_capacity: number.ss_prog6_capacity
   prog6_charge: select.ss_prog6_charge
+  energy_cost: sensor.tibber_energy_cost
+  solar_sell_247: switch.toggle_solar_sell
 ```
