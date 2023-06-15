@@ -15,7 +15,7 @@ An animated Home Assistant card to emulate the power flow that's shown on the Su
 * "Use Timer" setting and "Energy Pattern" setting (Priority Load or Priority Battery) shown as dynamic icons with ability to hide if not required. If setup as switches can be toggled by clicking on the card
 * Panel mode for bigger card
 * AUX and Non-essential can be hidden from the full card or assigned configurable labels
-* Customisable - Change colours and inverter image
+* Customisable - Change colours and images
 * Most entities can be clicked to show more-info dialog
 * Optional data points include self sufficiency and ratio percentages, battery temperature, AC and DC temperature
 * Display two non-essential loads
@@ -119,6 +119,7 @@ These attributes are only needed if `show_solar` is set to `yes`
 |animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on Power draw | 
 |max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
 |aux_name: | Optional | `Auxilary` | Set the display name for the Auxilary Load
+|aux_type: | Optional | `default` | Changes the AUX image. Set to `gen` to display a generator image. (`gen`, `default`)
 | additional_loads: | Optional | `no` | Display an additional load on the essential side (`one/no`) 
 | load1_name: | Optional | `Load 1` | Set the display name for the Essential Load 1
 
@@ -354,7 +355,8 @@ load:
   show_daily: 'yes'
   show_aux: 'yes'
   invert_aux: 'no'
-  aux_name: Auxiliary
+  aux_name: Generator
+  aux_type: gen
   animation_speed: 8
   max_power: 8000
   additional_loads: one
