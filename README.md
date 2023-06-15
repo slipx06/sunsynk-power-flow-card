@@ -262,7 +262,7 @@ entities:
   inverter_load_freq_192: sensor.load_frequency
   inverter_out_164: sensor.inverter_output_current
   inverter_out_175: sensor.inverter_output_power
-  inverter_load_grid_169: sensor.grid_inverter_load
+  inverter_load_grid_169: sensor.grid_power
   battery_voltage_183: sensor.battery_voltage
   battery_soc_184: sensor.battery_soc
   battery_out_190: sensor.battery_output_power
@@ -299,7 +299,7 @@ entities:
   inverter_load_freq_192: sensor.load_frequency
   inverter_out_164: sensor.inverter_output_current
   inverter_out_175: sensor.inverter_output_power
-  inverter_load_grid_169: sensor.grid_inverter_load
+  inverter_load_grid_169: sensor.grid_power
   battery_voltage_183: sensor.battery_voltage
   battery_soc_184: sensor.battery_soc
   battery_out_190: sensor.battery_output_power
