@@ -899,7 +899,7 @@ class SunsynkPowerFlowCard extends LitElement {
               <text id="battery_voltage_183" x="9%" y="82.75%" display="${config.entities.battery_voltage_183 === 'none' ? 'none' : ''}" fill=${battery_colour} class="${font === 'no' ? 'st14' : 'st4'} st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
-              <text id="battery_soc_184" x="35%" y="87%" display="${config.entities.battery_soc_184 === 'none' ? 'none' : ''}" fill=${battery_colour} class="st13 st8 left-align">${stateObj12.state ? stateObj12.state : '0'} %</text>
+              <text id="battery_soc_184" x="35%" y="87%" display="${config.entities.battery_soc_184 === 'none' ? 'none' : ''}" fill=${battery_colour} class="st13 st8 left-align">${parseInt(stateObj12.state) ? parseInt(stateObj12.state) : '0'} %</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
               <text id="battery_soc_184" x="49%" y="87%" fill=${battery_colour} class="st13 st8 left-align" display="${inverter_prog.show === 'no' || config.entities.battery_soc_184 === 'none' ? 'none' : ''}"> | ${inverter_prog.capacity ? inverter_prog.capacity : '0'} %</text>
@@ -1139,7 +1139,7 @@ class SunsynkPowerFlowCard extends LitElement {
               <text id="battery_voltage_183" x="193" y="346" fill=${battery_colour} class="${font === 'no' ? 'st14' : 'st4'} st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
-              <text id="battery_soc_184" x="318.4" y="358" display="${config.entities.battery_soc_184 === 'none' ? 'none' : ''}" fill=${battery_colour} class="st13 st8 left-align">${stateObj12.state ? stateObj12.state : '0'} %</text>
+              <text id="battery_soc_184" x="318.4" y="358" display="${config.entities.battery_soc_184 === 'none' ? 'none' : ''}" fill=${battery_colour} class="st13 st8 left-align">${parseInt(stateObj12.state) ? parseInt(stateObj12.state) : '0'} %</text>
             </a> 
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
               <text id="battery_soc_184" x="384" y="358" fill=${battery_colour} class="st13 st8 left-align" display="${inverter_prog.show === 'no' || config.entities.battery_soc_184 === 'none' ? 'none' : ''}"> | ${inverter_prog.capacity ? inverter_prog.capacity : '0'} %</text>
