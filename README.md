@@ -30,8 +30,10 @@ An animated Home Assistant card to emulate the power flow that's shown on the Su
 
 *Lite Version*
 
-![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/ccbad4d9-6ab9-4b60-af12-fdd51ce8c5d4)
-![sunsynk-power-flow-full](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/cd8e20d8-fc3a-4a12-a34d-84f10ac535f9)
+![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/16cfad45-de34-414a-beae-8093bcb33c72)
+![sunsynk-power-flow-full](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/bf119d16-b049-4bd9-8906-0c9697ab386d)
+
+
 
 
 
@@ -119,7 +121,7 @@ These attributes are only needed if `show_solar` is set to `yes`
 |animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on Power draw | 
 |max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
 |aux_name: | Optional | `Auxilary` | Set the display name for the Auxilary Load
-|aux_type: | Optional | `default` | Changes the AUX image. Set to `gen` to display a generator image. (`gen`, `default`)
+|aux_type: | Optional | `default` | Changes the AUX image to disply a generator or microinverter. (`gen`, `inverter` `default`)
 | additional_loads: | Optional | `no` | Display an additional load on the essential side (`one/no`) 
 | load1_name: | Optional | `Load 1` | Set the display name for the Essential Load 1
 
