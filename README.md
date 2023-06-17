@@ -160,7 +160,7 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |inverter_load_freq_192: | **Required** | `sensor.load_frequency` | Load Frequency (Hz) |
 |inverter_out_164: | **Required** | `sensor.inverter_output_current` | Inverter Output Current (A) |
 |inverter_out_175: | **Required** | `sensor.inverter_output_power` | Inverter Output Power (W) |
-|inverter_load_grid_169: | **Required** | `sensor.grid_inverter_load` | Total Grid Power (W) |
+|inverter_load_grid_169: | **Required** | `sensor.grid_inverter_load` | Total Grid Power (W) See NOTE below. Use 167 if non-essential and essential readings are wrong |
 |pv1_power_186: | Optional | `sensor.pv1_power` | PV String 1 Power (W)|
 |pv2_power_187: | Optional | `sensor.pv2_power` | PV String 2 Power (W)  |
 |pv3_power_188: | Optional | `sensor.pv3_power` | PV String 3 Power (W)  |
@@ -211,7 +211,7 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |energy_cost:| Optional | | Sensor that provides current energy cost per kWh
 |solar_sell_247:|Optional | `switch.toggle_solar_sell` | Displays icons to indicate if sell solar is active or not. The switch can be toggled by clicking on the icon (`on/off`, `1/0`)
    
-The card calculates the sensors below based on supplied attributes in the config so you dont need to define them in Home Assistant
+The card calculates the sensors below based on supplied attributes in the config so you dont need to define them in Home Assistant. NOTE some people have reported innacurate results when using senssor 169 and have replaced it with 167.
  
  ```
  totalsolar = pv1_power_186 + pv2_power_187 + pv3_power_188 + pv4_power_189
