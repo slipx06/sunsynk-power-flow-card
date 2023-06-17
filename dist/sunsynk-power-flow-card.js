@@ -141,7 +141,7 @@ class SunsynkPowerFlowCard extends LitElement {
     const stateObj18 = this.hass.states[config.entities.pv2_v_111] || { state: '0' };
     const stateObj19 = this.hass.states[config.entities.pv2_i_112] || { state: '0' };
     const stateObj20 = this.hass.states[config.entities.grid_status_194] || { state: 'on' };
-    const stateObj21 = this.hass.states[config.entities.inverter_status_59] || { state: 'normal' };
+    const stateObj21 = this.hass.states[config.entities.inverter_status_59] || { state: '' };
     const stateObj22 = this.hass.states[config.entities.inverter_out_175] || { state: '0' };
     const stateObj23 = this.hass.states[config.entities.inverter_load_grid_169]  || { state: '0' };
     const stateObj24 = this.hass.states[config.entities.aux_power_166]  || { state: '0' };
@@ -431,24 +431,28 @@ class SunsynkPowerFlowCard extends LitElement {
     
     let inverterStateColour = "";
     let inverterStateMsg = "";
-    if (stateObj21.state === '0' || stateObj21.state === 'standby') {
-        inverterStateColour = 'blue';
-        inverterStateMsg = 'Standby';
+    
+    if (config?.entities?.inverter_status_59 === 'none') {
+      inverterStateColour = 'transparent';
+      inverterStateMsg = '';
+    } else if (stateObj21.state === '0' || stateObj21.state === 'standby') {
+      inverterStateColour = 'blue';
+      inverterStateMsg = 'Standby';
     } else if (stateObj21.state === '1' || stateObj21.state === 'selftest') {
-        inverterStateColour = 'yellow';
-        inverterStateMsg = 'Selftest';
+      inverterStateColour = 'yellow';
+      inverterStateMsg = 'Selftest';
     } else if (stateObj21.state === '2' || stateObj21.state === 'normal' || stateObj21.state === 'ok') {
-        inverterStateColour = 'green';
-        inverterStateMsg = 'Normal';
+      inverterStateColour = 'green';
+      inverterStateMsg = 'Normal';
     } else if (stateObj21.state === '3' || stateObj21.state === 'alarm') {
-        inverterStateColour = 'orange';
-        inverterStateMsg = 'Alarm';
+      inverterStateColour = 'orange';
+      inverterStateMsg = 'Alarm';
     } else if (stateObj21.state === '4' || stateObj21.state === 'fault') {
-        inverterStateColour = 'red';
-        inverterStateMsg = 'Fault';
+      inverterStateColour = 'red';
+      inverterStateMsg = 'Fault';
     } else {
-        inverterStateColour = 'transparent';
-        inverterStateMsg = 'Status';
+      inverterStateColour = 'transparent';
+      inverterStateMsg = 'Status';
     }
 
     let inverter_colour = '';
