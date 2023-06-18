@@ -321,7 +321,7 @@ class SunsynkPowerFlowCard extends LitElement {
 
     let essential = "";
     if (config.entities.essential_power === 'none' || !config.entities.essential_power) {
-      essential = (parseInt(stateObj22.state) - (parseInt(stateObj24.state) - parseInt(stateObj23.state)));
+      essential = parseInt(stateObj22.state) + parseInt(stateObj23.state) - parseInt(stateObj24.state);
     } else {
       essential = parseInt(stateObj14.state);
     }
