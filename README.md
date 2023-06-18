@@ -121,7 +121,7 @@ These attributes are only needed if `show_solar` is set to `yes`
 |animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on Power draw | 
 |max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
 |aux_name: | Optional | `Auxilary` | Set the display name for the Auxilary Load
-|aux_type: | Optional | `default` | Changes the AUX image to disply a generator or microinverter. (`gen`, `inverter` `default`)
+|aux_type: | Optional | `default` | Changes the AUX image to display a generator or microinverter. (`gen`, `inverter` `default`)
 | additional_loads: | Optional | `no` | Display additional loads on the essential side (`one/two/no`) 
 | load1_name: | Optional | `Load 1` | Set the display name for the Essential Load 1
 | load2_name: | Optional | `Load 2` | Set the display name for the Essential Load 2
@@ -136,7 +136,7 @@ These attributes are only needed if `show_solar` is set to `yes`
 |show_nonessential: | Optional |`yes` | Toggles the display of Non-Essential (`yes/no`)|
 |nonessential_name: | Optional | `Non Essential` |Set the display name for the Non-Essential Load
 |nonessential_dual: | Optional |`no`| Toggle the display of two Non-Essential loads (`yes/no`)
-|load1_name: | Optiona | `Load 1` | Set the display name for the Non-Essential Load 1
+|load1_name: | Optional | `Load 1` | Set the display name for the Non-Essential Load 1
 |load2_name: | Optional | `Load 2` |Set the display name for the Non-Essential Load 2
 |invert_grid:| Optional | `no`| Set to `yes` if your sensor provides a negative number for Grid import and positive number for Grid export |
 |animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on Power draw | 
