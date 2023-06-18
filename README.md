@@ -19,7 +19,7 @@ An animated Home Assistant card to emulate the power flow that's shown on the Su
 * Most entities can be clicked to show more-info dialog
 * Optional data points include self sufficiency and ratio percentages, battery temperature, AC and DC temperature
 * Display two non-essential loads
-* Display an additional essential load
+* Display up to two additional essential loads
 * Display energy cost per kWh and solar sell status
 
 ## Screenshots
@@ -122,8 +122,9 @@ These attributes are only needed if `show_solar` is set to `yes`
 |max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
 |aux_name: | Optional | `Auxilary` | Set the display name for the Auxilary Load
 |aux_type: | Optional | `default` | Changes the AUX image to disply a generator or microinverter. (`gen`, `inverter` `default`)
-| additional_loads: | Optional | `no` | Display an additional load on the essential side (`one/no`) 
+| additional_loads: | Optional | `no` | Display additional loads on the essential side (`one/two/no`) 
 | load1_name: | Optional | `Load 1` | Set the display name for the Essential Load 1
+| load2_name: | Optional | `Load 2` | Set the display name for the Essential Load 2
 
 ### Grid
 | Attribute | Requirement | Default | Description |
@@ -171,6 +172,7 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |battery_current_191: | **Required** |`sensor.battery_output_current` | Battery Current (A) | 
 |essential_power: | Optional | `none` | The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures essential power e.g. register 178 or `Load power Essential` in the case of Solar Assistant.  (W) |
 |essential_load1: | Optional | | Sensor that contains the power of your essential load 1 (W)|
+|essential_load2: | Optional | | Sensor that contains the power of your essential load 2 (W)|
 |nonessential_power| Optional | `none`| The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures non-essential power e.g.  `Load power Non-Essential` in the case of Solar Assistant.  (W)
 |non_essential_load1: | Optional | |Sensor that contains the power of your non-essential load 1 (W)|
 |non_essential_load2: | Optional | |Sensor that contains the power of your non-essential load 2 (W)
