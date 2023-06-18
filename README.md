@@ -161,7 +161,7 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |inverter_load_freq_192: | **Required** | `sensor.load_frequency` | Load Frequency (Hz) |
 |inverter_out_164: | **Required** | `sensor.inverter_output_current` | Inverter Output Current (A) |
 |inverter_out_175: | **Required** | `sensor.inverter_output_power` | Inverter Output Power (W) |
-|inverter_load_grid_169: | **Required** | `sensor.grid_inverter_load` | Total Grid Power (W) See NOTE below. Use 167 if non-essential and essential readings are wrong |
+|inverter_load_grid_169: | **Required** | `sensor.grid_inverter_load` | Grid Power (W) See NOTE below. Use **167** (Grid LD Power) if non-essential and essential readings are wrong |
 |pv1_power_186: | Optional | `sensor.pv1_power` | PV String 1 Power (W)|
 |pv2_power_187: | Optional | `sensor.pv2_power` | PV String 2 Power (W)  |
 |pv3_power_188: | Optional | `sensor.pv3_power` | PV String 3 Power (W)  |
@@ -170,7 +170,7 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |battery_soc_184: | **Required** | `sensor.battery_soc` | Battery State of Charge (%) |
 |battery_out_190: | **Required** | `sensor.battery_output_power` | Battery Output Power (W). Requires a negative number for battery charging and a positive number for battery discharging. Set the `invert_power:` battery attribute to `yes` if your sensor reports this the other way around |
 |battery_current_191: | **Required** |`sensor.battery_output_current` | Battery Current (A) | 
-|essential_power: | Optional | `none` | The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures essential power e.g. register 178 or `Load power Essential` in the case of Solar Assistant.  (W) |
+|essential_power: | Optional | `none` | The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures essential power e.g. `Load power Essential` in the case of Solar Assistant.  (W) |
 |essential_load1: | Optional | | Sensor that contains the power of your essential load 1 (W)|
 |essential_load2: | Optional | | Sensor that contains the power of your essential load 2 (W)|
 |nonessential_power| Optional | `none`| The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures non-essential power e.g.  `Load power Non-Essential` in the case of Solar Assistant.  (W)
@@ -213,12 +213,12 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |energy_cost:| Optional | | Sensor that provides current energy cost per kWh
 |solar_sell_247:|Optional | `switch.toggle_solar_sell` | Displays icons to indicate if sell solar is active or not. The switch can be toggled by clicking on the icon (`on/off`, `1/0`)
    
-The card calculates the sensors below based on supplied attributes in the config so you dont need to define them in Home Assistant. NOTE some people have reported innacurate results when using senssor 169 and have replaced it with 167.
+The card calculates the sensors below based on supplied attributes in the config so you dont need to define them in Home Assistant. NOTE if your essential and non-essential readings are innacurate replace sensor 169 with 167. Alternatively provide the card with sensors that calculate this data i.e essential_power: and nonessential_power:
  
  ```
  totalsolar = pv1_power_186 + pv2_power_187 + pv3_power_188 + pv4_power_189
  nonessential = grid_external_power_172 - inverter_load_grid_169
- essential = inverter_out_175 - (aux_power_166 - inverter_load_grid_169 )
+ essential = inverter_out_175 + inverter_load_grid_169 - aux_power_166
  ```
 The modbus registers can be visualised on the `full` card below:
 
