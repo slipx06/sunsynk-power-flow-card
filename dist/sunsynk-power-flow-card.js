@@ -475,8 +475,8 @@ class SunsynkPowerFlowCard extends LitElement {
     let Autarky = consumption_e != 0 ? Math.min(Math.round((production_e * 100) / Math.abs(consumption_e)), 100) : 0;
     let Ratio = production_e != 0 ? Math.min(Math.round((Math.abs(consumption_e) * 100) / production_e), 100) : 0;
 
-    const production_p = parseFloat(totalsolar) + parseFloat(`${battery_power > '0' ? battery_power : 0}`) + parseFloat(`${aux_power < '0' ? aux_power * -1 : 0}`);
-    const consumption_p = parseFloat(essential) + parseFloat(nonessential) + parseFloat(`${aux_power > '0' ? aux_power : 0}`);
+    const production_p = parseInt(totalsolar) + parseInt(`${battery_power > '0' ? battery_power : 0}`) + parseInt(`${aux_power < '0' ? aux_power * -1 : 0}`);
+    const consumption_p = parseInt(essential) + parseInt(nonessential) + parseInt(`${aux_power > '0' ? aux_power : 0}`) - parseInt(`${battery_power < '0' ? battery_power : 0}`);
     let Autarkyp = consumption_p != 0 ? Math.min(Math.round((production_p * 100) / Math.abs(consumption_p)), 100) : 0;
     let Ratiop = production_p != 0 ? Math.min(Math.round((Math.abs(consumption_p) * 100) / production_p), 100) : 0;
 
