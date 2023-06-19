@@ -471,7 +471,7 @@ class SunsynkPowerFlowCard extends LitElement {
     }
 
     const production_e = parseFloat(stateObj4.state) + parseFloat(stateObj.state);
-    const consumption_e = parseFloat(stateObj2.state);
+    const consumption_e = parseFloat(stateObj2.state) + parseFloat(stateObj1.state);
     let Autarky = consumption_e != 0 ? Math.min(Math.round((production_e * 100) / Math.abs(consumption_e)), 100) : 0;
     let Ratio = production_e != 0 ? Math.min(Math.round((Math.abs(consumption_e) * 100) / production_e), 100) : 0;
 
