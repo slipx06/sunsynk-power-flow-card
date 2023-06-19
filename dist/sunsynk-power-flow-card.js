@@ -166,6 +166,7 @@ class SunsynkPowerFlowCard extends LitElement {
     const stateObj43 = this.hass.states[config.entities.energy_cost] || { state: '' };
     const stateObj44 = this.hass.states[config.entities.solar_sell_247] || { state: 'undefined' };
     const stateObj45 = this.hass.states[config.entities.essential_load2] || { state: '0' };
+    const stateObj46 = this.hass.states[config.entities.inverter_load_grid_167]  || { state: '0' };
     
     const totalsolar = (parseInt(stateObj8.state || 0) + parseInt(stateObj9.state || 0) + parseInt(stateObj31.state || 0) + parseInt(stateObj32.state || 0));
 
@@ -470,15 +471,19 @@ class SunsynkPowerFlowCard extends LitElement {
       useautarky = config.inverter.autarky;
     }
 
+    //const production_e = parseFloat(stateObj4.state) + parseFloat(stateObj.state);
+    //const consumption_e = parseFloat(stateObj2.state) + parseFloat(stateObj1.state);
     const production_e = parseFloat(stateObj4.state) + parseFloat(stateObj.state);
-    const consumption_e = parseFloat(stateObj2.state) + parseFloat(stateObj1.state);
-    let Autarky = consumption_e != 0 ? Math.min(Math.round((production_e * 100) / Math.abs(consumption_e)), 100) : 0;
-    let Ratio = production_e != 0 ? Math.min(Math.round((Math.abs(consumption_e) * 100) / production_e), 100) : 0;
+    const consumption_e = parseFloat(stateObj2.state);
+    const Autarky = consumption_e != 0 ? Math.min(Math.round((production_e * 100) / consumption_e), 100) : 0;
+    const Ratio = production_e != 0 ? Math.min(Math.round((consumption_e * 100) / production_e), 100) : 0;
 
-    const production_p = parseInt(totalsolar) + parseInt(`${battery_power > '0' ? battery_power : 0}`) + parseInt(`${aux_power < '0' ? aux_power * -1 : 0}`);
-    const consumption_p = parseInt(essential) + parseInt(nonessential) + parseInt(`${aux_power > '0' ? aux_power : 0}`) - parseInt(`${battery_power < '0' ? battery_power : 0}`);
-    let Autarkyp = consumption_p != 0 ? Math.min(Math.round((production_p * 100) / Math.abs(consumption_p)), 100) : 0;
-    let Ratiop = production_p != 0 ? Math.min(Math.round((Math.abs(consumption_p) * 100) / production_p), 100) : 0;
+    //let production_p = parseInt(totalsolar) + parseInt(`${battery_power > 0 ? battery_power : 0}`) + parseInt(`${aux_power < 0 ? aux_power * -1 : 0}`) + parseInt(`${grid_power > 0 ? grid_power : 0}`);
+    //let consumption_p = parseInt(essential) + parseInt(nonessential) + parseInt(`${aux_power > 0 ? aux_power : 0}`) + parseInt(`${battery_power < 0 ? battery_power * -1 : 0}`) + parseInt(`${grid_power < 0 ? grid_power * -1 : 0}`);
+    let production_p = parseInt(totalsolar) + parseInt(`${battery_power > 0 ? battery_power : 0}`) + parseInt(`${aux_power < 0 ? aux_power * -1 : 0}`);
+    let consumption_p = parseInt(essential) + parseInt(nonessential) + parseInt(`${aux_power > 0 ? aux_power : 0}`);
+    let Autarkyp = consumption_p != 0 ? Math.min(Math.round((production_p * 100) / consumption_p), 100) : 0;
+    let Ratiop = production_p != 0 ? Math.min(Math.round((consumption_p * 100) / production_p), 100) : 0;
 
     let inverter_modern = "";
     if (config && config.inverter && config.inverter.modern) {
@@ -951,28 +956,28 @@ class SunsynkPowerFlowCard extends LitElement {
               <text id="inverter_load_grid_169" x="59%" y="54.5%" display="${config.entities.inverter_load_grid_169 === 'none' ? 'none' : ''}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${grid_colour}">${stateObj23.state ? stateObj23.state : '0'} W</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_v_109)}>
-              <text id="pv1_v" x="9%" y="20.5%" class="st3 left-align" display="${config.show_solar === 'no' || config.entities.pv1_v_109 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${stateObj16.state ? stateObj16.state : '0'} V</text>
+              <text id="pv1_v" x="9%" y="20.5%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv1_v_109 || config.entities.pv1_v_109 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${stateObj16.state ? stateObj16.state : '0'} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_i_110)}>
-              <text id="pv1_i" x="9%" y="23.5%" class="st3 left-align" display="${config.show_solar === 'no' || config.entities.pv1_i_110 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${stateObj17.state ? stateObj17.state : '0'} A</text>
+              <text id="pv1_i" x="9%" y="23.5%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv1_i_110 || config.entities.pv1_i_110 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${stateObj17.state ? stateObj17.state : '0'} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_v_111)}>
-              <text id="pv2_v" x="31%" y="20.5%" class="st3 left-align" display="${config.show_solar === 'no' || config.entities.pv2_v_111 === 'none' || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}" >${stateObj18.state ? stateObj18.state : '0'} V</text>
+              <text id="pv2_v" x="31%" y="20.5%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv2_v_111 || config.entities.pv2_v_111 === 'none' || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}" >${stateObj18.state ? stateObj18.state : '0'} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_i_112)}>
-              <text id="pv2_i" x="31%" y="23.5%" class="st3 left-align" display="${config.show_solar === 'no' || config.entities.pv2_i_112 === 'none' || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}" >${stateObj19.state ? stateObj19.state : '0'} A</text>
+              <text id="pv2_i" x="31%" y="23.5%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv2_i_112 || config.entities.pv2_i_112 === 'none' || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}" >${stateObj19.state ? stateObj19.state : '0'} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_v_113)}>
-              <text id="pv3_v" x="9%" y="36.25%" class="st3 left-align" display="${config.show_solar === 'no' || config.entities.pv3_v_113 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}" >${stateObj27.state ? stateObj27.state : '0'} V</text>
+              <text id="pv3_v" x="9%" y="36.25%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv3_v_113  || config.entities.pv3_v_113 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}" >${stateObj27.state ? stateObj27.state : '0'} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_i_114)}>
-              <text id="pv3_i" x="9%" y="39.25%" class="st3 left-align" display="${config.show_solar === 'no' || config.entities.pv3_i_114 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}" >${stateObj28.state ? stateObj28.state : '0'} A</text>
+              <text id="pv3_i" x="9%" y="39.25%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv3_i_114 || config.entities.pv3_i_114 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}" >${stateObj28.state ? stateObj28.state : '0'} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_v_115)}>
-              <text id="pv4_v" x="31%" y="36.25%" class="st3 left-align" display="${config.show_solar === 'no' || config.entities.pv4_v_115 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj29.state ? stateObj29.state : '0'} V</text>
+              <text id="pv4_v" x="31%" y="36.25%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv4_v_115 || config.entities.pv4_v_115 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj29.state ? stateObj29.state : '0'} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_i_116)}>
-              <text id="pv4_i" x="31%" y="39.25%" class="st3 left-align" display="${config.show_solar === 'no' || config.entities.pv4_i_116 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj30.state ? stateObj30.state : '0'} A</text>
+              <text id="pv4_i" x="31%" y="39.25%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv4_1_116 || config.entities.pv4_i_116 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj30.state ? stateObj30.state : '0'} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_temp)}>
               <text id="battery_temp" x="20.5%" y="77%" class="${config.entities.battery_temp === 'none' ? 'st12' : 'st3 left-align'}" fill="${battery_colour}" display="${config?.entities?.battery_temp ? '' : 'none'}" >${stateObj37.state ? stateObj37.state : ''}°</text>
@@ -1198,28 +1203,28 @@ class SunsynkPowerFlowCard extends LitElement {
               <text id="grid_external_power_172" x="135.1" y="219.2" display="${config.entities.grid_external_power_172 === 'none' ? 'none' : ''}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${grid_colour}">${grid_power ? grid_power : '0'} W</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_v_109)}>
-              <text id="pv1_v" x="194" y="106" class="st3 left-align" display="${config.show_solar === 'no' || config.entities.pv1_v_109 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${stateObj16.state ? stateObj16.state : '0'} V</text>
+              <text id="pv1_v" x="194" y="106" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv1_v_109 || config.entities.pv1_v_109 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${stateObj16.state ? stateObj16.state : '0'} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_i_110)}>
-              <text id="pv1_i" x="194" y="94" class="st3 left-align" display="${config.show_solar === 'no' || config.entities.pv1_i_110 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${stateObj17.state ? stateObj17.state : '0'} A</text>
+              <text id="pv1_i" x="194" y="94" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv1_i_110 || config.entities.pv1_i_110 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${stateObj17.state ? stateObj17.state : '0'} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_v_111)}>
-              <text id="pv2_v" x="296" y="106" class="st3 left-align" display="${config.show_solar === 'no' || config.entities.pv2_v_111 === 'none' || config.solar.mppts === 'one'  ? 'none' : ''}" fill="${solar_colour}" >${stateObj18.state ? stateObj18.state : '0'} V</text>
+              <text id="pv2_v" x="296" y="106" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv2_v_111 || config.entities.pv2_v_111 === 'none' || config.solar.mppts === 'one'  ? 'none' : ''}" fill="${solar_colour}" >${stateObj18.state ? stateObj18.state : '0'} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_i_112)}>
-              <text id="pv2_i" x="296" y="94" class="st3 left-align" display="${config.show_solar === 'no' || config.entities.pv2_i_112 === 'none'  || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}" >${stateObj19.state ? stateObj19.state : '0'} A</text>
+              <text id="pv2_i" x="296" y="94" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv2_i_112 || config.entities.pv2_i_112 === 'none'  || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}" >${stateObj19.state ? stateObj19.state : '0'} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_v_113)}>
-              <text id="pv3_v" x="120" y="106" class="st3 left-align" display="${config.show_solar === 'no' || config.entities.pv3_v_113 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}" >${stateObj27.state ? stateObj27.state : '0'} V</text>
+              <text id="pv3_v" x="120" y="106" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv3_v_113 || config.entities.pv3_v_113 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}" >${stateObj27.state ? stateObj27.state : '0'} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_i_114)}>
-              <text id="pv3_i" x="120" y="94" class="st3 left-align" display="${config.show_solar === 'no' || config.entities.pv3_i_114 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}" >${stateObj28.state ? stateObj28.state : '0'} A</text>
+              <text id="pv3_i" x="120" y="94" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv3_i_114 || config.entities.pv3_i_114 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}" >${stateObj28.state ? stateObj28.state : '0'} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_v_115)}>
-              <text id="pv4_v" x="372" y="106" class="st3 left-align" display="${config.show_solar === 'no' || config.entities.pv4_v_115 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj29.state ? stateObj29.state : '0'} V</text>
+              <text id="pv4_v" x="372" y="106" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv4_v_115 || config.entities.pv4_v_115 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj29.state ? stateObj29.state : '0'} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_i_116)}>
-              <text id="pv4_i" x="372" y="94" class="st3 left-align" display="${config.show_solar === 'no' || config.entities.pv4_i_116 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj30.state ? stateObj30.state : '0'} A</text>
+              <text id="pv4_i" x="372" y="94" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv4_i_115 || config.entities.pv4_i_116 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj30.state ? stateObj30.state : '0'} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_temp)}>
               <text id="battery_temp" x="250" y="324.5" class="${config.entities.battery_temp === 'none' ? 'st12' : 'st3 left-align'}" fill="${battery_colour}" display="${config?.entities?.battery_temp ? '' : 'none'}" >${stateObj37.state ? stateObj37.state : ''}°</text>
@@ -1263,7 +1268,7 @@ class SunsynkPowerFlowCard extends LitElement {
       `;
     }
   }
-  
+
   setConfig(config) {
     if (!config.cardstyle) {
       throw Error('Please include the cardstyle attribute and value; lite, simple or full e.g. cardstyle: simple');
@@ -1311,7 +1316,7 @@ class SunsynkPowerFlowCard extends LitElement {
     }    
 
     const solar_attributes = [
-      'pv2_power_187', 'pv1_power_186', 'pv1_v_109', 'pv1_i_110', 'pv2_v_111', 'pv2_i_112'
+      'pv1_power_186'
     ];
 
     for (const attr1 of solar_attributes) {
