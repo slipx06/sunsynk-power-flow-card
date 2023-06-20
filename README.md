@@ -107,9 +107,9 @@ These attributes are only needed if `show_solar` is set to `yes`
 |animation_speed: | Optional | `9` | Set slowest animation speed in seconds, depending on Power produced | 
 |max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
 |pv1_name: | Optional | `PV1` | Set the disaply name for MPPT1
-|pv2_name: | Optional | `PV2` | Set the disaply name for MPPT1
-|pv3_name: | Optional | `PV3` | Set the disaply name for MPPT1
-|pv4_name: | Optional | `PV4` | Set the disaply name for MPPT1
+|pv2_name: | Optional | `PV2` | Set the disaply name for MPPT2
+|pv3_name: | Optional | `PV3` | Set the disaply name for MPPT3
+|pv4_name: | Optional | `PV4` | Set the disaply name for MPPT4
 
 ### Load
 | Attribute | Requirement | Default | Description |
