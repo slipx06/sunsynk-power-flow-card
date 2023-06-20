@@ -363,8 +363,9 @@ load:
   aux_type: gen
   animation_speed: 8
   max_power: 8000
-  additional_loads: one
+  additional_loads: two
   load1_name: Geyser
+  load2_name: Pool
 grid:
   colour: '#5490c2'
   show_daily_buy: 'yes'
@@ -402,6 +403,7 @@ entities:
   battery_current_191: sensor.battery_output_current
   essential_power: none
   essential_load1: sensor.tuya_geyser_current_consumption
+  essential_load2: sensor.load2_power
   nonessential_power: none
   non_essential_load1: sensor.nonessential1_power
   non_essential_load2: sensor.nonessential2_power
