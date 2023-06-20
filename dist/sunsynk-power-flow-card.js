@@ -471,17 +471,15 @@ class SunsynkPowerFlowCard extends LitElement {
       useautarky = config.inverter.autarky;
     }
 
-    //const production_e = parseFloat(stateObj4.state) + parseFloat(stateObj.state);
-    //const consumption_e = parseFloat(stateObj2.state) + parseFloat(stateObj1.state);
     const production_e = parseFloat(stateObj4.state) + parseFloat(stateObj.state);
-    const consumption_e = parseFloat(stateObj2.state);
+    const consumption_e = parseFloat(stateObj2.state) + parseFloat(stateObj1.state);
     const Autarky = consumption_e != 0 ? Math.min(Math.round((production_e * 100) / consumption_e), 100) : 0;
     const Ratio = production_e != 0 ? Math.min(Math.round((consumption_e * 100) / production_e), 100) : 0;
 
     //let production_p = parseInt(totalsolar) + parseInt(`${battery_power > 0 ? battery_power : 0}`) + parseInt(`${aux_power < 0 ? aux_power * -1 : 0}`) + parseInt(`${grid_power > 0 ? grid_power : 0}`);
     //let consumption_p = parseInt(essential) + parseInt(nonessential) + parseInt(`${aux_power > 0 ? aux_power : 0}`) + parseInt(`${battery_power < 0 ? battery_power * -1 : 0}`) + parseInt(`${grid_power < 0 ? grid_power * -1 : 0}`);
     let production_p = parseInt(totalsolar) + parseInt(`${battery_power > 0 ? battery_power : 0}`) + parseInt(`${aux_power < 0 ? aux_power * -1 : 0}`);
-    let consumption_p = parseInt(essential) + parseInt(nonessential) + parseInt(`${aux_power > 0 ? aux_power : 0}`);
+    let consumption_p = parseInt(essential) + parseInt(nonessential) + parseInt(`${aux_power > 0 ? aux_power : 0}`) + parseInt(`${battery_power < 0 ? battery_power * -1 : 0}`);
     let Autarkyp = consumption_p != 0 ? Math.min(Math.round((production_p * 100) / consumption_p), 100) : 0;
     let Ratiop = production_p != 0 ? Math.min(Math.round((consumption_p * 100) / production_p), 100) : 0;
 
