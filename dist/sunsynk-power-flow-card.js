@@ -166,9 +166,49 @@ class SunsynkPowerFlowCard extends LitElement {
     const stateObj43 = this.hass.states[config.entities.energy_cost] || { state: '' };
     const stateObj44 = this.hass.states[config.entities.solar_sell_247] || { state: 'undefined' };
     const stateObj45 = this.hass.states[config.entities.essential_load2] || { state: '0' };
-    const stateObj46 = this.hass.states[config.entities.inverter_load_grid_167]  || { state: '0' };
     
-    const totalsolar = (parseInt(stateObj8.state || 0) + parseInt(stateObj9.state || 0) + parseInt(stateObj31.state || 0) + parseInt(stateObj32.state || 0));
+    //Set defaults 
+    let invert_aux = config?.load?.invert_aux || 'no';
+    let aux_power = (invert_aux === 'yes') ? parseInt(stateObj24.state) * -1 : parseInt(stateObj24.state);
+    let invert_grid = config?.grid?.invert_grid || 'no';
+    let grid_power = (invert_grid === 'yes') ? parseInt(stateObj15.state) * -1 : parseInt(stateObj15.state);
+    let inverter_modern = config?.inverter?.modern || 'yes';
+    let load_colour = config?.load?.colour || '#5fb6ad';
+    let load_showdaily = config?.load?.show_daily || 'no';
+    let grid_colour = config?.grid?.colour || '#5490c2';
+    let no_grid_colour = config?.grid?.no_grid_colour || '#a40013';
+    let grid_show_noness = config?.grid?.show_nonessential || 'yes';
+    let noness_dual_load = config?.grid?.nonessential_dual || 'no';
+    let grid_showdailybuy = config?.grid?.show_daily_buy || 'no';
+    let grid_showdailysell = config?.grid?.show_daily_sell || 'no';
+    let battery_colour = config?.battery?.colour || 'pink';
+    let battery_showdaily = config?.battery?.show_daily || 'no';
+    let solar_colour = config?.solar?.colour || 'orange';
+    let solar_showdaily = config?.solar?.show_daily || 'no';
+    let show_aux = config?.load?.show_aux || 'no';
+    let additional_load = config?.load?.additional_loads || 'no'; //valid options are one,two or no
+    let aux_type = config?.load?.aux_type || 'default'; //valid options are gen,inverter or default
+    let remaining_solar = config.entities.remaining_solar ? parseFloat(stateObj36.state).toFixed(1) : 'false';
+    let font = config?.large_font || 'no';
+    let panel = config?.panel_mode || 'no';
+    let inverter_colour = config?.inverter?.colour || 'grey';
+    let useautarky = config?.inverter?.autarky || 'energy';
+    let usetimer = (config?.entities.use_timer_248 === 'no' || !config?.entities.use_timer_248) ? 'no' : stateObj26.state;
+    let priority = (config?.entities.priority_load_243 === 'no' || !config?.entities.priority_load_243) ? 'no' : stateObj25.state;
+    let battery_power = (config?.battery?.invert_power === 'yes') ? parseInt(stateObj13.state) * -1 : parseInt(stateObj13.state);
+
+    //totalsolar = pv1_power_186 + pv2_power_187 + pv3_power_188 + pv4_power_189
+    let totalsolar = (parseInt(stateObj8.state || 0) + parseInt(stateObj9.state || 0) + parseInt(stateObj31.state || 0) + parseInt(stateObj32.state || 0));
+
+    //essential = inverter_out_175 + inverter_load_grid_169 - aux_power_166 
+    let essential = (config?.entities.essential_power === 'none' || !config?.entities.essential_power) ?
+      parseInt(stateObj22.state) + parseInt(stateObj23.state) - parseInt(stateObj24.state) :
+      parseInt(stateObj14.state);
+
+    //nonessential = grid_external_power_172 - inverter_load_grid_169
+    let nonessential = (config?.entities.nonessential_power === 'none' || !config?.entities.nonessential_power) ?
+      parseInt(stateObj15.state) - parseInt(stateObj23.state) :
+      parseInt(stateObj34.state);
 
     //Timer entities
     const prog1 = { 
@@ -203,7 +243,7 @@ class SunsynkPowerFlowCard extends LitElement {
     };
 
     let inverter_prog = {};
-    if (!config.entities.use_timer_248 || config.entities.use_timer_248 == 'no' || stateObj26.state == 'off') {
+    if (!config.entities.use_timer_248 || config.entities.use_timer_248 === 'no' || stateObj26.state === 'off') {
       inverter_prog.show = 'no';
     } else if (!config.entities.prog1_time 
         || !config.entities.prog2_time 
@@ -217,13 +257,14 @@ class SunsynkPowerFlowCard extends LitElement {
       inverter_prog.show = 'yes';
 
       const timer_now = new Date(); // Create a new Date object representing the current time
+
       let prog_time1 = new Date(timer_now.getTime());
       let prog_time2 = new Date(timer_now.getTime());
       let prog_time3 = new Date(timer_now.getTime());
       let prog_time4 = new Date(timer_now.getTime());
       let prog_time5 = new Date(timer_now.getTime());
       let prog_time6 = new Date(timer_now.getTime());
-
+      
       prog_time1.setHours(prog1.time.state.split(":")[0]);
       prog_time2.setHours(prog2.time.state.split(":")[0]);
       prog_time3.setHours(prog3.time.state.split(":")[0]);
@@ -237,159 +278,51 @@ class SunsynkPowerFlowCard extends LitElement {
       prog_time5.setMinutes(prog5.time.state.split(":")[1]);
       prog_time6.setMinutes(prog6.time.state.split(":")[1]);
 
-      // Compare the current time with sellTime1 to sellTime6
-      if (timer_now >= prog_time1 && timer_now < prog_time2) {
-        if (prog1.charge.state === 'No Grid or Gen' || prog1.charge.state === '0'|| prog1.charge.state === 'off' ) {
-          inverter_prog.charge = 'none';
-        } else {
-          inverter_prog.charge = 'both';
-        }
-        inverter_prog.capacity = parseInt(prog1.capacity.state);
-        inverter_prog.entityID = config.entities.prog1_charge;
+      if (timer_now >= prog_time6 || timer_now < prog_time1) {
+        assignInverterProgValues(prog6, config.entities.prog6_charge);
+      } else if (timer_now >= prog_time1 && timer_now < prog_time2) {
+        assignInverterProgValues(prog1, config.entities.prog1_charge);
       } else if (timer_now >= prog_time2 && timer_now < prog_time3) {
-        if ( prog2.charge.state === 'No Grid or Gen' || prog2.charge.state === '0'|| prog2.charge.state === 'off' ) {
-          inverter_prog.charge = 'none';
-        } else {
-          inverter_prog.charge = 'both';
-        }
-        inverter_prog.capacity = parseInt(prog2.capacity.state);
-        inverter_prog.entityID = config.entities.prog2_charge;
+        assignInverterProgValues(prog2, config.entities.prog2_charge);
       } else if (timer_now >= prog_time3 && timer_now < prog_time4) {
-        if ( prog3.charge.state === 'No Grid or Gen' || prog3.charge.state === '0'|| prog3.charge.state === 'off' ) {
-          inverter_prog.charge = 'none';
-        } else {
-          inverter_prog.charge = 'both';
-        }
-        inverter_prog.capacity = parseInt(prog3.capacity.state);
-        inverter_prog.entityID = config.entities.prog3_charge;
+        assignInverterProgValues(prog3, config.entities.prog3_charge);
       } else if (timer_now >= prog_time4 && timer_now < prog_time5) {
-        if ( prog4.charge.state === 'No Grid or Gen' || prog4.charge.state === '0'|| prog4.charge.state === 'off' ) {
-          inverter_prog.charge = 'none';
-        } else {
-          inverter_prog.charge = 'both';
-        }
-        inverter_prog.capacity = parseInt(prog4.capacity.state);
-        inverter_prog.entityID = config.entities.prog4_charge;
+        assignInverterProgValues(prog4, config.entities.prog4_charge);
       } else if (timer_now >= prog_time5 && timer_now < prog_time6) {
-        if ( prog5.charge.state === 'No Grid or Gen' || prog5.charge.state === '0'|| prog5.charge.state === 'off' ) {
-          inverter_prog.charge = 'none';
-        } else {
-          inverter_prog.charge = 'both';
-        }
-        inverter_prog.capacity = parseInt(prog5.capacity.state);
-        inverter_prog.entityID = config.entities.prog5_charge;
-      } else if (timer_now >= prog_time6 || timer_now < prog_time1) {
-        if ( prog6.charge.state === 'No Grid or Gen' || prog6.charge.state === '0'|| prog6.charge.state === 'off' ) {
-          inverter_prog.charge = 'none';
-        } else {
-          inverter_prog.charge = 'both';
-        }
-        inverter_prog.capacity = parseInt(prog6.capacity.state);
-        inverter_prog.entityID = config.entities.prog6_charge;
+        assignInverterProgValues(prog5, config.entities.prog5_charge);
       } else {
         inverter_prog.capacity = parseInt(config.battery.shutdown_soc);
         inverter_prog.entityID = '';
       }
+      
+      function assignInverterProgValues(prog, entityID) {
+        if (prog.charge.state === 'No Grid or Gen' || prog.charge.state === '0' || prog.charge.state === 'off') {
+          inverter_prog.charge = 'none';
+        } else {
+          inverter_prog.charge = 'both';
+        }
+        inverter_prog.capacity = parseInt(prog.capacity.state);
+        inverter_prog.entityID = entityID;
+      }
     }
     
-    let font = "";
-    if (config && config.large_font) {
-    font = config.large_font; // set default value
-    } else {
-    font = 'no'; // override with provided value
-    }  
-
-    let panel = "";
-    if (config && config.panel_mode) {
-    panel = config.panel_mode; // set default value
-    } else {
-    panel = 'no'; // override with provided value
-    }  
-
-    let usetimer ="";
-    if (config.entities.use_timer_248 === 'no' || !config.entities.use_timer_248) {
-      usetimer = 'no';
-    } else {
-      usetimer = stateObj26.state;
-    }
-
-    let priority ="";
-    if (config.entities.priority_load_243 === 'no' || !config.entities.priority_load_243) {
-      priority = 'no';
-    } else {
-      priority = stateObj25.state;
-    }
-
-    let essential = "";
-    if (config.entities.essential_power === 'none' || !config.entities.essential_power) {
-      essential = parseInt(stateObj22.state) + parseInt(stateObj23.state) - parseInt(stateObj24.state);
-    } else {
-      essential = parseInt(stateObj14.state);
-    }
-
-    let nonessential = "";
-    if (config.entities.nonessential_power === 'none' || !config.entities.nonessential_power){
-        nonessential = (parseInt(stateObj15.state) - parseInt(stateObj23.state));
-    } else {
-        nonessential = parseInt(stateObj34.state);
-    }
-
-    let battery_power = "";
-    if (config.battery.invert_power === 'yes'){
-        battery_power = (parseInt(stateObj13.state) * -1);
-    } else {
-        battery_power = parseInt(stateObj13.state);
-    }
-
-    let invert_aux = "";
-    if (config && config.load && config.load.invert_aux) {
-      invert_aux = config.load.invert_aux; // set default value
-    } else {
-      invert_aux = 'no'; // override with provided value
-    }
-
-    let aux_power = "";
-    if (invert_aux === 'yes'){
-        aux_power = (parseInt(stateObj24.state) * -1);
-    } else {
-        aux_power = parseInt(stateObj24.state);
-    }
-
-    let invert_grid = "";
-    if (config && config.grid && config.grid.invert_grid) {
-      invert_grid = config.grid.invert_grid; // set default value
-    } else {
-      invert_grid = 'no'; // override with provided value
-    }
-
-    let grid_power = "";
-    if (invert_grid === 'yes'){
-        grid_power = (parseInt(stateObj15.state) * -1);
-    } else {
-        grid_power = parseInt(stateObj15.state);
-    }
-
+    //calculate battery capacity
     let battery_capacity = "";
     if (battery_power > 0) {
-      if (stateObj20.state === "off" || inverter_prog.show == "no") {
+      if (stateObj20.state === "off" || inverter_prog.show === "no" || parseInt(stateObj12.state) <= inverter_prog.capacity) {
         battery_capacity = parseInt(config.battery.shutdown_soc);
-      }
-      else if (parseInt(stateObj12.state) <= inverter_prog.capacity ){
-        battery_capacity = parseInt(config.battery.shutdown_soc);
-      }
-      else {
+      } else {
         battery_capacity = parseInt(inverter_prog.capacity);
       }
-    }
-    else if (battery_power < 0) {
-      if (stateObj20.state === "off" || inverter_prog.show == "no" || parseInt(stateObj12.state) >= inverter_prog.capacity ) {
+    } else if (battery_power < 0) {
+      if (stateObj20.state === "off" || inverter_prog.show === "no" || parseInt(stateObj12.state) >= inverter_prog.capacity) {
         battery_capacity = 100;
-      }
-      else if (parseInt(stateObj12.state) < inverter_prog.capacity ){
+      } else if (parseInt(stateObj12.state) < inverter_prog.capacity) {
         battery_capacity = parseInt(inverter_prog.capacity);
       }
     }
 
+    //calculate remaining battery time to charge or discharge
     let totalSeconds = 0;
     let formattedResultTime = "";
     let duration = "";
@@ -423,237 +356,97 @@ class SunsynkPowerFlowCard extends LitElement {
       duration += `${minutes} min`;
     }
     
-    let float = "";
-    if ((-2 <= parseInt(stateObj35.state)) && (parseInt(stateObj35.state) <= 2) && (parseInt(stateObj12.state) >= 99)) {
-      float = "True";
-    }
-    else {
-      float = "False";
-    }
+    let float = (-2 <= parseInt(stateObj35.state)) && (parseInt(stateObj35.state) <= 2) && (parseInt(stateObj12.state) >= 99) ? "True" : "False";
     
+    //Set Inverter Status Message and dot
     let inverterStateColour = "";
     let inverterStateMsg = "";
-    
-    if (config?.entities?.inverter_status_59 === 'none') {
-      inverterStateColour = 'transparent';
-      inverterStateMsg = '';
-    } else if (stateObj21.state === '0' || stateObj21.state === 'standby') {
-      inverterStateColour = 'blue';
-      inverterStateMsg = 'Standby';
-    } else if (stateObj21.state === '1' || stateObj21.state === 'selftest') {
-      inverterStateColour = 'yellow';
-      inverterStateMsg = 'Selftest';
-    } else if (stateObj21.state === '2' || stateObj21.state === 'normal' || stateObj21.state === 'ok') {
-      inverterStateColour = 'green';
-      inverterStateMsg = 'Normal';
-    } else if (stateObj21.state === '3' || stateObj21.state === 'alarm') {
-      inverterStateColour = 'orange';
-      inverterStateMsg = 'Alarm';
-    } else if (stateObj21.state === '4' || stateObj21.state === 'fault') {
-      inverterStateColour = 'red';
-      inverterStateMsg = 'Fault';
-    } else {
-      inverterStateColour = 'transparent';
-      inverterStateMsg = 'Status';
+
+    switch (stateObj21.state) {
+      case '0':
+      case 'standby':
+        inverterStateColour = 'blue';
+        inverterStateMsg = 'Standby';
+        break;
+      case '1':
+      case 'selftest':
+        inverterStateColour = 'yellow';
+        inverterStateMsg = 'Selftest';
+        break;
+      case '2':
+      case 'normal':
+      case 'ok':
+        inverterStateColour = 'green';
+        inverterStateMsg = 'Normal';
+        break;
+      case '3':
+      case 'alarm':
+        inverterStateColour = 'orange';
+        inverterStateMsg = 'Alarm';
+        break;
+      case '4':
+      case 'fault':
+        inverterStateColour = 'red';
+        inverterStateMsg = 'Fault';
+        break;
+      default:
+        if (config?.entities?.inverter_status_59 === 'none') {
+          inverterStateColour = 'transparent';
+          inverterStateMsg = '';
+        } else {
+          inverterStateColour = 'transparent';
+          inverterStateMsg = 'Status';
+        }
+        break;
     }
 
-    let inverter_colour = '';
-    if (config && config.inverter && config.inverter.colour) {
-    inverter_colour = config.inverter.colour; // override with provided value
-    } else {
-    inverter_colour = 'grey'; // set default value
-    }
+    //Autarky in Percent = Home Production / Home Consumption
+    //Ratio in Percent = Home Consumption / Home Production
+    let production_e = parseFloat(stateObj4.state) + parseFloat(stateObj.state);
+    let consumption_e = parseFloat(stateObj2.state) + parseFloat(stateObj1.state);
+    let Autarky = consumption_e != 0 ? Math.min(Math.round((production_e * 100) / consumption_e), 100) : 0;
+    let Ratio = production_e != 0 ? Math.min(Math.round((consumption_e * 100) / production_e), 100) : 0;
 
-    let useautarky = 'energy'; // Default value
-    if (config?.inverter?.autarky === 'yes') {
-      useautarky = 'energy';
-    } else if (config?.inverter?.autarky) {
-      useautarky = config.inverter.autarky;
-    }
-
-    const production_e = parseFloat(stateObj4.state) + parseFloat(stateObj.state);
-    const consumption_e = parseFloat(stateObj2.state) + parseFloat(stateObj1.state);
-    const Autarky = consumption_e != 0 ? Math.min(Math.round((production_e * 100) / consumption_e), 100) : 0;
-    const Ratio = production_e != 0 ? Math.min(Math.round((consumption_e * 100) / production_e), 100) : 0;
-
-    //let production_p = parseInt(totalsolar) + parseInt(`${battery_power > 0 ? battery_power : 0}`) + parseInt(`${aux_power < 0 ? aux_power * -1 : 0}`) + parseInt(`${grid_power > 0 ? grid_power : 0}`);
-    //let consumption_p = parseInt(essential) + parseInt(nonessential) + parseInt(`${aux_power > 0 ? aux_power : 0}`) + parseInt(`${battery_power < 0 ? battery_power * -1 : 0}`) + parseInt(`${grid_power < 0 ? grid_power * -1 : 0}`);
     let production_p = parseInt(totalsolar) + parseInt(`${battery_power > 0 ? battery_power : 0}`) + parseInt(`${aux_power < 0 ? aux_power * -1 : 0}`);
     let consumption_p = parseInt(essential) + parseInt(nonessential) + parseInt(`${aux_power > 0 ? aux_power : 0}`) + parseInt(`${battery_power < 0 ? battery_power * -1 : 0}`);
     let Autarkyp = consumption_p != 0 ? Math.min(Math.round((production_p * 100) / consumption_p), 100) : 0;
     let Ratiop = production_p != 0 ? Math.min(Math.round((consumption_p * 100) / production_p), 100) : 0;
 
-    let inverter_modern = "";
-    if (config && config.inverter && config.inverter.modern) {
-    inverter_modern = config.inverter.modern; // set default value
-    } else {
-    inverter_modern = 'yes'; // override with provided value
-    }
-
-    let load_colour = "";
-    if (config && config.load && config.load.colour) {
-    load_colour = config.load.colour; // set default value
-    } else {
-    load_colour = '#5fb6ad'; // override with provided value
-    }
-
-    let load_showdaily = "";
-    if (config && config.load && config.load.show_daily) {
-    load_showdaily = config.load.show_daily; // set default value
-    } else {
-    load_showdaily = 'no'; // override with provided value
-    }
-
-
-    let additional_load = "";
-    if (config && config.load && config.load.additional_loads == 'one') {
-    additional_load = 'one'; // set default value
-    } else if (config && config.load && config.load.additional_loads == 'two') {
-    additional_load = 'two';
-    } else {
-    additional_load = 'no'; // override with provided value
-    } 
-
-    let grid_colour = "";
-    if (config && config.grid && config.grid.colour) {
-    grid_colour = config.grid.colour; // set default value
-    } else {
-    grid_colour = '#5490c2'; // override with provided value
-    }
-
-    let no_grid_colour = "";
-    if (config && config.grid && config.grid.no_grid_colour) {
-    no_grid_colour = config.grid.no_grid_colour; // set default value
-    } else {
-    no_grid_colour = '#a40013'; // override with provided value
-    }
-
-    let grid_show_noness = "";
-    if (config && config.grid && config.grid.show_nonessential) {
-    grid_show_noness = config.grid.show_nonessential; // set default value
-    } else {
-    grid_show_noness = 'yes'; // override with provided value
-    }  
-
-    let noness_dual_load = "";
-    if (config && config.grid && config.grid.nonessential_dual) {
-    noness_dual_load = config.grid.nonessential_dual; // set default value
-    } else {
-    noness_dual_load = 'no'; // override with provided value
-    }  
-
-    let grid_showdailybuy = "";
-    if (config && config.grid && config.grid.show_daily_buy) {
-    grid_showdailybuy = config.grid.show_daily_buy; // set default value
-    } else {
-    grid_showdailybuy = 'no'; // override with provided value
-    } 
-    
-    let grid_showdailysell = "";
-    if (config && config.grid && config.grid.show_daily_sell) {
-    grid_showdailysell = config.grid.show_daily_sell; // set default value
-    } else {
-    grid_showdailysell = 'no'; // override with provided value
-    } 
-
-    let battery_colour = "";
-    if (config && config.battery && config.battery.colour) {
-    battery_colour = config.battery.colour; // set default value
-    } else {
-    battery_colour = 'pink'; // override with provided value
-    }
-
-    let battery_showdaily = "";
-    if (config && config.battery && config.battery.show_daily) {
-    battery_showdaily = config.battery.show_daily; // set default value
-    } else {
-    battery_showdaily = 'no'; // override with provided value
-    }
-
-    let solar_colour = "";
-    if (config && config.solar && config.solar.colour) {
-    solar_colour = config.solar.colour; // set default value
-    } else {
-    solar_colour = 'orange'; // override with provided value
-    }
-
-    let solar_showdaily = "";
-    if (config && config.solar && config.solar.show_daily) {
-    solar_showdaily = config.solar.show_daily; // set default value
-    } else {
-    solar_showdaily = 'no'; // override with provided value
-    }    
-
-    let show_aux = "";
-    if (config && config.load && config.load.show_aux) {
-    show_aux = config.load.show_aux; // set default value
-    } else {
-    show_aux = 'no'; // override with provided value
-    }
-
-    let aux_type = "";
-    if (config && config.load && config.load.aux_type == 'gen') {
-      aux_type = 'gen'; 
-    } else if (config && config.load && config.load.aux_type == 'inverter'){
-      aux_type = 'inverter';
-    } else {
-      aux_type = 'default';
-    }
-
-    let remaining_solar ="";
-    if (!config.entities.remaining_solar) {
-      remaining_solar = 'false';
-    } else {
-      remaining_solar = parseFloat(stateObj36.state).toFixed(1);
-    }
-
     //Calculate power use animation speeds depending on Inverter size
-    let solar_animation_speed = "9"
+    let solar_animation_speed = config?.solar?.animation_speed || "9";
     if (config && config.solar && config.solar.animation_speed) {
-      let speed = config.solar.animation_speed - ((config.solar.animation_speed-1) * (totalsolar / config.solar.max_power || totalsolar))
-      solar_animation_speed = `${speed >= 1 ? speed : 1}` 
-    } else {
-      solar_animation_speed = "9"
+      let speed = config.solar.animation_speed - ((config.solar.animation_speed - 1) * (totalsolar / (config.solar.max_power || totalsolar)));
+      solar_animation_speed = `${speed >= 1 ? speed : 1}`;
     }
     
-    let battery_animation_speed = "6"
+    let battery_animation_speed = config?.battery?.animation_speed || "6";
     if (config && config.battery && config.battery.animation_speed) {
-      let speed = config.battery.animation_speed - ((config.battery.animation_speed-1) * (`${battery_power < '0' ? battery_power *-1 : battery_power}` / config.battery.max_power || `${battery_power < '0' ? battery_power *-1 : battery_power}`))
-      battery_animation_speed = `${speed >= 1 ? speed : 1}` 
-    } else {
-      battery_animation_speed = "6"
+      let speed = config.battery.animation_speed - ((config.battery.animation_speed - 1) * (`${battery_power < '0' ? battery_power * -1 : battery_power}` / (config.battery.max_power || `${battery_power < '0' ? battery_power * -1 : battery_power}`)));
+      battery_animation_speed = `${speed >= 1 ? speed : 1}`;
     }
     
-    let load_animation_speed = "4"
+    let load_animation_speed = config?.load?.animation_speed || "4";
     if (config && config.load && config.load.animation_speed) {
-      let speed = config.load.animation_speed - ((config.load.animation_speed-1) * (essential / config.load.max_power || essential))
-      load_animation_speed = `${speed >= 1 ? speed : 1}` 
-    } else {
-      load_animation_speed = "4"
+      let speed = config.load.animation_speed - ((config.load.animation_speed - 1) * (essential / (config.load.max_power || essential)));
+      load_animation_speed = `${speed >= 1 ? speed : 1}`;
     }
 
-    let aux_animation_speed = "4"
+    let aux_animation_speed = config?.load?.animation_speed || "4";
     if (config && config.load && config.load.animation_speed) {
-      let speed = config.load.animation_speed - ((config.load.animation_speed-1) * (`${parseInt(stateObj24.state) < '0' ? parseInt(stateObj24.state) *-1 : parseInt(stateObj24.state)}` / config.load.max_power || `${parseInt(stateObj24.state) < '0' ? parseInt(stateObj24.state) *-1 : parseInt(stateObj24.state)}`))
-      aux_animation_speed = `${speed >= 1 ? speed : 1}` 
-    } else {
-      aux_animation_speed = "4"
-    }
-    
-    let grid_animation_speed = "8"
-    if (config && config.grid && config.grid.animation_speed) {
-      let speed = config.grid.animation_speed - ((config.grid.animation_speed-1) * (`${parseInt(stateObj15.state) < '0' ? parseInt(stateObj15.state) *-1 : parseInt(stateObj15.state)}` / config.grid.max_power || `${parseInt(stateObj15.state) < '0' ? parseInt(stateObj15.state) *-1 : parseInt(stateObj15.state)}`))
-      grid_animation_speed = `${speed >= 1 ? speed : 1}` 
-    } else {
-      grid_animation_speed = "8"
+      let speed = config.load.animation_speed - ((config.load.animation_speed - 1) * (`${parseInt(stateObj24.state) < '0' ? parseInt(stateObj24.state) * -1 : parseInt(stateObj24.state)}` / (config.load.max_power || `${parseInt(stateObj24.state) < '0' ? parseInt(stateObj24.state) * -1 : parseInt(stateObj24.state)}`)));
+      aux_animation_speed = `${speed >= 1 ? speed : 1}`;
     }
 
-    let ne_animation_speed = "4"
+    let grid_animation_speed = config?.grid?.animation_speed || "8";
     if (config && config.grid && config.grid.animation_speed) {
-      let speed = config.grid.animation_speed - ((config.grid.animation_speed-1) * (nonessential / config.grid.max_power || nonessential))
-      ne_animation_speed = `${speed >= 1 ? speed : 1}` 
-    } else {
-      ne_animation_speed = "4"
+      let speed = config.grid.animation_speed - ((config.grid.animation_speed - 1) * (`${parseInt(stateObj15.state) < '0' ? parseInt(stateObj15.state) * -1 : parseInt(stateObj15.state)}` / (config.grid.max_power || `${parseInt(stateObj15.state) < '0' ? parseInt(stateObj15.state) * -1 : parseInt(stateObj15.state)}`)));
+      grid_animation_speed = `${speed >= 1 ? speed : 1}`;
+    }
+
+    let ne_animation_speed = config?.grid?.animation_speed || "4";
+    if (config && config.grid && config.grid.animation_speed) {
+      let speed = config.grid.animation_speed - ((config.grid.animation_speed - 1) * (nonessential / (config.grid.max_power || nonessential)));
+      ne_animation_speed = `${speed >= 1 ? speed : 1}`;
     }
 
     if (config.cardstyle === 'full') {
