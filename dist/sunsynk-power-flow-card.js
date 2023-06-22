@@ -258,7 +258,7 @@ class SunsynkPowerFlowCard extends LitElement {
 
       const timer_now = new Date(); // Create a new Date object representing the current time
 
-      const progTimes = [prog_time1, prog_time2, prog_time3, prog_time4, prog_time5, prog_time6];
+      const progTimes = [null, null, null, null, null, null];
 
       [prog1, prog2, prog3, prog4, prog5, prog6].forEach((prog, index) => {
         const [hours, minutes] = prog.time.state.split(":");
@@ -266,6 +266,8 @@ class SunsynkPowerFlowCard extends LitElement {
         progTimes[index].setHours(hours);
         progTimes[index].setMinutes(minutes);
       });
+
+      const [prog_time1, prog_time2, prog_time3, prog_time4, prog_time5, prog_time6] = progTimes;
 
       if (timer_now >= prog_time6 || timer_now < prog_time1) {
         assignInverterProgValues(prog6, config.entities.prog6_charge);
