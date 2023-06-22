@@ -134,6 +134,7 @@ These attributes are only needed if `show_solar` is set to `yes`
 |show_daily_buy: | Optional | `no` | Toggles the Daily Buy Total (`yes/no`) |
 |show_daily_sell: | Optional | `no` | Toggles the Daily Sell Total (`yes/no`) |
 |show_nonessential: | Optional |`yes` | Toggles the display of Non-Essential (`yes/no`)|
+|nonessential_icon: | Optional | `default` | Change the nonessential image. Options are `default`, `oven`, `boiler`, `charger`, `pump` |
 |nonessential_name: | Optional | `Non Essential` |Set the display name for the Non-Essential Load
 |nonessential_dual: | Optional |`no`| Toggle the display of two Non-Essential loads (`yes/no`)
 |load1_name: | Optional | `Load 1` | Set the display name for the Non-Essential Load 1
@@ -374,6 +375,7 @@ grid:
   show_nonessential: 'yes'
   invert_grid: 'no'
   nonessential_name: Non Essential
+  nonessential_icon: charger
   nonessential_dual: 'yes'
   load1_name: Load 1
   load2_name: Load 2
