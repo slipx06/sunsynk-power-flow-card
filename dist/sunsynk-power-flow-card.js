@@ -258,25 +258,14 @@ class SunsynkPowerFlowCard extends LitElement {
 
       const timer_now = new Date(); // Create a new Date object representing the current time
 
-      let prog_time1 = new Date(timer_now.getTime());
-      let prog_time2 = new Date(timer_now.getTime());
-      let prog_time3 = new Date(timer_now.getTime());
-      let prog_time4 = new Date(timer_now.getTime());
-      let prog_time5 = new Date(timer_now.getTime());
-      let prog_time6 = new Date(timer_now.getTime());
-      
-      prog_time1.setHours(prog1.time.state.split(":")[0]);
-      prog_time2.setHours(prog2.time.state.split(":")[0]);
-      prog_time3.setHours(prog3.time.state.split(":")[0]);
-      prog_time4.setHours(prog4.time.state.split(":")[0]);
-      prog_time5.setHours(prog5.time.state.split(":")[0]);
-      prog_time6.setHours(prog6.time.state.split(":")[0]);
-      prog_time1.setMinutes(prog1.time.state.split(":")[1]);
-      prog_time2.setMinutes(prog2.time.state.split(":")[1]);
-      prog_time3.setMinutes(prog3.time.state.split(":")[1]);
-      prog_time4.setMinutes(prog4.time.state.split(":")[1]);
-      prog_time5.setMinutes(prog5.time.state.split(":")[1]);
-      prog_time6.setMinutes(prog6.time.state.split(":")[1]);
+      const progTimes = [prog_time1, prog_time2, prog_time3, prog_time4, prog_time5, prog_time6];
+
+      [prog1, prog2, prog3, prog4, prog5, prog6].forEach((prog, index) => {
+        const [hours, minutes] = prog.time.state.split(":");
+        progTimes[index] = new Date(timer_now.getTime());
+        progTimes[index].setHours(hours);
+        progTimes[index].setMinutes(minutes);
+      });
 
       if (timer_now >= prog_time6 || timer_now < prog_time1) {
         assignInverterProgValues(prog6, config.entities.prog6_charge);
