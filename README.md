@@ -139,6 +139,8 @@ These attributes are only needed if `show_solar` is set to `yes`
 |nonessential_dual: | Optional |`no`| Toggle the display of two Non-Essential loads (`yes/no`)
 |load1_name: | Optional | `Load 1` | Set the display name for the Non-Essential Load 1
 |load2_name: | Optional | `Load 2` |Set the display name for the Non-Essential Load 2
+|load1_icon: | Optional | `default` | Change the nonessential load 1 image. Options are `default`, `oven`, `boiler`, `charger`, `pump` |
+|load2_icon: | Optional | `default` | Change the nonessential load 2 image. Options are `default`, `oven`, `boiler`, `charger`, `pump` |
 |invert_grid:| Optional | `no`| Set to `yes` if your sensor provides a negative number for Grid import and positive number for Grid export |
 |animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on Power draw | 
 |max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
