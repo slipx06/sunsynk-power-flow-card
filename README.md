@@ -134,7 +134,7 @@ These attributes are only needed if `show_solar` is set to `yes`
 |show_daily_buy: | Optional | `no` | Toggles the Daily Buy Total (`yes/no`) |
 |show_daily_sell: | Optional | `no` | Toggles the Daily Sell Total (`yes/no`) |
 |show_nonessential: | Optional |`yes` | Toggles the display of Non-Essential (`yes/no`)|
-|nonessential_icon: | Optional | `default` | Change the nonessential image. Options are `default`, `oven`, `boiler`, `charger`, `pump` |
+|nonessential_icon: | Optional | `default` | Change the nonessential image. Options are: <br /> <img height="25px" src="https://api.iconify.design/mdi/house-import-outline.svg"> `default`  <img height="25px" src="https://api.iconify.design/fluent/oven-32-regular.svg"> `oven`, <img height="25px" src="https://api.iconify.design/material-symbols/water-heater.svg"> `boiler`, <img height="25px" src="https://api.iconify.design/material-symbols/ev-charger.svg"> `charger`, <img height="25px" src="https://api.iconify.design/material-symbols/water-pump-outline.svg"> `pump`,  <img height="25px" src="https://api.iconify.design/mdi/air-conditioner.svg"> `aircon` </br> |
 |nonessential_name: | Optional | `Non Essential` |Set the display name for the Non-Essential Load
 |nonessential_dual: | Optional |`no`| Toggle the display of two Non-Essential loads (`yes/no`)
 |load1_name: | Optional | `Load 1` | Set the display name for the Non-Essential Load 1
