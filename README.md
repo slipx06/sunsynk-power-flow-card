@@ -121,7 +121,7 @@ These attributes are only needed if `show_solar` is set to `yes`
 |animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on Power draw | 
 |max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
 |aux_name: | Optional | `Auxilary` | Set the display name for the Auxilary Load
-|aux_type: | Optional | `default` | Changes the AUX image. (`gen`, `inverter` `default`, `oven`, `pump`, `aicron`, `boiler`, `charger`)
+|aux_type: | Optional | `default` | Changes the AUX image. (`gen`, `inverter` `default`, `oven`, `pump`, `aircon`, `boiler`, `charger`)
 | additional_loads: | Optional | `no` | Display additional loads on the essential side (`one/two/no`) 
 | load1_name: | Optional | `Load 1` | Set the display name for the Essential Load 1
 | load2_name: | Optional | `Load 2` | Set the display name for the Essential Load 2
