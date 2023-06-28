@@ -1266,7 +1266,7 @@ class SunsynkPowerFlowCardDarren extends LitElement {
               <text id="battery_voltage_183" x="265" y="77" fill=${battery_colour} class="${font === 'no' ? 'st14' : 'st4'} st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
-              <text id="battery_soc_184" x="290" y="358" display="${config.entities.battery_soc_184 === 'none' ? 'none' : ''}" fill=${battery_colour} class="st13 st8 left-align">${parseInt(stateObj12.state) ? parseInt(stateObj12.state) : '0'} %</text>
+              <text id="battery_soc_184" x="390" y="77" display="${config.entities.battery_soc_184 === 'none' ? 'none' : ''}" fill=${battery_colour} class="st13 st8 left-align">${parseInt(stateObj12.state) ? parseInt(stateObj12.state) : '0'} %</text>
             </a> 
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
               <text id="battery_soc_184" x="390" y="77" fill=${battery_colour} class="st13 st8 left-align" display="${inverter_prog.show === 'no' || config.entities.battery_soc_184 === 'none' ? 'none' : ''}"> | ${inverter_prog.capacity ? inverter_prog.capacity : '0'} %</text>
@@ -1338,7 +1338,7 @@ class SunsynkPowerFlowCardDarren extends LitElement {
             : svg`<text id="pv4_power_189" x="366" y="71" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' || config.entities.pv4_power_189 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}">${stateObj32.state ? stateObj32.state : '0'} W</text>`}
             ${config.entities.essential_power !== 'none'
             ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_power)}>
-                    <text id="ess_power" x="340.1" y="219.2" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential ? essential : '0'} W</text>
+                    <text id="ess_power" x="340.1" y="200" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential ? essential : '0'} W</text>
                   </a>`
             : svg`<text id="ess_power" x="340.1" y="200" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential ? essential : '0'} W</text>`}
           </svg>
