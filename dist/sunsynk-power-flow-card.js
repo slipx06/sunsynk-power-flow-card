@@ -498,10 +498,10 @@ class SunsynkPowerFlowCard extends LitElement {
             <text id="noness2" x="358" y="338" class="st3 st8" display="${grid_show_noness === 'no' || noness_dual_load === 'no' ? 'none' : ''}" fill="${grid_colour}">${config?.grid?.load2_name ? `${config.grid.load2_name}` : 'Load 2'  }</text>
             <text id="noness2_value" x="320"" y="321" class="st3" display="${grid_show_noness === 'no' || noness_dual_load === 'no' ? 'none' : ''}" fill="${grid_colour}">${parseFloat(stateObj40.state).toFixed(0) ? parseFloat(stateObj40.state).toFixed(0) : '0'} W</text>
             <text id="noness2_value" x="357" y="321" class="st3" display="${grid_show_noness === 'no' || noness_dual_load === 'no' ? 'none' : ''}" fill="${grid_colour}">${parseFloat(stateObj41.state).toFixed(0) ? parseFloat(stateObj41.state).toFixed(0) : '0'} W</text>
-            <text id="autarkye_value" x="46.5%" y="74%" display="${useautarky === 'no' || useautarky === 'power' ? 'none' : ''}" class="st4 st8 left-align" fill="${inverter_colour}" >${Autarky}%</text>
-            <text id="ratioe_value" x="55%" y="74%" display="${useautarky === 'no' || useautarky === 'power' ? 'none' : ''}" class="st4 st8 left-align" fill="${inverter_colour}" >${Ratio}%</text>
-            <text id="autarkyp_value" x="46.5%" y="74%" display="${useautarky === 'no' || useautarky === 'energy' ? 'none' : ''}" class="st4 st8 left-align" fill="${inverter_colour}" >${Autarkyp}%</text>
-            <text id="ratiop_value" x="55%" y="74%" display="${useautarky === 'no' || useautarky === 'energy' ? 'none' : ''}" class="st4 st8 left-align" fill="${inverter_colour}" >${Ratiop}%</text>
+            <text id="autarkye_value" x="46.5%" y="74%" display="${useautarky === 'no' ? 'none' : ''}" class="${useautarky === 'energy' ? "st4 st8 left-align" : "st12"}" fill="${inverter_colour}" >${Autarky}%</text>
+            <text id="ratioe_value" x="55%" y="74%" display="${useautarky === 'no' ? 'none' : ''}" class="${useautarky === 'energy' ? "st4 st8 left-align" : "st12"}" fill="${inverter_colour}" >${Ratio}%</text>
+            <text id="autarkyp_value" x="46.5%" y="74%" display="${useautarky === 'no' ? 'none' : ''}" class="${useautarky === 'power' ? "st4 st8 left-align" : "st12"}" fill="${inverter_colour}" >${Autarkyp}%</text>
+            <text id="ratiop_value" x="55%" y="74%" display="${useautarky === 'no' ? 'none' : ''}" class="${useautarky === 'power' ? "st4 st8 left-align" : "st12"}" fill="${inverter_colour}" >${Ratiop}%</text>
             <text id="autarky" x="46.5%" y="77%" display="${useautarky === 'no' ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >Autarky</text>
             <text id="ratio" x="55%" y="77%" display="${useautarky === 'no' ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >Ratio</text>
 
@@ -802,7 +802,7 @@ class SunsynkPowerFlowCard extends LitElement {
         </div>
       `;
     }
-    
+
     if (config.cardstyle === 'lite') {
       return html`
         <div class="container card">
@@ -835,10 +835,10 @@ class SunsynkPowerFlowCard extends LitElement {
             <text x="264" y="94" class="st3 st8" display="${config.show_solar === 'no'  || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}">${!(config.solar.pv2_name) ? 'PV2' : `${config.solar.pv2_name}`}</text>
             <text x="88" y="94" class="st3 st8" display="${config.show_solar === 'no'  || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}">${!(config.solar.pv3_name) ? 'PV3' : `${config.solar.pv3_name}`}</text>
             <text x="340" y="94" class="st3 st8" display="${config.show_solar === 'no'  || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}">${!(config.solar.pv4_name) ? 'PV4' : `${config.solar.pv4_name}`}</text>
-            <text id="autarkye_value" x="130" y="260" display="${useautarky === 'no' || useautarky === 'power' ? 'none' : ''}" class="st4 st8 left-align" fill="${inverter_colour}" >${Autarky}%</text>
-            <text id="ratioe_value" x="173" y="260" display="${useautarky === 'no' || useautarky === 'power' ? 'none' : ''}" class="st4 st8 left-align" fill="${inverter_colour}" >${Ratio}%</text>
-            <text id="autarkyp_value" x="130" y="260" display="${useautarky === 'no' || useautarky === 'energy' ? 'none' : ''}" class="st4 st8 left-align" fill="${inverter_colour}" >${Autarkyp}%</text>
-            <text id="ratiop_value" x="173" y="260" display="${useautarky === 'no' || useautarky === 'energy' ? 'none' : ''}" class="st4 st8 left-align" fill="${inverter_colour}" >${Ratiop}%</text>
+            <text id="autarkye_value" x="130" y="260" display="${useautarky === 'no' ? 'none' : ''}" class="${useautarky === 'energy' ? "st4 st8 left-align" : "st12"}" fill="${inverter_colour}" >${Autarky}%</text>
+            <text id="ratioe_value" x="173" y="260" display="${useautarky === 'no' ? 'none' : ''}" class="${useautarky === 'energy' ? "st4 st8 left-align" : "st12"}" fill="${inverter_colour}" >${Ratio}%</text>
+            <text id="autarkyp_value" x="130" y="260" display="${useautarky === 'no' ? 'none' : ''}" class="${useautarky === 'power' ? "st4 st8 left-align" : "st12"}" fill="${inverter_colour}" >${Autarkyp}%</text>
+            <text id="ratiop_value" x="173" y="260" display="${useautarky === 'no' ? 'none' : ''}" class="${useautarky === 'power' ? "st4 st8 left-align" : "st12"}" fill="${inverter_colour}" >${Ratiop}%</text>
             <text id="autarky" x="130" y="273" display="${useautarky === 'no' ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >Autarky</text>
             <text id="ratio" x="173" y="273" display="${useautarky === 'no' ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >Ratio</text>
             <text id="es-load1" x="445" y="157" class="st3 left-align" display="${additional_load === 'one' ? '' : 'none'}" fill="${load_colour}" >${config?.load?.load1_name ? `${config.load.load1_name}` : 'Load 1' }</text>
