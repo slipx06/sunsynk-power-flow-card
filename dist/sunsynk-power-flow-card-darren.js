@@ -1,6 +1,6 @@
 import { LitElement, html, css, svg } from "https://unpkg.com/lit-element@2.0.1/lit-element.js?module";
 
-class SunsynkPowerFlowCardEditor extends LitElement {
+class SunsynkPowerFlowCardDarrenEditor extends LitElement {
   setConfig(config) {
     this._config = config;
   }
@@ -15,7 +15,7 @@ class SunsynkPowerFlowCardEditor extends LitElement {
   }
 }
 
-class SunsynkPowerFlowCard extends LitElement {
+class SunsynkPowerFlowCardDarren extends LitElement {
   static get styles() {
     return css`
       .container {
@@ -1074,6 +1074,277 @@ class SunsynkPowerFlowCard extends LitElement {
         </div>
       `;
     }
+    if (config.cardstyle === 'simple') {
+      return html`
+        <div class="container card">
+          <svg viewBox="-0.5 ${config.show_solar === 'no' ? 145.33 : -0.5} 483 ${config.show_solar === 'no' ? 270.67 : 280}" height="${panel === 'no' ? `${config.show_solar === 'no' ? '246px' : '280px'}` : `${config.show_solar === 'no' ? '75%' : '100%'}`}" width="100%"  xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+            <rect x="304" y="184.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${load_colour}" pointer-events="all"/>
+            <rect x="51" y="116.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === 'no' ? 'st12' : ''}"/>
+            <rect x="230" y="60" width="70" height="70" rx="10.5" ry="10.5" fill="none" stroke="${battery_colour}" pointer-events="all"/>
+            <rect x="103" y="184.5" width="70" height="29.5" rx="4.42" ry="4.42" fill="none" stroke="${grid_colour}" pointer-events="all"/>
+            <rect id="pv1 "x="0" y="54.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === 'no'  ? 'st12' : ''}"/>
+            <rect id="pv2 "x="100" y="54.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === 'no' || config.solar.mppts === 'one' ? 'st12' : ''}"/>
+            <rect id="pv3" x="78" y="54.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'st12' : ''}"/>
+            <rect id="pv4" x="330" y="54.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'st12' : ''}"/>
+            <rect id="es-load1" x="406" y="116.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${load_colour}" pointer-events="all" display="${additional_load === 'one' ? '' : 'none'}"/>
+            <rect id="es-load1" x="406" y="116.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${load_colour}" pointer-events="all" display="${additional_load === 'two' ? '' : 'none'}"/>
+            <rect id="es-load2" x="406" y="290" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${load_colour}" pointer-events="all" display="${additional_load === 'two' ? '' : 'none'}"/>
+            
+            <text id="duration" x="390" y="100" class="${font === 'no' ? 'st14' : 'st4'} left-align" fill="${config.battery.energy === 'hidden' || float === 'True' || battery_power === 0 ? 'transparent' : `${battery_colour}`}" >${duration}</text>
+            <text id="duration_text" x="390" y="120" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power <= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >RUNTIME TO ${battery_capacity}% @${formattedResultTime}</text>
+            <text id="duration_text_charging" x="390" y="120" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power >= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >TO ${battery_capacity}% CHARGE @${formattedResultTime}</text>
+            <text id="floating" x="390" y="120" class="st3 left-align" fill="${config.battery.energy === 'hidden' || float === 'False' ? 'transparent' : `${battery_colour}`}" >BATTERY FLOATING</text>
+            <text id="daily_bat_charge" x="77.2" y="357.2" class="st12 left-align"  fill="${battery_showdaily === 'no' ? 'transparent' : `${battery_colour}`}"  >DAILY CHARGE</text>
+            <text id="daily_bat_dischcharge" x="77.2" y="393.7" class="st12 left-align"  fill="${battery_showdaily === 'no' ? 'transparent' : `${battery_colour}`}" >DAILY DISCHARGE</text>
+            <text id="daily_load" x="${additional_load === 'two' ? '365' : '310'}" y="${additional_load === 'two' ? '182.2' : '245'}" class="st3 left-align" fill="${load_showdaily === 'no' ? 'transparent' : `${load_colour}`}" >DAILY LOAD</text>
+            <text id="daily_grid_buy" x="60" y="230" class="st3 left-align" fill="${grid_showdailybuy === 'no' ? 'transparent' : `${grid_colour}`}" >DAILY BUY</text>
+            <text id="daily_grid_sell" x="150" y="230" class="st3 left-align" fill="${grid_showdailysell === 'no' ? 'transparent' : `${grid_colour}`}" >DAILY SELL</text>
+            <text id="daily_solar" x="46" y="40" class="st3 left-align" fill="${solar_showdaily === 'no' || config.show_solar === 'no' || remaining_solar != 'false' ? 'transparent' : `${solar_colour}`}">DAILY SOLAR</text>
+            <text id="remaining_solar" x="46" y="40" class="st3 left-align" fill="${solar_showdaily === 'no' || config.show_solar === 'no' || remaining_solar === 'false' ? 'transparent' : `${solar_colour}`}" >DAILY SOLAR / LEFT TODAY</text>
+            <text id="pvtotal_power" x="84.8" y="133.9" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${totalsolar ? totalsolar : '0'} W</text>
+            <text x="8" y="94" class="st3 st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${!(config.solar.pv1_name) ? 'PV1' : `${config.solar.pv1_name}`}</text>
+            <text x="110" y="94" class="st3 st8" display="${config.show_solar === 'no'  || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}">${!(config.solar.pv2_name) ? 'PV2' : `${config.solar.pv2_name}`}</text>
+            <text x="88" y="94" class="st3 st8" display="${config.show_solar === 'no'  || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}">${!(config.solar.pv3_name) ? 'PV3' : `${config.solar.pv3_name}`}</text>
+            <text x="340" y="94" class="st3 st8" display="${config.show_solar === 'no'  || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}">${!(config.solar.pv4_name) ? 'PV4' : `${config.solar.pv4_name}`}</text>
+            <text id="autarkye_value" x="130" y="260" display="${useautarky === 'no' || useautarky === 'power' ? 'none' : ''}" class="st4 st8 left-align" fill="${inverter_colour}" >${Autarky}%</text>
+            <text id="ratioe_value" x="173" y="260" display="${useautarky === 'no' || useautarky === 'power' ? 'none' : ''}" class="st4 st8 left-align" fill="${inverter_colour}" >${Ratio}%</text>
+            <text id="autarkyp_value" x="130" y="260" display="${useautarky === 'no' || useautarky === 'energy' ? 'none' : ''}" class="st4 st8 left-align" fill="${inverter_colour}" >${Autarkyp}%</text>
+            <text id="ratiop_value" x="173" y="260" display="${useautarky === 'no' || useautarky === 'energy' ? 'none' : ''}" class="st4 st8 left-align" fill="${inverter_colour}" >${Ratiop}%</text>
+            <text id="autarky" x="130" y="273" display="${useautarky === 'no' ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >Autarky</text>
+            <text id="ratio" x="173" y="273" display="${useautarky === 'no' ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >Ratio</text>
+            <text id="es-load1" x="445" y="157" class="st3 left-align" display="${additional_load === 'one' ? '' : 'none'}" fill="${load_colour}" >${config?.load?.load1_name ? `${config.load.load1_name}` : 'Load 1' }</text>
+            <text id="ess_load1" x="440" y="133" display="${additional_load === 'one' ? '' : 'none'}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${load_colour}">${parseFloat(stateObj42.state).toFixed(0) ? parseFloat(stateObj42.state).toFixed(0) : '0'} W</text>
+            <text id="es-load1" x="445" y="157" class="st3 left-align" display="${additional_load === 'two' ? '' : 'none'}" fill="${load_colour}" >${config?.load?.load1_name ? `${config.load.load1_name}` : 'Load 1' }</text>
+            <text id="ess_load1" x="440" y="133" display="${additional_load === 'two' ? '' : 'none'}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${load_colour}">${parseFloat(stateObj42.state).toFixed(0) ? parseFloat(stateObj42.state).toFixed(0) : '0'} W</text>
+            <text id="es-load2" x="445" y="330.5" class="st3 left-align" display="${additional_load === 'two' ? '' : 'none'}" fill="${load_colour}" >${config?.load?.load2_name ? `${config.load.load2_name}` : 'Load 2' }</text>
+            <text id="ess_load2" x="440" y="306.5" display="${additional_load === 'two' ? '' : 'none'}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${load_colour}">${parseFloat(stateObj45.state).toFixed(0) ? parseFloat(stateObj45.state).toFixed(0) : '0'} W</text>
+
+            <circle id="standby" cx="220" cy="260" r="3.5" fill="${inverterStateColour}" class="st12"/>
+            
+            <path id="pv1-line" d="M 33 84 L 33 122 Q 33 132 41 132 L 51 132.03" class="${config.show_solar === 'no' ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+            <circle id="pv1-dot" cx="0" cy="0" r="3" class="${config.show_solar === 'no' ? 'st12' : ''}" fill="${parseInt(stateObj9.state) <= 0 ? 'transparent' : `${solar_colour}`}">
+              <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+                <mpath xlink:href="#pv1-line"/>
+              </animateMotion>
+            </circle>
+            <path id="pv2-line" d="M 135 84.5 L 135 125 Q 135 132 128 132 L 121 132" class="${config.show_solar === 'no' || config.solar.mppts === 'one' ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+            <circle id="pv2-dot" cx="0" cy="0" r="3" class="${config.show_solar === 'no' || config.solar.mppts === 'one' ? 'st12' : ''}" fill="${parseInt(stateObj8.state) <= 0 ? 'transparent' : `${solar_colour}`}">
+              <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+                <mpath xlink:href="#pv2-line"/>  
+              </animateMotion>
+            </circle>
+            <path id="pv3-line" d="M 113 84 L 113 125 Q 113 132 120 132 L 205 132.03" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+            <circle id="pv3-dot" cx="0" cy="0" r="3" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'st12' : ''}" fill="${parseInt(stateObj31.state) <= 0 ? 'transparent' : `${solar_colour}`}">
+            <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+              <mpath xlink:href="#pv3-line"/>  
+            </animateMotion>
+            </circle>
+            <path id="pv4-line" d="M 365 85 L 365 125 Q 365 132 358 132 L 275 132" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+            <circle id="pv4-dot" cx="0" cy="0" r="3" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'st12' : ''}" fill="${parseInt(stateObj32.state) <= 0 ? 'transparent' : `${solar_colour}`}">
+            <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+              <mpath xlink:href="#pv4-line"/>  
+            </animateMotion>
+            </circle>
+            <path id="bat-line" d="M 264.7 170 L 304 170 Q 304 170 304 170 L 304 140" fill="none" stroke="${battery_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+            <circle id="power-dot-charge" cx="0" cy="0" r="3" fill="${parseInt(battery_power) < 0 || parseInt(battery_power) === 0 ? 'transparent' : `${battery_colour}`}">
+              <animateMotion dur="${battery_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+                <mpath xlink:href="#bat-line"/>
+              </animateMotion>
+            </circle>
+            <circle id="power-dot-discharge" cx="0" cy="0" r="3" fill="${parseInt(battery_power) > 0 || parseInt(battery_power) === 0 ? 'transparent' : `${battery_colour}`}">
+              <animateMotion dur="${battery_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+                <mpath xlink:href="#bat-line"/>
+              </animateMotion>
+            </circle>
+            <path id="so-line" d="M 85.23 146.4 L 85.23 164.02 Q 85.23 170 93.23 170 L 213 170" class="${config.show_solar === 'no' ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+            <circle id="so-dot" cx="0" cy="0" r="3" class="${config.show_solar === 'no' ? 'st12' : ''}" fill="${totalsolar === 0 ? 'transparent' : `${solar_colour}`}">
+              <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+                <mpath xlink:href="#so-line"/>
+              </animateMotion>
+            </circle>
+            <path id="grid-line" d="M 173 200 L 214 200" fill="none" stroke="${grid_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${grid_power < 0 || grid_power === 0 ? 'transparent' : `${grid_colour}`}">
+              <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+                <mpath xlink:href="#grid-line"/>
+              </animateMotion>
+            </circle>
+            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${grid_power > 0 || grid_power === 0 ? 'transparent' : `${grid_colour}`}">
+              <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+                <mpath xlink:href="#grid-line"/>
+              </animateMotion>
+            </circle>
+            <path id="grid-line1" d="M 103 200 L 64.5 200" fill="none" stroke="${grid_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+            <circle id="grid-dot1" cx="0" cy="0" r="3" fill="${grid_power < 0 || grid_power === 0 ? 'transparent' : `${grid_colour}`}">
+              <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+                <mpath xlink:href="#grid-line1"/>
+              </animateMotion>
+            </circle>
+            <circle id="grid-dot1" cx="0" cy="0" r="3" fill="${grid_power > 0 || grid_power === 0 ? 'transparent' : `${grid_colour}`}">
+              <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+                <mpath xlink:href="#grid-line1"/>
+              </animateMotion>
+            </circle>
+            <path id="es-line" d="M 304 200 L 264.7 200" fill="none" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+            <circle id="es-dot" cx="0" cy="0" r="3" fill="${essential === 0 ? 'transparent' : `${load_colour}`}">
+              <animateMotion dur="${load_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+                <mpath xlink:href="#es-line"/>
+              </animateMotion>
+            </circle>
+            <path id="es-line1" d="M 374 200 L 402.38 200" fill="none" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+            <circle id="es-dot" cx="0" cy="0" r="3" fill="${essential === 0 ? 'transparent' : `${load_colour}`}">
+              <animateMotion dur="${load_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+                <mpath xlink:href="#es-line1"/>
+              </animateMotion>
+            </circle>
+            <path id="es-load1" d="M 441 180 L 441 147" class="${additional_load === 'one' ? '' : 'st12'}" fill="none" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+            <path id="es-load1" d="M 441 180 L 441 147" class="${additional_load === 'two' ? '' : 'st12'}" fill="none" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+            <path id="es-load2" d="M 441 290 L 441 257" class="${additional_load === 'two' ? '' : 'st12'}" fill="none" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+            
+            <svg xmlns="http://www.w3.org/2000/svg" id="sun" x="0" y="10" width="40" height="40" viewBox="0 0 24 24"><path class="${config.show_solar === 'no' ? 'st12' : ''}" fill="${solar_colour}" d="M11.45 2v3.55L15 3.77L11.45 2m-1 6L8 10.46l3.75 1.25L10.45 8M2 11.45L3.77 15l1.78-3.55H2M10 2H2v8c.57.17 1.17.25 1.77.25c3.58.01 6.49-2.9 6.5-6.5c-.01-.59-.1-1.18-.27-1.75m7 20v-6h-3l5-9v6h3l-5 9Z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" id="bat-high" x="300" y="60" width="78.75" height="78.75" preserveAspectRatio="none" opacity="${parseInt(stateObj12.state) > '80' ? '1' : '0'}" viewBox="0 0 24 24"> <path fill="${battery_colour}" d="M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 11 16 H 5 v 3 h 6 v -3 m 0 -9 H 5 v 3 h 6 V 7 m 0 4.5 H 5 v 3 h 6 v -3 h -3 h 3"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" id="bat-med" x="300" y="60" width="78.75" height="78.75" preserveAspectRatio="none" opacity="${parseInt(stateObj12.state) >= 50 && parseInt(stateObj12.state) <= 80 ? '1' : '0'}" viewBox="0 0 24 24"><path fill="${battery_colour}" d="M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 11 16 H 5 v 3 h 6 v -3 m 0 -4.5 H 5 v 3 h 6 v -3 h -3 h 3"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" id="bat-low" x="300" y="60" width="78.75" height="78.75" preserveAspectRatio="none" opacity="${parseInt(stateObj12.state) > 30 && parseInt(stateObj12.state) <= 49 ? '1' : '0'}" viewBox="0 0 24 24"><path fill="${battery_colour}" d="M 12 20 H 4 V 6 h 8 L 12 6 L 12 20 m 0.67 -15.999 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 11 16 H 5 v 3 h 6 v -3"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" id="bat-empty" x="300" y="60" width="78.75" height="78.75" preserveAspectRatio="none" opacity="${parseInt(stateObj12.state) <= 30 ? '1' : '0'}" viewBox="0 0 24 24"> <path fill="${battery_colour}" d="M 12 6 L 12 20 M 12 20 H 4 l 0.05 -14 h 7.95 m 0.67 -2 h -1.67 V 2 h -6 v 2 H 3.38 a 1.33 1.33 0 0 0 -1.33 1.33 v 15.34 c 0 0.73 0.6 1.33 1.33 1.33 h 9.34 c 0.73 0 1.33 -0.6 1.33 -1.33 V 5.33 A 1.33 1.33 0 0 0 12.72 4 Z"/></svg>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_status_194)}>
+              <svg xmlns="http://www.w3.org/2000/svg" id="transmission_on" x="-0.5" y="170.5" width="64.5" height="64.5" viewBox="0 0 24 24"><path class="${(stateObj20.state) === 'off' || (stateObj20.state) === '0'? 'st12' : ''}" fill="${grid_colour}" d="m8.28 5.45l-1.78-.9L7.76 2h8.47l1.27 2.55l-1.78.89L15 4H9l-.72 1.45M18.62 8h-4.53l-.79-3h-2.6l-.79 3H5.38L4.1 10.55l1.79.89l.73-1.44h10.76l.72 1.45l1.79-.89L18.62 8m-.85 14H15.7l-.24-.9L12 15.9l-3.47 5.2l-.23.9H6.23l2.89-11h2.07l-.36 1.35L12 14.1l1.16-1.75l-.35-1.35h2.07l2.89 11m-6.37-7l-.9-1.35l-1.18 4.48L11.4 15m3.28 3.12l-1.18-4.48l-.9 1.36l2.08 3.12Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" id="transmission_off" x="-0.5" y="170.5" width="64.5" height="64.5" viewBox="0 0 24 24"><path class="${(stateObj20.state) === 'on' || (stateObj20.state) === '1' ? 'st12' : ''}" fill="${no_grid_colour}" d="M22.1 21.5L2.4 1.7L1.1 3l5 5h-.7l-1.3 2.5l1.8.9l.7-1.4h1.5l1 1l-2.9 11h2.1l.2-.9l3.5-5.2l3.5 5.2l.2.9h2.1l-.8-3.2l3.9 3.9l1.2-1.2M9.3 18.1l1.2-4.5l.9 1.3l-2.1 3.2m5.4 0L12.6 15l.2-.3l1.3 1.3l.6 2.1m-.5-7.1h.7l.2.9l-.9-.9m-.1-3h4.5l1.3 2.6l-1.8.9l-.7-1.5h-4.2l-3-3l.5-2h2.6l.8 3M8.4 5.2L6.9 3.7L7.8 2h8.5l1.3 2.5l-1.8.9L15 4H9l-.6 1.2Z"/></svg>
+            </a>
+            <svg xmlns="http://www.w3.org/2000/svg" id="essen" x="402" y="160.5" width="79" height="79" viewBox="0 0 24 24"><path fill="${load_colour}" d="M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z"/></svg>
+            <svg version="1.0" xmlns="http://www.w3.org/2000/svg" x="213.5" y="139.5" width="54" height="79" viewBox="0 0 74 91"  preserveAspectRatio="xMidYMid meet"> <g transform="translate(0.000000,91.000000) scale(0.100000,-0.100000)" fill="${inverter_colour}" stroke="none"> <path d="M35 887 l-27 -23 0 -404 0 -404 27 -23 c26 -23 28 -23 329 -23 284 0 305 1 327 19 l24 19 0 412 0 412 -24 19 c-22 18 -43 19 -327 19 -301 0 -303 0 -329 -23z m585 -157 l0 -80 -255 0 -255 0 0 80 0 80 255 0 255 0 0 -80z m-242 -229 c44 -34 40 -46 -14 -46 -60 0 -97 -38 -93 -94 5 -64 -23 -80 -35 -20 -9 44 24 113 63 134 35 18 34 15 21 50 -11 29 -14 30 58 -24z m110 -129 c4 -51 -19 -97 -59 -117 -27 -14 -30 -20 -23 -48 l6 -31 -51 43 c-29 24 -49 46 -46 49 3 4 23 5 44 3 58 -4 95 32 97 95 3 60 1 57 17 52 6 -3 13 -23 15 -46z"/> </g> </svg>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.use_timer_248)}>
+              <svg xmlns="http://www.w3.org/2000/svg" id="timer" x="267.7" y="243.3" width="18" height="18" viewBox="0 0 24 24"><path display="${stateObj26.state == 'on' && usetimer !== 'no' ? '' : 'none'}" fill="${inverter_colour}" d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0 0 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9a8.994 8.994 0 0 0 7.03-14.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7s7 3.13 7 7s-3.13 7-7 7z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" id="timer_off" x="267.7" y="243.3" width="18" height="18" viewBox="0 0 24 24"><path display="${stateObj26.state == 'off' && usetimer !== 'no' ? '' : 'none'}" fill="${inverter_colour}" d="m19.95 17.15l-1.5-1.5q.275-.675.413-1.337T19 13q0-2.9-2.05-4.95T12 6q-.6 0-1.275.125t-1.4.4l-1.5-1.5q.95-.5 2.012-.763T12 4q1.5 0 2.938.5t2.712 1.45l1.4-1.4l1.4 1.4l-1.4 1.4q.95 1.275 1.45 2.713T21 13q0 1.05-.263 2.087t-.787 2.063ZM13 10.2V8h-2v.2l2 2Zm6.8 12.4l-2.4-2.4q-1.2.875-2.588 1.338T12 22q-1.85 0-3.488-.713T5.65 19.35q-1.225-1.225-1.938-2.863T3 13q0-1.5.463-2.888T4.8 7.6L1.4 4.2l1.4-1.4l18.4 18.4l-1.4 1.4ZM12 20q1.05 0 2.05-.325t1.875-.925L6.2 9.025q-.6.875-.9 1.875T5 13q0 2.9 2.05 4.95T12 20ZM9 3V1h6v2H9Zm2.075 10.875Zm2.825-2.8Z"/></svg>
+              <text id="timer_text_off" x="287" y="254.7" class="st3 left-align" display="${stateObj26.state == 'off' && usetimer !== 'no' ? '' : 'none'}" fill="${inverter_colour}">Timer off</text>
+              <text id="timer_text_on" x="287" y="254.7" class="st3 left-align" display="${stateObj26.state == 'on' && usetimer !== 'no' ? '' : 'none'}" fill="${inverter_colour}">Timer on</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.priority_load_243)}>
+              <svg xmlns="http://www.w3.org/2000/svg" id="pbat" x="267.7" y="262.5" width="18" height="18" viewBox="0 0 24 24"><path display="${stateObj25.state === 'off' && priority !== 'no' ? '' : 'none'}" fill="${inverter_colour}" d="M15.95 21.175L13.1 18.35l1.425-1.4l1.425 1.4l3.525-3.525l1.425 1.4l-4.95 4.95ZM8 22q-.425 0-.713-.288T7 21V5q0-.425.288-.713T8 4h2V2h4v2h2q.425 0 .713.288T17 5v7q-.525 0-1.025.088T15 12.35V6H9v14h2.35q.2.575.488 1.075t.687.925H8Zm1-2h2.35H11h.35H9Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" id="pload" x="267.7" y="262.5" width="18" height="18" viewBox="0 0 24 24"><path display="${stateObj25.state === 'on' && priority !== 'no' ? '' : 'none'}" fill="${inverter_colour}" d="m15 13l-4 4v-3H2v-2h9V9l4 4M5 20v-4h2v2h10v-7.81l-5-4.5L7.21 10H4.22L12 3l10 9h-3v8H5Z"/></svg>
+              <text id="priority_text_batt"x="287" y="273" class="st3 left-align" display="${stateObj25.state === 'off' && priority !== 'no' ? '' : 'none'}" fill="${inverter_colour}">Priority Batt</text>
+              <text id="priority_text_load"x="287" y="273" class="st3 left-align" display="${stateObj25.state === 'on' && priority !== 'no' ? '' : 'none'}" fill="${inverter_colour}">Priority Load</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.solar_sell_247)}>
+              <svg xmlns="http://www.w3.org/2000/svg" id="solar_sell_on" x="245" y="150" width="18" height="18" viewBox="0 0 30 30"><path display="${!config.entities.solar_sell_247 || stateObj44.state === 'off' || stateObj44.state === '0' ? 'none' : ''}" fill="${solar_colour}" d="m5.18 5.45l-1.78-.9L4.66 2h8.47l1.27 2.55l-1.78.89L11.9 4h-6l-.72 1.45M15.5 8H11l-.8-3H7.6l-.79 3H2.28L1 10.55l1.79.89L3.5 10h10.78l.72 1.45l1.79-.89L15.5 8m-.83 14H12.6l-.24-.9l-3.46-5.2l-3.47 5.2l-.23.9H3.13L6 11h2.09l-.36 1.35L8.9 14.1l1.16-1.75L9.71 11h2.07l2.89 11M8.3 15l-.9-1.35l-1.18 4.48L8.3 15m3.28 3.12l-1.18-4.48L9.5 15l2.08 3.12M23 16l-4-4v3h-4v2h4v3l4-4Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" id="solar_sell_off" x="245" y="150" width="18" height="18" viewBox="0 0 30 30"><path display="${!config.entities.solar_sell_247 || stateObj44.state === 'on' || stateObj44.state === '1' ? 'none' : ''}" fill="${solar_colour}" d="M 26 16 L 22 12 L 22 15 L 18 15 L 18 17 L 22 17 L 22 20 L 26 16 Z M 22.1 21.5 L 2.4 1.7 L 1.1 3 L 6.1 8 L 5.4 8 L 4.1 10.5 L 5.9 11.4 L 6.6 10 L 8.1 10 L 9.1 11 L 6.2 22 L 8.3 22 L 8.5 21.1 L 12 15.9 L 15.5 21.1 L 15.7 22 L 17.8 22 L 17 18.8 L 20.9 22.7 L 22.1 21.5 M 9.3 18.1 L 10.5 13.6 L 11.4 14.9 L 9.3 18.1 M 14.7 18.1 L 12.6 15 L 12.8 14.7 L 14.1 16 L 14.7 18.1 M 14.2 11 L 14.9 11 L 15.1 11.9 L 14.2 11 M 14.1 8 L 18.6 8 L 19.9 10.6 L 18.1 11.5 L 17.4 10 L 13.2 10 L 10.2 7 L 10.7 5 L 13.3 5 L 14.1 8 M 8.4 5.2 L 6.9 3.7 L 7.8 2 L 16.3 2 L 17.6 4.5 L 15.8 5.4 L 15 4 L 9 4 L 8.4 5.2 Z"/></svg>
+            </a>
+            <image x="212" y="180" width="54" height="72" class="${inverter_modern === 'no' ? '' : 'st12'}" xlink:href="data:image/png;base64,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" preserveAspectRatio="none"/>
+            <a href="#" @click=${(e) => this.handlePopup(e, inverter_prog.entityID)}>
+              <svg xmlns="http://www.w3.org/2000/svg" id="prog_grid_on" x="323" y="243" width="20" height="18" viewBox="0 0 24 24"><path display="${inverter_prog.show === 'no' || config.entities.use_timer_248 === 'none' ? 'none' : ''}" class="${inverter_prog.charge === 'none'  ? 'st12' : ''}" fill="${inverter_colour}" d="M11.5 19h1v-1.85l3.5-3.5V9H8v4.65l3.5 3.5V19Zm-2 2v-3L6 14.5V9q0-.825.588-1.413T8 7h1L8 8V3h2v4h4V3h2v5l-1-1h1q.825 0 1.413.588T18 9v5.5L14.5 18v3h-5Zm2.5-7Z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" id="prog_grid_off" x="323" y="243" width="20" height="18" viewBox="0 0 24 24"><path display="${inverter_prog.show === 'no' || config.entities.use_timer_248 === 'none' ? 'none' : ''}" class="${inverter_prog.charge === 'none' ? '' : 'st12'}" fill="${inverter_colour}" d="M10 3H8v1.88l2 2zm6 6v3.88l1.8 1.8l.2-.2V9c0-1.1-.9-2-2-2V3h-2v4h-3.88l2 2H16zM4.12 3.84L2.71 5.25L6 8.54v5.96L9.5 18v3h5v-3l.48-.48l4.47 4.47l1.41-1.41L4.12 3.84zm8.38 13.33V19h-1v-1.83L8 13.65v-3.11l5.57 5.57l-1.07 1.06z"/></svg>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.batchargeday_70)}>
+              <text id="daily_bat_charge_value" x="77.2" y="343" class= "st12 left-align" display="${battery_showdaily === 'no' ? 'none' : ''}" fill="${battery_colour}">${parseFloat(stateObj1.state).toFixed(1) ? parseFloat(stateObj1.state).toFixed(1) : '0'} kWh</text>
+            </a> 
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.solarday_108)}>
+              <text id="daily_solar_value" x="200" y="26" class="st10 left-align" display="${solar_showdaily === 'no' || config.show_solar === 'no' || remaining_solar != 'false' ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj4.state).toFixed(1) ? parseFloat(stateObj4.state).toFixed(1) : '0'} kWh</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.solarday_108)}>
+              <text id="remaining_solar_value" x="46" y="26" class="st10 left-align" display="${solar_showdaily === 'no' || config.show_solar === 'no' || remaining_solar === 'false' ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj4.state).toFixed(1) ? parseFloat(stateObj4.state).toFixed(1) : '0'} kWh / ${remaining_solar} kWh</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.batdischargeday_71)}>
+              <text id="daily_bat_discharge_value" x="77.2" y="380.1" class="st12 left-align" display="${battery_showdaily === 'no' ? 'none' : ''}" fill="${battery_colour}" >${parseFloat(stateObj.state).toFixed(1) ? parseFloat(stateObj.state).toFixed(1) : '0'} kWh</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.loadday_84)}>
+              <text id="daily_load_value" x="${additional_load === 'two' ? '365' : '310'}" y="${additional_load === 'two' ? '168' : '230'}" class="st10 left-align" display="${load_showdaily === 'no'  ? 'none' : ''}" fill="${load_colour}" >${parseFloat(stateObj2.state).toFixed(1) ? parseFloat(stateObj2.state).toFixed(1) : '0'} kWh</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_buy_day_76)}>
+              <text id="daily_grid_buy_value" x="60" y="250" class="st10 left-align" display="${grid_showdailybuy === 'no' ? 'none' : ''}" fill="${grid_colour}" >${parseFloat(stateObj3.state).toFixed(1) ? parseFloat(stateObj3.state).toFixed(1) : '0'} kWh</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_sell_day_77)}>
+              <text id="daily_grid_sell_value" x="150" y="250" class="st10 left-align" display="${grid_showdailysell === 'no' ? 'none' : ''}" fill="${grid_colour}" >${parseFloat(stateObj33.state).toFixed(1) ? parseFloat(stateObj33.state).toFixed(1) : '0'} kWh</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_grid_voltage_154)}>
+              <text id="inverter_grid_voltage_154" x="270.2" y="168.2" display="${config.entities.inverter_grid_voltage_154 === 'none' ? 'none' : ''}" class="st12 left-align" fill="${inverter_colour}" >${stateObj5.state ? stateObj5.state : '0'} V</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_load_freq_192)}>
+              <text id="inverter_load_freq_192" x="270.2" y="180.4" display="${config.entities.inverter_load_freq_192 === 'none' ? 'none' : ''}" class="st12 left-align" fill="${inverter_colour}">${stateObj6.state ? stateObj6.state : '0'} Hz</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_out_164)}>
+              <text id="inverter_out_164" x="270.2" y="192.6" display="${config.entities.inverter_out_164 === 'none' ? 'none' : ''}" class="st12 left-align" fill="${inverter_colour}">${stateObj7.state ? stateObj7.state : '0'} A</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_voltage_183)}>
+              <text id="battery_voltage_183" x="265" y="77" fill=${battery_colour} class="${font === 'no' ? 'st14' : 'st4'} st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
+              <text id="battery_soc_184" x="290" y="358" display="${config.entities.battery_soc_184 === 'none' ? 'none' : ''}" fill=${battery_colour} class="st13 st8 left-align">${parseInt(stateObj12.state) ? parseInt(stateObj12.state) : '0'} %</text>
+            </a> 
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
+              <text id="battery_soc_184" x="390" y="77" fill=${battery_colour} class="st13 st8 left-align" display="${inverter_prog.show === 'no' || config.entities.battery_soc_184 === 'none' ? 'none' : ''}"> | ${inverter_prog.capacity ? inverter_prog.capacity : '0'} %</text>
+            </a>  
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_out_190)}>
+              <text id="battery_out_190" x="265" y="119" display="${config.entities.battery_out_190 === 'none' ? 'none' : ''}" fill=${battery_colour} class="${font === 'no' ? 'st14' : 'st4'} st8">${battery_power < '0' ? battery_power *-1 : battery_power} W</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_current_191)}>
+            <text id="battery_current_191" x="265" y="98" display="${config.entities.battery_current_191 === 'none' ? 'none' : ''}" fill=${battery_colour} class="${font === 'no' ? 'st14' : 'st4'} st8">${stateObj35.state ? stateObj35.state : '0'} A</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_external_power_172)}>
+              <text id="grid_external_power_172" x="135.1" y="200" display="${config.entities.grid_external_power_172 === 'none' ? 'none' : ''}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${grid_colour}">${grid_power ? grid_power : '0'} W</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_v_109)}>
+              <text id="pv1_v" x="194" y="106" class="st12 left-align" display="${config.show_solar === 'no' || !config.entities.pv1_v_109 || config.entities.pv1_v_109 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${stateObj16.state ? stateObj16.state : '0'} V</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_i_110)}>
+              <text id="pv1_i" x="194" y="94" class="st12 left-align" display="${config.show_solar === 'no' || !config.entities.pv1_i_110 || config.entities.pv1_i_110 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${stateObj17.state ? stateObj17.state : '0'} A</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_v_111)}>
+              <text id="pv2_v" x="296" y="106" class="st12 left-align" display="${config.show_solar === 'no' || !config.entities.pv2_v_111 || config.entities.pv2_v_111 === 'none' || config.solar.mppts === 'one'  ? 'none' : ''}" fill="${solar_colour}" >${stateObj18.state ? stateObj18.state : '0'} V</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_i_112)}>
+              <text id="pv2_i" x="296" y="94" class="st12 left-align" display="${config.show_solar === 'no' || !config.entities.pv2_i_112 || config.entities.pv2_i_112 === 'none'  || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}" >${stateObj19.state ? stateObj19.state : '0'} A</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_v_113)}>
+              <text id="pv3_v" x="120" y="106" class="st12 left-align" display="${config.show_solar === 'no' || !config.entities.pv3_v_113 || config.entities.pv3_v_113 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}" >${stateObj27.state ? stateObj27.state : '0'} V</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_i_114)}>
+              <text id="pv3_i" x="120" y="94" class="st12 left-align" display="${config.show_solar === 'no' || !config.entities.pv3_i_114 || config.entities.pv3_i_114 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}" >${stateObj28.state ? stateObj28.state : '0'} A</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_v_115)}>
+              <text id="pv4_v" x="372" y="106" class="st12 left-align" display="${config.show_solar === 'no' || !config.entities.pv4_v_115 || config.entities.pv4_v_115 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj29.state ? stateObj29.state : '0'} V</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_i_116)}>
+              <text id="pv4_i" x="372" y="94" class="st12 left-align" display="${config.show_solar === 'no' || !config.entities.pv4_i_115 || config.entities.pv4_i_116 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj30.state ? stateObj30.state : '0'} A</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_temp)}>
+              <text id="battery_temp" x="250" y="324.5" class="${config.entities.battery_temp === 'none' ? 'st12' : 'st12 left-align'}" fill="${battery_colour}" display="${config?.entities?.battery_temp ? '' : 'none'}" >${stateObj37.state ? stateObj37.state : ''}°</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_ac_temp)}>
+            <text id="ac_temp" x="173" y="168.2" class="${config.entities.inverter_ac_temp === 'none' ? 'st12' : 'st3 left-align'}" fill="${inverter_colour}" display="${config?.entities?.inverter_ac_temp ? '' : 'none'}" >AC: ${stateObj39.state ? stateObj39.state : ''}°</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_dc_temp)}>
+              <text id="dc_temp" x="173" y="180.4" class="${config.entities.inverter_dc_temp === 'none' ? 'st12' : 'st12 left-align'}" fill="${inverter_colour}" display="${config?.entities?.inverter_dc_temp ? '' : 'none'}" >DC: ${stateObj38.state ? stateObj38.state : ''}°</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost)}>
+              <text id="energy_cost" x="105" y="195" class="${config.entities.energy_cost === 'none' ? 'st12' : 'st3 left-align'}" fill="${grid_colour}" display="${config?.entities?.energy_cost ? '' : 'none'}" >${stateObj43.state ? stateObj43.state : ''}</text>
+            </a>
+            ${config.entities.pv1_power_186 !== 'none'
+            ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_power_186)}>
+                    <text id="pv1_power_186" x="34.1" y="71" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${stateObj9.state ? stateObj9.state : '0'} W</text>
+                  </a>`
+            : svg`<text id="pv1_power_186" x="34.1" y="71" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' || config.entities.pv1_power_186 === 'none' ? 'none' : ''}" fill="${solar_colour}">${stateObj9.state ? stateObj9.state : '0'} W</text>`}
+            ${config.entities.pv2_power_187 !== 'none'
+            ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_power_187)}>
+                    <text id="pv2_power_187" x="135.5" y="71" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}">${stateObj8.state ? stateObj8.state : '0'} W</text>
+                  </a>`
+            : svg`<text id="pv2_power_187" x="135.5" y="71" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' || config.entities.pv2_power_187 === 'none' || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}">${stateObj8.state ? stateObj8.state : '0'} W</text>`}
+            ${config.entities.pv3_power_188 !== 'none'
+            ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_power_188)}>
+                    <text id="pv3_power_188" x="113" y="71" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}">${stateObj31.state ? stateObj31.state : '0'} W</text>
+                  </a>`
+            : svg`<text id="pv3_power_188" x="113" y="71" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' || config.entities.pv3_power_188 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}">${stateObj31.state ? stateObj31.state : '0'} W</text>`}
+            ${config.entities.pv4_power_189 !== 'none'
+            ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_power_189)}>
+                    <text id="pv4_power_189" x="366" y="71" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}">${stateObj32.state ? stateObj32.state : '0'} W</text>
+                  </a>`
+            : svg`<text id="pv4_power_189" x="366" y="71" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' || config.entities.pv4_power_189 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}">${stateObj32.state ? stateObj32.state : '0'} W</text>`}
+            ${config.entities.essential_power !== 'none'
+            ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_power)}>
+                    <text id="ess_power" x="340.1" y="219.2" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential ? essential : '0'} W</text>
+                  </a>`
+            : svg`<text id="ess_power" x="340.1" y="200" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential ? essential : '0'} W</text>`}
+          </svg>
+        </div>
+      `;
+    }
   }
 
   setConfig(config) {
@@ -1161,12 +1432,12 @@ class SunsynkPowerFlowCard extends LitElement {
   }
 }
 
-customElements.define('sunsynk-power-flow-card', SunsynkPowerFlowCard);
-customElements.define("sunsynk-power-flow-card-editor", SunsynkPowerFlowCardEditor);
+customElements.define('sunsynk-power-flow-card-darren', SunsynkPowerFlowCardDarren);
+customElements.define("sunsynk-power-flow-card-darren-editor", SunsynkPowerFlowCardDarrenEditor);
 window.customCards = window.customCards || [];
 window.customCards.push({
-  type: "sunsynk-power-flow-card",
-  name: "Sunsynk Power Flow Card",
+  type: "sunsynk-power-flow-card-darren",
+  name: "Sunsynk Power Flow Card Darren",
   preview: false, // Optional - defaults to false
   description: "A Home Assistant card to emulate the Sunsynk power flow that's shown on the Inverter screen", // Optional
 });
