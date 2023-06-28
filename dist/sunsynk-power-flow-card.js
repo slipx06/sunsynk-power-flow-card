@@ -195,7 +195,7 @@ class SunsynkPowerFlowCard extends LitElement {
     let font = config?.large_font || 'no';
     let panel = config?.panel_mode || 'no';
     let inverter_colour = config?.inverter?.colour || 'grey';
-    let useautarky = config?.inverter?.autarky || 'energy';
+    let useautarky = config?.inverter?.autarky || 'power';
     let usetimer = (config?.entities.use_timer_248 === 'no' || !config?.entities.use_timer_248) ? 'no' : stateObj26.state;
     let priority = (config?.entities.priority_load_243 === 'no' || !config?.entities.priority_load_243) ? 'no' : stateObj25.state;
     let battery_power = (config?.battery?.invert_power === 'yes') ? parseInt(stateObj13.state) * -1 : parseInt(stateObj13.state);
