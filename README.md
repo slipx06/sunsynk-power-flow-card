@@ -125,6 +125,8 @@ These attributes are only needed if `show_solar` is set to `yes`
 | additional_loads: | Optional | `no` | Display additional loads on the essential side (`one/two/no`) 
 | load1_name: | Optional | `Load 1` | Set the display name for the Essential Load 1
 | load2_name: | Optional | `Load 2` | Set the display name for the Essential Load 2
+| load1_icon: | Optional | none | Change the essential load 1 image. Options are  `boiler`, `pump`, `aircon` |
+| load2_icon: | Optional | none | Change the essential load 2 image. Options are , `boiler`, `pump`, `aircon` |
 
 ### Grid
 | Attribute | Requirement | Default | Description |
@@ -369,6 +371,8 @@ load:
   additional_loads: two
   load1_name: Geyser
   load2_name: Pool
+  load1_icon: boiler
+  load2_icon: pump
 grid:
   colour: '#5490c2'
   show_daily_buy: 'yes'
