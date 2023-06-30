@@ -385,6 +385,8 @@ grid:
   nonessential_dual: 'yes'
   load1_name: Load 1
   load2_name: Load 2
+  load1_icon: boiler
+  load2_icon: charger
   animation_speed: 8
   max_power: 8000
 entities:
