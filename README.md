@@ -30,7 +30,7 @@ An animated Home Assistant card to emulate the power flow that's shown on the Su
 
 *Lite Version*
 
-![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/16cfad45-de34-414a-beae-8093bcb33c72)
+![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/1b381ecf-7205-44ea-baba-1b45925a81d6)
 ![sunsynk-power-flow-full](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/bf119d16-b049-4bd9-8906-0c9697ab386d)
 
 
