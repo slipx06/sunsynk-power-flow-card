@@ -340,7 +340,7 @@ show_solar: 'yes'
 inverter:
   modern: 'yes'
   colour: grey
-  autarky: 'yes'
+  autarky: 'power'
 battery:
   energy: 15960
   shutdown_soc: 20
