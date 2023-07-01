@@ -201,10 +201,10 @@ class SunsynkPowerFlowCard extends LitElement {
       additional_load = 'no';
     }
     
-    let aux_type = config?.load?.aux_type || 'default'; //valid options are gen,inverter, default, gen, boiler, charger, pump, aircon
-    let nonessential_icon = config?.grid?.nonessential_icon || 'default'; //valid options are default, oven, boiler, charger, pump, aircon
-    let load1_icon = config?.grid?.load1_icon || 'default'; //valid options are default, oven, boiler, charger, pump
-    let load2_icon = config?.grid?.load2_icon || 'default'; //valid options are default, oven, boiler, charger, pump
+    let aux_type = config?.load?.aux_type || 'default'; //valid options are gen,inverter, default, gen, boiler, pump, aircon
+    let nonessential_icon = config?.grid?.nonessential_icon || 'default'; //valid options are default, oven, boiler, pump, aircon
+    let load1_icon = config?.grid?.load1_icon || 'default'; //valid options are default, oven, boiler, pump
+    let load2_icon = config?.grid?.load2_icon || 'default'; //valid options are default, oven, boiler, pump
     let load1e_icon = config?.load?.load1_icon || 'default'; //valid options are boiler, aircon, pump
     let load2e_icon = config?.load?.load2_icon || 'default'; //valid options are boiler, aircon, pump
     let remaining_solar = config.entities.remaining_solar ? parseFloat(stateObj36.state).toFixed(1) : 'false';
@@ -461,7 +461,31 @@ class SunsynkPowerFlowCard extends LitElement {
 
     if (config.cardstyle === 'full') {
       return html`
+        <ha-card>
+        <style>
+        .essload-icon {
+          color: ${load_colour} !important;
+          --mdc-icon-size: 20px;
+        }
+        .essload1-icon {
+          color: ${load_colour} !important;
+          --mdc-icon-size: 36px;
+        }
+        .aux-icon {
+          color: ${load_colour} !important;
+          --mdc-icon-size: 70px;
+        }
+        .nonessload-icon {
+          color: ${grid_colour} !important;
+          --mdc-icon-size: 32px;
+        }
+        .noness-icon {
+          color: ${grid_colour} !important;
+          --mdc-icon-size: 70px;
+        }
+        </style>
         <div class="container card">
+        
           <svg viewBox="-0.5 -0.5 457 383" height="${panel === 'no' ? '396px' : '100%'}" width="100%" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
             <rect x="51" y="162" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === 'no' ? 'st12' : ''}"/>
             <rect x="6" y="300.75" width="70" height="70" rx="10.5" ry="10.5" fill="none" stroke="${battery_colour}" pointer-events="all"/>
@@ -599,7 +623,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <circle id="ne-dot" cx="0" cy="0" r="3" class="${grid_show_noness === 'no' ? 'st12' : ''}" fill="${nonessential <= 0 ? 'transparent' : `${grid_colour}`}">
               <animateMotion dur="${ne_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#ne-line"/>
-            </animateMotion>
+              </animateMotion>
             </circle> 
             <path id="aux-line" d="M 307 47 L 371.5 47" fill="none" class="${show_aux === 'no' ? 'st12' : ''}" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/> 
             <circle id="aux-dot" cx="0" cy="0" r="3" class="${show_aux === 'no' || aux_power === 0 ? 'st12' : ''}" fill="${parseInt(aux_power) < 0  ? 'transparent' : `${load_colour}`}">
@@ -638,16 +662,21 @@ class SunsynkPowerFlowCard extends LitElement {
             <svg xmlns="http://www.w3.org/2000/svg" id="noness_default" x="303.5" y="305.5" width="70" height="70" viewBox="0 0 24 24" opacity="${nonessential_icon === 'default' ? '1' : '0'}"><path display="${grid_show_noness === 'no' || noness_dual_load === 'yes' ? 'none' : ''}" fill="${grid_colour}" d="m15 13l-4 4v-3H2v-2h9V9l4 4M5 20v-4h2v2h10v-7.81l-5-4.5L7.21 10H4.22L12 3l10 9h-3v8H5Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="noness_oven" x="303.5" y="305.5" width="70" height="70" viewBox="0 0 32 32" opacity="${nonessential_icon === 'oven' ? '1' : '0'}"><path display="${grid_show_noness === 'no' || noness_dual_load === 'yes'? 'none' : ''}" fill="${grid_colour}" d="M3 7.5A4.5 4.5 0 0 1 7.5 3h17A4.5 4.5 0 0 1 29 7.5v17a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17Zm24 0A2.5 2.5 0 0 0 24.5 5h-17A2.5 2.5 0 0 0 5 7.5V11h22V7.5Zm0 17V13H5v11.5A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5Zm-17-15a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Zm6 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3ZM23.5 8a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0ZM9 23v-6h14v6H9Zm-.5-8A1.5 1.5 0 0 0 7 16.5v7A1.5 1.5 0 0 0 8.5 25h15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5h-15Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="noness_boiler" x="303.5" y="305.5" width="70" height="70" viewBox="0 0 24 24" opacity="${nonessential_icon === 'boiler' ? '1' : '0'}"><path display="${grid_show_noness === 'no' || noness_dual_load === 'yes'? 'none' : ''}" fill="${grid_colour}" d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" id="noness_charger" x="303.5" y="305.5" width="70" height="70" viewBox="0 0 24 24" opacity="${nonessential_icon === 'charger' ? '1' : '0'}"><path display="${grid_show_noness === 'no' || noness_dual_load === 'yes'? 'none' : ''}" fill="${grid_colour}" d="m8.5 19l2.5-4H9.5v-3L7 16h1.5v3ZM6 10h6V5H6v5ZM4 21V5q0-.825.588-1.413T6 3h6q.825 0 1.413.588T14 5v7h1.25q.725 0 1.238.513T17 13.75v4.625q0 .425.35.775t.775.35q.45 0 .788-.35t.337-.775V9H19q-.425 0-.713-.288T18 8V6h.5V4.5h1V6h1V4.5h1V6h.5v2q0 .425-.288.713T21 9h-.25v9.375q0 1.05-.763 1.838T18.126 21q-1.075 0-1.85-.788t-.775-1.837V13.75q0-.125-.063-.188t-.187-.062H14V21H4Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="noness_pump" x="303.5" y="305.5" width="70" height="70" viewBox="0 0 24 24" opacity="${nonessential_icon === 'pump' ? '1' : '0'}"><path display="${grid_show_noness === 'no' || noness_dual_load === 'yes'? 'none' : ''}" fill="${grid_colour}" d="M3 17h4.1q-.425-.425-.787-.925T5.675 15H3v2Zm9 0q2.075 0 3.538-1.463T17 12q0-2.075-1.463-3.538T12 7Q9.925 7 8.462 8.463T7 12q0 2.075 1.463 3.538T12 17Zm6.325-8H21V7h-4.1q.425.425.788.925T18.325 9ZM1 20v-8h2v1h2.075q-.05-.25-.063-.488T5 12q0-2.925 2.038-4.963T12 5h9V4h2v8h-2v-1h-2.075q.05.25.063.488T19 12q0 2.925-2.038 4.963T12 19H3v1H1Zm2-3v-2v2Zm18-8V7v2Zm-9 3Zm0 3q-.825 0-1.413-.588T10 13q0-.575.238-1.137t.912-1.613L12 9l.85 1.25q.675 1.05.913 1.613T14 13q0 .825-.588 1.413T12 15Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="noness_ac" x="311" y="312" width="55" height="55" viewBox="0 0 24 24" opacity="${nonessential_icon === 'aircon' ? '1' : '0'}"><path display="${grid_show_noness === 'no' || noness_dual_load === 'yes'? 'none' : ''}" fill="${grid_colour}" d="M6.59.66c2.34-1.81 4.88.4 5.45 3.84c.43 0 .85.12 1.23.34c.52-.6.98-1.42.8-2.34c-.42-2.15 1.99-3.89 4.28-.92c1.81 2.34-.4 4.88-3.85 5.45c0 .43-.11.86-.34 1.24c.6.51 1.42.97 2.34.79c2.13-.42 3.88 1.98.91 4.28c-2.34 1.81-4.88-.4-5.45-3.84c-.43 0-.85-.13-1.22-.35c-.52.6-.99 1.43-.81 2.35c.42 2.14-1.99 3.89-4.28.92c-1.82-2.35.4-4.89 3.85-5.45c0-.43.13-.85.35-1.23c-.6-.51-1.42-.98-2.35-.8c-2.13.42-3.88-1.98-.91-4.28M5 16h2a2 2 0 0 1 2 2v6H7v-2H5v2H3v-6a2 2 0 0 1 2-2m0 2v2h2v-2H5m7.93-2H15l-2.93 8H10l2.93-8M18 16h3v2h-3v4h3v2h-3a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z"/></svg>
             
+            <g display="${grid_show_noness === 'no' || noness_dual_load === 'yes' ? 'none' : ''}" >
+            <foreignObject x="303.5" y="303.5" width="85" height="85">
+            <body xmlns="http://www.w3.org/1999/xhtml">
+            <ha-icon icon="${nonessential_icon}" class="noness-icon" ></ha-icon>
+            </body>
+            </foreignObject>
+            </g>
+
             <!-- Nonessential Load Icon -->
             <svg xmlns="http://www.w3.org/2000/svg" id="noness_default" x="320" y="339" width="38" height="38" viewBox="0 0 24 24" opacity="${load1_icon === 'default' && load2_icon === 'default' ? '1' : '0'}"><path display="${grid_show_noness === 'no' || noness_dual_load === 'no'? 'none' : ''}" fill="${grid_colour}" d="m15 13l-4 4v-3H2v-2h9V9l4 4M5 20v-4h2v2h10v-7.81l-5-4.5L7.21 10H4.22L12 3l10 9h-3v8H5Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="noness_default_left" x="306" y="341" width="32" height="32" viewBox="0 0 24 24" opacity="${load1_icon === 'default' && load2_icon != 'default' ? '1' : '0'}"><path display="${grid_show_noness === 'no' || noness_dual_load === 'no'? 'none' : ''}" fill="${grid_colour}" d="m15 13l-4 4v-3H2v-2h9V9l4 4M5 20v-4h2v2h10v-7.81l-5-4.5L7.21 10H4.22L12 3l10 9h-3v8H5Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="noness_default_right" x="343" y="341" width="32" height="32" viewBox="0 0 24 24" opacity="${load1_icon != 'default' && load2_icon === 'default' ? '1' : '0'}"><path display="${grid_show_noness === 'no' || noness_dual_load === 'no'? 'none' : ''}" fill="${grid_colour}" d="m15 13l-4 4v-3H2v-2h9V9l4 4M5 20v-4h2v2h10v-7.81l-5-4.5L7.21 10H4.22L12 3l10 9h-3v8H5Z"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" id="noness_car_left" x="306" y="341" width="32" height="32" viewBox="0 0 24 24" opacity="${load1_icon === 'charger' ? '1' : '0'}"><path display="${grid_show_noness === 'no' || noness_dual_load === 'no'? 'none' : ''}" fill="${grid_colour}" d="m8.5 19l2.5-4H9.5v-3L7 16h1.5v3ZM6 10h6V5H6v5ZM4 21V5q0-.825.588-1.413T6 3h6q.825 0 1.413.588T14 5v7h1.25q.725 0 1.238.513T17 13.75v4.625q0 .425.35.775t.775.35q.45 0 .788-.35t.337-.775V9H19q-.425 0-.713-.288T18 8V6h.5V4.5h1V6h1V4.5h1V6h.5v2q0 .425-.288.713T21 9h-.25v9.375q0 1.05-.763 1.838T18.126 21q-1.075 0-1.85-.788t-.775-1.837V13.75q0-.125-.063-.188t-.187-.062H14V21H4Z"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" id="noness_car_right" x="343" y="341" width="32" height="32" viewBox="0 0 24 24" opacity="${load2_icon === 'charger' ? '1' : '0'}"><path display="${grid_show_noness === 'no' || noness_dual_load === 'no'? 'none' : ''}" fill="${grid_colour}" d="m8.5 19l2.5-4H9.5v-3L7 16h1.5v3ZM6 10h6V5H6v5ZM4 21V5q0-.825.588-1.413T6 3h6q.825 0 1.413.588T14 5v7h1.25q.725 0 1.238.513T17 13.75v4.625q0 .425.35.775t.775.35q.45 0 .788-.35t.337-.775V9H19q-.425 0-.713-.288T18 8V6h.5V4.5h1V6h1V4.5h1V6h.5v2q0 .425-.288.713T21 9h-.25v9.375q0 1.05-.763 1.838T18.126 21q-1.075 0-1.85-.788t-.775-1.837V13.75q0-.125-.063-.188t-.187-.062H14V21H4Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="noness_boiler_left" x="306" y="341" width="32" height="32" viewBox="0 0 24 24" opacity="${load1_icon === 'boiler' ? '1' : '0'}"><path display="${grid_show_noness === 'no' || noness_dual_load === 'no'? 'none' : ''}" fill="${grid_colour}" d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="noness_boiler_right" x="343" y="341" width="32" height="32" viewBox="0 0 24 24" opacity="${load2_icon === 'boiler' ? '1' : '0'}"><path display="${grid_show_noness === 'no' || noness_dual_load === 'no'? 'none' : ''}" fill="${grid_colour}" d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="noness_pump_left" x="306" y="341" width="32" height="32" viewBox="0 0 24 24" opacity="${load1_icon === 'pump'  ? '1' : '0'}"><path display="${grid_show_noness === 'no' || noness_dual_load === 'no'? 'none' : ''}" fill="${grid_colour}" d="M3 17h4.1q-.425-.425-.787-.925T5.675 15H3v2Zm9 0q2.075 0 3.538-1.463T17 12q0-2.075-1.463-3.538T12 7Q9.925 7 8.462 8.463T7 12q0 2.075 1.463 3.538T12 17Zm6.325-8H21V7h-4.1q.425.425.788.925T18.325 9ZM1 20v-8h2v1h2.075q-.05-.25-.063-.488T5 12q0-2.925 2.038-4.963T12 5h9V4h2v8h-2v-1h-2.075q.05.25.063.488T19 12q0 2.925-2.038 4.963T12 19H3v1H1Zm2-3v-2v2Zm18-8V7v2Zm-9 3Zm0 3q-.825 0-1.413-.588T10 13q0-.575.238-1.137t.912-1.613L12 9l.85 1.25q.675 1.05.913 1.613T14 13q0 .825-.588 1.413T12 15Z"/></svg>
@@ -657,6 +686,22 @@ class SunsynkPowerFlowCard extends LitElement {
             <svg xmlns="http://www.w3.org/2000/svg" id="noness_ac_left" x="308" y="345" width="25" height="25" viewBox="0 0 24 24" opacity="${load1_icon === 'aircon' ? '1' : '0'}"><path display="${grid_show_noness === 'no' || noness_dual_load === 'no'? 'none' : ''}" fill="${grid_colour}" d="M6.59.66c2.34-1.81 4.88.4 5.45 3.84c.43 0 .85.12 1.23.34c.52-.6.98-1.42.8-2.34c-.42-2.15 1.99-3.89 4.28-.92c1.81 2.34-.4 4.88-3.85 5.45c0 .43-.11.86-.34 1.24c.6.51 1.42.97 2.34.79c2.13-.42 3.88 1.98.91 4.28c-2.34 1.81-4.88-.4-5.45-3.84c-.43 0-.85-.13-1.22-.35c-.52.6-.99 1.43-.81 2.35c.42 2.14-1.99 3.89-4.28.92c-1.82-2.35.4-4.89 3.85-5.45c0-.43.13-.85.35-1.23c-.6-.51-1.42-.98-2.35-.8c-2.13.42-3.88-1.98-.91-4.28M5 16h2a2 2 0 0 1 2 2v6H7v-2H5v2H3v-6a2 2 0 0 1 2-2m0 2v2h2v-2H5m7.93-2H15l-2.93 8H10l2.93-8M18 16h3v2h-3v4h3v2h-3a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="noness_ac_right" x="345" y="345" width="25" height="25" viewBox="0 0 24 24" opacity="${load2_icon === 'aircon' ? '1' : '0'}"><path display="${grid_show_noness === 'no' || noness_dual_load === 'no'? 'none' : ''}" fill="${grid_colour}" d="M6.59.66c2.34-1.81 4.88.4 5.45 3.84c.43 0 .85.12 1.23.34c.52-.6.98-1.42.8-2.34c-.42-2.15 1.99-3.89 4.28-.92c1.81 2.34-.4 4.88-3.85 5.45c0 .43-.11.86-.34 1.24c.6.51 1.42.97 2.34.79c2.13-.42 3.88 1.98.91 4.28c-2.34 1.81-4.88-.4-5.45-3.84c-.43 0-.85-.13-1.22-.35c-.52.6-.99 1.43-.81 2.35c.42 2.14-1.99 3.89-4.28.92c-1.82-2.35.4-4.89 3.85-5.45c0-.43.13-.85.35-1.23c-.6-.51-1.42-.98-2.35-.8c-2.13.42-3.88-1.98-.91-4.28M5 16h2a2 2 0 0 1 2 2v6H7v-2H5v2H3v-6a2 2 0 0 1 2-2m0 2v2h2v-2H5m7.93-2H15l-2.93 8H10l2.93-8M18 16h3v2h-3v4h3v2h-3a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z"/></svg>
             
+            <g display="${grid_show_noness === 'no' || noness_dual_load === 'no' ? 'none' : ''}" >
+            <foreignObject x="306" y="341" width="30" height="30">
+            <body xmlns="http://www.w3.org/1999/xhtml">
+            <ha-icon icon="${load1_icon}" class="nonessload-icon" ></ha-icon>
+            </body>
+            </foreignObject>
+            </g>
+
+            <g display="${grid_show_noness === 'no' || noness_dual_load === 'no' ? 'none' : ''}">
+            <foreignObject x="343" y="341" width="30" height="30">
+            <body xmlns="http://www.w3.org/1999/xhtml">
+            <ha-icon icon="${load2_icon}" class="nonessload-icon" ></ha-icon>
+            </body>
+            </foreignObject>
+            </g>
+
             <!-- Essential Icon -->
             <svg xmlns="http://www.w3.org/2000/svg" id="essen_aux" x="373.5" y="78.5" width="77" height="77" viewBox="0 0 24 24"><path display="${(additional_load === 'one' || additional_load === 'two') && show_aux === 'no' ? '' : 'none'}" fill="${load_colour}" d="M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="essen_noaux" x="390" y="89" width="38" height="38" viewBox="0 0 24 24"><path display="${(additional_load === 'one' || additional_load === 'two') && show_aux === 'yes' ? '' : 'none'}" fill="${load_colour}" d="M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z"/></svg>                      
@@ -669,9 +714,16 @@ class SunsynkPowerFlowCard extends LitElement {
             <svg xmlns="http://www.w3.org/2000/svg" id="aux_oven" x="375" y="5" width="70" height="70" viewBox="0 0 32 32"><path class="${aux_type === 'oven' ? '' : 'st12'}" display="${show_aux === 'no' ? 'none' : ''}" fill="${load_colour}" d="M3 7.5A4.5 4.5 0 0 1 7.5 3h17A4.5 4.5 0 0 1 29 7.5v17a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17Zm24 0A2.5 2.5 0 0 0 24.5 5h-17A2.5 2.5 0 0 0 5 7.5V11h22V7.5Zm0 17V13H5v11.5A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5Zm-17-15a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Zm6 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3ZM23.5 8a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0ZM9 23v-6h14v6H9Zm-.5-8A1.5 1.5 0 0 0 7 16.5v7A1.5 1.5 0 0 0 8.5 25h15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5h-15Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="aux_boiler" x="375" y="5" width="70" height="70" viewBox="0 0 24 24"><path class="${aux_type === 'boiler' ? '' : 'st12'}" display="${show_aux === 'no' ? 'none' : ''}" fill="${load_colour}" d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="aux_ac" x="380" y="10" width="60" height="60" viewBox="0 0 24 24"><path class="${aux_type === 'aircon' ? '' : 'st12'}" display="${show_aux === 'no' ? 'none' : ''}" fill="${load_colour}" d="M6.59.66c2.34-1.81 4.88.4 5.45 3.84c.43 0 .85.12 1.23.34c.52-.6.98-1.42.8-2.34c-.42-2.15 1.99-3.89 4.28-.92c1.81 2.34-.4 4.88-3.85 5.45c0 .43-.11.86-.34 1.24c.6.51 1.42.97 2.34.79c2.13-.42 3.88 1.98.91 4.28c-2.34 1.81-4.88-.4-5.45-3.84c-.43 0-.85-.13-1.22-.35c-.52.6-.99 1.43-.81 2.35c.42 2.14-1.99 3.89-4.28.92c-1.82-2.35.4-4.89 3.85-5.45c0-.43.13-.85.35-1.23c-.6-.51-1.42-.98-2.35-.8c-2.13.42-3.88-1.98-.91-4.28M5 16h2a2 2 0 0 1 2 2v6H7v-2H5v2H3v-6a2 2 0 0 1 2-2m0 2v2h2v-2H5m7.93-2H15l-2.93 8H10l2.93-8M18 16h3v2h-3v4h3v2h-3a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" id="aux_car" x="375" y="5" width="70" height="70" viewBox="0 0 24 24"><path class="${aux_type === 'charger' ? '' : 'st12'}" display="${show_aux === 'no' ? 'none' : ''}" fill="${load_colour}" d="m8.5 19l2.5-4H9.5v-3L7 16h1.5v3ZM6 10h6V5H6v5ZM4 21V5q0-.825.588-1.413T6 3h6q.825 0 1.413.588T14 5v7h1.25q.725 0 1.238.513T17 13.75v4.625q0 .425.35.775t.775.35q.45 0 .788-.35t.337-.775V9H19q-.425 0-.713-.288T18 8V6h.5V4.5h1V6h1V4.5h1V6h.5v2q0 .425-.288.713T21 9h-.25v9.375q0 1.05-.763 1.838T18.126 21q-1.075 0-1.85-.788t-.775-1.837V13.75q0-.125-.063-.188t-.187-.062H14V21H4Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="aux_pump" x="380" y="15" width="60" height="70" viewBox="0 0 24 24"><path class="${aux_type === 'pump' ? '' : 'st12'}" display="${show_aux === 'no' ? 'none' : ''}" fill="${load_colour}" d="M3 17h4.1q-.425-.425-.787-.925T5.675 15H3v2Zm9 0q2.075 0 3.538-1.463T17 12q0-2.075-1.463-3.538T12 7Q9.925 7 8.462 8.463T7 12q0 2.075 1.463 3.538T12 17Zm6.325-8H21V7h-4.1q.425.425.788.925T18.325 9ZM1 20v-8h2v1h2.075q-.05-.25-.063-.488T5 12q0-2.925 2.038-4.963T12 5h9V4h2v8h-2v-1h-2.075q.05.25.063.488T19 12q0 2.925-2.038 4.963T12 19H3v1H1Zm2-3v-2v2Zm18-8V7v2Zm-9 3Zm0 3q-.825 0-1.413-.588T10 13q0-.575.238-1.137t.912-1.613L12 9l.85 1.25q.675 1.05.913 1.613T14 13q0 .825-.588 1.413T12 15Z"/></svg>
             
+            <g display="${show_aux === 'no' ? 'none' : ''}" >
+            <foreignObject x="375" y="5" width="85" height="85">
+            <body xmlns="http://www.w3.org/1999/xhtml">
+            <ha-icon icon="${aux_type}" class="aux-icon" ></ha-icon>
+            </body>
+            </foreignObject>
+            </g>
+
             <!-- Essential Boiler Icon -->
             <svg xmlns="http://www.w3.org/2000/svg" id="ess_boiler_left_bottom" x="349" y="141" width="24" height="24" viewBox="0 0 24 24" opacity="${load1e_icon === 'boiler' && additional_load === 'two' ? '1' : '0'}"><path display="${show_aux === 'no' || additional_load === 'no' || additional_load === 'one' ? 'none' : ''}" fill="${load_colour}" d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="ess_boiler_right_bottom" x="445" y="141" width="24" height="24" viewBox="0 0 24 24" opacity="${load2e_icon === 'boiler' && additional_load === 'two' ? '1' : '0'}"><path display="${show_aux === 'no' || additional_load === 'no' || additional_load === 'one' ? 'none' : ''}" fill="${load_colour}" d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/></svg>
@@ -704,6 +756,30 @@ class SunsynkPowerFlowCard extends LitElement {
             <svg xmlns="http://www.w3.org/2000/svg" id="ess_oven_noaux" x="336" y="27" width="36" height="36" viewBox="0 0 32 32" opacity="${load1e_icon === 'oven' && additional_load === 'one' && show_aux === 'no' ? '1' : '0'}"><path display="${additional_load === 'no' || additional_load === 'two' ? 'none' : ''}" fill="${load_colour}" d="M3 7.5A4.5 4.5 0 0 1 7.5 3h17A4.5 4.5 0 0 1 29 7.5v17a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17Zm24 0A2.5 2.5 0 0 0 24.5 5h-17A2.5 2.5 0 0 0 5 7.5V11h22V7.5Zm0 17V13H5v11.5A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5Zm-17-15a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Zm6 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3ZM23.5 8a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0ZM9 23v-6h14v6H9Zm-.5-8A1.5 1.5 0 0 0 7 16.5v7A1.5 1.5 0 0 0 8.5 25h15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5h-15Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="ess_oven_aux" x="336" y="140" width="36" height="36" viewBox="0 0 32 32" opacity="${load1e_icon === 'oven' && additional_load === 'one' ? '1' : '0'}"><path display="${show_aux === 'no' || additional_load === 'no' || additional_load === 'two' ? 'none' : ''}" fill="${load_colour}" d="M3 7.5A4.5 4.5 0 0 1 7.5 3h17A4.5 4.5 0 0 1 29 7.5v17a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17Zm24 0A2.5 2.5 0 0 0 24.5 5h-17A2.5 2.5 0 0 0 5 7.5V11h22V7.5Zm0 17V13H5v11.5A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5Zm-17-15a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Zm6 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3ZM23.5 8a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0ZM9 23v-6h14v6H9Zm-.5-8A1.5 1.5 0 0 0 7 16.5v7A1.5 1.5 0 0 0 8.5 25h15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5h-15Z"/></svg>
             
+            <g display="${additional_load === 'no' || additional_load === 'one' ? 'none' : ''}" >
+            <foreignObject x="${show_aux === 'yes' ? '350' : '383'}" y="${show_aux === 'yes' ? '140' : '5'}" width="30" height="30">
+            <body xmlns="http://www.w3.org/1999/xhtml">
+            <ha-icon icon="${load1e_icon}" class="essload-icon" ></ha-icon>
+            </body>
+            </foreignObject>
+            </g>
+
+            <g display="${additional_load === 'no' || additional_load === 'one' ? 'none' : ''}">
+            <foreignObject x="${show_aux === 'yes' ? '446' : '420'}" y="${show_aux === 'yes' ? '140' : '5'}" width="30" height="30">
+            <body xmlns="http://www.w3.org/1999/xhtml">
+            <ha-icon icon="${load2e_icon}" class="essload-icon" ></ha-icon>
+            </body>
+            </foreignObject>
+            </g>
+
+            <g display="${additional_load === 'no' || additional_load === 'two' ? 'none' : ''}">
+            <foreignObject x="${show_aux === 'yes' ? '336' : '336'}" y="${show_aux === 'yes' ? '140' : '27'}" width="40" height="40">
+            <body xmlns="http://www.w3.org/1999/xhtml">
+            <ha-icon icon="${load1e_icon}" class="essload1-icon" ></ha-icon>
+            </body>
+            </foreignObject>
+            </g>
+
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.use_timer_248)}>
               <svg xmlns="http://www.w3.org/2000/svg" id="timer" x="46%" y="${useautarky != 'no' ? "60.5%" : "65%"}" width="18" height="18" viewBox="0 0 24 24"><path display="${stateObj26.state == 'on' && usetimer !== 'no' ? '' : 'none'}" fill="${inverter_colour}" d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0 0 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9a8.994 8.994 0 0 0 7.03-14.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7s7 3.13 7 7s-3.13 7-7 7z"/></svg>
               <svg xmlns="http://www.w3.org/2000/svg" id="timer_off" x="46%" y="${useautarky != 'no' ? "60.5%" : "65%"}" width="18" height="18" viewBox="0 0 24 24"><path display="${stateObj26.state == 'off' && usetimer !== 'no' ? '' : 'none'}" fill="${inverter_colour}" d="m19.95 17.15l-1.5-1.5q.275-.675.413-1.337T19 13q0-2.9-2.05-4.95T12 6q-.6 0-1.275.125t-1.4.4l-1.5-1.5q.95-.5 2.012-.763T12 4q1.5 0 2.938.5t2.712 1.45l1.4-1.4l1.4 1.4l-1.4 1.4q.95 1.275 1.45 2.713T21 13q0 1.05-.263 2.087t-.787 2.063ZM13 10.2V8h-2v.2l2 2Zm6.8 12.4l-2.4-2.4q-1.2.875-2.588 1.338T12 22q-1.85 0-3.488-.713T5.65 19.35q-1.225-1.225-1.938-2.863T3 13q0-1.5.463-2.888T4.8 7.6L1.4 4.2l1.4-1.4l18.4 18.4l-1.4 1.4ZM12 20q1.05 0 2.05-.325t1.875-.925L6.2 9.025q-.6.875-.9 1.875T5 13q0 2.9 2.05 4.95T12 20ZM9 3V1h6v2H9Zm2.075 10.875Zm2.825-2.8Z"/></svg>
@@ -856,11 +932,19 @@ class SunsynkPowerFlowCard extends LitElement {
             </a>
           </svg>
         </div>
+        </ha-card>
       `;
     }
 
     if (config.cardstyle === 'lite') {
       return html`
+        <ha-card>
+        <style>
+        .essload-icon {
+          color: ${load_colour} !important;
+          --mdc-icon-size: 32px;
+        }
+        </style>
         <div class="container card">
           <svg viewBox="-0.5 ${config.show_solar === 'no' ? 145.33 : -0.5} 483 ${config.show_solar === 'no' ? 270.67 : 406}" height="${panel === 'no' ? `${config.show_solar === 'no' ? '246px' : '396px'}` : `${config.show_solar === 'no' ? '75%' : '100%'}`}" width="100%"  xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
             <rect x="304" y="203.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${load_colour}" pointer-events="all"/>
@@ -920,15 +1004,15 @@ class SunsynkPowerFlowCard extends LitElement {
             </circle>
             <path id="pv3-line" d="M 113 84 L 113 125 Q 113 132 120 132 L 205 132.03" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="pv3-dot" cx="0" cy="0" r="3" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'st12' : ''}" fill="${parseInt(stateObj31.state) <= 0 ? 'transparent' : `${solar_colour}`}">
-            <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
-              <mpath xlink:href="#pv3-line"/>  
-            </animateMotion>
+              <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+                <mpath xlink:href="#pv3-line"/>  
+              </animateMotion>
             </circle>
             <path id="pv4-line" d="M 365 85 L 365 125 Q 365 132 358 132 L 275 132" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="pv4-dot" cx="0" cy="0" r="3" class="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'st12' : ''}" fill="${parseInt(stateObj32.state) <= 0 ? 'transparent' : `${solar_colour}`}">
-            <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
-              <mpath xlink:href="#pv4-line"/>  
-            </animateMotion>
+              <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+                <mpath xlink:href="#pv4-line"/>  
+              </animateMotion>
             </circle>
             <path id="bat-line" d="M 239.23 250 L 239.21 288.03 Q 239.21 298.03 239.1 308.02 L 239 324" fill="none" stroke="${battery_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
             <circle id="power-dot-charge" cx="0" cy="0" r="3" fill="${parseInt(battery_power) < 0 || parseInt(battery_power) === 0 ? 'transparent' : `${battery_colour}`}">
@@ -994,6 +1078,22 @@ class SunsynkPowerFlowCard extends LitElement {
             <svg xmlns="http://www.w3.org/2000/svg" id="ess_boiler_top" x="371" y="113" width="36" height="36" viewBox="0 0 24 24" opacity="${load1e_icon === 'boiler' && (additional_load === 'one'|| additional_load === 'two') ? '1' : '0'}"><path display="${additional_load === 'no' ? 'none' : ''}" fill="${load_colour}" d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="ess_boiler_bottom" x="371" y="287" width="36" height="36" viewBox="0 0 24 24" opacity="${load2e_icon === 'boiler' && additional_load === 'two' ? '1' : '0'}"><path display="${additional_load === 'no' ? 'none' : ''}" fill="${load_colour}" d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/></svg>
             
+            <g display="${additional_load === 'no' ? 'none' : ''}">
+            <foreignObject x="371" y="114" width="40" height="40">
+            <body xmlns="http://www.w3.org/1999/xhtml">
+              <ha-icon icon="${load1e_icon}" class="essload-icon" "></ha-icon>
+            </body>
+            </foreignObject>
+            </g>
+            
+            <g display="${additional_load === 'no' || additional_load === 'one' ? 'none' : ''}">
+            <foreignObject x="371" y="288" width="40" height="40">
+            <body xmlns="http://www.w3.org/1999/xhtml">
+            <ha-icon icon="${load2e_icon}" class="essload-icon" ></ha-icon>
+            </body>
+            </foreignObject>
+            </g>
+
             <svg xmlns="http://www.w3.org/2000/svg" id="sun" x="154" y="10" width="40" height="40" viewBox="0 0 24 24"><path class="${config.show_solar === 'no' ? 'st12' : ''}" fill="${solar_colour}" d="M11.45 2v3.55L15 3.77L11.45 2m-1 6L8 10.46l3.75 1.25L10.45 8M2 11.45L3.77 15l1.78-3.55H2M10 2H2v8c.57.17 1.17.25 1.77.25c3.58.01 6.49-2.9 6.5-6.5c-.01-.59-.1-1.18-.27-1.75m7 20v-6h-3l5-9v6h3l-5 9Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="bat-high" x="232.5" y="325.5" width="78.75" height="78.75" preserveAspectRatio="none" opacity="${parseInt(stateObj12.state) > '80' ? '1' : '0'}" viewBox="0 0 24 24"> <path fill="${battery_colour}" d="M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 11 16 H 5 v 3 h 6 v -3 m 0 -9 H 5 v 3 h 6 V 7 m 0 4.5 H 5 v 3 h 6 v -3 h -3 h 3"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="bat-med" x="232.5" y="325.5" width="78.75" height="78.75" preserveAspectRatio="none" opacity="${parseInt(stateObj12.state) >= 50 && parseInt(stateObj12.state) <= 80 ? '1' : '0'}" viewBox="0 0 24 24"><path fill="${battery_colour}" d="M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 11 16 H 5 v 3 h 6 v -3 m 0 -4.5 H 5 v 3 h 6 v -3 h -3 h 3"/></svg>
@@ -1137,6 +1237,7 @@ class SunsynkPowerFlowCard extends LitElement {
             : svg`<text id="ess_power" x="340.1" y="219.2" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential ? essential : '0'} W</text>`}
           </svg>
         </div>
+        </ha-card>
       `;
     }
   }
