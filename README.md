@@ -372,7 +372,7 @@ load:
   load1_name: Geyser
   load2_name: Pool
   load1_icon: boiler
-  load2_icon: pump
+  load2_icon: mdi:pool
 grid:
   colour: '#5490c2'
   show_daily_buy: 'yes'
@@ -381,12 +381,12 @@ grid:
   show_nonessential: 'yes'
   invert_grid: 'no'
   nonessential_name: Non Essential
-  nonessential_icon: charger
+  nonessential_icon: oven
   nonessential_dual: 'yes'
   load1_name: Load 1
   load2_name: Load 2
   load1_icon: boiler
-  load2_icon: charger
+  load2_icon: mdi:ev-station
   animation_speed: 8
   max_power: 8000
 entities:
