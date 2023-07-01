@@ -24,7 +24,7 @@ An animated Home Assistant card to emulate the power flow that's shown on the Su
 
 ## Screenshots
 
-![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/bc693061-b6b2-48a2-a880-48b01bb3a5de)
+![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/1c44a09b-2914-4cbd-919d-477789137acd)
 ![sunsynk-power-flow-lite](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/ab615245-cee6-4502-b9bc-649566a6eb54)
 
 
@@ -125,8 +125,8 @@ These attributes are only needed if `show_solar` is set to `yes`
 | additional_loads: | Optional | `no` | Display additional loads on the essential side (`one/two/no`) 
 | load1_name: | Optional | `Load 1` | Set the display name for the Essential Load 1
 | load2_name: | Optional | `Load 2` | Set the display name for the Essential Load 2
-| load1_icon: | Optional | none | Change the essential load 1 image. Options are  `boiler`, `pump`, `aircon` |
-| load2_icon: | Optional | none | Change the essential load 2 image. Options are , `boiler`, `pump`, `aircon` |
+| load1_icon: | Optional | none | Change the essential load 1 image. Options are  `boiler`, `pump`, `aircon`, `oven` |
+| load2_icon: | Optional | none | Change the essential load 2 image. Options are , `boiler`, `pump`, `aircon`, `oven` |
 
 ### Grid
 | Attribute | Requirement | Default | Description |
