@@ -725,7 +725,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <g display="${show_aux === 'no' ? 'none' : ''}" >
               <foreignObject x="375" y="5" width="85" height="85" style="position: fixed; ">
                 <body xmlns="http://www.w3.org/1999/xhtml" >
-                  <div style="position: fixed;  transform-origin: 0px 0px;">
+                  <div style="position: fixed; ">
                     <ha-icon icon="${aux_type}" class="aux-icon" ></ha-icon>
                   </div>
                 </body>
