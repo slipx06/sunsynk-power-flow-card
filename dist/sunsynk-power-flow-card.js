@@ -666,11 +666,13 @@ class SunsynkPowerFlowCard extends LitElement {
             <svg xmlns="http://www.w3.org/2000/svg" id="noness_ac" x="311" y="312" width="55" height="55" viewBox="0 0 24 24" opacity="${nonessential_icon === 'aircon' ? '1' : '0'}"><path display="${grid_show_noness === 'no' || noness_dual_load === 'yes'? 'none' : ''}" fill="${grid_colour}" d="M6.59.66c2.34-1.81 4.88.4 5.45 3.84c.43 0 .85.12 1.23.34c.52-.6.98-1.42.8-2.34c-.42-2.15 1.99-3.89 4.28-.92c1.81 2.34-.4 4.88-3.85 5.45c0 .43-.11.86-.34 1.24c.6.51 1.42.97 2.34.79c2.13-.42 3.88 1.98.91 4.28c-2.34 1.81-4.88-.4-5.45-3.84c-.43 0-.85-.13-1.22-.35c-.52.6-.99 1.43-.81 2.35c.42 2.14-1.99 3.89-4.28.92c-1.82-2.35.4-4.89 3.85-5.45c0-.43.13-.85.35-1.23c-.6-.51-1.42-.98-2.35-.8c-2.13.42-3.88-1.98-.91-4.28M5 16h2a2 2 0 0 1 2 2v6H7v-2H5v2H3v-6a2 2 0 0 1 2-2m0 2v2h2v-2H5m7.93-2H15l-2.93 8H10l2.93-8M18 16h3v2h-3v4h3v2h-3a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z"/></svg>
             
             <g display="${grid_show_noness === 'no' || noness_dual_load === 'yes' ? 'none' : ''}" >
-            <foreignObject x="303.5" y="303.5" width="85" height="85">
-            <body xmlns="http://www.w3.org/1999/xhtml">
-            <ha-icon icon="${nonessential_icon}" class="noness-icon" ></ha-icon>
-            </body>
-            </foreignObject>
+              <foreignObject x="303.5" y="303.5" width="85" height="85" style="position: fixed; ">
+                <body xmlns="http://www.w3.org/1999/xhtml">
+                  <div style="position: fixed; ">
+                    <ha-icon icon="${nonessential_icon}" class="noness-icon" ></ha-icon>
+                  </div>
+                </body>
+              </foreignObject>
             </g>
 
             <!-- Nonessential Load Icon -->
@@ -687,19 +689,23 @@ class SunsynkPowerFlowCard extends LitElement {
             <svg xmlns="http://www.w3.org/2000/svg" id="noness_ac_right" x="345" y="345" width="25" height="25" viewBox="0 0 24 24" opacity="${load2_icon === 'aircon' ? '1' : '0'}"><path display="${grid_show_noness === 'no' || noness_dual_load === 'no'? 'none' : ''}" fill="${grid_colour}" d="M6.59.66c2.34-1.81 4.88.4 5.45 3.84c.43 0 .85.12 1.23.34c.52-.6.98-1.42.8-2.34c-.42-2.15 1.99-3.89 4.28-.92c1.81 2.34-.4 4.88-3.85 5.45c0 .43-.11.86-.34 1.24c.6.51 1.42.97 2.34.79c2.13-.42 3.88 1.98.91 4.28c-2.34 1.81-4.88-.4-5.45-3.84c-.43 0-.85-.13-1.22-.35c-.52.6-.99 1.43-.81 2.35c.42 2.14-1.99 3.89-4.28.92c-1.82-2.35.4-4.89 3.85-5.45c0-.43.13-.85.35-1.23c-.6-.51-1.42-.98-2.35-.8c-2.13.42-3.88-1.98-.91-4.28M5 16h2a2 2 0 0 1 2 2v6H7v-2H5v2H3v-6a2 2 0 0 1 2-2m0 2v2h2v-2H5m7.93-2H15l-2.93 8H10l2.93-8M18 16h3v2h-3v4h3v2h-3a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z"/></svg>
             
             <g display="${grid_show_noness === 'no' || noness_dual_load === 'no' ? 'none' : ''}" >
-            <foreignObject x="306" y="341" width="30" height="30">
-            <body xmlns="http://www.w3.org/1999/xhtml">
-            <ha-icon icon="${load1_icon}" class="nonessload-icon" ></ha-icon>
-            </body>
-            </foreignObject>
+              <foreignObject x="306" y="341" width="30" height="30" style="position: fixed; ">
+                <body xmlns="http://www.w3.org/1999/xhtml" >
+                  <div style="position: fixed; "> 
+                    <ha-icon icon="${load1_icon}" class="nonessload-icon" ></ha-icon>
+                  </div>
+                </body>
+              </foreignObject>
             </g>
 
             <g display="${grid_show_noness === 'no' || noness_dual_load === 'no' ? 'none' : ''}">
-            <foreignObject x="343" y="341" width="30" height="30">
-            <body xmlns="http://www.w3.org/1999/xhtml">
-            <ha-icon icon="${load2_icon}" class="nonessload-icon" ></ha-icon>
-            </body>
-            </foreignObject>
+              <foreignObject x="343" y="341" width="30" height="30" style="position: fixed; ">
+                <body xmlns="http://www.w3.org/1999/xhtml">
+                  <div style="position: fixed; ">
+                    <ha-icon icon="${load2_icon}" class="nonessload-icon" ></ha-icon>
+                  </div>
+                </body>
+              </foreignObject>
             </g>
 
             <!-- Essential Icon -->
@@ -717,11 +723,13 @@ class SunsynkPowerFlowCard extends LitElement {
             <svg xmlns="http://www.w3.org/2000/svg" id="aux_pump" x="380" y="15" width="60" height="70" viewBox="0 0 24 24"><path class="${aux_type === 'pump' ? '' : 'st12'}" display="${show_aux === 'no' ? 'none' : ''}" fill="${load_colour}" d="M3 17h4.1q-.425-.425-.787-.925T5.675 15H3v2Zm9 0q2.075 0 3.538-1.463T17 12q0-2.075-1.463-3.538T12 7Q9.925 7 8.462 8.463T7 12q0 2.075 1.463 3.538T12 17Zm6.325-8H21V7h-4.1q.425.425.788.925T18.325 9ZM1 20v-8h2v1h2.075q-.05-.25-.063-.488T5 12q0-2.925 2.038-4.963T12 5h9V4h2v8h-2v-1h-2.075q.05.25.063.488T19 12q0 2.925-2.038 4.963T12 19H3v1H1Zm2-3v-2v2Zm18-8V7v2Zm-9 3Zm0 3q-.825 0-1.413-.588T10 13q0-.575.238-1.137t.912-1.613L12 9l.85 1.25q.675 1.05.913 1.613T14 13q0 .825-.588 1.413T12 15Z"/></svg>
             
             <g display="${show_aux === 'no' ? 'none' : ''}" >
-            <foreignObject x="375" y="5" width="85" height="85">
-            <body xmlns="http://www.w3.org/1999/xhtml">
-            <ha-icon icon="${aux_type}" class="aux-icon" ></ha-icon>
-            </body>
-            </foreignObject>
+              <foreignObject x="375" y="5" width="85" height="85" style="position: fixed; ">
+                <body xmlns="http://www.w3.org/1999/xhtml" >
+                  <div style="position: fixed;  transform-origin: 0px 0px;">
+                    <ha-icon icon="${aux_type}" class="aux-icon" ></ha-icon>
+                  </div>
+                </body>
+              </foreignObject>
             </g>
 
             <!-- Essential Boiler Icon -->
@@ -757,27 +765,33 @@ class SunsynkPowerFlowCard extends LitElement {
             <svg xmlns="http://www.w3.org/2000/svg" id="ess_oven_aux" x="336" y="140" width="36" height="36" viewBox="0 0 32 32" opacity="${load1e_icon === 'oven' && additional_load === 'one' ? '1' : '0'}"><path display="${show_aux === 'no' || additional_load === 'no' || additional_load === 'two' ? 'none' : ''}" fill="${load_colour}" d="M3 7.5A4.5 4.5 0 0 1 7.5 3h17A4.5 4.5 0 0 1 29 7.5v17a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17Zm24 0A2.5 2.5 0 0 0 24.5 5h-17A2.5 2.5 0 0 0 5 7.5V11h22V7.5Zm0 17V13H5v11.5A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5Zm-17-15a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Zm6 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3ZM23.5 8a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0ZM9 23v-6h14v6H9Zm-.5-8A1.5 1.5 0 0 0 7 16.5v7A1.5 1.5 0 0 0 8.5 25h15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5h-15Z"/></svg>
             
             <g display="${additional_load === 'no' || additional_load === 'one' ? 'none' : ''}" >
-            <foreignObject x="${show_aux === 'yes' ? '350' : '383'}" y="${show_aux === 'yes' ? '140' : '5'}" width="30" height="30">
-            <body xmlns="http://www.w3.org/1999/xhtml">
-            <ha-icon icon="${load1e_icon}" class="essload-icon" ></ha-icon>
-            </body>
-            </foreignObject>
+              <foreignObject x="${show_aux === 'yes' ? '350' : '383'}" y="${show_aux === 'yes' ? '140' : '5'}" width="30" height="30" style="position: fixed; ">
+                <body xmlns="http://www.w3.org/1999/xhtml">
+                  <div style="position: fixed; ">
+                    <ha-icon icon="${load1e_icon}" class="essload-icon" ></ha-icon>
+                  </div>
+                </body>
+              </foreignObject>
             </g>
 
             <g display="${additional_load === 'no' || additional_load === 'one' ? 'none' : ''}">
-            <foreignObject x="${show_aux === 'yes' ? '446' : '420'}" y="${show_aux === 'yes' ? '140' : '5'}" width="30" height="30">
-            <body xmlns="http://www.w3.org/1999/xhtml">
-            <ha-icon icon="${load2e_icon}" class="essload-icon" ></ha-icon>
-            </body>
-            </foreignObject>
+              <foreignObject x="${show_aux === 'yes' ? '446' : '420'}" y="${show_aux === 'yes' ? '140' : '5'}" width="30" height="30" style="position: fixed;">
+                <body xmlns="http://www.w3.org/1999/xhtml">
+                  <div style="position: fixed;">
+                    <ha-icon icon="${load2e_icon}" class="essload-icon" ></ha-icon>
+                  </div>
+                </body>
+              </foreignObject>
             </g>
 
             <g display="${additional_load === 'no' || additional_load === 'two' ? 'none' : ''}">
-            <foreignObject x="${show_aux === 'yes' ? '336' : '336'}" y="${show_aux === 'yes' ? '140' : '27'}" width="40" height="40">
-            <body xmlns="http://www.w3.org/1999/xhtml">
-            <ha-icon icon="${load1e_icon}" class="essload1-icon" ></ha-icon>
-            </body>
-            </foreignObject>
+              <foreignObject x="${show_aux === 'yes' ? '336' : '336'}" y="${show_aux === 'yes' ? '140' : '27'}" width="40" height="40" style="position: fixed; ">
+                <body xmlns="http://www.w3.org/1999/xhtml" >
+                  <div style="position: fixed; ">
+                    <ha-icon icon="${load1e_icon}" class="essload1-icon" ></ha-icon>
+                  </div>
+                </body>
+              </foreignObject>
             </g>
 
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.use_timer_248)}>
@@ -1079,21 +1093,25 @@ class SunsynkPowerFlowCard extends LitElement {
             <svg xmlns="http://www.w3.org/2000/svg" id="ess_boiler_bottom" x="371" y="287" width="36" height="36" viewBox="0 0 24 24" opacity="${load2e_icon === 'boiler' && additional_load === 'two' ? '1' : '0'}"><path display="${additional_load === 'no' ? 'none' : ''}" fill="${load_colour}" d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/></svg>
             
             <g display="${additional_load === 'no' ? 'none' : ''}">
-            <foreignObject x="371" y="114" width="40" height="40">
-            <body xmlns="http://www.w3.org/1999/xhtml">
-              <ha-icon icon="${load1e_icon}" class="essload-icon" "></ha-icon>
-            </body>
-            </foreignObject>
+              <foreignObject x="371" y="114" width="36" height="36" style="position: fixed; " >
+                <body xmlns="http://www.w3.org/1999/xhtml" >
+                  <div style="position: fixed; "> 
+                      <ha-icon icon="${load1e_icon}" class="essload-icon" "></ha-icon>
+                  </div>
+                </body>
+              </foreignObject>
             </g>
             
             <g display="${additional_load === 'no' || additional_load === 'one' ? 'none' : ''}">
-            <foreignObject x="371" y="288" width="40" height="40">
-            <body xmlns="http://www.w3.org/1999/xhtml">
-            <ha-icon icon="${load2e_icon}" class="essload-icon" ></ha-icon>
-            </body>
-            </foreignObject>
+              <foreignObject x="371" y="288" width="36" height="36" style="position:fixed; " >
+                <body xmlns="http://www.w3.org/1999/xhtml" >
+                  <div style="position: fixed; ">   
+                    <ha-icon icon="${load2e_icon}" class="essload-icon" ></ha-icon>
+                  </div>
+                </body>
+              </foreignObject>
             </g>
-
+            
             <svg xmlns="http://www.w3.org/2000/svg" id="sun" x="154" y="10" width="40" height="40" viewBox="0 0 24 24"><path class="${config.show_solar === 'no' ? 'st12' : ''}" fill="${solar_colour}" d="M11.45 2v3.55L15 3.77L11.45 2m-1 6L8 10.46l3.75 1.25L10.45 8M2 11.45L3.77 15l1.78-3.55H2M10 2H2v8c.57.17 1.17.25 1.77.25c3.58.01 6.49-2.9 6.5-6.5c-.01-.59-.1-1.18-.27-1.75m7 20v-6h-3l5-9v6h3l-5 9Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="bat-high" x="232.5" y="325.5" width="78.75" height="78.75" preserveAspectRatio="none" opacity="${parseInt(stateObj12.state) > '80' ? '1' : '0'}" viewBox="0 0 24 24"> <path fill="${battery_colour}" d="M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 11 16 H 5 v 3 h 6 v -3 m 0 -9 H 5 v 3 h 6 V 7 m 0 4.5 H 5 v 3 h 6 v -3 h -3 h 3"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="bat-med" x="232.5" y="325.5" width="78.75" height="78.75" preserveAspectRatio="none" opacity="${parseInt(stateObj12.state) >= 50 && parseInt(stateObj12.state) <= 80 ? '1' : '0'}" viewBox="0 0 24 24"><path fill="${battery_colour}" d="M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 11 16 H 5 v 3 h 6 v -3 m 0 -4.5 H 5 v 3 h 6 v -3 h -3 h 3"/></svg>
