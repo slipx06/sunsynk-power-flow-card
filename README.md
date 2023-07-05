@@ -69,6 +69,7 @@ The card can be configured through the following attributes:
 |panel_mode:| Optional | `no` |Toggles panel mode removing any card height restrictions. For use with Panel(1 card) view types or grid layouts|
 |large_font:| Optional | `no` | Increases font size of sensor data `yes/no`|
 |show_solar:|**Required** |`yes` | Toggle display of solar information `yes/no`|
+|card_height:| Optional | `396px` | Sets the card height in pixels `400px` |
 |inverter: | Optional | See optional [Inverter](#inverter) attributes below  |List of inverter attributes.  |
 |battery: | **Required**  |See required [Battery](#battery) attributes below | List of battery attributes.  |
 |solar: | Optional |See optonal [Solar](#solar) attributes below | List of solar attributes.  |
