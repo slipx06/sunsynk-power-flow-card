@@ -182,7 +182,7 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |nonessential_power| Optional | `none`| The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures non-essential power e.g.  `Load power Non-Essential` in the case of Solar Assistant.  (W)
 |non_essential_load1: | Optional | |Sensor that contains the power of your non-essential load 1 (W)|
 |non_essential_load2: | Optional | |Sensor that contains the power of your non-essential load 2 (W)
-|grid_external_power_172: | **Required** | `sensor.grid_external_power`  | Grid External Power (W)|
+|grid_external_power_172: | **Required** | `sensor.grid_external_power`  | Grid CT Power (W)|
 |pv1_v_109: | Optional | `sensor.dc1_voltage` | PV String 1 Voltage (V) |
 |pv1_i_110: | Optional | `sensor.dc1_current` | PV String 1 Current (A)|
 |pv2_v_111: | Optional | `sensor.dc2_voltage` | PV String 2 Voltage (V)|
