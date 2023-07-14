@@ -155,76 +155,76 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 
 | Attribute |  Requirement | Default | Description |
 | --- | --- | --- | --- |
-|use_timer_248: | Optional | `switch.toggle_system_timer` | Displays "Use timer" status as an icon next to the inverter. Set to `no` to hide |
-|priority_load_243: | Optional |`switch.toggle_priority_load` | Shows if energy pattern is set to Priority Load or Priority Battery as an icon next to the inverter. Set to `no` to hide|
-|batdischargeday_71: | Optional |`sensor.battery_discharge_day` | Daily Battery Usage (kWh) |
-|batchargeday_70: | Optional |`sensor.battery_charge_day` | Daily Battery Charge (kWh) |
-|loadday_84: | Optional | `sensor.daily_load_power_kwh` | Daily Load (kWh) |
-|grid_buy_day_76: | Optional | `sensor.grid_import_day_buy` | Daily Grid Import (kWh) |
-|grid_sell_day_77: | Optional | `sensor.grid_export_day_sell` | Daily Grid Export (kWh) |
-|solarday_108: | Optional | `sensor.daily_pv_power_kwh` | Daily Solar Usage (kWh |
-|inverter_grid_voltage_154: | **Required** | `sensor.grid_inverter_voltage` | Inverter Output Voltage (V) |
-|inverter_load_freq_192: | **Required** | `sensor.load_frequency` | Load Frequency (Hz) |
-|inverter_out_164: | **Required** | `sensor.inverter_output_current` | Inverter Output Current (A) |
-|inverter_out_175: | **Required** | `sensor.inverter_output_power` | Inverter Output Power (W) |
-|inverter_load_grid_169: | **Required** | `sensor.grid_inverter_load` | Grid Power (W) See NOTE below. Use **167** (Grid LD Power) if non-essential and essential readings are wrong |
-|pv1_power_186: | Optional | `sensor.pv1_power` | PV String 1 Power (W)|
-|pv2_power_187: | Optional | `sensor.pv2_power` | PV String 2 Power (W)  |
-|pv3_power_188: | Optional | `sensor.pv3_power` | PV String 3 Power (W)  |
-|pv4_power_189: | Optional | `sensor.pv4_power` | PV String 4 Power (W)  |
-|battery_voltage_183: | **Required** | `sensor.battery_voltage` | Battery Voltage (V) |
-|battery_soc_184: | **Required** | `sensor.battery_soc` | Battery State of Charge (%) |
-|battery_out_190: | **Required** | `sensor.battery_output_power` | Battery Output Power (W). Requires a negative number for battery charging and a positive number for battery discharging. Set the `invert_power:` battery attribute to `yes` if your sensor reports this the other way around |
-|battery_current_191: | **Required** |`sensor.battery_output_current` | Battery Current (A) | 
+|use_timer_248: | Optional | `switch.sunsynk_toggle_system_timer` | Displays "Use timer" status as an icon next to the inverter. Set to `no` to hide |
+|priority_load_243: | Optional |`switch.sunsynk_toggle_priority_load` | Shows if energy pattern is set to Priority Load or Priority Battery as an icon next to the inverter. Set to `no` to hide|
+|day_battery_discharge_71: | Optional |`ssensor.sunsynk_day_battery_discharge` | Daily Battery Usage (kWh) |
+|day_battery_charge_70: | Optional |`sensor.sunsynk_day_battery_charge` | Daily Battery Charge (kWh) |
+|day_load_energy_84: | Optional | `sensor.sunsynk_day_load_energy` | Daily Load (kWh) |
+|day_grid_import_76: | Optional | `sensor.sunsynk_day_grid_import` | Daily Grid Import (kWh) |
+|day_grid_export_77: | Optional | `sensor.sunsynk_day_grid_export` | Daily Grid Export (kWh) |
+|day_pv_energy_108: | Optional | `sensor.sunsynk_day_pv_energy` | Daily Solar Usage (kWh |
+|inverter_voltage_154: | **Required** | `sensor.sunsynk_inverter_voltage` | Inverter Voltage (V) |
+|load_frequency_192: | **Required** | `sensor.sunsynk_load_frequency` | Load Frequency (Hz) |
+|inverter_current_164: | **Required** | `sensor.sunsynk_inverter_current` | Inverter Current (A) |
+|inverter_power_175: | **Required** | `sensor.sunsynk_inverter_power` | Inverter Power (W) |
+|grid_power_169: | **Required** | `sensor.sunsynk_grid_power` | Grid Power (W) See NOTE below. Use **167** (Grid LD Power) if non-essential and essential readings are wrong |
+|pv1_power_186: | Optional | `sensor.sunsynk_pv1_power` | PV String 1 Power (W)|
+|pv2_power_187: | Optional | `sensor.sunsynk_pv2_power` | PV String 2 Power (W)  |
+|pv3_power_188: | Optional | `sensor.sunsynk_pv3_power` | PV String 3 Power (W)  |
+|pv4_power_189: | Optional | `sensor.sunsynk_pv4_power` | PV String 4 Power (W)  |
+|battery_voltage_183: | **Required** | `sensor.sunsynk_battery_voltage` | Battery Voltage (V) |
+|battery_soc_184: | **Required** | `sensor.sunsynk_battery_soc` | Battery State of Charge (%) |
+|battery_power_190: | **Required** | `sensor.sunsynk_battery_power` | Battery Power (W). Requires a negative number for battery charging and a positive number for battery discharging. Set the `invert_power:` battery attribute to `yes` if your sensor reports this the other way around |
+|battery_current_191: | **Required** |`sensor.sunsynk_battery_current` | Battery Current (A) | 
 |essential_power: | Optional | `none` | The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures essential power e.g. `Load power Essential` in the case of Solar Assistant.  (W) |
 |essential_load1: | Optional | | Sensor that contains the power of your essential load 1 (W)|
 |essential_load2: | Optional | | Sensor that contains the power of your essential load 2 (W)|
 |nonessential_power| Optional | `none`| The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures non-essential power e.g.  `Load power Non-Essential` in the case of Solar Assistant.  (W)
 |non_essential_load1: | Optional | |Sensor that contains the power of your non-essential load 1 (W)|
 |non_essential_load2: | Optional | |Sensor that contains the power of your non-essential load 2 (W)
-|grid_external_power_172: | **Required** | `sensor.grid_external_power`  | Grid CT Power (W)|
-|pv1_v_109: | Optional | `sensor.dc1_voltage` | PV String 1 Voltage (V) |
-|pv1_i_110: | Optional | `sensor.dc1_current` | PV String 1 Current (A)|
-|pv2_v_111: | Optional | `sensor.dc2_voltage` | PV String 2 Voltage (V)|
-|pv2_i_112: | Optional | `sensor.dc2_current` | PV String 2 Current (A)|
-|pv3_v_113: | Optional | `sensor.dc3_voltage` | PV String 3 Voltage (V) |
-|pv3_i_114: | Optional | `sensor.dc3_current` | PV String 3 Current (A)|
-|pv4_v_115: | Optional | `sensor.dc4_voltage` | PV String 4 Voltage (V)|
-|pv4_i_116: | Optional | `sensor.dc4_current` | PV String 4 Current (A)|
-|grid_status_194: | **Required** | `binary_sensor.grid_connected_status` | Grid Connected Status `on/off` or `1/0` |
+|grid_ct_power_172: | **Required** | `sensor.sunsynk_grid_ct_power`  | Grid CT Power (W)|
+|pv1_voltage_109: | Optional | `sensor.sunsynk_pv1_voltage` | PV String 1 Voltage (V) |
+|pv1_current_110: | Optional | `sensor.sunsynk_pv1_current` | PV String 1 Current (A)|
+|pv2_voltage_111: | Optional | `sensor.sunsynk_pv2_voltage` | PV String 2 Voltage (V)|
+|pv2_current_112: | Optional | `sensor.sunsynk_pv2_current` | PV String 2 Current (A)|
+|pv3_voltage_113: | Optional | `sensor.sunsynk_pv3_voltage` | PV String 3 Voltage (V) |
+|pv3_current_114: | Optional | `sensor.sunsynk_pv3_current` | PV String 3 Current (A)|
+|pv4_voltage_115: | Optional | `sensor.sunsynk_pv4_voltage` | PV String 4 Voltage (V)|
+|pv4_current_116: | Optional | `sensor.sunsynk_pv4_current` | PV String 4 Current (A)|
+|grid_connected_status_194: | **Required** | `binary_sensor.sunsynk_grid_connected_status` | Grid Connected Status `on/off` or `1/0` |
 |inverter_status_59: | **Required** | `sensor.overall_state` | Inverter Status `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault` |
-|aux_power_166: | Optional | `sensor.aux_output_power` | Auxilary Power (W) |
+|aux_power_166: | Optional | `sensor.sunsynk_aux_power` | Auxilary Power (W) |
 |remaining_solar: | Optional | `sensor.solcast_forecast_remaining_today`| The remaining solar forecast for the day (kWh) |
-|battery_temp:| Optional | `sensor.ss_battery_temperature` | Battery Temperature (℃)|
-|inverter_ac_temp:| Optional | `sensor.ss_dc_radiator_temperature` | Inverter AC Temperature (℃)|
-|inverter_dc_temp:| Optional | `sensor.ss_dc_transformer_temperature` | Inverter DC Temperature (℃)|
-|prog1_time:| Optional | `select.ss_prog1_time` | Program 1 start time (`HH:MM`)
-|prog1_capacity:| Optional | `number.ss_prog1_capacity` | Program 1 capacity (SOC) setting
-|prog1_charge:| Optional | `select.ss_prog1_charge` | Program 1 charge options (`on/off`, `1/0`, `No Grid or Gen`)
-|prog2_time:| Optional | `select.ss_prog2_time` | Program 2 start time (`HH:MM`)
-|prog2_capacity:| Optional | `number.ss_prog2_capacity` | Program 2 capacity (SOC) setting
-|prog2_charge:| Optional | `select.ss_prog2_charge` | Program 2 charge options (`on/off`, `1/0`, `No Grid or Gen`)
-|prog3_time:| Optional | `select.ss_prog3_time` | Program 3 start time (`HH:MM`)
-|prog3_capacity:| Optional | `number.ss_prog3_capacity` | Program 3 capacity (SOC) setting
-|prog3_charge:| Optional | `select.ss_prog3_charge` | Program 3 charge options (`on/off`, `1/0`, `No Grid or Gen`)
-|prog4_time:| Optional | `select.ss_prog4_time` | Program 4 start time (`HH:MM`)
-|prog4_capacity:| Optional | `number.ss_prog4_capacity` | Program 4 capacity (SOC) setting
-|prog4_charge:| Optional | `select.ss_prog4_charge` | Program 4 charge options (`on/off`, `1/0`, `No Grid or Gen`)
-|prog5_time:| Optional | `select.ss_prog5_time` | Program 5 start time (`HH:MM`)
-|prog5_capacity:| Optional | `number.ss_prog5_capacity` | Program 5 capacity (SOC) setting
-|prog5_charge:| Optional | `select.ss_prog5_charge` | Program 5 charge options (`on/off`, `1/0`, `No Grid or Gen`)
-|prog6_time:| Optional | `select.ss_prog6_time` | Program 6 start time (`HH:MM`)
-|prog6_capacity:| Optional | `number.ss_prog6_capacity` | Program 6 capacity (SOC) setting
-|prog6_charge:| Optional | `select.ss_prog6_charge` | Program 6 charge options (`on/off`, `1/0`, `No Grid or Gen`)
+|battery_temp_182:| Optional | `sensor.sunsynk_battery_temperature` | Battery Temperature (℃)|
+|radiator_temp_91:| Optional | `sensor.sunsynk_radiator_temperature` | Inverter AC Temperature (℃)|
+|dc_transformer_temp_90:| Optional | `sensor.sunsynk_dc_transformer_temperature` | Inverter DC Temperature (℃)|
+|prog1_time:| Optional | `sensor.sunsynk_time_slot_1` | Program 1 start time (`HH:MM`)
+|prog1_capacity:| Optional | `sensor.sunsynk_system_mode_soc_time1` | Program 1 capacity (SOC) setting
+|prog1_charge:| Optional | `switch.sunsynk_system_mode_grid_charge_time1` | Program 1 charge options (`on/off`, `1/0`, `No Grid or Gen`)
+|prog2_time:| Optional | `sensor.sunsynk_time_slot_2` | Program 2 start time (`HH:MM`)
+|prog2_capacity:| Optional | `sensor.sunsynk_system_mode_soc_time2` | Program 2 capacity (SOC) setting
+|prog2_charge:| Optional | `switch.sunsynk_system_mode_grid_charge_time2` | Program 2 charge options (`on/off`, `1/0`, `No Grid or Gen`)
+|prog3_time:| Optional | `sensor.sunsynk_time_slot_3` | Program 3 start time (`HH:MM`)
+|prog3_capacity:| Optional | `sensor.sunsynk_system_mode_soc_time3` | Program 3 capacity (SOC) setting
+|prog3_charge:| Optional | `switch.sunsynk_system_mode_grid_charge_time3` | Program 3 charge options (`on/off`, `1/0`, `No Grid or Gen`)
+|prog4_time:| Optional | `sensor.sunsynk_time_slot_4` | Program 4 start time (`HH:MM`)
+|prog4_capacity:| Optional | `sensor.sunsynk_system_mode_soc_time4` | Program 4 capacity (SOC) setting
+|prog4_charge:| Optional | `switch.sunsynk_system_mode_grid_charge_time4` | Program 4 charge options (`on/off`, `1/0`, `No Grid or Gen`)
+|prog5_time:| Optional | `sensor.sunsynk_time_slot_5` | Program 5 start time (`HH:MM`)
+|prog5_capacity:| Optional | `sensor.sunsynk_system_mode_soc_time5` | Program 5 capacity (SOC) setting
+|prog5_charge:| Optional | `switch.sunsynk_system_mode_grid_charge_time5` | Program 5 charge options (`on/off`, `1/0`, `No Grid or Gen`)
+|prog6_time:| Optional | `sensor.sunsynk_time_slot_6` | Program 6 start time (`HH:MM`)
+|prog6_capacity:| Optional | `sensor.sunsynk_system_mode_soc_time6` | Program 6 capacity (SOC) setting
+|prog6_charge:| Optional | `switch.sunsynk_system_mode_grid_charge_time6` | Program 6 charge options (`on/off`, `1/0`, `No Grid or Gen`)
 |energy_cost:| Optional | | Sensor that provides current energy cost per kWh
-|solar_sell_247:|Optional | `switch.toggle_solar_sell` | Displays icons to indicate if sell solar is active or not. The switch can be toggled by clicking on the icon (`on/off`, `1/0`)
+|solar_sell_247:|Optional | `switch.sunsynk_toggle_solar_sell` | Displays icons to indicate if sell solar is active or not. The switch can be toggled by clicking on the icon (`on/off`, `1/0`)
    
 The card calculates the sensors below based on supplied attributes in the config so you dont need to define them in Home Assistant. NOTE if your essential and non-essential readings are innacurate replace sensor 169 with 167. Alternatively provide the card with sensors that calculate this data i.e essential_power: and nonessential_power:
  
  ```
  totalsolar = pv1_power_186 + pv2_power_187 + pv3_power_188 + pv4_power_189
- nonessential = grid_external_power_172 - inverter_load_grid_169
- essential = inverter_out_175 + inverter_load_grid_169 - aux_power_166
+ nonessential = grid_ct_power_172 - grid_power_169
+ essential = inverter_power_175 + grid_power_169 - aux_power_166
  ```
 The modbus registers can be visualised on the `full` card below:
 
@@ -242,17 +242,17 @@ battery:
   energy: 15960
   shutdown_soc: 20
 entities:
-  inverter_grid_voltage_154: sensor.grid_inverter_voltage
-  inverter_load_freq_192: sensor.load_frequency
-  inverter_out_164: sensor.inverter_output_current
-  inverter_out_175: sensor.inverter_output_power
-  inverter_load_grid_169: sensor.grid_inverter_load
-  battery_voltage_183: sensor.battery_voltage
-  battery_soc_184: sensor.battery_soc
-  battery_out_190: sensor.battery_output_power
-  battery_current_191: sensor.battery_output_current
-  grid_external_power_172: sensor.grid_external_power
-  grid_status_194: binary_sensor.grid_connected_status
+  inverter_voltage_154: sensor.sunsynk_inverter_voltage
+  load_frequency_192: sensor.sunsynk_load_frequency
+  inverter_current_164: sensor.sunsynk_inverter_current
+  inverter_power_175: sensor.sunsynk_inverter_power
+  grid_power_169: sensor.sunsynk_grid_power
+  battery_voltage_183: sensor.sunsynk_battery_voltage
+  battery_soc_184: sensor.sunsynk_battery_soc
+  battery_power_190: sensor.sunsynk_battery_power
+  battery_current_191: sensor.sunsynk_battery_current
+  grid_ct_power_172: sensor.sunsynk_grid_ct_power
+  grid_connected_status_194: binary_sensor.sunsynk_grid_connected_status
   inverter_status_59: sensor.overall_state
 ```
 #### Minimum Configuration (Solar) #####
@@ -269,24 +269,24 @@ battery:
 load:
   show_aux: 'no'
 entities:
-  inverter_grid_voltage_154: sensor.grid_inverter_voltage
-  inverter_load_freq_192: sensor.load_frequency
-  inverter_out_164: sensor.inverter_output_current
-  inverter_out_175: sensor.inverter_output_power
-  inverter_load_grid_169: sensor.grid_power
-  battery_voltage_183: sensor.battery_voltage
-  battery_soc_184: sensor.battery_soc
-  battery_out_190: sensor.battery_output_power
-  battery_current_191: sensor.battery_output_current
-  grid_external_power_172: sensor.grid_external_power
-  grid_status_194: binary_sensor.grid_connected_status
+  inverter_voltage_154: sensor.sunsynk_inverter_voltage
+  load_frequency_192: sensor.sunsynk_load_frequency
+  inverter_current_164: sensor.sunsynk_inverter_current
+  inverter_power_175: sensor.sunsynk_inverter_power
+  grid_power_169: sensor.sunsynk_grid_power
+  battery_voltage_183: sensor.sunsynk_battery_voltage
+  battery_soc_184: sensor.sunsynk_battery_soc
+  battery_power_190: sensor.sunsynk_battery_power
+  battery_current_191: sensor.sunsynk_battery_current
+  grid_ct_power_172: sensor.sunsynk_grid_ct_power
+  grid_connected_status_194: binary_sensor.sunsynk_grid_connected_status
   inverter_status_59: sensor.overall_state
-  pv1_power_186: sensor.pv1_power
-  pv2_power_187: sensor.pv2_power
-  pv1_v_109: sensor.dc1_voltage
-  pv1_i_110: sensor.dc1_current
-  pv2_v_111: sensor.dc2_voltage
-  pv2_i_112: sensor.dc2_current
+  pv1_power_186: sensor.sunsynk_pv1_power
+  pv2_power_187: sensor.sunsynk_pv2_power
+  pv1_voltage_109: sensor.sunsynk_pv1_voltage
+  pv1_current_110: sensor.sunsynk_pv1_current
+  pv2_voltage_111: sensor.sunsynk_pv2_voltage
+  pv2_current_112: sensor.sunsynk_pv2_current
 ```
 #### Minimum Configuration (Solar + Daily Totals) #####
 
@@ -306,29 +306,29 @@ load:
 grid:
   show_daily_buy: 'yes'
 entities:
-  inverter_grid_voltage_154: sensor.grid_inverter_voltage
-  inverter_load_freq_192: sensor.load_frequency
-  inverter_out_164: sensor.inverter_output_current
-  inverter_out_175: sensor.inverter_output_power
-  inverter_load_grid_169: sensor.grid_power
-  battery_voltage_183: sensor.battery_voltage
-  battery_soc_184: sensor.battery_soc
-  battery_out_190: sensor.battery_output_power
-  battery_current_191: sensor.battery_output_current
-  grid_external_power_172: sensor.grid_external_power
-  grid_status_194: binary_sensor.grid_connected_status
+  inverter_voltage_154: sensor.sunsynk_inverter_voltage
+  load_frequency_192: sensor.sunsynk_load_frequency
+  inverter_current_164: sensor.sunsynk_inverter_current
+  inverter_power_175: sensor.sunsynk_inverter_power
+  grid_power_169: sensor.sunsynk_grid_power
+  battery_voltage_183: sensor.sunsynk_battery_voltage
+  battery_soc_184: sensor.sunsynk_battery_soc
+  battery_power_190: sensor.sunsynk_battery_power
+  battery_current_191: sensor.sunsynk_battery_current
+  grid_ct_power_172: sensor.sunsynk_grid_ct_power
+  grid_connected_status_194: binary_sensor.sunsynk_grid_connected_status
   inverter_status_59: sensor.overall_state
-  pv1_power_186: sensor.pv1_power
-  pv2_power_187: sensor.pv2_power
-  pv1_v_109: sensor.dc1_voltage
-  pv1_i_110: sensor.dc1_current
-  pv2_v_111: sensor.dc2_voltage
-  pv2_i_112: sensor.dc2_current
-  solarday_108: sensor.daily_pv_power_kwh
-  batchargeday_70: sensor.battery_charge_day
-  batdischargeday_71: sensor.battery_discharge_day
-  loadday_84: sensor.daily_load_power_kwh
-  grid_buy_day_76: sensor.grid_import_day_buy
+  pv1_power_186: sensor.sunsynk_pv1_power
+  pv2_power_187: sensor.sunsynk_pv2_power
+  pv1_voltage_109: sensor.sunsynk_pv1_voltage
+  pv1_current_110: sensor.sunsynk_pv1_current
+  pv2_voltage_111: sensor.sunsynk_pv2_voltage
+  pv2_current_112: sensor.sunsynk_pv2_current
+  day_pv_energy_108: sensor.sunsynk_day_pv_energy
+  day_battery_charge_70: sensor.sunsynk_day_battery_charge
+  day_battery_discharge_71: sensor.sunsynk_day_battery_discharge
+  day_load_energy_84: sensor.sunsynk_day_load_energy
+  day_grid_import_76: sensor.sunsynk_day_grid_import
 ```
 #### Full Configuration (All Options) #####
 
@@ -391,67 +391,67 @@ grid:
   animation_speed: 8
   max_power: 8000
 entities:
-  use_timer_248: switch.toggle_system_timer
-  priority_load_243: switch.toggle_priority_load
-  batchargeday_70: sensor.battery_charge_day
-  batdischargeday_71: sensor.battery_discharge_day
-  loadday_84: sensor.daily_load_power_kwh
-  grid_buy_day_76: sensor.grid_import_day_buy
-  grid_sell_day_77: none
-  solarday_108: sensor.daily_pv_power_kwh
-  inverter_grid_voltage_154: sensor.grid_inverter_voltage
-  inverter_load_freq_192: sensor.load_frequency
-  inverter_out_164: sensor.inverter_output_current
-  inverter_out_175: sensor.inverter_output_power
-  inverter_load_grid_169: sensor.grid_power
-  pv1_power_186: sensor.pv1_power
-  pv2_power_187: sensor.pv2_power
+  use_timer_248: switch.sunsynk_toggle_system_timer
+  priority_load_243: switch.sunsynk_toggle_priority_load
+  day_battery_charge_70: sensor.sunsynk_day_battery_charge
+  day_battery_discharge_71: sensor.sunsynk_day_battery_discharge
+  day_load_energy_84: sensor.sunsynk_day_load_energy
+  day_grid_import_76: sensor.sunsynk_day_grid_import
+  day_grid_export_77: sensor.sunsynk_day_grid_export
+  day_pv_energy_108: sensor.sunsynk_day_pv_energy
+  inverter_voltage_154: sensor.sunsynk_inverter_voltage
+  load_frequency_192: sensor.sunsynk_load_frequency
+  inverter_current_164: sensor.sunsynk_inverter_current
+  inverter_power_175: sensor.sunsynk_inverter_power
+  grid_power_169: sensor.sunsynk_grid_power
+  pv1_power_186: sensor.sunsynk_pv1_power
+  pv2_power_187: sensor.sunsynk_pv2_power
   pv3_power_188: none
   pv4_power_189: none
-  battery_voltage_183: sensor.battery_voltage
-  battery_soc_184: sensor.battery_soc
-  battery_out_190: sensor.battery_output_power
-  battery_current_191: sensor.battery_output_current
+  pv1_voltage_109: sensor.sunsynk_pv1_voltage
+  pv1_current_110: sensor.sunsynk_pv1_current
+  pv2_voltage_111: sensor.sunsynk_pv2_voltage
+  pv2_current_112: sensor.sunsynk_pv2_current
+  pv3_voltage_113: none
+  pv3_current_114: none
+  pv4_voltage_115: none
+  pv4_current_116: none
+  battery_voltage_183: sensor.sunsynk_battery_voltage
+  battery_soc_184: sensor.sunsynk_battery_soc
+  battery_power_190: sensor.sunsynk_battery_power
+  battery_current_191: sensor.sunsynk_battery_current
   essential_power: none
   essential_load1: sensor.tuya_geyser_current_consumption
   essential_load2: sensor.load2_power
   nonessential_power: none
   non_essential_load1: sensor.nonessential1_power
   non_essential_load2: sensor.nonessential2_power
-  grid_external_power_172: sensor.grid_external_power
-  pv1_v_109: sensor.dc1_voltage
-  pv1_i_110: sensor.dc1_current
-  pv2_v_111: sensor.dc2_voltage
-  pv2_i_112: sensor.dc2_current
-  pv3_v_113: none
-  pv3_i_114: none
-  pv4_v_115: none
-  pv4_i_116: none
-  grid_status_194: binary_sensor.grid_connected_status
+  grid_ct_power_172: sensor.sunsynk_grid_ct_power
+  grid_connected_status_194: binary_sensor.sunsynk_grid_connected_status
   inverter_status_59: sensor.overall_state
-  aux_power_166: sensor.aux_output_power
+  aux_power_166: sensor.sunsynk_aux_power
   remaining_solar: sensor.solcast_forecast_remaining_today
-  battery_temp: sensor.ss_battery_temperature
-  inverter_ac_temp: sensor.ss_dc_radiator_temperature
-  inverter_dc_temp: sensor.ss_dc_transformer_temperature
-  prog1_time: select.ss_prog1_time
-  prog1_capacity: number.ss_prog1_capacity
-  prog1_charge: select.ss_prog1_charge
-  prog2_time: select.ss_prog2_time
-  prog2_capacity: number.ss_prog2_capacity
-  prog2_charge: select.ss_prog2_charge
-  prog3_time: select.ss_prog3_time
-  prog3_capacity: number.ss_prog3_capacity
-  prog3_charge: select.ss_prog3_charge
-  prog4_time: select.ss_prog4_time
-  prog4_capacity: number.ss_prog4_capacity
-  prog4_charge: select.ss_prog4_charge
-  prog5_time: select.ss_prog5_time
-  prog5_capacity: number.ss_prog5_capacity
-  prog5_charge: select.ss_prog5_charge
-  prog6_time: select.ss_prog6_time
-  prog6_capacity: number.ss_prog6_capacity
-  prog6_charge: select.ss_prog6_charge
+  battery_temp_182: sensor.sunsynk_battery_temperature
+  radiator_temp_91: sensor.sunsynk_radiator_temperature
+  dc_transformer_temp_90: sensor.sunsynk_dc_transformer_temperature
+  prog1_time: sensor.sunsynk_time_slot_1
+  prog1_capacity: sensor.sunsynk_system_mode_soc_time1
+  prog1_charge: switch.sunsynk_system_mode_grid_charge_time1
+  prog2_time: sensor.sunsynk_time_slot_2
+  prog2_capacity: sensor.sunsynk_system_mode_soc_time2
+  prog2_charge: switch.sunsynk_system_mode_grid_charge_time2
+  prog3_time: sensor.sunsynk_time_slot_3
+  prog3_capacity: sensor.sunsynk_system_mode_soc_time3
+  prog3_charge: switch.sunsynk_system_mode_grid_charge_time3
+  prog4_time: sensor.sunsynk_time_slot_4
+  prog4_capacity: sensor.sunsynk_system_mode_soc_time4
+  prog4_charge: switch.sunsynk_system_mode_grid_charge_time4
+  prog5_time: sensor.sunsynk_time_slot_5
+  prog5_capacity: sensor.sunsynk_system_mode_soc_time5
+  prog5_charge: switch.sunsynk_system_mode_grid_charge_time5
+  prog6_time: sensor.sunsynk_time_slot_6
+  prog6_capacity: sensor.sunsynk_system_mode_soc_time6
+  prog6_charge: switch.sunsynk_system_mode_grid_charge_time6
   energy_cost: sensor.tibber_energy_cost
-  solar_sell_247: switch.toggle_solar_sell
+  solar_sell_247: switch.sunsynk_toggle_solar_sell
 ```
