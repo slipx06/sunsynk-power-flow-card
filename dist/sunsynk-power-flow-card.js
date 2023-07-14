@@ -92,80 +92,80 @@ class SunsynkPowerFlowCard extends LitElement {
         show_nonessential: 'yes',
       },
       entities: {
-        use_timer_248: 'switch.toggle_system_timer',
-        priority_load_243: 'switch.toggle_priority_load',
-        inverter_grid_voltage_154: 'sensor.grid_inverter_voltage',
-        inverter_load_freq_192: 'sensor.load_frequency',
-        inverter_out_164: 'sensor.inverter_output_current',
-        inverter_out_175: 'sensor.inverter_output_power',
-        grid_status_194: 'binary_sensor.grid_connected_status',
+        use_timer_248: 'switch.sunsynk_toggle_system_timer',
+        priority_load_243: 'switch.sunsynk_toggle_priority_load',
+        inverter_voltage_154: 'sensor.sunsynk_inverter_voltage',
+        load_frequency_192: 'sensor.sunsynk_load_frequency',
+        inverter_current_164: 'sensor.sunsynk_inverter_current',
+        inverter_power_175: 'sensor.sunsynk_inverter_power',
+        grid_connected_status_194: 'binary_sensor.sunsynk_grid_connected_status',
         inverter_status_59: 'sensor.overall_state',
-        batchargeday_70: 'sensor.battery_charge_day',
-        batdischargeday_71: 'sensor.battery_discharge_day',
-        battery_voltage_183: 'sensor.battery_voltage',
-        battery_soc_184: 'sensor.battery_soc',
-        battery_out_190: 'sensor.battery_output_power',
-        battery_current_191: 'sensor.battery_output_current',
-        inverter_load_grid_169: 'sensor.grid_power',
-        grid_buy_day_76: 'sensor.grid_import_day_buy',
-        grid_sell_day_77: 'sensor.grid_export_day_sell',
-        grid_external_power_172: 'sensor.grid_external_power',
-        loadday_84: 'sensor.daily_load_power_kwh',
+        day_battery_charge_70: 'sensor.battery_charge_day',
+        day_battery_discharge_71: 'sensor.battery_discharge_day',
+        battery_voltage_183: 'sensor.sunsynk_battery_voltage',
+        battery_soc_184: 'sensor.sunsynk_battery_soc',
+        battery_power_190: 'sensor.sunsynk_battery_power',
+        battery_current_191: 'sensor.sunsynk_battery_current',
+        grid_power_169: 'sensor.sunsynk_grid_power',
+        day_grid_import_76: 'sensor.sunsynk_day_grid_import',
+        day_grid_export_77: 'sensor.sunsynk_day_grid_export',
+        grid_ct_power_172: 'sensor.sunsynk_grid_ct_power',
+        day_load_energy_84: 'sensor.sunsynk_day_load_energy',
         essential_power: 'none',
         nonessential_power: 'none',
-        aux_power_166: 'sensor.aux_output_power',
-        solarday_108: 'sensor.daily_pv_power_kwh',
-        pv1_power_186: 'sensor.pv1_power',
-        pv2_power_187: 'sensor.pv2_power',
-        pv1_v_109: 'sensor.dc1_voltage',
-        pv1_i_110: 'sensor.dc1_current',
-        pv2_v_111: 'sensor.dc2_voltage',
-        pv2_i_112: 'sensor.dc2_current',
+        aux_power_166: 'sensor.sunsynk_aux_power',
+        day_pv_energy_108: 'sensor.sunsynk_day_pv_energy',
+        pv1_power_186: 'sensor.sunsynk_pv1_power',
+        pv2_power_187: 'sensor.sunsynk_pv2_power',
+        pv1_voltage_109: 'sensor.sunsynk_pv1_voltage',
+        pv1_current_110: 'sensor.sunsynk_pv1_current',
+        pv2_voltage_111: 'sensor.sunsynk_pv2_voltage',
+        pv2_current_112: 'sensor.sunsynk_pv2_current',
       }
     };
   }
 
   render() {
     const config = this._config;
-    const stateObj = this.hass.states[config.entities.batdischargeday_71] || { state: '0' };
-    const stateObj1 = this.hass.states[config.entities.batchargeday_70] || { state: '0' };
-    const stateObj2 = this.hass.states[config.entities.loadday_84] || { state: '0' };
-    const stateObj3 = this.hass.states[config.entities.grid_buy_day_76] || { state: '0' };
-    const stateObj4 = this.hass.states[config.entities.solarday_108] || { state: '0' };
-    const stateObj5 = this.hass.states[config.entities.inverter_grid_voltage_154] || { state: '0' };
-    const stateObj6 = this.hass.states[config.entities.inverter_load_freq_192] || { state: '0' };
-    const stateObj7 = this.hass.states[config.entities.inverter_out_164] || { state: '0' };
+    const stateObj = this.hass.states[config.entities.day_battery_discharge_71] || { state: '0' };
+    const stateObj1 = this.hass.states[config.entities.day_battery_charge_70] || { state: '0' };
+    const stateObj2 = this.hass.states[config.entities.day_load_energy_84] || { state: '0' };
+    const stateObj3 = this.hass.states[config.entities.day_grid_import_76] || { state: '0' };
+    const stateObj4 = this.hass.states[config.entities.day_pv_energy_108] || { state: '0' };
+    const stateObj5 = this.hass.states[config.entities.inverter_voltage_154] || { state: '0' };
+    const stateObj6 = this.hass.states[config.entities.load_frequency_192] || { state: '0' };
+    const stateObj7 = this.hass.states[config.entities.inverter_current_164] || { state: '0' };
     const stateObj8 = this.hass.states[config.entities.pv2_power_187] || { state: '0' };
     const stateObj9 = this.hass.states[config.entities.pv1_power_186] || { state: '0' };
     const stateObj11 = this.hass.states[config.entities.battery_voltage_183] || { state: '0' };
     const stateObj12 = this.hass.states[config.entities.battery_soc_184] || { state: '0' };
-    const stateObj13 = this.hass.states[config.entities.battery_out_190] || { state: '0' };
+    const stateObj13 = this.hass.states[config.entities.battery_power_190] || { state: '0' };
     const stateObj14 = this.hass.states[config.entities.essential_power] || { state: '0' };
-    const stateObj15 = this.hass.states[config.entities.grid_external_power_172] || { state: '0' };
-    const stateObj16 = this.hass.states[config.entities.pv1_v_109] || { state: '0' };
-    const stateObj17 = this.hass.states[config.entities.pv1_i_110] || { state: '0' };
-    const stateObj18 = this.hass.states[config.entities.pv2_v_111] || { state: '0' };
-    const stateObj19 = this.hass.states[config.entities.pv2_i_112] || { state: '0' };
-    const stateObj20 = this.hass.states[config.entities.grid_status_194] || { state: 'on' };
+    const stateObj15 = this.hass.states[config.entities.grid_ct_power_172] || { state: '0' };
+    const stateObj16 = this.hass.states[config.entities.pv1_voltage_109] || { state: '0' };
+    const stateObj17 = this.hass.states[config.entities.pv1_current_110] || { state: '0' };
+    const stateObj18 = this.hass.states[config.entities.pv2_voltage_111] || { state: '0' };
+    const stateObj19 = this.hass.states[config.entities.pv2_current_112] || { state: '0' };
+    const stateObj20 = this.hass.states[config.entities.grid_connected_status_194] || { state: 'on' };
     const stateObj21 = this.hass.states[config.entities.inverter_status_59] || { state: '' };
-    const stateObj22 = this.hass.states[config.entities.inverter_out_175] || { state: '0' };
-    const stateObj23 = this.hass.states[config.entities.inverter_load_grid_169]  || { state: '0' };
+    const stateObj22 = this.hass.states[config.entities.inverter_power_175] || { state: '0' };
+    const stateObj23 = this.hass.states[config.entities.grid_power_169]  || { state: '0' };
     const stateObj24 = this.hass.states[config.entities.aux_power_166]  || { state: '0' };
     const stateObj25 = this.hass.states[config.entities.priority_load_243]  || { state: 'undefined' };
     const stateObj26 = this.hass.states[config.entities.use_timer_248]  || { state: 'undefined' };
-    const stateObj27 = this.hass.states[config.entities.pv3_v_113] || { state: '0' };
-    const stateObj28 = this.hass.states[config.entities.pv3_i_114] || { state: '0' };
-    const stateObj29 = this.hass.states[config.entities.pv4_v_115] || { state: '0' };
-    const stateObj30 = this.hass.states[config.entities.pv4_i_116] || { state: '0' };
+    const stateObj27 = this.hass.states[config.entities.pv3_voltage_113] || { state: '0' };
+    const stateObj28 = this.hass.states[config.entities.pv3_current_114] || { state: '0' };
+    const stateObj29 = this.hass.states[config.entities.pv4_voltage_115] || { state: '0' };
+    const stateObj30 = this.hass.states[config.entities.pv4_current_116] || { state: '0' };
     const stateObj31 = this.hass.states[config.entities.pv3_power_188] || { state: '0' };
     const stateObj32 = this.hass.states[config.entities.pv4_power_189] || { state: '0' };
-    const stateObj33 = this.hass.states[config.entities.grid_sell_day_77] || { state: '0' };
+    const stateObj33 = this.hass.states[config.entities.day_grid_export_77] || { state: '0' };
     const stateObj34 = this.hass.states[config.entities.nonessential_power] || { state: '0' };
     const stateObj35 = this.hass.states[config.entities.battery_current_191] || { state: '0' };
     const stateObj36 = this.hass.states[config.entities.remaining_solar] || { state: '0' };
-    const stateObj37 = this.hass.states[config.entities.battery_temp] || { state: '' };
-    const stateObj38 = this.hass.states[config.entities.inverter_dc_temp] || { state: '' };
-    const stateObj39 = this.hass.states[config.entities.inverter_ac_temp] || { state: '' };
+    const stateObj37 = this.hass.states[config.entities.battery_temp_182] || { state: '' };
+    const stateObj38 = this.hass.states[config.entities.dc_transformer_temp_90] || { state: '' };
+    const stateObj39 = this.hass.states[config.entities.radiator_temp_91] || { state: '' };
     const stateObj40 = this.hass.states[config.entities.non_essential_load1] || { state: '0' };
     const stateObj41 = this.hass.states[config.entities.non_essential_load2] || { state: '0' };
     const stateObj42 = this.hass.states[config.entities.essential_load1] || { state: '0' };
@@ -227,12 +227,12 @@ class SunsynkPowerFlowCard extends LitElement {
     //totalsolar = pv1_power_186 + pv2_power_187 + pv3_power_188 + pv4_power_189
     let totalsolar = (parseInt(stateObj8.state || 0) + parseInt(stateObj9.state || 0) + parseInt(stateObj31.state || 0) + parseInt(stateObj32.state || 0));
 
-    //essential = inverter_out_175 + inverter_load_grid_169 - aux_power_166 
+    //essential = inverter_power_175 + grid_power_169 - aux_power_166 
     let essential = (config?.entities.essential_power === 'none' || !config?.entities.essential_power) ?
       parseInt(stateObj22.state) + parseInt(stateObj23.state) - parseInt(stateObj24.state) :
       parseInt(stateObj14.state);
 
-    //nonessential = grid_external_power_172 - inverter_load_grid_169
+    //nonessential = grid_ct_power_172 - grid_power_169
     let nonessential = (config?.entities.nonessential_power === 'none' || !config?.entities.nonessential_power) ?
       parseInt(stateObj15.state) - parseInt(stateObj23.state) :
       parseInt(stateObj34.state);
@@ -661,7 +661,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <svg xmlns="http://www.w3.org/2000/svg" id="bat-low" x="74.5" y="296.25" width="82" height="82" preserveAspectRatio="none" opacity="${parseInt(stateObj12.state) > 30 && parseInt(stateObj12.state) <= 49 ? '1' : '0'}" viewBox="0 0 24 24"><path fill="${battery_colour}" d="M 12 20 H 4 V 6 h 8 L 12 6 L 12 20 m 0.67 -15.999 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 11 16 H 5 v 3 h 6 v -3"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="bat-empty" x="74.5" y="296.25" width="82" height="82" preserveAspectRatio="none" opacity="${parseInt(stateObj12.state) <= 30 ? '1' : '0'}" viewBox="0 0 24 24"><path fill="${battery_colour}" d="M 12 6 L 12 20 M 12 20 H 4 l 0.05 -14 h 7.95 m 0.67 -2 h -1.67 V 2 h -6 v 2 H 3.38 a 1.33 1.33 0 0 0 -1.33 1.33 v 15.34 c 0 0.73 0.6 1.33 1.33 1.33 h 9.34 c 0.73 0 1.33 -0.6 1.33 -1.33 V 5.33 A 1.33 1.33 0 0 0 12.72 4 Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="sun" x="0" y="-0.5" width="40" height="40" viewBox="0 0 24 24"><path class="${config.show_solar === 'no' ? 'st12' : ''}" fill="${solar_colour}" d="M11.45 2v3.55L15 3.77L11.45 2m-1 6L8 10.46l3.75 1.25L10.45 8M2 11.45L3.77 15l1.78-3.55H2M10 2H2v8c.57.17 1.17.25 1.77.25c3.58.01 6.49-2.9 6.5-6.5c-.01-.59-.1-1.18-.27-1.75m7 20v-6h-3l5-9v6h3l-5 9Z"/></svg>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_status_194)}>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_connected_status_194)}>
               <svg xmlns="http://www.w3.org/2000/svg" id="transmission_on" x="387" y="310" width="67" height="67" viewBox="0 0 24 24"><path class="${(stateObj20.state) === 'off' || (stateObj20.state) === '0' ? 'st12' : ''}" fill="${grid_colour}" d="m8.28 5.45l-1.78-.9L7.76 2h8.47l1.27 2.55l-1.78.89L15 4H9l-.72 1.45M18.62 8h-4.53l-.79-3h-2.6l-.79 3H5.38L4.1 10.55l1.79.89l.73-1.44h10.76l.72 1.45l1.79-.89L18.62 8m-.85 14H15.7l-.24-.9L12 15.9l-3.47 5.2l-.23.9H6.23l2.89-11h2.07l-.36 1.35L12 14.1l1.16-1.75l-.35-1.35h2.07l2.89 11m-6.37-7l-.9-1.35l-1.18 4.48L11.4 15m3.28 3.12l-1.18-4.48l-.9 1.36l2.08 3.12Z"/></svg>
               <svg xmlns="http://www.w3.org/2000/svg" id="transmission_off" x="387" y="310" width="67" height="67" viewBox="0 0 24 24"><path class="${(stateObj20.state) === 'on' || (stateObj20.state) === '1' ? 'st12' : ''}" fill="${no_grid_colour}" d="M22.1 21.5L2.4 1.7L1.1 3l5 5h-.7l-1.3 2.5l1.8.9l.7-1.4h1.5l1 1l-2.9 11h2.1l.2-.9l3.5-5.2l3.5 5.2l.2.9h2.1l-.8-3.2l3.9 3.9l1.2-1.2M9.3 18.1l1.2-4.5l.9 1.3l-2.1 3.2m5.4 0L12.6 15l.2-.3l1.3 1.3l.6 2.1m-.5-7.1h.7l.2.9l-.9-.9m-.1-3h4.5l1.3 2.6l-1.8.9l-.7-1.5h-4.2l-3-3l.5-2h2.6l.8 3M8.4 5.2L6.9 3.7L7.8 2h8.5l1.3 2.5l-1.8.9L15 4H9l-.6 1.2Z"/></svg>
             </a>
@@ -824,28 +824,28 @@ class SunsynkPowerFlowCard extends LitElement {
               <svg xmlns="http://www.w3.org/2000/svg" id="prog_grid_on" x="58%" y="${useautarky != 'no' ? "60.5%" : "65%"}" width="20" height="18" viewBox="0 0 24 24"><path display="${inverter_prog.show === 'no' || config.entities.use_timer_248 === 'none' ? 'none' : ''}" class="${inverter_prog.charge === 'none'  ? 'st12' : ''}" fill="${inverter_colour}" d="M11.5 19h1v-1.85l3.5-3.5V9H8v4.65l3.5 3.5V19Zm-2 2v-3L6 14.5V9q0-.825.588-1.413T8 7h1L8 8V3h2v4h4V3h2v5l-1-1h1q.825 0 1.413.588T18 9v5.5L14.5 18v3h-5Zm2.5-7Z"/></svg>
               <svg xmlns="http://www.w3.org/2000/svg" id="prog_grid_off" x="58%" y="${useautarky != 'no' ? "60.5%" : "65%"}" width="20" height="18" viewBox="0 0 24 24"><path display="${inverter_prog.show === 'no' || config.entities.use_timer_248 === 'none' ? 'none' : ''}" class="${inverter_prog.charge === 'none'  ? '' : 'st12'}" fill="${inverter_colour}" d="M10 3H8v1.88l2 2zm6 6v3.88l1.8 1.8l.2-.2V9c0-1.1-.9-2-2-2V3h-2v4h-3.88l2 2H16zM4.12 3.84L2.71 5.25L6 8.54v5.96L9.5 18v3h5v-3l.48-.48l4.47 4.47l1.41-1.41L4.12 3.84zm8.38 13.33V19h-1v-1.83L8 13.65v-3.11l5.57 5.57l-1.07 1.06z"/></svg>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.solarday_108)}>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_pv_energy_108)}>
               <text id="daily_solar_value" x="43.5" y="4%" class="st10 left-align" display="${solar_showdaily === 'no' || config.show_solar === 'no' || remaining_solar != 'false' ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj4.state).toFixed(1) ? parseFloat(stateObj4.state).toFixed(1) : '0'} kWh</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.solarday_108)}>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_pv_energy_108)}>
               <text id="remaining_solar_value" x="43.5" y="4%" class="st10 left-align" display="${solar_showdaily === 'no' || config.show_solar === 'no' || remaining_solar === 'false' ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj4.state).toFixed(1) ? parseFloat(stateObj4.state).toFixed(1) : '0'} kWh / ${remaining_solar} kWh</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.loadday_84)}>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_load_energy_84)}>
               <text id="daily_load_value_aux" x="67%" y="21%" class="st10 left-align" display="${load_showdaily === 'no' || show_aux === 'no' ? 'none' : ''}" fill="${load_colour}" >${parseFloat(stateObj2.state).toFixed(1) ? parseFloat(stateObj2.state).toFixed(1) : '0'} kWh</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.loadday_84)}>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_load_energy_84)}>
               <text id="daily_load_value" x="${additional_load === 'no' ? '83%' : '67%'}" y="${additional_load === 'no' ? '15%' : '21%'}" class="st10 left-align" display="${load_showdaily === 'no' || show_aux === 'yes' ? 'none' : ''}" fill="${load_colour}" >${parseFloat(stateObj2.state).toFixed(1) ? parseFloat(stateObj2.state).toFixed(1) : '0'} kWh</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.batchargeday_70)}>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_battery_charge_70)}>
               <text id="daily_bat_charge_value" x="1%" y="62%" class= "st10 left-align" display="${battery_showdaily === 'no' ? 'none' : ''}" fill="${battery_colour}">${parseFloat(stateObj1.state).toFixed(1) ? parseFloat(stateObj1.state).toFixed(1) : '0'} kWh</text>
             </a> 
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.batdischargeday_71)}>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_battery_discharge_71)}>
               <text id="daily_bat_discharge_value" x="1%" y="70.75%" class="st10 left-align" display="${battery_showdaily === 'no' ? 'none' : ''}" fill="${battery_colour}" >${parseFloat(stateObj.state).toFixed(1) ? parseFloat(stateObj.state).toFixed(1) : '0'} kWh</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_buy_day_76)}>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_grid_import_76)}>
               <text id="daily_grid_buy_value" x="${grid_show_noness === 'no' ? '68%' : '76%'}" y="${grid_show_noness === 'no' ? '92.5%' : '62.5%'}" class="st10 left-align" display="${grid_showdailybuy === 'no' ? 'none' : ''}" fill="${grid_colour}" >${parseFloat(stateObj3.state).toFixed(1) ? parseFloat(stateObj3.state).toFixed(1) : '0'} kWh</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_sell_day_77)}>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_grid_export_77)}>
               <text id="daily_grid_sell_value" x="${grid_show_noness === 'no' ? '68%' : '76%'}" y="${grid_show_noness === 'no' ? '84.25%' : '54.5%'}" class="st10 left-align" display="${grid_showdailysell === 'no' ? 'none' : ''}" fill="${grid_colour}" >${parseFloat(stateObj33.state).toFixed(1) ? parseFloat(stateObj33.state).toFixed(1) : '0'} kWh</text>
             </a>
             ${config.entities.essential_power !== 'none'
@@ -858,8 +858,8 @@ class SunsynkPowerFlowCard extends LitElement {
                     <text id="non_ess_power" x="74%" y="73.5%" display="${grid_show_noness === 'no' ? 'none' : ''}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${grid_colour}">${nonessential ? nonessential : '0'} W</text>
                   </a>`
             : svg`<text id="non_ess_power" x="74%" y="73.5%" display="${grid_show_noness === 'no' ? 'none' : ''}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${grid_colour}">${nonessential ? nonessential : '0'} W</text> `}
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_external_power_172)}>
-              <text id="grid_external_power_172" x="92%" y="73.5%" display="${config.entities.grid_external_power_172 === 'none' ? 'none' : ''}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${grid_colour}">${grid_power ? grid_power : '0'} W</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_ct_power_172)}>
+              <text id="grid_ct_power_172" x="92%" y="73.5%" display="${config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${grid_colour}">${grid_power ? grid_power : '0'} W</text>
             </a>
             ${config.entities.aux_power_166 !== 'none'
             ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.aux_power_166)}>
@@ -886,14 +886,14 @@ class SunsynkPowerFlowCard extends LitElement {
                     <text id="pv4_power_189" x="30%" y="30.5%" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}">${stateObj32.state ? stateObj32.state : '0'} W</text>
                   </a>`
             : svg`<text id="pv4_power_189" x="30%" y="30.5%" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' || config.entities.pv4_power_189 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}">${stateObj32.state ? stateObj32.state : '0'} W</text>`}
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_grid_voltage_154)}>
-              <text id="inverter_grid_voltage_154" x="59%" y="44.5%" display="${config.entities.inverter_grid_voltage_154 === 'none' ? 'none' : ''}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${grid_colour}" >${stateObj5.state ? stateObj5.state : '0'} V</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_voltage_154)}>
+              <text id="inverter_voltage_154" x="59%" y="44.5%" display="${config.entities.inverter_voltage_154 === 'none' ? 'none' : ''}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${grid_colour}" >${stateObj5.state ? stateObj5.state : '0'} V</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_load_freq_192)}>
-              <text id="inverter_load_freq_192" x="59%" y="49.5%" display="${config.entities.inverter_load_freq_192 === 'none' ? 'none' : ''}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${grid_colour}">${stateObj6.state ? stateObj6.state : '0'} Hz</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.load_frequency_192)}>
+              <text id="load_frequency_192" x="59%" y="49.5%" display="${config.entities.load_frequency_192 === 'none' ? 'none' : ''}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${grid_colour}">${stateObj6.state ? stateObj6.state : '0'} Hz</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_out_164)}>
-              <text id="inverter_out_164" x="39.5%" y="52%" display="${config.entities.inverter_out_164 === 'none' ? 'none' : ''}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${inverter_colour}">${stateObj7.state ? stateObj7.state : '0'} A</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_current_164)}>
+              <text id="inverter_current_164" x="39.5%" y="52%" display="${config.entities.inverter_current_164 === 'none' ? 'none' : ''}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${inverter_colour}">${stateObj7.state ? stateObj7.state : '0'} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_voltage_183)}>
               <text id="battery_voltage_183" x="9%" y="82.75%" display="${config.entities.battery_voltage_183 === 'none' ? 'none' : ''}" fill=${battery_colour} class="${font === 'no' ? 'st14' : 'st4'} st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
@@ -904,50 +904,50 @@ class SunsynkPowerFlowCard extends LitElement {
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
               <text id="battery_soc_184" x="43%" y="87%" fill=${battery_colour} class="st13 st8 left-align" display="${inverter_prog.show === 'no' || config.entities.battery_soc_184 === 'none' ? 'none' : ''}"> | ${inverter_prog.capacity ? inverter_prog.capacity : '0'} %</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_out_190)}>
-              <text id="battery_out_190" x="9%" y="93%" display="${config.entities.battery_out_190 === 'none' ? 'none' : ''}" fill=${battery_colour} class="${font === 'no' ? 'st14' : 'st4'} st8">${battery_power < '0' ? battery_power *-1 : battery_power} W</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_power_190)}>
+              <text id="battery_power_190" x="9%" y="93%" display="${config.entities.battery_power_190 === 'none' ? 'none' : ''}" fill=${battery_colour} class="${font === 'no' ? 'st14' : 'st4'} st8">${battery_power < '0' ? battery_power *-1 : battery_power} W</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_current_191)}>
               <text id="battery_current_191" x="9%" y="87.75%" display="${config.entities.battery_current_191 === 'none' ? 'none' : ''}" fill=${battery_colour} class="${font === 'no' ? 'st14' : 'st4'} st8">${stateObj35.state ? stateObj35.state : '0'} A</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_out_175)}>
-              <text id="inverter_out_175" x="39.5%" y="46.5%" display="${config.entities.inverter_out_175 === 'none' ? 'none' : ''}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${inverter_colour}">${stateObj22.state ? stateObj22.state : '0'} W</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_power_175)}>
+              <text id="inverter_power_175" x="39.5%" y="46.5%" display="${config.entities.inverter_power_175 === 'none' ? 'none' : ''}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${inverter_colour}">${stateObj22.state ? stateObj22.state : '0'} W</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_load_grid_169)}>
-              <text id="inverter_load_grid_169" x="59%" y="54.5%" display="${config.entities.inverter_load_grid_169 === 'none' ? 'none' : ''}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${grid_colour}">${stateObj23.state ? stateObj23.state : '0'} W</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_power_169)}>
+              <text id="grid_power_169" x="59%" y="54.5%" display="${config.entities.grid_power_169 === 'none' ? 'none' : ''}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${grid_colour}">${stateObj23.state ? stateObj23.state : '0'} W</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_v_109)}>
-              <text id="pv1_v" x="9%" y="20.5%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv1_v_109 || config.entities.pv1_v_109 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${stateObj16.state ? stateObj16.state : '0'} V</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_voltage_109)}>
+              <text id="pv1_voltage" x="9%" y="20.5%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv1_voltage_109 || config.entities.pv1_voltage_109 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${stateObj16.state ? stateObj16.state : '0'} V</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_i_110)}>
-              <text id="pv1_i" x="9%" y="23.5%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv1_i_110 || config.entities.pv1_i_110 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${stateObj17.state ? stateObj17.state : '0'} A</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_current_110)}>
+              <text id="pv1_current" x="9%" y="23.5%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv1_current_110 || config.entities.pv1_current_110 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${stateObj17.state ? stateObj17.state : '0'} A</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_v_111)}>
-              <text id="pv2_v" x="31%" y="20.5%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv2_v_111 || config.entities.pv2_v_111 === 'none' || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}" >${stateObj18.state ? stateObj18.state : '0'} V</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_voltage_111)}>
+              <text id="pv2_voltage" x="31%" y="20.5%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv2_voltage_111 || config.entities.pv2_voltage_111 === 'none' || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}" >${stateObj18.state ? stateObj18.state : '0'} V</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_i_112)}>
-              <text id="pv2_i" x="31%" y="23.5%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv2_i_112 || config.entities.pv2_i_112 === 'none' || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}" >${stateObj19.state ? stateObj19.state : '0'} A</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_current_112)}>
+              <text id="pv2_current" x="31%" y="23.5%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv2_current_112 || config.entities.pv2_current_112 === 'none' || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}" >${stateObj19.state ? stateObj19.state : '0'} A</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_v_113)}>
-              <text id="pv3_v" x="9%" y="36.25%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv3_v_113  || config.entities.pv3_v_113 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}" >${stateObj27.state ? stateObj27.state : '0'} V</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_voltage_113)}>
+              <text id="pv3_voltage" x="9%" y="36.25%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv3_voltage_113  || config.entities.pv3_voltage_113 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}" >${stateObj27.state ? stateObj27.state : '0'} V</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_i_114)}>
-              <text id="pv3_i" x="9%" y="39.25%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv3_i_114 || config.entities.pv3_i_114 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}" >${stateObj28.state ? stateObj28.state : '0'} A</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_current_114)}>
+              <text id="pv3_current" x="9%" y="39.25%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv3_current_114 || config.entities.pv3_current_114 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}" >${stateObj28.state ? stateObj28.state : '0'} A</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_v_115)}>
-              <text id="pv4_v" x="31%" y="36.25%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv4_v_115 || config.entities.pv4_v_115 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj29.state ? stateObj29.state : '0'} V</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_voltage_115)}>
+              <text id="pv4_voltage" x="31%" y="36.25%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv4_voltage_115 || config.entities.pv4_voltage_115 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj29.state ? stateObj29.state : '0'} V</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_i_116)}>
-              <text id="pv4_i" x="31%" y="39.25%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv4_i_116 || config.entities.pv4_i_116 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj30.state ? stateObj30.state : '0'} A</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_current_116)}>
+              <text id="pv4_current" x="31%" y="39.25%" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv4_current_116 || config.entities.pv4_current_116 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj30.state ? stateObj30.state : '0'} A</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_temp)}>
-              <text id="battery_temp" x="20.5%" y="77%" class="${config.entities.battery_temp === 'none' ? 'st12' : 'st3 left-align'}" fill="${battery_colour}" display="${config?.entities?.battery_temp ? '' : 'none'}" >${stateObj37.state ? stateObj37.state : ''}°</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_temp_182)}>
+              <text id="battery_temp_182" x="20.5%" y="77%" class="${config.entities.battery_temp_182 === 'none' ? 'st12' : 'st3 left-align'}" fill="${battery_colour}" display="${config?.entities?.battery_temp_182 ? '' : 'none'}" >${stateObj37.state ? stateObj37.state : ''}°</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_ac_temp)}>
-              <text id="ac_temp" x="${config?.solar?.mppts === 'four' ? "30%" : "34.5%"}"  y="${config?.solar?.mppts === 'four' ? "58%" : "40%"}" class="${config.entities.inverter_ac_temp === 'none' ? 'st12' : 'st3 left-align'}" fill="${inverter_colour}" display="${config?.entities?.inverter_ac_temp ? '' : 'none'}" >AC: ${stateObj39.state ? stateObj39.state : ''}°</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.radiator_temp_91)}>
+              <text id="ac_temp" x="${config?.solar?.mppts === 'four' ? "30%" : "34.5%"}"  y="${config?.solar?.mppts === 'four' ? "58%" : "40%"}" class="${config.entities.radiator_temp_91 === 'none' ? 'st12' : 'st3 left-align'}" fill="${inverter_colour}" display="${config?.entities?.radiator_temp_91 ? '' : 'none'}" >AC: ${stateObj39.state ? stateObj39.state : ''}°</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_dc_temp)}>
-              <text id="dc_temp" x="24%" y="69.5%" class="${config.entities.inverter_dc_temp === 'none' ? 'st12' : 'st3 left-align'}" fill="${inverter_colour}" display="${config?.entities?.inverter_dc_temp ? '' : 'none'}" >DC: ${stateObj38.state ? stateObj38.state : ''}°</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.dc_transformer_temp_90)}>
+              <text id="dc_temp" x="24%" y="69.5%" class="${config.entities.dc_transformer_temp_90 === 'none' ? 'st12' : 'st3 left-align'}" fill="${inverter_colour}" display="${config?.entities?.dc_transformer_temp_90 ? '' : 'none'}" >DC: ${stateObj38.state ? stateObj38.state : ''}°</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost)}>
               <text id="energy_cost" x="93.5%" y="67%"  class="${config.entities.energy_cost === 'none' ? 'st12' : 'st3 left-align'}" fill="${grid_colour}" display="${config?.entities?.energy_cost ? '' : 'none'}" >${stateObj43.state ? stateObj43.state : ''}</text>
@@ -1125,7 +1125,7 @@ class SunsynkPowerFlowCard extends LitElement {
             <svg xmlns="http://www.w3.org/2000/svg" id="bat-med" x="232.5" y="325.5" width="78.75" height="78.75" preserveAspectRatio="none" opacity="${parseInt(stateObj12.state) >= 50 && parseInt(stateObj12.state) <= 80 ? '1' : '0'}" viewBox="0 0 24 24"><path fill="${battery_colour}" d="M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 11 16 H 5 v 3 h 6 v -3 m 0 -4.5 H 5 v 3 h 6 v -3 h -3 h 3"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="bat-low" x="232.5" y="325.5" width="78.75" height="78.75" preserveAspectRatio="none" opacity="${parseInt(stateObj12.state) > 30 && parseInt(stateObj12.state) <= 49 ? '1' : '0'}" viewBox="0 0 24 24"><path fill="${battery_colour}" d="M 12 20 H 4 V 6 h 8 L 12 6 L 12 20 m 0.67 -15.999 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 11 16 H 5 v 3 h 6 v -3"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="bat-empty" x="232.5" y="325.5" width="78.75" height="78.75" preserveAspectRatio="none" opacity="${parseInt(stateObj12.state) <= 30 ? '1' : '0'}" viewBox="0 0 24 24"> <path fill="${battery_colour}" d="M 12 6 L 12 20 M 12 20 H 4 l 0.05 -14 h 7.95 m 0.67 -2 h -1.67 V 2 h -6 v 2 H 3.38 a 1.33 1.33 0 0 0 -1.33 1.33 v 15.34 c 0 0.73 0.6 1.33 1.33 1.33 h 9.34 c 0.73 0 1.33 -0.6 1.33 -1.33 V 5.33 A 1.33 1.33 0 0 0 12.72 4 Z"/></svg>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_status_194)}>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_connected_status_194)}>
               <svg xmlns="http://www.w3.org/2000/svg" id="transmission_on" x="-0.5" y="187.5" width="64.5" height="64.5" viewBox="0 0 24 24"><path class="${(stateObj20.state) === 'off' || (stateObj20.state) === '0'? 'st12' : ''}" fill="${grid_colour}" d="m8.28 5.45l-1.78-.9L7.76 2h8.47l1.27 2.55l-1.78.89L15 4H9l-.72 1.45M18.62 8h-4.53l-.79-3h-2.6l-.79 3H5.38L4.1 10.55l1.79.89l.73-1.44h10.76l.72 1.45l1.79-.89L18.62 8m-.85 14H15.7l-.24-.9L12 15.9l-3.47 5.2l-.23.9H6.23l2.89-11h2.07l-.36 1.35L12 14.1l1.16-1.75l-.35-1.35h2.07l2.89 11m-6.37-7l-.9-1.35l-1.18 4.48L11.4 15m3.28 3.12l-1.18-4.48l-.9 1.36l2.08 3.12Z"/></svg>
               <svg xmlns="http://www.w3.org/2000/svg" id="transmission_off" x="-0.5" y="187.5" width="64.5" height="64.5" viewBox="0 0 24 24"><path class="${(stateObj20.state) === 'on' || (stateObj20.state) === '1' ? 'st12' : ''}" fill="${no_grid_colour}" d="M22.1 21.5L2.4 1.7L1.1 3l5 5h-.7l-1.3 2.5l1.8.9l.7-1.4h1.5l1 1l-2.9 11h2.1l.2-.9l3.5-5.2l3.5 5.2l.2.9h2.1l-.8-3.2l3.9 3.9l1.2-1.2M9.3 18.1l1.2-4.5l.9 1.3l-2.1 3.2m5.4 0L12.6 15l.2-.3l1.3 1.3l.6 2.1m-.5-7.1h.7l.2.9l-.9-.9m-.1-3h4.5l1.3 2.6l-1.8.9l-.7-1.5h-4.2l-3-3l.5-2h2.6l.8 3M8.4 5.2L6.9 3.7L7.8 2h8.5l1.3 2.5l-1.8.9L15 4H9l-.6 1.2Z"/></svg>
             </a>
@@ -1152,35 +1152,35 @@ class SunsynkPowerFlowCard extends LitElement {
               <svg xmlns="http://www.w3.org/2000/svg" id="prog_grid_on" x="323" y="243" width="20" height="18" viewBox="0 0 24 24"><path display="${inverter_prog.show === 'no' || config.entities.use_timer_248 === 'none' ? 'none' : ''}" class="${inverter_prog.charge === 'none'  ? 'st12' : ''}" fill="${inverter_colour}" d="M11.5 19h1v-1.85l3.5-3.5V9H8v4.65l3.5 3.5V19Zm-2 2v-3L6 14.5V9q0-.825.588-1.413T8 7h1L8 8V3h2v4h4V3h2v5l-1-1h1q.825 0 1.413.588T18 9v5.5L14.5 18v3h-5Zm2.5-7Z"/></svg>
               <svg xmlns="http://www.w3.org/2000/svg" id="prog_grid_off" x="323" y="243" width="20" height="18" viewBox="0 0 24 24"><path display="${inverter_prog.show === 'no' || config.entities.use_timer_248 === 'none' ? 'none' : ''}" class="${inverter_prog.charge === 'none' ? '' : 'st12'}" fill="${inverter_colour}" d="M10 3H8v1.88l2 2zm6 6v3.88l1.8 1.8l.2-.2V9c0-1.1-.9-2-2-2V3h-2v4h-3.88l2 2H16zM4.12 3.84L2.71 5.25L6 8.54v5.96L9.5 18v3h5v-3l.48-.48l4.47 4.47l1.41-1.41L4.12 3.84zm8.38 13.33V19h-1v-1.83L8 13.65v-3.11l5.57 5.57l-1.07 1.06z"/></svg>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.batchargeday_70)}>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_battery_charge_70)}>
               <text id="daily_bat_charge_value" x="77.2" y="343" class= "st10 left-align" display="${battery_showdaily === 'no' ? 'none' : ''}" fill="${battery_colour}">${parseFloat(stateObj1.state).toFixed(1) ? parseFloat(stateObj1.state).toFixed(1) : '0'} kWh</text>
             </a> 
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.solarday_108)}>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_pv_energy_108)}>
               <text id="daily_solar_value" x="200" y="26" class="st10 left-align" display="${solar_showdaily === 'no' || config.show_solar === 'no' || remaining_solar != 'false' ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj4.state).toFixed(1) ? parseFloat(stateObj4.state).toFixed(1) : '0'} kWh</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.solarday_108)}>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_pv_energy_108)}>
               <text id="remaining_solar_value" x="200" y="26" class="st10 left-align" display="${solar_showdaily === 'no' || config.show_solar === 'no' || remaining_solar === 'false' ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj4.state).toFixed(1) ? parseFloat(stateObj4.state).toFixed(1) : '0'} kWh / ${remaining_solar} kWh</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.batdischargeday_71)}>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_battery_discharge_71)}>
               <text id="daily_bat_discharge_value" x="77.2" y="380.1" class="st10 left-align" display="${battery_showdaily === 'no' ? 'none' : ''}" fill="${battery_colour}" >${parseFloat(stateObj.state).toFixed(1) ? parseFloat(stateObj.state).toFixed(1) : '0'} kWh</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.loadday_84)}>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_load_energy_84)}>
               <text id="daily_load_value" x="${additional_load === 'two' ? '365' : '400.4'}" y="${additional_load === 'two' ? '168' : '267.9'}" class="st10 left-align" display="${load_showdaily === 'no'  ? 'none' : ''}" fill="${load_colour}" >${parseFloat(stateObj2.state).toFixed(1) ? parseFloat(stateObj2.state).toFixed(1) : '0'} kWh</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_buy_day_76)}>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_grid_import_76)}>
               <text id="daily_grid_buy_value" x="5" y="267.9" class="st10 left-align" display="${grid_showdailybuy === 'no' ? 'none' : ''}" fill="${grid_colour}" >${parseFloat(stateObj3.state).toFixed(1) ? parseFloat(stateObj3.state).toFixed(1) : '0'} kWh</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_sell_day_77)}>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_grid_export_77)}>
               <text id="daily_grid_sell_value" x="5" y="165" class="st10 left-align" display="${grid_showdailysell === 'no' ? 'none' : ''}" fill="${grid_colour}" >${parseFloat(stateObj33.state).toFixed(1) ? parseFloat(stateObj33.state).toFixed(1) : '0'} kWh</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_grid_voltage_154)}>
-              <text id="inverter_grid_voltage_154" x="270.2" y="168.2" display="${config.entities.inverter_grid_voltage_154 === 'none' ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >${stateObj5.state ? stateObj5.state : '0'} V</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_voltage_154)}>
+              <text id="inverter_voltage_154" x="270.2" y="168.2" display="${config.entities.inverter_voltage_154 === 'none' ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >${stateObj5.state ? stateObj5.state : '0'} V</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_load_freq_192)}>
-              <text id="inverter_load_freq_192" x="270.2" y="180.4" display="${config.entities.inverter_load_freq_192 === 'none' ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}">${stateObj6.state ? stateObj6.state : '0'} Hz</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.load_frequency_192)}>
+              <text id="load_frequency_192" x="270.2" y="180.4" display="${config.entities.load_frequency_192 === 'none' ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}">${stateObj6.state ? stateObj6.state : '0'} Hz</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_out_164)}>
-              <text id="inverter_out_164" x="270.2" y="192.6" display="${config.entities.inverter_out_164 === 'none' ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}">${stateObj7.state ? stateObj7.state : '0'} A</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_current_164)}>
+              <text id="inverter_current_164" x="270.2" y="192.6" display="${config.entities.inverter_current_164 === 'none' ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}">${stateObj7.state ? stateObj7.state : '0'} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_voltage_183)}>
               <text id="battery_voltage_183" x="193" y="346" fill=${battery_colour} class="${font === 'no' ? 'st14' : 'st4'} st8">${stateObj11.state ? stateObj11.state : '0'} V</text>
@@ -1191,47 +1191,47 @@ class SunsynkPowerFlowCard extends LitElement {
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
               <text id="battery_soc_184" x="355" y="358" fill=${battery_colour} class="st13 st8 left-align" display="${inverter_prog.show === 'no' || config.entities.battery_soc_184 === 'none' ? 'none' : ''}"> | ${inverter_prog.capacity ? inverter_prog.capacity : '0'} %</text>
             </a>  
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_out_190)}>
-              <text id="battery_out_190" x="193" y="386" display="${config.entities.battery_out_190 === 'none' ? 'none' : ''}" fill=${battery_colour} class="${font === 'no' ? 'st14' : 'st4'} st8">${battery_power < '0' ? battery_power *-1 : battery_power} W</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_power_190)}>
+              <text id="battery_power_190" x="193" y="386" display="${config.entities.battery_power_190 === 'none' ? 'none' : ''}" fill=${battery_colour} class="${font === 'no' ? 'st14' : 'st4'} st8">${battery_power < '0' ? battery_power *-1 : battery_power} W</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_current_191)}>
             <text id="battery_current_191" x="193" y="365.3" display="${config.entities.battery_current_191 === 'none' ? 'none' : ''}" fill=${battery_colour} class="${font === 'no' ? 'st14' : 'st4'} st8">${stateObj35.state ? stateObj35.state : '0'} A</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_external_power_172)}>
-              <text id="grid_external_power_172" x="135.1" y="219.2" display="${config.entities.grid_external_power_172 === 'none' ? 'none' : ''}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${grid_colour}">${grid_power ? grid_power : '0'} W</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_ct_power_172)}>
+              <text id="grid_ct_power_172" x="135.1" y="219.2" display="${config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${grid_colour}">${grid_power ? grid_power : '0'} W</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_v_109)}>
-              <text id="pv1_v" x="194" y="106" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv1_v_109 || config.entities.pv1_v_109 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${stateObj16.state ? stateObj16.state : '0'} V</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_voltage_109)}>
+              <text id="pv1_voltage" x="194" y="106" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv1_voltage_109 || config.entities.pv1_voltage_109 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${stateObj16.state ? stateObj16.state : '0'} V</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_i_110)}>
-              <text id="pv1_i" x="194" y="94" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv1_i_110 || config.entities.pv1_i_110 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${stateObj17.state ? stateObj17.state : '0'} A</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_current_110)}>
+              <text id="pv1_current" x="194" y="94" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv1_current_110 || config.entities.pv1_current_110 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${stateObj17.state ? stateObj17.state : '0'} A</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_v_111)}>
-              <text id="pv2_v" x="296" y="106" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv2_v_111 || config.entities.pv2_v_111 === 'none' || config.solar.mppts === 'one'  ? 'none' : ''}" fill="${solar_colour}" >${stateObj18.state ? stateObj18.state : '0'} V</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_voltage_111)}>
+              <text id="pv2_voltage" x="296" y="106" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv2_voltage_111 || config.entities.pv2_voltage_111 === 'none' || config.solar.mppts === 'one'  ? 'none' : ''}" fill="${solar_colour}" >${stateObj18.state ? stateObj18.state : '0'} V</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_i_112)}>
-              <text id="pv2_i" x="296" y="94" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv2_i_112 || config.entities.pv2_i_112 === 'none'  || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}" >${stateObj19.state ? stateObj19.state : '0'} A</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_current_112)}>
+              <text id="pv2_current" x="296" y="94" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv2_current_112 || config.entities.pv2_current_112 === 'none'  || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}" >${stateObj19.state ? stateObj19.state : '0'} A</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_v_113)}>
-              <text id="pv3_v" x="120" y="106" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv3_v_113 || config.entities.pv3_v_113 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}" >${stateObj27.state ? stateObj27.state : '0'} V</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_voltage_113)}>
+              <text id="pv3_voltage" x="120" y="106" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv3_voltage_113 || config.entities.pv3_voltage_113 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}" >${stateObj27.state ? stateObj27.state : '0'} V</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_i_114)}>
-              <text id="pv3_i" x="120" y="94" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv3_i_114 || config.entities.pv3_i_114 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}" >${stateObj28.state ? stateObj28.state : '0'} A</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_current_114)}>
+              <text id="pv3_current" x="120" y="94" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv3_current_114 || config.entities.pv3_current_114 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}" >${stateObj28.state ? stateObj28.state : '0'} A</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_v_115)}>
-              <text id="pv4_v" x="372" y="106" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv4_v_115 || config.entities.pv4_v_115 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj29.state ? stateObj29.state : '0'} V</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_voltage_115)}>
+              <text id="pv4_voltage" x="372" y="106" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv4_voltage_115 || config.entities.pv4_voltage_115 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj29.state ? stateObj29.state : '0'} V</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_i_116)}>
-              <text id="pv4_i" x="372" y="94" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv4_i_116 || config.entities.pv4_i_116 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj30.state ? stateObj30.state : '0'} A</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_current_116)}>
+              <text id="pv4_current" x="372" y="94" class="st3 left-align" display="${config.show_solar === 'no' || !config.entities.pv4_current_116 || config.entities.pv4_current_116 === 'none' || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}" >${stateObj30.state ? stateObj30.state : '0'} A</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_temp)}>
-              <text id="battery_temp" x="250" y="324.5" class="${config.entities.battery_temp === 'none' ? 'st12' : 'st3 left-align'}" fill="${battery_colour}" display="${config?.entities?.battery_temp ? '' : 'none'}" >${stateObj37.state ? stateObj37.state : ''}°</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_temp_182)}>
+              <text id="battery_temp_182" x="250" y="324.5" class="${config.entities.battery_temp_182 === 'none' ? 'st12' : 'st3 left-align'}" fill="${battery_colour}" display="${config?.entities?.battery_temp_182 ? '' : 'none'}" >${stateObj37.state ? stateObj37.state : ''}°</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_ac_temp)}>
-            <text id="ac_temp" x="173" y="168.2" class="${config.entities.inverter_ac_temp === 'none' ? 'st12' : 'st3 left-align'}" fill="${inverter_colour}" display="${config?.entities?.inverter_ac_temp ? '' : 'none'}" >AC: ${stateObj39.state ? stateObj39.state : ''}°</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.radiator_temp_91)}>
+            <text id="ac_temp" x="173" y="168.2" class="${config.entities.radiator_temp_91 === 'none' ? 'st12' : 'st3 left-align'}" fill="${inverter_colour}" display="${config?.entities?.radiator_temp_91 ? '' : 'none'}" >AC: ${stateObj39.state ? stateObj39.state : ''}°</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_dc_temp)}>
-              <text id="dc_temp" x="173" y="180.4" class="${config.entities.inverter_dc_temp === 'none' ? 'st12' : 'st3 left-align'}" fill="${inverter_colour}" display="${config?.entities?.inverter_dc_temp ? '' : 'none'}" >DC: ${stateObj38.state ? stateObj38.state : ''}°</text>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.dc_transformer_temp_90)}>
+              <text id="dc_temp" x="173" y="180.4" class="${config.entities.dc_transformer_temp_90 === 'none' ? 'st12' : 'st3 left-align'}" fill="${inverter_colour}" display="${config?.entities?.dc_transformer_temp_90 ? '' : 'none'}" >DC: ${stateObj38.state ? stateObj38.state : ''}°</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost)}>
               <text id="energy_cost" x="105" y="195" class="${config.entities.energy_cost === 'none' ? 'st12' : 'st3 left-align'}" fill="${grid_colour}" display="${config?.entities?.energy_cost ? '' : 'none'}" >${stateObj43.state ? stateObj43.state : ''}</text>
@@ -1284,8 +1284,8 @@ class SunsynkPowerFlowCard extends LitElement {
         if (!config.battery.shutdown_soc) {
           throw new Error('Please include the battery shutdown_soc attribate and value e.g shutdown_soc: 20');
         }
-        if (config.battery.show_daily === 'yes' && (!config.entities.batchargeday_70 || !config.entities.batdischargeday_71) ) {  
-          throw Error('Please include the batchargeday_70 and batdischargeday_71 attributes and entity IDs');
+        if (config.battery.show_daily === 'yes' && (!config.entities.day_battery_charge_70 || !config.entities.day_battery_discharge_71) ) {  
+          throw Error('Please include the day_battery_charge_70 and day_battery_discharge_71 attributes and entity IDs');
           }
       }
     if (config.show_solar === 'yes' && !config.solar ) {
@@ -1294,18 +1294,18 @@ class SunsynkPowerFlowCard extends LitElement {
         if (config.show_solar === 'yes' && !config.solar.mppts) {
           throw Error('Please include the solar mppts attribute and value; one,two,three or four e.g. mppts: two');
         }
-        if (config && config.solar && config.show_solar === 'yes' && config.solar.show_daily === 'yes' && !config.entities.solarday_108 ) {
-          throw Error('Please include the solarday_108 attribute and entity ID');
+        if (config && config.solar && config.show_solar === 'yes' && config.solar.show_daily === 'yes' && !config.entities.day_pv_energy_108 ) {
+          throw Error('Please include the day_pv_energy_108 attribute and entity ID');
         }
       }
     
-    if ((config && config.grid && config.grid.show_daily_buy === 'yes' && !config.entities.grid_buy_day_76) || (config && config.grid && config.grid.show_daily_sell === 'yes' && !config.entities.grid_sell_day_77) ) {  
-      throw Error('Please include the grid_buy_day_76 and grid_sell_day_77 attributes and entity IDs');
+    if ((config && config.grid && config.grid.show_daily_buy === 'yes' && !config.entities.day_grid_import_76) || (config && config.grid && config.grid.show_daily_sell === 'yes' && !config.entities.day_grid_export_77) ) {  
+      throw Error('Please include the day_grid_import_76 and day_grid_export_77 attributes and entity IDs');
       }
     
     const all_attributes = [
-      'inverter_grid_voltage_154', 'inverter_load_freq_192', 'inverter_out_164', 'inverter_out_175', 'inverter_load_grid_169', 
-      'battery_voltage_183', 'battery_soc_184', 'battery_out_190', 'battery_current_191', 'grid_external_power_172', 'grid_status_194', 'inverter_status_59'     
+      'inverter_voltage_154', 'load_frequency_192', 'inverter_current_164', 'inverter_power_175', 'grid_power_169', 
+      'battery_voltage_183', 'battery_soc_184', 'battery_power_190', 'battery_current_191', 'grid_ct_power_172', 'grid_connected_status_194', 'inverter_status_59'     
     ];
 
     for (const attr of all_attributes) {
