@@ -192,7 +192,7 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |pv4_voltage_115: | Optional | `sensor.sunsynk_pv4_voltage` | PV String 4 Voltage (V)|
 |pv4_current_116: | Optional | `sensor.sunsynk_pv4_current` | PV String 4 Current (A)|
 |grid_connected_status_194: | **Required** | `binary_sensor.sunsynk_grid_connected_status` | Grid Connected Status `on/off` or `1/0` |
-|inverter_status_59: | **Required** | `sensor.overall_state` | Inverter Status `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault` |
+|inverter_status_59: | **Required** | `sensor.sunsynk_overall_state` | Inverter Status `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault` |
 |aux_power_166: | Optional | `sensor.sunsynk_aux_power` | Auxilary Power (W) |
 |remaining_solar: | Optional | `sensor.solcast_forecast_remaining_today`| The remaining solar forecast for the day (kWh) |
 |battery_temp_182:| Optional | `sensor.sunsynk_battery_temperature` | Battery Temperature (℃)|
@@ -280,7 +280,7 @@ entities:
   battery_current_191: sensor.sunsynk_battery_current
   grid_ct_power_172: sensor.sunsynk_grid_ct_power
   grid_connected_status_194: binary_sensor.sunsynk_grid_connected_status
-  inverter_status_59: sensor.overall_state
+  inverter_status_59: sensor.sunsynk_overall_state
   pv1_power_186: sensor.sunsynk_pv1_power
   pv2_power_187: sensor.sunsynk_pv2_power
   pv1_voltage_109: sensor.sunsynk_pv1_voltage
@@ -317,7 +317,7 @@ entities:
   battery_current_191: sensor.sunsynk_battery_current
   grid_ct_power_172: sensor.sunsynk_grid_ct_power
   grid_connected_status_194: binary_sensor.sunsynk_grid_connected_status
-  inverter_status_59: sensor.overall_state
+  inverter_status_59: sensor.sunsynk_overall_state
   pv1_power_186: sensor.sunsynk_pv1_power
   pv2_power_187: sensor.sunsynk_pv2_power
   pv1_voltage_109: sensor.sunsynk_pv1_voltage
@@ -428,7 +428,7 @@ entities:
   non_essential_load2: sensor.nonessential2_power
   grid_ct_power_172: sensor.sunsynk_grid_ct_power
   grid_connected_status_194: binary_sensor.sunsynk_grid_connected_status
-  inverter_status_59: sensor.overall_state
+  inverter_status_59: sensor.sunsynk_overall_state
   aux_power_166: sensor.sunsynk_aux_power
   remaining_solar: sensor.solcast_forecast_remaining_today
   battery_temp_182: sensor.sunsynk_battery_temperature
