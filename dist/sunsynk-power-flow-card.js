@@ -99,7 +99,7 @@ class SunsynkPowerFlowCard extends LitElement {
         inverter_current_164: 'sensor.sunsynk_inverter_current',
         inverter_power_175: 'sensor.sunsynk_inverter_power',
         grid_connected_status_194: 'binary_sensor.sunsynk_grid_connected_status',
-        inverter_status_59: 'sensor.overall_state',
+        inverter_status_59: 'sensor.sunsynk_overall_state',
         day_battery_charge_70: 'sensor.sunsynk_day_battery_charge',
         day_battery_discharge_71: 'sensor.sunsynk_day_battery_discharge',
         battery_voltage_183: 'sensor.sunsynk_battery_voltage',
