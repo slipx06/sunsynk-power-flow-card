@@ -199,22 +199,22 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |radiator_temp_91:| Optional | `sensor.sunsynk_radiator_temperature` | Inverter AC Temperature (℃)|
 |dc_transformer_temp_90:| Optional | `sensor.sunsynk_dc_transformer_temperature` | Inverter DC Temperature (℃)|
 |prog1_time:| Optional | `sensor.sunsynk_time_slot_1` | Program 1 start time (`HH:MM`)
-|prog1_capacity:| Optional | `sensor.sunsynk_system_mode_soc_time1` | Program 1 capacity (SOC) setting
+|prog1_capacity:| Optional | `number.sunsynk_system_mode_soc_time1` | Program 1 capacity (SOC) setting
 |prog1_charge:| Optional | `switch.sunsynk_system_mode_grid_charge_time1` | Program 1 charge options (`on/off`, `1/0`, `No Grid or Gen`)
 |prog2_time:| Optional | `sensor.sunsynk_time_slot_2` | Program 2 start time (`HH:MM`)
-|prog2_capacity:| Optional | `sensor.sunsynk_system_mode_soc_time2` | Program 2 capacity (SOC) setting
+|prog2_capacity:| Optional | `number.sunsynk_system_mode_soc_time2` | Program 2 capacity (SOC) setting
 |prog2_charge:| Optional | `switch.sunsynk_system_mode_grid_charge_time2` | Program 2 charge options (`on/off`, `1/0`, `No Grid or Gen`)
 |prog3_time:| Optional | `sensor.sunsynk_time_slot_3` | Program 3 start time (`HH:MM`)
-|prog3_capacity:| Optional | `sensor.sunsynk_system_mode_soc_time3` | Program 3 capacity (SOC) setting
+|prog3_capacity:| Optional | `number.sunsynk_system_mode_soc_time3` | Program 3 capacity (SOC) setting
 |prog3_charge:| Optional | `switch.sunsynk_system_mode_grid_charge_time3` | Program 3 charge options (`on/off`, `1/0`, `No Grid or Gen`)
 |prog4_time:| Optional | `sensor.sunsynk_time_slot_4` | Program 4 start time (`HH:MM`)
-|prog4_capacity:| Optional | `sensor.sunsynk_system_mode_soc_time4` | Program 4 capacity (SOC) setting
+|prog4_capacity:| Optional | `number.sunsynk_system_mode_soc_time4` | Program 4 capacity (SOC) setting
 |prog4_charge:| Optional | `switch.sunsynk_system_mode_grid_charge_time4` | Program 4 charge options (`on/off`, `1/0`, `No Grid or Gen`)
 |prog5_time:| Optional | `sensor.sunsynk_time_slot_5` | Program 5 start time (`HH:MM`)
-|prog5_capacity:| Optional | `sensor.sunsynk_system_mode_soc_time5` | Program 5 capacity (SOC) setting
+|prog5_capacity:| Optional | `number.sunsynk_system_mode_soc_time5` | Program 5 capacity (SOC) setting
 |prog5_charge:| Optional | `switch.sunsynk_system_mode_grid_charge_time5` | Program 5 charge options (`on/off`, `1/0`, `No Grid or Gen`)
 |prog6_time:| Optional | `sensor.sunsynk_time_slot_6` | Program 6 start time (`HH:MM`)
-|prog6_capacity:| Optional | `sensor.sunsynk_system_mode_soc_time6` | Program 6 capacity (SOC) setting
+|prog6_capacity:| Optional | `number.sunsynk_system_mode_soc_time6` | Program 6 capacity (SOC) setting
 |prog6_charge:| Optional | `switch.sunsynk_system_mode_grid_charge_time6` | Program 6 charge options (`on/off`, `1/0`, `No Grid or Gen`)
 |energy_cost:| Optional | | Sensor that provides current energy cost per kWh
 |solar_sell_247:|Optional | `switch.sunsynk_toggle_solar_sell` | Displays icons to indicate if sell solar is active or not. The switch can be toggled by clicking on the icon (`on/off`, `1/0`)
@@ -435,22 +435,22 @@ entities:
   radiator_temp_91: sensor.sunsynk_radiator_temperature
   dc_transformer_temp_90: sensor.sunsynk_dc_transformer_temperature
   prog1_time: sensor.sunsynk_time_slot_1
-  prog1_capacity: sensor.sunsynk_system_mode_soc_time1
+  prog1_capacity: number.sunsynk_system_mode_soc_time1
   prog1_charge: switch.sunsynk_system_mode_grid_charge_time1
   prog2_time: sensor.sunsynk_time_slot_2
-  prog2_capacity: sensor.sunsynk_system_mode_soc_time2
+  prog2_capacity: number.sunsynk_system_mode_soc_time2
   prog2_charge: switch.sunsynk_system_mode_grid_charge_time2
   prog3_time: sensor.sunsynk_time_slot_3
-  prog3_capacity: sensor.sunsynk_system_mode_soc_time3
+  prog3_capacity: number.sunsynk_system_mode_soc_time3
   prog3_charge: switch.sunsynk_system_mode_grid_charge_time3
   prog4_time: sensor.sunsynk_time_slot_4
-  prog4_capacity: sensor.sunsynk_system_mode_soc_time4
+  prog4_capacity: number.sunsynk_system_mode_soc_time4
   prog4_charge: switch.sunsynk_system_mode_grid_charge_time4
   prog5_time: sensor.sunsynk_time_slot_5
-  prog5_capacity: sensor.sunsynk_system_mode_soc_time5
+  prog5_capacity: number.sunsynk_system_mode_soc_time5
   prog5_charge: switch.sunsynk_system_mode_grid_charge_time5
   prog6_time: sensor.sunsynk_time_slot_6
-  prog6_capacity: sensor.sunsynk_system_mode_soc_time6
+  prog6_capacity: number.sunsynk_system_mode_soc_time6
   prog6_charge: switch.sunsynk_system_mode_grid_charge_time6
   energy_cost: sensor.tibber_energy_cost
   solar_sell_247: switch.sunsynk_toggle_solar_sell
