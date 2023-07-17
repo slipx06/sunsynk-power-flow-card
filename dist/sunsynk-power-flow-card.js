@@ -227,7 +227,12 @@ class SunsynkPowerFlowCard extends LitElement {
     //let width = config?.card_width || '100%'
 
     //totalsolar = pv1_power_186 + pv2_power_187 + pv3_power_188 + pv4_power_189
-    let totalsolar = (parseInt(stateObj8.state || 0) + parseInt(stateObj9.state || 0) + parseInt(stateObj31.state || 0) + parseInt(stateObj32.state || 0));
+    let totalsolar = (
+      parseInt(parseFloat(stateObj8.state || 0).toFixed(0)) +
+      parseInt(parseFloat(stateObj9.state || 0).toFixed(0)) +
+      parseInt(parseFloat(stateObj31.state || 0).toFixed(0)) +
+      parseInt(parseFloat(stateObj32.state || 0).toFixed(0))
+    );
 
     //essential = inverter_power_175 + grid_power_169 - aux_power_166 
     let essential = (config?.entities.essential_power === 'none' || !config?.entities.essential_power) ?
