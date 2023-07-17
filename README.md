@@ -352,6 +352,8 @@ battery:
   show_daily: 'yes'
   animation_speed: 6
   max_power: 4500
+  full_capacity: 80
+  empty_capacity: 30
 solar:
   colour: orange
   show_daily: 'yes'
