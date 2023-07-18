@@ -18,7 +18,7 @@ An animated Home Assistant card to emulate the power flow that's shown on the Su
 * Customisable - Change colours and images
 * Most entities can be clicked to show more-info dialog
 * Optional data points include self sufficiency and ratio percentages, battery temperature, AC and DC temperature
-* Display two non-essential loads
+* Display up to two non-essential loads
 * Display up to two additional essential loads
 * Display energy cost per kWh and solar sell status
 
@@ -126,8 +126,8 @@ These attributes are only needed if `show_solar` is set to `yes`
 |aux_name: | Optional | `Auxilary` | Set the display name for the Auxilary Load
 |aux_type: | Optional | `default` | Changes the AUX image using preset or any mdi icon e.g. `mdi:ev-station`. Presets are: `gen`, `inverter` `default`, `oven`, `pump`, `aircon` and `boiler`.
 | additional_loads: | Optional | `no` | Display additional loads on the essential side (`one/two/no`) 
-| load1_name: | Optional | `Load 1` | Set the display name for the Essential Load 1
-| load2_name: | Optional | `Load 2` | Set the display name for the Essential Load 2
+| load1_name: | Optional |  | Set the display name for the Essential Load 1
+| load2_name: | Optional |  | Set the display name for the Essential Load 2
 | load1_icon: | Optional | none | Change the essential load 1 image using preset or any mdi icon e.g. `mdi:ev-station` Presets are: `boiler`, `pump`, `aircon`, `oven` |
 | load2_icon: | Optional | none | Change the essential load 2 image using preset or any mdi icon e.g. `mdi:ev-station` Presets are: `boiler`, `pump`, `aircon`, `oven` |
 
@@ -141,9 +141,9 @@ These attributes are only needed if `show_solar` is set to `yes`
 |show_nonessential: | Optional |`yes` | Toggles the display of Non-Essential (`yes/no`)|
 |nonessential_icon: | Optional | `default` | Change the nonessential image using presets or any mdi icon e.g. `mdi:ev-station`. Presets are: <br /> <img height="25px" src="https://api.iconify.design/mdi/house-import-outline.svg"> `default`  <img height="25px" src="https://api.iconify.design/fluent/oven-32-regular.svg"> `oven`, <img height="25px" src="https://api.iconify.design/material-symbols/water-heater.svg"> `boiler` </br> <br/> <img height="25px" src="https://api.iconify.design/material-symbols/water-pump-outline.svg"> `pump`,  <img height="25px" src="https://api.iconify.design/mdi/air-conditioner.svg"> `aircon` </br> |
 |nonessential_name: | Optional | `Non Essential` |Set the display name for the Non-Essential Load
-|nonessential_dual: | Optional |`no`| Toggle the display of two Non-Essential loads (`yes/no`)
-|load1_name: | Optional | `Load 1` | Set the display name for the Non-Essential Load 1
-|load2_name: | Optional | `Load 2` |Set the display name for the Non-Essential Load 2
+|additional_loads: | Optional |`no`| Toggle the display of additinal loads on the non-essential side (`one/two/no`)
+|load1_name: | Optional |  | Set the display name for the Non-Essential Load 1
+|load2_name: | Optional |  |Set the display name for the Non-Essential Load 2
 |load1_icon: | Optional | `default` | Change the nonessential load 1 image using presets or any mdi icon e.g. `mdi:ev-station`. Presets are: `default`, `oven`, `boiler`, `pump`, `aircon` |
 |load2_icon: | Optional | `default` | Change the nonessential load 2 image using presets or any mdi icon e.g. `mdi:ev-station`. Presets are: `default`, `oven`, `boiler`, `pump`, `aircon` |
 |invert_grid:| Optional | `no`| Set to `yes` if your sensor provides a negative number for Grid import and positive number for Grid export |
