@@ -387,7 +387,7 @@ grid:
   invert_grid: 'no'
   nonessential_name: Non Essential
   nonessential_icon: oven
-  nonessential_dual: 'yes'
+  additional_loads: two
   load1_name: Load 1
   load2_name: Load 2
   load1_icon: boiler
