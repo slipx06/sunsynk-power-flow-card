@@ -427,8 +427,16 @@ class SunsynkPowerFlowCard extends LitElement {
 
     //Autarky in Percent = Home Production / Home Consumption
     //Ratio in Percent = Home Consumption / Home Production
-    let production_e = parseFloat(stateObj4.state) + parseFloat(stateObj.state);
-    let consumption_e = parseFloat(stateObj2.state) + parseFloat(stateObj1.state);
+    //let production_e = parseFloat(stateObj4.state) + parseFloat(stateObj.state); 
+    //let consumption_e = parseFloat(stateObj2.state) + parseFloat(stateObj1.state);
+    let production_e = (
+      (isNaN(parseFloat(stateObj4.state)) ? 0 : parseFloat(stateObj4.state)) +
+      (isNaN(parseFloat(stateObj.state)) ? 0 : parseFloat(stateObj.state))
+    );   
+    let consumption_e = (
+      (isNaN(parseFloat(stateObj2.state)) ? 0 : parseFloat(stateObj2.state)) +
+      (isNaN(parseFloat(stateObj1.state)) ? 0 : parseFloat(stateObj1.state))
+    );
     let Autarky = consumption_e != 0 ? Math.min(Math.round((production_e * 100) / consumption_e), 100) : 0;
     let Ratio = production_e != 0 ? Math.min(Math.round((consumption_e * 100) / production_e), 100) : 0;
 
