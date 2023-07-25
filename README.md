@@ -298,7 +298,7 @@ entities:
   grid_connected_status_194: binary_sensor.sunsynk_grid_connected_status
   inverter_status_59: sensor.overall_state
 ```
-#### Minimak Configuration (Solar) #####
+#### Minimal Configuration (Solar) #####
 
 ```yaml
 type: custom:sunsynk-power-flow-card
