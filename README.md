@@ -165,16 +165,16 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |day_grid_import_76: | Optional | `sensor.sunsynk_day_grid_import` | Daily Grid Import (kWh) |
 |day_grid_export_77: | Optional | `sensor.sunsynk_day_grid_export` | Daily Grid Export (kWh) |
 |day_pv_energy_108: | Optional | `sensor.sunsynk_day_pv_energy` | Daily Solar Usage (kWh |
-|inverter_voltage_154: | **Required** | `sensor.sunsynk_inverter_voltage` | Inverter Voltage (V) |
-|load_frequency_192: | **Required** | `sensor.sunsynk_load_frequency` | Load Frequency (Hz) |
-|inverter_current_164: | **Required** | `sensor.sunsynk_inverter_current` | Inverter Current (A) |
-|inverter_power_175: | **Required** | `sensor.sunsynk_inverter_power` | Inverter Power (W) |
-|grid_power_169: | **Required** | `sensor.sunsynk_grid_power` | Grid Power (W) See NOTE below. Use **167** (Grid LD Power) if non-essential and essential readings are wrong |
+|inverter_voltage_154: | Optional | `sensor.sunsynk_inverter_voltage` | Inverter Voltage (V) |
+|load_frequency_192: | Optional | `sensor.sunsynk_load_frequency` | Load Frequency (Hz) |
+|inverter_current_164: | Optional | `sensor.sunsynk_inverter_current` | Inverter Current (A) |
+|inverter_power_175: | Optional | `sensor.sunsynk_inverter_power` | Inverter Power (W). Required if the essential_power attribute is set to `none` |
+|grid_power_169: | Optional | `sensor.sunsynk_grid_power` | Grid Power (W) See NOTE below. Use **167** (Grid LD Power) if non-essential and essential readings are wrong. Required if the nonessential_power attribute is set to `none` |
 |pv1_power_186: | Optional | `sensor.sunsynk_pv1_power` | PV String 1 Power (W)|
 |pv2_power_187: | Optional | `sensor.sunsynk_pv2_power` | PV String 2 Power (W)  |
 |pv3_power_188: | Optional | `sensor.sunsynk_pv3_power` | PV String 3 Power (W)  |
 |pv4_power_189: | Optional | `sensor.sunsynk_pv4_power` | PV String 4 Power (W)  |
-|battery_voltage_183: | **Required** | `sensor.sunsynk_battery_voltage` | Battery Voltage (V) |
+|battery_voltage_183: | Optional | `sensor.sunsynk_battery_voltage` | Battery Voltage (V) |
 |battery_soc_184: | **Required** | `sensor.sunsynk_battery_soc` | Battery State of Charge (%) |
 |battery_power_190: | **Required** | `sensor.sunsynk_battery_power` | Battery Power (W). Requires a negative number for battery charging and a positive number for battery discharging. Set the `invert_power:` battery attribute to `yes` if your sensor reports this the other way around |
 |battery_current_191: | **Required** |`sensor.sunsynk_battery_current` | Battery Current (A) | 
@@ -193,8 +193,8 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |pv3_current_114: | Optional | `sensor.sunsynk_pv3_current` | PV String 3 Current (A)|
 |pv4_voltage_115: | Optional | `sensor.sunsynk_pv4_voltage` | PV String 4 Voltage (V)|
 |pv4_current_116: | Optional | `sensor.sunsynk_pv4_current` | PV String 4 Current (A)|
-|grid_connected_status_194: | **Required** | `binary_sensor.sunsynk_grid_connected_status` | Grid Connected Status `on/off` or `1/0` |
-|inverter_status_59: | **Required** | `sensor.sunsynk_overall_state` | Inverter Status `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault` |
+|grid_connected_status_194: | Optional | `binary_sensor.sunsynk_grid_connected_status` | Grid Connected Status `on/off` or `1/0` |
+|inverter_status_59: | Optional | `sensor.sunsynk_overall_state` | Inverter Status `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault` |
 |aux_power_166: | Optional | `sensor.sunsynk_aux_power` | Auxilary Power (W) |
 |remaining_solar: | Optional | `sensor.solcast_forecast_remaining_today`| The remaining solar forecast for the day (kWh) |
 |battery_temp_182:| Optional | `sensor.sunsynk_battery_temperature` | Battery Temperature (℃)|
@@ -244,6 +244,47 @@ battery:
   energy: 15960
   shutdown_soc: 20
 entities:
+  inverter_power_175: sensor.sunsynk_inverter_power
+  grid_power_169: sensor.sunsynk_grid_power
+  battery_voltage_183: sensor.sunsynk_battery_voltage
+  battery_soc_184: sensor.sunsynk_battery_soc
+  battery_power_190: sensor.sunsynk_battery_power
+  battery_current_191: sensor.sunsynk_battery_current
+  grid_ct_power_172: sensor.sunsynk_grid_ct_power
+
+```
+#### Minimum Configuration (Solar) #####
+
+```yaml
+type: custom:sunsynk-power-flow-card
+cardstyle: full
+show_solar: 'yes'
+solar:
+  mppts: one
+battery:
+  energy: 15960
+  shutdown_soc: 20
+entities:
+  inverter_power_175: sensor.sunsynk_inverter_power
+  grid_power_169: sensor.sunsynk_grid_power
+  battery_voltage_183: sensor.sunsynk_battery_voltage
+  battery_soc_184: sensor.sunsynk_battery_soc
+  battery_power_190: sensor.sunsynk_battery_power
+  battery_current_191: sensor.sunsynk_battery_current
+  grid_ct_power_172: sensor.sunsynk_grid_ct_power
+  pv1_power_186: sensor.sunsynk_pv1_power
+```
+
+#### Minimal Configuration (No Solar) #####
+
+```yaml
+type: custom:sunsynk-power-flow-card
+cardstyle: full
+show_solar: 'no'
+battery:
+  energy: 15960
+  shutdown_soc: 20
+entities:
   inverter_voltage_154: sensor.sunsynk_inverter_voltage
   load_frequency_192: sensor.sunsynk_load_frequency
   inverter_current_164: sensor.sunsynk_inverter_current
@@ -257,7 +298,7 @@ entities:
   grid_connected_status_194: binary_sensor.sunsynk_grid_connected_status
   inverter_status_59: sensor.overall_state
 ```
-#### Minimum Configuration (Solar) #####
+#### Minimak Configuration (Solar) #####
 
 ```yaml
 type: custom:sunsynk-power-flow-card
