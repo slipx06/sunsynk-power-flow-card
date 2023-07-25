@@ -246,12 +246,10 @@ battery:
 entities:
   inverter_power_175: sensor.sunsynk_inverter_power
   grid_power_169: sensor.sunsynk_grid_power
-  battery_voltage_183: sensor.sunsynk_battery_voltage
   battery_soc_184: sensor.sunsynk_battery_soc
   battery_power_190: sensor.sunsynk_battery_power
   battery_current_191: sensor.sunsynk_battery_current
   grid_ct_power_172: sensor.sunsynk_grid_ct_power
-
 ```
 #### Minimum Configuration (Solar) #####
 
@@ -267,7 +265,6 @@ battery:
 entities:
   inverter_power_175: sensor.sunsynk_inverter_power
   grid_power_169: sensor.sunsynk_grid_power
-  battery_voltage_183: sensor.sunsynk_battery_voltage
   battery_soc_184: sensor.sunsynk_battery_soc
   battery_power_190: sensor.sunsynk_battery_power
   battery_current_191: sensor.sunsynk_battery_current
