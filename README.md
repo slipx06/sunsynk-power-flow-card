@@ -141,7 +141,7 @@ These attributes are only needed if `show_solar` is set to `yes`
 |show_nonessential: | Optional |`yes` | Toggles the display of Non-Essential (`yes/no`)|
 |nonessential_icon: | Optional | `default` | Change the nonessential image using presets or any mdi icon e.g. `mdi:ev-station`. Presets are: <br /> <img height="25px" src="https://api.iconify.design/mdi/house-import-outline.svg"> `default`  <img height="25px" src="https://api.iconify.design/fluent/oven-32-regular.svg"> `oven`, <img height="25px" src="https://api.iconify.design/material-symbols/water-heater.svg"> `boiler` </br> <br/> <img height="25px" src="https://api.iconify.design/material-symbols/water-pump-outline.svg"> `pump`,  <img height="25px" src="https://api.iconify.design/mdi/air-conditioner.svg"> `aircon` </br> |
 |nonessential_name: | Optional | `Non Essential` |Set the display name for the Non-Essential Load
-|additional_loads: | Optional |`no`| Toggle the display of additinal loads on the non-essential side (`one/two/no`)
+|additional_loads: | Optional |`no`| Toggle the display of additional loads on the non-essential side (`one/two/no`)
 |load1_name: | Optional |  | Set the display name for the Non-Essential Load 1
 |load2_name: | Optional |  |Set the display name for the Non-Essential Load 2
 |load1_icon: | Optional | `default` | Change the nonessential load 1 image using presets or any mdi icon e.g. `mdi:ev-station`. Presets are: `default`, `oven`, `boiler`, `pump`, `aircon` |
