@@ -125,6 +125,7 @@ These attributes are only needed if `show_solar` is set to `yes`
 |max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
 |aux_name: | Optional | `Auxilary` | Set the display name for the Auxilary Load
 |aux_type: | Optional | `default` | Changes the AUX image using preset or any mdi icon e.g. `mdi:ev-station`. Presets are: `gen`, `inverter` `default`, `oven`, `pump`, `aircon` and `boiler`.
+|aux_colour:| Optional | `the load colour` | Changes the colour of all the AUX card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 | additional_loads: | Optional | `no` | Display additional loads on the essential side (`one/two/no`) 
 | load1_name: | Optional |  | Set the display name for the Essential Load 1
 | load2_name: | Optional |  | Set the display name for the Essential Load 2
@@ -409,6 +410,7 @@ load:
   invert_aux: 'no'
   aux_name: Generator
   aux_type: gen
+  aux_colour: green
   animation_speed: 8
   max_power: 8000
   additional_loads: two
