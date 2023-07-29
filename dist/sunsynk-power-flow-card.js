@@ -1,5 +1,5 @@
 import { LitElement, html, css, svg } from "https://unpkg.com/lit-element@2.0.1/lit-element.js?module";
-const SunsynkCardversion = '1.9.1';
+const SunsynkCardversion = '1.9.3';
 console.info(
   `%c SUNSYNK-POWER-FLOW-CARD %c v${SunsynkCardversion} `,
   'color: orange; font-weight: bold; background: black',
