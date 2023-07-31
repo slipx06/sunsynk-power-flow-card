@@ -175,6 +175,7 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |pv2_power_187: | Optional | `sensor.sunsynk_pv2_power` | PV String 2 Power (W)  |
 |pv3_power_188: | Optional | `sensor.sunsynk_pv3_power` | PV String 3 Power (W)  |
 |pv4_power_189: | Optional | `sensor.sunsynk_pv4_power` | PV String 4 Power (W)  |
+|pv_total:| Optional | `none` | Provide a sensor for total pv power. If omitted the card uses internal logic to calculate this based on the pv1-4 power (W)
 |battery_voltage_183: | Optional | `sensor.sunsynk_battery_voltage` | Battery Voltage (V) |
 |battery_soc_184: | **Required** | `sensor.sunsynk_battery_soc` | Battery State of Charge (%) |
 |battery_power_190: | **Required** | `sensor.sunsynk_battery_power` | Battery Power (W). Requires a negative number for battery charging and a positive number for battery discharging. Set the `invert_power:` battery attribute to `yes` if your sensor reports this the other way around |
@@ -452,6 +453,7 @@ entities:
   pv2_power_187: sensor.sunsynk_pv2_power
   pv3_power_188: none
   pv4_power_189: none
+  pv_total: sensor.sunsynk_totalsolar
   pv1_voltage_109: sensor.sunsynk_pv1_voltage
   pv1_current_110: sensor.sunsynk_pv1_current
   pv2_voltage_111: sensor.sunsynk_pv2_voltage
