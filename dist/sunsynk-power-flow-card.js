@@ -1,5 +1,5 @@
 import { LitElement, html, css, svg } from "https://unpkg.com/lit-element@2.0.1/lit-element.js?module";
-const SunsynkCardversion = '1.9.3';
+const SunsynkCardversion = '1.9.4';
 console.info(
   `%c SUNSYNK-POWER-FLOW-CARD %c v${SunsynkCardversion} `,
   'color: orange; font-weight: bold; background: black',
@@ -172,7 +172,8 @@ class SunsynkPowerFlowCard extends LitElement {
     const stateObj43 = this.hass.states[config.entities.energy_cost] || { state: '' };
     const stateObj44 = this.hass.states[config.entities.solar_sell_247] || { state: 'undefined' };
     const stateObj45 = this.hass.states[config.entities.essential_load2] || { state: '0' };
-    
+    const stateObj46 = this.hass.states[config.entities.pv_total] || { state: '0' };
+
     //Set defaults 
     let invert_aux = config?.load?.invert_aux || 'no';
     let aux_power = (invert_aux === 'yes') ? parseInt(stateObj24.state) * -1 : parseInt(stateObj24.state);
@@ -239,6 +240,8 @@ class SunsynkPowerFlowCard extends LitElement {
       parseInt(parseFloat(stateObj31.state || 0).toFixed(0)) +
       parseInt(parseFloat(stateObj32.state || 0).toFixed(0))
     );
+
+    let total_pv = config?.entities?.pv_total ? parseInt(stateObj46.state) : totalsolar;
 
     //essential = inverter_power_175 + grid_power_169 - aux_power_166 
     let essential = (config?.entities.essential_power === 'none' || !config?.entities.essential_power) ?
@@ -539,7 +542,6 @@ class SunsynkPowerFlowCard extends LitElement {
             <text id="duration_text" x="29%" y="96%" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power <= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >RUNTIME TO ${battery_capacity}% @${formattedResultTime}</text>
             <text id="duration_text_charging" x="29%" y="96%" class="st3 left-align" fill="${config.battery.energy === 'hidden' || battery_power >= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >TO ${battery_capacity}% CHARGE @${formattedResultTime}</text>
             <text id="floating" x="29%" y="96%" class="st3 left-align" fill="${config.battery.energy === 'hidden' || float === 'False' ? 'transparent' : `${battery_colour}`}" >BATTERY FLOATING</text>
-            <text id="pvtotal_power" x="19%" y="46.5%" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${totalsolar ? totalsolar : '0'} W</text>
             <text x="-0.25%" y="20.5%" class="st3 st8 left-align" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${config?.solar?.pv1_name ? `${config.solar.pv1_name}`: 'PV1' }</text>
             <text x="21.75%" y="20.5%" class="st3 st8 left-align" display="${config.show_solar === 'no' || config.solar.mppts === 'one'? 'none' : ''}" fill="${solar_colour}">${config?.solar?.pv2_name ? `${config.solar.pv2_name}`: 'PV2' }</text>
             <text x="-0.25%" y="36.25%" class="st3 st8 left-align" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two'  ? 'none' : ''}" fill="${solar_colour}">${config?.solar?.pv3_name ? `${config.solar.pv3_name}`: 'PV3' }</text>
@@ -888,6 +890,9 @@ class SunsynkPowerFlowCard extends LitElement {
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_grid_export_77)}>
               <text id="daily_grid_sell_value" x="${grid_show_noness === 'no' ? '68%' : '76%'}" y="${grid_show_noness === 'no' ? '84.25%' : '54.5%'}" class="st10 left-align" display="${grid_showdailysell === 'no' ? 'none' : ''}" fill="${grid_colour}" >${parseFloat(stateObj33.state).toFixed(1) ? parseFloat(stateObj33.state).toFixed(1) : '0'} kWh</text>
             </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv_total)}>
+              <text id="pvtotal_power" x="19%" y="46.5%" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${total_pv ? total_pv : '0'} W</text>
+            </a>
             ${config.entities.essential_power !== 'none'
             ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_power)}>
                     <text id="ess_power" x="59%" y="31%" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential ? essential : '0'} W</text>
@@ -1032,9 +1037,8 @@ class SunsynkPowerFlowCard extends LitElement {
             <text id="daily_grid_sell" x="5" y="179" class="st3 left-align" fill="${grid_showdailysell === 'no' ? 'transparent' : `${grid_colour}`}" >DAILY GRID SELL</text>
             <text id="daily_solar" x="200" y="40" class="st3 left-align" fill="${solar_showdaily === 'no' || config.show_solar === 'no' || remaining_solar != 'false' ? 'transparent' : `${solar_colour}`}">DAILY SOLAR</text>
             <text id="remaining_solar" x="200" y="40" class="st3 left-align" fill="${solar_showdaily === 'no' || config.show_solar === 'no' || remaining_solar === 'false' ? 'transparent' : `${solar_colour}`}" >DAILY SOLAR / LEFT TODAY</text>
-            <text id="pvtotal_power" x="238.8" y="133.9" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${totalsolar ? totalsolar : '0'} W</text>
             <text x="162" y="94" class="st3 st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${config?.solar?.pv1_name ? `${config.solar.pv1_name}`: 'PV1' }</text>
-            <text x="264" y="94" class="st3 st8" display="${config.show_solar === 'no'  || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}">${config?.solar?.pv2_name ? `${config.solar.pv2_name}`: 'PV2' }</text>
+            <text x="264" y="94" class="st3 st8" display="${config.show_solar === 'no'  || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}">${config?.solar?.pv2_name ? `${config.solar.pv2_name}`: 'PV2'}</text>
             <text x="88" y="94" class="st3 st8" display="${config.show_solar === 'no'  || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}">${config?.solar?.pv3_name ? `${config.solar.pv3_name}`: 'PV3' }</text>
             <text x="340" y="94" class="st3 st8" display="${config.show_solar === 'no'  || config.solar.mppts === 'one' || config.solar.mppts === 'two' || config.solar.mppts === 'three' ? 'none' : ''}" fill="${solar_colour}">${config?.solar?.pv4_name ? `${config.solar.pv4_name}`: 'PV4' }</text>
             <text id="autarkye_value" x="130" y="260" display="${useautarky === 'no' ? 'none' : ''}" class="${useautarky === 'energy' ? 'st4 st8 left-align' : 'st12'}" fill="${inverter_colour}" >${Autarky}%</text>
@@ -1275,6 +1279,9 @@ class SunsynkPowerFlowCard extends LitElement {
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost)}>
               <text id="energy_cost" x="105" y="195" class="${config.entities.energy_cost === 'none' ? 'st12' : 'st3 left-align'}" fill="${grid_colour}" display="${config?.entities?.energy_cost ? '' : 'none'}" >${stateObj43.state ? stateObj43.state : ''}</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv_total)}>
+              <text id="pvtotal_power" x="238.8" y="133.9" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${total_pv ? total_pv : '0'} W</text>
             </a>
             ${config.entities.pv1_power_186 !== 'none'
             ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_power_186)}>
