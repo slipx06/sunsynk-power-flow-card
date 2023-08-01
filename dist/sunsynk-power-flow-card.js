@@ -890,9 +890,13 @@ class SunsynkPowerFlowCard extends LitElement {
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_grid_export_77)}>
               <text id="daily_grid_sell_value" x="${grid_show_noness === 'no' ? '68%' : '76%'}" y="${grid_show_noness === 'no' ? '84.25%' : '54.5%'}" class="st10 left-align" display="${grid_showdailysell === 'no' ? 'none' : ''}" fill="${grid_colour}" >${parseFloat(stateObj33.state).toFixed(1) ? parseFloat(stateObj33.state).toFixed(1) : '0'} kWh</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv_total)}>
+            
+            ${config?.entities?.pv_total 
+            ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv_total)}>
               <text id="pvtotal_power" x="19%" y="46.5%" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${total_pv ? total_pv : '0'} W</text>
-            </a>
+            </a>`
+            : svg` <text id="pvtotal_power" x="19%" y="46.5%" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${total_pv ? total_pv : '0'} W</text> `}
+            
             ${config.entities.essential_power !== 'none'
             ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_power)}>
                     <text id="ess_power" x="59%" y="31%" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential ? essential : '0'} W</text>
@@ -1280,9 +1284,11 @@ class SunsynkPowerFlowCard extends LitElement {
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost)}>
               <text id="energy_cost" x="105" y="195" class="${config.entities.energy_cost === 'none' ? 'st12' : 'st3 left-align'}" fill="${grid_colour}" display="${config?.entities?.energy_cost ? '' : 'none'}" >${stateObj43.state ? stateObj43.state : ''}</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv_total)}>
-              <text id="pvtotal_power" x="238.8" y="133.9" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${total_pv ? total_pv : '0'} W</text>
-            </a>
+            ${config?.entities?.pv_total 
+              ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv_total)}>
+                      <text id="pvtotal_power" x="238.8" y="133.9" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${total_pv ? total_pv : '0'} W</text>
+                    </a>`
+            : svg`<text id="pvtotal_power" x="238.8" y="133.9" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${total_pv ? total_pv : '0'} W</text>`}
             ${config.entities.pv1_power_186 !== 'none'
             ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_power_186)}>
                     <text id="pv1_power_186" x="188.1" y="71" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj9.state).toFixed(0) ? parseFloat(stateObj9.state).toFixed(0) : '0'} W</text>
