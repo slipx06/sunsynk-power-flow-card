@@ -126,6 +126,7 @@ These attributes are only needed if `show_solar` is set to `yes`
 |aux_name: | Optional | `Auxilary` | Set the display name for the Auxilary Load
 |aux_type: | Optional | `default` | Changes the AUX image using preset or any mdi icon e.g. `mdi:ev-station`. Presets are: `gen`, `inverter` `default`, `oven`, `pump`, `aircon` and `boiler`.
 |aux_colour:| Optional | `the load colour` | Changes the colour of all the AUX card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
+|aux_off_colour:| Optional| `the load colour` | Changes the colour of the AUX icon and label when disconnected. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 | additional_loads: | Optional | `no` | Display additional loads on the essential side (`one/two/no`) 
 | load1_name: | Optional |  | Set the display name for the Essential Load 1
 | load2_name: | Optional |  | Set the display name for the Essential Load 2
@@ -198,6 +199,7 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |grid_connected_status_194: | Optional | `binary_sensor.sunsynk_grid_connected_status` | Grid Connected Status `on/off` or `1/0` |
 |inverter_status_59: | Optional | `sensor.sunsynk_overall_state` | Inverter Status `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault` |
 |aux_power_166: | Optional | `sensor.sunsynk_aux_power` | Auxilary Power (W) |
+|aux_connected_status: |Optional | None | AUX Connected Status `on/off` or `1/0`
 |remaining_solar: | Optional | `sensor.solcast_forecast_remaining_today`| The remaining solar forecast for the day (kWh) |
 |battery_temp_182:| Optional | `sensor.sunsynk_battery_temperature` | Battery Temperature (℃)|
 |radiator_temp_91:| Optional | `sensor.sunsynk_radiator_temperature` | Inverter AC Temperature (℃)|
@@ -412,6 +414,7 @@ load:
   aux_name: Generator
   aux_type: gen
   aux_colour: green
+  aux_off_colour: red
   animation_speed: 8
   max_power: 8000
   additional_loads: two
@@ -476,6 +479,7 @@ entities:
   grid_connected_status_194: binary_sensor.sunsynk_grid_connected_status
   inverter_status_59: sensor.sunsynk_overall_state
   aux_power_166: sensor.sunsynk_aux_power
+  aux_connected_status: binary_sensor.sunsynk_aux_connected_status
   remaining_solar: sensor.solcast_forecast_remaining_today
   battery_temp_182: sensor.sunsynk_battery_temperature
   radiator_temp_91: sensor.sunsynk_radiator_temperature
