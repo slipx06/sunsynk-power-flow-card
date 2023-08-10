@@ -18,8 +18,7 @@ An animated Home Assistant card to emulate the power flow that's shown on the Su
 * Customisable - Change colours and images
 * Most entities can be clicked to show more-info dialog
 * Optional data points include self sufficiency and ratio percentages, battery temperature, AC and DC temperature
-* Display up to two non-essential loads
-* Display up to two additional essential loads
+* Display up to two non-essential, essential and AUX loads
 * Display energy cost per kWh and solar sell status
 
 ## Screenshots
@@ -127,11 +126,16 @@ These attributes are only needed if `show_solar` is set to `yes`
 |aux_type: | Optional | `default` | Changes the AUX image using preset or any mdi icon e.g. `mdi:ev-station`. Presets are: `gen`, `inverter` `default`, `oven`, `pump`, `aircon` and `boiler`.
 |aux_colour:| Optional | `the load colour` | Changes the colour of all the AUX card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |aux_off_colour:| Optional| `the load colour` | Changes the colour of the AUX icon and label when disconnected. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
-| additional_loads: | Optional | `no` | Display additional loads on the essential side (`one/two/no`) 
-| load1_name: | Optional |  | Set the display name for the Essential Load 1
-| load2_name: | Optional |  | Set the display name for the Essential Load 2
-| load1_icon: | Optional | none | Change the essential load 1 image using preset or any mdi icon e.g. `mdi:ev-station` Presets are: `boiler`, `pump`, `aircon`, `oven` |
-| load2_icon: | Optional | none | Change the essential load 2 image using preset or any mdi icon e.g. `mdi:ev-station` Presets are: `boiler`, `pump`, `aircon`, `oven` |
+|aux_loads:| Optional | `no` | Display additional loads on the AUX side (`no/yes`)
+|aux_load1_name: |Optional | | Set the display name for the AUX Load 1
+|aux_load2_name: |Optional | | Set the display name for the AUX Load 2
+|aux_load1_icon: | Optional | | Change the aux load 1 image using any mdi icon e.g. `mdi:ev-station`
+|aux_load2_icon: | Optional | | Change the aux load 2 image using any mdi icon e.g. `mdi:ev-station`
+|additional_loads: | Optional | `no` | Display additional loads on the essential side (`one/two/no`) 
+|load1_name: | Optional |  | Set the display name for the Essential Load 1
+|load2_name: | Optional |  | Set the display name for the Essential Load 2
+|load1_icon: | Optional | none | Change the essential load 1 image using preset or any mdi icon e.g. `mdi:ev-station` Presets are: `boiler`, `pump`, `aircon`, `oven` |
+|load2_icon: | Optional | none | Change the essential load 2 image using preset or any mdi icon e.g. `mdi:ev-station` Presets are: `boiler`, `pump`, `aircon`, `oven` |
 
 ### Grid
 | Attribute | Requirement | Default | Description |
@@ -199,6 +203,8 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |grid_connected_status_194: | Optional | `binary_sensor.sunsynk_grid_connected_status` | Grid Connected Status `on/off` or `1/0` |
 |inverter_status_59: | Optional | `sensor.sunsynk_overall_state` | Inverter Status `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault` |
 |aux_power_166: | Optional | `sensor.sunsynk_aux_power` | Auxilary Power (W) |
+|aux_load1:| Optional |  | Sensor that contains the power of your AUX load 1 (W) |
+|aux_load2:| Optional |  | Sensor that contains the power of your AUX load 2 (W) |
 |aux_connected_status: |Optional | None | AUX Connected Status `on/off` or `1/0`
 |remaining_solar: | Optional | `sensor.solcast_forecast_remaining_today`| The remaining solar forecast for the day (kWh) |
 |battery_temp_182:| Optional | `sensor.sunsynk_battery_temperature` | Battery Temperature (℃)|
