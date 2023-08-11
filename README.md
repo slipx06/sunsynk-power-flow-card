@@ -126,7 +126,7 @@ These attributes are only needed if `show_solar` is set to `yes`
 |aux_type: | Optional | `default` | Changes the AUX image using preset or any mdi icon e.g. `mdi:ev-station`. Presets are: `gen`, `inverter` `default`, `oven`, `pump`, `aircon` and `boiler`.
 |aux_colour:| Optional | `the load colour` | Changes the colour of all the AUX card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |aux_off_colour:| Optional| `the load colour` | Changes the colour of the AUX icon and label when disconnected. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
-|aux_loads:| Optional | `no` | Display additional loads on the AUX side (`no/yes`)
+|aux_loads:| Optional | `no` | Display additional loads on the AUX side (`no/one/two`)
 |aux_load1_name: |Optional | | Set the display name for the AUX Load 1
 |aux_load2_name: |Optional | | Set the display name for the AUX Load 2
 |aux_load1_icon: | Optional | | Change the aux load 1 image using any mdi icon e.g. `mdi:ev-station`
