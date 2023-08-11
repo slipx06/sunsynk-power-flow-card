@@ -1,5 +1,5 @@
 import { LitElement, html, css, svg } from "https://unpkg.com/lit-element@2.0.1/lit-element.js?module";
-const SunsynkCardversion = '1.9.7';
+const SunsynkCardversion = '1.9.8';
 console.info(
   `%c SUNSYNK-POWER-FLOW-CARD %c v${SunsynkCardversion} `,
   'color: orange; font-weight: bold; background: black',
@@ -809,8 +809,9 @@ class SunsynkPowerFlowCard extends LitElement {
                   </body>
                 </foreignObject>
               </g>
+            </a>
 
-              <g display="${show_aux === 'no'  || additional_aux_load === 'no' ? 'none' : ''}" >
+            <g display="${show_aux === 'no'  || additional_aux_load === 'no' ? 'none' : ''}" >
                 <foreignObject x="345" y="18" width="40" height="40" style="position: fixed; ">
                   <body xmlns="http://www.w3.org/1999/xhtml" >
                     <div style="position: fixed; ">
@@ -830,7 +831,6 @@ class SunsynkPowerFlowCard extends LitElement {
               </foreignObject>
             </g>
 
-            </a>
             <!-- Essential Boiler Icon -->
             <svg xmlns="http://www.w3.org/2000/svg" id="ess_boiler_left_bottom" x="349" y="141" width="24" height="24" viewBox="0 0 24 24" opacity="${load1e_icon === 'boiler' && additional_load === 'two' ? '1' : '0'}"><path display="${show_aux === 'no' || additional_load === 'no' || additional_load === 'one' ? 'none' : ''}" fill="${load_colour}" d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/></svg>
             <svg xmlns="http://www.w3.org/2000/svg" id="ess_boiler_right_bottom" x="445" y="141" width="24" height="24" viewBox="0 0 24 24" opacity="${load2e_icon === 'boiler' && additional_load === 'two' ? '1' : '0'}"><path display="${show_aux === 'no' || additional_load === 'no' || additional_load === 'one' ? 'none' : ''}" fill="${load_colour}" d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/></svg>
