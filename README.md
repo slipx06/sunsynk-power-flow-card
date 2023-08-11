@@ -338,7 +338,7 @@ entities:
   pv2_voltage_111: sensor.sunsynk_pv2_voltage
   pv2_current_112: sensor.sunsynk_pv2_current
 ```
-#### Minimum Configuration (Solar + Daily Totals) #####
+#### Minimal Configuration (Solar + Daily Totals) #####
 
 ```yaml
 type: custom:sunsynk-power-flow-card
@@ -421,6 +421,11 @@ load:
   aux_type: gen
   aux_colour: green
   aux_off_colour: red
+  aux_loads: two
+  aux_load1_name: Aux load 1
+  aux_load2_name: Aux load 2
+  aux_load1_icon: mdi:air-filter
+  aux_load2_icon: mdi:stove
   animation_speed: 8
   max_power: 8000
   additional_loads: two
@@ -486,6 +491,8 @@ entities:
   inverter_status_59: sensor.sunsynk_overall_state
   aux_power_166: sensor.sunsynk_aux_power
   aux_connected_status: binary_sensor.sunsynk_aux_connected_status
+  aux_load1: sensor.aux1_power
+  aux_load2: sensor.aux2_power
   remaining_solar: sensor.solcast_forecast_remaining_today
   battery_temp_182: sensor.sunsynk_battery_temperature
   radiator_temp_91: sensor.sunsynk_radiator_temperature
