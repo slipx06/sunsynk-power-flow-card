@@ -1,0 +1,39 @@
+{
+    "common": {
+        "description": "A Home Assistant card to emulate the Sunsynk power flow that's shown on the Inverter screen",
+        "version": "Version",
+        "runtime_to": "RUNTIME TO",
+        "battery_floating": "BATTERY FLOATING",
+        "charge": "CHARGE",
+        "to": "TO",
+        "daily_load": "DAILY LOAD",
+        "daily_grid_buy": "DAILY GRID BUY",
+        "daily_grid_sell": "DAILY GRID SELL",
+        "daily_solar": "DAILY SOLAR",
+        "daily_charge": "DAILY CHARGE",
+        "daily_discharge": "DAILY DISCHARGE",
+        "ratio": "Ratio"
+    },
+    "errors": {
+        "cardstyle": "Please include the cardstyle attribute and value; lite, simple or full e.g. cardstyle: simple",
+        "show_style": "Please include the show_solar attribute e.g. show_solar: yes",
+        "battery": {
+            "bat": "No battery attributes defined",
+            "energy": "Please include the battery energy attribute and value in Wh e.g. 5.32 Battery energy: 5320",
+            "shutdown_soc": "Please include the battery shutdown_soc attribute and value e.g shutdown_soc: 20",
+            "full_capacity": "Full capacity needs to be between 80 and 100",
+            "empty_capacity": "Empty capacity needs to be <= 30",
+            "show_daily": "Please include the day_battery_charge_70 and day_battery_discharge_71 attributes and entity IDs"
+        },
+        "solar":{
+            "sol": "No solar attributes defined",
+            "mppts": "Please include the solar mppts attribute and value; one,two,three or four e.g. mppts: two",
+            "show_daily": "Please include the day_pv_energy_108 attribute and entity ID"
+        },
+        "grid": {
+            "show_daily": "Please include the day_grid_import_76 and day_grid_export_77 attributes and entity IDs"
+        },
+        "essential_power": "The essential_power attribute is set to none. Please include the inverter_power_175 attribute and entity ID in order for the card to calculate this value.",
+        "nonessential_power": "The nonessential_power attribute is set to none. Please include the grid_power_169 attribute and entity ID in order for the card to calculate this value."
+    }
+}
