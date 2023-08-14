@@ -10,9 +10,9 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
     battery: {
         energy: number;
         shutdown_soc: number;
-        invert_power: string;
+        invert_power: boolean;
         colour: string;
-        show_daily: string;
+        show_daily: boolean;
         animation_speed: number;
         max_power: number;
         full_capacity: number;
@@ -22,7 +22,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 
 export interface inverterProg {
     entityID: string;
-    show?: string;
+    show?: boolean;
     charge?: string;
     capacity: number;
 }
