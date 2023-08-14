@@ -7,20 +7,25 @@ changelog:
     - title: 🚀 Exciting New Features
       labels:
         - semver/minor
-        - type/feature
+        - type/feat
+        - enhancement
     - title: 🐛 Patches & Bug Fixes
       labels:
         - semver/patch
         - type/bug
+        - bug
     - title: 📚 Documentation
       labels:
         - type/docs
+        - documentation
     - title: 📔 Language
       labels:
         - type/language
+        - language
     - title: ⬆️ Dependencies
       labels:
         - type/dependencies
+        - dependencies
     - title: Other Changes
       labels:
         - "*"
