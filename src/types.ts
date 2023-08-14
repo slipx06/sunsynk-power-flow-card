@@ -8,7 +8,6 @@ declare global {
 
 export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
     battery: {
-        show: boolean;
         energy: number;
         shutdown_soc: number;
         invert_power: string;

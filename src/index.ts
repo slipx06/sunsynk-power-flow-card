@@ -3,6 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { HomeAssistant } from 'custom-card-helpers';
 import { styles } from './style';
 import { inverterProg, sunsynkPowerFlowCardConfig } from './types';
+import defaultConfig from './defaults';
 import { CARD_VERSION } from './const';
 
 
@@ -12,7 +13,7 @@ console.groupCollapsed(
   'color: white; font-weight: bold; background: dimgray',
 );
 console.log("Readme:", "https://github.com/slipx06/sunsynk-power-flow-card"),
-console.groupEnd();
+  console.groupEnd();
 
 @customElement('sunsynk-power-flow-card')
 export class SunsynkPowerFlowCard extends LitElement {
@@ -28,7 +29,7 @@ export class SunsynkPowerFlowCard extends LitElement {
       cardstyle: 'lite',
       show_solar: 'yes',
       battery: {
-        energy: 15960,
+        energy: 0,
         shutdown_soc: 20,
         show_daily: 'yes',
       },
@@ -319,11 +320,11 @@ export class SunsynkPowerFlowCard extends LitElement {
     let formattedResultTime = "";
     let duration = "";
 
-    if (config.battery.show === true) {
+    if (config.battery.energy !== 0) {
       if (battery_power === 0) {
-        totalSeconds = (((parseInt(stateObj12.state) - config.battery.shutdown_soc) / 100) * (config.battery.energy || 15960)) / 1 * 60 * 60;
+        totalSeconds = (((parseInt(stateObj12.state) - config.battery.shutdown_soc) / 100) * config.battery.energy) / 1 * 60 * 60;
       } else if (battery_power > 0) {
-        totalSeconds = (((parseInt(stateObj12.state) - battery_capacity) / 100) * (config.battery.energy || 15960)) / battery_power * 60 * 60;
+        totalSeconds = (((parseInt(stateObj12.state) - battery_capacity) / 100) * config.battery.energy) / battery_power * 60 * 60;
       } else if (battery_power < 0) {
         totalSeconds = ((((battery_capacity - parseInt(stateObj12.state)) / 100) * config.battery.energy) / battery_power) * 60 * 60 * -1;
       }
@@ -500,10 +501,10 @@ export class SunsynkPowerFlowCard extends LitElement {
             <rect id="es-load2" x="${show_aux === 'no' ? '376' : '373'}" y="${show_aux === 'no' ? '30' : '143'}" width="35" height="20" rx="4.5" ry="4.5" fill="none" stroke="${load_colour}" pointer-events="all" display="${additional_load === 'two' ? '' : 'none'}"/>
             <rect id="es-load2" x="${show_aux === 'no' ? '413' : '410'}" y="${show_aux === 'no' ? '30' : '143'}" width="35" height="20" rx="4.5" ry="4.5" fill="none" stroke="${load_colour}" pointer-events="all" display="${additional_load === 'two' ? '' : 'none'}"/>
 
-            <text id="duration" x="29%" y="92%" class="${font === 'no' ? 'st14' : 'st4'} left-align" fill="${config.battery.show === false || float === 'True' || battery_power === 0 ? 'transparent' : `${battery_colour}`}" >${duration}</text>
-            <text id="duration_text" x="29%" y="96%" class="st3 left-align" fill="${config.battery.show === false || battery_power <= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >RUNTIME TO ${battery_capacity}% @${formattedResultTime}</text>
-            <text id="duration_text_charging" x="29%" y="96%" class="st3 left-align" fill="${config.battery.show === false || battery_power >= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >TO ${battery_capacity}% CHARGE @${formattedResultTime}</text>
-            <text id="floating" x="29%" y="96%" class="st3 left-align" fill="${config.battery.show === false || float === 'False' ? 'transparent' : `${battery_colour}`}" >BATTERY FLOATING</text>
+            <text id="duration" x="29%" y="92%" class="${font === 'no' ? 'st14' : 'st4'} left-align" fill="${config.battery.energy === 0 || float === 'True' || battery_power === 0 ? 'transparent' : `${battery_colour}`}" >${duration}</text>
+            <text id="duration_text" x="29%" y="96%" class="st3 left-align" fill="${config.battery.energy === 0 || battery_power <= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >RUNTIME TO ${battery_capacity}% @${formattedResultTime}</text>
+            <text id="duration_text_charging" x="29%" y="96%" class="st3 left-align" fill="${config.battery.energy === 0 || battery_power >= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >TO ${battery_capacity}% CHARGE @${formattedResultTime}</text>
+            <text id="floating" x="29%" y="96%" class="st3 left-align" fill="${config.battery.energy === 0 || float === 'False' ? 'transparent' : `${battery_colour}`}" >BATTERY FLOATING</text>
             <text x="-0.25%" y="20.5%" class="st3 st8 left-align" display="${config.show_solar === 'no' ? 'none' : ''}" fill="${solar_colour}">${config?.solar?.pv1_name ? `${config.solar.pv1_name}` : 'PV1'}</text>
             <text x="21.75%" y="20.5%" class="st3 st8 left-align" display="${config.show_solar === 'no' || config.solar.mppts === 'one' ? 'none' : ''}" fill="${solar_colour}">${config?.solar?.pv2_name ? `${config.solar.pv2_name}` : 'PV2'}</text>
             <text x="-0.25%" y="36.25%" class="st3 st8 left-align" display="${config.show_solar === 'no' || config.solar.mppts === 'one' || config.solar.mppts === 'two' ? 'none' : ''}" fill="${solar_colour}">${config?.solar?.pv3_name ? `${config.solar.pv3_name}` : 'PV3'}</text>
@@ -993,10 +994,10 @@ export class SunsynkPowerFlowCard extends LitElement {
             <rect id="es-load1" x="406" y="116.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${load_colour}" pointer-events="all" display="${additional_load === 'two' && config.show_solar === 'yes' ? '' : 'none'}"/>
             <rect id="es-load2" x="406" y="290" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${load_colour}" pointer-events="all" display="${additional_load === 'two' && config.show_solar === 'yes' ? '' : 'none'}"/>
 
-            <text id="duration" x="290" y="377.5" class="${font === 'no' ? 'st14' : 'st4'} left-align" fill="${config.battery.show === false || float === 'True' || battery_power === 0 ? 'transparent' : `${battery_colour}`}" >${duration}</text>
-            <text id="duration_text" x="290" y="393.7" class="st3 left-align" fill="${config.battery.show === false || battery_power <= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >RUNTIME TO ${battery_capacity}% @${formattedResultTime}</text>
-            <text id="duration_text_charging" x="290" y="393.7" class="st3 left-align" fill="${config.battery.show === false || battery_power >= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >TO ${battery_capacity}% CHARGE @${formattedResultTime}</text>
-            <text id="floating" x="290" y="393.7" class="st3 left-align" fill="${config.battery.show === false || float === 'False' ? 'transparent' : `${battery_colour}`}" >BATTERY FLOATING</text>
+            <text id="duration" x="290" y="377.5" class="${font === 'no' ? 'st14' : 'st4'} left-align" fill="${config.battery.energy === 0 || float === 'True' || battery_power === 0 ? 'transparent' : `${battery_colour}`}" >${duration}</text>
+            <text id="duration_text" x="290" y="393.7" class="st3 left-align" fill="${config.battery.energy === 0 || battery_power <= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >RUNTIME TO ${battery_capacity}% @${formattedResultTime}</text>
+            <text id="duration_text_charging" x="290" y="393.7" class="st3 left-align" fill="${config.battery.energy === 0 || battery_power >= 0 || float === 'True' ? 'transparent' : `${battery_colour}`}" >TO ${battery_capacity}% CHARGE @${formattedResultTime}</text>
+            <text id="floating" x="290" y="393.7" class="st3 left-align" fill="${config.battery.energy === 0 || float === 'False' ? 'transparent' : `${battery_colour}`}" >BATTERY FLOATING</text>
             <text id="daily_bat_charge" x="77.2" y="357.2" class="st3 left-align"  fill="${battery_showdaily === 'no' ? 'transparent' : `${battery_colour}`}"  >DAILY CHARGE</text>
             <text id="daily_bat_dischcharge" x="77.2" y="393.7" class="st3 left-align"  fill="${battery_showdaily === 'no' ? 'transparent' : `${battery_colour}`}" >DAILY DISCHARGE</text>
             <text id="daily_load" x="${additional_load === 'two' ? '365' : '400.4'}" y="${additional_load === 'two' ? '182.2' : '282.1'}" class="st3 left-align" fill="${load_showdaily === 'no' ? 'transparent' : `${load_colour}`}" >DAILY LOAD</text>
@@ -1353,7 +1354,12 @@ export class SunsynkPowerFlowCard extends LitElement {
       }
     }
 
-    this._config = config;
+    const customConfig: sunsynkPowerFlowCardConfig = JSON.parse(JSON.stringify(config));
+
+    this._config = {
+      ...defaultConfig,
+      ...customConfig,
+    };
   }
 
   handlePopup(e, entity) {

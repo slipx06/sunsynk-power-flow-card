@@ -6,12 +6,12 @@ An animated Home Assistant card to emulate the power flow that's shown on the Su
 ## Features
 * Option to switch between two card styles: `lite` or `full`.
 * Animated power flow based on positive/negative/zero sensor values with configurable dynamic speed. (Supports inverted battery, AUX and grid power).
-* Dynamic battery image based on SOC (empty->low->medium->high). 
+* Dynamic battery image based on SOC (empty->low->medium->high).
 * Grid connected status.
-* Inverter status (standby, normal, self-test, alarm, fault).  
+* Inverter status (standby, normal, self-test, alarm, fault).
 * Configurable battery size and shutdown SOC to calculate and display remaining battery runtime based on current battery usage and system time slot setting i.e. SOC, Grid Charge. Can be toggled off.
 * Daily Totals that can be toggled on or off.
-* Hide all solar data if not installed or specify number of mppts in use. Set custom MPPT labels. 
+* Hide all solar data if not installed or specify number of mppts in use. Set custom MPPT labels.
 * "Use Timer" setting and "Energy Pattern" setting (Priority Load or Priority Battery) shown as dynamic icons with ability to hide if not required. If setup as switches can be toggled by clicking on the card
 * Panel mode for bigger card
 * AUX and Non-essential can be hidden from the full card or assigned configurable labels
@@ -54,13 +54,13 @@ The card can be installed manually or via HACS
 You can add to HACS as a Custom Repo
 
 ## Usage
-Add the `Custom: Sunsynk Power Flow Card` to your Dashboard view. 
+Add the `Custom: Sunsynk Power Flow Card` to your Dashboard view.
 
 ![image](https://user-images.githubusercontent.com/7227275/235375690-65d17663-e117-4626-9151-1a41979a13b8.png)
 
 ### Card Options
 
-The card can be configured through the following attributes: 
+The card can be configured through the following attributes:
 
 | Attribute | Requirement | Default |Description |
 | --- | --- | --- | --- |
@@ -90,24 +90,24 @@ Note that the card will always display batter power as a positive number regardl
 
 | Attribute | Requirement |Default | Description |
 | --- | --- | --- |--- |
-|energy: | **Required** | `15960` | Total Battery Energy in Wh (e.g. 3 x 5.32kWh = 15960). If set to `hidden` the remaining battery runtime will be hidden|
+|energy: | **Required** | `0` | Total Battery Energy in Wh (e.g. 3 x 5.32kWh = 15960). If set to `0` the remaining battery runtime will be hidden|
 |shutdown_soc: | **Required** | `20` |The battery shutdown percentage used to calculate remaining runtime |
 |invert_power:| Optional | `no`|Set to `yes` if your sensor provides a positive number for battery charge and negative number for battery discharge|
 |colour:| Optional| `pink`| Changes the colour of all the battery card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
-|show_daily: | Optional| `no` | Toggles the Daily Total (`yes/no`) |  
-|animation_speed: | Optional | `6` | Set slowest animation speed in seconds, depending on Power draw | 
+|show_daily: | Optional| `no` | Toggles the Daily Total (`yes/no`) |
+|animation_speed: | Optional | `6` | Set slowest animation speed in seconds, depending on Power draw |
 |max_power: | Optional | `4500` | Maximun Power draw to calculate animation speed |
 |full_capacity: | Optional| `80` | If SOC >= to this value the Fully Charged battery image will be shown. Accepts any value between 80-100|
 |empty_capacity: | Optional | `30` | If SOC <= to this value the Empty battery image will be shown. Accepts any value between 1-30
 
 ### Solar
-These attributes are only needed if `show_solar` is set to `yes` 
+These attributes are only needed if `show_solar` is set to `yes`
 | Attribute | Requirement |Default | Description |
 | --- | --- | --- |--- |
 |colour:| Optional | `orange` | Changes the colour of all the solar card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |show_daily: | Optional | `no` | Toggles the Daily Total (`yes/no`) |
 |mppts: | **Required** | `two` | Specify the number of MPPT's in use `one`, `two`, `three` or `four` |
-|animation_speed: | Optional | `9` | Set slowest animation speed in seconds, depending on Power produced | 
+|animation_speed: | Optional | `9` | Set slowest animation speed in seconds, depending on Power produced |
 |max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
 |pv1_name: | Optional | `PV1` | Set the disaply name for MPPT1 |
 |pv2_name: | Optional | `PV2` | Set the disaply name for MPPT2 |
@@ -121,13 +121,13 @@ These attributes are only needed if `show_solar` is set to `yes`
 |show_daily: | Optional |`no` | Toggles the Daily Total `yes/no` Only displayed if `show_aux` is set to `no` |
 |show_aux: | Optional | `no` | Toggles the display of Aux (`yes/no`) |
 |invert_aux: | Optional | `no` | Set to `yes` if your sensor provides a positive number for AUX input and negative number for AUX output  |
-|animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on Power draw | 
+|animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on Power draw |
 |max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
 |aux_name: | Optional | `Auxilary` | Set the display name for the Auxilary Load
 |aux_type: | Optional | `default` | Changes the AUX image using preset or any mdi icon e.g. `mdi:ev-station`. Presets are: `gen`, `inverter` `default`, `oven`, `pump`, `aircon` and `boiler`.
 |aux_colour:| Optional | `the load colour` | Changes the colour of all the AUX card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |aux_off_colour:| Optional| `the load colour` | Changes the colour of the AUX icon and label when disconnected. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
-| additional_loads: | Optional | `no` | Display additional loads on the essential side (`one/two/no`) 
+| additional_loads: | Optional | `no` | Display additional loads on the essential side (`one/two/no`)
 | load1_name: | Optional |  | Set the display name for the Essential Load 1
 | load2_name: | Optional |  | Set the display name for the Essential Load 2
 | load1_icon: | Optional | none | Change the essential load 1 image using preset or any mdi icon e.g. `mdi:ev-station` Presets are: `boiler`, `pump`, `aircon`, `oven` |
@@ -149,7 +149,7 @@ These attributes are only needed if `show_solar` is set to `yes`
 |load1_icon: | Optional | `default` | Change the nonessential load 1 image using presets or any mdi icon e.g. `mdi:ev-station`. Presets are: `default`, `oven`, `boiler`, `pump`, `aircon` |
 |load2_icon: | Optional | `default` | Change the nonessential load 2 image using presets or any mdi icon e.g. `mdi:ev-station`. Presets are: `default`, `oven`, `boiler`, `pump`, `aircon` |
 |invert_grid:| Optional | `no`| Set to `yes` if your sensor provides a negative number for Grid import and positive number for Grid export |
-|animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on Power draw | 
+|animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on Power draw |
 |max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
 
 ### Entities
@@ -180,7 +180,7 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |battery_voltage_183: | Optional | `sensor.sunsynk_battery_voltage` | Battery Voltage (V) |
 |battery_soc_184: | **Required** | `sensor.sunsynk_battery_soc` | Battery State of Charge (%) |
 |battery_power_190: | **Required** | `sensor.sunsynk_battery_power` | Battery Power (W). Requires a negative number for battery charging and a positive number for battery discharging. Set the `invert_power:` battery attribute to `yes` if your sensor reports this the other way around |
-|battery_current_191: | **Required** |`sensor.sunsynk_battery_current` | Battery Current (A) | 
+|battery_current_191: | **Required** |`sensor.sunsynk_battery_current` | Battery Current (A) |
 |essential_power: | Optional | `none` | The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures essential power e.g. `Load power Essential` in the case of Solar Assistant.  (W) |
 |essential_load1: | Optional | | Sensor that contains the power of your essential load 1 (W)|
 |essential_load2: | Optional | | Sensor that contains the power of your essential load 2 (W)|
@@ -224,9 +224,9 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |prog6_charge:| Optional | `switch.sunsynk_system_mode_grid_charge_time6` | Program 6 charge options (`on/off`, `1/0`, `No Grid or Gen`)
 |energy_cost:| Optional | | Sensor that provides current energy cost per kWh
 |solar_sell_247:|Optional | `switch.sunsynk_toggle_solar_sell` | Displays icons to indicate if sell solar is active or not. The switch can be toggled by clicking on the icon (`on/off`, `1/0`)
-   
+
 The card calculates the sensors below based on supplied attributes in the config so you dont need to define them in Home Assistant. NOTE if your essential and non-essential readings are innacurate replace sensor 169 with 167. Alternatively provide the card with sensors that calculate this data i.e essential_power: and nonessential_power:
- 
+
  ```
  totalsolar = pv1_power_186 + pv2_power_187 + pv3_power_188 + pv4_power_189
  nonessential = grid_ct_power_172 - grid_power_169
