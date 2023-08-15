@@ -10,9 +10,22 @@
         "daily_grid_buy": "DAILY GRID BUY",
         "daily_grid_sell": "DAILY GRID SELL",
         "daily_solar": "DAILY SOLAR",
+        "daily_solar_left": "DAILY SOLAR / LEFT TODAY",
         "daily_charge": "DAILY CHARGE",
         "daily_discharge": "DAILY DISCHARGE",
-        "ratio": "Ratio"
+        "ratio": "Ratio",
+        "timer_off": "Timer off",
+        "timer_on": "Timer on",
+        "priority_batt": "Priority Batt",
+        "priority_load": "Priority Load",
+        "nonessential_name": "Non Essential",
+        "aux_name": "Auxiliary",
+        "load1_name": "",
+        "load2_name": "",
+        "pv1_name": "PV1",
+        "pv2_name": "PV2",
+        "pv3_name": "PV3",
+        "pv4_name": "PV3"
     },
     "errors": {
         "cardstyle": "Please include the cardstyle attribute and value; lite, simple or full e.g. cardstyle: simple",

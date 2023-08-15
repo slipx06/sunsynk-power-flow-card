@@ -27,22 +27,19 @@ An animated Home Assistant card to emulate the power flow that's shown on the Su
 ![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/1c44a09b-2914-4cbd-919d-477789137acd)
 ![sunsynk-power-flow-lite](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/ab615245-cee6-4502-b9bc-649566a6eb54)
 
-
 *Lite Version*
 
 ![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/1b381ecf-7205-44ea-baba-1b45925a81d6)
 ![sunsynk-power-flow-full](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/bf119d16-b049-4bd9-8906-0c9697ab386d)
 
-
-
-
-
 *Full Version*
 
 ## Installation
+
 The card can be installed manually or via HACS
 
 ### Manual Installation
+
 1. Create a new directory under `www` and name it `sunsynk-power-flow-card` e.g www/sunsynk-power-flow-card/
 2. Copy the `sunsynk-power-flow-card.js` into the directory
 3. Add the resource to your Dashboard. You can append the filename with a `?ver=x` and increment x each time you download a new version to force a reload and avoid using a cached version. It is also a good idea to clear your browser cache.
@@ -50,10 +47,12 @@ The card can be installed manually or via HACS
 ![image](https://user-images.githubusercontent.com/7227275/235441241-93ab0c7d-341d-428f-8ca8-60ec932dde2d.png)
 
 ### Installation using HACS
+
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=for-the-badge)](https://my.home-assistant.io/redirect/hacs_repository/?repository=sunsynk-power-flow-card&category=plugin&owner=slipx06)
 You can add to HACS as a Custom Repo
 
 ## Usage
+
 Add the `Custom: Sunsynk Power Flow Card` to your Dashboard view.
 
 ![image](https://user-images.githubusercontent.com/7227275/235375690-65d17663-e117-4626-9151-1a41979a13b8.png)
@@ -65,10 +64,10 @@ The card can be configured through the following attributes:
 | Attribute | Requirement | Default |Description |
 | --- | --- | --- | --- |
 |type: | **Required** | `custom:sunsynk-power-flow-card`| The custom card |
-|cardstyle: | **Required** | `lite` | Selects the card layout that is used  `lite or full` |
-|panel_mode:| Optional | `no` |Toggles panel mode removing any card height restrictions. For use with Panel(1 card) view types or grid layouts|
-|large_font:| Optional | `no` | Increases font size of sensor data `yes/no`|
-|show_solar:|**Required** |`yes` | Toggle display of solar information `yes/no`|
+|cardstyle: | **Required** | `lite` | Selects the card layout that is used  `lite` or `full` |
+|panel_mode:| Optional | `false` |Toggles panel mode removing any card height restrictions. For use with Panel(1 card) view types or grid layouts|
+|large_font:| Optional | `false` | Increases font size of sensor data |
+|show_solar:|**Required** |`true` | Toggle display of solar information |
 |card_height:| Optional | `396px` | Sets the card height in pixels `400px` |
 |inverter: | Optional | See optional [Inverter](#inverter) attributes below  |List of inverter attributes.  |
 |battery: | **Required**  |See required [Battery](#battery) attributes below | List of battery attributes.  |
@@ -78,35 +77,38 @@ The card can be configured through the following attributes:
 |entities:|**Required** |See required [Entities](#entities) attributes below | List of sensor entities. |
 
 ### Inverter
+
 | Attribute | Requirement |Default | Description |
 | --- | --- | --- |--- |
-|modern:| Optional |`yes`| Changes the inverter image.|
+|modern:| Optional |`true`| Changes the inverter image.|
 |colour:| Optional |`grey`| Changes the colour of the inverter. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |autarky:| Optional| `power`| Display autarky and ratio as a percentage using either realtime power or daily energy values. Set to `no` to hide (`energy/power/no`). <br />Autarky is the percentage of self sufficiency through Home Production. Ratio is the percentage of produced electricity used by the home. <br />It is calculated based on the formula below and borrowed from the [Power Distribution Card](https://github.com/JonahKr/power-distribution-card)  <br /><ul><li>Autarky in Percent = Home Production / Home Consumption </li><li>Ratio in Percent = Home Consumption / Home Production</li></ul>|
 
 
 ### Battery
+
 Note that the card will always display batter power as a positive number regardless of your sensor value. The animated dot will change direction depending on the charging or discharging state. The `invert_power` attribute can be used to reverse direction if needed by your sensor.
 
 | Attribute | Requirement |Default | Description |
 | --- | --- | --- |--- |
 |energy: | **Required** | `0` | Total Battery Energy in Wh (e.g. 3 x 5.32kWh = 15960). If set to `0` the remaining battery runtime will be hidden|
 |shutdown_soc: | **Required** | `20` |The battery shutdown percentage used to calculate remaining runtime |
-|invert_power:| Optional | `no`|Set to `yes` if your sensor provides a positive number for battery charge and negative number for battery discharge|
+|invert_power:| Optional | `false`|Set to `true` if your sensor provides a positive number for battery charge and negative number for battery discharge|
 |colour:| Optional| `pink`| Changes the colour of all the battery card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
-|show_daily: | Optional| `no` | Toggles the Daily Total (`yes/no`) |
+|show_daily: | Optional| `false` | Toggles the Daily Total |
 |animation_speed: | Optional | `6` | Set slowest animation speed in seconds, depending on Power draw |
 |max_power: | Optional | `4500` | Maximun Power draw to calculate animation speed |
 |full_capacity: | Optional| `80` | If SOC >= to this value the Fully Charged battery image will be shown. Accepts any value between 80-100|
 |empty_capacity: | Optional | `30` | If SOC <= to this value the Empty battery image will be shown. Accepts any value between 1-30
 
 ### Solar
-These attributes are only needed if `show_solar` is set to `yes`
+
+These attributes are only needed if `show_solar` is set to `true`
 | Attribute | Requirement |Default | Description |
 | --- | --- | --- |--- |
 |colour:| Optional | `orange` | Changes the colour of all the solar card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
-|show_daily: | Optional | `no` | Toggles the Daily Total (`yes/no`) |
-|mppts: | **Required** | `two` | Specify the number of MPPT's in use `one`, `two`, `three` or `four` |
+|show_daily: | Optional | `false` | Toggles the Daily Total |
+|mppts: | **Required** | `2` | Specify the number of MPPT's in use `1`, `2`, `3` or `4` |
 |animation_speed: | Optional | `9` | Set slowest animation speed in seconds, depending on Power produced |
 |max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
 |pv1_name: | Optional | `PV1` | Set the disaply name for MPPT1 |
@@ -115,44 +117,47 @@ These attributes are only needed if `show_solar` is set to `yes`
 |pv4_name: | Optional | `PV4` | Set the disaply name for MPPT4 |
 
 ### Load
+
 | Attribute | Requirement | Default | Description |
 | --- | --- | --- |--- |
 |colour:| Optional |`'#5fb6ad'`| Changes the colour of all the load card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
-|show_daily: | Optional |`no` | Toggles the Daily Total `yes/no` Only displayed if `show_aux` is set to `no` |
-|show_aux: | Optional | `no` | Toggles the display of Aux (`yes/no`) |
-|invert_aux: | Optional | `no` | Set to `yes` if your sensor provides a positive number for AUX input and negative number for AUX output  |
+|show_daily: | Optional |`false` | Toggles the Daily Total. Only displayed if `show_aux` is set to `true` |
+|show_aux: | Optional | `false` | Toggles the display of Aux |
+|invert_aux: | Optional | `false` | Set to `true` if your sensor provides a positive number for AUX input and negative number for AUX output  |
 |animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on Power draw |
 |max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
 |aux_name: | Optional | `Auxilary` | Set the display name for the Auxilary Load
 |aux_type: | Optional | `default` | Changes the AUX image using preset or any mdi icon e.g. `mdi:ev-station`. Presets are: `gen`, `inverter` `default`, `oven`, `pump`, `aircon` and `boiler`.
 |aux_colour:| Optional | `the load colour` | Changes the colour of all the AUX card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |aux_off_colour:| Optional| `the load colour` | Changes the colour of the AUX icon and label when disconnected. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
-| additional_loads: | Optional | `no` | Display additional loads on the essential side (`one/two/no`)
+| additional_loads: | Optional | `0` | Display additional loads on the essential side (`0/1/2`)
 | load1_name: | Optional |  | Set the display name for the Essential Load 1
 | load2_name: | Optional |  | Set the display name for the Essential Load 2
 | load1_icon: | Optional | none | Change the essential load 1 image using preset or any mdi icon e.g. `mdi:ev-station` Presets are: `boiler`, `pump`, `aircon`, `oven` |
 | load2_icon: | Optional | none | Change the essential load 2 image using preset or any mdi icon e.g. `mdi:ev-station` Presets are: `boiler`, `pump`, `aircon`, `oven` |
 
 ### Grid
+
 | Attribute | Requirement | Default | Description |
 | --- | --- | --- | --- |
 |colour:| Optional | `'#5490c2'`| Changes the colour of all the grid card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |no_grid_colour:| Optional | `'#a40013'`|Changes the colour of the grid disconnected icon. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc)|
-|show_daily_buy: | Optional | `no` | Toggles the Daily Buy Total (`yes/no`) |
-|show_daily_sell: | Optional | `no` | Toggles the Daily Sell Total (`yes/no`) |
-|show_nonessential: | Optional |`yes` | Toggles the display of Non-Essential (`yes/no`)|
+|show_daily_buy: | Optional | `false` | Toggles the Daily Buy Total |
+|show_daily_sell: | Optional | `false` | Toggles the Daily Sell Total |
+|show_nonessential: | Optional |`false` | Toggles the display of Non-Essential |
 |nonessential_icon: | Optional | `default` | Change the nonessential image using presets or any mdi icon e.g. `mdi:ev-station`. Presets are: <br /> <img height="25px" src="https://api.iconify.design/mdi/house-import-outline.svg"> `default`  <img height="25px" src="https://api.iconify.design/fluent/oven-32-regular.svg"> `oven`, <img height="25px" src="https://api.iconify.design/material-symbols/water-heater.svg"> `boiler` </br> <br/> <img height="25px" src="https://api.iconify.design/material-symbols/water-pump-outline.svg"> `pump`,  <img height="25px" src="https://api.iconify.design/mdi/air-conditioner.svg"> `aircon` </br> |
 |nonessential_name: | Optional | `Non Essential` |Set the display name for the Non-Essential Load
-|additional_loads: | Optional |`no`| Toggle the display of additional loads on the non-essential side (`one/two/no`)
+|additional_loads: | Optional |`0`| Toggle the display of additional loads on the non-essential side (`0/1/2`)
 |load1_name: | Optional |  | Set the display name for the Non-Essential Load 1
 |load2_name: | Optional |  |Set the display name for the Non-Essential Load 2
 |load1_icon: | Optional | `default` | Change the nonessential load 1 image using presets or any mdi icon e.g. `mdi:ev-station`. Presets are: `default`, `oven`, `boiler`, `pump`, `aircon` |
 |load2_icon: | Optional | `default` | Change the nonessential load 2 image using presets or any mdi icon e.g. `mdi:ev-station`. Presets are: `default`, `oven`, `boiler`, `pump`, `aircon` |
-|invert_grid:| Optional | `no`| Set to `yes` if your sensor provides a negative number for Grid import and positive number for Grid export |
+|invert_grid:| Optional | `false`| Set to `true` if your sensor provides a negative number for Grid import and positive number for Grid export |
 |animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on Power draw |
 |max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
 
 ### Entities
+
 Entity attributes below have been appended with the modbus register # e.g. `pv2_power_187` to indicate which Sunsynk register should be read when configuring your sensors. Replace the default sensors with your own specific sensor names. It is important that your sensors read the expected modbus register value. If you have missing sensors for any attribute set it to none i.e. `day_pv_energy_108: none`. This will hide the sensor data from the card. To display a placeholder with a default value of 0 set it to `zero` or any other value i.e. `solarday_108: zero`.
 
 See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Mappings) for more information on sensor mappings if using other integration methods.
