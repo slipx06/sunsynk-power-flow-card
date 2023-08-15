@@ -38,7 +38,7 @@
             "empty_capacity": "Empty capacity needs to be <= 30",
             "show_daily": "Please include the day_battery_charge_70 and day_battery_discharge_71 attributes and entity IDs"
         },
-        "solar":{
+        "solar": {
             "sol": "No solar attributes defined",
             "mppts": "Please include the solar mppts attribute and value; one,two,three or four e.g. mppts: two",
             "show_daily": "Please include the day_pv_energy_108 attribute and entity ID"

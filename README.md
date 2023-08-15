@@ -1,9 +1,11 @@
 # Sunsynk-Power-Flow-Card
+
 An animated Home Assistant card to emulate the power flow that's shown on the Sunsynk Inverter screen. You can use this for Deye as well as other Inverters as long as you have the required sensor data. See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki) for integration methods and examples.
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/slipx06/sunsynk-power-flow-card?style=for-the-badge) <a href="https://www.buymeacoffee.com/slipx" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="29" width="120"></a>
 
 ## Features
+
 * Option to switch between two card styles: `lite` or `full`.
 * Animated power flow based on positive/negative/zero sensor values with configurable dynamic speed. (Supports inverted battery, AUX and grid power).
 * Dynamic battery image based on SOC (empty->low->medium->high).
@@ -84,7 +86,6 @@ The card can be configured through the following attributes:
 |colour:| Optional |`grey`| Changes the colour of the inverter. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |autarky:| Optional| `power`| Display autarky and ratio as a percentage using either realtime power or daily energy values. Set to `no` to hide (`energy/power/no`). <br />Autarky is the percentage of self sufficiency through Home Production. Ratio is the percentage of produced electricity used by the home. <br />It is calculated based on the formula below and borrowed from the [Power Distribution Card](https://github.com/JonahKr/power-distribution-card)  <br /><ul><li>Autarky in Percent = Home Production / Home Consumption </li><li>Ratio in Percent = Home Consumption / Home Production</li></ul>|
 
-
 ### Battery
 
 Note that the card will always display batter power as a positive number regardless of your sensor value. The animated dot will change direction depending on the charging or discharging state. The `invert_power` attribute can be used to reverse direction if needed by your sensor.
@@ -130,6 +131,7 @@ These attributes are only needed if `show_solar` is set to `true`
 |aux_type: | Optional | `default` | Changes the AUX image using preset or any mdi icon e.g. `mdi:ev-station`. Presets are: `gen`, `inverter` `default`, `oven`, `pump`, `aircon` and `boiler`.
 |aux_colour:| Optional | `the load colour` | Changes the colour of all the AUX card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |aux_off_colour:| Optional| `the load colour` | Changes the colour of the AUX icon and label when disconnected. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
+|aux_loads:| Optional | `0` | Display additional loads on the AUX side (`0/1/2`)
 | additional_loads: | Optional | `0` | Display additional loads on the essential side (`0/1/2`)
 | load1_name: | Optional |  | Set the display name for the Essential Load 1
 | load2_name: | Optional |  | Set the display name for the Essential Load 2
@@ -237,12 +239,13 @@ The card calculates the sensors below based on supplied attributes in the config
  nonessential = grid_ct_power_172 - grid_power_169
  essential = inverter_power_175 + grid_power_169 - aux_power_166
  ```
+
 The modbus registers can be visualised on the `full` card below:
 
 ![image](https://user-images.githubusercontent.com/7227275/235479493-b322d5b2-f2b1-431f-9048-f845fc2989b4.png)
 
-
 ### Example Card Configuration
+
 #### Minimum Configuration (No Solar) #####
 
 ```yaml
@@ -260,6 +263,7 @@ entities:
   battery_current_191: sensor.sunsynk_battery_current
   grid_ct_power_172: sensor.sunsynk_grid_ct_power
 ```
+
 #### Minimum Configuration (Solar) #####
 
 ```yaml
@@ -304,6 +308,7 @@ entities:
   grid_connected_status_194: binary_sensor.sunsynk_grid_connected_status
   inverter_status_59: sensor.overall_state
 ```
+
 #### Minimal Configuration (Solar) #####
 
 ```yaml
@@ -337,23 +342,24 @@ entities:
   pv2_voltage_111: sensor.sunsynk_pv2_voltage
   pv2_current_112: sensor.sunsynk_pv2_current
 ```
-#### Minimum Configuration (Solar + Daily Totals) #####
+
+#### Minimal Configuration (Solar + Daily Totals) #####
 
 ```yaml
 type: custom:sunsynk-power-flow-card
 cardstyle: full
-show_solar: 'yes'
+show_solar: true
 solar:
-  mppts: two
-  show_daily: 'yes'
+  mppts: 2
+  show_daily: true
 battery:
   energy: 15960
   shutdown_soc: 20
-  show_daily: 'yes'
+  show_daily: true
 load:
-  show_daily: 'yes'
+  show_daily: true
 grid:
-  show_daily_buy: 'yes'
+  show_daily_buy: true
 entities:
   inverter_voltage_154: sensor.sunsynk_inverter_voltage
   load_frequency_192: sensor.sunsynk_load_frequency
@@ -379,32 +385,33 @@ entities:
   day_load_energy_84: sensor.sunsynk_day_load_energy
   day_grid_import_76: sensor.sunsynk_day_grid_import
 ```
+
 #### Full Configuration (All Options) #####
 
 ```yaml
 type: custom:sunsynk-power-flow-card
 cardstyle: full
-panel_mode: 'no'
-large_font: 'no'
-show_solar: 'yes'
+panel_mode: false
+large_font: false
+show_solar: true
 inverter:
-  modern: 'yes'
+  modern: true
   colour: grey
   autarky: 'power'
 battery:
   energy: 15960
   shutdown_soc: 20
-  invert_power: 'no'
+  invert_power: false
   colour: pink
-  show_daily: 'yes'
+  show_daily: true
   animation_speed: 6
   max_power: 4500
   full_capacity: 80
   empty_capacity: 30
 solar:
   colour: orange
-  show_daily: 'yes'
-  mppts: two
+  show_daily: true
+  mppts: 2
   animation_speed: 9
   max_power: 8000
   pv1_name: North
@@ -413,30 +420,35 @@ solar:
   pv4_name: West
 load:
   colour: '#5fb6ad'
-  show_daily: 'yes'
-  show_aux: 'yes'
-  invert_aux: 'no'
+  show_daily: true
+  show_aux: true
+  invert_aux: false
   aux_name: Generator
   aux_type: gen
   aux_colour: green
   aux_off_colour: red
+  aux_loads: 2
+  aux_load1_name: Aux load 1
+  aux_load2_name: Aux load 2
+  aux_load1_icon: mdi:air-filter
+  aux_load2_icon: mdi:stove
   animation_speed: 8
   max_power: 8000
-  additional_loads: two
+  additional_loads: 2
   load1_name: Geyser
   load2_name: Pool
   load1_icon: boiler
   load2_icon: mdi:pool
 grid:
   colour: '#5490c2'
-  show_daily_buy: 'yes'
-  show_daily_sell: 'yes'
+  show_daily_buy: true
+  show_daily_sell: true
   no_grid_colour: '#a40013'
-  show_nonessential: 'yes'
-  invert_grid: 'no'
+  show_nonessential: true
+  invert_grid: false
   nonessential_name: Non Essential
   nonessential_icon: oven
-  additional_loads: two
+  additional_loads: 2
   load1_name: Load 1
   load2_name: Load 2
   load1_icon: boiler

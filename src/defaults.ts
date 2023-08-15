@@ -44,6 +44,9 @@ export default {
         aux_name: localize('common.aux_name'),
         aux_type: 'default',
         additional_loads: 0,
+        aux_loads: 0,
+        aux_load1_name: '',
+        aux_load2_name: '',
         load1_icon: 'default',
         load2_icon: 'default',
         load1_name: localize('common.load1_name'),
@@ -64,11 +67,10 @@ export default {
         load1_icon: 'default',
         load2_icon: 'default',
         invert_grid: false,
-        aimation_speed: 8,
+        animation_speed: 8,
         max_power: 8000
     },
 
 }
 
-export const validNonEssDualLoadValues = [0,1,2]
-export const validAdditionalLoadValues = [0,1,2]
+export const validLoadValues = [0, 1, 2]
