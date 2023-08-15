@@ -25,6 +25,7 @@
 	"dependencies": {
 		"custom-card-helpers": "^1.9.0",
 		"lit": "^2.8.0",
+		"lodash.merge": "^4.6.2",
 		"npm": "^9.8.1",
 		"typescript": "^5.1.6"
 	},
