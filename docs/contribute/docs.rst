@@ -22,3 +22,5 @@ Adding pages
 
 To add new pages, add a new file in the appropriate directory, and then add a reference
 to the ``toc.rst`` file under the correct heading.
+
+You can test the pages added by running the command ``yarn run docs-test``

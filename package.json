@@ -10,7 +10,8 @@
 		"lintfixall": "eslint src/*.ts --fix",
 		"rollup": "rollup -c",
 		"build": "rollup -c --bundleConfigAsCjs",
-		"watch": "rollup -c --watch --config rollup-dev.config.js"
+		"watch": "rollup -c --watch --config rollup-dev.config.js",
+		"docs-test": "sphinx-autobuild docs docs/_build/html"
 	},
 	"repository": {
 		"type": "git",

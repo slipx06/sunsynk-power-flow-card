@@ -10,8 +10,13 @@
    :titlesonly:
 
    configuration/main
-   configuration/examples/sunsynk
-   configuration/examples/lux
+
+.. toctree::
+   :caption: Examples
+   :titlesonly:
+
+   examples/sunsynk
+   examples/lux
 
 .. toctree::
    :caption: Contribute

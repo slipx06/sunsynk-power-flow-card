@@ -1,0 +1,301 @@
+##############################
+Sunsynk Inverter Configuration
+##############################
+
+
+********************************
+Minimum Configuration (No Solar)
+********************************
+
+.. code-block:: yaml
+  :linenos:
+
+  type: custom:sunsynk-power-flow-card
+  cardstyle: full
+  show_solar: 'no'
+  battery:
+    energy: 15960
+    shutdown_soc: 20
+  entities:
+    inverter_power_175: sensor.sunsynk_inverter_power
+    grid_power_169: sensor.sunsynk_grid_power
+    battery_soc_184: sensor.sunsynk_battery_soc
+    battery_power_190: sensor.sunsynk_battery_power
+    battery_current_191: sensor.sunsynk_battery_current
+    grid_ct_power_172: sensor.sunsynk_grid_ct_power
+
+
+*****************************
+Minimum Configuration (Solar)
+*****************************
+
+.. code-block:: yaml
+  :linenos:
+
+  type: custom:sunsynk-power-flow-card
+  cardstyle: full
+  show_solar: 'yes'
+  solar:
+    mppts: one
+  battery:
+    energy: 15960
+    shutdown_soc: 20
+  entities:
+    inverter_power_175: sensor.sunsynk_inverter_power
+    grid_power_169: sensor.sunsynk_grid_power
+    battery_soc_184: sensor.sunsynk_battery_soc
+    battery_power_190: sensor.sunsynk_battery_power
+    battery_current_191: sensor.sunsynk_battery_current
+    grid_ct_power_172: sensor.sunsynk_grid_ct_power
+    pv1_power_186: sensor.sunsynk_pv1_power
+
+*****************************
+Minimal Configuration (No Solar)
+*****************************
+
+.. code-block:: yaml
+  :linenos:
+
+  type: custom:sunsynk-power-flow-card
+  cardstyle: full
+  show_solar: 'no'
+  battery:
+    energy: 15960
+    shutdown_soc: 20
+  entities:
+    inverter_voltage_154: sensor.sunsynk_inverter_voltage
+    load_frequency_192: sensor.sunsynk_load_frequency
+    inverter_current_164: sensor.sunsynk_inverter_current
+    inverter_power_175: sensor.sunsynk_inverter_power
+    grid_power_169: sensor.sunsynk_grid_power
+    battery_voltage_183: sensor.sunsynk_battery_voltage
+    battery_soc_184: sensor.sunsynk_battery_soc
+    battery_power_190: sensor.sunsynk_battery_power
+    battery_current_191: sensor.sunsynk_battery_current
+    grid_ct_power_172: sensor.sunsynk_grid_ct_power
+    grid_connected_status_194: binary_sensor.sunsynk_grid_connected_status
+    inverter_status_59: sensor.overall_state
+
+
+*****************************
+Minimal Configuration (Solar)
+*****************************
+
+.. code-block:: yaml
+  :linenos:
+
+  type: custom:sunsynk-power-flow-card
+  cardstyle: full
+  show_solar: 'yes'
+  solar:
+    mppts: two
+  battery:
+    energy: 15960
+    shutdown_soc: 20
+  load:
+    show_aux: 'no'
+  entities:
+    inverter_voltage_154: sensor.sunsynk_inverter_voltage
+    load_frequency_192: sensor.sunsynk_load_frequency
+    inverter_current_164: sensor.sunsynk_inverter_current
+    inverter_power_175: sensor.sunsynk_inverter_power
+    grid_power_169: sensor.sunsynk_grid_power
+    battery_voltage_183: sensor.sunsynk_battery_voltage
+    battery_soc_184: sensor.sunsynk_battery_soc
+    battery_power_190: sensor.sunsynk_battery_power
+    battery_current_191: sensor.sunsynk_battery_current
+    grid_ct_power_172: sensor.sunsynk_grid_ct_power
+    grid_connected_status_194: binary_sensor.sunsynk_grid_connected_status
+    inverter_status_59: sensor.sunsynk_overall_state
+    pv1_power_186: sensor.sunsynk_pv1_power
+    pv2_power_187: sensor.sunsynk_pv2_power
+    pv1_voltage_109: sensor.sunsynk_pv1_voltage
+    pv1_current_110: sensor.sunsynk_pv1_current
+    pv2_voltage_111: sensor.sunsynk_pv2_voltage
+    pv2_current_112: sensor.sunsynk_pv2_current
+
+********************************************
+Minimal Configuration (Solar + Daily Totals)
+********************************************
+
+.. code-block:: yaml
+  :linenos:
+
+  type: custom:sunsynk-power-flow-card
+  cardstyle: full
+  show_solar: true
+  solar:
+    mppts: 2
+    show_daily: true
+  battery:
+    energy: 15960
+    shutdown_soc: 20
+    show_daily: true
+  load:
+    show_daily: true
+  grid:
+    show_daily_buy: true
+  entities:
+    inverter_voltage_154: sensor.sunsynk_inverter_voltage
+    load_frequency_192: sensor.sunsynk_load_frequency
+    inverter_current_164: sensor.sunsynk_inverter_current
+    inverter_power_175: sensor.sunsynk_inverter_power
+    grid_power_169: sensor.sunsynk_grid_power
+    battery_voltage_183: sensor.sunsynk_battery_voltage
+    battery_soc_184: sensor.sunsynk_battery_soc
+    battery_power_190: sensor.sunsynk_battery_power
+    battery_current_191: sensor.sunsynk_battery_current
+    grid_ct_power_172: sensor.sunsynk_grid_ct_power
+    grid_connected_status_194: binary_sensor.sunsynk_grid_connected_status
+    inverter_status_59: sensor.sunsynk_overall_state
+    pv1_power_186: sensor.sunsynk_pv1_power
+    pv2_power_187: sensor.sunsynk_pv2_power
+    pv1_voltage_109: sensor.sunsynk_pv1_voltage
+    pv1_current_110: sensor.sunsynk_pv1_current
+    pv2_voltage_111: sensor.sunsynk_pv2_voltage
+    pv2_current_112: sensor.sunsynk_pv2_current
+    day_pv_energy_108: sensor.sunsynk_day_pv_energy
+    day_battery_charge_70: sensor.sunsynk_day_battery_charge
+    day_battery_discharge_71: sensor.sunsynk_day_battery_discharge
+    day_load_energy_84: sensor.sunsynk_day_load_energy
+    day_grid_import_76: sensor.sunsynk_day_grid_import
+
+********************************
+Full Configuration (All Options)
+********************************
+
+.. code-block:: yaml
+  :linenos:
+  
+  type: custom:sunsynk-power-flow-card
+  cardstyle: full
+  panel_mode: false
+  large_font: false
+  show_solar: true
+  inverter:
+    modern: true
+    colour: grey
+    autarky: 'power'
+  battery:
+    energy: 15960
+    shutdown_soc: 20
+    invert_power: false
+    colour: pink
+    show_daily: true
+    animation_speed: 6
+    max_power: 4500
+    full_capacity: 80
+    empty_capacity: 30
+  solar:
+    colour: orange
+    show_daily: true
+    mppts: 2
+    animation_speed: 9
+    max_power: 8000
+    pv1_name: North
+    pv2_name: North
+    pv3_name: East
+    pv4_name: West
+  load:
+    colour: '#5fb6ad'
+    show_daily: true
+    show_aux: true
+    invert_aux: false
+    aux_name: Generator
+    aux_type: gen
+    aux_colour: green
+    aux_off_colour: red
+    aux_loads: 2
+    aux_load1_name: Aux load 1
+    aux_load2_name: Aux load 2
+    aux_load1_icon: mdi:air-filter
+    aux_load2_icon: mdi:stove
+    animation_speed: 8
+    max_power: 8000
+    additional_loads: 2
+    load1_name: Geyser
+    load2_name: Pool
+    load1_icon: boiler
+    load2_icon: mdi:pool
+  grid:
+    colour: '#5490c2'
+    show_daily_buy: true
+    show_daily_sell: true
+    no_grid_colour: '#a40013'
+    show_nonessential: true
+    invert_grid: false
+    nonessential_name: Non Essential
+    nonessential_icon: oven
+    additional_loads: 2
+    load1_name: Load 1
+    load2_name: Load 2
+    load1_icon: boiler
+    load2_icon: mdi:ev-station
+    animation_speed: 8
+    max_power: 8000
+  entities:
+    use_timer_248: switch.sunsynk_toggle_system_timer
+    priority_load_243: switch.sunsynk_toggle_priority_load
+    day_battery_charge_70: sensor.sunsynk_day_battery_charge
+    day_battery_discharge_71: sensor.sunsynk_day_battery_discharge
+    day_load_energy_84: sensor.sunsynk_day_load_energy
+    day_grid_import_76: sensor.sunsynk_day_grid_import
+    day_grid_export_77: sensor.sunsynk_day_grid_export
+    day_pv_energy_108: sensor.sunsynk_day_pv_energy
+    inverter_voltage_154: sensor.sunsynk_inverter_voltage
+    load_frequency_192: sensor.sunsynk_load_frequency
+    inverter_current_164: sensor.sunsynk_inverter_current
+    inverter_power_175: sensor.sunsynk_inverter_power
+    grid_power_169: sensor.sunsynk_grid_power
+    pv1_power_186: sensor.sunsynk_pv1_power
+    pv2_power_187: sensor.sunsynk_pv2_power
+    pv3_power_188: none
+    pv4_power_189: none
+    pv_total: sensor.sunsynk_totalsolar
+    pv1_voltage_109: sensor.sunsynk_pv1_voltage
+    pv1_current_110: sensor.sunsynk_pv1_current
+    pv2_voltage_111: sensor.sunsynk_pv2_voltage
+    pv2_current_112: sensor.sunsynk_pv2_current
+    pv3_voltage_113: none
+    pv3_current_114: none
+    pv4_voltage_115: none
+    pv4_current_116: none
+    battery_voltage_183: sensor.sunsynk_battery_voltage
+    battery_soc_184: sensor.sunsynk_battery_soc
+    battery_power_190: sensor.sunsynk_battery_power
+    battery_current_191: sensor.sunsynk_battery_current
+    essential_power: none
+    essential_load1: sensor.tuya_geyser_current_consumption
+    essential_load2: sensor.load2_power
+    nonessential_power: none
+    non_essential_load1: sensor.nonessential1_power
+    non_essential_load2: sensor.nonessential2_power
+    grid_ct_power_172: sensor.sunsynk_grid_ct_power
+    grid_connected_status_194: binary_sensor.sunsynk_grid_connected_status
+    inverter_status_59: sensor.sunsynk_overall_state
+    aux_power_166: sensor.sunsynk_aux_power
+    aux_connected_status: binary_sensor.sunsynk_aux_connected_status
+    remaining_solar: sensor.solcast_forecast_remaining_today
+    battery_temp_182: sensor.sunsynk_battery_temperature
+    radiator_temp_91: sensor.sunsynk_radiator_temperature
+    dc_transformer_temp_90: sensor.sunsynk_dc_transformer_temperature
+    prog1_time: sensor.sunsynk_time_slot_1
+    prog1_capacity: number.sunsynk_system_mode_soc_time1
+    prog1_charge: switch.sunsynk_system_mode_grid_charge_time1
+    prog2_time: sensor.sunsynk_time_slot_2
+    prog2_capacity: number.sunsynk_system_mode_soc_time2
+    prog2_charge: switch.sunsynk_system_mode_grid_charge_time2
+    prog3_time: sensor.sunsynk_time_slot_3
+    prog3_capacity: number.sunsynk_system_mode_soc_time3
+    prog3_charge: switch.sunsynk_system_mode_grid_charge_time3
+    prog4_time: sensor.sunsynk_time_slot_4
+    prog4_capacity: number.sunsynk_system_mode_soc_time4
+    prog4_charge: switch.sunsynk_system_mode_grid_charge_time4
+    prog5_time: sensor.sunsynk_time_slot_5
+    prog5_capacity: number.sunsynk_system_mode_soc_time5
+    prog5_charge: switch.sunsynk_system_mode_grid_charge_time5
+    prog6_time: sensor.sunsynk_time_slot_6
+    prog6_capacity: number.sunsynk_system_mode_soc_time6
+    prog6_charge: switch.sunsynk_system_mode_grid_charge_time6
+    energy_cost: sensor.tibber_energy_cost
+    solar_sell_247: switch.sunsynk_toggle_solar_sell
