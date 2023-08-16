@@ -370,7 +370,7 @@ export class SunsynkPowerFlowCard extends LitElement {
     }
 
     let typeStatusGroups = inverterStatusGroups[inverterModel];
-    console.log(typeStatusGroups);
+ 
     for (const groupKey of Object.keys(typeStatusGroups)) {
       const info = typeStatusGroups[groupKey];
       const { states, color, message } = info;
