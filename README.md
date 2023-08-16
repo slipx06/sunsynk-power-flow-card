@@ -72,7 +72,7 @@ The card can be configured through the following attributes:
 |card_height:| Optional | `396px` | Sets the card height in pixels `400px` |
 |inverter: | Optional | See optional [Inverter](#inverter) attributes below  |List of inverter attributes.  |
 |battery: | **Required**  |See required [Battery](#battery) attributes below | List of battery attributes.  |
-|solar: | Optional |See optonal [Solar](#solar) attributes below | List of solar attributes.  |
+|solar: | Optional |See optional [Solar](#solar) attributes below | List of solar attributes.  |
 |load: | Optional | See optional [Load](#load) attributes below|List of load attributes.  |
 |grid: | Optional | See optional [Grid](#grid) attributes below| List of grid attributes.  |
 |entities:|**Required** |See required [Entities](#entities) attributes below | List of sensor entities. |
@@ -84,23 +84,23 @@ The card can be configured through the following attributes:
 |modern:| Optional |`true`| Changes the inverter image.|
 |colour:| Optional |`grey`| Changes the colour of the inverter. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |autarky:| Optional| `power`| Display autarky and ratio as a percentage using either realtime power or daily energy values. Set to `no` to hide (`energy/power/no`). <br />Autarky is the percentage of self sufficiency through Home Production. Ratio is the percentage of produced electricity used by the home. <br />It is calculated based on the formula below and borrowed from the [Power Distribution Card](https://github.com/JonahKr/power-distribution-card)  <br /><ul><li>Autarky in Percent = Home Production / Home Consumption </li><li>Ratio in Percent = Home Consumption / Home Production</li></ul>|
-| model: | Optional | `sunsynk` | set to `lux` for Lux inverters, states overlap so require this setting.<br /> NOTE: this still needs work as I don't have all Lux states |
+| model: | Optional | `sunsynk` | Set to `lux` for Lux inverters, states overlap so require this setting.<br /> NOTE: this still needs work as I don't have all Lux states |
 
 ### Battery
 
-Note that the card will always display batter power as a positive number regardless of your sensor value. The animated dot will change direction depending on the charging or discharging state. The `invert_power` attribute can be used to reverse direction if needed by your sensor.
+Note that the card will always display battery power as a positive number regardless of your sensor value. The animated dot will change direction depending on the charging or discharging state. The `invert_power` attribute can be used to reverse direction if needed by your sensor.
 
 | Attribute | Requirement |Default | Description |
 | --- | --- | --- |--- |
-|energy: | **Required** | `0` | Total Battery Energy in Wh (e.g. 3 x 5.32kWh = 15960). If set to `0` the remaining battery runtime will be hidden|
+|energy: | **Required** | `0` | Total battery energy in Wh (e.g. 3 x 5.32kWh = 15960). If set to `0` the remaining battery runtime will be hidden|
 |shutdown_soc: | **Required** | `20` |The battery shutdown percentage used to calculate remaining runtime |
 |invert_power:| Optional | `false`|Set to `true` if your sensor provides a positive number for battery charge and negative number for battery discharge|
 |colour:| Optional| `pink`| Changes the colour of all the battery card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
-|show_daily: | Optional| `false` | Toggles the Daily Total |
-|animation_speed: | Optional | `6` | Set slowest animation speed in seconds, depending on Power draw |
-|max_power: | Optional | `4500` | Maximun Power draw to calculate animation speed |
-|full_capacity: | Optional| `80` | If SOC >= to this value the Fully Charged battery image will be shown. Accepts any value between 80-100|
-|empty_capacity: | Optional | `30` | If SOC <= to this value the Empty battery image will be shown. Accepts any value between 1-30
+|show_daily: | Optional| `false` | Toggles the daily total |
+|animation_speed: | Optional | `6` | Set slowest animation speed in seconds, depending on power draw |
+|max_power: | Optional | `4500` | Maximum power draw to calculate animation speed |
+|full_capacity: | Optional| `80` | If SOC >= to this value the fully charged battery image will be shown. Accepts any value between 80-100|
+|empty_capacity: | Optional | `30` | If SOC <= to this value the empty battery image will be shown. Accepts any value between 1-30
 
 ### Solar
 
@@ -108,10 +108,10 @@ These attributes are only needed if `show_solar` is set to `true`
 | Attribute | Requirement |Default | Description |
 | --- | --- | --- |--- |
 |colour:| Optional | `orange` | Changes the colour of all the solar card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
-|show_daily: | Optional | `false` | Toggles the Daily Total |
+|show_daily: | Optional | `false` | Toggles the daily total |
 |mppts: | **Required** | `2` | Specify the number of MPPT's in use `1`, `2`, `3` or `4` |
 |animation_speed: | Optional | `9` | Set slowest animation speed in seconds, depending on Power produced |
-|max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
+|max_power: | Optional | `8000` | Maximum power draw to calculate animation speed |
 |pv1_name: | Optional | `PV1` | Set the disaply name for MPPT1 |
 |pv2_name: | Optional | `PV2` | Set the disaply name for MPPT2 |
 |pv3_name: | Optional | `PV3` | Set the disaply name for MPPT3 |
@@ -122,23 +122,23 @@ These attributes are only needed if `show_solar` is set to `true`
 | Attribute | Requirement | Default | Description |
 | --- | --- | --- |--- |
 |colour:| Optional |`'#5fb6ad'`| Changes the colour of all the load card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
-|show_daily: | Optional |`false` | Toggles the Daily Total. Only displayed if `show_aux` is set to `true` |
-|show_aux: | Optional | `false` | Toggles the display of Aux |
+|show_daily: | Optional |`false` | Toggles the daily total. Only displayed if `show_aux` is set to `true` |
+|show_aux: | Optional | `false` | Toggles the display of AUX |
 |invert_aux: | Optional | `false` | Set to `true` if your sensor provides a positive number for AUX input and negative number for AUX output  |
 |animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on Power draw |
-|max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
-|aux_name: | Optional | `Auxilary` | Set the display name for the Auxilary Load
+|max_power: | Optional | `8000` | Maximum power draw to calculate animation speed |
+|aux_name: | Optional | `Auxilary` | Set the display name for the AUX Load
 |aux_type: | Optional | `default` | Changes the AUX image using preset or any mdi icon e.g. `mdi:ev-station`. Presets are: `gen`, `inverter` `default`, `oven`, `pump`, `aircon` and `boiler`.
 |aux_colour:| Optional | `the load colour` | Changes the colour of all the AUX card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |aux_off_colour:| Optional| `the load colour` | Changes the colour of the AUX icon and label when disconnected. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |aux_loads:| Optional | `0` | Display additional loads on the AUX side (`0/1/2`)
-|aux_load1_name: |Optional | | Set the display name for the AUX Load 1
-|aux_load2_name: |Optional | | Set the display name for the AUX Load 2
-|aux_load1_icon: | Optional | | Change the aux load 1 image using any mdi icon e.g. `mdi:ev-station`
-|aux_load2_icon: | Optional | | Change the aux load 2 image using any mdi icon e.g. `mdi:ev-station`
+|aux_load1_name: |Optional | | Set the display name for the AUX load 1
+|aux_load2_name: |Optional | | Set the display name for the AUX load 2
+|aux_load1_icon: | Optional | | Change the AUX load 1 image using any mdi icon e.g. `mdi:ev-station`
+|aux_load2_icon: | Optional | | Change the AUX load 2 image using any mdi icon e.g. `mdi:ev-station`
 |additional_loads: | Optional | `0` | Display additional loads on the essential side (`0/1/2`) 
-|load1_name: | Optional |  | Set the display name for the Essential Load 1
-|load2_name: | Optional |  | Set the display name for the Essential Load 2
+|load1_name: | Optional |  | Set the display name for the essential load 1
+|load2_name: | Optional |  | Set the display name for the essential load 2
 |load1_icon: | Optional | none | Change the essential load 1 image using preset or any mdi icon e.g. `mdi:ev-station` Presets are: `boiler`, `pump`, `aircon`, `oven` |
 |load2_icon: | Optional | none | Change the essential load 2 image using preset or any mdi icon e.g. `mdi:ev-station` Presets are: `boiler`, `pump`, `aircon`, `oven` |
 
@@ -148,19 +148,19 @@ These attributes are only needed if `show_solar` is set to `true`
 | --- | --- | --- | --- |
 |colour:| Optional | `'#5490c2'`| Changes the colour of all the grid card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |no_grid_colour:| Optional | `'#a40013'`|Changes the colour of the grid disconnected icon. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc)|
-|show_daily_buy: | Optional | `false` | Toggles the Daily Buy Total |
-|show_daily_sell: | Optional | `false` | Toggles the Daily Sell Total |
-|show_nonessential: | Optional |`false` | Toggles the display of Non-Essential |
-|nonessential_icon: | Optional | `default` | Change the nonessential image using presets or any mdi icon e.g. `mdi:ev-station`. Presets are: <br /> <img height="25px" src="https://api.iconify.design/mdi/house-import-outline.svg"> `default`  <img height="25px" src="https://api.iconify.design/fluent/oven-32-regular.svg"> `oven`, <img height="25px" src="https://api.iconify.design/material-symbols/water-heater.svg"> `boiler` </br> <br/> <img height="25px" src="https://api.iconify.design/material-symbols/water-pump-outline.svg"> `pump`,  <img height="25px" src="https://api.iconify.design/mdi/air-conditioner.svg"> `aircon` </br> |
-|nonessential_name: | Optional | `Non Essential` |Set the display name for the Non-Essential Load
+|show_daily_buy: | Optional | `false` | Toggles the daily buy total |
+|show_daily_sell: | Optional | `false` | Toggles the daily sell total |
+|show_nonessential: | Optional |`false` | Toggles the display of non-essential |
+|nonessential_icon: | Optional | `default` | Change the non-essential image using presets or any mdi icon e.g. `mdi:ev-station`. Presets are: <br /> <img height="25px" src="https://api.iconify.design/mdi/house-import-outline.svg"> `default`  <img height="25px" src="https://api.iconify.design/fluent/oven-32-regular.svg"> `oven`, <img height="25px" src="https://api.iconify.design/material-symbols/water-heater.svg"> `boiler` </br> <br/> <img height="25px" src="https://api.iconify.design/material-symbols/water-pump-outline.svg"> `pump`,  <img height="25px" src="https://api.iconify.design/mdi/air-conditioner.svg"> `aircon` </br> |
+|nonessential_name: | Optional | `Non Essential` |Set the display name for the non-essential load
 |additional_loads: | Optional |`0`| Toggle the display of additional loads on the non-essential side (`0/1/2`)
-|load1_name: | Optional |  | Set the display name for the Non-Essential Load 1
-|load2_name: | Optional |  |Set the display name for the Non-Essential Load 2
-|load1_icon: | Optional | `default` | Change the nonessential load 1 image using presets or any mdi icon e.g. `mdi:ev-station`. Presets are: `default`, `oven`, `boiler`, `pump`, `aircon` |
-|load2_icon: | Optional | `default` | Change the nonessential load 2 image using presets or any mdi icon e.g. `mdi:ev-station`. Presets are: `default`, `oven`, `boiler`, `pump`, `aircon` |
-|invert_grid:| Optional | `false`| Set to `true` if your sensor provides a negative number for Grid import and positive number for Grid export |
-|animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on Power draw |
-|max_power: | Optional | `8000` | Maximun Power draw to calculate animation speed |
+|load1_name: | Optional |  | Set the display name for the non-essential load 1
+|load2_name: | Optional |  |Set the display name for the non-essential load 2
+|load1_icon: | Optional | `default` | Change the non-essential load 1 image using presets or any mdi icon e.g. `mdi:ev-station`. Presets are: `default`, `oven`, `boiler`, `pump`, `aircon` |
+|load2_icon: | Optional | `default` | Change the non-essential load 2 image using presets or any mdi icon e.g. `mdi:ev-station`. Presets are: `default`, `oven`, `boiler`, `pump`, `aircon` |
+|invert_grid:| Optional | `false`| Set to `true` if your sensor provides a negative number for grid import and positive number for grid export |
+|animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on power draw |
+|max_power: | Optional | `8000` | Maximum power draw to calculate animation speed |
 
 ### Entities
 
@@ -171,52 +171,52 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 | Attribute |  Requirement | Default | Description |
 | --- | --- | --- | --- |
 |use_timer_248: | Optional | `switch.sunsynk_toggle_system_timer` | Displays "Use timer" status as an icon next to the inverter. Set to `no` to hide |
-|priority_load_243: | Optional |`switch.sunsynk_toggle_priority_load` | Shows if energy pattern is set to Priority Load or Priority Battery as an icon next to the inverter. Set to `no` to hide|
-|day_battery_discharge_71: | Optional |`ssensor.sunsynk_day_battery_discharge` | Daily Battery Usage (kWh) |
-|day_battery_charge_70: | Optional |`sensor.sunsynk_day_battery_charge` | Daily Battery Charge (kWh) |
-|day_load_energy_84: | Optional | `sensor.sunsynk_day_load_energy` | Daily Load (kWh) |
-|day_grid_import_76: | Optional | `sensor.sunsynk_day_grid_import` | Daily Grid Import (kWh) |
-|day_grid_export_77: | Optional | `sensor.sunsynk_day_grid_export` | Daily Grid Export (kWh) |
-|day_pv_energy_108: | Optional | `sensor.sunsynk_day_pv_energy` | Daily Solar Usage (kWh |
-|inverter_voltage_154: | Optional | `sensor.sunsynk_inverter_voltage` | Inverter Voltage (V) |
-|load_frequency_192: | Optional | `sensor.sunsynk_load_frequency` | Load Frequency (Hz) |
-|inverter_current_164: | Optional | `sensor.sunsynk_inverter_current` | Inverter Current (A) |
-|inverter_power_175: | Optional | `sensor.sunsynk_inverter_power` | Inverter Power (W). Required if the essential_power attribute is set to `none` |
-|grid_power_169: | Optional | `sensor.sunsynk_grid_power` | Grid Power (W) See NOTE below. Use **167** (Grid LD Power) if non-essential and essential readings are wrong. Required if the nonessential_power attribute is set to `none` |
-|pv1_power_186: | Optional | `sensor.sunsynk_pv1_power` | PV String 1 Power (W)|
-|pv2_power_187: | Optional | `sensor.sunsynk_pv2_power` | PV String 2 Power (W)  |
-|pv3_power_188: | Optional | `sensor.sunsynk_pv3_power` | PV String 3 Power (W)  |
-|pv4_power_189: | Optional | `sensor.sunsynk_pv4_power` | PV String 4 Power (W)  |
+|priority_load_243: | Optional |`switch.sunsynk_toggle_priority_load` | Shows if energy pattern is set to priority load or priority battery as an icon next to the inverter. Set to `no` to hide|
+|day_battery_discharge_71: | Optional |`ssensor.sunsynk_day_battery_discharge` | Daily battery usage (kWh) |
+|day_battery_charge_70: | Optional |`sensor.sunsynk_day_battery_charge` | Daily battery charge (kWh) |
+|day_load_energy_84: | Optional | `sensor.sunsynk_day_load_energy` | Daily load (kWh) |
+|day_grid_import_76: | Optional | `sensor.sunsynk_day_grid_import` | Daily grid import (kWh) |
+|day_grid_export_77: | Optional | `sensor.sunsynk_day_grid_export` | Daily grid export (kWh) |
+|day_pv_energy_108: | Optional | `sensor.sunsynk_day_pv_energy` | Daily solar usage (kWh |
+|inverter_voltage_154: | Optional | `sensor.sunsynk_inverter_voltage` | Inverter voltage (V) |
+|load_frequency_192: | Optional | `sensor.sunsynk_load_frequency` | Load frequency (Hz) |
+|inverter_current_164: | Optional | `sensor.sunsynk_inverter_current` | Inverter vurrent (A) |
+|inverter_power_175: | Optional | `sensor.sunsynk_inverter_power` | Inverter power (W). Required if the essential_power attribute is set to `none` |
+|grid_power_169: | Optional | `sensor.sunsynk_grid_power` | Grid power (W) See NOTE below. Use **167** (Grid LD Power) if non-essential and essential readings are wrong. Required if the nonessential_power attribute is set to `none` |
+|pv1_power_186: | Optional | `sensor.sunsynk_pv1_power` | PV string 1 power (W)|
+|pv2_power_187: | Optional | `sensor.sunsynk_pv2_power` | PV string 2 power (W)  |
+|pv3_power_188: | Optional | `sensor.sunsynk_pv3_power` | PV string 3 power (W)  |
+|pv4_power_189: | Optional | `sensor.sunsynk_pv4_power` | PV string 4 power (W)  |
 |pv_total:| Optional | `none` | Provide a sensor for total pv power. If omitted the card uses internal logic to calculate this based on the pv1-4 power (W)
-|battery_voltage_183: | Optional | `sensor.sunsynk_battery_voltage` | Battery Voltage (V) |
-|battery_soc_184: | **Required** | `sensor.sunsynk_battery_soc` | Battery State of Charge (%) |
-|battery_power_190: | **Required** | `sensor.sunsynk_battery_power` | Battery Power (W). Requires a negative number for battery charging and a positive number for battery discharging. Set the `invert_power:` battery attribute to `yes` if your sensor reports this the other way around |
-|battery_current_191: | **Required** |`sensor.sunsynk_battery_current` | Battery Current (A) |
+|battery_voltage_183: | Optional | `sensor.sunsynk_battery_voltage` | Battery voltage (V) |
+|battery_soc_184: | **Required** | `sensor.sunsynk_battery_soc` | Battery state of charge (%) |
+|battery_power_190: | **Required** | `sensor.sunsynk_battery_power` | Battery power (W). Requires a negative number for battery charging and a positive number for battery discharging. Set the `invert_power:` battery attribute to `yes` if your sensor reports this the other way around |
+|battery_current_191: | **Required** |`sensor.sunsynk_battery_current` | Battery current (A) |
 |essential_power: | Optional | `none` | The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures essential power e.g. `Load power Essential` in the case of Solar Assistant.  (W) |
 |essential_load1: | Optional | | Sensor that contains the power of your essential load 1 (W)|
 |essential_load2: | Optional | | Sensor that contains the power of your essential load 2 (W)|
 |nonessential_power| Optional | `none`| The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures non-essential power e.g.  `Load power Non-Essential` in the case of Solar Assistant.  (W)
 |non_essential_load1: | Optional | |Sensor that contains the power of your non-essential load 1 (W)|
 |non_essential_load2: | Optional | |Sensor that contains the power of your non-essential load 2 (W)
-|grid_ct_power_172: | **Required** | `sensor.sunsynk_grid_ct_power`  | Grid CT Power (W)|
-|pv1_voltage_109: | Optional | `sensor.sunsynk_pv1_voltage` | PV String 1 Voltage (V) |
-|pv1_current_110: | Optional | `sensor.sunsynk_pv1_current` | PV String 1 Current (A)|
-|pv2_voltage_111: | Optional | `sensor.sunsynk_pv2_voltage` | PV String 2 Voltage (V)|
-|pv2_current_112: | Optional | `sensor.sunsynk_pv2_current` | PV String 2 Current (A)|
-|pv3_voltage_113: | Optional | `sensor.sunsynk_pv3_voltage` | PV String 3 Voltage (V) |
-|pv3_current_114: | Optional | `sensor.sunsynk_pv3_current` | PV String 3 Current (A)|
-|pv4_voltage_115: | Optional | `sensor.sunsynk_pv4_voltage` | PV String 4 Voltage (V)|
-|pv4_current_116: | Optional | `sensor.sunsynk_pv4_current` | PV String 4 Current (A)|
-|grid_connected_status_194: | Optional | `binary_sensor.sunsynk_grid_connected_status` | Grid Connected Status `on/off` or `1/0` |
-|inverter_status_59: | Optional | `sensor.sunsynk_overall_state` | Inverter Status `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault` |
-|aux_power_166: | Optional | `sensor.sunsynk_aux_power` | Auxilary Power (W) |
+|grid_ct_power_172: | **Required** | `sensor.sunsynk_grid_ct_power`  | Grid CT power (W)|
+|pv1_voltage_109: | Optional | `sensor.sunsynk_pv1_voltage` | PV string 1 voltage (V) |
+|pv1_current_110: | Optional | `sensor.sunsynk_pv1_current` | PV string 1 current (A)|
+|pv2_voltage_111: | Optional | `sensor.sunsynk_pv2_voltage` | PV string 2 voltage (V)|
+|pv2_current_112: | Optional | `sensor.sunsynk_pv2_current` | PV string 2 current (A)|
+|pv3_voltage_113: | Optional | `sensor.sunsynk_pv3_voltage` | PV string 3 voltage (V) |
+|pv3_current_114: | Optional | `sensor.sunsynk_pv3_current` | PV string 3 current (A)|
+|pv4_voltage_115: | Optional | `sensor.sunsynk_pv4_voltage` | PV string 4 voltage (V)|
+|pv4_current_116: | Optional | `sensor.sunsynk_pv4_current` | PV string 4 current (A)|
+|grid_connected_status_194: | Optional | `binary_sensor.sunsynk_grid_connected_status` | Grid connected status `on/off` or `1/0` |
+|inverter_status_59: | Optional | `sensor.sunsynk_overall_state` | Inverter status `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault` |
+|aux_power_166: | Optional | `sensor.sunsynk_aux_power` | Auxilary power (W) |
 |aux_load1:| Optional |  | Sensor that contains the power of your AUX load 1 (W) |
 |aux_load2:| Optional |  | Sensor that contains the power of your AUX load 2 (W) |
 |aux_connected_status: |Optional | None | AUX Connected Status `on/off` or `1/0`
 |remaining_solar: | Optional | `sensor.solcast_forecast_remaining_today`| The remaining solar forecast for the day (kWh) |
-|battery_temp_182:| Optional | `sensor.sunsynk_battery_temperature` | Battery Temperature (℃)|
-|radiator_temp_91:| Optional | `sensor.sunsynk_radiator_temperature` | Inverter AC Temperature (℃)|
-|dc_transformer_temp_90:| Optional | `sensor.sunsynk_dc_transformer_temperature` | Inverter DC Temperature (℃)|
+|battery_temp_182:| Optional | `sensor.sunsynk_battery_temperature` | Battery temperature (℃)|
+|radiator_temp_91:| Optional | `sensor.sunsynk_radiator_temperature` | Inverter AC temperature (℃)|
+|dc_transformer_temp_90:| Optional | `sensor.sunsynk_dc_transformer_temperature` | Inverter DC temperature (℃)|
 |prog1_time:| Optional | `sensor.sunsynk_time_slot_1` | Program 1 start time (`HH:MM`)
 |prog1_capacity:| Optional | `number.sunsynk_system_mode_soc_time1` | Program 1 capacity (SOC) setting
 |prog1_charge:| Optional | `switch.sunsynk_system_mode_grid_charge_time1` | Program 1 charge options (`on/off`, `1/0`, `No Grid or Gen`)
