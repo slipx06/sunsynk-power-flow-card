@@ -3,8 +3,8 @@ import { customElement, property } from 'lit/decorators.js';
 import { HomeAssistant } from 'custom-card-helpers';
 import { styles } from './style';
 import { inverterProg, sunsynkPowerFlowCardConfig } from './types';
-import defaultConfig, { validLoadValues } from './defaults';
-import { CARD_VERSION } from './const';
+import defaultConfig from './defaults';
+import { CARD_VERSION, inverterStatusGroups, validLoadValues } from './const';
 import { localize } from './localize/localize';
 import merge from 'lodash.merge';
 
@@ -133,9 +133,9 @@ export class SunsynkPowerFlowCard extends LitElement {
     const stateObj49 = this.hass.states[config.entities.aux_load2] || { state: '0' };
 
     //Set defaults
-    let {invert_aux} = config.load;
+    let { invert_aux } = config.load;
     let aux_power = (invert_aux === true) ? parseInt(stateObj24.state) * -1 : parseInt(stateObj24.state);
-    let {invert_grid} = config.grid;
+    let { invert_grid } = config.grid;
     let grid_power = (invert_grid === true) ? parseInt(stateObj15.state) * -1 : parseInt(stateObj15.state);
     let inverter_modern = config.inverter?.modern;
     let load_colour = config.load?.colour;
@@ -360,44 +360,37 @@ export class SunsynkPowerFlowCard extends LitElement {
     //Set Inverter Status Message and dot
     let inverterStateColour = "";
     let inverterStateMsg = "";
+    let inverterModel = "";
+    let found = false;
 
-    switch (stateObj21.state) {
-      case '0':
-      case 'standby':
-        inverterStateColour = 'blue';
-        inverterStateMsg = 'Standby';
-        break;
-      case '1':
-      case 'selftest':
-        inverterStateColour = 'yellow';
-        inverterStateMsg = 'Selftest';
-        break;
-      case '2':
-      case 'normal':
-      case 'ok':
-        inverterStateColour = 'green';
-        inverterStateMsg = 'Normal';
-        break;
-      case '3':
-      case 'alarm':
-        inverterStateColour = 'orange';
-        inverterStateMsg = 'Alarm';
-        break;
-      case '4':
-      case 'fault':
-        inverterStateColour = 'red';
-        inverterStateMsg = 'Fault';
-        break;
-      default:
-        if (config.entities?.inverter_status_59 === 'none' || !config.entities?.inverter_status_59) {
-          inverterStateColour = 'transparent';
-          inverterStateMsg = '';
-        } else {
-          inverterStateColour = 'transparent';
-          inverterStateMsg = 'Status';
-        }
-        break;
+    if (config.inverter.model !== 'sunsynk' && config.inverter.model !== 'lux') {
+      inverterModel = 'sunsynk';
+    } else {
+      inverterModel = config.inverter.model;
     }
+
+    let typeStatusGroups = inverterStatusGroups[inverterModel];
+    console.log(typeStatusGroups);
+    for (const groupKey of Object.keys(typeStatusGroups)) {
+      const info = typeStatusGroups[groupKey];
+      const { states, color, message } = info;
+      if (states.includes(stateObj21.state)) {
+        inverterStateColour = color;
+        inverterStateMsg = message;
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      if (config.entities?.inverter_status_59 === 'none' || !config.entities?.inverter_status_59) {
+        inverterStateColour = 'transparent';
+        inverterStateMsg = '';
+      } else {
+        inverterStateColour = 'transparent';
+        inverterStateMsg = 'Status';
+      }
+    }
+
 
     //Autarky in Percent = Home Production / Home Consumption
     //Ratio in Percent = Home Consumption / Home Production

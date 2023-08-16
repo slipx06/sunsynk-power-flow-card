@@ -10,7 +10,8 @@ export default {
     inverter: {
         modern: true,
         colour: 'grey',
-        autarky: 'power'
+        autarky: 'power',
+        model: 'sunsynk'
     },
     battery: {
         energy: 0,
@@ -73,4 +74,4 @@ export default {
 
 }
 
-export const validLoadValues = [0, 1, 2]
+

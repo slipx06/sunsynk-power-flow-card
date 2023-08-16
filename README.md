@@ -85,6 +85,7 @@ The card can be configured through the following attributes:
 |modern:| Optional |`true`| Changes the inverter image.|
 |colour:| Optional |`grey`| Changes the colour of the inverter. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |autarky:| Optional| `power`| Display autarky and ratio as a percentage using either realtime power or daily energy values. Set to `no` to hide (`energy/power/no`). <br />Autarky is the percentage of self sufficiency through Home Production. Ratio is the percentage of produced electricity used by the home. <br />It is calculated based on the formula below and borrowed from the [Power Distribution Card](https://github.com/JonahKr/power-distribution-card)  <br /><ul><li>Autarky in Percent = Home Production / Home Consumption </li><li>Ratio in Percent = Home Consumption / Home Production</li></ul>|
+| model: | Optional | `sunsynk` | Enables showing the state for `sunsynk` or `lux` inverters.<br /> NOTE: this still needs work as I don't have all Lux states |
 
 ### Battery
 

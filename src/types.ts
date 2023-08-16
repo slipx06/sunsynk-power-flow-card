@@ -17,6 +17,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         modern: boolean;
         colour: string;
         autarky: string;
+        model: string;
     }
     battery: {
         energy: number;
