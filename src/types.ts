@@ -8,7 +8,7 @@ declare global {
 
 export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
     type: string;
-    cardstyle: string;
+    cardstyle: 'lite' | 'full';
     panel_mode: boolean;
     large_font: boolean;
     show_solar: boolean;
@@ -16,8 +16,8 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
     inverter: {
         modern: boolean;
         colour: string;
-        autarky: string;
-        model: string;
+        autarky: 'energy' | 'power' | 'no';
+        model: 'sunsynk' | 'lux';
     }
     battery: {
         energy: number;

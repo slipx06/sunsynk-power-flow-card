@@ -25,7 +25,8 @@
         "pv1_name": "PV1",
         "pv2_name": "PV2",
         "pv3_name": "PV3",
-        "pv4_name": "PV3"
+        "pv4_name": "PV3",
+        "essential": "Essential"
     },
     "errors": {
         "cardstyle": "Please include the cardstyle attribute and value; lite, simple or full e.g. cardstyle: simple",
