@@ -23,5 +23,6 @@
    :titlesonly:
 
    contribute/bugs
+   contribute/devcontainer
    contribute/devcycle
    contribute/docs
