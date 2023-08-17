@@ -515,11 +515,8 @@ export class SunsynkPowerFlowCard extends LitElement {
             <text x="411" y="157" class="st3 st8" display="${(additional_load === 1 || additional_load === 2) && show_aux === true ? 'none' : ''}" fill="${load_colour}">${localize('common.essential')}</text>
             <text id="ess_load" x="411" y="130" class="st3 st8" display="${additional_load === 0 || show_aux === false ? 'none' : ''}" fill="${load_colour}">${localize('common.essential')}</text>
             <text id="ess-load1" x="416" y="${show_aux === false ? 70 : 181}" class="st3 left-align" display="${additional_load === 1 ? '' : 'none'}" fill="${load_colour}" >${config.load.load1_name}</text>
-            <text id="ess_load1" x="409" y="${show_aux === false ? 47 : 158}" display="${additional_load === 1 ? '' : 'none'}" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj42.state)) ? 0 : parseFloat(stateObj42.state).toFixed(0)} W</text>
             <text id="ess-load2" x="${show_aux === false ? 393 : 390}" y="${show_aux === false ? 59 : 172}" class="st3 st8" display="${additional_load === 2 ? '' : 'none'}" fill="${load_colour}" >${config.load.load1_name}</text>
-            <text id="ess_load2" x="${show_aux === false ? 394 : 391}" y="${show_aux === false ? 42 : 154}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${isNaN(parseFloat(stateObj42.state)) ? 0 : parseFloat(stateObj42.state).toFixed(0)} W</text>
             <text id="ess-load2" x="${show_aux === false ? 429 : 426}" y="${show_aux === false ? 59 : 172}" class="st3 st8" display="${additional_load === 2 ? '' : 'none'}" fill="${load_colour}" >${config.load.load2_name}</text>
-            <text id="ess_load2" x="${show_aux === false ? 430 : 427}" y="${show_aux === false ? 42 : 154}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${isNaN(parseFloat(stateObj45.state)) ? 0 : parseFloat(stateObj45.state).toFixed(0)} W</text>
             <text id="daily_load_aux" x="${additional_aux_load === 2 ? '238' : '306'}" y="93" class="st3 left-align" fill="${load_showdaily === false || show_aux === false ? 'transparent' : `${load_colour}`}" >${localize('common.daily_load')}</text>
             <text id="daily_load" x="${additional_load === 0 ? '377' : '306'}" y="${additional_load === 0 ? 71 : 93}" class="st3 left-align" fill="${load_showdaily === false || show_aux === true ? 'transparent' : `${load_colour}`}" >${localize('common.daily_load')}</text>
             <text id="daily_solar" x="43.5" y="29" class="st3 left-align" fill="${solar_showdaily === false || config.show_solar === false || remaining_solar != 'false' ? 'transparent' : `${solar_colour}`}" >${localize('common.daily_solar')}</text>
@@ -533,9 +530,6 @@ export class SunsynkPowerFlowCard extends LitElement {
             <text id="noness1" x="340"" y="338" class="st3 st8" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 ? 'none' : ''}" fill="${grid_colour}">${config.grid.load1_name}</text>
             <text id="noness2" x="321"" y="338" class="st3 st8" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" fill="${grid_colour}">${config.grid.load1_name}</text>
             <text id="noness2" x="358" y="338" class="st3 st8" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" fill="${grid_colour}">${config.grid.load2_name}</text>
-            <text id="noness1_value" x="340"" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 ? 'none' : ''}" fill="${grid_colour}">${isNaN(parseFloat(stateObj40.state)) ? 0 : parseFloat(stateObj40.state).toFixed(0)} W</text>
-            <text id="noness2_value" x="320"" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" fill="${grid_colour}">${isNaN(parseFloat(stateObj40.state)) ? 0 : parseFloat(stateObj40.state).toFixed(0)} W</text>
-            <text id="noness2_value" x="357" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" fill="${grid_colour}">${isNaN(parseFloat(stateObj41.state)) ? 0 : parseFloat(stateObj41.state).toFixed(0)} W</text>
             <text id="autarkye_value" x="212" y="283" display="${useautarky === 'no' ? 'none' : ''}" class="${useautarky === 'energy' ? 'st4 st8 left-align' : 'st12'}" fill="${inverter_colour}" >${Autarky}%</text>
             <text id="ratioe_value" x="251" y="283" display="${useautarky === 'no' ? 'none' : ''}" class="${useautarky === 'energy' ? 'st4 st8 left-align' : 'st12'}" fill="${inverter_colour}" >${Ratio}%</text>
             <text id="autarkyp_value" x="212" y="283" display="${useautarky === 'no' ? 'none' : ''}" class="${useautarky === 'power' ? 'st4 st8 left-align' : 'st12'}" fill="${inverter_colour}" >${Autarkyp}%</text>
@@ -544,8 +538,6 @@ export class SunsynkPowerFlowCard extends LitElement {
             <text id="ratio" x="251" y="295" display="${useautarky === 'no' ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >Ratio</text>
             <text id="aux_load1" x="411" y="${additional_aux_load === 1 ? 53 : 14}" class="st3 st8" display="${show_aux === false || additional_aux_load === 0 ? 'none' : ''}" fill="${aux_colour}" >${config.load.aux_load1_name}</text>
             <text id="aux_load2" x="411" y="83" class="st3 st8" display="${show_aux === false || additional_aux_load === 0 || additional_aux_load === 1 ? 'none' : ''}" fill="${aux_colour}" >${config.load.aux_load2_name}</text>
-            <text id="aux_load1_value" x="411" y="34" class="${font === false ? 'st14' : 'st4'} st8" display="${show_aux === false || additional_aux_load === 0 ? 'none' : ''}" fill="${aux_colour}">${isNaN(parseFloat(stateObj48.state)) ? 0 : parseFloat(stateObj48.state).toFixed(0)} W</text>
-            <text id="aux_load2_value" x="411" y="64" class="${font === false ? 'st14' : 'st4'} st8" display="${show_aux === false || additional_aux_load === 0 || additional_aux_load === 1 ? 'none' : ''}" fill="${aux_colour}">${isNaN(parseFloat(stateObj49.state)) ? 0 : parseFloat(stateObj49.state).toFixed(0)} W</text>
 
             <circle id="standby" cx="164" cy="304" r="3.5" fill="${inverterStateColour}"/>
 
@@ -886,13 +878,12 @@ export class SunsynkPowerFlowCard extends LitElement {
               <text id="pvtotal_power" x="19%" y="46.5%" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${total_pv || 0} W</text>
             </a>`
           : svg` <text id="pvtotal_power" x="87" y="178" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${total_pv || 0} W</text> `}
-
-            ${config.entities.essential_power !== 'none'
+            ${config.entities?.essential_power
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_power)}>
                   <text id="ess_power" x="270" y="119" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential || 0} W</text>
                   </a>`
           : svg`<text id="ess_power" x="270" y="119" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential || 0} W</text>`}
-            ${config.entities.nonessential_power !== 'none'
+            ${config.entities?.nonessential_power
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.nonessential_power)}>
                     <text id="non_ess_power" x="338" y="281.5" display="${grid_show_noness === false ? 'none' : ''}" class="${font === false ? 'st14' : 'st4'} st8" fill="${grid_colour}">${nonessential || 0} W</text>
                   </a>`
@@ -900,31 +891,72 @@ export class SunsynkPowerFlowCard extends LitElement {
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_ct_power_172)}>
               <text id="grid_ct_power_172" x="420" y="281.5" display="${config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}" class="${font === false ? 'st14' : 'st4'} st8" fill="${grid_colour}">${grid_power || 0} W</text>
             </a>
-            ${config.entities.aux_power_166 !== 'none'
+            ${config.entities?.aux_power_166
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.aux_power_166)}>
                     <text id="aux_power_166" x="270" y="48" class="${font === false ? 'st14' : 'st4'} st8" display="${show_aux === false ? 'none' : ''}" fill="${aux_colour}">${aux_power < 0 ? aux_power * -1 : aux_power} W</text>
                   </a>`
           : svg`<text id="aux_power_166" x="270" y="48" class="${font === false ? 'st14' : 'st4'} st8" display="${show_aux === false ? 'none' : ''}" fill="${aux_colour}">${aux_power < 0 ? aux_power * -1 : aux_power} W</text> `}
-            ${config.entities.pv1_power_186 !== 'none'
+            ${config.entities?.pv1_power_186
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_power_186)}>
                     <text id="pv1_power_186" x="36.5" y="56.5" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj9.state).toFixed(0)} W</text>
                   </a>`
           : svg`<text id="pv1_power_186" x="36.5" y="56.5" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv1_power_186 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj9.state).toFixed(0)} W</text>`}
-            ${config.entities.pv2_power_187 !== 'none'
+            ${config.entities?.pv2_power_187
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_power_187)}>
                     <text id="pv2_power_187" x="137" y="56.5" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj8.state).toFixed(0)} W</text>
                   </a>`
           : svg`<text id="pv2_power_187" x="137" y="56.5" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv2_power_187 === 'none' || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj8.state).toFixed(0)} W</text>`}
-            ${config.entities.pv3_power_188 !== 'none'
+            ${config.entities?.pv3_power_188
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_power_188)}>
                     <text id="pv3_power_188" x="36.5" y="117" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj31.state).toFixed(0)} W</text>
                   </a>`
           : svg`<text id="pv3_power_188" x="36.5" y="117" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv3_power_188 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj31.state).toFixed(0)} W</text>`}
-            ${config.entities.pv4_power_189 !== 'none'
+            ${config.entities?.pv4_power_189
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_power_189)}>
                     <text id="pv4_power_189" x="137" y="117" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj32.state).toFixed(0)} W</text>
                   </a>`
           : svg`<text id="pv4_power_189" x="137" y="117" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv4_power_189 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj32.state).toFixed(0)} W</text>`}
+            ${config.entities?.aux_load1
+          ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.aux_load1)}>
+                    <text id="aux_load1_value" x="411" y="34" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${show_aux === 'no' || additional_aux_load === 'no' ? 'none' : ''}" fill="${aux_colour}">${!isNaN(parseFloat(stateObj48.state)) ? parseFloat(stateObj48.state).toFixed(0) : '0'} W</text>
+                  </a>`
+          : svg`<text id="aux_load1_value" x="411" y="34" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${show_aux === 'no' || additional_aux_load === 'no' ? 'none' : ''}" fill="${aux_colour}">${!isNaN(parseFloat(stateObj48.state)) ? parseFloat(stateObj48.state).toFixed(0) : '0'} W</text>`}
+            ${config.entities?.aux_load2
+          ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.aux_load1)}>
+                    <text id="aux_load2_value" x="411" y="64" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${show_aux === 'no' || additional_aux_load === 'no' || additional_aux_load === 'one' ? 'none' : ''}" fill="${aux_colour}">${!isNaN(parseFloat(stateObj49.state)) ? parseFloat(stateObj49.state).toFixed(0) : '0'} W</text>
+                  </a>`
+          : svg`<text id="aux_load2_value" x="411" y="64" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${show_aux === 'no' || additional_aux_load === 'no' || additional_aux_load === 'one' ? 'none' : ''}" fill="${aux_colour}">${!isNaN(parseFloat(stateObj49.state)) ? parseFloat(stateObj49.state).toFixed(0) : '0'} W</text>`}
+            ${config.entities?.non_essential_load1
+          ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.non_essential_load1)}>
+                    <text id="noness1_value" x="340"" y="321" class="st3" display="${grid_show_noness === 'no' || noness_dual_load === 'no' || noness_dual_load === 'two'? 'none' : ''}" fill="${grid_colour}">${!isNaN(parseFloat(stateObj40.state)) ? parseFloat(stateObj40.state).toFixed(0) : '0'} W</text>
+                  </a>`
+          : svg`<text id="noness1_value" x="340"" y="321" class="st3" display="${grid_show_noness === 'no' || noness_dual_load === 'no' || noness_dual_load === 'two'? 'none' : ''}" fill="${grid_colour}">${!isNaN(parseFloat(stateObj40.state)) ? parseFloat(stateObj40.state).toFixed(0) : '0'} W</text>`}
+            ${config.entities?.non_essential_load1
+          ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.non_essential_load1)}>
+                    <text id="noness2_value" x="320"" y="321" class="st3" display="${grid_show_noness === 'no' || noness_dual_load === 'no' || noness_dual_load === 'one'? 'none' : ''}" fill="${grid_colour}">${!isNaN(parseFloat(stateObj40.state)) ? parseFloat(stateObj40.state).toFixed(0) : '0'} W</text>
+                  </a>` 
+          : svg`<text id="noness2_value" x="320"" y="321" class="st3" display="${grid_show_noness === 'no' || noness_dual_load === 'no' || noness_dual_load === 'one'? 'none' : ''}" fill="${grid_colour}">${!isNaN(parseFloat(stateObj40.state)) ? parseFloat(stateObj40.state).toFixed(0) : '0'} W</text>`}
+            ${config.entities?.non_essential_load2
+          ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.non_essential_load2)}>
+                    <text id="noness2_value" x="357" y="321" class="st3" display="${grid_show_noness === 'no' || noness_dual_load === 'no' || noness_dual_load === 'one'? 'none' : ''}" fill="${grid_colour}">${!isNaN(parseFloat(stateObj41.state)) ? parseFloat(stateObj41.state).toFixed(0) : '0'} W</text>
+                  </a>`
+          : svg`<text id="noness2_value" x="357" y="321" class="st3" display="${grid_show_noness === 'no' || noness_dual_load === 'no' || noness_dual_load === 'one'? 'none' : ''}" fill="${grid_colour}">${!isNaN(parseFloat(stateObj41.state)) ? parseFloat(stateObj41.state).toFixed(0) : '0'} W</text>`}
+            ${config.entities?.essential_load1
+          ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1)}>
+                    <text id="ess_load1_value" x="409" y="${show_aux === 'no' ? '47' : '158'}" display="${additional_load === 'one' ? '' : 'none'}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${load_colour}">${!isNaN(parseFloat(stateObj42.state)) ? parseFloat(stateObj42.state).toFixed(0) : '0'} W</text>
+                  </a>`
+          : svg`<text id="ess_load1_value" x="409" y="${show_aux === 'no' ? '47' : '158'}" display="${additional_load === 'one' ? '' : 'none'}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${load_colour}">${!isNaN(parseFloat(stateObj42.state)) ? parseFloat(stateObj42.state).toFixed(0) : '0'} W</text>`}
+            ${config.entities?.essential_load1
+          ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1)}>
+                    <text id="ess_load2_value" x="${show_aux === 'no' ? '394' : '391'}" y="${show_aux === 'no' ? '42' : '154'}" display="${additional_load === 'two' ? '' : 'none'}" class="st3" fill="${load_colour}">${!isNaN(parseFloat(stateObj42.state)) ? parseFloat(stateObj42.state).toFixed(0) : '0'} W</text>
+                  </a>`
+          : svg`<text id="ess_load2_value" x="${show_aux === 'no' ? '394' : '391'}" y="${show_aux === 'no' ? '42' : '154'}" display="${additional_load === 'two' ? '' : 'none'}" class="st3" fill="${load_colour}">${!isNaN(parseFloat(stateObj42.state)) ? parseFloat(stateObj42.state).toFixed(0) : '0'} W</text>`}
+            ${config.entities?.essential_load2
+          ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load2)}>
+                    <text id="ess_load2_value" x="${show_aux === 'no' ? '430' : '427'}" y="${show_aux === 'no' ? '42' : '154'}" display="${additional_load === 'two' ? '' : 'none'}" class="st3" fill="${load_colour}">${!isNaN(parseFloat(stateObj45.state)) ? parseFloat(stateObj45.state).toFixed(0) : '0'} W</text>
+                  </a>`
+          : svg`<text id="ess_load2_value" x="${show_aux === 'no' ? '430' : '427'}" y="${show_aux === 'no' ? '42' : '154'}" display="${additional_load === 'two' ? '' : 'none'}" class="st3" fill="${load_colour}">${!isNaN(parseFloat(stateObj45.state)) ? parseFloat(stateObj45.state).toFixed(0) : '0'} W</text>`}
+          
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_voltage_154)}>
               <text id="inverter_voltage_154" x="270" y="170.4" display="${config.entities.inverter_voltage_154 === 'none' || !config.entities.inverter_voltage_154 ? 'none' : ''}" class="${font === false ? 'st14' : 'st4'} st8" fill="${grid_colour}" >${inverter_voltage} V</text>
             </a>
