@@ -852,7 +852,7 @@ export class SunsynkPowerFlowCard extends LitElement {
               <text id="daily_solar_value" x="43.5" y="15" class="st10 left-align" display="${solar_showdaily === false || config.show_solar === false || remaining_solar != 'false' ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj4.state).toFixed(1)} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_pv_energy_108)}>
-              <text id="daily_solar_value" x="43.5" y="15" class="st10 left-align" display="${solar_showdaily === false || config.show_solar === false || remaining_solar != 'false' ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj4.state).toFixed(1)} kWh</text>
+              <text id="daily_solar_value" x="43.5" y="15" class="st10 left-align" display="${solar_showdaily === false || config.show_solar === false || remaining_solar === 'false' ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj4.state).toFixed(1)} kWh / ${remaining_solar} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_load_energy_84)}>
               <text id="daily_load_value_aux" x="${additional_aux_load === 2 ? '238' : '306'}" y="80" class="st10 left-align" display="${load_showdaily === false || show_aux === false ? 'none' : ''}" fill="${load_colour}" >${parseFloat(stateObj2.state).toFixed(1)} kWh</text>
