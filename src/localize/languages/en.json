@@ -31,7 +31,7 @@
     },
     "errors": {
         "cardstyle": "Please include the cardstyle attribute and value; lite or full e.g. cardstyle: lite",
-        "show_style": "Please include the show_solar attribute e.g. show_solar: true",
+        "show_solar": "Please include the show_solar attribute e.g. show_solar: true",
         "battery": {
             "bat": "No battery attributes defined",
             "energy": "Please include the battery energy attribute and value in Wh e.g. 5.32 Battery energy: 5320",
