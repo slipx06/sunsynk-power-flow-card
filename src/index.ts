@@ -1073,13 +1073,9 @@ export class SunsynkPowerFlowCard extends LitElement {
             <text id="ratiop_value" x="173" y="260" display="${useautarky === "no" ? 'none' : ''}" class="${useautarky === 'power' ? 'st4 st8 left-align' : 'st12'}" fill="${inverter_colour}" >${Ratiop}%</text>
             <text id="autarky" x="130" y="273" display="${useautarky === "no" ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >Autarky</text>
             <text id="ratio" x="173" y="273" display="${useautarky === "no" ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >${localize('common.ratio')}</text>
-            <text id="es-load1" x="441" y="108" class="st3" display="${additional_load === 1 && config.show_solar === true ? '' : 'none'}" fill="${load_colour}" >${config.load?.load1_name ? `${config.load.load1_name}` : ''}</text>
-            <text id="ess_load1" x="440" y="133" display="${additional_load === 1 && config.show_solar === true ? '' : 'none'}" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj42.state)) ? 0 : parseFloat(stateObj42.state).toFixed(0)} W</text>
-            <text id="es-load1" x="441" y="108" class="st3" display="${additional_load === 2 && config.show_solar === true ? '' : 'none'}" fill="${load_colour}" >${config.load?.load1_name ? `${config.load.load1_name}` : ''}</text>
-            <text id="ess_load1" x="440" y="133" display="${additional_load === 2 && config.show_solar === true ? '' : 'none'}" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj42.state)) ? 0 : parseFloat(stateObj42.state).toFixed(0)} W</text>
+            <text id="es-load1" x="441" y="108" class="st3" display="${(additional_load === 1 || additional_load === 2) && config.show_solar === true ? '' : 'none'}" fill="${load_colour}" >${config.load?.load1_name ? `${config.load.load1_name}` : ''}</text>
             <text id="es-load2" x="441" y="330.5" class="st3" display="${additional_load === 2 && config.show_solar === true ? '' : 'none'}" fill="${load_colour}" >${config.load?.load2_name ? `${config.load.load2_name}` : ''}</text>
-            <text id="ess_load2" x="440" y="306.5" display="${additional_load === 2 && config.show_solar === true ? '' : 'none'}" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj45.state)) ? 0 : parseFloat(stateObj45.state).toFixed(0)} W</text>
-
+            
             <circle id="standby" cx="220" cy="260" r="3.5" fill="${inverterStateColour}"/>
 
             <path id="pv1-line" d="M 187 84 L 187 122 Q 187 132 195 132 L 205 132.03" class="${config.show_solar === false ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
@@ -1311,31 +1307,41 @@ export class SunsynkPowerFlowCard extends LitElement {
                       <text id="pvtotal_power" x="238.8" y="133.9" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${total_pv || 0} W</text>
                     </a>`
           : svg`<text id="pvtotal_power" x="238.8" y="133.9" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${total_pv || 0} W</text>`}
-            ${config.entities.pv1_power_186 !== 'none'
+            ${config.entities?.pv1_power_186
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_power_186)}>
                     <text id="pv1_power_186" x="188.1" y="71" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj9.state).toFixed(0)} W</text>
                   </a>`
           : svg`<text id="pv1_power_186" x="188.1" y="71" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv1_power_186 === 'none' ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj9.state).toFixed(0)} W</text>`}
-            ${config.entities.pv2_power_187 !== 'none'
+            ${config.entities?.pv2_power_187
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_power_187)}>
                     <text id="pv2_power_187" x="289.5" y="71" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj8.state).toFixed(0)} W</text>
                   </a>`
           : svg`<text id="pv2_power_187" x="289.5" y="71" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv2_power_187 === 'none' || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj8.state).toFixed(0)} W</text>`}
-            ${config.entities.pv3_power_188 !== 'none'
+            ${config.entities?.pv3_power_188
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_power_188)}>
                     <text id="pv3_power_188" x="113" y="71" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj31.state).toFixed(0)} W</text>
                   </a>`
           : svg`<text id="pv3_power_188" x="113" y="71" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv3_power_188 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj31.state).toFixed(0)} W</text>`}
-            ${config.entities.pv4_power_189 !== 'none'
+            ${config.entities?.pv4_power_189
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_power_189)}>
                     <text id="pv4_power_189" x="366" y="71" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj32.state).toFixed(0)} W</text>
                   </a>`
           : svg`<text id="pv4_power_189" x="366" y="71" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv4_power_189 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj32.state).toFixed(0)} W</text>`}
-            ${config.entities.essential_power !== 'none'
+            ${config.entities?.essential_power
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_power)}>
                     <text id="ess_power" x="340.1" y="219.2" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential || 0} W</text>
                   </a>`
           : svg`<text id="ess_power" x="340.1" y="219.2" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential || 0} W</text>`}
+            ${config.entities?.essential_load1
+          ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1)}>
+                    <text id="ess_load1" x="440" y="133" display="${(additional_load === 1 || additional_load === 2) && config.show_solar === true ? '' : 'none'}" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj42.state)) ? 0 : parseFloat(stateObj42.state).toFixed(0)} W</text>
+                  </a>`
+          : svg`<text id="ess_load1" x="440" y="133" display="${(additional_load === 1 || additional_load === 2) && config.show_solar === true ? '' : 'none'}" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj42.state)) ? 0 : parseFloat(stateObj42.state).toFixed(0)} W</text>`}
+            ${config.entities?.essential_load2
+          ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load2)}>
+                    <text id="ess_load2" x="440" y="306.5" display="${additional_load === 2 && config.show_solar === true ? '' : 'none'}" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj45.state)) ? 0 : parseFloat(stateObj45.state).toFixed(0)} W</text>
+                  </a>`
+          : svg`<text id="ess_load2" x="440" y="306.5" display="${additional_load === 2 && config.show_solar === true ? '' : 'none'}" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj45.state)) ? 0 : parseFloat(stateObj45.state).toFixed(0)} W</text>`}
           </svg>
         </div>
         </ha-card>
