@@ -918,44 +918,44 @@ export class SunsynkPowerFlowCard extends LitElement {
           : svg`<text id="pv4_power_189" x="137" y="117" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv4_power_189 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj32.state).toFixed(0)} W</text>`}
             ${config.entities?.aux_load1
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.aux_load1)}>
-                    <text id="aux_load1_value" x="411" y="34" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${show_aux === 'no' || additional_aux_load === 'no' ? 'none' : ''}" fill="${aux_colour}">${!isNaN(parseFloat(stateObj48.state)) ? parseFloat(stateObj48.state).toFixed(0) : '0'} W</text>
+                    <text id="aux_load1_value" x="411" y="34" class="${font === false ? 'st14' : 'st4'} st8" display="${show_aux === false || additional_aux_load === 0 ? 'none' : ''}" fill="${aux_colour}">${!isNaN(parseFloat(stateObj48.state)) ? parseFloat(stateObj48.state).toFixed(0) : '0'} W</text>
                   </a>`
-          : svg`<text id="aux_load1_value" x="411" y="34" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${show_aux === 'no' || additional_aux_load === 'no' ? 'none' : ''}" fill="${aux_colour}">${!isNaN(parseFloat(stateObj48.state)) ? parseFloat(stateObj48.state).toFixed(0) : '0'} W</text>`}
+          : svg`<text id="aux_load1_value" x="411" y="34" class="${font === false ? 'st14' : 'st4'} st8" display="${show_aux === false || additional_aux_load === 0 ? 'none' : ''}" fill="${aux_colour}">${!isNaN(parseFloat(stateObj48.state)) ? parseFloat(stateObj48.state).toFixed(0) : '0'} W</text>`}
             ${config.entities?.aux_load2
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.aux_load1)}>
-                    <text id="aux_load2_value" x="411" y="64" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${show_aux === 'no' || additional_aux_load === 'no' || additional_aux_load === 'one' ? 'none' : ''}" fill="${aux_colour}">${!isNaN(parseFloat(stateObj49.state)) ? parseFloat(stateObj49.state).toFixed(0) : '0'} W</text>
+                    <text id="aux_load2_value" x="411" y="64" class="${font === false ? 'st14' : 'st4'} st8" display="${show_aux === false || additional_aux_load === 0 || additional_aux_load === 1 ? 'none' : ''}" fill="${aux_colour}">${!isNaN(parseFloat(stateObj49.state)) ? parseFloat(stateObj49.state).toFixed(0) : '0'} W</text>
                   </a>`
-          : svg`<text id="aux_load2_value" x="411" y="64" class="${font === 'no' ? 'st14' : 'st4'} st8" display="${show_aux === 'no' || additional_aux_load === 'no' || additional_aux_load === 'one' ? 'none' : ''}" fill="${aux_colour}">${!isNaN(parseFloat(stateObj49.state)) ? parseFloat(stateObj49.state).toFixed(0) : '0'} W</text>`}
+          : svg`<text id="aux_load2_value" x="411" y="64" class="${font === false ? 'st14' : 'st4'} st8" display="${show_aux === false || additional_aux_load === 0 || additional_aux_load === 1 ? 'none' : ''}" fill="${aux_colour}">${!isNaN(parseFloat(stateObj49.state)) ? parseFloat(stateObj49.state).toFixed(0) : '0'} W</text>`}
             ${config.entities?.non_essential_load1
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.non_essential_load1)}>
-                    <text id="noness1_value" x="340"" y="321" class="st3" display="${grid_show_noness === 'no' || noness_dual_load === 'no' || noness_dual_load === 'two'? 'none' : ''}" fill="${grid_colour}">${!isNaN(parseFloat(stateObj40.state)) ? parseFloat(stateObj40.state).toFixed(0) : '0'} W</text>
+                    <text id="noness1_value" x="340"" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 ? 'none' : ''}" fill="${grid_colour}">${!isNaN(parseFloat(stateObj40.state)) ? parseFloat(stateObj40.state).toFixed(0) : '0'} W</text>
                   </a>`
-          : svg`<text id="noness1_value" x="340"" y="321" class="st3" display="${grid_show_noness === 'no' || noness_dual_load === 'no' || noness_dual_load === 'two'? 'none' : ''}" fill="${grid_colour}">${!isNaN(parseFloat(stateObj40.state)) ? parseFloat(stateObj40.state).toFixed(0) : '0'} W</text>`}
+          : svg`<text id="noness1_value" x="340"" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 ? 'none' : ''}" fill="${grid_colour}">${!isNaN(parseFloat(stateObj40.state)) ? parseFloat(stateObj40.state).toFixed(0) : '0'} W</text>`}
             ${config.entities?.non_essential_load1
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.non_essential_load1)}>
-                    <text id="noness2_value" x="320"" y="321" class="st3" display="${grid_show_noness === 'no' || noness_dual_load === 'no' || noness_dual_load === 'one'? 'none' : ''}" fill="${grid_colour}">${!isNaN(parseFloat(stateObj40.state)) ? parseFloat(stateObj40.state).toFixed(0) : '0'} W</text>
+                    <text id="noness2_value" x="320"" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" fill="${grid_colour}">${!isNaN(parseFloat(stateObj40.state)) ? parseFloat(stateObj40.state).toFixed(0) : '0'} W</text>
                   </a>` 
-          : svg`<text id="noness2_value" x="320"" y="321" class="st3" display="${grid_show_noness === 'no' || noness_dual_load === 'no' || noness_dual_load === 'one'? 'none' : ''}" fill="${grid_colour}">${!isNaN(parseFloat(stateObj40.state)) ? parseFloat(stateObj40.state).toFixed(0) : '0'} W</text>`}
+          : svg`<text id="noness2_value" x="320"" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" fill="${grid_colour}">${!isNaN(parseFloat(stateObj40.state)) ? parseFloat(stateObj40.state).toFixed(0) : '0'} W</text>`}
             ${config.entities?.non_essential_load2
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.non_essential_load2)}>
-                    <text id="noness2_value" x="357" y="321" class="st3" display="${grid_show_noness === 'no' || noness_dual_load === 'no' || noness_dual_load === 'one'? 'none' : ''}" fill="${grid_colour}">${!isNaN(parseFloat(stateObj41.state)) ? parseFloat(stateObj41.state).toFixed(0) : '0'} W</text>
+                    <text id="noness2_value" x="357" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" fill="${grid_colour}">${!isNaN(parseFloat(stateObj41.state)) ? parseFloat(stateObj41.state).toFixed(0) : '0'} W</text>
                   </a>`
-          : svg`<text id="noness2_value" x="357" y="321" class="st3" display="${grid_show_noness === 'no' || noness_dual_load === 'no' || noness_dual_load === 'one'? 'none' : ''}" fill="${grid_colour}">${!isNaN(parseFloat(stateObj41.state)) ? parseFloat(stateObj41.state).toFixed(0) : '0'} W</text>`}
+          : svg`<text id="noness2_value" x="357" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" fill="${grid_colour}">${!isNaN(parseFloat(stateObj41.state)) ? parseFloat(stateObj41.state).toFixed(0) : '0'} W</text>`}
             ${config.entities?.essential_load1
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1)}>
-                    <text id="ess_load1_value" x="409" y="${show_aux === 'no' ? '47' : '158'}" display="${additional_load === 'one' ? '' : 'none'}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${load_colour}">${!isNaN(parseFloat(stateObj42.state)) ? parseFloat(stateObj42.state).toFixed(0) : '0'} W</text>
+                    <text id="ess_load1_value" x="409" y="${show_aux === false ? '47' : '158'}" display="${additional_load === 1 ? '' : 'none'}" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${!isNaN(parseFloat(stateObj42.state)) ? parseFloat(stateObj42.state).toFixed(0) : '0'} W</text>
                   </a>`
-          : svg`<text id="ess_load1_value" x="409" y="${show_aux === 'no' ? '47' : '158'}" display="${additional_load === 'one' ? '' : 'none'}" class="${font === 'no' ? 'st14' : 'st4'} st8" fill="${load_colour}">${!isNaN(parseFloat(stateObj42.state)) ? parseFloat(stateObj42.state).toFixed(0) : '0'} W</text>`}
+          : svg`<text id="ess_load1_value" x="409" y="${show_aux === false ? '47' : '158'}" display="${additional_load === 1 ? '' : 'none'}" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${!isNaN(parseFloat(stateObj42.state)) ? parseFloat(stateObj42.state).toFixed(0) : '0'} W</text>`}
             ${config.entities?.essential_load1
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1)}>
-                    <text id="ess_load2_value" x="${show_aux === 'no' ? '394' : '391'}" y="${show_aux === 'no' ? '42' : '154'}" display="${additional_load === 'two' ? '' : 'none'}" class="st3" fill="${load_colour}">${!isNaN(parseFloat(stateObj42.state)) ? parseFloat(stateObj42.state).toFixed(0) : '0'} W</text>
+                    <text id="ess_load2_value" x="${show_aux === false ? '394' : '391'}" y="${show_aux === false ? '42' : '154'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${!isNaN(parseFloat(stateObj42.state)) ? parseFloat(stateObj42.state).toFixed(0) : '0'} W</text>
                   </a>`
-          : svg`<text id="ess_load2_value" x="${show_aux === 'no' ? '394' : '391'}" y="${show_aux === 'no' ? '42' : '154'}" display="${additional_load === 'two' ? '' : 'none'}" class="st3" fill="${load_colour}">${!isNaN(parseFloat(stateObj42.state)) ? parseFloat(stateObj42.state).toFixed(0) : '0'} W</text>`}
+          : svg`<text id="ess_load2_value" x="${show_aux === false ? '394' : '391'}" y="${show_aux === false ? '42' : '154'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${!isNaN(parseFloat(stateObj42.state)) ? parseFloat(stateObj42.state).toFixed(0) : '0'} W</text>`}
             ${config.entities?.essential_load2
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load2)}>
-                    <text id="ess_load2_value" x="${show_aux === 'no' ? '430' : '427'}" y="${show_aux === 'no' ? '42' : '154'}" display="${additional_load === 'two' ? '' : 'none'}" class="st3" fill="${load_colour}">${!isNaN(parseFloat(stateObj45.state)) ? parseFloat(stateObj45.state).toFixed(0) : '0'} W</text>
+                    <text id="ess_load2_value" x="${show_aux === false ? '430' : '427'}" y="${show_aux === false ? '42' : '154'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${!isNaN(parseFloat(stateObj45.state)) ? parseFloat(stateObj45.state).toFixed(0) : '0'} W</text>
                   </a>`
-          : svg`<text id="ess_load2_value" x="${show_aux === 'no' ? '430' : '427'}" y="${show_aux === 'no' ? '42' : '154'}" display="${additional_load === 'two' ? '' : 'none'}" class="st3" fill="${load_colour}">${!isNaN(parseFloat(stateObj45.state)) ? parseFloat(stateObj45.state).toFixed(0) : '0'} W</text>`}
+          : svg`<text id="ess_load2_value" x="${show_aux === false ? '430' : '427'}" y="${show_aux === false ? '42' : '154'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${!isNaN(parseFloat(stateObj45.state)) ? parseFloat(stateObj45.state).toFixed(0) : '0'} W</text>`}
           
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_voltage_154)}>
               <text id="inverter_voltage_154" x="270" y="170.4" display="${config.entities.inverter_voltage_154 === 'none' || !config.entities.inverter_voltage_154 ? 'none' : ''}" class="${font === false ? 'st14' : 'st4'} st8" fill="${grid_colour}" >${inverter_voltage} V</text>
