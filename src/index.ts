@@ -989,7 +989,7 @@ export class SunsynkPowerFlowCard extends LitElement {
               <text id="dc_temp" x="110" y="266" class="${config.entities.dc_transformer_temp_90 === 'none' ? 'st12' : 'st3 left-align'}" fill="${inverter_colour}" display="${config.entities?.dc_transformer_temp_90 ? '' : 'none'}" >DC: ${stateObj38.state}°</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost)}>
-              <text id="energy_cost" x="427" y="257"  class="${config.entities.energy_cost === 'none' ? 'st12' : 'st3 left-align'}" fill="${grid_colour}" display="${config.entities?.energy_cost ? '' : 'none'}" >${parseFloat(stateObj43.state).toFixed(2)}${stateObj43.attributes.unit_of_measurement || 'p'}</text>
+              <text id="energy_cost" x="427" y="257"  class="${config.entities.energy_cost === 'none' ? 'st12' : 'st3 left-align'}" fill="${grid_colour}" display="${config.entities?.energy_cost ? '' : 'none'}" >${parseFloat(stateObj43.state).toFixed(2)}${stateObj43.attributes.unit_of_measurement || ''}</text>
             </a>
           </svg>
         </div>
@@ -1272,7 +1272,7 @@ export class SunsynkPowerFlowCard extends LitElement {
               <text id="dc_temp" x="173" y="180.4" class="${config.entities.dc_transformer_temp_90 === 'none' ? 'st12' : 'st3 left-align'}" fill="${inverter_colour}" display="${config.entities?.dc_transformer_temp_90 ? '' : 'none'}" >DC: ${stateObj38.state}°</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost)}>
-              <text id="energy_cost" x="105" y="195" class="${config.entities.energy_cost === 'none' ? 'st12' : 'st3 left-align'}" fill="${grid_colour}" display="${config.entities?.energy_cost ? '' : 'none'}" >${parseFloat(stateObj43.state).toFixed(2)}${stateObj43.attributes.unit_of_measurement || 'p'}</text>
+              <text id="energy_cost" x="105" y="195" class="${config.entities.energy_cost === 'none' ? 'st12' : 'st3 left-align'}" fill="${grid_colour}" display="${config.entities?.energy_cost ? '' : 'none'}" >${parseFloat(stateObj43.state).toFixed(2)}${stateObj43.attributes.unit_of_measurement || ''}</text>
             </a>
             ${config.entities?.pv_total
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv_total)}>
