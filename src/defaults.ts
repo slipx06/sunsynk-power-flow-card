@@ -39,6 +39,7 @@ export default {
         colour: '#5fb6ad',
         show_daily: false,
         show_aux: false,
+        show_daily_aux: false,
         invert_aux: false,
         animation_speed: 4,
         max_power: 8000,

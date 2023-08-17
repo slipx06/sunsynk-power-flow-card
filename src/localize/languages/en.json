@@ -7,6 +7,7 @@
         "charge": "CHARGE",
         "to": "TO",
         "daily_load": "DAILY LOAD",
+        "daily_aux": "DAILY AUX",
         "daily_grid_buy": "DAILY GRID BUY",
         "daily_grid_sell": "DAILY GRID SELL",
         "daily_solar": "DAILY SOLAR",

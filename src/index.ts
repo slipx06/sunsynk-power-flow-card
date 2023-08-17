@@ -131,6 +131,7 @@ export class SunsynkPowerFlowCard extends LitElement {
     const stateObj47 = this.hass.states[config.entities.aux_connected_status] || { state: 'on' };
     const stateObj48 = this.hass.states[config.entities.aux_load1] || { state: '0' };
     const stateObj49 = this.hass.states[config.entities.aux_load2] || { state: '0' };
+    const stateObj50 = this.hass.states[config.entities.day_aux_energy] || { state: '0' };
 
     //Set defaults
     let { invert_aux } = config.load;
@@ -164,6 +165,7 @@ export class SunsynkPowerFlowCard extends LitElement {
     let solar_colour = config.solar?.colour;
     let solar_showdaily = config.solar?.show_daily;
     let show_aux = config.load?.show_aux;
+    let show_dailyaux = config.load?.show_daily_aux;
 
     let additional_load = config.load?.additional_loads;
     if (!validLoadValues.includes(additional_load)) {
@@ -465,6 +467,10 @@ export class SunsynkPowerFlowCard extends LitElement {
           color: ${aux_colour} !important;
           --mdc-icon-size: 70px;
         }
+        .aux-small-icon {
+          color: ${aux_colour} !important;
+          --mdc-icon-size: 24px;
+        }
         .aux-off-icon {
           color: ${aux_off_colour} !important;
           --mdc-icon-size: 70px;
@@ -538,7 +544,8 @@ export class SunsynkPowerFlowCard extends LitElement {
             <text id="ratio" x="251" y="295" display="${useautarky === 'no' ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >Ratio</text>
             <text id="aux_load1" x="411" y="${additional_aux_load === 1 ? 53 : 14}" class="st3 st8" display="${show_aux === false || additional_aux_load === 0 ? 'none' : ''}" fill="${aux_colour}" >${config.load.aux_load1_name}</text>
             <text id="aux_load2" x="411" y="83" class="st3 st8" display="${show_aux === false || additional_aux_load === 0 || additional_aux_load === 1 ? 'none' : ''}" fill="${aux_colour}" >${config.load.aux_load2_name}</text>
-
+            <text id="aux_daily_text" x="${(additional_aux_load === 1 || additional_aux_load === 2) ? '238' : '306'}" y="24" class="st3 left-align" display="${show_aux === false  || show_dailyaux === false ? 'none' : ''}" fill="${aux_colour}" >${localize('common.daily_aux')}</text>
+            
             <circle id="standby" cx="164" cy="304" r="3.5" fill="${inverterStateColour}"/>
 
             <path id="es-load1" d="M 409 143 L 409 135" display="${show_aux === true ? '' : 'none'}" class="${additional_load === 1 || additional_load === 2 ? '' : 'st12'}" fill="none" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
@@ -871,6 +878,9 @@ export class SunsynkPowerFlowCard extends LitElement {
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_grid_export_77)}>
               <text id="daily_grid_sell_value" x="${grid_show_noness === false ? '311' : '347'}" y="${grid_show_noness === false ? '323' : '209'}" class="st10 left-align" display="${grid_showdailysell === false ? 'none' : ''}" fill="${grid_colour}" >${parseFloat(stateObj33.state).toFixed(1)} kWh</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_aux_energy)}>
+              <text id="aux_daily_value" x="${(additional_aux_load === 1 || additional_aux_load === 2) ? '238' : '306'}" y="12" class="st10 left-align" display="${show_aux === false || show_dailyaux === false ? 'none' : ''}" fill="${aux_colour}" >${parseFloat(stateObj50.state).toFixed(1)} kWh</text>
             </a>
 
             ${config.entities?.pv_total

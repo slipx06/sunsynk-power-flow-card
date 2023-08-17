@@ -122,7 +122,8 @@ These attributes are only needed if `show_solar` is set to `true`
 | Attribute | Requirement | Default | Description |
 | --- | --- | --- |--- |
 |colour:| Optional |`'#5fb6ad'`| Changes the colour of all the load card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
-|show_daily: | Optional |`false` | Toggles the daily total. Only displayed if `show_aux` is set to `true` |
+|show_daily: | Optional |`false` | Toggles the daily total. |
+|show_daily_aux" | Optional |`false` | Toggles the daily AUX total. Only displayed if `show_aux` is set to `true` |
 |show_aux: | Optional | `false` | Toggles the display of AUX |
 |invert_aux: | Optional | `false` | Set to `true` if your sensor provides a positive number for AUX input and negative number for AUX output  |
 |animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on Power draw |
@@ -177,7 +178,8 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |day_load_energy_84: | Optional | `sensor.sunsynk_day_load_energy` | Daily load (kWh) |
 |day_grid_import_76: | Optional | `sensor.sunsynk_day_grid_import` | Daily grid import (kWh) |
 |day_grid_export_77: | Optional | `sensor.sunsynk_day_grid_export` | Daily grid export (kWh) |
-|day_pv_energy_108: | Optional | `sensor.sunsynk_day_pv_energy` | Daily solar usage (kWh |
+|day_pv_energy_108: | Optional | `sensor.sunsynk_day_pv_energy` | Daily solar usage (kWh) |
+|day_aux_energy: | Optional | | Sensor that provides the daily AUX energy (kWh)
 |inverter_voltage_154: | Optional | `sensor.sunsynk_inverter_voltage` | Inverter voltage (V) |
 |load_frequency_192: | Optional | `sensor.sunsynk_load_frequency` | Load frequency (Hz) |
 |inverter_current_164: | Optional | `sensor.sunsynk_inverter_current` | Inverter vurrent (A) |

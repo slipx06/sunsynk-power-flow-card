@@ -199,6 +199,7 @@ Full Configuration (All Options)
   load:
     colour: '#5fb6ad'
     show_daily: true
+    show_daily_aux: true
     show_aux: true
     invert_aux: false
     aux_name: Generator
@@ -242,6 +243,7 @@ Full Configuration (All Options)
     day_grid_import_76: sensor.sunsynk_day_grid_import
     day_grid_export_77: sensor.sunsynk_day_grid_export
     day_pv_energy_108: sensor.sunsynk_day_pv_energy
+    day_aux_energy: sensor.sunsynk_day_aux_energy
     inverter_voltage_154: sensor.sunsynk_inverter_voltage
     load_frequency_192: sensor.sunsynk_load_frequency
     inverter_current_164: sensor.sunsynk_inverter_current
