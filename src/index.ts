@@ -544,8 +544,8 @@ export class SunsynkPowerFlowCard extends LitElement {
             <text id="ratio" x="251" y="295" display="${useautarky === 'no' ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >Ratio</text>
             <text id="aux_load1" x="411" y="${additional_aux_load === 1 ? 53 : 14}" class="st3 st8" display="${show_aux === false || additional_aux_load === 0 ? 'none' : ''}" fill="${aux_colour}" >${config.load.aux_load1_name}</text>
             <text id="aux_load2" x="411" y="83" class="st3 st8" display="${show_aux === false || additional_aux_load === 0 || additional_aux_load === 1 ? 'none' : ''}" fill="${aux_colour}" >${config.load.aux_load2_name}</text>
-            <text id="aux_daily_text" x="${(additional_aux_load === 1 || additional_aux_load === 2) ? '238' : '306'}" y="24" class="st3 left-align" display="${show_aux === false  || show_dailyaux === false ? 'none' : ''}" fill="${aux_colour}" >${localize('common.daily_aux')}</text>
-            
+            <text id="aux_daily_text" x="${(additional_aux_load === 1 || additional_aux_load === 2) ? '238' : '306'}" y="24" class="st3 left-align" display="${show_aux === false || show_dailyaux === false ? 'none' : ''}" fill="${aux_colour}" >${localize('common.daily_aux')}</text>
+
             <circle id="standby" cx="164" cy="304" r="3.5" fill="${inverterStateColour}"/>
 
             <path id="es-load1" d="M 409 143 L 409 135" display="${show_aux === true ? '' : 'none'}" class="${additional_load === 1 || additional_load === 2 ? '' : 'st12'}" fill="none" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
@@ -1020,7 +1020,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_current_116)}>
               <text id="pv4_current" x="142" y="150" class="st3 left-align" display="${config.show_solar === false || !config.entities.pv4_current_116 || config.entities.pv4_current_116 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}" >${stateObj30.state} A</text>
-            </a>   
+            </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_temp_182)}>
               <text id="battery_temp_182" x="93.7" y="295" class="st3 left-align" fill="${battery_colour}" display="${config.entities?.battery_temp_182 ? '' : 'none'}" >${stateObj37.state}°</text>
             </a>
@@ -1085,7 +1085,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             <text id="ratio" x="173" y="273" display="${useautarky === "no" ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >${localize('common.ratio')}</text>
             <text id="es-load1" x="441" y="108" class="st3" display="${(additional_load === 1 || additional_load === 2) && config.show_solar === true ? '' : 'none'}" fill="${load_colour}" >${config.load?.load1_name ? `${config.load.load1_name}` : ''}</text>
             <text id="es-load2" x="441" y="330.5" class="st3" display="${additional_load === 2 && config.show_solar === true ? '' : 'none'}" fill="${load_colour}" >${config.load?.load2_name ? `${config.load.load2_name}` : ''}</text>
-            
+
             <circle id="standby" cx="220" cy="260" r="3.5" fill="${inverterStateColour}"/>
 
             <path id="pv1-line" d="M 187 84 L 187 122 Q 187 132 195 132 L 205 132.03" class="${config.show_solar === false ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
@@ -1360,12 +1360,7 @@ export class SunsynkPowerFlowCard extends LitElement {
   }
 
   setConfig(config) {
-    if (!config.cardstyle) {
-      throw Error(localize('errors.cardstyle'));
-    }
-    if (!config.show_solar) {
-      throw Error(localize('errors.show_solar'));
-    }
+
     if (!config.battery) {
       throw Error(localize('errors.battery.bat'));
     } else {
@@ -1409,22 +1404,13 @@ export class SunsynkPowerFlowCard extends LitElement {
     }
 
     const all_attributes = [
-      'battery_soc_184', 'battery_power_190', 'battery_current_191', 'grid_ct_power_172'
+      'battery_soc_184', 'battery_power_190', 'battery_current_191', 'grid_ct_power_172', 'pv1_power_186'
     ];
 
     for (const attr of all_attributes) {
-      if (!config.entities[attr]) {
-        throw new Error(`Please include the ${attr} attribute and entity ID e.g. ${attr}: sensor.example`);
-      }
-    }
 
-    const solar_attributes = [
-      'pv1_power_186'
-    ];
-
-    for (const attr1 of solar_attributes) {
-      if (config.show_solar === true && !config.entities[attr1]) {
-        throw new Error(`Please include the ${attr1} attribute and entity ID e.g. ${attr1}: sensor.example`);
+      if ((attr === 'pv1_power_186' && config.show_solar === true && !config.entities[attr]) && !config.entities[attr]) {
+        throw new Error(`${localize('errors.missing_entity')} e.g: ${attr}: sensor.example`);
       }
     }
 

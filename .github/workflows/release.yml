@@ -44,14 +44,19 @@ jobs:
         run: |
           const labelsInput = ${{ toJSON(github.event.pull_request.labels) }};
           const currentVersion = ${{ steps.get-version.outputs.version }};
-          const isMajor = labelsInput.some(label => label.name === 'semver/major');
-          const isBreaking = labelsInput.some(label => label.name === 'type/breaking');
-          const isFeature = labelsInput.some(label => label.name === 'type/feature');
+          const isMajor = labelsInput.some(label => label.name === 'semver/major' || label.name === 'type/breaking');
+          const isMinor = labelsInput.some(label => label.name === 'semver/minor' || label.name === 'type/feature);
+          const isPatch = labelsInput.some(label => label.name === 'semver/patch' || label.name === 'type/bug);
+
           const isSemverValid = () => {
-            if (isMajor || isBreaking) {
+            if (isMajor) {
               return currentVersion.includes('0.0.0');
-            } else if (isFeature) {
+            } else if (isMinor) {
               return currentVersion.includes('0.0.');
+            } else if (isPatch) {
+              return currentVersion.includes('0.');
+            } else {
+              return false
             }
           };
           echo ::set-output name=is_valid::$(isSemverValid)
