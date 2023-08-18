@@ -34,7 +34,7 @@ Refer to [https://slipx06.github.io/sunsynk-power-flow-card/index.html](https://
 
 *Lite Version*
 
-![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/1b381ecf-7205-44ea-baba-1b45925a81d6)
+![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/cd55d1e7-b821-4b3f-a308-8efca55fdda2)
 ![sunsynk-power-flow-full](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/bf119d16-b049-4bd9-8906-0c9697ab386d)
 
 *Full Version*
