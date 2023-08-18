@@ -77,8 +77,8 @@ Testing
 *******
 
 There are no automated tests for this project, however it is expected that any
-development work is tested against a HA Server with both CalDav and Google Calendar
-attached, this ensures no adverse impact is added with the feature or bugfix.
+development work is tested against a HA Server with workgin inverter integration, 
+this ensures no adverse impact is added with the feature or bugfix.
 
 **********
 Versioning

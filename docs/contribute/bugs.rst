@@ -2,7 +2,7 @@
 Reporting Bugs
 ##############
 
-This section guides you through submitting a bug report for Atomic Calendar Revive.
+This section guides you through submitting a bug report for the Sunsynk Power Flow Card.
 Following these guidelines helps maintainers and the community understand your report,
 reproduce the behaviour, and find related reports.
 
@@ -32,7 +32,7 @@ How do i submit a bug report?
 
 Bugs are tracked as `GitHub issues <https://guides.github.com/features/issues/>`_.
 After you've determined this is not a configuration issue, create an issue on github
-and provide the following information by filling in `the template <https://github.com/slipx06/sunsynk-power-flow-card/issues/new?assignees=&labels=bug&template=bug_report.md&title=%5BBUG%5D+>`_.
+and provide the following information by filling in `the template <https://github.com/slipx06/sunsynk-power-flow-card/issues/new?assignees=&labels=type%2Fbug&projects=&template=bug_report.yml>`_.
 
 Explain the problem and include additional details to help maintainers reproduce the problem:
 
@@ -47,6 +47,6 @@ Explain the problem and include additional details to help maintainers reproduce
 
 Provide more context by answering these questions:
 
-- **Did the problem start happening recently** (e.g. after updating to a new version of HA / Atomic Calendar Revive) or was this always a problem?
-- If the problem started happening recently, **can you reproduce the problem in an older version of Atomic Calendar Revive?** What's the most recent version in which the problem doesn't happen? You can install older versions of Atomic Calendar Revive via HACS or from the releases page on github
+- **Did the problem start happening recently** (e.g. after updating to a new version of HA / Sunsynk Power Flow Card) or was this always a problem?
+- If the problem started happening recently, **can you reproduce the problem in an older version of the card?** What's the most recent version in which the problem doesn't happen? You can install older versions of Atomic Calendar Revive via HACS or from the releases page on github
 - **Can you reliably reproduce the issue?** If not, provide details about how often the problem happens and under which conditions it normally happens.
