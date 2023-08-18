@@ -1,15 +1,8 @@
-
-.. toctree::
-   :caption: Overview
-   :titlesonly:
-
-   overview/quickstart
-
 .. toctree::
    :caption: Configuration
    :titlesonly:
 
-   configuration/main
+   configuration
 
 .. toctree::
    :caption: Examples

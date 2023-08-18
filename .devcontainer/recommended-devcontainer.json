@@ -24,7 +24,8 @@
                 "ms-python.python",
                 "tht13.html-preview-vscode",
                 "sourcery.sourcery",
-                "tabnine.tabnine-vscode"
+                "tabnine.tabnine-vscode",
+                "trond-snekvik.simple-rst"
             ]
         }
     },

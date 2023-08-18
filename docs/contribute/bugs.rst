@@ -3,16 +3,16 @@ Reporting Bugs
 ##############
 
 This section guides you through submitting a bug report for Atomic Calendar Revive.
-Following these guidelines helps maintainers and the community understand your report
-:pencil:, reproduce the behaviour :computer: :computer:, and find related reports
-:mag_right:.
+Following these guidelines helps maintainers and the community understand your report,
+reproduce the behaviour, and find related reports.
 
 Before creating bug reports, please check the below information as you might find out
 that you don't need to create one. When you are creating a bug report,
-please :ref:include as many details as possible:, the information it asks for helps
+please include as many details as possible, the information it asks for helps
 us resolve issues faster.
 
-.. note:
+.. note::
+
    If you find a **Closed** issue that seems like it is the same thing that you're
    experiencing, open a new issue and include a link to the original issue in the
    body of your new one.
@@ -22,10 +22,7 @@ us resolve issues faster.
 Before Submitting A Bug Report
 ******************************
 
-* **Check the :ref:`qucikstart`** You may have miss-configured the plugin and
-  this is resulting in the issue you see
-* **Check the :ref:`FAQs`** for a list of common questions and problems.
-* **Perform a `cursory search <https://github.com/slipx06/sunsynk-power-flow-card/issues?q=is%3Aissue>`_ **
+* **Perform a** `cursory search <https://github.com/slipx06/sunsynk-power-flow-card/issues?q=is%3Aissue>`_
   to see if the problem has already been reported. If it has **and the issue is still open**, add a comment to
   the existing issue instead of opening a new one.
 
