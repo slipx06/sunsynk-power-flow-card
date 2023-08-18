@@ -15,18 +15,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Check for relevant changes
-        id: check-changes
-        run: |
-          changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -E "^(readme\.md|docs\/)")
-          if [ -z "$changed_files" ]; then
-            echo "No relevant changes. Exiting..."
-            exit 0
-          fi
-          echo "::set-output name=changed_files::$changed_files"
-
       - name: Deploy to GitHub Pages
-        if: steps.check-changes.outputs.changed_files != ''
         uses: totaldebug/sphinx-publish-action@master
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
