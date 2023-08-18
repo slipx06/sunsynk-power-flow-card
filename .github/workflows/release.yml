@@ -58,7 +58,7 @@ jobs:
           echo ::set-output name=is_valid::$(isSemverValid)
 
       - name: Build project
-        if: && steps.check-semver.outputs.is_valid == 'true' && steps.check-version.outputs.is_higher == 'true'
+        if: steps.check-semver.outputs.is_valid == 'true' && steps.check-version.outputs.is_higher == 'true'
         run: yarn run build
 
       - name: 🛎️ Create release
