@@ -39,10 +39,10 @@ body:
     id: mode
     attributes:
       label: Mode
-      description: What mode does this feature apply to?
+      description: What card style does this feature apply to?
       options:
-        - Event (default)
-        - Calendar
+        - lite
+        - full
         - Both
     validations:
       required: true
