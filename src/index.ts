@@ -1241,7 +1241,7 @@ export class SunsynkPowerFlowCard extends LitElement {
               <text id="daily_bat_discharge_value" x="77.2" y="380.1" class="st10 left-align" display="${battery_showdaily !== true ? 'none' : ''}" fill="${battery_colour}" >${parseFloat(stateObj.state).toFixed(1)} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_load_energy_84)}>
-              <text id="daily_load_value" x="${additional_load === 2 ? '365' : '400.4'}" y="${additional_load === 2 ? '168' : '267.9'}" class="st10 left-align" display="${load_showdaily === false ? 'none' : ''}" fill="${load_colour}" >${parseFloat(stateObj2.state).toFixed(1)} kWh</text>
+              <text id="daily_load_value" x="${additional_load === 2 ? '365' : '415'}" y="${additional_load === 2 ? '168' : '267.9'}" class="st10 left-align" display="${load_showdaily === false ? 'none' : ''}" fill="${load_colour}" >${parseFloat(stateObj2.state).toFixed(1)} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_grid_import_76)}>
               <text id="daily_grid_buy_value" x="5" y="267.9" class="st10 left-align" display="${grid_showdailybuy !== true ? 'none' : ''}" fill="${grid_colour}" >${parseFloat(stateObj3.state).toFixed(1)} kWh</text>
