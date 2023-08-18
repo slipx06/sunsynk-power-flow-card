@@ -22,7 +22,9 @@ jobs:
 
       - name: Get latest tag
         id: get-latest-tag
-        run: echo ::set-output name=latest_tag::$(git describe --tags --abbrev=0 | sed 's/^v//')
+        run: |
+          git fetch --tags
+          echo ::set-output name=latest_tag::$(git describe --tags --abbrev=0 | sed 's/^v//')
 
       - name: Get current version
         id: get-version
