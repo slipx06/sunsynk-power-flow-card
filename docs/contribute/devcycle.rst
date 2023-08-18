@@ -40,7 +40,7 @@ Checkout the master branch and pull the latest upstream version:
       git merge upstream/master
       git push
 
-Your fork should now be in sync with the main totaldebug repository, now a new branch
+Your fork should now be in sync with the main repository, now a new branch
 is required for development.
 
 .. code-block:: bash
