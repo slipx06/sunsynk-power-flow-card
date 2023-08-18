@@ -7,11 +7,11 @@ on:
     - cron: "0 0 * * *"
 
 jobs:
-  hacs:
-    name: HACS Action
+  validate-hacs:
     runs-on: "ubuntu-latest"
     steps:
-      - name: HACS Action
+      - uses: "actions/checkout@v3"
+      - name: HACS validation
         uses: "hacs/action@main"
         with:
           category: "plugin"

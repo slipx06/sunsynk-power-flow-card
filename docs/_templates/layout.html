@@ -1,0 +1,22 @@
+{% extends "!layout.html" %}
+  {% block footer %} {{ super() }}
+
+  <style>
+    .wy-nav-content {
+        max-width: 1000px !important;
+    }
+
+
+    /* and fix wrap bug per https://rackerlabs.github.io/docs-rackspace/tools/rtd-tables.html */
+    .wy-table-responsive table td {
+        /* !important prevents the common CSS stylesheets from overriding
+        this as on RTD they are loaded after this stylesheet */
+        white-space: normal !important;
+    }
+
+    .wy-table-responsive {
+        overflow: visible !important;
+    }
+  </style>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{
+    "common": {
+        "description": "A Home Assistant card to emulate the Sunsynk power flow that's shown on the Inverter screen",
+        "version": "Version",
+        "runtime_to": "RUNTIME TO",
+        "battery_floating": "BATTERY FLOATING",
+        "charge": "CHARGE",
+        "to": "TO",
+        "daily_load": "DAILY LOAD",
+        "daily_aux": "DAILY AUX",
+        "daily_grid_buy": "DAILY GRID BUY",
+        "daily_grid_sell": "DAILY GRID SELL",
+        "daily_solar": "DAILY SOLAR",
+        "daily_solar_left": "DAILY SOLAR / LEFT TODAY",
+        "daily_charge": "DAILY CHARGE",
+        "daily_discharge": "DAILY DISCHARGE",
+        "ratio": "Ratio",
+        "timer_off": "Timer off",
+        "timer_on": "Timer on",
+        "priority_batt": "Priority Batt",
+        "priority_load": "Priority Load",
+        "nonessential_name": "Non Essential",
+        "aux_name": "Auxiliary",
+        "load1_name": "",
+        "load2_name": "",
+        "pv1_name": "PV1",
+        "pv2_name": "PV2",
+        "pv3_name": "PV3",
+        "pv4_name": "PV3",
+        "essential": "Essential"
+    },
+    "errors": {
+        "battery": {
+            "bat": "No battery attributes defined",
+            "energy": "Please include the battery energy attribute and value in Wh e.g. 5.32 Battery energy: 5320",
+            "shutdown_soc": "Please include the battery shutdown_soc attribute and value e.g shutdown_soc: 20",
+            "full_capacity": "Full capacity needs to be between 80 and 100",
+            "empty_capacity": "Empty capacity needs to be <= 30",
+            "show_daily": "Please include the day_battery_charge_70 and day_battery_discharge_71 attributes and entity IDs"
+        },
+        "solar": {
+            "sol": "No solar attributes defined",
+            "mppts": "Please include the solar mppts attribute and value; 1,2,3 or 4 e.g. mppts: 2",
+            "show_daily": "Please include the day_pv_energy_108 attribute and entity ID"
+        },
+        "grid": {
+            "show_daily": "Please include the day_grid_import_76 and day_grid_export_77 attributes and entity IDs"
+        },
+        "essential_power": "The essential_power attribute is set to none. Please include the inverter_power_175 attribute and entity ID in order for the card to calculate this value.",
+        "nonessential_power": "The nonessential_power attribute is set to none. Please include the grid_power_169 attribute and entity ID in order for the card to calculate this value.",
+        "missing_entity": "`Please include the attribute and entity ID"
+    }
+}
