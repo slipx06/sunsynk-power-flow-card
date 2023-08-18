@@ -11,7 +11,7 @@
 		"rollup": "rollup -c",
 		"build": "rollup -c --bundleConfigAsCjs",
 		"watch": "rollup -c --watch --config rollup-dev.config.js",
-		"docs-test": "sphinx-autobuild docs docs/_build/html"
+		"docs-build": "sphinx-autobuild docs docs/_build/html"
 	},
 	"repository": {
 		"type": "git",
