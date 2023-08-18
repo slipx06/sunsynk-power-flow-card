@@ -486,7 +486,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         </style>
         <div class="container card">
 
-          <svg viewBox="-0.5 -0.5 457 383" preserveAspectRatio="xMidYMid meet" height="${panel === false ? `${height}` : '100%'}" width="100%" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+          <svg viewBox="-0.5 -0.5 457 383" preserveAspectRatio="xMidYMid meet" height="${panel !== true ? `${height}` : '100%'}" width="100%" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
             <rect x="51" y="162" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === false ? 'st12' : ''}"/>
             <rect x="6" y="300.75" width="70" height="70" rx="10.5" ry="10.5" fill="none" stroke="${battery_colour}" pointer-events="all"/>
             <rect x="234" y="153" width="70" height="70" rx="10.5" ry="10.5" fill="none" stroke="${grid_colour}" pointer-events="all" />
@@ -508,7 +508,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             <rect id="aux-load1" x="374" y="20" width="70" height="25" rx="4.5" ry="4.5" fill="none" stroke="${aux_colour}" pointer-events="all" display="${show_aux !== true ? 'none' : ''}" class="${additional_aux_load === 1 || additional_aux_load === 2 ? '' : 'st12'}"/>
             <rect id="aux-load2" x="374" y="50" width="70" height="25" rx="4.5" ry="4.5" fill="none" stroke="${aux_colour}" pointer-events="all" display="${show_aux !== true ? 'none' : ''}" class="${additional_aux_load === 2 ? '' : 'st12'}"/>
 
-            <text id="duration" x="132" y="352" class="${font === false ? 'st14' : 'st4'} left-align" fill="${config.battery.energy === 0 || float === true || battery_power === 0 ? 'transparent' : `${battery_colour}`}" >${duration}</text>
+            <text id="duration" x="132" y="352" class="${font !== true ? 'st14' : 'st4'} left-align" fill="${config.battery.energy === 0 || float === true || battery_power === 0 ? 'transparent' : `${battery_colour}`}" >${duration}</text>
             <text id="duration_text" x="132" y="368" class="st3 left-align" fill="${config.battery.energy === 0 || battery_power <= 0 || float === true ? 'transparent' : `${battery_colour}`}" >${localize('common.runtime_to')} ${battery_capacity}% @${formattedResultTime}</text>
             <text id="duration_text_charging" x="132" y="368" class="st3 left-align" fill="${config.battery.energy === 0 || battery_power >= 0 || float === true ? 'transparent' : `${battery_colour}`}" >${localize('common.to')} ${battery_capacity}% ${localize('common.charge')} @${formattedResultTime}</text>
             <text id="floating" x="132" y="368" class="st3 left-align" fill="${config.battery.energy === 0 || float === false ? 'transparent' : `${battery_colour}`}" >${localize('common.battery_floating')}</text>
@@ -523,14 +523,14 @@ export class SunsynkPowerFlowCard extends LitElement {
             <text id="ess-load1" x="416" y="${show_aux !== true ? 70 : 181}" class="st3 left-align" display="${additional_load === 1 ? '' : 'none'}" fill="${load_colour}" >${config.load.load1_name}</text>
             <text id="ess-load2" x="${show_aux !== true ? 393 : 390}" y="${show_aux !== true ? 59 : 172}" class="st3 st8" display="${additional_load === 2 ? '' : 'none'}" fill="${load_colour}" >${config.load.load1_name}</text>
             <text id="ess-load2" x="${show_aux !== true ? 429 : 426}" y="${show_aux !== true ? 59 : 172}" class="st3 st8" display="${additional_load === 2 ? '' : 'none'}" fill="${load_colour}" >${config.load.load2_name}</text>
-            <text id="daily_load_aux" x="${additional_aux_load === 2 ? '238' : '306'}" y="93" class="st3 left-align" fill="${load_showdaily === false || show_aux !== true ? 'transparent' : `${load_colour}`}" >${localize('common.daily_load')}</text>
-            <text id="daily_load" x="${additional_load === 0 ? '377' : '306'}" y="${additional_load === 0 ? 71 : 93}" class="st3 left-align" fill="${load_showdaily === false || show_aux === true ? 'transparent' : `${load_colour}`}" >${localize('common.daily_load')}</text>
-            <text id="daily_solar" x="43.5" y="29" class="st3 left-align" fill="${solar_showdaily === false || config.show_solar === false || remaining_solar != false ? 'transparent' : `${solar_colour}`}" >${localize('common.daily_solar')}</text>
-            <text id="remaining_solar" x="43.5" y="29" class="st3 left-align" fill="${solar_showdaily === false || config.show_solar === false || remaining_solar === false ? 'transparent' : `${solar_colour}`}" >${localize('common.daily_solar_left')}</text>
-            <text id="daily_bat_charge" x="4.5" y="251" class="st3 left-align"  fill="${battery_showdaily === false ? 'transparent' : `${battery_colour}`}" >${localize('common.daily_charge')}</text>
-            <text id="daily_bat_discharge" x="4.5" y="285" class="st3 left-align"  fill="${battery_showdaily === false ? 'transparent' : `${battery_colour}`}" >${localize('common.daily_discharge')}</text>
-            <text id="daily_grid_buy" x="${grid_show_noness === false ? '311' : '347'}" y="${grid_show_noness === false ? '368' : '253'}" class="st3 left-align" fill="${grid_showdailybuy === false ? 'transparent' : `${grid_colour}`}" >${localize('common.daily_grid_buy')}</text>
-            <text id="daily_grid_sell" x="${grid_show_noness === false ? '311' : '347'}" y="${grid_show_noness === false ? '337' : '222'}" class="st3 left-align" fill="${grid_showdailysell === false ? 'transparent' : `${grid_colour}`}" >${localize('common.daily_grid_sell')}</text>
+            <text id="daily_load_aux" x="${additional_aux_load === 2 ? '238' : '306'}" y="93" class="st3 left-align" fill="${load_showdaily !== true || show_aux !== true ? 'transparent' : `${load_colour}`}" >${localize('common.daily_load')}</text>
+            <text id="daily_load" x="${additional_load === 0 ? '377' : '306'}" y="${additional_load === 0 ? 71 : 93}" class="st3 left-align" fill="${load_showdaily !== true || show_aux === true ? 'transparent' : `${load_colour}`}" >${localize('common.daily_load')}</text>
+            <text id="daily_solar" x="43.5" y="29" class="st3 left-align" fill="${solar_showdaily !== true || config.show_solar === false || remaining_solar != false ? 'transparent' : `${solar_colour}`}" >${localize('common.daily_solar')}</text>
+            <text id="remaining_solar" x="43.5" y="29" class="st3 left-align" fill="${solar_showdaily !== true || config.show_solar === false || remaining_solar === false ? 'transparent' : `${solar_colour}`}" >${localize('common.daily_solar_left')}</text>
+            <text id="daily_bat_charge" x="4.5" y="251" class="st3 left-align"  fill="${battery_showdaily !== true ? 'transparent' : `${battery_colour}`}" >${localize('common.daily_charge')}</text>
+            <text id="daily_bat_discharge" x="4.5" y="285" class="st3 left-align"  fill="${battery_showdaily !== true ? 'transparent' : `${battery_colour}`}" >${localize('common.daily_discharge')}</text>
+            <text id="daily_grid_buy" x="${grid_show_noness === false ? '311' : '347'}" y="${grid_show_noness === false ? '368' : '253'}" class="st3 left-align" fill="${grid_showdailybuy !== true ? 'transparent' : `${grid_colour}`}" >${localize('common.daily_grid_buy')}</text>
+            <text id="daily_grid_sell" x="${grid_show_noness === false ? '311' : '347'}" y="${grid_show_noness === false ? '337' : '222'}" class="st3 left-align" fill="${grid_showdailysell !== true ? 'transparent' : `${grid_colour}`}" >${localize('common.daily_grid_sell')}</text>
             <text id="aux_one" x="411" y="82" class="st3 st8" display="${show_aux !== true || additional_aux_load === 1 || additional_aux_load === 2 ? 'none' : ''}" fill="${aux_status === 'on' || aux_status === '1' ? `${aux_colour}` : `${aux_off_colour}`}" >${config.load.aux_name}</text>
             <text id="noness" x="340" y="377" class="st3 st8" display="${grid_show_noness === false ? 'none' : ''}" fill="${grid_colour}">${config.grid.nonessential_name}</text>
             <text id="noness1" x="340"" y="338" class="st3 st8" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 ? 'none' : ''}" fill="${grid_colour}">${config.grid.load1_name}</text>
@@ -544,7 +544,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             <text id="ratio" x="251" y="295" display="${useautarky === 'no' ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >Ratio</text>
             <text id="aux_load1" x="411" y="${additional_aux_load === 1 ? 53 : 14}" class="st3 st8" display="${show_aux !== true || additional_aux_load === 0 ? 'none' : ''}" fill="${aux_colour}" >${config.load.aux_load1_name}</text>
             <text id="aux_load2" x="411" y="83" class="st3 st8" display="${show_aux !== true || additional_aux_load === 0 || additional_aux_load === 1 ? 'none' : ''}" fill="${aux_colour}" >${config.load.aux_load2_name}</text>
-            <text id="aux_daily_text" x="${(additional_aux_load === 1 || additional_aux_load === 2) ? '238' : '306'}" y="24" class="st3 left-align" display="${show_aux !== true || show_dailyaux === false ? 'none' : ''}" fill="${aux_colour}" >${localize('common.daily_aux')}</text>
+            <text id="aux_daily_text" x="${(additional_aux_load === 1 || additional_aux_load === 2) ? '238' : '306'}" y="24" class="st3 left-align" display="${show_aux !== true || show_dailyaux !== true ? 'none' : ''}" fill="${aux_colour}" >${localize('common.daily_aux')}</text>
 
             <circle id="standby" cx="164" cy="304" r="3.5" fill="${inverterStateColour}"/>
 
@@ -856,86 +856,86 @@ export class SunsynkPowerFlowCard extends LitElement {
               <svg xmlns="http://www.w3.org/2000/svg" id="prog_grid_off" x="265" y="${useautarky != 'no' ? "232" : "249"}" width="20" height="18" viewBox="0 0 24 24"><path display="${inverter_prog.show === false || config.entities.use_timer_248 === 'none' ? 'none' : ''}" class="${inverter_prog.charge === 'none' ? '' : 'st12'}" fill="${inverter_colour}" d="M10 3H8v1.88l2 2zm6 6v3.88l1.8 1.8l.2-.2V9c0-1.1-.9-2-2-2V3h-2v4h-3.88l2 2H16zM4.12 3.84L2.71 5.25L6 8.54v5.96L9.5 18v3h5v-3l.48-.48l4.47 4.47l1.41-1.41L4.12 3.84zm8.38 13.33V19h-1v-1.83L8 13.65v-3.11l5.57 5.57l-1.07 1.06z"/></svg>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_pv_energy_108)}>
-              <text id="daily_solar_value" x="43.5" y="15" class="st10 left-align" display="${solar_showdaily === false || config.show_solar === false || remaining_solar != false ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj4.state).toFixed(1)} kWh</text>
+              <text id="daily_solar_value" x="43.5" y="15" class="st10 left-align" display="${solar_showdaily !== true || config.show_solar === false || remaining_solar != false ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj4.state).toFixed(1)} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_pv_energy_108)}>
-              <text id="daily_solar_value" x="43.5" y="15" class="st10 left-align" display="${solar_showdaily === false || config.show_solar === false || remaining_solar === false ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj4.state).toFixed(1)} kWh / ${remaining_solar} kWh</text>
+              <text id="daily_solar_value" x="43.5" y="15" class="st10 left-align" display="${solar_showdaily !== true || config.show_solar === false || remaining_solar === false ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj4.state).toFixed(1)} kWh / ${remaining_solar} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_load_energy_84)}>
-              <text id="daily_load_value_aux" x="${additional_aux_load === 2 ? '238' : '306'}" y="80" class="st10 left-align" display="${load_showdaily === false || show_aux !== true ? 'none' : ''}" fill="${load_colour}" >${parseFloat(stateObj2.state).toFixed(1)} kWh</text>
+              <text id="daily_load_value_aux" x="${additional_aux_load === 2 ? '238' : '306'}" y="80" class="st10 left-align" display="${load_showdaily !== true || show_aux !== true ? 'none' : ''}" fill="${load_colour}" >${parseFloat(stateObj2.state).toFixed(1)} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_load_energy_84)}>
-              <text id="daily_load_value" x="${additional_load === 0 ? '377' : '306'}" y="${additional_load === 0 ? '57' : '80'}" class="st10 left-align" display="${load_showdaily === false || show_aux === true ? 'none' : ''}" fill="${load_colour}" >${parseFloat(stateObj2.state).toFixed(1)} kWh</text>
+              <text id="daily_load_value" x="${additional_load === 0 ? '377' : '306'}" y="${additional_load === 0 ? '57' : '80'}" class="st10 left-align" display="${load_showdaily !== true || show_aux === true ? 'none' : ''}" fill="${load_colour}" >${parseFloat(stateObj2.state).toFixed(1)} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_battery_charge_70)}>
-              <text id="daily_bat_charge_value" x="4.5" y="237" class= "st10 left-align" display="${battery_showdaily === false ? 'none' : ''}" fill="${battery_colour}">${parseFloat(stateObj1.state).toFixed(1)} kWh</text>
+              <text id="daily_bat_charge_value" x="4.5" y="237" class= "st10 left-align" display="${battery_showdaily !== true ? 'none' : ''}" fill="${battery_colour}">${parseFloat(stateObj1.state).toFixed(1)} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_battery_discharge_71)}>
-              <text id="daily_bat_discharge_value" x="4.5" y="271" class="st10 left-align" display="${battery_showdaily === false ? 'none' : ''}" fill="${battery_colour}" >${parseFloat(stateObj.state).toFixed(1)} kWh</text>
+              <text id="daily_bat_discharge_value" x="4.5" y="271" class="st10 left-align" display="${battery_showdaily !== true ? 'none' : ''}" fill="${battery_colour}" >${parseFloat(stateObj.state).toFixed(1)} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_grid_import_76)}>
-              <text id="daily_grid_buy_value" x="${grid_show_noness === false ? '311' : '347'}" y="${grid_show_noness === false ? '354' : '239'}" class="st10 left-align" display="${grid_showdailybuy === false ? 'none' : ''}" fill="${grid_colour}" >${parseFloat(stateObj3.state).toFixed(1)} kWh</text>
+              <text id="daily_grid_buy_value" x="${grid_show_noness === false ? '311' : '347'}" y="${grid_show_noness === false ? '354' : '239'}" class="st10 left-align" display="${grid_showdailybuy !== true ? 'none' : ''}" fill="${grid_colour}" >${parseFloat(stateObj3.state).toFixed(1)} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_grid_export_77)}>
-              <text id="daily_grid_sell_value" x="${grid_show_noness === false ? '311' : '347'}" y="${grid_show_noness === false ? '323' : '209'}" class="st10 left-align" display="${grid_showdailysell === false ? 'none' : ''}" fill="${grid_colour}" >${parseFloat(stateObj33.state).toFixed(1)} kWh</text>
+              <text id="daily_grid_sell_value" x="${grid_show_noness === false ? '311' : '347'}" y="${grid_show_noness === false ? '323' : '209'}" class="st10 left-align" display="${grid_showdailysell !== true ? 'none' : ''}" fill="${grid_colour}" >${parseFloat(stateObj33.state).toFixed(1)} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_aux_energy)}>
-              <text id="aux_daily_value" x="${(additional_aux_load === 1 || additional_aux_load === 2) ? '238' : '306'}" y="12" class="st10 left-align" display="${show_aux !== true || show_dailyaux === false ? 'none' : ''}" fill="${aux_colour}" >${parseFloat(stateObj50.state).toFixed(1)} kWh</text>
+              <text id="aux_daily_value" x="${(additional_aux_load === 1 || additional_aux_load === 2) ? '238' : '306'}" y="12" class="st10 left-align" display="${show_aux !== true || show_dailyaux !== true ? 'none' : ''}" fill="${aux_colour}" >${parseFloat(stateObj50.state).toFixed(1)} kWh</text>
             </a>
 
             ${config.entities?.pv_total
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv_total)}>
-              <text id="pvtotal_power" x="19%" y="46.5%" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${total_pv || 0} W</text>
+              <text id="pvtotal_power" x="19%" y="46.5%" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${total_pv || 0} W</text>
             </a>`
-          : svg` <text id="pvtotal_power" x="87" y="178" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${total_pv || 0} W</text> `}
+          : svg` <text id="pvtotal_power" x="87" y="178" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${total_pv || 0} W</text> `}
             ${config.entities?.essential_power
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_power)}>
-                  <text id="ess_power" x="270" y="119" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential || 0} W</text>
+                  <text id="ess_power" x="270" y="119" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential || 0} W</text>
                   </a>`
-          : svg`<text id="ess_power" x="270" y="119" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential || 0} W</text>`}
+          : svg`<text id="ess_power" x="270" y="119" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential || 0} W</text>`}
             ${config.entities?.nonessential_power
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.nonessential_power)}>
-                    <text id="non_ess_power" x="338" y="281.5" display="${grid_show_noness === false ? 'none' : ''}" class="${font === false ? 'st14' : 'st4'} st8" fill="${grid_colour}">${nonessential || 0} W</text>
+                    <text id="non_ess_power" x="338" y="281.5" display="${grid_show_noness === false ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">${nonessential || 0} W</text>
                   </a>`
-          : svg`<text id="non_ess_power" x="338" y="281.5" display="${grid_show_noness === false ? 'none' : ''}" class="${font === false ? 'st14' : 'st4'} st8" fill="${grid_colour}">${nonessential || 0} W</text> `}
+          : svg`<text id="non_ess_power" x="338" y="281.5" display="${grid_show_noness === false ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">${nonessential || 0} W</text> `}
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_ct_power_172)}>
-              <text id="grid_ct_power_172" x="420" y="281.5" display="${config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}" class="${font === false ? 'st14' : 'st4'} st8" fill="${grid_colour}">${grid_power || 0} W</text>
+              <text id="grid_ct_power_172" x="420" y="281.5" display="${config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">${grid_power || 0} W</text>
             </a>
             ${config.entities?.aux_power_166
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.aux_power_166)}>
-                    <text id="aux_power_166" x="270" y="48" class="${font === false ? 'st14' : 'st4'} st8" display="${show_aux !== true ? 'none' : ''}" fill="${aux_colour}">${aux_power < 0 ? aux_power * -1 : aux_power} W</text>
+                    <text id="aux_power_166" x="270" y="48" class="${font !== true ? 'st14' : 'st4'} st8" display="${show_aux !== true ? 'none' : ''}" fill="${aux_colour}">${aux_power < 0 ? aux_power * -1 : aux_power} W</text>
                   </a>`
-          : svg`<text id="aux_power_166" x="270" y="48" class="${font === false ? 'st14' : 'st4'} st8" display="${show_aux !== true ? 'none' : ''}" fill="${aux_colour}">${aux_power < 0 ? aux_power * -1 : aux_power} W</text> `}
+          : svg`<text id="aux_power_166" x="270" y="48" class="${font !== true ? 'st14' : 'st4'} st8" display="${show_aux !== true ? 'none' : ''}" fill="${aux_colour}">${aux_power < 0 ? aux_power * -1 : aux_power} W</text> `}
             ${config.entities?.pv1_power_186
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_power_186)}>
-                    <text id="pv1_power_186" x="36.5" y="56.5" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj9.state).toFixed(0)} W</text>
+                    <text id="pv1_power_186" x="36.5" y="56.5" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj9.state).toFixed(0)} W</text>
                   </a>`
-          : svg`<text id="pv1_power_186" x="36.5" y="56.5" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv1_power_186 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj9.state).toFixed(0)} W</text>`}
+          : svg`<text id="pv1_power_186" x="36.5" y="56.5" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv1_power_186 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj9.state).toFixed(0)} W</text>`}
             ${config.entities?.pv2_power_187
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_power_187)}>
-                    <text id="pv2_power_187" x="137" y="56.5" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj8.state).toFixed(0)} W</text>
+                    <text id="pv2_power_187" x="137" y="56.5" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj8.state).toFixed(0)} W</text>
                   </a>`
-          : svg`<text id="pv2_power_187" x="137" y="56.5" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv2_power_187 === 'none' || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj8.state).toFixed(0)} W</text>`}
+          : svg`<text id="pv2_power_187" x="137" y="56.5" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv2_power_187 === 'none' || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj8.state).toFixed(0)} W</text>`}
             ${config.entities?.pv3_power_188
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_power_188)}>
-                    <text id="pv3_power_188" x="36.5" y="117" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj31.state).toFixed(0)} W</text>
+                    <text id="pv3_power_188" x="36.5" y="117" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj31.state).toFixed(0)} W</text>
                   </a>`
-          : svg`<text id="pv3_power_188" x="36.5" y="117" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv3_power_188 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj31.state).toFixed(0)} W</text>`}
+          : svg`<text id="pv3_power_188" x="36.5" y="117" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv3_power_188 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj31.state).toFixed(0)} W</text>`}
             ${config.entities?.pv4_power_189
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_power_189)}>
-                    <text id="pv4_power_189" x="137" y="117" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj32.state).toFixed(0)} W</text>
+                    <text id="pv4_power_189" x="137" y="117" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj32.state).toFixed(0)} W</text>
                   </a>`
-          : svg`<text id="pv4_power_189" x="137" y="117" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv4_power_189 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj32.state).toFixed(0)} W</text>`}
+          : svg`<text id="pv4_power_189" x="137" y="117" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv4_power_189 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj32.state).toFixed(0)} W</text>`}
             ${config.entities?.aux_load1
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.aux_load1)}>
-                    <text id="aux_load1_value" x="411" y="34" class="${font === false ? 'st14' : 'st4'} st8" display="${show_aux !== true || additional_aux_load === 0 ? 'none' : ''}" fill="${aux_colour}">${isNaN(parseFloat(stateObj48.state)) ? '0' : parseFloat(stateObj48.state).toFixed(0)} W</text>
+                    <text id="aux_load1_value" x="411" y="34" class="${font !== true ? 'st14' : 'st4'} st8" display="${show_aux !== true || additional_aux_load === 0 ? 'none' : ''}" fill="${aux_colour}">${isNaN(parseFloat(stateObj48.state)) ? '0' : parseFloat(stateObj48.state).toFixed(0)} W</text>
                   </a>`
-          : svg`<text id="aux_load1_value" x="411" y="34" class="${font === false ? 'st14' : 'st4'} st8" display="${show_aux !== true || additional_aux_load === 0 ? 'none' : ''}" fill="${aux_colour}">${isNaN(parseFloat(stateObj48.state)) ? '0' : parseFloat(stateObj48.state).toFixed(0)} W</text>`}
+          : svg`<text id="aux_load1_value" x="411" y="34" class="${font !== true ? 'st14' : 'st4'} st8" display="${show_aux !== true || additional_aux_load === 0 ? 'none' : ''}" fill="${aux_colour}">${isNaN(parseFloat(stateObj48.state)) ? '0' : parseFloat(stateObj48.state).toFixed(0)} W</text>`}
             ${config.entities?.aux_load2
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.aux_load1)}>
-                    <text id="aux_load2_value" x="411" y="64" class="${font === false ? 'st14' : 'st4'} st8" display="${show_aux !== true || additional_aux_load === 0 || additional_aux_load === 1 ? 'none' : ''}" fill="${aux_colour}">${isNaN(parseFloat(stateObj49.state)) ? '0' : parseFloat(stateObj49.state).toFixed(0)} W</text>
+                    <text id="aux_load2_value" x="411" y="64" class="${font !== true ? 'st14' : 'st4'} st8" display="${show_aux !== true || additional_aux_load === 0 || additional_aux_load === 1 ? 'none' : ''}" fill="${aux_colour}">${isNaN(parseFloat(stateObj49.state)) ? '0' : parseFloat(stateObj49.state).toFixed(0)} W</text>
                   </a>`
-          : svg`<text id="aux_load2_value" x="411" y="64" class="${font === false ? 'st14' : 'st4'} st8" display="${show_aux !== true || additional_aux_load === 0 || additional_aux_load === 1 ? 'none' : ''}" fill="${aux_colour}">${isNaN(parseFloat(stateObj49.state)) ? '0' : parseFloat(stateObj49.state).toFixed(0)} W</text>`}
+          : svg`<text id="aux_load2_value" x="411" y="64" class="${font !== true ? 'st14' : 'st4'} st8" display="${show_aux !== true || additional_aux_load === 0 || additional_aux_load === 1 ? 'none' : ''}" fill="${aux_colour}">${isNaN(parseFloat(stateObj49.state)) ? '0' : parseFloat(stateObj49.state).toFixed(0)} W</text>`}
             ${config.entities?.non_essential_load1
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.non_essential_load1)}>
                     <text id="noness1_value" x="340"" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 ? 'none' : ''}" fill="${grid_colour}">${isNaN(parseFloat(stateObj40.state)) ? '0' : parseFloat(stateObj40.state).toFixed(0)} W</text>
@@ -953,9 +953,9 @@ export class SunsynkPowerFlowCard extends LitElement {
           : svg`<text id="noness2_value" x="357" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" fill="${grid_colour}">${isNaN(parseFloat(stateObj41.state)) ? '0' : parseFloat(stateObj41.state).toFixed(0)} W</text>`}
             ${config.entities?.essential_load1
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1)}>
-                    <text id="ess_load1_value" x="409" y="${show_aux !== true ? '47' : '158'}" display="${additional_load === 1 ? '' : 'none'}" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj42.state)) ? '0' : parseFloat(stateObj42.state).toFixed(0)} W</text>
+                    <text id="ess_load1_value" x="409" y="${show_aux !== true ? '47' : '158'}" display="${additional_load === 1 ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj42.state)) ? '0' : parseFloat(stateObj42.state).toFixed(0)} W</text>
                   </a>`
-          : svg`<text id="ess_load1_value" x="409" y="${show_aux !== true ? '47' : '158'}" display="${additional_load === 1 ? '' : 'none'}" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj42.state)) ? '0' : parseFloat(stateObj42.state).toFixed(0)} W</text>`}
+          : svg`<text id="ess_load1_value" x="409" y="${show_aux !== true ? '47' : '158'}" display="${additional_load === 1 ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj42.state)) ? '0' : parseFloat(stateObj42.state).toFixed(0)} W</text>`}
             ${config.entities?.essential_load1
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1)}>
                     <text id="ess_load2_value" x="${show_aux !== true ? '394' : '391'}" y="${show_aux !== true ? '42' : '154'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${isNaN(parseFloat(stateObj42.state)) ? '0' : parseFloat(stateObj42.state).toFixed(0)} W</text>
@@ -968,16 +968,16 @@ export class SunsynkPowerFlowCard extends LitElement {
           : svg`<text id="ess_load2_value" x="${show_aux !== true ? '430' : '427'}" y="${show_aux !== true ? '42' : '154'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${isNaN(parseFloat(stateObj45.state)) ? '0' : parseFloat(stateObj45.state).toFixed(0)} W</text>`}
 
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_voltage_154)}>
-              <text id="inverter_voltage_154" x="270" y="170.4" display="${config.entities.inverter_voltage_154 === 'none' || !config.entities.inverter_voltage_154 ? 'none' : ''}" class="${font === false ? 'st14' : 'st4'} st8" fill="${grid_colour}" >${inverter_voltage} V</text>
+              <text id="inverter_voltage_154" x="270" y="170.4" display="${config.entities.inverter_voltage_154 === 'none' || !config.entities.inverter_voltage_154 ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}" >${inverter_voltage} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.load_frequency_192)}>
-              <text id="load_frequency_192" x="270" y="189.5" display="${config.entities.load_frequency_192 === 'none' || !config.entities.load_frequency_192 ? 'none' : ''}" class="${font === false ? 'st14' : 'st4'} st8" fill="${grid_colour}">${load_frequency} Hz</text>
+              <text id="load_frequency_192" x="270" y="189.5" display="${config.entities.load_frequency_192 === 'none' || !config.entities.load_frequency_192 ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">${load_frequency} Hz</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_current_164)}>
-              <text id="inverter_current_164" x="180.5" y="199" display="${config.entities.inverter_current_164 === 'none' || !config.entities.inverter_current_164 ? 'none' : ''}" class="${font === false ? 'st14' : 'st4'} st8" fill="${inverter_colour}">${inverter_current} A</text>
+              <text id="inverter_current_164" x="180.5" y="199" display="${config.entities.inverter_current_164 === 'none' || !config.entities.inverter_current_164 ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${inverter_colour}">${inverter_current} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_voltage_183)}>
-              <text id="battery_voltage_183" x="41" y="317" display="${config.entities.battery_voltage_183 === 'none' || !config.entities.battery_voltage_183 ? 'none' : ''}" fill=${battery_colour} class="${font === false ? 'st14' : 'st4'} st8">${battery_voltage} V</text>
+              <text id="battery_voltage_183" x="41" y="317" display="${config.entities.battery_voltage_183 === 'none' || !config.entities.battery_voltage_183 ? 'none' : ''}" fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">${battery_voltage} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
               <text id="battery_soc_184" x="132.5" y="333" display="${config.entities.battery_soc_184 === 'none' ? 'none' : ''}" fill=${battery_colour} class="st13 st8 left-align">${parseInt(stateObj12.state)} %</text>
@@ -986,16 +986,16 @@ export class SunsynkPowerFlowCard extends LitElement {
               <text id="battery_soc_184" x="196.5" y="333" fill=${battery_colour} class="st13 st8 left-align" display="${inverter_prog.show === false || config.entities.battery_soc_184 === 'none' ? 'none' : ''}"> | ${inverter_prog.capacity || 0} %</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_power_190)}>
-              <text id="battery_power_190" x="41" y="356" display="${config.entities.battery_power_190 === 'none' ? 'none' : ''}" fill=${battery_colour} class="${font === false ? 'st14' : 'st4'} st8">${battery_power < 0 ? battery_power * -1 : battery_power} W</text>
+              <text id="battery_power_190" x="41" y="356" display="${config.entities.battery_power_190 === 'none' ? 'none' : ''}" fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">${battery_power < 0 ? battery_power * -1 : battery_power} W</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_current_191)}>
-              <text id="battery_current_191" x="41" y="336" display="${config.entities.battery_current_191 === 'none' ? 'none' : ''}" fill=${battery_colour} class="${font === false ? 'st14' : 'st4'} st8">${stateObj35.state} A</text>
+              <text id="battery_current_191" x="41" y="336" display="${config.entities.battery_current_191 === 'none' ? 'none' : ''}" fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">${stateObj35.state} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_power_175)}>
-              <text id="inverter_power_175" x="180.5" y="178" display="${config.entities.inverter_power_175 === 'none' ? 'none' : ''}" class="${font === false ? 'st14' : 'st4'} st8" fill="${inverter_colour}">${stateObj22.state} W</text>
+              <text id="inverter_power_175" x="180.5" y="178" display="${config.entities.inverter_power_175 === 'none' ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${inverter_colour}">${stateObj22.state} W</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_power_169)}>
-              <text id="grid_power_169" x="270" y="209" display="${config.entities.grid_power_169 === 'none' ? 'none' : ''}" class="${font === false ? 'st14' : 'st4'} st8" fill="${grid_colour}">${stateObj23.state} W</text>
+              <text id="grid_power_169" x="270" y="209" display="${config.entities.grid_power_169 === 'none' ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">${stateObj23.state} W</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_voltage_109)}>
               <text id="pv1_voltage" x="41" y="78.5" class="st3 left-align" display="${config.show_solar === false || !config.entities.pv1_voltage_109 || config.entities.pv1_voltage_109 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${stateObj16.state} V</text>
@@ -1062,17 +1062,17 @@ export class SunsynkPowerFlowCard extends LitElement {
             <rect id="es-load1" x="406" y="116.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${load_colour}" pointer-events="all" display="${additional_load === 2 && config.show_solar === true ? '' : 'none'}"/>
             <rect id="es-load2" x="406" y="290" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${load_colour}" pointer-events="all" display="${additional_load === 2 && config.show_solar === true ? '' : 'none'}"/>
 
-            <text id="duration" x="290" y="377.5" class="${font === false ? 'st14' : 'st4'} left-align" fill="${config.battery.energy === 0 || float === true || battery_power === 0 ? 'transparent' : `${battery_colour}`}" >${duration}</text>
+            <text id="duration" x="290" y="377.5" class="${font !== true ? 'st14' : 'st4'} left-align" fill="${config.battery.energy === 0 || float === true || battery_power === 0 ? 'transparent' : `${battery_colour}`}" >${duration}</text>
             <text id="duration_text" x="290" y="393.7" class="st3 left-align" fill="${config.battery.energy === 0 || battery_power <= 0 || float === true ? 'transparent' : `${battery_colour}`}" >${localize('common.runtime_to')} ${battery_capacity}% @${formattedResultTime}</text>
             <text id="duration_text_charging" x="290" y="393.7" class="st3 left-align" fill="${config.battery.energy === 0 || battery_power >= 0 || float === true ? 'transparent' : `${battery_colour}`}" >${localize('common.to')} ${battery_capacity}% ${localize('common.charge')} @${formattedResultTime}</text>
             <text id="floating" x="290" y="393.7" class="st3 left-align" fill="${config.battery.energy === 0 || float === false ? 'transparent' : `${battery_colour}`}" >${localize('common.battery_floating')}</text>
-            <text id="daily_bat_charge" x="77.2" y="357.2" class="st3 left-align"  fill="${battery_showdaily === false ? 'transparent' : `${battery_colour}`}"  >${localize('common.daily_charge')}</text>
-            <text id="daily_bat_dischcharge" x="77.2" y="393.7" class="st3 left-align"  fill="${battery_showdaily === false ? 'transparent' : `${battery_colour}`}" >${localize('common.daily_discharge')}</text>
+            <text id="daily_bat_charge" x="77.2" y="357.2" class="st3 left-align"  fill="${battery_showdaily !== true ? 'transparent' : `${battery_colour}`}"  >${localize('common.daily_charge')}</text>
+            <text id="daily_bat_dischcharge" x="77.2" y="393.7" class="st3 left-align"  fill="${battery_showdaily !== true ? 'transparent' : `${battery_colour}`}" >${localize('common.daily_discharge')}</text>
             <text id="daily_load" x="${additional_load === 2 ? '365' : '415'}" y="${additional_load === 2 ? '182.2' : '282.1'}" class="st3 left-align" fill="${load_showdaily === false ? 'transparent' : `${load_colour}`}" >${localize('common.daily_load')}</text>
-            <text id="daily_grid_buy" x="5" y="282.1" class="st3 left-align" fill="${grid_showdailybuy === false ? 'transparent' : `${grid_colour}`}" >${localize('common.daily_grid_buy')}</text>
-            <text id="daily_grid_sell" x="5" y="179" class="st3 left-align" fill="${grid_showdailysell === false ? 'transparent' : `${grid_colour}`}" >${localize('common.daily_grid_sell')}</text>
-            <text id="daily_solar" x="200" y="40" class="st3 left-align" fill="${solar_showdaily === false || config.show_solar === false || remaining_solar != false ? 'transparent' : `${solar_colour}`}">${localize('common.daily_solar')}</text>
-            <text id="remaining_solar" x="200" y="40" class="st3 left-align" fill="${solar_showdaily === false || config.show_solar === false || remaining_solar === false ? 'transparent' : `${solar_colour}`}" >${localize('common.daily_solar_left')}</text>
+            <text id="daily_grid_buy" x="5" y="282.1" class="st3 left-align" fill="${grid_showdailybuy !== true ? 'transparent' : `${grid_colour}`}" >${localize('common.daily_grid_buy')}</text>
+            <text id="daily_grid_sell" x="5" y="179" class="st3 left-align" fill="${grid_showdailysell !== true ? 'transparent' : `${grid_colour}`}" >${localize('common.daily_grid_sell')}</text>
+            <text id="daily_solar" x="200" y="40" class="st3 left-align" fill="${solar_showdaily !== true || config.show_solar === false || remaining_solar != false ? 'transparent' : `${solar_colour}`}">${localize('common.daily_solar')}</text>
+            <text id="remaining_solar" x="200" y="40" class="st3 left-align" fill="${solar_showdaily !== true || config.show_solar === false || remaining_solar === false ? 'transparent' : `${solar_colour}`}" >${localize('common.daily_solar_left')}</text>
             <text x="162" y="94" class="st3 st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${config.solar.pv1_name}</text>
             <text x="264" y="94" class="st3 st8" display="${config.show_solar === false || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${config.solar.pv2_name}</text>
             <text x="88" y="94" class="st3 st8" display="${config.show_solar === false || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}">${config.solar.pv3_name}</text>
@@ -1229,25 +1229,25 @@ export class SunsynkPowerFlowCard extends LitElement {
               <svg xmlns="http://www.w3.org/2000/svg" id="prog_grid_off" x="323" y="243" width="20" height="18" viewBox="0 0 24 24"><path display="${inverter_prog.show === false || config.entities.use_timer_248 === 'none' ? 'none' : ''}" class="${inverter_prog.charge === 'none' ? '' : 'st12'}" fill="${inverter_colour}" d="M10 3H8v1.88l2 2zm6 6v3.88l1.8 1.8l.2-.2V9c0-1.1-.9-2-2-2V3h-2v4h-3.88l2 2H16zM4.12 3.84L2.71 5.25L6 8.54v5.96L9.5 18v3h5v-3l.48-.48l4.47 4.47l1.41-1.41L4.12 3.84zm8.38 13.33V19h-1v-1.83L8 13.65v-3.11l5.57 5.57l-1.07 1.06z"/></svg>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_battery_charge_70)}>
-              <text id="daily_bat_charge_value" x="77.2" y="343" class= "st10 left-align" display="${battery_showdaily === false ? 'none' : ''}" fill="${battery_colour}">${parseFloat(stateObj1.state).toFixed(1)} kWh</text>
+              <text id="daily_bat_charge_value" x="77.2" y="343" class= "st10 left-align" display="${battery_showdaily !== true ? 'none' : ''}" fill="${battery_colour}">${parseFloat(stateObj1.state).toFixed(1)} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_pv_energy_108)}>
-              <text id="daily_solar_value" x="200" y="26" class="st10 left-align" display="${solar_showdaily === false || config.show_solar === false || remaining_solar != false ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj4.state).toFixed(1)} kWh</text>
+              <text id="daily_solar_value" x="200" y="26" class="st10 left-align" display="${solar_showdaily !== true || config.show_solar === false || remaining_solar != false ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj4.state).toFixed(1)} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_pv_energy_108)}>
-              <text id="remaining_solar_value" x="200" y="26" class="st10 left-align" display="${solar_showdaily === false || config.show_solar === false || remaining_solar === false ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj4.state).toFixed(1)} kWh / ${remaining_solar} kWh</text>
+              <text id="remaining_solar_value" x="200" y="26" class="st10 left-align" display="${solar_showdaily !== true || config.show_solar === false || remaining_solar === false ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj4.state).toFixed(1)} kWh / ${remaining_solar} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_battery_discharge_71)}>
-              <text id="daily_bat_discharge_value" x="77.2" y="380.1" class="st10 left-align" display="${battery_showdaily === false ? 'none' : ''}" fill="${battery_colour}" >${parseFloat(stateObj.state).toFixed(1)} kWh</text>
+              <text id="daily_bat_discharge_value" x="77.2" y="380.1" class="st10 left-align" display="${battery_showdaily !== true ? 'none' : ''}" fill="${battery_colour}" >${parseFloat(stateObj.state).toFixed(1)} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_load_energy_84)}>
               <text id="daily_load_value" x="${additional_load === 2 ? '365' : '400.4'}" y="${additional_load === 2 ? '168' : '267.9'}" class="st10 left-align" display="${load_showdaily === false ? 'none' : ''}" fill="${load_colour}" >${parseFloat(stateObj2.state).toFixed(1)} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_grid_import_76)}>
-              <text id="daily_grid_buy_value" x="5" y="267.9" class="st10 left-align" display="${grid_showdailybuy === false ? 'none' : ''}" fill="${grid_colour}" >${parseFloat(stateObj3.state).toFixed(1)} kWh</text>
+              <text id="daily_grid_buy_value" x="5" y="267.9" class="st10 left-align" display="${grid_showdailybuy !== true ? 'none' : ''}" fill="${grid_colour}" >${parseFloat(stateObj3.state).toFixed(1)} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_grid_export_77)}>
-              <text id="daily_grid_sell_value" x="5" y="165" class="st10 left-align" display="${grid_showdailysell === false ? 'none' : ''}" fill="${grid_colour}" >${parseFloat(stateObj33.state).toFixed(1)} kWh</text>
+              <text id="daily_grid_sell_value" x="5" y="165" class="st10 left-align" display="${grid_showdailysell !== true ? 'none' : ''}" fill="${grid_colour}" >${parseFloat(stateObj33.state).toFixed(1)} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_voltage_154)}>
               <text id="inverter_voltage_154" x="270.2" y="168.2" display="${config.entities.inverter_voltage_154 === 'none' || !config.entities.inverter_voltage_154 ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >${inverter_voltage} V</text>
@@ -1259,7 +1259,7 @@ export class SunsynkPowerFlowCard extends LitElement {
               <text id="inverter_current_164" x="270.2" y="192.6" display="${config.entities.inverter_current_164 === 'none' || !config.entities.inverter_current_164 ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}">${inverter_current} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_voltage_183)}>
-              <text id="battery_voltage_183" x="193" y="346" display="${config.entities.battery_voltage_183 === 'none' || !config.entities.battery_voltage_183 ? 'none' : ''}" fill=${battery_colour} class="${font === false ? 'st14' : 'st4'} st8">${battery_voltage} V</text>
+              <text id="battery_voltage_183" x="193" y="346" display="${config.entities.battery_voltage_183 === 'none' || !config.entities.battery_voltage_183 ? 'none' : ''}" fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">${battery_voltage} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
               <text id="battery_soc_184" x="290" y="358" display="${config.entities.battery_soc_184 === 'none' ? 'none' : ''}" fill=${battery_colour} class="st13 st8 left-align">${parseInt(stateObj12.state)} %</text>
@@ -1268,13 +1268,13 @@ export class SunsynkPowerFlowCard extends LitElement {
               <text id="battery_soc_184" x="355" y="358" fill=${battery_colour} class="st13 st8 left-align" display="${inverter_prog.show === false || config.entities.battery_soc_184 === 'none' ? 'none' : ''}"> | ${inverter_prog.capacity || 0} %</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_power_190)}>
-              <text id="battery_power_190" x="193" y="386" display="${config.entities.battery_power_190 === 'none' ? 'none' : ''}" fill=${battery_colour} class="${font === false ? 'st14' : 'st4'} st8">${battery_power < 0 ? battery_power * -1 : battery_power} W</text>
+              <text id="battery_power_190" x="193" y="386" display="${config.entities.battery_power_190 === 'none' ? 'none' : ''}" fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">${battery_power < 0 ? battery_power * -1 : battery_power} W</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_current_191)}>
-            <text id="battery_current_191" x="193" y="365.3" display="${config.entities.battery_current_191 === 'none' ? 'none' : ''}" fill=${battery_colour} class="${font === false ? 'st14' : 'st4'} st8">${stateObj35.state} A</text>
+            <text id="battery_current_191" x="193" y="365.3" display="${config.entities.battery_current_191 === 'none' ? 'none' : ''}" fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">${stateObj35.state} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_ct_power_172)}>
-              <text id="grid_ct_power_172" x="135.1" y="219.2" display="${config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}" class="${font === false ? 'st14' : 'st4'} st8" fill="${grid_colour}">${grid_power || 0} W</text>
+              <text id="grid_ct_power_172" x="135.1" y="219.2" display="${config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">${grid_power || 0} W</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_voltage_109)}>
               <text id="pv1_voltage" x="194" y="106" class="st3 left-align" display="${config.show_solar === false || !config.entities.pv1_voltage_109 || config.entities.pv1_voltage_109 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${stateObj16.state} V</text>
@@ -1314,44 +1314,44 @@ export class SunsynkPowerFlowCard extends LitElement {
             </a>
             ${config.entities?.pv_total
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv_total)}>
-                      <text id="pvtotal_power" x="238.8" y="133.9" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${total_pv || 0} W</text>
+                      <text id="pvtotal_power" x="238.8" y="133.9" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${total_pv || 0} W</text>
                     </a>`
-          : svg`<text id="pvtotal_power" x="238.8" y="133.9" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${total_pv || 0} W</text>`}
+          : svg`<text id="pvtotal_power" x="238.8" y="133.9" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${total_pv || 0} W</text>`}
             ${config.entities?.pv1_power_186
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_power_186)}>
-                    <text id="pv1_power_186" x="188.1" y="71" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj9.state).toFixed(0)} W</text>
+                    <text id="pv1_power_186" x="188.1" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj9.state).toFixed(0)} W</text>
                   </a>`
-          : svg`<text id="pv1_power_186" x="188.1" y="71" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv1_power_186 === 'none' ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj9.state).toFixed(0)} W</text>`}
+          : svg`<text id="pv1_power_186" x="188.1" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv1_power_186 === 'none' ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj9.state).toFixed(0)} W</text>`}
             ${config.entities?.pv2_power_187
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_power_187)}>
-                    <text id="pv2_power_187" x="289.5" y="71" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj8.state).toFixed(0)} W</text>
+                    <text id="pv2_power_187" x="289.5" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj8.state).toFixed(0)} W</text>
                   </a>`
-          : svg`<text id="pv2_power_187" x="289.5" y="71" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv2_power_187 === 'none' || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj8.state).toFixed(0)} W</text>`}
+          : svg`<text id="pv2_power_187" x="289.5" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv2_power_187 === 'none' || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj8.state).toFixed(0)} W</text>`}
             ${config.entities?.pv3_power_188
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_power_188)}>
-                    <text id="pv3_power_188" x="113" y="71" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj31.state).toFixed(0)} W</text>
+                    <text id="pv3_power_188" x="113" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj31.state).toFixed(0)} W</text>
                   </a>`
-          : svg`<text id="pv3_power_188" x="113" y="71" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv3_power_188 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj31.state).toFixed(0)} W</text>`}
+          : svg`<text id="pv3_power_188" x="113" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv3_power_188 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj31.state).toFixed(0)} W</text>`}
             ${config.entities?.pv4_power_189
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_power_189)}>
-                    <text id="pv4_power_189" x="366" y="71" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj32.state).toFixed(0)} W</text>
+                    <text id="pv4_power_189" x="366" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj32.state).toFixed(0)} W</text>
                   </a>`
-          : svg`<text id="pv4_power_189" x="366" y="71" class="${font === false ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv4_power_189 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj32.state).toFixed(0)} W</text>`}
+          : svg`<text id="pv4_power_189" x="366" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv4_power_189 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj32.state).toFixed(0)} W</text>`}
             ${config.entities?.essential_power
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_power)}>
-                    <text id="ess_power" x="340.1" y="219.2" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential || 0} W</text>
+                    <text id="ess_power" x="340.1" y="219.2" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential || 0} W</text>
                   </a>`
-          : svg`<text id="ess_power" x="340.1" y="219.2" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential || 0} W</text>`}
+          : svg`<text id="ess_power" x="340.1" y="219.2" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential || 0} W</text>`}
             ${config.entities?.essential_load1
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1)}>
-                    <text id="ess_load1" x="440" y="133" display="${(additional_load === 1 || additional_load === 2) && config.show_solar === true ? '' : 'none'}" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj42.state)) ? 0 : parseFloat(stateObj42.state).toFixed(0)} W</text>
+                    <text id="ess_load1" x="440" y="133" display="${(additional_load === 1 || additional_load === 2) && config.show_solar === true ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj42.state)) ? 0 : parseFloat(stateObj42.state).toFixed(0)} W</text>
                   </a>`
-          : svg`<text id="ess_load1" x="440" y="133" display="${(additional_load === 1 || additional_load === 2) && config.show_solar === true ? '' : 'none'}" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj42.state)) ? 0 : parseFloat(stateObj42.state).toFixed(0)} W</text>`}
+          : svg`<text id="ess_load1" x="440" y="133" display="${(additional_load === 1 || additional_load === 2) && config.show_solar === true ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj42.state)) ? 0 : parseFloat(stateObj42.state).toFixed(0)} W</text>`}
             ${config.entities?.essential_load2
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load2)}>
-                    <text id="ess_load2" x="440" y="306.5" display="${additional_load === 2 && config.show_solar === true ? '' : 'none'}" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj45.state)) ? 0 : parseFloat(stateObj45.state).toFixed(0)} W</text>
+                    <text id="ess_load2" x="440" y="306.5" display="${additional_load === 2 && config.show_solar === true ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj45.state)) ? 0 : parseFloat(stateObj45.state).toFixed(0)} W</text>
                   </a>`
-          : svg`<text id="ess_load2" x="440" y="306.5" display="${additional_load === 2 && config.show_solar === true ? '' : 'none'}" class="${font === false ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj45.state)) ? 0 : parseFloat(stateObj45.state).toFixed(0)} W</text>`}
+          : svg`<text id="ess_load2" x="440" y="306.5" display="${additional_load === 2 && config.show_solar === true ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj45.state)) ? 0 : parseFloat(stateObj45.state).toFixed(0)} W</text>`}
           </svg>
         </div>
         </ha-card>
