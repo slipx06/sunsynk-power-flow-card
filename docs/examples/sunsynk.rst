@@ -12,7 +12,7 @@ Minimum Configuration (No Solar)
 
   type: custom:sunsynk-power-flow-card
   cardstyle: full
-  show_solar: 'no'
+  show_solar: true
   battery:
     energy: 15960
     shutdown_soc: 20
@@ -34,9 +34,9 @@ Minimum Configuration (Solar)
 
   type: custom:sunsynk-power-flow-card
   cardstyle: full
-  show_solar: 'yes'
+  show_solar: true
   solar:
-    mppts: one
+    mppts: 1
   battery:
     energy: 15960
     shutdown_soc: 20
@@ -58,7 +58,7 @@ Minimal Configuration (No Solar)
 
   type: custom:sunsynk-power-flow-card
   cardstyle: full
-  show_solar: 'no'
+  show_solar: false
   battery:
     energy: 15960
     shutdown_soc: 20
@@ -86,14 +86,14 @@ Minimal Configuration (Solar)
 
   type: custom:sunsynk-power-flow-card
   cardstyle: full
-  show_solar: 'yes'
+  show_solar: true
   solar:
-    mppts: two
+    mppts: 2
   battery:
     energy: 15960
     shutdown_soc: 20
   load:
-    show_aux: 'no'
+    show_aux: false
   entities:
     inverter_voltage_154: sensor.sunsynk_inverter_voltage
     load_frequency_192: sensor.sunsynk_load_frequency
