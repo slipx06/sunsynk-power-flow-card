@@ -11,14 +11,24 @@ export const validLoadValues = [0, 1, 2]
 * If you know any codes not in this list please let us know
 *
 * 0 = Standby
+* 1 = Error
+* 2 = Inverting
 * 4 = Solar > Load - Surplus > Grid
-* 7 = Charger Off (needs to be confirmed)
+* 5 = Float
+* 7 = Charger Off
+* 8 = Supporting
+* 9 = Selling
+* 10 = Pass through
+* 11 = Offsetting
 * 12 = Solar > Battery Charging
 * 16 = Battery Discharging > LOAD - Surplus > Grid
+* 17 = Temperature over range
 * 20 = Solar + Battery Discharging > LOAD - Surplus > Grid
-* 32 = Charging (needs to be confirmed)
+* 32 = AC Battery Charging
 * 40 = Solar + Grid > Battery Charging
-* 64 = No AC Power (needs to be confirmed)
+* 64 = No Grid : Battery > EPS
+* 136 = No Grid : Solar > EPS - Surplus > Battery Charging
+* 192 = No Grid : Solar + Battery Discharging > EPS
 */
 export const inverterStatusGroups = {
     sunsynk: {
@@ -31,9 +41,9 @@ export const inverterStatusGroups = {
     lux: {
         standby: { states: ['0'], color: 'blue', message: 'Standby' },
         selftest: { states: [], color: 'yellow', message: 'Selftest' },
-        normal: { states: ['4', '12', '16', '20', '40'], color: 'green', message: 'Normal' },
-        alarm: { states: ['7', '64'], color: 'orange', message: 'Alarm' },
-        fault: { states: [], color: 'red', message: 'Fault' },
+        normal: { states: ['2','4','5','7', '8', '9', '10', '11', '12', '16', '20', '32', '40'], color: 'green', message: 'Normal' },
+        alarm: { states: ['7', '17','64', '136', '192'], color: 'orange', message: 'Alarm' },
+        fault: { states: ['1'], color: 'red', message: 'Fault' },
     }
 
 };
