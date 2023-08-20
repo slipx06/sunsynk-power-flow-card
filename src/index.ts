@@ -932,7 +932,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                   </a>`
           : svg`<text id="aux_load1_value" x="411" y="34" class="${font !== true ? 'st14' : 'st4'} st8" display="${show_aux !== true || additional_aux_load === 0 ? 'none' : ''}" fill="${aux_colour}">${isNaN(parseFloat(stateObj48.state)) ? '0' : parseFloat(stateObj48.state).toFixed(0)} W</text>`}
             ${config.entities?.aux_load2
-          ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.aux_load1)}>
+          ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.aux_load2)}>
                     <text id="aux_load2_value" x="411" y="64" class="${font !== true ? 'st14' : 'st4'} st8" display="${show_aux !== true || additional_aux_load === 0 || additional_aux_load === 1 ? 'none' : ''}" fill="${aux_colour}">${isNaN(parseFloat(stateObj49.state)) ? '0' : parseFloat(stateObj49.state).toFixed(0)} W</text>
                   </a>`
           : svg`<text id="aux_load2_value" x="411" y="64" class="${font !== true ? 'st14' : 'st4'} st8" display="${show_aux !== true || additional_aux_load === 0 || additional_aux_load === 1 ? 'none' : ''}" fill="${aux_colour}">${isNaN(parseFloat(stateObj49.state)) ? '0' : parseFloat(stateObj49.state).toFixed(0)} W</text>`}
