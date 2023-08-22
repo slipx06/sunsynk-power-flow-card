@@ -1013,7 +1013,7 @@ export class SunsynkPowerFlowCard extends LitElement {
               <text id="pv3_voltage" x="41" y="139" class="st3 left-align" display="${config.show_solar === false || !config.entities.pv3_voltage_113 || config.entities.pv3_voltage_113 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}" >${stateObj27.state} V</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_current_114)}>
-              <text id="pv3_current" x="41" y="139" class="st3 left-align" display="${config.show_solar === false || !config.entities.pv3_current_114 || config.entities.pv3_current_114 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}" >${stateObj28.state} A</text>
+              <text id="pv3_current" x="41" y="150" class="st3 left-align" display="${config.show_solar === false || !config.entities.pv3_current_114 || config.entities.pv3_current_114 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}" >${stateObj28.state} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_voltage_115)}>
               <text id="pv4_voltage" x="142" y="139" class="st3 left-align" display="${config.show_solar === false || !config.entities.pv4_voltage_115 || config.entities.pv4_voltage_115 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}" >${stateObj29.state} V</text>
@@ -1364,9 +1364,6 @@ export class SunsynkPowerFlowCard extends LitElement {
     if (!config.battery) {
       throw Error(localize('errors.battery.bat'));
     } else {
-      if (!config.battery.energy) {
-        throw new Error(localize('errors.battery.energy'));
-      }
       if (!config.battery.shutdown_soc) {
         throw new Error(localize('errors.battery.shutdown_soc'));
       }
