@@ -299,5 +299,6 @@ Full Configuration (All Options)
     prog6_time: sensor.sunsynk_time_slot_6
     prog6_capacity: number.sunsynk_system_mode_soc_time6
     prog6_charge: switch.sunsynk_system_mode_grid_charge_time6
-    energy_cost: sensor.tibber_energy_cost
+    energy_cost_buy: sensor.tibber_energy_cost_buy
+    energy_cost_sell: sensor.tibber_energy_cost_sell
     solar_sell_247: switch.sunsynk_toggle_solar_sell

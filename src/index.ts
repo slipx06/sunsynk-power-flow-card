@@ -124,7 +124,7 @@ export class SunsynkPowerFlowCard extends LitElement {
     const stateObj40 = this.hass.states[config.entities.non_essential_load1] || { state: '0' };
     const stateObj41 = this.hass.states[config.entities.non_essential_load2] || { state: '0' };
     const stateObj42 = this.hass.states[config.entities.essential_load1] || { state: '0' };
-    const stateObj43 = this.hass.states[config.entities.energy_cost] || { state: '', attributes: { unit_of_measurement: '' } };
+    const stateObj43 = this.hass.states[config.entities.energy_cost_buy] || { state: '', attributes: { unit_of_measurement: '' } };
     const stateObj44 = this.hass.states[config.entities.solar_sell_247] || { state: 'undefined' };
     const stateObj45 = this.hass.states[config.entities.essential_load2] || { state: '0' };
     const stateObj46 = this.hass.states[config.entities.pv_total] || { state: '0' };
@@ -132,6 +132,7 @@ export class SunsynkPowerFlowCard extends LitElement {
     const stateObj48 = this.hass.states[config.entities.aux_load1] || { state: '0' };
     const stateObj49 = this.hass.states[config.entities.aux_load2] || { state: '0' };
     const stateObj50 = this.hass.states[config.entities.day_aux_energy] || { state: '0' };
+    const stateObj51 = this.hass.states[config.entities.energy_cost_sell] || { state: '', attributes: { unit_of_measurement: '' } };
 
     //Set defaults
     let { invert_aux } = config.load;
@@ -196,6 +197,8 @@ export class SunsynkPowerFlowCard extends LitElement {
     let height = config.card_height;
     let bat_full = config.battery?.full_capacity
     let bat_empty = config.battery?.empty_capacity
+    let energy_cost = grid_power >= 0 ? parseFloat(stateObj43.state).toFixed(2) : parseFloat(stateObj51.state).toFixed(2);
+
     //let width = config.card_width || '100%'
 
     //totalsolar = pv1_power_186 + pv2_power_187 + pv3_power_188 + pv4_power_189
@@ -966,6 +969,13 @@ export class SunsynkPowerFlowCard extends LitElement {
                     <text id="ess_load2_value" x="${show_aux !== true ? '430' : '427'}" y="${show_aux !== true ? '42' : '154'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${isNaN(parseFloat(stateObj45.state)) ? '0' : parseFloat(stateObj45.state).toFixed(0)} W</text>
                   </a>`
           : svg`<text id="ess_load2_value" x="${show_aux !== true ? '430' : '427'}" y="${show_aux !== true ? '42' : '154'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${isNaN(parseFloat(stateObj45.state)) ? '0' : parseFloat(stateObj45.state).toFixed(0)} W</text>`}
+            ${grid_power >= 0
+          ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost_buy)}>
+              <text id="energy_cost" x="427" y="257"  class="st3 left-align" fill="${grid_colour}" display="${config.entities?.energy_cost_buy  ? '' : 'none'}" >${energy_cost} ${stateObj43.attributes.unit_of_measurement}</text>
+                  </a>`
+          : svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost_sell)}>
+              <text id="energy_cost" x="427" y="257"  class="st3 left-align" fill="${grid_colour}" display="${config.entities?.energy_cost_sell ? '' : 'none'}" >${energy_cost} ${stateObj51.attributes.unit_of_measurement}</text>
+                  </a>`}
 
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_voltage_154)}>
               <text id="inverter_voltage_154" x="270" y="170.4" display="${config.entities.inverter_voltage_154 === 'none' || !config.entities.inverter_voltage_154 ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}" >${inverter_voltage} V</text>
@@ -1029,9 +1039,6 @@ export class SunsynkPowerFlowCard extends LitElement {
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.dc_transformer_temp_90)}>
               <text id="dc_temp" x="110" y="266" class="st3 left-align" fill="${inverter_colour}" display="${config.entities?.dc_transformer_temp_90 ? '' : 'none'}" >DC: ${stateObj38.state}°</text>
-            </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost)}>
-              <text id="energy_cost" x="427" y="257"  class="st3 left-align" fill="${grid_colour}" display="${config.entities?.energy_cost ? '' : 'none'}" >${parseFloat(stateObj43.state).toFixed(2)} ${stateObj43.attributes.unit_of_measurement}</text>
             </a>
           </svg>
         </div>
@@ -1309,9 +1316,13 @@ export class SunsynkPowerFlowCard extends LitElement {
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.dc_transformer_temp_90)}>
               <text id="dc_temp" x="173" y="180.4" class="st3 left-align" fill="${inverter_colour}" display="${config.entities?.dc_transformer_temp_90 ? '' : 'none'}" >DC: ${stateObj38.state}°</text>
             </a>
-            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost)}>
-              <text id="energy_cost" x="105" y="195" class="st3 left-align" fill="${grid_colour}" display="${config.entities?.energy_cost ? '' : 'none'}" >${parseFloat(stateObj43.state).toFixed(2)} ${stateObj43.attributes.unit_of_measurement}</text>
-            </a>
+            ${grid_power >= 0
+          ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost_buy)}>
+              <text id="energy_cost" x="105" y="195" class="st3 left-align" fill="${grid_colour}" display="${config.entities?.energy_cost_buy ? '' : 'none'}" >${energy_cost} ${stateObj43.attributes.unit_of_measurement}</text>
+                  </a>`
+          : svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost_sell)}>
+              <text id="energy_cost" x="105" y="195"  class="st3 left-align" fill="${grid_colour}" display="${config.entities?.energy_cost_sell ? '' : 'none'}" >${energy_cost} ${stateObj51.attributes.unit_of_measurement}</text>
+                  </a>`}
             ${config.entities?.pv_total
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv_total)}>
                       <text id="pvtotal_power" x="238.8" y="133.9" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${total_pv || 0} W</text>

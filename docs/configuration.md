@@ -182,7 +182,8 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |prog6_time:| Optional | `sensor.sunsynk_time_slot_6` | Program 6 start time (`HH:MM`)
 |prog6_capacity:| Optional | `number.sunsynk_system_mode_soc_time6` | Program 6 capacity (SOC) setting
 |prog6_charge:| Optional | `switch.sunsynk_system_mode_grid_charge_time6` | Program 6 charge options (`on/off`, `1/0`, `No Grid or Gen`)
-|energy_cost:| Optional | | Sensor that provides current energy cost per kWh
+|energy_cost_buy:| Optional | | Sensor that provides current buy energy cost per kWh
+|energy_cost_sell:| Optional | | Sensor that provides current sell energy cost per kWh
 |solar_sell_247:|Optional | `switch.sunsynk_toggle_solar_sell` | Displays icons to indicate if sell solar is active or not. The switch can be toggled by clicking on the icon (`on/off`, `1/0`)
 
 The card calculates the sensors below based on supplied attributes in the config so you dont need to define them in Home Assistant. NOTE if your essential and non-essential readings are innacurate replace sensor 169 with 167. Alternatively provide the card with sensors that calculate this data i.e essential_power: and nonessential_power:
