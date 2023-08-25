@@ -57,7 +57,7 @@ jobs:
         with:
           files: dist/sunsynk-power-flow-card.js
           tag_name: v${{ steps.get-version.outputs.version }}
-          name: Release ${{ steps.get-version.outputs.version }}
+          name: v${{ steps.get-version.outputs.version }}
           token: ${{ secrets.GITHUB_TOKEN }}
           generate_release_notes: true
 
