@@ -154,7 +154,7 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |pv3_current_114: | Optional | `sensor.sunsynk_pv3_current` | PV string 3 current (A)|
 |pv4_voltage_115: | Optional | `sensor.sunsynk_pv4_voltage` | PV string 4 voltage (V)|
 |pv4_current_116: | Optional | `sensor.sunsynk_pv4_current` | PV string 4 current (A)|
-|grid_connected_status_194: | Optional | `binary_sensor.sunsynk_grid_connected_status` | Grid connected status `on/off` or `1/0` |
+|grid_connected_status_194: | Optional | `binary_sensor.sunsynk_grid_connected_status` | Grid connected status `on/off`,`1/0` or `On-Grid/Off-Grid` |
 |inverter_status_59: | Optional | `sensor.sunsynk_overall_state` | Inverter status `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault` |
 |aux_power_166: | Optional | `sensor.sunsynk_aux_power` | Auxilary power (W) |
 |aux_load1:| Optional |  | Sensor that contains the power of your AUX load 1 (W) |
