@@ -21,7 +21,7 @@ jobs:
       - name: Get latest tag or fail
         id: get-latest-tag
         run: |
-          latest_tag=$(git describe --tags --abbrev=0 | sed 's/^v//')
+          latest_tag=$( git for-each-ref --sort=creatordate --format '%(refname)' refs/tags/ | tail -1 | sed 's/^.*v//')
           if [ -z "$latest_tag" ]; then
             echo "No tags found for the commit."
             exit 1
