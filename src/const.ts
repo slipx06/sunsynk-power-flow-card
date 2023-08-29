@@ -32,11 +32,11 @@ export const validLoadValues = [0, 1, 2]
 */
 export const inverterStatusGroups = {
     sunsynk: {
-        standby: { states: ['0', 'standby'], color: 'blue', message: 'Standby' },
-        selftest: { states: ['1', 'selftest'], color: 'yellow', message: 'Selftest' },
-        normal: { states: ['2', 'normal', 'ok'], color: 'green', message: 'Normal' },
+        standby: { states: ['0', 'standby', 'Stand-by'], color: 'blue', message: 'Standby' },
+        selftest: { states: ['1', 'selftest', 'Self-checking'], color: 'yellow', message: 'Selftest' },
+        normal: { states: ['2', 'normal', 'ok', 'Normal'], color: 'green', message: 'Normal' },
         alarm: { states: ['3', 'alarm'], color: 'orange', message: 'Alarm' },
-        fault: { states: ['4', 'fault'], color: 'red', message: 'Fault' },
+        fault: { states: ['4', 'fault', 'FAULT'], color: 'red', message: 'Fault' },
     },
     lux: {
         standby: { states: ['0'], color: 'blue', message: 'Standby' },
