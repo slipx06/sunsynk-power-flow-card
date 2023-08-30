@@ -33,7 +33,7 @@ The card can be configured through the following attributes:
 
 ### Battery
 
-Note that the card will always display battery power as a positive number regardless of your sensor value. The animated dot will change direction depending on the charging or discharging state. The `invert_power` attribute can be used to reverse direction if needed by your sensor.
+Note that the card will always display battery power and battery current as a positive number regardless of your sensor value. The animated dot will change direction depending on the charging or discharging state. The `invert_power` attribute can be used to reverse direction if needed by your sensor.
 
 | Attribute | Requirement |Default | Description |
 | --- | --- | --- |--- |
