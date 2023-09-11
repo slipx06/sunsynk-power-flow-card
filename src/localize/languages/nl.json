@@ -1,0 +1,53 @@
+{
+    "common": {
+        "description": "Een Home Assistant-kaart om de Sunsynk energiestroom te emuleren die op het omvormerscherm wordt weergegeven",
+        "version": "Versie",
+        "runtime_to": "WERKTIJD TOT",
+        "battery_floating": "DRIJVENDE BATTERIJ",
+        "charge": "LADEN",
+        "to": "TOT",
+        "daily_load": "DAGELIJKSE BELASTING",
+        "daily_aux": "DAGELIJKSE HULP",
+        "daily_grid_buy": "DAGELIJKS NETSTROOM KOPEN",
+        "daily_grid_sell": "DAGELIJKSE NETSTROOM VERKOPEN",
+        "daily_solar": "DAGELIJKSE ZONNE-ENERGIE",
+        "daily_solar_left": "DAGELIJKSE ZONNE-ENERGIE / OVER VANDAAG",
+        "daily_charge": "DAGELIJKSE LADING",
+        "daily_discharge": "DAGELIJKSE ONTLADING",
+        "ratio": "Verhouding",
+        "timer_off": "Timer uit",
+        "timer_on": "Timer aan",
+        "priority_batt": "Batterijprioriteit",
+        "priority_load": "Belastingsprioriteit",
+        "nonessential_name": "Niet-Essentieel",
+        "aux_name": "Hulp",
+        "load1_name": "",
+        "load2_name": "",
+        "pv1_name": "PV1",
+        "pv2_name": "PV2",
+        "pv3_name": "PV3",
+        "pv4_name": "PV4",
+        "essential": "Essentieel"
+    },
+    "errors": {
+        "battery": {
+            "bat": "Geen batterijattributen gedefinieerd",
+            "energy": "Voeg alstublieft het batterij-energieattribuut en de waarde in Wh toe, bijvoorbeeld 5.32 Batterij-energie: 5320",
+            "shutdown_soc": "Voeg alstublieft het batterij-shutdown_soc-attribuut en de waarde toe, bijvoorbeeld shutdown_soc: 20",
+            "full_capacity": "De volledige capaciteit moet tussen 80 en 100 liggen",
+            "empty_capacity": "De lege capaciteit moet <= 30 zijn",
+            "show_daily": "Voeg alstublieft de attributen day_battery_charge_70 en day_battery_discharge_71 toe, evenals de entiteits-ID's"
+        },
+        "solar": {
+            "sol": "Geen zonne-attributen gedefinieerd",
+            "mppts": "Voeg alstublieft het zonne-mppts-attribuut en de waarde toe; 1,2,3 of 4 bijvoorbeeld mppts: 2",
+            "show_daily": "Voeg alstublieft het day_pv_energy_108-attribuut en de entiteits-ID toe"
+        },
+        "grid": {
+            "show_daily": "Voeg alstublieft de attributen day_grid_import_76 en day_grid_export_77 toe, evenals de entiteits-ID's"
+        },
+        "essential_power": "Het essential_power-attribuut is ingesteld op 'geen'. Voeg alstublieft het inverter_power_175-attribuut en de entiteits-ID toe zodat de kaart deze waarde kan berekenen.",
+        "nonessential_power": "Het nonessential_power-attribuut is ingesteld op 'geen'. Voeg alstublieft het grid_power_169-attribuut en de entiteits-ID toe zodat de kaart deze waarde kan berekenen.",
+        "missing_entity": "Voeg alstublieft het attribuut en de entiteits-ID toe"
+    }
+}

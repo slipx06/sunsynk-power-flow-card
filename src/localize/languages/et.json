@@ -1,0 +1,53 @@
+{
+    "common": {
+        "description": "Home Assistant kaart Sunsynk võimsusvoogu emuleerimiseks, mis kuvatakse inverteri ekraanil",
+        "version": "Versioon",
+        "runtime_to": "TÖÖAEG KUNI",
+        "battery_floating": "UJUV AKU",
+        "charge": "LAADIMINE",
+        "to": "KUNI",
+        "daily_load": "PÄEVA KOORMUS",
+        "daily_aux": "PÄEVA ABISTAV",
+        "daily_grid_buy": "PÄEVA VÕRGUST OST",
+        "daily_grid_sell": "PÄEVA VÕRGU MÜÜK",
+        "daily_solar": "PÄEVA PÄIKE",
+        "daily_solar_left": "PÄEVA PÄIKE / TÄNA JÄÄNUD",
+        "daily_charge": "PÄEVA LAADIMINE",
+        "daily_discharge": "PÄEVA TÜHJENDAMINE",
+        "ratio": "Suhe",
+        "timer_off": "Ajastus välja",
+        "timer_on": "Ajastus sisse",
+        "priority_batt": "Akuprioriteet",
+        "priority_load": "Koormuse prioriteet",
+        "nonessential_name": "Mitteoluline",
+        "aux_name": "Abiseadmed",
+        "load1_name": "",
+        "load2_name": "",
+        "pv1_name": "PV1",
+        "pv2_name": "PV2",
+        "pv3_name": "PV3",
+        "pv4_name": "PV4",
+        "essential": "Oluline"
+    },
+    "errors": {
+        "battery": {
+            "bat": "Aku atribuute pole määratletud",
+            "energy": "Palun sisestage aku energiat atribuut ja väärtus Wh-s, näiteks 5,32 Aku energia: 5320",
+            "shutdown_soc": "Palun sisestage aku shutdown_soc atribuut ja väärtus, näiteks shutdown_soc: 20",
+            "full_capacity": "Täiskasvanu maht peab olema vahemikus 80 kuni 100",
+            "empty_capacity": "Tühi mahutavus peab olema <= 30",
+            "show_daily": "Palun sisestage päeva_battery_charge_70 ja päeva_battery_discharge_71 atribuudid ning seadmete ID-d"
+        },
+        "solar": {
+            "sol": "Päikesepaneelide atribuute pole määratletud",
+            "mppts": "Palun sisestage päikesepaneelide mppts atribuut ja väärtus; 1,2,3 või 4, näiteks mppts: 2",
+            "show_daily": "Palun sisestage päeva_pv_energy_108 atribuut ja seadme ID"
+        },
+        "grid": {
+            "show_daily": "Palun sisestage päeva_grid_import_76 ja päeva_grid_export_77 atribuudid ning seadmete ID-d"
+        },
+        "essential_power": "Olulise võimsuse atribuut on määratud puuduvaks. Palun sisestage inverteri_power_175 atribuut ja seadme ID, et kaart saaks selle väärtuse arvutada.",
+        "nonessential_power": "Mittetähtsa võimsuse atribuut on määratud puuduvaks. Palun sisestage võrgu_power_169 atribuut ja seadme ID, et kaart saaks selle väärtuse arvutada.",
+        "missing_entity": "Sisestage palun atribuut ja seadme ID"
+    }
+}

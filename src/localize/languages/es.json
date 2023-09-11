@@ -1,0 +1,53 @@
+{
+    "common": {
+        "description": "Una tarjeta de Home Assistant para emular el flujo de energía Sunsynk que se muestra en la pantalla del inversor",
+        "version": "Versión",
+        "runtime_to": "TIEMPO DE FUNCIONAMIENTO HASTA",
+        "battery_floating": "BATERÍA EN FLOTACIÓN",
+        "charge": "CARGA",
+        "to": "A",
+        "daily_load": "CARGA DIARIA",
+        "daily_aux": "AUXILIAR DIARIO",
+        "daily_grid_buy": "COMPRA DIARIA DE LA RED",
+        "daily_grid_sell": "VENTA DIARIA A LA RED",
+        "daily_solar": "SOLAR DIARIO",
+        "daily_solar_left": "SOLAR DIARIO / LO QUE QUEDA HOY",
+        "daily_charge": "CARGA DIARIA",
+        "daily_discharge": "DESCARGA DIARIA",
+        "ratio": "Relación",
+        "timer_off": "Temporizador apagado",
+        "timer_on": "Temporizador encendido",
+        "priority_batt": "Prioridad de la Batería",
+        "priority_load": "Prioridad de la Carga",
+        "nonessential_name": "No Esencial",
+        "aux_name": "Auxiliar",
+        "load1_name": "",
+        "load2_name": "",
+        "pv1_name": "PV1",
+        "pv2_name": "PV2",
+        "pv3_name": "PV3",
+        "pv4_name": "PV4",
+        "essential": "Esencial"
+    },
+    "errors": {
+        "battery": {
+            "bat": "No se han definido atributos de la batería",
+            "energy": "Por favor, incluye el atributo de energía de la batería y su valor en Wh, por ejemplo, 5.32 Energía de la batería: 5320",
+            "shutdown_soc": "Por favor, incluye el atributo shutdown_soc de la batería y su valor, por ejemplo shutdown_soc: 20",
+            "full_capacity": "La capacidad completa debe estar entre 80 y 100",
+            "empty_capacity": "La capacidad vacía debe ser <= 30",
+            "show_daily": "Por favor, incluye los atributos day_battery_charge_70 y day_battery_discharge_71 y las IDs de las entidades"
+        },
+        "solar": {
+            "sol": "No se han definido atributos solares",
+            "mppts": "Por favor, incluye el atributo mppts solares y su valor; 1,2,3 o 4, por ejemplo, mppts: 2",
+            "show_daily": "Por favor, incluye el atributo day_pv_energy_108 y la ID de la entidad"
+        },
+        "grid": {
+            "show_daily": "Por favor, incluye los atributos day_grid_import_76 y day_grid_export_77 y las IDs de las entidades"
+        },
+        "essential_power": "El atributo essential_power está configurado como ninguno. Por favor, incluye el atributo inverter_power_175 y la ID de la entidad para que la tarjeta pueda calcular este valor.",
+        "nonessential_power": "El atributo nonessential_power está configurado como ninguno. Por favor, incluye el atributo grid_power_169 y la ID de la entidad para que la tarjeta pueda calcular este valor.",
+        "missing_entity": "Por favor, incluye el atributo y la ID de la entidad"
+    }
+}

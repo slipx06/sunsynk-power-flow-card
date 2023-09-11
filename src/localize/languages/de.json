@@ -1,0 +1,53 @@
+{
+    "common": {
+        "description": "Eine Home Assistant-Karte zur Emulation des Sunsynk-Stromflusses, der auf dem Inverter-Bildschirm angezeigt wird",
+        "version": "Version",
+        "runtime_to": "LAUFZEIT BIS",
+        "battery_floating": "BATTERIE SCHWIMMEND",
+        "charge": "AUFLADEN",
+        "to": "ZU",
+        "daily_load": "TÄGLICHE LAST",
+        "daily_aux": "TÄGLICHER HILFSANTRIEB",
+        "daily_grid_buy": "TÄGLICHER NETZEINKAUF",
+        "daily_grid_sell": "TÄGLICHER NETZVERKAUF",
+        "daily_solar": "TÄGLICHE SOLAR",
+        "daily_solar_left": "TÄGLICHE SOLAR / VERBLEIBEND HEUTE",
+        "daily_charge": "TÄGLICHE AUFLADUNG",
+        "daily_discharge": "TÄGLICHE ENTNAHME",
+        "ratio": "Verhältnis",
+        "timer_off": "Timer aus",
+        "timer_on": "Timer ein",
+        "priority_batt": "Batteriepriorität",
+        "priority_load": "Lastpriorität",
+        "nonessential_name": "Nicht essenziell",
+        "aux_name": "Hilfsantrieb",
+        "load1_name": "",
+        "load2_name": "",
+        "pv1_name": "PV1",
+        "pv2_name": "PV2",
+        "pv3_name": "PV3",
+        "pv4_name": "PV4",
+        "essential": "Essenziell"
+    },
+    "errors": {
+        "battery": {
+            "bat": "Keine Batterieattribute definiert",
+            "energy": "Bitte fügen Sie das Batterieenergieattribut und den Wert in Wh hinzu, z.B. 5.32 Batterieenergie: 5320",
+            "shutdown_soc": "Bitte fügen Sie das Batterie-Shutdown-SOC-Attribut und den Wert hinzu, z.B. shutdown_soc: 20",
+            "full_capacity": "Die volle Kapazität muss zwischen 80 und 100 liegen",
+            "empty_capacity": "Die leere Kapazität muss <= 30 sein",
+            "show_daily": "Bitte fügen Sie die Tages-Batterieladung_70- und Tages-Batterieentladung_71-Attribute und die Entity-IDs hinzu"
+        },
+        "solar": {
+            "sol": "Keine Solarattribute definiert",
+            "mppts": "Bitte fügen Sie das Solar-MPPT-Attribut und den Wert hinzu; 1,2,3 oder 4 z.B. mppts: 2",
+            "show_daily": "Bitte fügen Sie das Tages-PV-Energie_108-Attribut und die Entity-ID hinzu"
+        },
+        "grid": {
+            "show_daily": "Bitte fügen Sie die Tages-Grideinspeisung_76- und Tages-Gridexport_77-Attribute und die Entity-IDs hinzu"
+        },
+        "essential_power": "Das Essenziell-Stromattribut ist auf 'none' gesetzt. Bitte fügen Sie das Inverter-Power_175-Attribut und die Entity-ID hinzu, damit die Karte diesen Wert berechnen kann.",
+        "nonessential_power": "Das Nicht-Essenziell-Stromattribut ist auf 'none' gesetzt. Bitte fügen Sie das Grid-Power_169-Attribut und die Entity-ID hinzu, damit die Karte diesen Wert berechnen kann.",
+        "missing_entity": "Bitte fügen Sie das Attribut und die Entity-ID hinzu"
+    }
+}

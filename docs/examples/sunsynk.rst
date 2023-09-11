@@ -76,9 +76,8 @@ Minimal Configuration (No Solar)
     grid_connected_status_194: binary_sensor.sunsynk_grid_connected_status
     inverter_status_59: sensor.overall_state
 
-
 *****************************
-Minimal Configuration (Solar)
+Minimal Configuration (No Battery)
 *****************************
 
 .. code-block:: yaml
@@ -86,7 +85,30 @@ Minimal Configuration (Solar)
 
   type: custom:sunsynk-power-flow-card
   cardstyle: full
-  show_solar: true
+  show_battery: false
+  entities:
+    inverter_voltage_154: sensor.sunsynk_inverter_voltage
+    load_frequency_192: sensor.sunsynk_load_frequency
+    inverter_current_164: sensor.sunsynk_inverter_current
+    inverter_power_175: sensor.sunsynk_inverter_power
+    grid_power_169: sensor.sunsynk_grid_power
+    battery_voltage_183: sensor.sunsynk_battery_voltage
+    battery_soc_184: sensor.sunsynk_battery_soc
+    battery_power_190: sensor.sunsynk_battery_power
+    battery_current_191: sensor.sunsynk_battery_current
+    grid_ct_power_172: sensor.sunsynk_grid_ct_power
+    grid_connected_status_194: binary_sensor.sunsynk_grid_connected_status
+    inverter_status_59: sensor.overall_state
+
+*****************************
+Minimal Configuration (Solar and Battery)
+*****************************
+
+.. code-block:: yaml
+  :linenos:
+
+  type: custom:sunsynk-power-flow-card
+  cardstyle: full
   solar:
     mppts: 2
   battery:
@@ -123,7 +145,6 @@ Minimal Configuration (Solar + Daily Totals)
 
   type: custom:sunsynk-power-flow-card
   cardstyle: full
-  show_solar: true
   solar:
     mppts: 2
     show_daily: true
@@ -172,6 +193,7 @@ Full Configuration (All Options)
   panel_mode: false
   large_font: false
   show_solar: true
+  show_battery: true
   inverter:
     modern: true
     colour: grey

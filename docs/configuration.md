@@ -13,10 +13,11 @@ The card can be configured through the following attributes:
 |cardstyle: | **Required** | `lite` | Selects the card layout that is used  `lite` or `full` |
 |panel_mode:| Optional | `false` |Toggles panel mode removing any card height restrictions. For use with Panel(1 card) view types or grid layouts|
 |large_font:| Optional | `false` | Increases font size of sensor data |
-|show_solar:|**Required** |`true` | Toggle display of solar information |
+|show_solar:| Optional |`true` | Toggle display of solar information |
+|show_battery:| Optional |`true` | Toggle display of battery information |
 |card_height:| Optional | `396px` | Sets the card height in pixels `400px` |
 |inverter: | Optional | See optional [Inverter](#inverter) attributes below  |List of inverter attributes.  |
-|battery: | **Required**  |See required [Battery](#battery) attributes below | List of battery attributes.  |
+|battery: | Optional  | See required [Battery](#battery) attributes below | List of battery attributes. Required if `show_battery: true`  |
 |solar: | Optional |See optional [Solar](#solar) attributes below | List of solar attributes.  |
 |load: | Optional | See optional [Load](#load) attributes below|List of load attributes.  |
 |grid: | Optional | See optional [Grid](#grid) attributes below| List of grid attributes.  |

@@ -1,0 +1,53 @@
+{
+    "common": {
+        "description": "Et Home Assistant-kort til at emulere Sunsynk-strømflowet, som vises på inverter-skærmen",
+        "version": "Version",
+        "runtime_to": "KØRSTID TIL",
+        "battery_floating": "BATTERI FLYDENDE",
+        "charge": "OPLADNING",
+        "to": "TIL",
+        "daily_load": "DAGLIG BELASTNING",
+        "daily_aux": "DAGLIG AUX",
+        "daily_grid_buy": "DAGLIG KØB AF ELEKTRICITET FRA NETTET",
+        "daily_grid_sell": "DAGLIG SALG AF ELEKTRICITET TIL NETTET",
+        "daily_solar": "DAGLIG SOLAR",
+        "daily_solar_left": "DAGLIG SOLAR / RENT I DAG",
+        "daily_charge": "DAGLIG OPLADNING",
+        "daily_discharge": "DAGLIG AFLADNING",
+        "ratio": "Forhold",
+        "timer_off": "Timer slukket",
+        "timer_on": "Timer tændt",
+        "priority_batt": "Prioritet Batteri",
+        "priority_load": "Prioritet Belastning",
+        "nonessential_name": "Ikke Væsentlig",
+        "aux_name": "Hjælpe",
+        "load1_name": "",
+        "load2_name": "",
+        "pv1_name": "PV1",
+        "pv2_name": "PV2",
+        "pv3_name": "PV3",
+        "pv4_name": "PV4",
+        "essential": "Væsentlig"
+    },
+    "errors": {
+        "battery": {
+            "bat": "Ingen batteriattributter defineret",
+            "energy": "Inkluder venligst batterienergiattribut og værdi i Wh, f.eks. 5,32 Batterienergi: 5320",
+            "shutdown_soc": "Inkluder venligst batteri shutdown_soc-attribut og værdi, f.eks. shutdown_soc: 20",
+            "full_capacity": "Fuld kapacitet skal være mellem 80 og 100",
+            "empty_capacity": "Tom kapacitet skal være <= 30",
+            "show_daily": "Inkluder venligst attributterne day_battery_charge_70 og day_battery_discharge_71 samt enheds-ID'er"
+        },
+        "solar": {
+            "sol": "Ingen solattributter defineret",
+            "mppts": "Inkluder venligst solens mppts-attribut og værdi; 1,2,3 eller 4, f.eks. mppts: 2",
+            "show_daily": "Inkluder venligst day_pv_energy_108-attributten og enheds-ID'en"
+        },
+        "grid": {
+            "show_daily": "Inkluder venligst day_grid_import_76 og day_grid_export_77-attributterne samt enheds-ID'er"
+        },
+        "essential_power": "essential_power-attributten er indstillet til ingen. Inkluder venligst inverter_power_175-attribut og enheds-ID for, at kortet kan beregne denne værdi.",
+        "nonessential_power": "nonessential_power-attributten er indstillet til ingen. Inkluder venligst grid_power_169-attribut og enheds-ID for, at kortet kan beregne denne værdi.",
+        "missing_entity": "Inkluder venligst attributten og enheds-ID'en"
+    }
+}

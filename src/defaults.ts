@@ -6,6 +6,7 @@ export default {
     panel_mode: false,
     large_font: false,
     show_solar: true,
+    show_battery: true,
     card_height: '396px',
     inverter: {
         modern: true,

@@ -1,0 +1,53 @@
+{
+    "common": {
+        "description": "Une carte Home Assistant pour émuler le flux d'énergie Sunsynk affiché à l'écran de l'onduleur",
+        "version": "Version",
+        "runtime_to": "TEMPS D'EXÉCUTION JUSQU'À",
+        "battery_floating": "BATTERIE FLUCTUANTE",
+        "charge": "CHARGE",
+        "to": "À",
+        "daily_load": "CHARGE QUOTIDIENNE",
+        "daily_aux": "CHARGE QUOTIDIENNE AUXILIAIRE",
+        "daily_grid_buy": "ACHAT QUOTIDIEN DU RÉSEAU",
+        "daily_grid_sell": "VENTE QUOTIDIENNE AU RÉSEAU",
+        "daily_solar": "ÉNERGIE SOLAIRE QUOTIDIENNE",
+        "daily_solar_left": "ÉNERGIE SOLAIRE QUOTIDIENNE / RESTANT AUJOURD'HUI",
+        "daily_charge": "CHARGE QUOTIDIENNE",
+        "daily_discharge": "DÉCHARGE QUOTIDIENNE",
+        "ratio": "Ratio",
+        "timer_off": "Minuteur éteint",
+        "timer_on": "Minuteur allumé",
+        "priority_batt": "Priorité de la batterie",
+        "priority_load": "Priorité de la charge",
+        "nonessential_name": "Non Essentiel",
+        "aux_name": "Auxiliaire",
+        "load1_name": "",
+        "load2_name": "",
+        "pv1_name": "PV1",
+        "pv2_name": "PV2",
+        "pv3_name": "PV3",
+        "pv4_name": "PV4",
+        "essential": "Essentiel"
+    },
+    "errors": {
+        "battery": {
+            "bat": "Aucun attribut de batterie défini",
+            "energy": "Veuillez inclure l'attribut d'énergie de la batterie et la valeur en Wh, par exemple 5.32 Énergie de la batterie : 5320",
+            "shutdown_soc": "Veuillez inclure l'attribut de batterie shutdown_soc et la valeur, par exemple shutdown_soc : 20",
+            "full_capacity": "La capacité totale doit être comprise entre 80 et 100",
+            "empty_capacity": "La capacité vide doit être <= 30",
+            "show_daily": "Veuillez inclure les attributs day_battery_charge_70 et day_battery_discharge_71 ainsi que les ID d'entité"
+        },
+        "solar": {
+            "sol": "Aucun attribut solaire défini",
+            "mppts": "Veuillez inclure l'attribut solaire mppts et la valeur ; 1,2,3 ou 4 par exemple mppts : 2",
+            "show_daily": "Veuillez inclure l'attribut day_pv_energy_108 et l'ID d'entité"
+        },
+        "grid": {
+            "show_daily": "Veuillez inclure les attributs day_grid_import_76 et day_grid_export_77 ainsi que les ID d'entité"
+        },
+        "essential_power": "L'attribut essential_power est réglé sur 'none'. Veuillez inclure l'attribut inverter_power_175 et l'ID d'entité afin que la carte puisse calculer cette valeur.",
+        "nonessential_power": "L'attribut nonessential_power est réglé sur 'none'. Veuillez inclure l'attribut grid_power_169 et l'ID d'entité afin que la carte puisse calculer cette valeur.",
+        "missing_entity": "Veuillez inclure l'attribut et l'ID d'entité"
+    }
+}
