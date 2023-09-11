@@ -4,7 +4,7 @@ Sunsynk Inverter Configuration
 
 
 ********************************
-Minimum Configuration (No Solar)
+Minimum Configuration (No Solar, No Battery)
 ********************************
 
 .. code-block:: yaml
@@ -12,10 +12,8 @@ Minimum Configuration (No Solar)
 
   type: custom:sunsynk-power-flow-card
   cardstyle: full
-  show_solar: true
-  battery:
-    energy: 15960
-    shutdown_soc: 20
+  show_solar: false
+  show_battery: false
   entities:
     inverter_power_175: sensor.sunsynk_inverter_power
     grid_power_169: sensor.sunsynk_grid_power
@@ -34,7 +32,6 @@ Minimum Configuration (Solar)
 
   type: custom:sunsynk-power-flow-card
   cardstyle: full
-  show_solar: true
   solar:
     mppts: 1
   battery:
