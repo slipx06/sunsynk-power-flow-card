@@ -493,7 +493,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         }
         </style>
         <div class="container card">
-
+        ${config.title ? html`<h1 style="text-align: center; color: ${config.title_colour || 'inherit'}; font-size: ${config.title_size || '32px'};">${config.title}</h1>` : ''}
           <svg viewBox="-0.5 -0.5 457 383" preserveAspectRatio="xMidYMid meet" height="${panel !== true ? `${height}` : '100%'}" width="100%" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
             <rect x="51" y="162" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === false ? 'st12' : ''}"/>
             <rect x="6" y="300.75" width="70" height="70" rx="10.5" ry="10.5" fill="none" stroke="${battery_colour}" pointer-events="all" display="${config.show_battery === false ? 'none' : ''}"/>
@@ -1061,6 +1061,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         }
         </style>
         <div class="container card">
+        ${config.title ? html`<h1 style="text-align: center; color: ${config.title_colour || 'inherit'}; font-size: ${config.title_size || '32px'};">${config.title}</h1>` : ''}
           <svg viewBox="-0.5 ${config.show_solar === false ? (additional_load !== 0 || config.show_battery === false ? 80 : 145.33) : -0.5} 483 ${config.show_solar === false ? (config.show_battery === true ? (additional_load !== 0 ? 350 : 270.67) : 270.67) : (config.show_battery === false ? (additional_load === 2 ? 350 : 300) : 406)}" preserveAspectRatio="xMidYMid meet" height="${panel === false ? `${config.show_solar === false && config.show_battery === false ? '270px' : config.show_solar === false ? (additional_load !== 0 ? '330px' : '246px') : config.show_solar === true && config.show_battery === false ? (additional_load === 2 ? '350px' : '300px') : `${height}`}` : `${config.show_solar === false ? '75%' : '100%'}`}" width="100%"  xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
             <rect x="304" y="203.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${load_colour}" pointer-events="all"/>
             <rect x="205" y="116.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" class="${config.show_solar === false ? 'st12' : ''}"/>

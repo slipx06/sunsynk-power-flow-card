@@ -189,6 +189,9 @@ Full Configuration (All Options)
   cardstyle: full
   panel_mode: false
   large_font: false
+  title: Sunsynk Inverter
+  title_colour: grey
+  title_size: 32px
   show_solar: true
   show_battery: true
   inverter:
