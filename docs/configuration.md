@@ -13,6 +13,9 @@ The card can be configured through the following attributes:
 |cardstyle: | **Required** | `lite` | Selects the card layout that is used  `lite` or `full` |
 |panel_mode:| Optional | `false` |Toggles panel mode removing any card height restrictions. For use with Panel(1 card) view types or grid layouts|
 |large_font:| Optional | `false` | Increases font size of sensor data |
+|title:| Optional | `` | Set the card title i.e. Inverter One |
+|title_colour:| Optional | `` | Changes the colour of the card title. (`red`, `green`, `blue` etc) |
+|title_size:| Optional | `32px` | Set the font size for the card title i.e. `16px`, `24px` |
 |show_solar:| Optional |`true` | Toggle display of solar information |
 |show_battery:| Optional |`true` | Toggle display of battery information |
 |card_height:| Optional | `396px` | Sets the card height in pixels `400px` |
