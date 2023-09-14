@@ -29,6 +29,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         max_power: number;
         full_capacity: number;
         empty_capacity: number;
+        show_absolute: boolean;
     }
     solar: {
         colour: string;

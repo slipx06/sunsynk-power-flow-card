@@ -208,6 +208,7 @@ Full Configuration (All Options)
     max_power: 4500
     full_capacity: 80
     empty_capacity: 30
+    show_absolute: true
   solar:
     colour: orange
     show_daily: true

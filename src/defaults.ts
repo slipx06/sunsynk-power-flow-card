@@ -24,6 +24,7 @@ export default {
         max_power: 4500,
         full_capacity: 80,
         empty_capacity: 30,
+        show_absolute: false,
     },
     solar: {
         colour: 'orange',

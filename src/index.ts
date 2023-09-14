@@ -1001,10 +1001,10 @@ export class SunsynkPowerFlowCard extends LitElement {
               <text id="battery_soc_184" x="196.5" y="333" fill=${battery_colour} class="st13 st8 left-align" display="${inverter_prog.show === false || config.entities.battery_soc_184 === 'none' || config.show_battery === false ? 'none' : ''}"> | ${inverter_prog.capacity || 0} %</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_power_190)}>
-              <text id="battery_power_190" x="41" y="356" display="${config.entities.battery_power_190 === 'none' || config.show_battery === false ? 'none' : ''}" fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">${battery_power < 0 ? battery_power * -1 : battery_power} W</text>
+              <text id="battery_power_190" x="41" y="356" display="${config.entities.battery_power_190 === 'none' || config.show_battery === false ? 'none' : ''}" fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">${config.battery.show_absolute === true ? Math.abs(battery_power) : battery_power} W</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_current_191)}>
-              <text id="battery_current_191" x="41" y="336" display="${config.entities.battery_current_191 === 'none' || config.show_battery === false ? 'none' : ''}" fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">${parseFloat(stateObj35.state) < 0 ? (parseFloat(stateObj35.state)*-1).toFixed(1) : parseFloat(stateObj35.state).toFixed(1)} A</text>
+              <text id="battery_current_191" x="41" y="336" display="${config.entities.battery_current_191 === 'none' || config.show_battery === false ? 'none' : ''}" fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">${config.battery.show_absolute === true ? Math.abs(parseFloat(stateObj35.state)).toFixed(1) : parseFloat(stateObj35.state).toFixed(1)} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_power_175)}>
               <text id="inverter_power_175" x="180.5" y="178" display="${config.entities.inverter_power_175 === 'none' ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${inverter_colour}">${stateObj22.state} W</text>
@@ -1281,10 +1281,10 @@ export class SunsynkPowerFlowCard extends LitElement {
               <text id="battery_soc_184" x="355" y="358" fill=${battery_colour} class="st13 st8 left-align" display="${inverter_prog.show === false || config.entities.battery_soc_184 === 'none' || config.show_battery === false ? 'none' : ''}"> | ${inverter_prog.capacity || 0} %</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_power_190)}>
-              <text id="battery_power_190" x="193" y="386" display="${config.entities.battery_power_190 === 'none' || config.show_battery === false ? 'none' : ''}" fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">${battery_power < 0 ? battery_power * -1 : battery_power} W</text>
+              <text id="battery_power_190" x="193" y="386" display="${config.entities.battery_power_190 === 'none' || config.show_battery === false ? 'none' : ''}" fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">${config.battery.show_absolute === true ? Math.abs(battery_power) : battery_power} W</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_current_191)}>
-            <text id="battery_current_191" x="193" y="365.3" display="${config.entities.battery_current_191 === 'none' || config.show_battery === false ? 'none' : ''}" fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">${parseFloat(stateObj35.state) < 0 ? (parseFloat(stateObj35.state)*-1).toFixed(1) : parseFloat(stateObj35.state).toFixed(1)} A</text>
+            <text id="battery_current_191" x="193" y="365.3" display="${config.entities.battery_current_191 === 'none' || config.show_battery === false ? 'none' : ''}" fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">${config.battery.show_absolute === true ? Math.abs(parseFloat(stateObj35.state)).toFixed(1) : parseFloat(stateObj35.state).toFixed(1)} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_ct_power_172)}>
               <text id="grid_ct_power_172" x="135.1" y="219.2" display="${config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">${grid_power || 0} W</text>
