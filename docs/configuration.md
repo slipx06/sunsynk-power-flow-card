@@ -37,7 +37,7 @@ The card can be configured through the following attributes:
 
 ### Battery
 
-Note that the card will always display battery power and battery current as a positive number regardless of your sensor value. The animated dot will change direction depending on the charging or discharging state. The `invert_power` attribute can be used to reverse direction if needed by your sensor.
+To display battery power and current as absolute values set `show_absolute: true`. This is set to false by default and will return your sensor value. The animated dot will change direction depending on the charging or discharging state. The `invert_power` attribute can be used to reverse direction if needed by your sensor.
 
 | Attribute | Requirement |Default | Description |
 | --- | --- | --- |--- |
@@ -50,6 +50,7 @@ Note that the card will always display battery power and battery current as a po
 |max_power: | Optional | `4500` | Maximum power draw to calculate animation speed |
 |full_capacity: | Optional| `80` | If SOC >= to this value the fully charged battery image will be shown. Accepts any value between 80-100|
 |empty_capacity: | Optional | `30` | If SOC <= to this value the empty battery image will be shown. Accepts any value between 1-30
+|show_absolute: | Optional | `false` | set to `true` to display power and current as absolute values
 
 ### Solar
 
