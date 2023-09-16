@@ -31,7 +31,7 @@ Refer to [https://slipx06.github.io/sunsynk-power-flow-card/index.html](https://
 
 *Lite Version*
 
-![sunsynk-power-flow-lite](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/ab615245-cee6-4502-b9bc-649566a6eb54)
+![sun_lite](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/a511b3e5-ad0b-429a-915d-3bc863c1ff65)
 ![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/1c44a09b-2914-4cbd-919d-477789137acd)
 ![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/9e3b86d7-ba07-4a5f-92c1-2aeddbbe9518)
 ![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/df6ec972-cb7e-4b69-925f-e8917ed98c42)
@@ -39,7 +39,7 @@ Refer to [https://slipx06.github.io/sunsynk-power-flow-card/index.html](https://
 
 *Full Version*
 
-![sunsynk-power-flow-full](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/bf119d16-b049-4bd9-8906-0c9697ab386d)
+![sun_full](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/791c12a0-e80a-4d30-a211-3c60b4f8ac88)
 ![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/cd55d1e7-b821-4b3f-a308-8efca55fdda2)
 ![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/fe4157a8-4f87-4296-b48e-2a6819c00106)
 ![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/8f5f9f90-513a-460e-b96c-9043c9a3276d)
