@@ -13,11 +13,13 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
     large_font: boolean;
     show_solar: boolean;
     card_height: string;
+    decimal_places: number;
     inverter: {
         modern: boolean;
         colour: string;
         autarky: 'energy' | 'power' | 'no';
         model: 'sunsynk' | 'lux';
+        auto_scale: boolean;
     }
     battery: {
         energy: number;
@@ -30,6 +32,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         full_capacity: number;
         empty_capacity: number;
         show_absolute: boolean;
+        auto_scale: boolean;
     }
     solar: {
         colour: string;
@@ -41,6 +44,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         pv2_name: string;
         pv3_name: string;
         pv4_name: string;
+        auto_scale: boolean;
     }
     load: {
         colour: string;
@@ -64,6 +68,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         load2_icon: string;
         show_aux: boolean;
         show_daily_aux: boolean;
+        auto_scale: boolean;
     }
     grid: {
         colour: string;
@@ -81,6 +86,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         invert_grid: boolean;
         animation_speed: number;
         max_power: number;
+        auto_scale: boolean;
 
 
 

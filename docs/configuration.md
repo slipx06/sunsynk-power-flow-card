@@ -19,6 +19,7 @@ The card can be configured through the following attributes:
 |show_solar:| Optional |`true` | Toggle display of solar information |
 |show_battery:| Optional |`true` | Toggle display of battery information |
 |card_height:| Optional | `396px` | Sets the card height in pixels `400px` |
+|decimal_places:| Optional | `2` | Sets the number of decimal places to display when using the `auto_scale` option. |
 |inverter: | Optional | See optional [Inverter](#inverter) attributes below  |List of inverter attributes.  |
 |battery: | Optional  | See required [Battery](#battery) attributes below | List of battery attributes. Required if `show_battery: true`  |
 |solar: | Optional |See optional [Solar](#solar) attributes below | List of solar attributes.  |
@@ -34,6 +35,7 @@ The card can be configured through the following attributes:
 |colour:| Optional |`grey`| Changes the colour of the inverter. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |autarky:| Optional| `power`| Display autarky and ratio as a percentage using either realtime power or daily energy values. Set to `no` to hide (`energy/power/no`). <br />Autarky is the percentage of self sufficiency through Home Production. Ratio is the percentage of produced electricity used by the home. <br />It is calculated based on the formula below and borrowed from the [Power Distribution Card](https://github.com/JonahKr/power-distribution-card)  <br /><ul><li>Autarky in Percent = Home Production / Home Consumption </li><li>Ratio in Percent = Home Consumption / Home Production</li></ul>|
 | model: | Optional | `sunsynk` | Selects which status codes to use. Set to `lux` for Lux inverters.  |
+|auto_scale: | Optional | `false` | If set to `true` power values greater than 999W will be displayed as kW e.g. 1.23kW. The number of decimal places can be changed using the `decimal_places` card attribute|
 
 ### Battery
 
@@ -51,6 +53,7 @@ To display battery power and current as absolute values set `show_absolute: true
 |full_capacity: | Optional| `80` | If SOC >= to this value the fully charged battery image will be shown. Accepts any value between 80-100|
 |empty_capacity: | Optional | `30` | If SOC <= to this value the empty battery image will be shown. Accepts any value between 1-30
 |show_absolute: | Optional | `false` | set to `true` to display power and current as absolute values
+|auto_scale: | Optional | `false` | If set to `true` power values greater than 999W will be displayed as kW e.g. 1.23kW. The number of decimal places can be changed using the `decimal_places` card attribute|
 
 ### Solar
 
@@ -66,6 +69,7 @@ These attributes are only needed if `show_solar` is set to `true`
 |pv2_name: | Optional | `PV2` | Set the disaply name for MPPT2 |
 |pv3_name: | Optional | `PV3` | Set the disaply name for MPPT3 |
 |pv4_name: | Optional | `PV4` | Set the disaply name for MPPT4 |
+|auto_scale: | Optional | `false` | If set to `true` power values greater than 999W will be displayed as kW e.g. 1.23kW. The number of decimal places can be changed using the `decimal_places` card attribute|
 
 ### Load
 
@@ -92,6 +96,7 @@ These attributes are only needed if `show_solar` is set to `true`
 |load2_name: | Optional |  | Set the display name for the essential load 2
 |load1_icon: | Optional | none | Change the essential load 1 image using preset or any mdi icon e.g. `mdi:ev-station` Presets are: `boiler`, `pump`, `aircon`, `oven` |
 |load2_icon: | Optional | none | Change the essential load 2 image using preset or any mdi icon e.g. `mdi:ev-station` Presets are: `boiler`, `pump`, `aircon`, `oven` |
+|auto_scale: | Optional | `false` | If set to `true` power values greater than 999W will be displayed as kW e.g. 1.23kW. The number of decimal places can be changed using the `decimal_places` card attribute|
 
 ### Grid
 
@@ -112,6 +117,7 @@ These attributes are only needed if `show_solar` is set to `true`
 |invert_grid:| Optional | `false`| Set to `true` if your sensor provides a negative number for grid import and positive number for grid export |
 |animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on power draw |
 |max_power: | Optional | `8000` | Maximum power draw to calculate animation speed |
+|auto_scale: | Optional | `false` | If set to `true` power values greater than 999W will be displayed as kW e.g. 1.23kW. The number of decimal places can be changed using the `decimal_places` card attribute|
 
 ### Entities
 

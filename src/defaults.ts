@@ -8,11 +8,13 @@ export default {
     show_solar: true,
     show_battery: true,
     card_height: '396px',
+    decimal_places: 2,
     inverter: {
         modern: true,
         colour: 'grey',
         autarky: 'power',
-        model: 'sunsynk'
+        model: 'sunsynk',
+        auto_scale: false,
     },
     battery: {
         energy: 0,
@@ -25,6 +27,7 @@ export default {
         full_capacity: 80,
         empty_capacity: 30,
         show_absolute: false,
+        auto_scale: false,
     },
     solar: {
         colour: 'orange',
@@ -36,6 +39,7 @@ export default {
         pv2_name: localize('common.pv2_name'),
         pv3_name: localize('common.pv3_name'),
         pv4_name: localize('common.pv4_name'),
+        auto_scale: false,
     },
     load: {
         colour: '#5fb6ad',
@@ -55,7 +59,7 @@ export default {
         load2_icon: 'default',
         load1_name: localize('common.load1_name'),
         load2_name: localize('common.load2_name'),
-
+        auto_scale: false,
     },
     grid: {
         colour: '#5490c2',
@@ -72,7 +76,8 @@ export default {
         load2_icon: 'default',
         invert_grid: false,
         animation_speed: 8,
-        max_power: 8000
+        max_power: 8000,
+        auto_scale: false,
     },
 
 }

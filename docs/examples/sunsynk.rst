@@ -194,10 +194,12 @@ Full Configuration (All Options)
   title_size: 32px
   show_solar: true
   show_battery: true
+  decimal_places: 2
   inverter:
     modern: true
     colour: grey
     autarky: 'power'
+    auto_scale: true
   battery:
     energy: 15960
     shutdown_soc: 20
@@ -208,7 +210,8 @@ Full Configuration (All Options)
     max_power: 4500
     full_capacity: 80
     empty_capacity: 30
-    show_absolute: true
+    show_absolute: false
+    auto_scale: true
   solar:
     colour: orange
     show_daily: true
@@ -219,6 +222,7 @@ Full Configuration (All Options)
     pv2_name: North
     pv3_name: East
     pv4_name: West
+    auto_scale: true
   load:
     colour: '#5fb6ad'
     show_daily: true
@@ -241,6 +245,7 @@ Full Configuration (All Options)
     load2_name: Pool
     load1_icon: boiler
     load2_icon: mdi:pool
+    auto_scale: true
   grid:
     colour: '#5490c2'
     show_daily_buy: true
@@ -257,6 +262,7 @@ Full Configuration (All Options)
     load2_icon: mdi:ev-station
     animation_speed: 8
     max_power: 8000
+    auto_scale: true
   entities:
     use_timer_248: switch.sunsynk_toggle_system_timer
     priority_load_243: switch.sunsynk_toggle_priority_load

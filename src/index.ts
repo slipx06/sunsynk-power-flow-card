@@ -459,6 +459,23 @@ export class SunsynkPowerFlowCard extends LitElement {
       ne_animation_speed = speed >= 1 ? speed : 1;
     }
 
+    let round = config.decimal_places;
+    function convertValue(value, decimal = 2) {
+      let unit = ''; 
+      
+      if (decimal === null) {
+        decimal = 2; // Set rounding to 2 when it's null
+      }
+
+      if (Math.abs(value) > 999) {
+          unit = 'k'; // Update the unit variable when value > 999
+          return `${(value / 1000).toFixed(decimal)} ${unit}W`;
+      } else {
+          unit = ''; 
+          return `${value} ${unit}W`;
+      }
+    }
+
     if (config.cardstyle === 'full') {
       return html`
         <ha-card>
@@ -893,87 +910,87 @@ export class SunsynkPowerFlowCard extends LitElement {
 
             ${config.entities?.pv_total
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv_total)}>
-              <text id="pvtotal_power" x="19%" y="46.5%" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${total_pv || 0} W</text>
-            </a>`
-          : svg` <text id="pvtotal_power" x="87" y="178" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${total_pv || 0} W</text> `}
+              <text id="pvtotal_power" x="19%" y="46.5%" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${config.solar.auto_scale === true ? `${convertValue(total_pv, round) || 0}` : `${total_pv || 0} W`}</text>
+              </a>`
+          : svg` <text id="pvtotal_power" x="87" y="178" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${config.solar.auto_scale === true ? `${convertValue(total_pv, round) || 0}` : `${total_pv || 0} W`}</text>`}
             ${config.entities?.essential_power
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_power)}>
-                  <text id="ess_power" x="270" y="119" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential || 0} W</text>
+                  <text id="ess_power" x="270" y="119" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${convertValue(essential, round) || 0}` : `${essential || 0} W`}</text>
                   </a>`
-          : svg`<text id="ess_power" x="270" y="119" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential || 0} W</text>`}
+          : svg`<text id="ess_power" x="270" y="119" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${convertValue(essential, round) || 0}` : `${essential || 0} W`}</text>`}
             ${config.entities?.nonessential_power
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.nonessential_power)}>
-                    <text id="non_ess_power" x="338" y="281.5" display="${grid_show_noness === false ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">${nonessential || 0} W</text>
+                    <text id="non_ess_power" x="338" y="281.5" display="${grid_show_noness === false ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">${config.grid.auto_scale === true ? `${convertValue(nonessential, round) || 0}` : `${nonessential || 0} W`}</text>
                   </a>`
-          : svg`<text id="non_ess_power" x="338" y="281.5" display="${grid_show_noness === false ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">${nonessential || 0} W</text> `}
+          : svg`<text id="non_ess_power" x="338" y="281.5" display="${grid_show_noness === false ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">${config.grid.auto_scale === true ? `${convertValue(nonessential, round) || 0}` : `${nonessential || 0} W`}</text>`}
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_ct_power_172)}>
-              <text id="grid_ct_power_172" x="420" y="281.5" display="${config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">${grid_power || 0} W</text>
+              <text id="grid_ct_power_172" x="420" y="281.5" display="${config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">${config.grid.auto_scale === true ? `${convertValue(grid_power, round) || 0}` : `${grid_power || 0} W`}</text>
             </a>
             ${config.entities?.aux_power_166
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.aux_power_166)}>
-                    <text id="aux_power_166" x="270" y="48" class="${font !== true ? 'st14' : 'st4'} st8" display="${show_aux !== true ? 'none' : ''}" fill="${aux_colour}">${aux_power < 0 ? aux_power * -1 : aux_power} W</text>
+                    <text id="aux_power_166" x="270" y="48" class="${font !== true ? 'st14' : 'st4'} st8" display="${show_aux !== true ? 'none' : ''}" fill="${aux_colour}">${config.load.auto_scale === true ? `${convertValue(aux_power, round) || 0}` : `${aux_power || 0} W`}</text>
                   </a>`
-          : svg`<text id="aux_power_166" x="270" y="48" class="${font !== true ? 'st14' : 'st4'} st8" display="${show_aux !== true ? 'none' : ''}" fill="${aux_colour}">${aux_power < 0 ? aux_power * -1 : aux_power} W</text> `}
+          : svg`<text id="aux_power_166" x="270" y="48" class="${font !== true ? 'st14' : 'st4'} st8" display="${show_aux !== true ? 'none' : ''}" fill="${aux_colour}">${config.load.auto_scale === true ? `${convertValue(aux_power, round) || 0}` : `${aux_power || 0} W`}</text>`}
             ${config.entities?.pv1_power_186
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_power_186)}>
-                    <text id="pv1_power_186" x="36.5" y="56.5" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj9.state).toFixed(0)} W</text>
+                    <text id="pv1_power_186" x="36.5" y="56.5" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}" >${config.solar.auto_scale === true ? `${convertValue(parseFloat(stateObj9.state).toFixed(0), round)}` : `${parseFloat(stateObj9.state).toFixed(0)} W`}</text>
                   </a>`
-          : svg`<text id="pv1_power_186" x="36.5" y="56.5" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv1_power_186 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj9.state).toFixed(0)} W</text>`}
+          : svg`<text id="pv1_power_186" x="36.5" y="56.5" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv1_power_186 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${config.solar.auto_scale === true ? `${convertValue(parseFloat(stateObj9.state).toFixed(0), round)}` : `${parseFloat(stateObj9.state).toFixed(0)} W`}</text>`}
             ${config.entities?.pv2_power_187
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_power_187)}>
-                    <text id="pv2_power_187" x="137" y="56.5" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj8.state).toFixed(0)} W</text>
+                    <text id="pv2_power_187" x="137" y="56.5" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${config.solar.auto_scale === true ? `${convertValue(parseFloat(stateObj8.state).toFixed(0), round)}` : `${parseFloat(stateObj8.state).toFixed(0)} W`}</text>
                   </a>`
-          : svg`<text id="pv2_power_187" x="137" y="56.5" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv2_power_187 === 'none' || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj8.state).toFixed(0)} W</text>`}
+          : svg`<text id="pv2_power_187" x="137" y="56.5" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv2_power_187 === 'none' || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${config.solar.auto_scale === true ? `${convertValue(parseFloat(stateObj8.state).toFixed(0), round)}` : `${parseFloat(stateObj8.state).toFixed(0)} W`}</text>`}
             ${config.entities?.pv3_power_188
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_power_188)}>
-                    <text id="pv3_power_188" x="36.5" y="117" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj31.state).toFixed(0)} W</text>
+                    <text id="pv3_power_188" x="36.5" y="117" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}">${config.solar.auto_scale === true ? `${convertValue(parseFloat(stateObj31.state).toFixed(0), round)}` : `${parseFloat(stateObj31.state).toFixed(0)} W`}</text>
                   </a>`
-          : svg`<text id="pv3_power_188" x="36.5" y="117" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv3_power_188 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj31.state).toFixed(0)} W</text>`}
+          : svg`<text id="pv3_power_188" x="36.5" y="117" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv3_power_188 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}">${config.solar.auto_scale === true ? `${convertValue(parseFloat(stateObj31.state).toFixed(0), round)}` : `${parseFloat(stateObj31.state).toFixed(0)} W`}</text>`}
             ${config.entities?.pv4_power_189
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_power_189)}>
-                    <text id="pv4_power_189" x="137" y="117" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj32.state).toFixed(0)} W</text>
+                    <text id="pv4_power_189" x="137" y="117" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}">${config.solar.auto_scale === true ? `${convertValue(parseFloat(stateObj32.state).toFixed(0), round)}` : `${parseFloat(stateObj32.state).toFixed(0)} W`}</text>
                   </a>`
-          : svg`<text id="pv4_power_189" x="137" y="117" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv4_power_189 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj32.state).toFixed(0)} W</text>`}
+          : svg`<text id="pv4_power_189" x="137" y="117" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv4_power_189 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}">${config.solar.auto_scale === true ? `${convertValue(parseFloat(stateObj32.state).toFixed(0), round)}` : `${parseFloat(stateObj32.state).toFixed(0)} W`}</text>`}
             ${config.entities?.aux_load1
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.aux_load1)}>
-                    <text id="aux_load1_value" x="411" y="34" class="${font !== true ? 'st14' : 'st4'} st8" display="${show_aux !== true || additional_aux_load === 0 ? 'none' : ''}" fill="${aux_colour}">${isNaN(parseFloat(stateObj48.state)) ? '0' : parseFloat(stateObj48.state).toFixed(0)} W</text>
+                    <text id="aux_load1_value" x="411" y="34" class="${font !== true ? 'st14' : 'st4'} st8" display="${show_aux !== true || additional_aux_load === 0 ? 'none' : ''}" fill="${aux_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj48.state)) ? '0' : convertValue(parseFloat(stateObj48.state), round)}` : `${parseFloat(stateObj48.state).toFixed(0) || 0} W`}</text>
                   </a>`
-          : svg`<text id="aux_load1_value" x="411" y="34" class="${font !== true ? 'st14' : 'st4'} st8" display="${show_aux !== true || additional_aux_load === 0 ? 'none' : ''}" fill="${aux_colour}">${isNaN(parseFloat(stateObj48.state)) ? '0' : parseFloat(stateObj48.state).toFixed(0)} W</text>`}
+          : svg`<text id="aux_load1_value" x="411" y="34" class="${font !== true ? 'st14' : 'st4'} st8" display="${show_aux !== true || additional_aux_load === 0 ? 'none' : ''}" fill="${aux_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj48.state)) ? '0' : convertValue(parseFloat(stateObj48.state), round)}` : `${parseFloat(stateObj48.state).toFixed(0) || 0} W`}</text>`}
             ${config.entities?.aux_load2
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.aux_load2)}>
-                    <text id="aux_load2_value" x="411" y="64" class="${font !== true ? 'st14' : 'st4'} st8" display="${show_aux !== true || additional_aux_load === 0 || additional_aux_load === 1 ? 'none' : ''}" fill="${aux_colour}">${isNaN(parseFloat(stateObj49.state)) ? '0' : parseFloat(stateObj49.state).toFixed(0)} W</text>
+                    <text id="aux_load2_value" x="411" y="64" class="${font !== true ? 'st14' : 'st4'} st8" display="${show_aux !== true || additional_aux_load === 0 || additional_aux_load === 1 ? 'none' : ''}" fill="${aux_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj49.state)) ? '0' : convertValue(parseFloat(stateObj49.state), round)}` : `${parseFloat(stateObj49.state).toFixed(0) || 0} W`}</text>
                   </a>`
-          : svg`<text id="aux_load2_value" x="411" y="64" class="${font !== true ? 'st14' : 'st4'} st8" display="${show_aux !== true || additional_aux_load === 0 || additional_aux_load === 1 ? 'none' : ''}" fill="${aux_colour}">${isNaN(parseFloat(stateObj49.state)) ? '0' : parseFloat(stateObj49.state).toFixed(0)} W</text>`}
+          : svg`<text id="aux_load2_value" x="411" y="64" class="${font !== true ? 'st14' : 'st4'} st8" display="${show_aux !== true || additional_aux_load === 0 || additional_aux_load === 1 ? 'none' : ''}" fill="${aux_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj49.state)) ? '0' : convertValue(parseFloat(stateObj49.state), round)}` : `${parseFloat(stateObj49.state).toFixed(0) || 0} W`}</text>`}
             ${config.entities?.non_essential_load1
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.non_essential_load1)}>
-                    <text id="noness1_value" x="340"" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 ? 'none' : ''}" fill="${grid_colour}">${isNaN(parseFloat(stateObj40.state)) ? '0' : parseFloat(stateObj40.state).toFixed(0)} W</text>
+                    <text id="noness1_value" x="340"" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 ? 'none' : ''}" fill="${grid_colour}">${config.grid.auto_scale === true ? `${isNaN(parseFloat(stateObj40.state)) ? '0' : convertValue(parseFloat(stateObj40.state), round)}` : `${parseFloat(stateObj40.state).toFixed(0) || 0} W`}</text>
                   </a>`
-          : svg`<text id="noness1_value" x="340"" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 ? 'none' : ''}" fill="${grid_colour}">${isNaN(parseFloat(stateObj40.state)) ? '0' : parseFloat(stateObj40.state).toFixed(0)} W</text>`}
+          : svg`<text id="noness1_value" x="340"" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 ? 'none' : ''}" fill="${grid_colour}">${config.grid.auto_scale === true ? `${isNaN(parseFloat(stateObj40.state)) ? '0' : convertValue(parseFloat(stateObj40.state), round)}` : `${parseFloat(stateObj40.state).toFixed(0) || 0} W`}</text>`}
             ${config.entities?.non_essential_load1
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.non_essential_load1)}>
-                    <text id="noness2_value" x="320"" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" fill="${grid_colour}">${isNaN(parseFloat(stateObj40.state)) ? '0' : parseFloat(stateObj40.state).toFixed(0)} W</text>
+                    <text id="noness2_value" x="320"" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" fill="${grid_colour}">${config.grid.auto_scale === true ? `${isNaN(parseFloat(stateObj40.state)) ? '0' : convertValue(parseFloat(stateObj40.state), round)}` : `${parseFloat(stateObj40.state).toFixed(0) || 0} W`}</text>
                   </a>`
-          : svg`<text id="noness2_value" x="320"" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" fill="${grid_colour}">${isNaN(parseFloat(stateObj40.state)) ? '0' : parseFloat(stateObj40.state).toFixed(0)} W</text>`}
+          : svg`<text id="noness2_value" x="320"" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" fill="${grid_colour}">${config.grid.auto_scale === true ? `${isNaN(parseFloat(stateObj40.state)) ? '0' : convertValue(parseFloat(stateObj40.state), round)}` : `${parseFloat(stateObj40.state).toFixed(0) || 0} W`}</text>`}
             ${config.entities?.non_essential_load2
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.non_essential_load2)}>
-                    <text id="noness2_value" x="357" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" fill="${grid_colour}">${isNaN(parseFloat(stateObj41.state)) ? '0' : parseFloat(stateObj41.state).toFixed(0)} W</text>
+                    <text id="noness2_value" x="357" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" fill="${grid_colour}">${config.grid.auto_scale === true ? `${isNaN(parseFloat(stateObj41.state)) ? '0' : convertValue(parseFloat(stateObj41.state), round)}` : `${parseFloat(stateObj41.state).toFixed(0) || 0} W`}</text>
                   </a>`
-          : svg`<text id="noness2_value" x="357" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" fill="${grid_colour}">${isNaN(parseFloat(stateObj41.state)) ? '0' : parseFloat(stateObj41.state).toFixed(0)} W</text>`}
+          : svg`<text id="noness2_value" x="357" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" fill="${grid_colour}">${config.grid.auto_scale === true ? `${isNaN(parseFloat(stateObj41.state)) ? '0' : convertValue(parseFloat(stateObj41.state), round)}` : `${parseFloat(stateObj41.state).toFixed(0) || 0} W`}</text>`}
             ${config.entities?.essential_load1
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1)}>
-                    <text id="ess_load1_value" x="409" y="${show_aux !== true ? '47' : '158'}" display="${additional_load === 1 ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj42.state)) ? '0' : parseFloat(stateObj42.state).toFixed(0)} W</text>
+                    <text id="ess_load1_value" x="409" y="${show_aux !== true ? '47' : '158'}" display="${additional_load === 1 ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj42.state)) ? '0' : convertValue(parseFloat(stateObj42.state), round)}` : `${parseFloat(stateObj42.state).toFixed(0) || 0} W`}</text>
                   </a>`
-          : svg`<text id="ess_load1_value" x="409" y="${show_aux !== true ? '47' : '158'}" display="${additional_load === 1 ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj42.state)) ? '0' : parseFloat(stateObj42.state).toFixed(0)} W</text>`}
+          : svg`<text id="ess_load1_value" x="409" y="${show_aux !== true ? '47' : '158'}" display="${additional_load === 1 ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj42.state)) ? '0' : convertValue(parseFloat(stateObj42.state), round)}` : `${parseFloat(stateObj42.state).toFixed(0) || 0} W`}</text>`}
             ${config.entities?.essential_load1
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1)}>
-                    <text id="ess_load2_value" x="${show_aux !== true ? '394' : '391'}" y="${show_aux !== true ? '42' : '154'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${isNaN(parseFloat(stateObj42.state)) ? '0' : parseFloat(stateObj42.state).toFixed(0)} W</text>
+                    <text id="ess_load2_value" x="${show_aux !== true ? '394' : '391'}" y="${show_aux !== true ? '42' : '154'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj42.state)) ? '0' : convertValue(parseFloat(stateObj42.state), round)}` : `${parseFloat(stateObj42.state).toFixed(0) || 0} W`}</text>
                   </a>`
-          : svg`<text id="ess_load2_value" x="${show_aux !== true ? '394' : '391'}" y="${show_aux !== true ? '42' : '154'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${isNaN(parseFloat(stateObj42.state)) ? '0' : parseFloat(stateObj42.state).toFixed(0)} W</text>`}
+          : svg`<text id="ess_load2_value" x="${show_aux !== true ? '394' : '391'}" y="${show_aux !== true ? '42' : '154'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj42.state)) ? '0' : convertValue(parseFloat(stateObj42.state), round)}` : `${parseFloat(stateObj42.state).toFixed(0) || 0} W`}</text>`}
             ${config.entities?.essential_load2
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load2)}>
-                    <text id="ess_load2_value" x="${show_aux !== true ? '430' : '427'}" y="${show_aux !== true ? '42' : '154'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${isNaN(parseFloat(stateObj45.state)) ? '0' : parseFloat(stateObj45.state).toFixed(0)} W</text>
+                    <text id="ess_load2_value" x="${show_aux !== true ? '430' : '427'}" y="${show_aux !== true ? '42' : '154'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj45.state)) ? '0' : convertValue(parseFloat(stateObj45.state), round)}` : `${parseFloat(stateObj45.state).toFixed(0) || 0} W`}</text>
                   </a>`
-          : svg`<text id="ess_load2_value" x="${show_aux !== true ? '430' : '427'}" y="${show_aux !== true ? '42' : '154'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${isNaN(parseFloat(stateObj45.state)) ? '0' : parseFloat(stateObj45.state).toFixed(0)} W</text>`}
+          : svg`<text id="ess_load2_value" x="${show_aux !== true ? '430' : '427'}" y="${show_aux !== true ? '42' : '154'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj45.state)) ? '0' : convertValue(parseFloat(stateObj45.state), round)}` : `${parseFloat(stateObj45.state).toFixed(0) || 0} W`}</text>`}
             ${grid_power >= 0
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost_buy)}>
               <text id="energy_cost" x="427" y="257"  class="st3 left-align" fill="${grid_colour}" display="${config.entities?.energy_cost_buy  ? '' : 'none'}" >${energy_cost} ${stateObj43.attributes.unit_of_measurement}</text>
@@ -1001,16 +1018,16 @@ export class SunsynkPowerFlowCard extends LitElement {
               <text id="battery_soc_184" x="196.5" y="333" fill=${battery_colour} class="st13 st8 left-align" display="${inverter_prog.show === false || config.entities.battery_soc_184 === 'none' || config.show_battery === false ? 'none' : ''}"> | ${inverter_prog.capacity || 0} %</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_power_190)}>
-              <text id="battery_power_190" x="41" y="356" display="${config.entities.battery_power_190 === 'none' || config.show_battery === false ? 'none' : ''}" fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">${config.battery.show_absolute === true ? Math.abs(battery_power) : battery_power} W</text>
+              <text id="battery_power_190" x="41" y="356" display="${config.entities.battery_power_190 === 'none' || config.show_battery === false ? 'none' : ''}" fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">${config.battery.auto_scale === true ? `${config.battery.show_absolute === true ? `${Math.abs(parseFloat(convertValue(battery_power, round)))} ${convertValue(battery_power, round).split(' ')[1]}` : convertValue(battery_power, round) || '0'}` : `${config.battery.show_absolute === true ? `${Math.abs(battery_power)}` : battery_power || 0} W`}</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_current_191)}>
               <text id="battery_current_191" x="41" y="336" display="${config.entities.battery_current_191 === 'none' || config.show_battery === false ? 'none' : ''}" fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">${config.battery.show_absolute === true ? Math.abs(parseFloat(stateObj35.state)).toFixed(1) : parseFloat(stateObj35.state).toFixed(1)} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_power_175)}>
-              <text id="inverter_power_175" x="180.5" y="178" display="${config.entities.inverter_power_175 === 'none' ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${inverter_colour}">${stateObj22.state} W</text>
+              <text id="inverter_power_175" x="180.5" y="178" display="${config.entities.inverter_power_175 === 'none' ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${inverter_colour}">${config.inverter.auto_scale === true ? `${convertValue(stateObj22.state, round) || 0}` : `${stateObj22.state || 0} W`}</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_power_169)}>
-              <text id="grid_power_169" x="270" y="209" display="${config.entities.grid_power_169 === 'none' ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">${stateObj23.state} W</text>
+              <text id="grid_power_169" x="270" y="209" display="${config.entities.grid_power_169 === 'none' ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">${config.grid.auto_scale === true ? `${convertValue(stateObj23.state, round) || 0}` : `${stateObj23.state || 0} W`}</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_voltage_109)}>
               <text id="pv1_voltage" x="41" y="78.5" class="st3 left-align" display="${config.show_solar === false || !config.entities.pv1_voltage_109 || config.entities.pv1_voltage_109 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj16.state).toFixed(1)} V</text>
@@ -1281,13 +1298,13 @@ export class SunsynkPowerFlowCard extends LitElement {
               <text id="battery_soc_184" x="355" y="358" fill=${battery_colour} class="st13 st8 left-align" display="${inverter_prog.show === false || config.entities.battery_soc_184 === 'none' || config.show_battery === false ? 'none' : ''}"> | ${inverter_prog.capacity || 0} %</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_power_190)}>
-              <text id="battery_power_190" x="193" y="386" display="${config.entities.battery_power_190 === 'none' || config.show_battery === false ? 'none' : ''}" fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">${config.battery.show_absolute === true ? Math.abs(battery_power) : battery_power} W</text>
+              <text id="battery_power_190" x="193" y="386" display="${config.entities.battery_power_190 === 'none' || config.show_battery === false ? 'none' : ''}" fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">${config.battery.auto_scale === true ? `${config.battery.show_absolute === true ? `${Math.abs(parseFloat(convertValue(battery_power, round)))} ${convertValue(battery_power, round).split(' ')[1]}` : convertValue(battery_power, round) || '0'}` : `${config.battery.show_absolute === true ? `${Math.abs(battery_power)}` : battery_power || 0} W`}</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_current_191)}>
             <text id="battery_current_191" x="193" y="365.3" display="${config.entities.battery_current_191 === 'none' || config.show_battery === false ? 'none' : ''}" fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">${config.battery.show_absolute === true ? Math.abs(parseFloat(stateObj35.state)).toFixed(1) : parseFloat(stateObj35.state).toFixed(1)} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_ct_power_172)}>
-              <text id="grid_ct_power_172" x="135.1" y="219.2" display="${config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">${grid_power || 0} W</text>
+              <text id="grid_ct_power_172" x="135.1" y="219.2" display="${config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">${config.grid.auto_scale === true ? `${convertValue(grid_power, round) || 0}` : `${grid_power || 0} W`}</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_voltage_109)}>
               <text id="pv1_voltage" x="194" y="106" class="st3 left-align" display="${config.show_solar === false || !config.entities.pv1_voltage_109 || config.entities.pv1_voltage_109 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj16.state).toFixed(1)} V</text>
@@ -1331,44 +1348,44 @@ export class SunsynkPowerFlowCard extends LitElement {
                   </a>`}
             ${config.entities?.pv_total
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv_total)}>
-                      <text id="pvtotal_power" x="238.8" y="133.9" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${total_pv || 0} W</text>
+                      <text id="pvtotal_power" x="238.8" y="133.9" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${config.solar.auto_scale === true ? `${convertValue(total_pv, round) || 0}` : `${total_pv || 0} W`}</text>
                     </a>`
-          : svg`<text id="pvtotal_power" x="238.8" y="133.9" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${total_pv || 0} W</text>`}
+          : svg`<text id="pvtotal_power" x="238.8" y="133.9" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${config.solar.auto_scale === true ? `${convertValue(total_pv, round) || 0}` : `${total_pv || 0} W`}</text>`}
             ${config.entities?.pv1_power_186
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_power_186)}>
-                    <text id="pv1_power_186" x="188.1" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj9.state).toFixed(0)} W</text>
+                    <text id="pv1_power_186" x="188.1" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${config.solar.auto_scale === true ? `${convertValue(parseFloat(stateObj9.state).toFixed(0), round)}` : `${parseFloat(stateObj9.state).toFixed(0)} W`}</text>
                   </a>`
-          : svg`<text id="pv1_power_186" x="188.1" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv1_power_186 === 'none' ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj9.state).toFixed(0)} W</text>`}
+          : svg`<text id="pv1_power_186" x="188.1" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv1_power_186 === 'none' ? 'none' : ''}" fill="${solar_colour}">${config.solar.auto_scale === true ? `${convertValue(parseFloat(stateObj9.state).toFixed(0), round)}` : `${parseFloat(stateObj9.state).toFixed(0)} W`}</text>`}
             ${config.entities?.pv2_power_187
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_power_187)}>
-                    <text id="pv2_power_187" x="289.5" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj8.state).toFixed(0)} W</text>
+                    <text id="pv2_power_187" x="289.5" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${config.solar.auto_scale === true ? `${convertValue(parseFloat(stateObj8.state).toFixed(0), round)}` : `${parseFloat(stateObj8.state).toFixed(0)} W`}</text>
                   </a>`
-          : svg`<text id="pv2_power_187" x="289.5" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv2_power_187 === 'none' || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj8.state).toFixed(0)} W</text>`}
+          : svg`<text id="pv2_power_187" x="289.5" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv2_power_187 === 'none' || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${config.solar.auto_scale === true ? `${convertValue(parseFloat(stateObj8.state).toFixed(0), round)}` : `${parseFloat(stateObj8.state).toFixed(0)} W`}</text>`}
             ${config.entities?.pv3_power_188
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_power_188)}>
-                    <text id="pv3_power_188" x="113" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj31.state).toFixed(0)} W</text>
+                    <text id="pv3_power_188" x="113" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}">${config.solar.auto_scale === true ? `${convertValue(parseFloat(stateObj31.state).toFixed(0), round)}` : `${parseFloat(stateObj31.state).toFixed(0)} W`}</text>
                   </a>`
-          : svg`<text id="pv3_power_188" x="113" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv3_power_188 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj31.state).toFixed(0)} W</text>`}
+          : svg`<text id="pv3_power_188" x="113" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv3_power_188 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}">${config.solar.auto_scale === true ? `${convertValue(parseFloat(stateObj31.state).toFixed(0), round)}` : `${parseFloat(stateObj31.state).toFixed(0)} W`}</text>`}
             ${config.entities?.pv4_power_189
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_power_189)}>
-                    <text id="pv4_power_189" x="366" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj32.state).toFixed(0)} W</text>
+                    <text id="pv4_power_189" x="366" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}">${config.solar.auto_scale === true ? `${convertValue(parseFloat(stateObj32.state).toFixed(0), round)}` : `${parseFloat(stateObj32.state).toFixed(0)} W`}</text>
                   </a>`
-          : svg`<text id="pv4_power_189" x="366" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv4_power_189 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}">${parseFloat(stateObj32.state).toFixed(0)} W</text>`}
+          : svg`<text id="pv4_power_189" x="366" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false || config.entities.pv4_power_189 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}">${config.solar.auto_scale === true ? `${convertValue(parseFloat(stateObj32.state).toFixed(0), round)}` : `${parseFloat(stateObj32.state).toFixed(0)} W`}</text>`}
             ${config.entities?.essential_power
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_power)}>
-                    <text id="ess_power" x="340.1" y="219.2" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential || 0} W</text>
+                    <text id="ess_power" x="340.1" y="219.2" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${convertValue(essential, round) || 0}` : `${essential || 0} W`}</text>
                   </a>`
-          : svg`<text id="ess_power" x="340.1" y="219.2" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${essential || 0} W</text>`}
+          : svg`<text id="ess_power" x="340.1" y="219.2" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${convertValue(essential, round) || 0}` : `${essential || 0} W`}</text>`}
             ${config.entities?.essential_load1
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1)}>
-                    <text id="ess_load1" x="440" y="133" display="${(additional_load === 1 || additional_load === 2)  ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj42.state)) ? 0 : parseFloat(stateObj42.state).toFixed(0)} W</text>
+                    <text id="ess_load1" x="440" y="133" display="${(additional_load === 1 || additional_load === 2)  ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj42.state)) ? '0' : convertValue(parseFloat(stateObj42.state), round)}` : `${parseFloat(stateObj42.state).toFixed(0) || 0} W`}</text>
                   </a>`
-          : svg`<text id="ess_load1" x="440" y="133" display="${(additional_load === 1 || additional_load === 2)  ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj42.state)) ? 0 : parseFloat(stateObj42.state).toFixed(0)} W</text>`}
+          : svg`<text id="ess_load1" x="440" y="133" display="${(additional_load === 1 || additional_load === 2)  ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj42.state)) ? '0' : convertValue(parseFloat(stateObj42.state), round)}` : `${parseFloat(stateObj42.state).toFixed(0) || 0} W`}</text>`}
             ${config.entities?.essential_load2
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load2)}>
-                    <text id="ess_load2" x="440" y="306.5" display="${additional_load === 2 ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj45.state)) ? 0 : parseFloat(stateObj45.state).toFixed(0)} W</text>
+                    <text id="ess_load2" x="440" y="306.5" display="${additional_load === 2 ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj45.state)) ? '0' : convertValue(parseFloat(stateObj45.state), round)}` : `${parseFloat(stateObj45.state).toFixed(0) || 0} W`}</text>
                   </a>`
-          : svg`<text id="ess_load2" x="440" y="306.5" display="${additional_load === 2 ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${isNaN(parseFloat(stateObj45.state)) ? 0 : parseFloat(stateObj45.state).toFixed(0)} W</text>`}
+          : svg`<text id="ess_load2" x="440" y="306.5" display="${additional_load === 2 ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj45.state)) ? '0' : convertValue(parseFloat(stateObj45.state), round)}` : `${parseFloat(stateObj45.state).toFixed(0) || 0} W`}</text>`}
           </svg>
         </div>
         </ha-card>
