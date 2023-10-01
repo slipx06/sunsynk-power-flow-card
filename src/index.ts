@@ -153,6 +153,8 @@ export class SunsynkPowerFlowCard extends LitElement {
     let inverter_voltage = config.entities?.inverter_voltage_154 ? parseFloat(stateObj5.state).toFixed(1) : 0;
     let inverter_current = config.entities?.inverter_current_164 ? parseFloat(stateObj7.state).toFixed(1) : 0;
     let battery_voltage = config.entities?.battery_voltage_183 ? parseFloat(stateObj11.state).toFixed(1) : 0;
+    let inverter_power_round = config.entities?.inverter_power_175 ? parseFloat(stateObj22.state).toFixed(0) : 0;
+    let grid_power_round = config.entities?.grid_power_169 ? parseFloat(stateObj23.state).toFixed(0) : 0;
 
     let noness_dual_load = config.grid?.additional_loads;
     if (!validLoadValues.includes(noness_dual_load)) {
@@ -1024,10 +1026,10 @@ export class SunsynkPowerFlowCard extends LitElement {
               <text id="battery_current_191" x="41" y="336" display="${config.entities.battery_current_191 === 'none' || config.show_battery === false ? 'none' : ''}" fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">${config.battery.show_absolute === true ? Math.abs(parseFloat(stateObj35.state)).toFixed(1) : parseFloat(stateObj35.state).toFixed(1)} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_power_175)}>
-              <text id="inverter_power_175" x="180.5" y="178" display="${config.entities.inverter_power_175 === 'none' ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${inverter_colour}">${config.inverter.auto_scale === true ? `${convertValue(stateObj22.state, round) || 0}` : `${parseFloat(stateObj22.state).toFixed(0) || 0} W`}</text>
+              <text id="inverter_power_175" x="180.5" y="178" display="${config.entities.inverter_power_175 === 'none' ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${inverter_colour}">${config.inverter.auto_scale === true ? `${convertValue(inverter_power_round, round) || 0}` : `${parseFloat(stateObj22.state).toFixed(0) || 0} W`}</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_power_169)}>
-              <text id="grid_power_169" x="270" y="209" display="${config.entities.grid_power_169 === 'none' ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">${config.grid.auto_scale === true ? `${convertValue(stateObj23.state, round) || 0}` : `${parseFloat(stateObj23.state).toFixed(0) || 0} W`}</text>
+              <text id="grid_power_169" x="270" y="209" display="${config.entities.grid_power_169 === 'none' ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">${config.grid.auto_scale === true ? `${convertValue(grid_power_round, round) || 0}` : `${parseFloat(stateObj23.state).toFixed(0) || 0} W`}</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_voltage_109)}>
               <text id="pv1_voltage" x="41" y="78.5" class="st3 left-align" display="${config.show_solar === false || !config.entities.pv1_voltage_109 || config.entities.pv1_voltage_109 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj16.state).toFixed(1)} V</text>
@@ -1057,10 +1059,10 @@ export class SunsynkPowerFlowCard extends LitElement {
               <text id="battery_temp_182" x="93.7" y="295" class="${config.entities?.battery_temp_182 ? 'st3 left-align' : 'st12'}" fill="${battery_colour}" display="${config.show_battery === false ? 'none' : ''}" >${stateObj37.state}°</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.radiator_temp_91)}>
-              <text id="ac_temp" x="${config.solar?.mppts === 4 ? '137' : '158'}"  y="${config.solar?.mppts === 4 ? '222' : '153'}" class="st3 left-align" fill="${inverter_colour}" display="${config.entities?.radiator_temp_91 ? '' : 'none'}" >AC: ${stateObj39.state}°</text>
+              <text id="ac_temp" x="${config.solar?.mppts === 4 ? '137' : '158'}"  y="${config.solar?.mppts === 4 ? '222' : '153'}" class="st3 left-align" fill="${inverter_colour}" display="${config.entities?.radiator_temp_91 ? '' : 'none'}" >AC: ${parseFloat(stateObj39.state).toFixed(1)}°</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.dc_transformer_temp_90)}>
-              <text id="dc_temp" x="110" y="266" class="st3 left-align" fill="${inverter_colour}" display="${config.entities?.dc_transformer_temp_90 ? '' : 'none'}" >DC: ${stateObj38.state}°</text>
+              <text id="dc_temp" x="110" y="266" class="st3 left-align" fill="${inverter_colour}" display="${config.entities?.dc_transformer_temp_90 ? '' : 'none'}" >DC: ${parseFloat(stateObj38.state).toFixed(1)}°</text>
             </a>
           </svg>
         </div>
@@ -1334,10 +1336,10 @@ export class SunsynkPowerFlowCard extends LitElement {
               <text id="battery_temp_182" x="250" y="324.5" class="${config.entities?.battery_temp_182 ? 'st3 left-align' : 'st12'}" fill="${battery_colour}" display="${config.show_battery === false ? 'none' : ''}" >${stateObj37.state}°</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.radiator_temp_91)}>
-            <text id="ac_temp" x="173" y="168.2" class="st3 left-align" fill="${inverter_colour}" display="${config.entities?.radiator_temp_91 ? '' : 'none'}" >AC: ${stateObj39.state}°</text>
+            <text id="ac_temp" x="173" y="168.2" class="st3 left-align" fill="${inverter_colour}" display="${config.entities?.radiator_temp_91 ? '' : 'none'}" >AC: ${parseFloat(stateObj39.state).toFixed(1)}°</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.dc_transformer_temp_90)}>
-              <text id="dc_temp" x="173" y="180.4" class="st3 left-align" fill="${inverter_colour}" display="${config.entities?.dc_transformer_temp_90 ? '' : 'none'}" >DC: ${stateObj38.state}°</text>
+              <text id="dc_temp" x="173" y="180.4" class="st3 left-align" fill="${inverter_colour}" display="${config.entities?.dc_transformer_temp_90 ? '' : 'none'}" >DC: ${parseFloat(stateObj38.state).toFixed(1)}°</text>
             </a>
             ${grid_power >= 0
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost_buy)}>
