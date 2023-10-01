@@ -1024,10 +1024,10 @@ export class SunsynkPowerFlowCard extends LitElement {
               <text id="battery_current_191" x="41" y="336" display="${config.entities.battery_current_191 === 'none' || config.show_battery === false ? 'none' : ''}" fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">${config.battery.show_absolute === true ? Math.abs(parseFloat(stateObj35.state)).toFixed(1) : parseFloat(stateObj35.state).toFixed(1)} A</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_power_175)}>
-              <text id="inverter_power_175" x="180.5" y="178" display="${config.entities.inverter_power_175 === 'none' ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${inverter_colour}">${config.inverter.auto_scale === true ? `${convertValue(stateObj22.state, round) || 0}` : `${stateObj22.state || 0} W`}</text>
+              <text id="inverter_power_175" x="180.5" y="178" display="${config.entities.inverter_power_175 === 'none' ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${inverter_colour}">${config.inverter.auto_scale === true ? `${convertValue(stateObj22.state, round) || 0}` : `${parseFloat(stateObj22.state).toFixed(0) || 0} W`}</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_power_169)}>
-              <text id="grid_power_169" x="270" y="209" display="${config.entities.grid_power_169 === 'none' ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">${config.grid.auto_scale === true ? `${convertValue(stateObj23.state, round) || 0}` : `${stateObj23.state || 0} W`}</text>
+              <text id="grid_power_169" x="270" y="209" display="${config.entities.grid_power_169 === 'none' ? 'none' : ''}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">${config.grid.auto_scale === true ? `${convertValue(stateObj23.state, round) || 0}` : `${parseFloat(stateObj23.state).toFixed(0) || 0} W`}</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_voltage_109)}>
               <text id="pv1_voltage" x="41" y="78.5" class="st3 left-align" display="${config.show_solar === false || !config.entities.pv1_voltage_109 || config.entities.pv1_voltage_109 === 'none' ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj16.state).toFixed(1)} V</text>
