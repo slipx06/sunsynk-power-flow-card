@@ -153,6 +153,8 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |essential_power: | Optional | `none` | The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures essential power e.g. `Load power Essential` in the case of Solar Assistant.  (W) |
 |essential_load1: | Optional | | Sensor that contains the power of your essential load 1 (W)|
 |essential_load2: | Optional | | Sensor that contains the power of your essential load 2 (W)|
+|essential_load1_extra: | Optional | | Sensor that contains additional information you want displayed for your essential load 1 e.g. Daily kWh, Temperature etc|
+|essential_load2_extra: | Optional | | Sensor that contains additional information you want displayed for your essential load 2 e.g. Daily kWh, Temperature etc
 |nonessential_power| Optional | `none`| The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures non-essential power e.g.  `Load power Non-Essential` in the case of Solar Assistant.  (W)
 |non_essential_load1: | Optional | |Sensor that contains the power of your non-essential load 1 (W)|
 |non_essential_load2: | Optional | |Sensor that contains the power of your non-essential load 2 (W)

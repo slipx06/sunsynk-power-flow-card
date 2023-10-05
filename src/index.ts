@@ -133,6 +133,8 @@ export class SunsynkPowerFlowCard extends LitElement {
     const stateObj49 = this.hass.states[config.entities.aux_load2] || { state: '0' };
     const stateObj50 = this.hass.states[config.entities.day_aux_energy] || { state: '0' };
     const stateObj51 = this.hass.states[config.entities.energy_cost_sell] || { state: '', attributes: { unit_of_measurement: '' } };
+    const stateObj52 = this.hass.states[config.entities.essential_load1_extra] || { state: '0', attributes: { unit_of_measurement: '' } };
+    const stateObj53 = this.hass.states[config.entities.essential_load2_extra] || { state: '0', attributes: { unit_of_measurement: '' } };
 
     //Set defaults
     let { invert_aux } = config.load;
@@ -196,11 +198,6 @@ export class SunsynkPowerFlowCard extends LitElement {
     let usetimer = (config.entities.use_timer_248 === false || !config.entities.use_timer_248) ? false : stateObj26.state;
     let priority = (config.entities.priority_load_243 === false || !config.entities.priority_load_243) ? false : stateObj25.state;
     let battery_power = (config.battery?.invert_power === true) ? parseInt(stateObj13.state) * -1 : parseInt(stateObj13.state);
-    //let battery_power = config.battery?.invert_power
-    //  ? parseInt(stateObj13.state) * -1
-    //  : config.battery?.invert_power === false
-    //  ? parseInt(stateObj13.state)
-    //  : 0; 
     let height = config.card_height;
     let bat_full = config.battery?.full_capacity
     let bat_empty = config.battery?.empty_capacity
@@ -909,7 +906,15 @@ export class SunsynkPowerFlowCard extends LitElement {
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_aux_energy)}>
               <text id="aux_daily_value" x="${(additional_aux_load === 1 || additional_aux_load === 2) ? '238' : '306'}" y="12" class="st10 left-align" display="${show_aux !== true || show_dailyaux !== true ? 'none' : ''}" fill="${aux_colour}" >${parseFloat(stateObj50.state).toFixed(1)} kWh</text>
             </a>
-
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1_extra)}>
+               <text id="ess_load1_value_extra" x="430" y="23" display="${config.entities?.essential_load1_extra && additional_load === 1 && show_aux !== true ? '' : 'none'}" class="st3 .right-align" fill="${load_colour}">${isNaN(parseFloat(stateObj52.state)) ? '0' : `${parseFloat(stateObj52.state).toFixed(1)} ${stateObj52.attributes.unit_of_measurement}`}</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1_extra)}>
+               <text id="ess_load2_value_extra" x="392" y="70" display="${config.entities?.essential_load1_extra && additional_load === 2 && show_aux !== true ? '' : 'none'}" class="st3 .right-align" fill="${load_colour}">${isNaN(parseFloat(stateObj52.state)) ? '0' : `${parseFloat(stateObj52.state).toFixed(1)} ${stateObj52.attributes.unit_of_measurement}`}</text>
+            </a>
+           <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load2_extra)}>
+               <text id="ess_load2_value_extra" x="430" y="70" display="${config.entities?.essential_load2_extra && additional_load === 2 && show_aux !== true ? '' : 'none'}" class="st3 .left-align" fill="${load_colour}">${isNaN(parseFloat(stateObj52.state)) ? '0' : `${parseFloat(stateObj53.state).toFixed(1)} ${stateObj53.attributes.unit_of_measurement}`}</text>
+            </a>        
             ${config.entities?.pv_total
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv_total)}>
               <text id="pvtotal_power" x="19%" y="46.5%" class="${font !== true ? 'st14' : 'st4'} st8" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${config.solar.auto_scale === true ? `${convertValue(total_pv, round) || 0}` : `${total_pv || 0} W`}</text>
@@ -1341,6 +1346,12 @@ export class SunsynkPowerFlowCard extends LitElement {
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.dc_transformer_temp_90)}>
               <text id="dc_temp" x="173" y="180.4" class="st3 left-align" fill="${inverter_colour}" display="${config.entities?.dc_transformer_temp_90 ? '' : 'none'}" >DC: ${parseFloat(stateObj38.state).toFixed(1)}°</text>
             </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1_extra)}>
+               <text id="ess_load1_extra" x="465" y="157" display="${config.entities?.essential_load1_extra && (additional_load === 1 || additional_load === 2)  ? '' : 'none'}" class="st3 .right-align" fill="${load_colour}">${isNaN(parseFloat(stateObj52.state)) ? '0' : `${parseFloat(stateObj52.state).toFixed(1)} ${stateObj52.attributes.unit_of_measurement}`}</text>
+            </a>
+            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load2_extra)}>
+               <text id="ess_load2_extra" x="465" y="282" display="${config.entities?.essential_load2_extra && additional_load === 2 ? '' : 'none'}" class="st3 .right-align" fill="${load_colour}">${isNaN(parseFloat(stateObj53.state)) ? '0' : `${parseFloat(stateObj53.state).toFixed(1)} ${stateObj53.attributes.unit_of_measurement}`}</text>
+            </a>          
             ${grid_power >= 0
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost_buy)}>
               <text id="energy_cost" x="105" y="195" class="st3 left-align" fill="${grid_colour}" display="${config.entities?.energy_cost_buy ? '' : 'none'}" >${energy_cost} ${stateObj43.attributes.unit_of_measurement}</text>
@@ -1387,8 +1398,8 @@ export class SunsynkPowerFlowCard extends LitElement {
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load2)}>
                     <text id="ess_load2" x="440" y="306.5" display="${additional_load === 2 ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj45.state)) ? '0' : convertValue(parseFloat(stateObj45.state), round)}` : `${parseFloat(stateObj45.state).toFixed(0) || 0} W`}</text>
                   </a>`
-          : svg`<text id="ess_load2" x="440" y="306.5" display="${additional_load === 2 ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj45.state)) ? '0' : convertValue(parseFloat(stateObj45.state), round)}` : `${parseFloat(stateObj45.state).toFixed(0) || 0} W`}</text>`}
-          </svg>
+          : svg`<text id="ess_load2" x="440" y="306.5" display="${additional_load === 2 ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj45.state)) ? '0' : convertValue(parseFloat(stateObj45.state), round)}` : `${parseFloat(stateObj45.state).toFixed(0) || 0} W`}</text>`}            
+          </svg>          
         </div>
         </ha-card>
       `;
