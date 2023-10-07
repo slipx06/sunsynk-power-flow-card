@@ -1,0 +1,53 @@
+{
+    "common": {
+        "description": "A Home Assistant card to emulate the Sunsynk power flow that's shown on the Inverter screen",
+        "version": "Verze",
+        "runtime_to": "ČAS VYBITÍ DO",
+        "battery_floating": "BATERIE JE NABITÁ",
+        "charge": "NABÍT",
+        "to": "DO",
+        "daily_load": "DNES SPOTŘEBA",
+        "daily_aux": "DENNÍ VSTUP",
+        "daily_grid_buy": "DNES NÁKUP",
+        "daily_grid_sell": "DNES PRODEJ",
+        "daily_solar": "DNES VÝROBA",
+        "daily_solar_left": "DNES VÝROBA / CELKEM VÝROBA",
+        "daily_charge": "DNES NABÍJENÍ",
+        "daily_discharge": "DNES VYBÍJENÍ",
+        "ratio": "Poměr",
+        "timer_off": "Časovač off",
+        "timer_on": "Časovač on",
+        "priority_batt": "Nabít Baterii z ds",
+        "priority_load": "Prioritní Spotřeba",
+        "nonessential_name": "Nedostupné",
+        "aux_name": "Pomocné",
+        "load1_name": "",
+        "load2_name": "",
+        "pv1_name": "PV1",
+        "pv2_name": "PV2",
+        "pv3_name": "PV3",
+        "pv4_name": "PV4",
+        "essential": "Nezbytný"
+    },
+    "errors": {
+        "battery": {
+            "bat": "Nejsou definovány žádné atributy baterie",
+            "energy": "Uveďte prosím atribut energie baterie a hodnotu ve Wh, např. 5,32 Energie baterie: 5320",
+            "shutdown_soc": "Uveďte atribut battery shut down_soc a hodnotu, např. shutdown_soc: 20 shutdown_soc: 20",
+            "full_capacity": "Plná kapacita musí být mezi 80 a 100",
+            "empty_capacity": "Prázdná kapacita musí být <= 30",
+            "show_daily": "Please include the day_battery_charge_70 and day_battery_discharge_71 attributes and entity IDs"
+        },
+        "solar": {
+            "sol": "Nejsou definovány žádné sluneční atributy",
+            "mppts": "Uveďte prosím atribut a hodnotu solar mppts; 1,2,3 nebo 4 např. mppts: 2",
+            "show_daily": "Uveďte prosím atribut day_pv_energy_108 a ID entity"
+        },
+        "grid": {
+            "show_daily": "Uveďte prosím atributy day_grid_import_76 a day_grid_export_77 a ID entit"
+        },
+        "essential_power": "Atribut essential_power je nastaven na hodnotu none. Uveďte prosím atribut inverter_power_175 a ID entity, aby karta mohla vypočítat tuto hodnotu.",
+        "nonessential_power": "Atribut neesenciální_výkon je nastaven na hodnotu none. Uveďte prosím atribut grid_power_169 a ID entity, aby karta mohla vypočítat tuto hodnotu.",
+        "missing_entity": "Uveďte prosím atribut a ID entity"
+    }
+}

@@ -257,8 +257,11 @@ export class SunsynkPowerFlowCard extends LitElement {
       charge: this.hass.states[config.entities.prog6_charge] || { state: '' }
     };
 
+    const shutdownsoc = this.hass.states[config.battery.shutdown_soc] || { state: '' };
+    let shutdown = isNaN(parseInt(shutdownsoc.state)) ? config.battery.shutdown_soc : parseInt(shutdownsoc.state);
     let inverter_prog: inverterProg = {
-      capacity: config.battery.shutdown_soc,
+//      capacity: config.battery.shutdown_soc,
+      capacity: shutdown,
       entityID: ''
     };
     if (!config.entities.use_timer_248 || config.entities.use_timer_248 === false || stateObj26.state === 'off') {
@@ -318,7 +321,8 @@ export class SunsynkPowerFlowCard extends LitElement {
     let battery_capacity: number = 0;
     if (config.show_battery !== false && battery_power > 0) {
       if (stateObj20.state === "off" || inverter_prog.show === false || parseInt(stateObj12.state) <= inverter_prog.capacity) {
-        battery_capacity = config.battery.shutdown_soc;
+//        battery_capacity = config.battery.shutdown_soc;
+        battery_capacity = shutdown;
       } else {
         battery_capacity = inverter_prog.capacity;
       }
@@ -337,7 +341,8 @@ export class SunsynkPowerFlowCard extends LitElement {
 
     if (config.show_battery !== false || config.battery.energy !== 0) {
       if (battery_power === 0) {
-        totalSeconds = (((parseInt(stateObj12.state) - config.battery.shutdown_soc) / 100) * config.battery.energy) / 1 * 60 * 60;
+//        totalSeconds = (((parseInt(stateObj12.state) - config.battery.shutdown_soc) / 100) * config.battery.energy) / 1 * 60 * 60;
+        totalSeconds = (((parseInt(stateObj12.state) - shutdown) / 100) * config.battery.energy) / 1 * 60 * 60;
       } else if (battery_power > 0) {
         totalSeconds = (((parseInt(stateObj12.state) - battery_capacity) / 100) * config.battery.energy) / battery_power * 60 * 60;
       } else if (battery_power < 0) {

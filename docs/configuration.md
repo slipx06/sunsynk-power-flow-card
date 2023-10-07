@@ -44,7 +44,7 @@ To display battery power and current as absolute values set `show_absolute: true
 | Attribute | Requirement |Default | Description |
 | --- | --- | --- |--- |
 |energy: | **Required** | `0` | Total battery energy in Wh (e.g. 3 x 5.32kWh = 15960). If set to `0` the remaining battery runtime will be hidden|
-|shutdown_soc: | **Required** | `20` |The battery shutdown percentage used to calculate remaining runtime |
+|shutdown_soc: | **Required** | `20` |The battery shutdown percentage used to calculate remaining runtime. Numeric value or sensor i.e. `sensor.sunsynk_battery_capacity_shutdown`  |
 |invert_power:| Optional | `false`|Set to `true` if your sensor provides a positive number for battery charge and negative number for battery discharge|
 |colour:| Optional| `pink`| Changes the colour of all the battery card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |show_daily: | Optional| `false` | Toggles the daily total |
