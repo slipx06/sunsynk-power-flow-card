@@ -80,6 +80,7 @@ These attributes are only needed if `show_solar` is set to `true`
 |show_daily_aux" | Optional |`false` | Toggles the daily AUX total. Only displayed if `show_aux` is set to `true` |
 |show_aux: | Optional | `false` | Toggles the display of AUX |
 |invert_aux: | Optional | `false` | Set to `true` if your sensor provides a positive number for AUX input and negative number for AUX output  |
+|show_absolute_aux: | Optional | `false` | set to `true` to display power as an absolute value
 |animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on Power draw |
 |max_power: | Optional | `8000` | Maximum power draw to calculate animation speed |
 |aux_name: | Optional | `Auxilary` | Set the display name for the AUX Load

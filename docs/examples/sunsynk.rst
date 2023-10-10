@@ -229,6 +229,7 @@ Full Configuration (All Options)
     show_daily_aux: true
     show_aux: true
     invert_aux: false
+    show_absolute_aux: false
     aux_name: Generator
     aux_type: gen
     aux_colour: green

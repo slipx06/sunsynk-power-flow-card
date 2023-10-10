@@ -47,6 +47,7 @@ export default {
         show_aux: false,
         show_daily_aux: false,
         invert_aux: false,
+        show_absolute_aux: false,
         animation_speed: 4,
         max_power: 8000,
         aux_name: localize('common.aux_name'),
