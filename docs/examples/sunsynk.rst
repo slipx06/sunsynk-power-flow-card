@@ -200,6 +200,7 @@ Full Configuration (All Options)
     colour: grey
     autarky: 'power'
     auto_scale: true
+    three_phase: false
   battery:
     energy: 15960
     shutdown_soc: 20

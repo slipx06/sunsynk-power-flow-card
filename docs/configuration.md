@@ -36,7 +36,7 @@ The card can be configured through the following attributes:
 |autarky:| Optional| `power`| Display autarky and ratio as a percentage using either realtime power or daily energy values. Set to `no` to hide (`energy/power/no`). <br />Autarky is the percentage of self sufficiency through Home Production. Ratio is the percentage of produced electricity used by the home. <br />It is calculated based on the formula below and borrowed from the [Power Distribution Card](https://github.com/JonahKr/power-distribution-card)  <br /><ul><li>Autarky in Percent = Home Production / Home Consumption </li><li>Ratio in Percent = Home Consumption / Home Production</li></ul>|
 | model: | Optional | `sunsynk` | Selects which status codes to use. Set to `lux` for Lux inverters.  |
 |auto_scale: | Optional | `false` | If set to `true` power values greater than 999W will be displayed as kW e.g. 1.23kW. The number of decimal places can be changed using the `decimal_places` card attribute|
-
+| three_phase: | Optional | `false` | If set to `true` additional 3 phase sensors will be displayed. Requires entity attributes to be defined i.e. `inverter_current_L2`, `inverter_current_L3`, `inverter_voltage_L2`, `inverter_voltage_L3` , `grid_ct_power_L2`, `grid_ct_power_L3`, `load_power_L1`, `load_power_L2`, `load_power_L3`
 ### Battery
 
 To display battery power and current as absolute values set `show_absolute: true`. This is set to false by default and will return your sensor value. The animated dot will change direction depending on the charging or discharging state. The `invert_power` attribute can be used to reverse direction if needed by your sensor.
@@ -138,8 +138,12 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |day_pv_energy_108: | Optional | `sensor.sunsynk_day_pv_energy` | Daily solar usage (kWh) |
 |day_aux_energy: | Optional | | Sensor that provides the daily AUX energy (kWh)
 |inverter_voltage_154: | Optional | `sensor.sunsynk_inverter_voltage` | Inverter voltage (V) |
+|inverter_voltage_L2: | Optional | `` | Inverter L1 voltage (V) |
+|inverter_voltage_L3: | Optional | `` | Inverter L2 voltage (V) |
 |load_frequency_192: | Optional | `sensor.sunsynk_load_frequency` | Load frequency (Hz) |
-|inverter_current_164: | Optional | `sensor.sunsynk_inverter_current` | Inverter vurrent (A) |
+|inverter_current_164: | Optional | `sensor.sunsynk_inverter_current` | Inverter current (A) |
+|inverter_current_L2: | Optional | `` | Inverter L2 current (A) |
+|inverter_current_L3: | Optional | `` | Inverter L3 current (A) |
 |inverter_power_175: | Optional | `sensor.sunsynk_inverter_power` | Inverter power (W). Required if the essential_power attribute is set to `none` |
 |grid_power_169: | Optional | `sensor.sunsynk_grid_power` | Grid power (W) See NOTE below. Use **167** (Grid LD Power) if non-essential and essential readings are wrong. Required if the nonessential_power attribute is set to `none` |
 |pv1_power_186: | Optional | `sensor.sunsynk_pv1_power` | PV string 1 power (W)|
@@ -156,10 +160,15 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |essential_load2: | Optional | | Sensor that contains the power of your essential load 2 (W)|
 |essential_load1_extra: | Optional | | Sensor that contains additional information you want displayed for your essential load 1 e.g. Daily kWh, Temperature etc|
 |essential_load2_extra: | Optional | | Sensor that contains additional information you want displayed for your essential load 2 e.g. Daily kWh, Temperature etc
+|load_power_L1: | Optional | | Load L1 Power (W)
+|load_power_L2: | Optional | | Load L2 Power (W)
+|load_power_L3: | Optional | | Load L3 Power (W)
 |nonessential_power| Optional | `none`| The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures non-essential power e.g.  `Load power Non-Essential` in the case of Solar Assistant.  (W)
 |non_essential_load1: | Optional | |Sensor that contains the power of your non-essential load 1 (W)|
 |non_essential_load2: | Optional | |Sensor that contains the power of your non-essential load 2 (W)
 |grid_ct_power_172: | **Required** | `sensor.sunsynk_grid_ct_power`  | Grid CT power (W)|
+|grid_ct_power_L2: | Optional | `none`  | Grid CT L2 power (W)|
+|grid_ct_power_L3: | Optional | `none`  | Grid CT L3 power (W)|
 |pv1_voltage_109: | Optional | `sensor.sunsynk_pv1_voltage` | PV string 1 voltage (V) |
 |pv1_current_110: | Optional | `sensor.sunsynk_pv1_current` | PV string 1 current (A)|
 |pv2_voltage_111: | Optional | `sensor.sunsynk_pv2_voltage` | PV string 2 voltage (V)|
