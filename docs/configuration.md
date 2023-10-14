@@ -138,12 +138,12 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |day_pv_energy_108: | Optional | `sensor.sunsynk_day_pv_energy` | Daily solar usage (kWh) |
 |day_aux_energy: | Optional | | Sensor that provides the daily AUX energy (kWh)
 |inverter_voltage_154: | Optional | `sensor.sunsynk_inverter_voltage` | Inverter voltage (V) |
-|inverter_voltage_L2: | Optional | `` | Inverter L1 voltage (V) |
-|inverter_voltage_L3: | Optional | `` | Inverter L2 voltage (V) |
+|inverter_voltage_L2: | Optional |  | Inverter L1 voltage (V) |
+|inverter_voltage_L3: | Optional |  | Inverter L2 voltage (V) |
 |load_frequency_192: | Optional | `sensor.sunsynk_load_frequency` | Load frequency (Hz) |
 |inverter_current_164: | Optional | `sensor.sunsynk_inverter_current` | Inverter current (A) |
-|inverter_current_L2: | Optional | `` | Inverter L2 current (A) |
-|inverter_current_L3: | Optional | `` | Inverter L3 current (A) |
+|inverter_current_L2: | Optional |  | Inverter L2 current (A) |
+|inverter_current_L3: | Optional |  | Inverter L3 current (A) |
 |inverter_power_175: | Optional | `sensor.sunsynk_inverter_power` | Inverter power (W). Required if the essential_power attribute is set to `none` |
 |grid_power_169: | Optional | `sensor.sunsynk_grid_power` | Grid power (W) See NOTE below. Use **167** (Grid LD Power) if non-essential and essential readings are wrong. Required if the nonessential_power attribute is set to `none` |
 |pv1_power_186: | Optional | `sensor.sunsynk_pv1_power` | PV string 1 power (W)|
