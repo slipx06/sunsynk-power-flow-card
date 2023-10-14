@@ -1401,10 +1401,10 @@ export class SunsynkPowerFlowCard extends LitElement {
             </a>          
             ${grid_power >= 0
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost_buy)}>
-              <text id="energy_cost" x="105" y="195" class="st3 left-align" fill="${grid_colour}" display="${config.entities?.energy_cost_buy ? '' : 'none'}" >${energy_cost} ${stateObj43.attributes.unit_of_measurement}</text>
+              <text id="energy_cost" x="105" y="${config.inverter.three_phase === true ? '186' : '195'}" class="st3 left-align" fill="${grid_colour}" display="${config.entities?.energy_cost_buy ? '' : 'none'}" >${energy_cost} ${stateObj43.attributes.unit_of_measurement}</text>
                   </a>`
           : svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost_sell)}>
-              <text id="energy_cost" x="105" y="195"  class="st3 left-align" fill="${grid_colour}" display="${config.entities?.energy_cost_sell ? '' : 'none'}" >${energy_cost} ${stateObj51.attributes.unit_of_measurement}</text>
+              <text id="energy_cost" x="105" y="${config.inverter.three_phase === true ? '186' : '195'}"  class="st3 left-align" fill="${grid_colour}" display="${config.entities?.energy_cost_sell ? '' : 'none'}" >${energy_cost} ${stateObj51.attributes.unit_of_measurement}</text>
                   </a>`}
             ${config.entities?.pv_total
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv_total)}>
