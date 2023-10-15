@@ -903,31 +903,31 @@ export class SunsynkPowerFlowCard extends LitElement {
               <svg xmlns="http://www.w3.org/2000/svg" id="prog_grid_off" x="265" y="${useautarky != 'no' ? "232" : "249"}" width="20" height="18" viewBox="0 0 24 24"><path display="${inverter_prog.show === false || config.entities.use_timer_248 === 'none' ? 'none' : ''}" class="${inverter_prog.charge === 'none' ? '' : 'st12'}" fill="${inverter_colour}" d="M10 3H8v1.88l2 2zm6 6v3.88l1.8 1.8l.2-.2V9c0-1.1-.9-2-2-2V3h-2v4h-3.88l2 2H16zM4.12 3.84L2.71 5.25L6 8.54v5.96L9.5 18v3h5v-3l.48-.48l4.47 4.47l1.41-1.41L4.12 3.84zm8.38 13.33V19h-1v-1.83L8 13.65v-3.11l5.57 5.57l-1.07 1.06z"/></svg>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_pv_energy_108)}>
-              <text id="daily_solar_value" x="43.5" y="15" class="st10 left-align" display="${solar_showdaily !== true || config.show_solar === false || remaining_solar != false ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj4.state).toFixed(1)} kWh</text>
+              <text id="daily_solar_value" x="43.5" y="15" class="st10 left-align" display="${solar_showdaily !== true || config.show_solar === false || remaining_solar != false ? 'none' : ''}" fill="${solar_colour}" >${isNaN(parseFloat(stateObj4.state)) ? '0' : `${parseFloat(stateObj4.state).toFixed(1)}`} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_pv_energy_108)}>
-              <text id="daily_solar_value" x="43.5" y="15" class="st10 left-align" display="${solar_showdaily !== true || config.show_solar === false || remaining_solar === false ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj4.state).toFixed(1)} kWh / ${remaining_solar} kWh</text>
+              <text id="daily_solar_value" x="43.5" y="15" class="st10 left-align" display="${solar_showdaily !== true || config.show_solar === false || remaining_solar === false ? 'none' : ''}" fill="${solar_colour}" >${isNaN(parseFloat(stateObj4.state)) ? '0' : `${parseFloat(stateObj4.state).toFixed(1)} kWh / ${remaining_solar}`} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_load_energy_84)}>
-              <text id="daily_load_value_aux" x="${additional_aux_load === 2 ? '238' : '306'}" y="80" class="st10 left-align" display="${load_showdaily !== true || show_aux !== true ? 'none' : ''}" fill="${load_colour}" >${parseFloat(stateObj2.state).toFixed(1)} kWh</text>
+              <text id="daily_load_value_aux" x="${additional_aux_load === 2 ? '238' : '306'}" y="80" class="st10 left-align" display="${load_showdaily !== true || show_aux !== true ? 'none' : ''}" fill="${load_colour}" >${isNaN(parseFloat(stateObj2.state)) ? '0' : `${parseFloat(stateObj2.state).toFixed(1)}`} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_load_energy_84)}>
-              <text id="daily_load_value" x="${additional_load === 0 ? '377' : '306'}" y="${additional_load === 0 ? '57' : '80'}" class="st10 left-align" display="${load_showdaily !== true || show_aux === true ? 'none' : ''}" fill="${load_colour}" >${parseFloat(stateObj2.state).toFixed(1)} kWh</text>
+              <text id="daily_load_value" x="${additional_load === 0 ? '377' : '306'}" y="${additional_load === 0 ? '57' : '80'}" class="st10 left-align" display="${load_showdaily !== true || show_aux === true ? 'none' : ''}" fill="${load_colour}" >${isNaN(parseFloat(stateObj2.state)) ? '0' : `${parseFloat(stateObj2.state).toFixed(1)}`} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_battery_charge_70)}>
-              <text id="daily_bat_charge_value" x="4.5" y="237" class= "st10 left-align" display="${battery_showdaily !== true || config.show_battery === false ? 'none' : ''}" fill="${battery_colour}">${parseFloat(stateObj1.state).toFixed(1)} kWh</text>
+              <text id="daily_bat_charge_value" x="4.5" y="237" class= "st10 left-align" display="${battery_showdaily !== true || config.show_battery === false ? 'none' : ''}" fill="${battery_colour}">${isNaN(parseFloat(stateObj1.state)) ? '0' : `${parseFloat(stateObj1.state).toFixed(1)}`} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_battery_discharge_71)}>
-              <text id="daily_bat_discharge_value" x="4.5" y="271" class="st10 left-align" display="${battery_showdaily !== true || config.show_battery === false ? 'none' : ''}" fill="${battery_colour}" >${parseFloat(stateObj.state).toFixed(1)} kWh</text>
+              <text id="daily_bat_discharge_value" x="4.5" y="271" class="st10 left-align" display="${battery_showdaily !== true || config.show_battery === false ? 'none' : ''}" fill="${battery_colour}" >${isNaN(parseFloat(stateObj.state)) ? '0' : `${parseFloat(stateObj.state).toFixed(1)}`} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_grid_import_76)}>
-              <text id="daily_grid_buy_value" x="${grid_show_noness === false ? '311' : '347'}" y="${grid_show_noness === false ? '354' : '239'}" class="st10 left-align" display="${grid_showdailybuy !== true ? 'none' : ''}" fill="${grid_colour}" >${parseFloat(stateObj3.state).toFixed(1)} kWh</text>
+              <text id="daily_grid_buy_value" x="${grid_show_noness === false ? '311' : '347'}" y="${grid_show_noness === false ? '354' : '239'}" class="st10 left-align" display="${grid_showdailybuy !== true ? 'none' : ''}" fill="${grid_colour}" >${isNaN(parseFloat(stateObj3.state)) ? '0' : `${parseFloat(stateObj3.state).toFixed(1)}`} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_grid_export_77)}>
-              <text id="daily_grid_sell_value" x="${grid_show_noness === false ? '311' : '347'}" y="${grid_show_noness === false ? '323' : '209'}" class="st10 left-align" display="${grid_showdailysell !== true ? 'none' : ''}" fill="${grid_colour}" >${parseFloat(stateObj33.state).toFixed(1)} kWh</text>
+              <text id="daily_grid_sell_value" x="${grid_show_noness === false ? '311' : '347'}" y="${grid_show_noness === false ? '323' : '209'}" class="st10 left-align" display="${grid_showdailysell !== true ? 'none' : ''}" fill="${grid_colour}" >${isNaN(parseFloat(stateObj33.state)) ? '0' : `${parseFloat(stateObj33.state).toFixed(1)}`} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_aux_energy)}>
-              <text id="aux_daily_value" x="${(additional_aux_load === 1 || additional_aux_load === 2) ? '238' : '306'}" y="12" class="st10 left-align" display="${show_aux !== true || show_dailyaux !== true ? 'none' : ''}" fill="${aux_colour}" >${parseFloat(stateObj50.state).toFixed(1)} kWh</text>
+              <text id="aux_daily_value" x="${(additional_aux_load === 1 || additional_aux_load === 2) ? '238' : '306'}" y="12" class="st10 left-align" display="${show_aux !== true || show_dailyaux !== true ? 'none' : ''}" fill="${aux_colour}" >${isNaN(parseFloat(stateObj50.state)) ? '0' : `${parseFloat(stateObj50.state).toFixed(1)}`} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1_extra)}>
                <text id="ess_load1_value_extra" x="430" y="23" display="${config.entities?.essential_load1_extra && additional_load === 1 && show_aux !== true ? '' : 'none'}" class="st3 .right-align" fill="${load_colour}">${isNaN(parseFloat(stateObj52.state)) ? '0' : `${parseFloat(stateObj52.state).toFixed(1)} ${stateObj52.attributes.unit_of_measurement}`}</text>
@@ -1307,25 +1307,25 @@ export class SunsynkPowerFlowCard extends LitElement {
               <svg xmlns="http://www.w3.org/2000/svg" id="prog_grid_off" x="323" y="243" width="20" height="18" viewBox="0 0 24 24"><path display="${inverter_prog.show === false || config.entities.use_timer_248 === 'none' ? 'none' : ''}" class="${inverter_prog.charge === 'none' ? '' : 'st12'}" fill="${inverter_colour}" d="M10 3H8v1.88l2 2zm6 6v3.88l1.8 1.8l.2-.2V9c0-1.1-.9-2-2-2V3h-2v4h-3.88l2 2H16zM4.12 3.84L2.71 5.25L6 8.54v5.96L9.5 18v3h5v-3l.48-.48l4.47 4.47l1.41-1.41L4.12 3.84zm8.38 13.33V19h-1v-1.83L8 13.65v-3.11l5.57 5.57l-1.07 1.06z"/></svg>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_battery_charge_70)}>
-              <text id="daily_bat_charge_value" x="77.2" y="343" class= "st10 left-align" display="${battery_showdaily !== true || config.show_battery === false ? 'none' : ''}" fill="${battery_colour}">${parseFloat(stateObj1.state).toFixed(1)} kWh</text>
+              <text id="daily_bat_charge_value" x="77.2" y="343" class= "st10 left-align" display="${battery_showdaily !== true || config.show_battery === false ? 'none' : ''}" fill="${battery_colour}">${isNaN(parseFloat(stateObj1.state)) ? '0' : `${parseFloat(stateObj1.state).toFixed(1)}`} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_pv_energy_108)}>
-              <text id="daily_solar_value" x="200" y="26" class="st10 left-align" display="${solar_showdaily !== true || config.show_solar === false || remaining_solar != false ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj4.state).toFixed(1)} kWh</text>
+              <text id="daily_solar_value" x="200" y="26" class="st10 left-align" display="${solar_showdaily !== true || config.show_solar === false || remaining_solar != false ? 'none' : ''}" fill="${solar_colour}" >${isNaN(parseFloat(stateObj4.state)) ? '0' : `${parseFloat(stateObj4.state).toFixed(1)}`} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_pv_energy_108)}>
-              <text id="remaining_solar_value" x="200" y="26" class="st10 left-align" display="${solar_showdaily !== true || config.show_solar === false || remaining_solar === false ? 'none' : ''}" fill="${solar_colour}" >${parseFloat(stateObj4.state).toFixed(1)} kWh / ${remaining_solar} kWh</text>
+              <text id="remaining_solar_value" x="200" y="26" class="st10 left-align" display="${solar_showdaily !== true || config.show_solar === false || remaining_solar === false ? 'none' : ''}" fill="${solar_colour}" >${isNaN(parseFloat(stateObj4.state)) ? '0' : `${parseFloat(stateObj4.state).toFixed(1)} kWh / ${remaining_solar}`} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_battery_discharge_71)}>
-              <text id="daily_bat_discharge_value" x="77.2" y="380.1" class="st10 left-align" display="${battery_showdaily !== true || config.show_battery === false ? 'none' : ''}" fill="${battery_colour}" >${parseFloat(stateObj.state).toFixed(1)} kWh</text>
+              <text id="daily_bat_discharge_value" x="77.2" y="380.1" class="st10 left-align" display="${battery_showdaily !== true || config.show_battery === false ? 'none' : ''}" fill="${battery_colour}" >${isNaN(parseFloat(stateObj.state)) ? '0' : `${parseFloat(stateObj.state).toFixed(1)}`} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_load_energy_84)}>
-              <text id="daily_load_value" x="${additional_load === 2 ? '365' : '415'}" y="${additional_load === 2 ? '168' : '267.9'}" class="st10 left-align" display="${load_showdaily === false ? 'none' : ''}" fill="${load_colour}" >${parseFloat(stateObj2.state).toFixed(1)} kWh</text>
+              <text id="daily_load_value" x="${additional_load === 2 ? '365' : '415'}" y="${additional_load === 2 ? '168' : '267.9'}" class="st10 left-align" display="${load_showdaily === false ? 'none' : ''}" fill="${load_colour}" >${isNaN(parseFloat(stateObj2.state)) ? '0' : `${parseFloat(stateObj2.state).toFixed(1)}`} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_grid_import_76)}>
-              <text id="daily_grid_buy_value" x="5" y="267.9" class="st10 left-align" display="${grid_showdailybuy !== true ? 'none' : ''}" fill="${grid_colour}" >${parseFloat(stateObj3.state).toFixed(1)} kWh</text>
+              <text id="daily_grid_buy_value" x="5" y="267.9" class="st10 left-align" display="${grid_showdailybuy !== true ? 'none' : ''}" fill="${grid_colour}" >${isNaN(parseFloat(stateObj3.state)) ? '0' : `${parseFloat(stateObj3.state).toFixed(1)}`} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_grid_export_77)}>
-              <text id="daily_grid_sell_value" x="5" y="165" class="st10 left-align" display="${grid_showdailysell !== true ? 'none' : ''}" fill="${grid_colour}" >${parseFloat(stateObj33.state).toFixed(1)} kWh</text>
+              <text id="daily_grid_sell_value" x="5" y="165" class="st10 left-align" display="${grid_showdailysell !== true ? 'none' : ''}" fill="${grid_colour}" >${isNaN(parseFloat(stateObj33.state)) ? '0' : `${parseFloat(stateObj33.state).toFixed(1)}`} kWh</text>
             </a>
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_voltage_154)}>
               <text id="inverter_voltage_154" x="270.2" y="168.2" display="${config.entities.inverter_voltage_154 === 'none' || !config.entities.inverter_voltage_154 ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >${inverter_voltage} ${config.inverter.three_phase === true && config.entities?.inverter_voltage_L2 ? '| ' + inverter_voltage_L2 : ''} ${config.inverter.three_phase === true && config.entities?.inverter_voltage_L3 ? '| ' + inverter_voltage_L3 : ''} V</text>
