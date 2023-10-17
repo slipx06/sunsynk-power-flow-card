@@ -1,0 +1,53 @@
+{
+    "common": {
+        "description": "Una tarjeta de Home Assistant per emular el flxue d'energoa Sunsynk que es mostra a la pantalla de l'inversor",
+        "version": "Versió",
+        "runtime_to": "TEMPS DE FUNCIONAMENT FINS",
+        "battery_floating": "BATERIA EN FLOTACIÓ",
+        "charge": "CÀRREGA",
+        "to": "A",
+        "daily_load": "CÀRREGA DIÀRIA",
+        "daily_aux": "AUXILIAR DIARI",
+        "daily_grid_buy": "COMPRA DIÀRIA DE LA XARXA",
+        "daily_grid_sell": "VENDA DIÀRIA A LA XARXA",
+        "daily_solar": "SOLAR DIARI",
+        "daily_solar_left": "SOLAR DIARI / RESTA AVUI",
+        "daily_charge": "CÀRREGA DIÀRIA",
+        "daily_discharge": "DESCÀRREGA DIÀRIA",
+        "ratio": "Relació",
+        "timer_off": "Temporitzador apagat",
+        "timer_on": "Temporitzador encès",
+        "priority_batt": "Prioritat de la Bateria",
+        "priority_load": "Prioritat de la Càrrega",
+        "nonessential_name": "No Esencial",
+        "aux_name": "Auxiliar",
+        "load1_name": "",
+        "load2_name": "",
+        "pv1_name": "PV1",
+        "pv2_name": "PV2",
+        "pv3_name": "PV3",
+        "pv4_name": "PV4",
+        "essential": "Esencial"
+    },
+    "errors": {
+        "battery": {
+            "bat": "No s'han definit atributs de la bateria",
+            "energy": "Si us plau, inclou l'atribut d'energia de la bateria i el seu valor a Wh, per exemple, 5.32 Energia de la bateria: 5320",
+            "shutdown_soc": "Si us plau, inclou l'atribut shutdown_soc de la bateria i el seu valor, per exemple shutdown_soc: 20",
+            "full_capacity": "La capacitat completa ha d'estar entre 80 i 100",
+            "empty_capacity": "La capacitat buida ha de ser <= 30",
+            "show_daily": "Si us plau, inclou els atributs day_battery_charge_70 i day_battery_discharge_71 i les IDs de les entitats"
+        },
+        "solar": {
+            "sol": "No s'han definit cap atribut solar",
+            "mppts": "Si us plau, inclou l'atribut mppts solars i el seu valor; 1,2,3 o 4, per exemple, mppts: 2",
+            "show_daily": "Si us plau, inclou l'atribut day_pv_energy_108 i la ID de l'entitat"
+        },
+        "grid": {
+            "show_daily": "Si us plau, inclou els atributs day_grid_import_76 i day_grid_export_77 i les IDs de les entitats"
+        },
+        "essential_power": "L'atribut essential_power està configurat com a cap. Inclou l'atribut inverter_power_175 i l'ID de l'entitat perquè la targeta pugui calcular aquest valor.",
+        "nonessential_power": "L'atribut nonessential_power està configurat com a cap. Inclou l'atribut grid_power_169 i l'ID de l'entitat perquè la targeta pugui calcular aquest valor.",
+        "missing_entity": "Si us plau, inclou l'atribut i la ID de l'entitat"
+    }
+}
