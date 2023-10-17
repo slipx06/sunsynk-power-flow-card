@@ -80,6 +80,7 @@ export default {
         animation_speed: 8,
         max_power: 8000,
         auto_scale: false,
+        energy_cost_decimals: 2,
     },
 
 }

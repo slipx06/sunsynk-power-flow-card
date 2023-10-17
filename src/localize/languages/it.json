@@ -1,0 +1,53 @@
+{
+    "common": {
+        "description": "Una scheda Home Assistant per emulare il flusso di potenza Sunsynk visualizzato sullo schermo dell'inverter",
+        "version": "Versione",
+        "runtime_to": "DURATA AL",
+        "battery_floating" : "BATTERY CARICA",
+        "charge": "CARICA",
+        "to": "A",
+        "daily_load": "CONSUMO OGGI",
+        "daily_aux": "AUX OGGI",
+        "daily_grid_buy": "PRELIEVO OGGI DA RETE",
+        "daily_grid_sell": "CESSIONE OGGI IN RETE",
+        "daily_solar": "ENERGIA SOLARE OGGI",
+        "daily_solar_left": "ENERGIA SOLARE OGGI / STIMA RIMANENTE",
+        "daily_charge": "CARICA OGGI",
+        "daily_discharge": "SCARICA OGGI" ,
+        "ratio": "Rapporto",
+        "timer_off": "Spegnimento timer",
+        "timer_on": "Accensione timer",
+        "priority_batt": "Priorità batteria",
+        "priority_load": "Priorità carico",
+        "nonessential_name": " Non Essenziale",
+        "aux_name": "Ausiliario",
+        "load1_name": "",
+        "load2_name": "",
+        "pv1_name": "PV1",
+        "pv2_name": "PV2",
+        "pv3_name": "PV3",
+        "pv4_name": "PV4",
+        "essential": "Essenziale"
+    },
+    "errors": {
+        "battery": {
+            "bat": "Nessun attributo della batteria definito",
+            "energy": "Si prega di includere l'attributo dell'energia della batteria e il valore in Wh, ad esempio 5,32 Energia della batteria: 5320",
+            "shutdown_soc": "Si prega di includere l'attributo di spegnimento della batteria e il valore, ad esempio spegnimento_soc: 20",
+            "full_capacity": "La capacità massima deve essere compresa tra 80 e 100",
+            "empty_capacity": "La capacità vuota deve essere <= 30",
+            "show_daily": "Si prega di includere gli attributi day_battery_charge_70 e day_battery_discharge_71 e gli ID delle entità"
+        },
+        "solar": {
+            "sol": "Nessun attributo solare definito",
+            "mppts": "Si prega di includere l'attributo solare mppts e il valore; 1,2,3 o 4, ad esempio mppts: 2",
+            "show_daily": "Si prega di includere l'attributo day_pv_energy_108 e l'ID dell'entità"
+        },
+        "grid": {
+            "show_daily": "Si prega di includere gli attributi day_grid_import_76 e day_grid_export_77 e gli ID delle entità"
+        },
+        "essential_power": "L'attributo essential_power è impostato su none. Si prega di includere l'attributo inverter_power_175 e l'ID dell'entità in modo che la scheda possa calcolare questo valore.",
+        "nonessential_power": "L'attributo nonessential_power è impostato su none. Si prega di includere l'attributo grid_power_169 e l'ID dell'entità in modo che la scheda possa calcolare questo valore.",
+        "missing_entity": "Si prega di includere l'attributo e l'ID dell'entità"
+    }
+}

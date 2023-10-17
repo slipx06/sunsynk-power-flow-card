@@ -119,6 +119,7 @@ These attributes are only needed if `show_solar` is set to `true`
 |animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on power draw |
 |max_power: | Optional | `8000` | Maximum power draw to calculate animation speed |
 |auto_scale: | Optional | `false` | If set to `true` power values greater than 999W will be displayed as kW e.g. 1.23kW. The number of decimal places can be changed using the `decimal_places` card attribute|
+|energy_cost_decimals: | Optional | `2` | Sets the number of decimal places to display the buy and sell energy costs 
 
 ### Entities
 
@@ -137,11 +138,11 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |day_grid_export_77: | Optional | `sensor.sunsynk_day_grid_export` | Daily grid export (kWh) |
 |day_pv_energy_108: | Optional | `sensor.sunsynk_day_pv_energy` | Daily solar usage (kWh) |
 |day_aux_energy: | Optional | | Sensor that provides the daily AUX energy (kWh)
-|inverter_voltage_154: | Optional | `sensor.sunsynk_inverter_voltage` | Inverter voltage (V) |
-|inverter_voltage_L2: | Optional |  | Inverter L1 voltage (V) |
-|inverter_voltage_L3: | Optional |  | Inverter L2 voltage (V) |
+|inverter_voltage_154: | Optional | `sensor.sunsynk_inverter_voltage` | Inverter L1 voltage (V) |
+|inverter_voltage_L2: | Optional |  | Inverter L2 voltage (V) |
+|inverter_voltage_L3: | Optional |  | Inverter L3 voltage (V) |
 |load_frequency_192: | Optional | `sensor.sunsynk_load_frequency` | Load frequency (Hz) |
-|inverter_current_164: | Optional | `sensor.sunsynk_inverter_current` | Inverter current (A) |
+|inverter_current_164: | Optional | `sensor.sunsynk_inverter_current` | Inverter L1 current (A) |
 |inverter_current_L2: | Optional |  | Inverter L2 current (A) |
 |inverter_current_L3: | Optional |  | Inverter L3 current (A) |
 |inverter_power_175: | Optional | `sensor.sunsynk_inverter_power` | Inverter power (W). Required if the essential_power attribute is set to `none` |
@@ -166,7 +167,7 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |nonessential_power| Optional | `none`| The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures non-essential power e.g.  `Load power Non-Essential` in the case of Solar Assistant.  (W)
 |non_essential_load1: | Optional | |Sensor that contains the power of your non-essential load 1 (W)|
 |non_essential_load2: | Optional | |Sensor that contains the power of your non-essential load 2 (W)
-|grid_ct_power_172: | **Required** | `sensor.sunsynk_grid_ct_power`  | Grid CT power (W)|
+|grid_ct_power_172: | **Required** | `sensor.sunsynk_grid_ct_power`  | Grid CT L1 power (W)|
 |grid_ct_power_L2: | Optional | `none`  | Grid CT L2 power (W)|
 |grid_ct_power_L3: | Optional | `none`  | Grid CT L3 power (W)|
 |pv1_voltage_109: | Optional | `sensor.sunsynk_pv1_voltage` | PV string 1 voltage (V) |
