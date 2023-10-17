@@ -10,6 +10,7 @@
 
    examples/sunsynk
    examples/lux
+   examples/solis
 
 .. toctree::
    :caption: Contribute
