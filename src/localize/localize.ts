@@ -8,6 +8,7 @@ import * as nl from './languages/nl.json';
 import * as ru from './languages/ru.json';
 import * as cs from './languages/cs.json';
 import * as it from './languages/it.json';
+import * as ca from './languages/ca.json';
 
 const languages: any = {
 	da: da,
@@ -20,6 +21,7 @@ const languages: any = {
 	ru: ru,
 	cs: cs,
 	it: it,
+	ca: ca,
 };
 
 export function localize(string: string, search = '', replace = '') {
