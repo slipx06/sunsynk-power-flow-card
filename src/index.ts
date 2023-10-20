@@ -587,8 +587,8 @@ export class SunsynkPowerFlowCard extends LitElement {
             <text id="ratioe_value" x="251" y="283" display="${useautarky === 'no' ? 'none' : ''}" class="${useautarky === 'energy' ? 'st4 st8 left-align' : 'st12'}" fill="${inverter_colour}" >${Ratio}%</text>
             <text id="autarkyp_value" x="212" y="283" display="${useautarky === 'no' ? 'none' : ''}" class="${useautarky === 'power' ? 'st4 st8 left-align' : 'st12'}" fill="${inverter_colour}" >${Autarkyp}%</text>
             <text id="ratiop_value" x="251" y="283" display="${useautarky === 'no' ? 'none' : ''}" class="${useautarky === 'power' ? 'st4 st8 left-align' : 'st12'}" fill="${inverter_colour}" >${Ratiop}%</text>
-            <text id="autarky" x="212" y="295" display="${useautarky === 'no' ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >Autarky</text>
-            <text id="ratio" x="251" y="295" display="${useautarky === 'no' ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >Ratio</text>
+            <text id="autarky" x="212" y="295" display="${useautarky === 'no' ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >${localize('common.autarky')}</text>
+            <text id="ratio" x="251" y="295" display="${useautarky === 'no' ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >${localize('common.ratio')}</text>
             <text id="aux_load1" x="411" y="${additional_aux_load === 1 ? 53 : 14}" class="st3 st8" display="${show_aux !== true || additional_aux_load === 0 ? 'none' : ''}" fill="${aux_colour}" >${config.load.aux_load1_name}</text>
             <text id="aux_load2" x="411" y="83" class="st3 st8" display="${show_aux !== true || additional_aux_load === 0 || additional_aux_load === 1 ? 'none' : ''}" fill="${aux_colour}" >${config.load.aux_load2_name}</text>
             <text id="aux_daily_text" x="${(additional_aux_load === 1 || additional_aux_load === 2) ? '238' : '306'}" y="24" class="st3 left-align" display="${show_aux !== true || show_dailyaux !== true ? 'none' : ''}" fill="${aux_colour}" >${localize('common.daily_aux')}</text>
@@ -1157,7 +1157,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             <text id="ratioe_value" x="173" y="260" display="${useautarky === "no" ? 'none' : ''}" class="${useautarky === 'energy' ? 'st4 st8 left-align' : 'st12'}" fill="${inverter_colour}" >${Ratio}%</text>
             <text id="autarkyp_value" x="130" y="260" display="${useautarky === "no" ? 'none' : ''}" class="${useautarky === 'power' ? 'st4 st8 left-align' : 'st12'}" fill="${inverter_colour}" >${Autarkyp}%</text>
             <text id="ratiop_value" x="173" y="260" display="${useautarky === "no" ? 'none' : ''}" class="${useautarky === 'power' ? 'st4 st8 left-align' : 'st12'}" fill="${inverter_colour}" >${Ratiop}%</text>
-            <text id="autarky" x="130" y="273" display="${useautarky === "no" ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >Autarky</text>
+            <text id="autarky" x="130" y="273" display="${useautarky === "no" ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >${localize('common.autarky')}</text>
             <text id="ratio" x="173" y="273" display="${useautarky === "no" ? 'none' : ''}" class="st3 left-align" fill="${inverter_colour}" >${localize('common.ratio')}</text>
             <text id="es-load1" x="441" y="108" class="st3" display="${(additional_load === 1 || additional_load === 2)  ? '' : 'none'}" fill="${load_colour}" >${config.load?.load1_name ? `${config.load.load1_name}` : ''}</text>
             <text id="es-load2" x="441" y="330.5" class="st3" display="${additional_load === 2  ? '' : 'none'}" fill="${load_colour}" >${config.load?.load2_name ? `${config.load.load2_name}` : ''}</text>

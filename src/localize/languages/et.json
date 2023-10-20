@@ -27,7 +27,8 @@
         "pv2_name": "PV2",
         "pv3_name": "PV3",
         "pv4_name": "PV4",
-        "essential": "Oluline"
+        "essential": "Oluline",
+        "autarky": "Autarky"
     },
     "errors": {
         "battery": {
