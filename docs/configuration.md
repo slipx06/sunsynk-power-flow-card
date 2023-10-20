@@ -156,7 +156,7 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |battery_soc_184: | **Required** | `sensor.sunsynk_battery_soc` | Battery state of charge (%) |
 |battery_power_190: | **Required** | `sensor.sunsynk_battery_power` | Battery power (W). Requires a negative number for battery charging and a positive number for battery discharging. Set the `invert_power:` battery attribute to `yes` if your sensor reports this the other way around |
 |battery_current_191: | **Required** |`sensor.sunsynk_battery_current` | Battery current (A) |
-|essential_power: | Optional | `none` | The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures essential power e.g. `Load power Essential` in the case of Solar Assistant.  (W) |
+|essential_power: | Optional | `none` | The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures essential power e.g. `Load power Essential` in the case of Solar Assistant. You should supply a sensor if using `three_phase: true` (W) |
 |essential_load1: | Optional | | Sensor that contains the power of your essential load 1 (W)|
 |essential_load2: | Optional | | Sensor that contains the power of your essential load 2 (W)|
 |essential_load1_extra: | Optional | | Sensor that contains additional information you want displayed for your essential load 1 e.g. Daily kWh, Temperature etc|
