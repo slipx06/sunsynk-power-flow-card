@@ -1174,8 +1174,8 @@ export class SunsynkPowerFlowCard extends LitElement {
 
             <circle id="standby" cx="220" cy="260" r="3.5" fill="${inverterStateColour}"/>
 
-            <path id="pv1-line" d="M 187 84 L 187 122 Q 187 132 195 132 L 205 132.03" class="${config.show_solar === false || config.solar.mppts === 1 ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
-            <circle id="pv1-dot" cx="0" cy="0" r="3" class="${config.show_solar === false || config.solar.mppts === 1 ? 'st12' : ''}" fill="${parseInt(stateObj9.state) <= 0 ? 'transparent' : `${solar_colour}`}">
+            <path id="pv1-line" d="${config.solar.mppts === 1 ? 'M 239.23 84 L 239 190' : 'M 187 84 L 187 122 Q 187 132 195 132 L 205 132.03'}" class="${config.show_solar === false ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+            <circle id="pv1-dot" cx="0" cy="0" r="3" class="${config.show_solar === false ? 'st12' : ''}" fill="${parseInt(stateObj9.state) <= 0 ? 'transparent' : `${solar_colour}`}">
               <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#pv1-line"/>
               </animateMotion>
@@ -1209,8 +1209,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                 <mpath xlink:href="#bat-line"/>
               </animateMotion>
             </circle>
-            <path id="so-line" d="${config.solar.mppts === 1 ? 'M 239.23 190 L 239 84' : 'M 239.23 190 L 239 147'}" class="${config.show_solar === false ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
-            <circle id="so-dot" cx="0" cy="0" r="3" class="${config.show_solar === false ? 'st12' : ''}" fill="${totalsolar === 0 ? 'transparent' : `${solar_colour}`}">
+            <path id="so-line" d="M 239.23 190 L 239 147" class="${config.show_solar === false || config.solar.mppts === 1 ? 'st12' : ''}" fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
+            <circle id="so-dot" cx="0" cy="0" r="3" class="${config.show_solar === false || config.solar.mppts === 1 ? 'st12' : ''}" fill="${totalsolar === 0 ? 'transparent' : `${solar_colour}`}">
               <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#so-line"/>
               </animateMotion>
