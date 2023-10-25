@@ -224,6 +224,7 @@ Full Configuration (All Options)
     pv3_name: East
     pv4_name: West
     auto_scale: true
+    display_mode: 1
   load:
     colour: '#5fb6ad'
     show_daily: true
