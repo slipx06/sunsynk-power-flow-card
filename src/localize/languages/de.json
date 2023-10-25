@@ -12,6 +12,7 @@
         "daily_grid_sell": "NETZVERKAUF heute",
         "daily_solar": "SOLAR heute",
         "daily_solar_left": "SOLAR heute / VERBLEIBEND heute",
+        "total_solar_generation": "SOLAR heute / TOTAL SOLAR",
         "daily_charge": "AUFLADUNG heute",
         "daily_discharge": "ENTNAHME heute",
         "ratio": "Verhältnis",

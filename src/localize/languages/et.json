@@ -12,6 +12,7 @@
         "daily_grid_sell": "PÄEVA VÕRGU MÜÜK",
         "daily_solar": "PÄEVA PÄIKE",
         "daily_solar_left": "PÄEVA PÄIKE / TÄNA JÄÄNUD",
+        "total_solar_generation": "PÄEVA PÄIKE / TOTAL SOLAR",
         "daily_charge": "PÄEVA LAADIMINE",
         "daily_discharge": "PÄEVA TÜHJENDAMINE",
         "ratio": "Suhe",

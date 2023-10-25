@@ -12,6 +12,7 @@
         "daily_grid_sell": "VENTE CE JOUR",
         "daily_solar": "PRODUCTION DU JOUR",
         "daily_solar_left": "PRODUCTION / RESTANT (JOUR)",
+        "total_solar_generation": "PRODUCTION / TOTAL SOLAR",
         "daily_charge": "CHARGE DU JOUR",
         "daily_discharge": "DÉCHARGE DU JOUR",
         "ratio": "Ratio",

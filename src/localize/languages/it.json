@@ -12,6 +12,7 @@
         "daily_grid_sell": "CESSIONE OGGI IN RETE",
         "daily_solar": "ENERGIA SOLARE OGGI",
         "daily_solar_left": "ENERGIA SOLARE OGGI / STIMA RIMANENTE",
+        "total_solar_generation": "ENERGIA SOLARE OGGI / TOTAL SOLAR",
         "daily_charge": "CARICA OGGI",
         "daily_discharge": "SCARICA OGGI" ,
         "ratio": "Rapporto",

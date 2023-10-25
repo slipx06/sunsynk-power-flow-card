@@ -12,6 +12,7 @@
         "daily_grid_sell": "VENTA DIARIA A LA RED",
         "daily_solar": "SOLAR DIARIO",
         "daily_solar_left": "SOLAR DIARIO / LO QUE QUEDA HOY",
+        "total_solar_generation": "SOLAR DIARIO / TOTAL SOLAR",
         "daily_charge": "CARGA DIARIA",
         "daily_discharge": "DESCARGA DIARIA",
         "ratio": "Relación",

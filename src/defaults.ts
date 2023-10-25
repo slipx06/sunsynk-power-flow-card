@@ -41,6 +41,7 @@ export default {
         pv3_name: localize('common.pv3_name'),
         pv4_name: localize('common.pv4_name'),
         auto_scale: false,
+        display_mode: 1
     },
     load: {
         colour: '#5fb6ad',

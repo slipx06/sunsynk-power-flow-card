@@ -12,6 +12,7 @@
         "daily_grid_sell": "DAGLIG SALG AF ELEKTRICITET TIL NETTET",
         "daily_solar": "DAGLIG SOLAR",
         "daily_solar_left": "DAGLIG SOLAR / RENT I DAG",
+        "total_solar_generation": "DAGLIG SOLAR / TOTAL SOLAR",
         "daily_charge": "DAGLIG OPLADNING",
         "daily_discharge": "DAGLIG AFLADNING",
         "ratio": "Forhold",

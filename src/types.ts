@@ -46,6 +46,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         pv3_name: string;
         pv4_name: string;
         auto_scale: boolean;
+        display_mode: number;
     }
     load: {
         colour: string;

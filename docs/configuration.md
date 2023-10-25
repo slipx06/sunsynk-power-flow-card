@@ -62,6 +62,7 @@ These attributes are only needed if `show_solar` is set to `true`
 | --- | --- | --- |--- |
 |colour:| Optional | `orange` | Changes the colour of all the solar card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |show_daily: | Optional | `false` | Toggles the daily total |
+|display_mode: | Optional | `1` | `1` - Only display the daily total, `2` - Display the daily total and remaining daily forecast, `3` - Display the daily total and total solar generation |
 |mppts: | **Required** | `2` | Specify the number of MPPT's in use `1`, `2`, `3` or `4` |
 |animation_speed: | Optional | `9` | Set slowest animation speed in seconds, depending on Power produced |
 |max_power: | Optional | `8000` | Maximum power draw to calculate animation speed |
@@ -183,8 +184,9 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |aux_power_166: | Optional | `sensor.sunsynk_aux_power` | Auxilary power (W) |
 |aux_load1:| Optional |  | Sensor that contains the power of your AUX load 1 (W) |
 |aux_load2:| Optional |  | Sensor that contains the power of your AUX load 2 (W) |
-|aux_connected_status: |Optional | None | AUX Connected Status `on/off` or `1/0`
-|remaining_solar: | Optional | `sensor.solcast_forecast_remaining_today`| The remaining solar forecast for the day (kWh) |
+|aux_connected_status: |Optional | | AUX Connected Status `on/off` or `1/0`
+|remaining_solar: | Optional | `sensor.solcast_forecast_remaining_today`| The remaining solar forecast for the day (kWh). Use with solar `display_mode:2` |
+|total_pv_generation: | Optional | | Total Solar generation (Lifetime or forecast for the day) (kWh). Use with solar `display_mode:3` |
 |battery_temp_182:| Optional | `sensor.sunsynk_battery_temperature` | Battery temperature (℃)|
 |radiator_temp_91:| Optional | `sensor.sunsynk_radiator_temperature` | Inverter AC temperature (℃)|
 |dc_transformer_temp_90:| Optional | `sensor.sunsynk_dc_transformer_temperature` | Inverter DC temperature (℃)|

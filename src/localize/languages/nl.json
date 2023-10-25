@@ -12,6 +12,7 @@
         "daily_grid_sell": "DAGELIJKSE NETSTROOM VERKOPEN",
         "daily_solar": "DAGELIJKSE ZONNE-ENERGIE",
         "daily_solar_left": "DAGELIJKSE ZONNE-ENERGIE / OVER VANDAAG",
+        "total_solar_generation": "DAGELIJKSE ZONNE-ENERGIE / TOTAL SOLAR",
         "daily_charge": "DAGELIJKSE LADING",
         "daily_discharge": "DAGELIJKSE ONTLADING",
         "ratio": "Verhouding",

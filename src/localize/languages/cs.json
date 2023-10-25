@@ -12,6 +12,7 @@
         "daily_grid_sell": "DNES PRODEJ",
         "daily_solar": "DNES VÝROBA",
         "daily_solar_left": "DNES VÝROBA / OČEKÁVANÁ VÝROBA",
+        "total_solar_generation": "DNES VÝROBA / TOTAL SOLAR",
         "daily_charge": "DNES NABÍJENÍ",
         "daily_discharge": "DNES VYBÍJENÍ",
         "ratio": "Poměr",

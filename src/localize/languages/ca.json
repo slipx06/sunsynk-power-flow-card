@@ -12,6 +12,7 @@
         "daily_grid_sell": "VENDA DIÀRIA A LA XARXA",
         "daily_solar": "SOLAR DIARI",
         "daily_solar_left": "SOLAR DIARI / RESTA AVUI",
+        "total_solar_generation": "SOLAR DIARI / TOTAL SOLAR",
         "daily_charge": "CÀRREGA DIÀRIA",
         "daily_discharge": "DESCÀRREGA DIÀRIA",
         "ratio": "Relació",
