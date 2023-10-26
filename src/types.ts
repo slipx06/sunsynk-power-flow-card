@@ -67,8 +67,12 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         aux_load2_icon: string;
         load1_name: string;
         load2_name: string;
+        load3_name: string;
+        load4_name: string;
         load1_icon: string;
         load2_icon: string;
+        load3_icon: string;
+        load4_icon: string;
         show_aux: boolean;
         show_daily_aux: boolean;
         auto_scale: boolean;

@@ -19,7 +19,7 @@
         "timer_off": "Časovač off",
         "timer_on": "Časovač on",
         "priority_batt": "Nabít Baterii z DS",
-        "priority_load": "Prioritní Spotřeba",
+        "priority_load": "Nabíjím Baterii z DS",
         "nonessential_name": "Nedostupné",
         "aux_name": "Pomocné",
         "load1_name": "",
@@ -29,7 +29,7 @@
         "pv3_name": "PV3",
         "pv4_name": "PV4",
         "essential": "Nezbytný",
-        "autarky": "Soběstačnost"
+        "autarky": "Vlastní"
     },
     "errors": {
         "battery": {
