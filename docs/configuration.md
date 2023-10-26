@@ -132,7 +132,7 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 | --- | --- | --- | --- |
 |use_timer_248: | Optional | `switch.sunsynk_toggle_system_timer` | Displays "Use timer" status as an icon next to the inverter. Set to `no` to hide |
 |priority_load_243: | Optional |`switch.sunsynk_toggle_priority_load` | Shows if energy pattern is set to priority load or priority battery as an icon next to the inverter. Set to `no` to hide|
-|day_battery_discharge_71: | Optional |`ssensor.sunsynk_day_battery_discharge` | Daily battery usage (kWh) |
+|day_battery_discharge_71: | Optional |`sensor.sunsynk_day_battery_discharge` | Daily battery usage (kWh) |
 |day_battery_charge_70: | Optional |`sensor.sunsynk_day_battery_charge` | Daily battery charge (kWh) |
 |day_load_energy_84: | Optional | `sensor.sunsynk_day_load_energy` | Daily load (kWh) |
 |day_grid_import_76: | Optional | `sensor.sunsynk_day_grid_import` | Daily grid import (kWh) |
