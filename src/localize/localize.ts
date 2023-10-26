@@ -10,6 +10,7 @@ import * as cs from './languages/cs.json';
 import * as it from './languages/it.json';
 import * as ca from './languages/ca.json';
 import * as sk from './languages/sk.json';
+import { globalData } from '../helpers/globals';
 
 const languages: any = {
 	da: da,
@@ -27,7 +28,10 @@ const languages: any = {
 };
 
 export function localize(string: string, search = '', replace = '') {
-	const lang = (localStorage.getItem('selectedLanguage') || 'en').replace(/['"]+/g, '').replace('-', '_');
+	const langFromLocalStorage = (localStorage.getItem('selectedLanguage') || 'en')
+		.replace(/['"]+/g, '')
+		.replace('-', '_');
+	const lang = `${globalData.hass?.locale?.language || globalData.hass?.language || langFromLocalStorage}`;
 
 	let translated: string;
 
