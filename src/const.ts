@@ -3,7 +3,7 @@ import { version } from '../package.json';
 export const CARD_VERSION = version;
 
 export const validLoadValues = [0, 1, 2, 4]
-
+export const valid3phase = [true, false]
 
 /* Lux Status Codes
 *

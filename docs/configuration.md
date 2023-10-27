@@ -222,7 +222,8 @@ The card calculates the sensors below based on supplied attributes in the config
 
  ```
  totalsolar = pv1_power_186 + pv2_power_187 + pv3_power_188 + pv4_power_189
- nonessential = grid_ct_power_172 - grid_power_169
+ nonessential = grid_ct_power_172 - grid_power_169 (Single Phase)
+ nonessential = grid_ct_power_172 + grid_ct_power_L2 + grid_ct_power_L3 - grid_power_169 (Three Phase)
  essential = inverter_power_175 + grid_power_169 - aux_power_166
  ```
 
