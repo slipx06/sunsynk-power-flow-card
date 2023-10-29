@@ -84,4 +84,4 @@ Example 1
       battery_temp_182: sensor.battery_temperature
       radiator_temp_91: sensor.inverter_temperature_radiator
       dc_transformer_temp_90: sensor.inverter_temperature_air
-      battery_status: input_number.test_number
+      battery_status: sensor.battery_mode_code
