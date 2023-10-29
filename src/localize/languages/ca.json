@@ -29,7 +29,19 @@
         "pv3_name": "PV3",
         "pv4_name": "PV4",
         "essential": "Essencial",
-        "autarky": "Autarky"
+        "autarky": "Autarky",
+        "idle": "Inactiu",
+        "exporting": "Exportació",
+        "importing": "Importació",
+        "discharging": "Descàrrega",
+        "charging": "Càrrega",
+        "waiting": "Esperant",
+        "standby": "En espera",
+        "no_battery": "Sense bateria",
+        "selftest": "Prova automàtica",
+        "normal": "Normal",
+        "alarm": "Alarma",
+        "fault": "Avaria"
     },
     "errors": {
         "battery": {

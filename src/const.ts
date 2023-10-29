@@ -1,4 +1,5 @@
 import { version } from '../package.json';
+import { localize } from './localize/localize';
 
 export const CARD_VERSION = version;
 
@@ -32,34 +33,34 @@ export const valid3phase = [true, false]
 */
 export const inverterStatusGroups = {
     sunsynk: {
-        standby: { states: ['0', 'standby', 'Stand-by'], color: 'blue', message: 'Standby' },
-        selftest: { states: ['1', 'selftest', 'Self-checking'], color: 'yellow', message: 'Selftest' },
-        normal: { states: ['2', 'normal', 'ok', 'Normal'], color: 'green', message: 'Normal' },
-        alarm: { states: ['3', 'alarm'], color: 'orange', message: 'Alarm' },
-        fault: { states: ['4', 'fault', 'FAULT'], color: 'red', message: 'Fault' },
+        standby: { states: ['0', 'standby', 'Stand-by'], color: 'blue', message: localize('common.standby') },
+        selftest: { states: ['1', 'selftest', 'Self-checking'], color: 'yellow', message: localize('common.selftest') },
+        normal: { states: ['2', 'normal', 'ok', 'Normal'], color: 'green', message: localize('common.normal') },
+        alarm: { states: ['3', 'alarm'], color: 'orange', message: localize('common.alarm') },
+        fault: { states: ['4', 'fault', 'FAULT'], color: 'red', message: localize('common.fault') },
     },
     lux: {
-        standby: { states: ['0'], color: 'blue', message: 'Standby' },
-        selftest: { states: [], color: 'yellow', message: 'Selftest' },
-        normal: { states: ['2','4','5','7', '8', '9', '10', '11', '12', '16', '20', '32', '40'], color: 'green', message: 'Normal' },
-        alarm: { states: ['7', '17','64', '136', '192'], color: 'orange', message: 'Alarm' },
-        fault: { states: ['1'], color: 'red', message: 'Fault' },
+        standby: { states: ['0'], color: 'blue', message: localize('common.standby') },
+        selftest: { states: [], color: 'yellow', message: localize('common.selftest') },
+        normal: { states: ['2','4','5','7', '8', '9', '10', '11', '12', '16', '20', '32', '40'], color: 'green', message: localize('common.normal') },
+        alarm: { states: ['7', '17','64', '136', '192'], color: 'orange', message: localize('common.alarm') },
+        fault: { states: ['1'], color: 'red', message: localize('common.fault') },
     },
     goodwe: {
-        idle: { states: ['0'], color: 'blue', message: 'Idle' },
-        exporting: { states: ['1'], color: 'green', message: 'Export' },
-        importing: { states: ['2'], color: 'red', message: 'Import' },
+        idle: { states: ['0'], color: 'blue', message: localize('common.idle') },
+        exporting: { states: ['1'], color: 'green', message: localize('common.exporting') },
+        importing: { states: ['2'], color: 'red', message: localize('common.importing') },
     }    
 
 };
 
 export const batteryStatusGroups = {
     goodwe: {
-        noBattery: { states: ['0'], color: 'yellow', message: 'No Battery' },
-        standby: { states: ['1'], color: 'blue', message: 'Standby' },
-        discharging: { states: ['2'], color: 'red', message: 'Discharging' },
-		charging: { states: ['3'], color: 'green', message: 'Charging' },
-		waiting: { states: ['4','5'], color: 'yellow', message: 'Waiting' },
+        noBattery: { states: ['0'], color: 'yellow', message: localize('common.no_battery') },
+        standby: { states: ['1'], color: 'blue', message: localize('common.standby') },
+        discharging: { states: ['2'], color: 'red', message: localize('common.discharging') },
+		charging: { states: ['3'], color: 'green', message: localize('common.charging') },
+		waiting: { states: ['4','5'], color: 'yellow', message: localize('common.waiting') },
     }
 
 };

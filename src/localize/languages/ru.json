@@ -29,7 +29,19 @@
         "pv3_name": "PV3",
         "pv4_name": "PV4",
         "essential": "Существенное",
-        "autarky": "Autarky"
+        "autarky": "Autarky",
+        "idle": "Бездействие",
+        "exporting": "Экспорт",
+        "importing": "Импорт",
+        "discharging": "Разряд",
+        "charging": "Зарядка",
+        "waiting": "Ожидание",
+        "standby": "Режим ожидания",
+        "no_battery": "Без батареи",
+        "selftest": "Самодиагностика",
+        "normal": "Нормально",
+        "alarm": "Авария",
+        "fault": "Неисправность"
     },
     "errors": {
         "battery": {
