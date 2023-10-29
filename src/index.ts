@@ -406,12 +406,12 @@ export class SunsynkPowerFlowCard extends LitElement {
       const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
       const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
       if (days > 0) {
-        duration += `${days} ${localize('days')}, `;
+        duration += `${days} ${localize('common.days')},`;
       }
       if (hours > 0 || days > 0) {
-        duration += `${hours} ${localize('hrs')}, `;
+        duration += `${hours} ${localize('common.hrs')},`;
       }
-      duration += `${minutes} ${localize('min')}`;
+      duration += `${minutes} ${localize('common.min')}`;
     }
 
     let float = !!((-2 <= parseInt(stateObj35.state)) && (parseInt(stateObj35.state) <= 2) && (parseInt(stateObj12.state) >= 99));

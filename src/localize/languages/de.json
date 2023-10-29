@@ -41,7 +41,7 @@
         "selftest": "Selbsttest",
         "normal": "Normal",
         "alarm": "Alarm",
-        "fault": "Fehler"
+        "fault": "Fehler",
         "days": "tage",
         "hrs": "std",
         "min": "min"
