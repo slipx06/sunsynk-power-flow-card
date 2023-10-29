@@ -42,7 +42,7 @@
         "normal": "Normale",
         "alarm": "Allarme",
         "fault": "Guasto",
-         "days": "giorni",
+        "days": "giorni",
         "hrs": "ore",
         "min": "min"
 
