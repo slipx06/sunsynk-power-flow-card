@@ -30,9 +30,22 @@
         "pv4_name": "PV4",
         "essential": "Essenziale",
         "autarky": "Autarky",
-        "days": "giorni",
+        "idle": "Inattivo",
+        "exporting": "Esportazione",
+        "importing": "Importazione",
+        "discharging": "Scarica",
+        "charging": "Carica",
+        "waiting": "In attesa",
+        "standby": "Standby",
+        "no_battery": "Nessuna batteria",
+        "selftest": "Auto-test",
+        "normal": "Normale",
+        "alarm": "Allarme",
+        "fault": "Guasto",
+         "days": "giorni",
         "hrs": "ore",
-        "min": "minuti"
+        "min": "min"
+
     },
     "errors": {
         "battery": {

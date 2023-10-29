@@ -30,9 +30,22 @@
         "pv4_name": "PV4",
         "essential": "Oluline",
         "autarky": "Autarky",
-        "days": "päevadel",
+        "idle": "Tühikäik",
+        "exporting": "Eksport",
+        "importing": "Import",
+        "discharging": "Tühjenemine",
+        "charging": "Laadimine",
+        "waiting": "Ootamine",
+        "standby": "Ooterežiim",
+        "no_battery": "Puudub aku",
+        "selftest": "Eneseanalüüs",
+        "normal": "Tavaline",
+        "alarm": "Häire",
+        "fault": "Rike",
+        "days": "päeva",
         "hrs": "tundi",
         "min": "min"
+
     },
     "errors": {
         "battery": {

@@ -161,7 +161,6 @@ export class SunsynkPowerFlowCard extends LitElement {
     let aux_colour = config.load?.aux_colour || load_colour;
     let aux_off_colour = config.load?.aux_off_colour || load_colour;
     let load_showdaily = config.load?.show_daily;
-    let grid_colour = config.grid?.colour;
     let no_grid_colour = config.grid?.no_grid_colour;
     let grid_show_noness = config.grid?.show_nonessential;
     let grid_status = config.entities?.grid_connected_status_194 ? stateObj20.state : 'on';
@@ -179,6 +178,11 @@ export class SunsynkPowerFlowCard extends LitElement {
     let load_power_L1 = config.entities?.load_power_L1 ? parseFloat(stateObj60.state).toFixed(0) : '';
     let load_power_L2 = config.entities?.load_power_L2 ? parseFloat(stateObj61.state).toFixed(0) : '';
     let load_power_L3 = config.entities?.load_power_L3 ? parseFloat(stateObj62.state).toFixed(0) : '';
+
+    const grid_import_colour = config.grid?.colour;
+    const grid_export_colour = config.grid?.export_colour || grid_import_colour;
+    let grid_colour = grid_power < 0 ? grid_export_colour : grid_import_colour;
+
 
     let noness_dual_load = config.grid?.additional_loads;
     if (!validLoadValues.includes(noness_dual_load)) {

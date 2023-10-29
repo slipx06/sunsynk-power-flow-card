@@ -30,9 +30,22 @@
         "pv4_name": "PV4",
         "essential": "Podstatné",
         "autarky": "Autarky",
+        "idle": "Nečinnosť",
+        "exporting": "Export",
+        "importing": "Import",
+        "discharging": "Vykladanie",
+        "charging": "Nabíjanie",
+        "waiting": "Čakanie",
+        "standby": "Pohotovostný režim",
+        "no_battery": "Žiadna batéria",
+        "selftest": "Samotest",
+        "normal": "Normálny",
+        "alarm": "Poplach",
+        "fault": "Porucha",
         "days": "dni",
         "hrs": "hod",
         "min": "min"
+
     },
     "errors": {
         "battery": {

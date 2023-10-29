@@ -109,6 +109,7 @@ These attributes are only needed if `show_solar` is set to `true`
 | Attribute | Requirement | Default | Description |
 | --- | --- | --- | --- |
 |colour:| Optional | `'#5490c2'`| Changes the colour of all the grid card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
+|export_colour:| Optional |  | Changes the colour of all the grid card objects when exporting (selling) energy. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |no_grid_colour:| Optional | `'#a40013'`|Changes the colour of the grid disconnected icon. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc)|
 |show_daily_buy: | Optional | `false` | Toggles the daily buy total |
 |show_daily_sell: | Optional | `false` | Toggles the daily sell total |

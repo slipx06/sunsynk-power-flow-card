@@ -30,9 +30,22 @@
         "pv4_name": "PV4",
         "essential": "Væsentlig",
         "autarky": "Autarky",
+        "idle": "Inaktiv",
+        "exporting": "Eksport",
+        "importing": "Import",
+        "discharging": "Afladning",
+        "charging": "Opladning",
+        "waiting": "Ventende",
+        "standby": "Standby",
+        "no_battery": "Ingen batteri",
+        "selftest": "Selvtest",
+        "normal": "Normal",
+        "alarm": "Alarm",
+        "fault": "Fejl",
         "days": "dage",
         "hrs": "timer",
         "min": "min"
+
     },
     "errors": {
         "battery": {
