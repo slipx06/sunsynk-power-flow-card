@@ -29,7 +29,10 @@
         "pv3_name": "PV3",
         "pv4_name": "PV4",
         "essential": "Oluline",
-        "autarky": "Autarky"
+        "autarky": "Autarky",
+        "days": "päevadel",
+        "hrs": "tundi",
+        "min": "min"
     },
     "errors": {
         "battery": {

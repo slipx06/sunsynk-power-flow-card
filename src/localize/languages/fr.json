@@ -29,7 +29,10 @@
         "pv3_name": "PV3",
         "pv4_name": "PV4",
         "essential": "Essentielles",
-        "autarky": "Autarky"
+        "autarky": "Autarky",
+        "days": "jours",
+        "hrs": "heures",
+        "min": "minutes"
     },
     "errors": {
         "battery": {
