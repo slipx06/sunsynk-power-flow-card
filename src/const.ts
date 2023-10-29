@@ -44,6 +44,22 @@ export const inverterStatusGroups = {
         normal: { states: ['2','4','5','7', '8', '9', '10', '11', '12', '16', '20', '32', '40'], color: 'green', message: 'Normal' },
         alarm: { states: ['7', '17','64', '136', '192'], color: 'orange', message: 'Alarm' },
         fault: { states: ['1'], color: 'red', message: 'Fault' },
+    },
+    goodwe: {
+        idle: { states: ['0'], color: 'blue', message: 'Idle' },
+        exporting: { states: ['1'], color: 'green', message: 'Export' },
+        importing: { states: ['2'], color: 'red', message: 'Import' },
+    }    
+
+};
+
+export const batteryStatusGroups = {
+    goodwe: {
+        noBattery: { states: ['0'], color: 'yellow', message: 'No Battery' },
+        standby: { states: ['1'], color: 'blue', message: 'Standby' },
+        discharging: { states: ['2'], color: 'red', message: 'Discharging' },
+		charging: { states: ['3'], color: 'green', message: 'Charging' },
+		waiting: { states: ['4','5'], color: 'yellow', message: 'Waiting' },
     }
 
 };

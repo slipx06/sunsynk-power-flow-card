@@ -11,6 +11,7 @@
    examples/sunsynk
    examples/lux
    examples/solis
+   examples/goodwe
 
 .. toctree::
    :caption: Contribute

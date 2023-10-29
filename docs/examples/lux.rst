@@ -79,7 +79,6 @@ Example 2 using the lxp-bridge integration (https://github.com/celsworth/lxp-bri
   inverter:
     model: lux
   battery:
-    show: true
     energy: 12800
     shutdown_soc: 20
     show_daily: true

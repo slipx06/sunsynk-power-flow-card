@@ -34,7 +34,7 @@ The card can be configured through the following attributes:
 |modern:| Optional |`true`| Changes the inverter image.|
 |colour:| Optional |`grey`| Changes the colour of the inverter. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |autarky:| Optional| `power`| Display autarky and ratio as a percentage using either realtime power or daily energy values. Set to `no` to hide (`energy/power/no`). <br />Autarky is the percentage of self sufficiency through Home Production. Ratio is the percentage of produced electricity used by the home. <br />It is calculated based on the formula below and borrowed from the [Power Distribution Card](https://github.com/JonahKr/power-distribution-card)  <br /><ul><li>Autarky in Percent = Home Production / Home Consumption </li><li>Ratio in Percent = Home Consumption / Home Production</li></ul>|
-| model: | Optional | `sunsynk` | Selects which status codes to use. Set to `lux` for Lux inverters.  |
+| model: | Optional | `sunsynk` | Selects which status codes to use. Set to `lux` for Lux inverters. Set to `goodwe` for Goodwe inverters.  |
 |auto_scale: | Optional | `false` | If set to `true` power values greater than 999W will be displayed as kW e.g. 1.23kW. The number of decimal places can be changed using the `decimal_places` card attribute|
 | three_phase: | Optional | `false` | If set to `true` additional 3 phase sensors will be displayed. Requires entity attributes to be defined i.e. `inverter_current_L2`, `inverter_current_L3`, `inverter_voltage_L2`, `inverter_voltage_L3` , `grid_ct_power_L2`, `grid_ct_power_L3`, `load_power_L1`, `load_power_L2`, `load_power_L3`
 ### Battery
@@ -186,7 +186,8 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |pv4_voltage_115: | Optional | `sensor.sunsynk_pv4_voltage` | PV string 4 voltage (V)|
 |pv4_current_116: | Optional | `sensor.sunsynk_pv4_current` | PV string 4 current (A)|
 |grid_connected_status_194: | Optional | `binary_sensor.sunsynk_grid_connected_status` | Grid connected status `on/off`,`1/0` or `On-Grid/Off-Grid` |
-|inverter_status_59: | Optional | `sensor.sunsynk_overall_state` | Inverter status `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault` |
+|inverter_status_59: | Optional | `sensor.sunsynk_overall_state` | Inverter status `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault`. For Goodwe `0,1,2` or `idle, importing, exporting` |
+|battery_status: | Optional | `sensor.battery_mode_code` | Used only when inverter model is set to  `goodwe`. Battery status `0, 1, 2, 3, 4` |
 |aux_power_166: | Optional | `sensor.sunsynk_aux_power` | Auxilary power (W) |
 |aux_load1:| Optional |  | Sensor that contains the power of your AUX load 1 (W) |
 |aux_load2:| Optional |  | Sensor that contains the power of your AUX load 2 (W) |
