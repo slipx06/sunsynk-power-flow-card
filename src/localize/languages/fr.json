@@ -42,7 +42,7 @@
         "normal": "Normal",
         "alarm": "Alarme",
         "fault": "Défaut",
-         "days": "jours",
+        "days": "jours",
         "hrs": "heures",
         "min": "min"
 
