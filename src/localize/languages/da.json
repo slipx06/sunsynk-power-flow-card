@@ -41,7 +41,11 @@
         "selftest": "Selvtest",
         "normal": "Normal",
         "alarm": "Alarm",
-        "fault": "Fejl"
+        "fault": "Fejl",
+        "days": "dage",
+        "hrs": "timer",
+        "min": "min"
+
     },
     "errors": {
         "battery": {

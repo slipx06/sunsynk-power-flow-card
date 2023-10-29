@@ -41,7 +41,11 @@
         "selftest": "Samotest",
         "normal": "Normálny",
         "alarm": "Poplach",
-        "fault": "Porucha"
+        "fault": "Porucha",
+        "days": "dni",
+        "hrs": "hod",
+        "min": "min"
+
     },
     "errors": {
         "battery": {

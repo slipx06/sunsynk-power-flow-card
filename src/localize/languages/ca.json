@@ -41,7 +41,11 @@
         "selftest": "Prova automàtica",
         "normal": "Normal",
         "alarm": "Alarma",
-        "fault": "Avaria"
+        "fault": "Avaria",
+        "days": "dies",
+        "hrs": "hrs",
+        "min": "min"
+
     },
     "errors": {
         "battery": {

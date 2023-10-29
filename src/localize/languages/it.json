@@ -41,7 +41,11 @@
         "selftest": "Auto-test",
         "normal": "Normale",
         "alarm": "Allarme",
-        "fault": "Guasto"
+        "fault": "Guasto",
+        "days": "giorni",
+        "hrs": "ore",
+        "min": "min"
+
     },
     "errors": {
         "battery": {

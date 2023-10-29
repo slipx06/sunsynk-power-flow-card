@@ -42,6 +42,10 @@
         "normal": "Normal",
         "alarm": "Alarm",
         "fault": "Fehler"
+        "days": "tage",
+        "hrs": "std",
+        "min": "min"
+
     },
     "errors": {
         "battery": {

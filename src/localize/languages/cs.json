@@ -41,7 +41,11 @@
         "selftest": "Vlastní test",
         "normal": "Normální",
         "alarm": "Alarm",
-        "fault": "Chyba"
+        "fault": "Chyba",
+        "days": "dní",
+        "hrs": "hod",
+        "min": "min"
+
     },
     "errors": {
         "battery": {

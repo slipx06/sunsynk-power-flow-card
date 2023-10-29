@@ -41,7 +41,11 @@
         "selftest": "Eneseanalüüs",
         "normal": "Tavaline",
         "alarm": "Häire",
-        "fault": "Rike"
+        "fault": "Rike",
+        "days": "päeva",
+        "hrs": "tundi",
+        "min": "min"
+
     },
     "errors": {
         "battery": {
