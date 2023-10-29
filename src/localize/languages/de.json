@@ -29,7 +29,7 @@
         "pv3_name": "PV3",
         "pv4_name": "PV4",
         "essential": "Hauptverbraucher",
-        "autarky": "Autarky"
+        "autarky": "Autark"
     },
     "errors": {
         "battery": {
