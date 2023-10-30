@@ -42,9 +42,9 @@
         "normal": "Normal",
         "alarm": "Alarm",
         "fault": "Fehler",
-        "days": "tage",
-        "hrs": "std",
-        "min": "min"
+        "days": "Tage",
+        "hrs": "Std",
+        "min": "Min"
 
     },
     "errors": {
