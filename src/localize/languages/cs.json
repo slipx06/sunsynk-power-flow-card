@@ -1,6 +1,6 @@
 {
     "common": {
-        "description": "Karta Home Assistant pro emulaci toku energie, který je zobrazen na obrazovce měniče Sunsynk", 
+        "description": "Karta Home Assistant pro emulaci toku energie, který je zobrazen na displeji měniče Sunsynk", 
         "version": "Verze",
         "runtime_to": "ČAS DO",
         "battery_floating": "BATERIE JE NABITÁ",
@@ -31,8 +31,8 @@
         "essential": "Nezbytný",
         "autarky": "Vlastní",
         "idle": "Nečinný",
-        "exporting": "Prodej",
-        "importing": "Nákup",
+        "exporting": "Odesílání",
+        "importing": "Příjem",
         "discharging": "Vybíjí se",
         "charging": "Nabíjí se",
         "waiting": "Čeká",
