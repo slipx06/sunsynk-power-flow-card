@@ -13,6 +13,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
     large_font: boolean;
     show_solar: boolean;
     card_height: string;
+    card_width: string;
     decimal_places: number;
     inverter: {
         modern: boolean;
@@ -87,6 +88,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         nonessential_icon: string;
         nonessential_name: string;
         additional_loads: number;
+        essential_name: string,
         load1_name: string;
         load2_name: string;
         load1_icon: string;

@@ -227,8 +227,10 @@ export class SunsynkPowerFlowCard extends LitElement {
     let useautarky = config.inverter?.autarky;
     let usetimer = (config.entities.use_timer_248 === false || !config.entities.use_timer_248) ? false : stateObj26.state;
     let priority = (config.entities.priority_load_243 === false || !config.entities.priority_load_243) ? false : stateObj25.state;
-    let battery_power = (config.battery?.invert_power === true) ? parseInt(stateObj13.state) * -1 : parseInt(stateObj13.state);
-    let height = config.card_height;
+    let battery_power = (config.battery?.invert_power === true) ? parseInt(stateObj13.state) * -1 : parseInt(stateObj13.state); 
+    const card_height = this.hass.states[config.card_height] || { state: '' };
+    let height = card_height.state === 'unavailable' || card_height.state === 'unknown' || card_height.state === ''  ? config.card_height : card_height.state;
+    let width = config.card_width;
     let bat_full = config.battery?.full_capacity;
     let bat_empty = config.battery?.empty_capacity;
     let energy_cost_decimals = config.grid?.energy_cost_decimals === 0 ? 0 : config.grid?.energy_cost_decimals || 2;
@@ -588,7 +590,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         </style>
         <div class="container card">
         ${config.title ? html`<h1 style="text-align: center; color: ${config.title_colour || 'inherit'}; font-size: ${config.title_size || '32px'};">${config.title}</h1>` : ''}
-          <svg viewBox="-0.5 -0.5 457 383" preserveAspectRatio="xMidYMid meet" height="${panel !== true ? `${height}` : '100%'}" width="100%" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+          <svg viewBox="-0.5 -0.5 457 383" preserveAspectRatio="xMidYMid meet" height="${panel !== true ? `${height}` : '100%'}" width="${panel === true ? `${width}` : '100%'}" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
             <rect x="51" y="162" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" display="${config.solar.mppts === 1 ? 'none' : ''}" class="${config.show_solar === false ? 'st12' : ''}"/>
             <rect x="6" y="300.75" width="70" height="70" rx="10.5" ry="10.5" fill="none" stroke="${battery_colour}" pointer-events="all" display="${config.show_battery === false ? 'none' : ''}"/>
             <rect x="234" y="153" width="70" height="70" rx="10.5" ry="10.5" fill="none" stroke="${grid_colour}" pointer-events="all" />
@@ -620,8 +622,8 @@ export class SunsynkPowerFlowCard extends LitElement {
             <text x="421" y="377" class="st3 st8" fill="${grid_colour}">Grid</text>
             <text x="185" y="306" class="st3" fill="${inverter_colour}">${inverterStateMsg}</text>
             <text x="102" y="378" class="st3" fill="${battery_colour}">${batteryStateMsg}</text>
-            <text x="411" y="157" class="st3 st8" display="${(additional_load === 1 || additional_load === 2) && show_aux === true ? 'none' : ''}" fill="${load_colour}">${localize('common.essential')}</text>
-            <text id="ess_load" x="411" y="130" class="st3 st8" display="${additional_load === 0 || show_aux !== true ? 'none' : ''}" fill="${load_colour}">${localize('common.essential')}</text>
+            <text x="411" y="157" class="st3 st8" display="${(additional_load === 1 || additional_load === 2) && show_aux === true ? 'none' : ''}" fill="${load_colour}">${config.grid.essential_name}</text>
+            <text id="ess_load" x="411" y="130" class="st3 st8" display="${additional_load === 0 || show_aux !== true ? 'none' : ''}" fill="${load_colour}">${config.grid.essential_name}</text>
             <text id="ess-load1" x="416" y="${show_aux !== true ? 70 : 181}" class="st3 left-align" display="${additional_load === 1 ? '' : 'none'}" fill="${load_colour}" >${config.load.load1_name}</text>
             <text id="ess-load2" x="${show_aux !== true ? 393 : 390}" y="${show_aux !== true ? 59 : 178}" class="st3 st8" display="${additional_load === 2 ? '' : 'none'}" fill="${load_colour}" >${config.load.load1_name}</text>
             <text id="ess-load2" x="${show_aux !== true ? 429 : 426}" y="${show_aux !== true ? 59 : 178}" class="st3 st8" display="${additional_load === 2 ? '' : 'none'}" fill="${load_colour}" >${config.load.load2_name}</text>
@@ -1186,7 +1188,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         </style>
         <div class="container card">
         ${config.title ? html`<h1 style="text-align: center; color: ${config.title_colour || 'inherit'}; font-size: ${config.title_size || '32px'};">${config.title}</h1>` : ''}
-          <svg viewBox="-0.5 ${config.show_solar === false ? (additional_load !== 0 || config.show_battery === false ? 80 : 145.33) : -0.5} 483 ${config.show_solar === false ? (config.show_battery === true ? (additional_load !== 0 ? 350 : 270.67) : 270.67) : (config.show_battery === false ? (additional_load === 2 ? 350 : 300) : 406)}" preserveAspectRatio="xMidYMid meet" height="${panel === false ? `${config.show_solar === false && config.show_battery === false ? '270px' : config.show_solar === false ? (additional_load !== 0 ? '330px' : '246px') : config.show_solar === true && config.show_battery === false ? (additional_load === 2 ? '350px' : '300px') : `${height}`}` : `${config.show_solar === false ? '75%' : '100%'}`}" width="100%"  xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+          <svg viewBox="-0.5 ${config.show_solar === false ? (additional_load !== 0 || config.show_battery === false ? 80 : 145.33) : -0.5} 483 ${config.show_solar === false ? (config.show_battery === true ? (additional_load !== 0 ? 350 : 270.67) : 270.67) : (config.show_battery === false ? (additional_load === 2 ? 350 : 300) : 406)}" preserveAspectRatio="xMidYMid meet" height="${panel === false ? `${config.show_solar === false && config.show_battery === false ? '270px' : config.show_solar === false ? (additional_load !== 0 ? '330px' : '246px') : config.show_solar === true && config.show_battery === false ? (additional_load === 2 ? '350px' : '300px') : `${height}`}` : `${config.show_solar === false ? '75%' : '100%'}`}" width="${panel === true ? `${width}` : '100%'}"  xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
             <rect x="304" y="203.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${load_colour}" pointer-events="all"/>
             <rect x="205" y="116.5" width="70" height="30" rx="4.5" ry="4.5" fill="none" stroke="${solar_colour}" pointer-events="all" display="${config.solar.mppts === 1 ? 'none' : ''}" class="${config.show_solar === false ? 'st12' : ''}"/>
             <rect x="159" y="329.75" width="70" height="70" rx="10.5" ry="10.5" fill="none" stroke="${battery_colour}" pointer-events="all" display="${config.show_battery === false ? 'none' : ''}"/>

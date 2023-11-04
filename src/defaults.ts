@@ -8,6 +8,7 @@ export default {
     show_solar: true,
     show_battery: true,
     card_height: '396px',
+    card_width: '100%',
     decimal_places: 2,
     inverter: {
         modern: true,
@@ -70,6 +71,7 @@ export default {
         show_daily_buy: false,
         show_daily_sell: false,
         show_nonessential: true,
+        essential_name: localize('common.essential'),
         nonessential_icon: 'default',
         nonessential_name: localize('common.nonessential_name'),
         additional_loads: 0,

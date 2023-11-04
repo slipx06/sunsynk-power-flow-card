@@ -11,14 +11,15 @@ The card can be configured through the following attributes:
 | --- | --- | --- | --- |
 |type: | **Required** | `custom:sunsynk-power-flow-card`| The custom card |
 |cardstyle: | **Required** | `lite` | Selects the card layout that is used  `lite` or `full` |
-|panel_mode:| Optional | `false` |Toggles panel mode removing any card height restrictions. For use with Panel(1 card) view types or grid layouts|
+|panel_mode:| Optional | `false` |Toggles panel mode setting card height to `100%`. For use with Panel(1 card) view types or grid layouts|
 |large_font:| Optional | `false` | Increases font size of sensor data |
 |title:| Optional | `` | Set the card title i.e. Inverter One |
 |title_colour:| Optional | `` | Changes the colour of the card title. (`red`, `green`, `blue` etc) |
 |title_size:| Optional | `32px` | Set the font size for the card title i.e. `16px`, `24px` |
 |show_solar:| Optional |`true` | Toggle display of solar information |
 |show_battery:| Optional |`true` | Toggle display of battery information |
-|card_height:| Optional | `396px` | Sets the card height in pixels `400px` |
+|card_height:| Optional | `396px` | Only used when `panel_mode: false`. Sets the card height in pixels. Specify the value i.e. `400px` or provide a sensor i.e. `input.numer_height`|
+|card_width:| Optional | `100%` | Only used when `panel_mode: true`. Sets the card width in pixels or percentage `400px` or `80%`. For adjustments when using the Panel(1 card) view types or grid layouts |
 |decimal_places:| Optional | `2` | Sets the number of decimal places to display when using the `auto_scale` option. |
 |inverter: | Optional | See optional [Inverter](#inverter) attributes below  |List of inverter attributes.  |
 |battery: | Optional  | See required [Battery](#battery) attributes below | List of battery attributes. Required if `show_battery: true`  |
@@ -116,6 +117,7 @@ These attributes are only needed if `show_solar` is set to `true`
 |show_nonessential: | Optional |`false` | Toggles the display of non-essential |
 |nonessential_icon: | Optional | `default` | Change the non-essential image using presets or any mdi icon e.g. `mdi:ev-station`. Presets are: <br /> <img height="25px" src="https://api.iconify.design/mdi/house-import-outline.svg"> `default`  <img height="25px" src="https://api.iconify.design/fluent/oven-32-regular.svg"> `oven`, <img height="25px" src="https://api.iconify.design/material-symbols/water-heater.svg"> `boiler` </br> <br/> <img height="25px" src="https://api.iconify.design/material-symbols/water-pump-outline.svg"> `pump`,  <img height="25px" src="https://api.iconify.design/mdi/air-conditioner.svg"> `aircon` </br> |
 |nonessential_name: | Optional | `Non Essential` |Set the display name for the non-essential load
+|essential_name: | Optional | `Essential` |Set the display name for the essential load
 |additional_loads: | Optional |`0`| Toggle the display of additional loads on the non-essential side (`0/1/2`)
 |load1_name: | Optional |  | Set the display name for the non-essential load 1
 |load2_name: | Optional |  |Set the display name for the non-essential load 2
