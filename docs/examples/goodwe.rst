@@ -80,7 +80,7 @@ Example 1
       pv2_voltage_111: sensor.pv1_voltage
       pv2_current_112: sensor.pv1_current
       grid_connected_status_194: sensor.grid_mode_code
-      inverter_status_59: sensor.on_grid_mode_code
+      inverter_status_59: sensor.work_mode_code
       battery_temp_182: sensor.battery_temperature
       radiator_temp_91: sensor.inverter_temperature_radiator
       dc_transformer_temp_90: sensor.inverter_temperature_air

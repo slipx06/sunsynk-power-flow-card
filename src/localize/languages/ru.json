@@ -30,9 +30,6 @@
         "pv4_name": "PV4",
         "essential": "Существенное",
         "autarky": "Autarky",
-        "idle": "Бездействие",
-        "exporting": "Экспорт",
-        "importing": "Импорт",
         "discharging": "Разряд",
         "charging": "Зарядка",
         "waiting": "Ожидание",
@@ -44,7 +41,10 @@
         "fault": "Неисправность",
         "days": "дни",
         "hrs": "часов",
-        "min": "мин"
+        "min": "мин",
+        "flash": "Flash",
+        "check": "Check"
+
 
     },
     "errors": {

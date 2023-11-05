@@ -335,3 +335,7 @@ Full Configuration (All Options)
     energy_cost_buy: sensor.tibber_energy_cost_buy
     energy_cost_sell: sensor.tibber_energy_cost_sell
     solar_sell_247: switch.sunsynk_toggle_solar_sell
+    aux_load1: sensor.gesyer
+    aux_load2: sensor.pool_pump
+    aux_load1_extra: sensor.daily_geyser_energy
+    aux_load2_extra: sensor.pool_temperature

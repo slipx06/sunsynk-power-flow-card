@@ -30,9 +30,6 @@
         "pv4_name": "PV4",
         "essential": "Podstatné",
         "autarky": "Autarky",
-        "idle": "Nečinnosť",
-        "exporting": "Export",
-        "importing": "Import",
         "discharging": "Vykladanie",
         "charging": "Nabíjanie",
         "waiting": "Čakanie",
@@ -44,7 +41,10 @@
         "fault": "Porucha",
         "days": "dni",
         "hrs": "hod",
-        "min": "min"
+        "min": "min",
+        "flash": "Flash",
+        "check": "Check"
+
 
     },
     "errors": {

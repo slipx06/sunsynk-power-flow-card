@@ -30,9 +30,6 @@
         "pv4_name": "PV4",
         "essential": "Nezbytný",
         "autarky": "Vlastní",
-        "idle": "Nečinný",
-        "exporting": "Odesílání",
-        "importing": "Příjem",
         "discharging": "Vybíjí se",
         "charging": "Nabíjí se",
         "waiting": "Čeká",
@@ -44,7 +41,10 @@
         "fault": "Chyba",
         "days": "dní",
         "hrs": "hod",
-        "min": "min"
+        "min": "min",
+        "flash": "Flash",
+        "check": "Check"
+
 
     },
     "errors": {

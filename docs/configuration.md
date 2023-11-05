@@ -169,7 +169,7 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |essential_load2: | Optional | | Sensor that contains the power of your essential load 2 (W)|
 |essential_load3: | Optional | | Sensor that contains the power of your essential load 3 (W)|
 |essential_load4: | Optional | | Sensor that contains the power of your essential load 4 (W)|
-|essential_load1_extra: | Optional | | Sensor that contains additional information you want displayed for your essential load 1 e.g. Daily kWh, Temperature etc|
+|essential_load1_extra: | Optional | | Sensor that contains additional information you want displayed for your essential load 1 e.g. Daily kWh, Temperature etc
 |essential_load2_extra: | Optional | | Sensor that contains additional information you want displayed for your essential load 2 e.g. Daily kWh, Temperature etc
 |load_power_L1: | Optional | | Load L1 Power (W)
 |load_power_L2: | Optional | | Load L2 Power (W)
@@ -189,11 +189,13 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |pv4_voltage_115: | Optional | `sensor.sunsynk_pv4_voltage` | PV string 4 voltage (V)|
 |pv4_current_116: | Optional | `sensor.sunsynk_pv4_current` | PV string 4 current (A)|
 |grid_connected_status_194: | Optional | `binary_sensor.sunsynk_grid_connected_status` | Grid connected status `on/off`,`1/0` or `On-Grid/Off-Grid` |
-|inverter_status_59: | Optional | `sensor.sunsynk_overall_state` | Inverter status `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault`. For Goodwe `0,1,2` or `idle, importing, exporting` |
+|inverter_status_59: | Optional | `sensor.sunsynk_overall_state` | Inverter status `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault`. For Goodwe `0,1,2,3,4,5` or `Wait mode, Normal (On-Grid), Normal (Off-Grid), Fault Mode, Flash Mode, Check Mode` |
 |battery_status: | Optional | `sensor.battery_mode_code` | Used only when inverter model is set to  `goodwe`. Battery status `0, 1, 2, 3, 4` |
 |aux_power_166: | Optional | `sensor.sunsynk_aux_power` | Auxilary power (W) |
 |aux_load1:| Optional |  | Sensor that contains the power of your AUX load 1 (W) |
 |aux_load2:| Optional |  | Sensor that contains the power of your AUX load 2 (W) |
+|aux_load1_extra:| Optional |  | Sensor that contains additional information you want displayed for your aux load 1 e.g. Daily kWh, Temperature etc |
+|aux_load2_extra:| Optional |  | SSensor that contains additional information you want displayed for your aux load 2 e.g. Daily kWh, Temperature etc |
 |aux_connected_status: |Optional | | AUX Connected Status `on/off` or `1/0`
 |remaining_solar: | Optional | `sensor.solcast_forecast_remaining_today`| The remaining solar forecast for the day (kWh). Use with solar `display_mode:2` |
 |total_pv_generation: | Optional | | Total Solar generation (Lifetime or forecast for the day) (kWh). Use with solar `display_mode:3` |

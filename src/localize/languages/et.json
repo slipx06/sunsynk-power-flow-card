@@ -30,9 +30,6 @@
         "pv4_name": "PV4",
         "essential": "Oluline",
         "autarky": "Autarky",
-        "idle": "Tühikäik",
-        "exporting": "Eksport",
-        "importing": "Import",
         "discharging": "Tühjenemine",
         "charging": "Laadimine",
         "waiting": "Ootamine",
@@ -44,7 +41,10 @@
         "fault": "Rike",
         "days": "päeva",
         "hrs": "tundi",
-        "min": "min"
+        "min": "min",
+        "flash": "Flash",
+        "check": "Check"
+
 
     },
     "errors": {

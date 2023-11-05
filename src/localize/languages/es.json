@@ -30,9 +30,6 @@
         "pv4_name": "PV4",
         "essential": "Esencial",
         "autarky": "Autarky",
-        "idle": "Inactivo",
-        "exporting": "Exportando",
-        "importing": "Importando",
         "discharging": "Descargando",
         "charging": "Cargando",
         "waiting": "Esperando",
@@ -44,7 +41,10 @@
         "fault": "Fallo",
         "days": "dìas",
         "hrs": "horas",
-        "min": "min"
+        "min": "min",
+        "flash": "Flash",
+        "check": "Check"
+
 
     },
     "errors": {
