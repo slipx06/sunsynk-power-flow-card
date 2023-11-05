@@ -189,7 +189,7 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |pv4_voltage_115: | Optional | `sensor.sunsynk_pv4_voltage` | PV string 4 voltage (V)|
 |pv4_current_116: | Optional | `sensor.sunsynk_pv4_current` | PV string 4 current (A)|
 |grid_connected_status_194: | Optional | `binary_sensor.sunsynk_grid_connected_status` | Grid connected status `on/off`,`1/0` or `On-Grid/Off-Grid` |
-|inverter_status_59: | Optional | `sensor.sunsynk_overall_state` | Inverter status `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault`. For Goodwe `0,1,2,3,4,5` or `Wait mode, Normal (On-Grid), Normal (Off-Grid), Fault Mode, Flash Mode, Check Mode` |
+|inverter_status_59: | Optional | `sensor.sunsynk_overall_state` | Expects a sensor that contains inverter status represted as a string or number. For Sunsynk  `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault`. For Lux `0,1,2,4,5,7,8,9,10,11,12,16,17,20,32,40,64,136,192`. For Goodwe `0,1,2,3,4,5` or `Wait mode, Normal (On-Grid), Normal (Off-Grid), Fault Mode, Flash Mode, Check Mode` |
 |battery_status: | Optional | `sensor.battery_mode_code` | Used only when inverter model is set to  `goodwe`. Battery status `0, 1, 2, 3, 4` |
 |aux_power_166: | Optional | `sensor.sunsynk_aux_power` | Auxilary power (W) |
 |aux_load1:| Optional |  | Sensor that contains the power of your AUX load 1 (W) |

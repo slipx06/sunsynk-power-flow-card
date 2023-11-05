@@ -42,7 +42,7 @@ export const inverterStatusGroups = {
     lux: {
         standby: { states: ['0'], color: 'blue', message: localize('common.standby') },
         selftest: { states: [], color: 'yellow', message: localize('common.selftest') },
-        normal: { states: ['2','4','5','7', '8', '9', '10', '11', '12', '16', '20', '32', '40'], color: 'green', message: localize('common.normal') },
+        normal: { states: ['2', '4', '5', '8', '9', '10', '11', '12', '16', '20', '32', '40'], color: 'green', message: localize('common.normal') },
         alarm: { states: ['7', '17','64', '136', '192'], color: 'orange', message: localize('common.alarm') },
         fault: { states: ['1'], color: 'red', message: localize('common.fault') },
     },
@@ -62,7 +62,7 @@ export const batteryStatusGroups = {
         standby: { states: ['1'], color: 'blue', message: localize('common.standby') },
         discharging: { states: ['2'], color: 'red', message: localize('common.discharging') },
 		charging: { states: ['3'], color: 'green', message: localize('common.charging') },
-		waiting: { states: ['4','5'], color: 'yellow', message: localize('common.waiting') },
+		waiting: { states: ['4', '5'], color: 'yellow', message: localize('common.waiting') },
     }
 
 };
