@@ -43,7 +43,10 @@
         "hrs": "Std",
         "min": "Min",
         "flash": "Flash",
-        "check": "Check"
+        "check": "Check",
+        "idle": "Leerlauf",
+        "exporting": "Export",
+        "importing": "Import"
 
 
     },

@@ -43,7 +43,10 @@
         "hrs": "hrs",
         "min": "min",
         "flash": "Flash",
-        "check": "Check"
+        "check": "Check",
+        "idle": "Idle",
+        "exporting": "Export",
+        "importing": "Import"
 
     },
     "errors": {

@@ -43,7 +43,10 @@
         "hrs": "uren",
         "min": "minuten",
         "flash": "Flash",
-        "check": "Check"
+        "check": "Check",
+        "idle": "Inactief",
+        "exporting": "Exporteren",
+        "importing": "Importeren"
 
 
     },

@@ -427,7 +427,7 @@ export class SunsynkPowerFlowCard extends LitElement {
     let inverterModel = "";
     let found = false;
 
-    if (config.inverter.model !== 'sunsynk' && config.inverter.model !== 'lux' && config.inverter.model !== 'goodwe') {
+    if (config.inverter.model !== 'sunsynk' && config.inverter.model !== 'lux' && config.inverter.model !== 'goodwe_gridmode' && config.inverter.model !== 'goodwe' ) {
       inverterModel = 'sunsynk';
     } else {
       inverterModel = config.inverter.model;
@@ -461,7 +461,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 
     let batStatusGroups = batteryStatusGroups[inverterModel];
 
-    if (inverterModel === 'goodwe') {
+    if (inverterModel === 'goodwe_gridmode' || inverterModel === 'goodwe') {
       for (const groupKey of Object.keys(batStatusGroups)) {
         const info = batStatusGroups[groupKey];
         const { states, color, message } = info;
@@ -655,9 +655,9 @@ export class SunsynkPowerFlowCard extends LitElement {
             <text id="aux_load2_extra" x="360" y="83" class="st3 st8" display="${show_aux !== true || additional_aux_load === 0 || additional_aux_load === 1 || !config.entities.aux_load2_extra ? 'none' : ''}" fill="${aux_colour}" >${isNaN(parseFloat(stateObj68.state)) ? '0' : `${parseFloat(stateObj68.state).toFixed(1)} ${stateObj68.attributes.unit_of_measurement}`}</text>           
             <text id="aux_daily_text" x="${(additional_aux_load === 1 || additional_aux_load === 2) ? '238' : '306'}" y="24" class="st3 left-align" display="${show_aux !== true || show_dailyaux !== true ? 'none' : ''}" fill="${aux_colour}" >${localize('common.daily_aux')}</text>
             <text id="load-power-3P" x="237" y="142" display="${config.inverter.three_phase === true && config.entities?.load_power_L1 ? '' : 'none'}" class="st3 left-align" fill="${load_colour}" > ${config.inverter.three_phase === true && config.entities?.load_power_L1 ? load_power_L1 : '0'} ${config.inverter.three_phase === true && config.entities?.load_power_L2 ? '| ' + load_power_L2 : ''} ${config.inverter.three_phase === true && config.entities?.load_power_L3 ? '| ' + load_power_L3 : ''} W</text>
-            <text id="grid-power-L1" x="428" y="307" display="${config.inverter.three_phase === true  ? '' : 'none'}" class="st3 left-align" fill="${grid_colour}" >${config.load.auto_scale === true ? `${convertValue(grid_power, round) || 0}` : `${grid_power || ''} W`}</text>
-            <text id="grid-power-L2" x="428" y="320" display="${config.inverter.three_phase === true && config.entities?.grid_ct_power_L2 ? '' : 'none'}" class="st3 left-align" fill="${grid_colour}" >${config.load.auto_scale === true ? `${convertValue(grid_power_L2, round) || 0}` : `${grid_power_L2 || ''} W`}</text>
-            <text id="grid-power-L3" x="428" y="333" display="${config.inverter.three_phase === true && config.entities?.grid_ct_power_L3 ? '' : 'none'}" class="st3 left-align" fill="${grid_colour}" >${config.load.auto_scale === true ? `${convertValue(grid_power_L3, round) || 0}` : `${grid_power_L3 || ''} W`}</text>
+            <text id="grid-power-L1" x="428" y="305" display="${config.inverter.three_phase === true  ? '' : 'none'}" class="st3 left-align" fill="${grid_colour}" >${config.load.auto_scale === true ? `${convertValue(grid_power, round) || 0}` : `${grid_power || ''} W`}</text>
+            <text id="grid-power-L2" x="428" y="318" display="${config.inverter.three_phase === true && config.entities?.grid_ct_power_L2 ? '' : 'none'}" class="st3 left-align" fill="${grid_colour}" >${config.load.auto_scale === true ? `${convertValue(grid_power_L2, round) || 0}` : `${grid_power_L2 || ''} W`}</text>
+            <text id="grid-power-L3" x="428" y="331" display="${config.inverter.three_phase === true && config.entities?.grid_ct_power_L3 ? '' : 'none'}" class="st3 left-align" fill="${grid_colour}" >${config.load.auto_scale === true ? `${convertValue(grid_power_L3, round) || 0}` : `${grid_power_L3 || ''} W`}</text>
 
             <circle id="standby" cx="164" cy="304" r="3.5" fill="${inverterStateColour}"/>
             <circle id="bat" cx="70" cy="377" r="3" display="${config.entities?.battery_status === 'none' || !config.entities?.battery_status ? 'none' : ''}" fill="${batteryStateColour}"/>
@@ -1093,10 +1093,10 @@ export class SunsynkPowerFlowCard extends LitElement {
           : svg`<text id="ess_load2_value" x="${show_aux !== true ? '430' : '427'}" y="${show_aux !== true ? '42' : '160'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj45.state)) ? '0' : convertValue(parseFloat(stateObj45.state), round)}` : `${parseFloat(stateObj45.state).toFixed(0) || 0} W`}</text>`}
             ${grid_power >= 0
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost_buy)}>
-              <text id="energy_cost" x="414" y="307"  class="st3 right-align" fill="${grid_colour}" display="${config.entities?.energy_cost_buy  ? '' : 'none'}" >${energy_cost} ${stateObj43.attributes.unit_of_measurement}</text>
+              <text id="energy_cost" x="414" y="305"  class="st3 right-align" fill="${grid_colour}" display="${config.entities?.energy_cost_buy  ? '' : 'none'}" >${energy_cost} ${stateObj43.attributes.unit_of_measurement}</text>
                   </a>`
           : svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost_sell)}>
-              <text id="energy_cost" x="414" y="307"  class="st3 right-align" fill="${grid_colour}" display="${config.entities?.energy_cost_sell ? '' : 'none'}" >${energy_cost} ${stateObj51.attributes.unit_of_measurement}</text>
+              <text id="energy_cost" x="414" y="305"  class="st3 right-align" fill="${grid_colour}" display="${config.entities?.energy_cost_sell ? '' : 'none'}" >${energy_cost} ${stateObj51.attributes.unit_of_measurement}</text>
                   </a>`}
 
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_voltage_154)}>

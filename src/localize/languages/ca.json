@@ -43,7 +43,10 @@
         "hrs": "hrs",
         "min": "min",
         "flash": "Flash",
-        "check": "Check"
+        "check": "Check",
+        "idle": "Inactiu",
+        "exporting": "Exportació",
+        "importing": "Importació"
 
 
     },

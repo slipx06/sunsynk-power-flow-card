@@ -19,7 +19,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         modern: boolean;
         colour: string;
         autarky: 'energy' | 'power' | 'no';
-        model: 'sunsynk' | 'lux' | 'goodwe';
+        model: 'sunsynk' | 'lux' | 'goodwe_gridmode' | 'goodwe';
         auto_scale: boolean;
         three_phase: boolean;
     }

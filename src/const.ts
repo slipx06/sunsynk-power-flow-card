@@ -46,6 +46,11 @@ export const inverterStatusGroups = {
         alarm: { states: ['7', '17','64', '136', '192'], color: 'orange', message: localize('common.alarm') },
         fault: { states: ['1'], color: 'red', message: localize('common.fault') },
     },
+    goodwe_gridmode: {
+        idle: { states: ['0', 'Idle'], color: 'blue', message: localize('common.idle') },
+        exporting: { states: ['1', 'Exporting'], color: 'green', message: localize('common.exporting') },
+        importing: { states: ['2', 'Importing'], color: 'red', message: localize('common.importing') },
+    },    
     goodwe: {
         standby: { states: ['0', 'Wait Mode'], color: 'blue', message: localize('common.standby') },
         normal: { states: ['1', '2', 'Normal (On-Grid)', 'Normal (Off-Grid)'], color: 'green', message: localize('common.normal') },
@@ -57,6 +62,13 @@ export const inverterStatusGroups = {
 };
 
 export const batteryStatusGroups = {
+    goodwe_gridmode: {
+        noBattery: { states: ['0'], color: 'yellow', message: localize('common.no_battery') },
+        standby: { states: ['1'], color: 'blue', message: localize('common.standby') },
+        discharging: { states: ['2'], color: 'red', message: localize('common.discharging') },
+		charging: { states: ['3'], color: 'green', message: localize('common.charging') },
+		waiting: { states: ['4', '5'], color: 'yellow', message: localize('common.waiting') },
+    },
     goodwe: {
         noBattery: { states: ['0'], color: 'yellow', message: localize('common.no_battery') },
         standby: { states: ['1'], color: 'blue', message: localize('common.standby') },

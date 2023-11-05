@@ -43,7 +43,10 @@
         "hrs": "часов",
         "min": "мин",
         "flash": "Flash",
-        "check": "Check"
+        "check": "Check",
+        "idle": "Бездействие",
+        "exporting": "Экспорт",
+        "importing": "Импорт"
 
 
     },
