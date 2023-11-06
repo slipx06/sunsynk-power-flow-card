@@ -96,7 +96,7 @@ export class SunsynkPowerFlowCard extends LitElement {
     const stateObj12 = this.hass.states[config.entities.battery_soc_184] || { state: '0' };
     const stateObj13 = this.hass.states[config.entities.battery_power_190] || { state: '0' };
     const stateObj14 = this.hass.states[config.entities.essential_power] || { state: '0' };
-    const stateObj15 = this.hass.states[config.entities.grid_ct_power_172] || { state: '0' };
+    const stateObj15 = this.hass.states[config.entities.grid_ct_power_172] || { state: 0 };
     const stateObj16 = this.hass.states[config.entities.pv1_voltage_109] || { state: '0' };
     const stateObj17 = this.hass.states[config.entities.pv1_current_110] || { state: '0' };
     const stateObj18 = this.hass.states[config.entities.pv2_voltage_111] || { state: '0' };
@@ -123,10 +123,10 @@ export class SunsynkPowerFlowCard extends LitElement {
     const stateObj39 = this.hass.states[config.entities.radiator_temp_91] || { state: '' };
     const stateObj40 = this.hass.states[config.entities.non_essential_load1] || { state: '0' };
     const stateObj41 = this.hass.states[config.entities.non_essential_load2] || { state: '0' };
-    const stateObj42 = this.hass.states[config.entities.essential_load1] || { state: '0' };
+    const stateObj42 = this.hass.states[config.entities.essential_load1] || { state: '0', attributes: { unit_of_measurement: '' } };
     const stateObj43 = this.hass.states[config.entities.energy_cost_buy] || { state: '', attributes: { unit_of_measurement: '' } };
     const stateObj44 = this.hass.states[config.entities.solar_sell_247] || { state: 'undefined' };
-    const stateObj45 = this.hass.states[config.entities.essential_load2] || { state: '0' };
+    const stateObj45 = this.hass.states[config.entities.essential_load2] || { state: '0', attributes: { unit_of_measurement: '' } };
     const stateObj46 = this.hass.states[config.entities.pv_total] || { state: '0' };
     const stateObj47 = this.hass.states[config.entities.aux_connected_status] || { state: 'on' };
     const stateObj48 = this.hass.states[config.entities.aux_load1] || { state: '0' };
@@ -139,14 +139,14 @@ export class SunsynkPowerFlowCard extends LitElement {
     const stateObj55 = this.hass.states[config.entities.inverter_voltage_L3] || { state: '' };
     const stateObj56 = this.hass.states[config.entities.inverter_current_L2] || { state: '' };
     const stateObj57 = this.hass.states[config.entities.inverter_current_L3] || { state: '' };
-    const stateObj58 = this.hass.states[config.entities.grid_ct_power_L2] || { state: '' };
-    const stateObj59 = this.hass.states[config.entities.grid_ct_power_L3] || { state: '' };
-    const stateObj60 = this.hass.states[config.entities.load_power_L1] || { state: '' };
-    const stateObj61 = this.hass.states[config.entities.load_power_L2] || { state: '' };
-    const stateObj62 = this.hass.states[config.entities.load_power_L3] || { state: '' };
+    const stateObj58 = this.hass.states[config.entities.grid_ct_power_L2] || { state: 0 };
+    const stateObj59 = this.hass.states[config.entities.grid_ct_power_L3] || { state: 0 };
+    const stateObj60 = this.hass.states[config.entities.load_power_L1] || { state: 0 };
+    const stateObj61 = this.hass.states[config.entities.load_power_L2] || { state: 0 };
+    const stateObj62 = this.hass.states[config.entities.load_power_L3] || { state: 0 };
     const stateObj63 = this.hass.states[config.entities.total_pv_generation] || { state: 0 };
-    const stateObj64 = this.hass.states[config.entities.essential_load3] || { state: '0' };
-    const stateObj65 = this.hass.states[config.entities.essential_load4] || { state: '0' };
+    const stateObj64 = this.hass.states[config.entities.essential_load3] || { state: '0', attributes: { unit_of_measurement: '' } };
+    const stateObj65 = this.hass.states[config.entities.essential_load4] || { state: '0', attributes: { unit_of_measurement: '' } };
     const stateObj66 = this.hass.states[config.entities.battery_status] || { state: '' };
     const stateObj67 = this.hass.states[config.entities.aux_load1_extra] || { state: '0', attributes: { unit_of_measurement: '' } };
     const stateObj68 = this.hass.states[config.entities.aux_load2_extra] || { state: '0', attributes: { unit_of_measurement: '' } };
@@ -184,7 +184,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 
     const grid_import_colour = config.grid?.colour;
     const grid_export_colour = config.grid?.export_colour || grid_import_colour;
-    let grid_colour = grid_power < 0 ? grid_export_colour : grid_import_colour;
+    let grid_colour = total_grid_power < 0 ? grid_export_colour : grid_import_colour;
 
 
     let noness_dual_load = config.grid?.additional_loads;
@@ -236,7 +236,7 @@ export class SunsynkPowerFlowCard extends LitElement {
     let bat_full = config.battery?.full_capacity;
     let bat_empty = config.battery?.empty_capacity;
     let energy_cost_decimals = config.grid?.energy_cost_decimals === 0 ? 0 : config.grid?.energy_cost_decimals || 2;
-    let energy_cost = grid_power >= 0 ? parseFloat(stateObj43.state).toFixed(energy_cost_decimals) : parseFloat(stateObj51.state).toFixed(energy_cost_decimals);
+    let energy_cost = total_grid_power >= 0 ? parseFloat(stateObj43.state).toFixed(energy_cost_decimals) : parseFloat(stateObj51.state).toFixed(energy_cost_decimals);
 
     //let width = config.card_width || '100%'
 
@@ -388,15 +388,18 @@ export class SunsynkPowerFlowCard extends LitElement {
     let totalSeconds = 0;
     let formattedResultTime = "";
     let duration = "";
+    
+    const battenergy = this.hass.states[config.battery.energy] || { state: '' };
+    let battery_energy = isNaN(parseInt(battenergy.state)) ? config.battery.energy : parseInt(battenergy.state);
 
-    if (config.show_battery !== false || config.battery.energy !== 0) {
+    if (config.show_battery !== false || battery_energy !== 0) {
       if (battery_power === 0) {
 //        totalSeconds = (((parseInt(stateObj12.state) - config.battery.shutdown_soc) / 100) * config.battery.energy) / 1 * 60 * 60;
-        totalSeconds = (((parseInt(stateObj12.state) - shutdown) / 100) * config.battery.energy) / 1 * 60 * 60;
+        totalSeconds = (((parseInt(stateObj12.state) - shutdown) / 100) * battery_energy) / 1 * 60 * 60;
       } else if (battery_power > 0) {
-        totalSeconds = (((parseInt(stateObj12.state) - battery_capacity) / 100) * config.battery.energy) / battery_power * 60 * 60;
+        totalSeconds = (((parseInt(stateObj12.state) - battery_capacity) / 100) * battery_energy) / battery_power * 60 * 60;
       } else if (battery_power < 0) {
-        totalSeconds = ((((battery_capacity - parseInt(stateObj12.state)) / 100) * config.battery.energy) / battery_power) * 60 * 60 * -1;
+        totalSeconds = ((((battery_capacity - parseInt(stateObj12.state)) / 100) * battery_energy) / battery_power) * 60 * 60 * -1;
       }
       const currentTime = new Date(); // Create a new Date object representing the current time
       const durationMilliseconds = totalSeconds * 1000; // Convert the duration to milliseconds
@@ -613,10 +616,10 @@ export class SunsynkPowerFlowCard extends LitElement {
             <rect id="es-load2" x="${show_aux !== true ? '413' : '410'}" y="${show_aux !== true ? '30' : '149'}" width="35" height="20" rx="4.5" ry="4.5" fill="none" stroke="${load_colour}" pointer-events="all" display="${additional_load === 2 ? '' : 'none'}"/>
             <rect id="aux-load1" x="374" y="20" width="70" height="25" rx="4.5" ry="4.5" fill="none" stroke="${aux_colour}" pointer-events="all" display="${show_aux !== true ? 'none' : ''}" class="${additional_aux_load === 1 || additional_aux_load === 2 ? '' : 'st12'}"/>
             <rect id="aux-load2" x="374" y="50" width="70" height="25" rx="4.5" ry="4.5" fill="none" stroke="${aux_colour}" pointer-events="all" display="${show_aux !== true ? 'none' : ''}" class="${additional_aux_load === 2 ? '' : 'st12'}"/>
-            <text id="duration" x="132" y="352" class="${font !== true ? 'st14' : 'st4'} left-align" display="${config.show_battery === false ? 'none' : ''}" fill="${config.battery.energy === 0 || float === true || battery_power === 0 ? 'transparent' : `${battery_colour}`}" >${duration}</text>
-            <text id="duration_text" x="132" y="368" class="st3 left-align" display="${config.show_battery === false ? 'none' : ''}" fill="${config.battery.energy === 0 || battery_power <= 0 || float === true ? 'transparent' : `${battery_colour}`}" >${localize('common.runtime_to')} ${battery_capacity}% @${formattedResultTime}</text>
-            <text id="duration_text_charging" x="132" y="368" class="st3 left-align" display="${config.show_battery === false ? 'none' : ''}" fill="${config.battery.energy === 0 || battery_power >= 0 || float === true ? 'transparent' : `${battery_colour}`}" >${localize('common.to')} ${battery_capacity}% ${localize('common.charge')} @${formattedResultTime}</text>
-            <text id="floating" x="132" y="368" class="st3 left-align" display="${config.show_battery === false ? 'none' : ''}" fill="${config.battery.energy === 0 || float === false ? 'transparent' : `${battery_colour}`}" >${localize('common.battery_floating')}</text>
+            <text id="duration" x="132" y="352" class="${font !== true ? 'st14' : 'st4'} left-align" display="${config.show_battery === false ? 'none' : ''}" fill="${battery_energy === 0 || float === true || battery_power === 0 ? 'transparent' : `${battery_colour}`}" >${duration}</text>
+            <text id="duration_text" x="132" y="368" class="st3 left-align" display="${config.show_battery === false ? 'none' : ''}" fill="${battery_energy === 0 || battery_power <= 0 || float === true ? 'transparent' : `${battery_colour}`}" >${localize('common.runtime_to')} ${battery_capacity}% @${formattedResultTime}</text>
+            <text id="duration_text_charging" x="132" y="368" class="st3 left-align" display="${config.show_battery === false ? 'none' : ''}" fill="${battery_energy === 0 || battery_power >= 0 || float === true ? 'transparent' : `${battery_colour}`}" >${localize('common.to')} ${battery_capacity}% ${localize('common.charge')} @${formattedResultTime}</text>
+            <text id="floating" x="132" y="368" class="st3 left-align" display="${config.show_battery === false ? 'none' : ''}" fill="${battery_energy === 0 || float === false ? 'transparent' : `${battery_colour}`}" >${localize('common.battery_floating')}</text>
             <text x="0" y="78.5" class="st3 st8 left-align" display="${config.show_solar === false ? 'none' : ''}" fill="${solar_colour}">${config.solar.pv1_name}</text>
             <text x="99" y="78.5" class="st3 st8 left-align" display="${config.show_solar === false || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${config.solar.pv2_name}</text>
             <text x="0" y="139" class="st3 st8 left-align" display="${config.show_solar === false || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" fill="${solar_colour}">${config.solar.pv3_name}</text>
@@ -655,9 +658,9 @@ export class SunsynkPowerFlowCard extends LitElement {
             <text id="aux_load2_extra" x="360" y="83" class="st3 st8" display="${show_aux !== true || additional_aux_load === 0 || additional_aux_load === 1 || !config.entities.aux_load2_extra ? 'none' : ''}" fill="${aux_colour}" >${isNaN(parseFloat(stateObj68.state)) ? '0' : `${parseFloat(stateObj68.state).toFixed(1)} ${stateObj68.attributes.unit_of_measurement}`}</text>           
             <text id="aux_daily_text" x="${(additional_aux_load === 1 || additional_aux_load === 2) ? '238' : '306'}" y="24" class="st3 left-align" display="${show_aux !== true || show_dailyaux !== true ? 'none' : ''}" fill="${aux_colour}" >${localize('common.daily_aux')}</text>
             <text id="load-power-3P" x="237" y="142" display="${config.inverter.three_phase === true && config.entities?.load_power_L1 ? '' : 'none'}" class="st3 left-align" fill="${load_colour}" > ${config.inverter.three_phase === true && config.entities?.load_power_L1 ? load_power_L1 : '0'} ${config.inverter.three_phase === true && config.entities?.load_power_L2 ? '| ' + load_power_L2 : ''} ${config.inverter.three_phase === true && config.entities?.load_power_L3 ? '| ' + load_power_L3 : ''} W</text>
-            <text id="grid-power-L1" x="428" y="305" display="${config.inverter.three_phase === true  ? '' : 'none'}" class="st3 left-align" fill="${grid_colour}" >${config.load.auto_scale === true ? `${convertValue(grid_power, round) || 0}` : `${grid_power || ''} W`}</text>
-            <text id="grid-power-L2" x="428" y="318" display="${config.inverter.three_phase === true && config.entities?.grid_ct_power_L2 ? '' : 'none'}" class="st3 left-align" fill="${grid_colour}" >${config.load.auto_scale === true ? `${convertValue(grid_power_L2, round) || 0}` : `${grid_power_L2 || ''} W`}</text>
-            <text id="grid-power-L3" x="428" y="331" display="${config.inverter.three_phase === true && config.entities?.grid_ct_power_L3 ? '' : 'none'}" class="st3 left-align" fill="${grid_colour}" >${config.load.auto_scale === true ? `${convertValue(grid_power_L3, round) || 0}` : `${grid_power_L3 || ''} W`}</text>
+            <text id="grid-power-L1" x="428" y="305" display="${config.inverter.three_phase === true  ? '' : 'none'}" class="st3 left-align" fill="${grid_colour}" >${config.load.auto_scale === true ? `${convertValue(grid_power, round) || 0}` : `${grid_power || 0} W`}</text>
+            <text id="grid-power-L2" x="428" y="318" display="${config.inverter.three_phase === true && config.entities?.grid_ct_power_L2 ? '' : 'none'}" class="st3 left-align" fill="${grid_colour}" >${config.load.auto_scale === true ? `${convertValue(grid_power_L2, round) || 0}` : `${grid_power_L2 || 0} W`}</text>
+            <text id="grid-power-L3" x="428" y="331" display="${config.inverter.three_phase === true && config.entities?.grid_ct_power_L3 ? '' : 'none'}" class="st3 left-align" fill="${grid_colour}" >${config.load.auto_scale === true ? `${convertValue(grid_power_L3, round) || 0}` : `${grid_power_L3 || 0} W`}</text>
 
             <circle id="standby" cx="164" cy="304" r="3.5" fill="${inverterStateColour}"/>
             <circle id="bat" cx="70" cy="377" r="3" display="${config.entities?.battery_status === 'none' || !config.entities?.battery_status ? 'none' : ''}" fill="${batteryStateColour}"/>
@@ -707,23 +710,23 @@ export class SunsynkPowerFlowCard extends LitElement {
               </animateMotion>
             </circle>
             <path id="grid-line" d="M 304 188 L 411 188 Q 421 188 421 198 L421 265" fill="none" stroke="${grid_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
-            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${grid_power < 0 || grid_power === 0 ? 'transparent' : `${grid_colour}`}">
+            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${total_grid_power < 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}">
               <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line"/>
               </animateMotion>
             </circle>
-            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${grid_power > 0 || grid_power === 0 ? 'transparent' : `${grid_colour}`}">
+            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${total_grid_power > 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}">
               <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line"/>
               </animateMotion>
             </circle>
             <path id="grid-line1" d="${config.inverter.three_phase === true ? 'M 421 295 L 421 337' : 'M 421 295 L 421 310.5'}" fill="none" stroke="${grid_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
-            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${grid_power < 0 || grid_power === 0 ? 'transparent' : `${grid_colour}`}">
+            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${total_grid_power < 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}">
               <animateMotion dur="${grid_animation_speed / 2}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line1"/>
               </animateMotion>
             </circle>
-            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${grid_power > 0 || grid_power === 0 ? 'transparent' : `${grid_colour}`}">
+            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${total_grid_power > 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}">
               <animateMotion dur="${grid_animation_speed / 2}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line1"/>
               </animateMotion>
@@ -1078,20 +1081,20 @@ export class SunsynkPowerFlowCard extends LitElement {
           : svg`<text id="noness2_value" x="357" y="321" class="st3" display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" fill="${grid_colour}">${config.grid.auto_scale === true ? `${isNaN(parseFloat(stateObj41.state)) ? '0' : convertValue(parseFloat(stateObj41.state), round)}` : `${parseFloat(stateObj41.state).toFixed(0) || 0} W`}</text>`}
             ${config.entities?.essential_load1
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1)}>
-                    <text id="ess_load1_value" x="409" y="${show_aux !== true ? '47' : '158'}" display="${additional_load === 1 ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj42.state)) ? '0' : convertValue(parseFloat(stateObj42.state), round)}` : `${parseFloat(stateObj42.state).toFixed(0) || 0} W`}</text>
+                    <text id="ess_load1_value" x="409" y="${show_aux !== true ? '47' : '158'}" display="${additional_load === 1 ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj42.state)) ? '0' : convertValue(parseFloat(stateObj42.state), round)}` : `${parseFloat(stateObj42.state).toFixed(0) || 0} ${stateObj42.attributes.unit_of_measurement !== undefined ? stateObj42.attributes.unit_of_measurement : ''}`}</text>
                   </a>`
-          : svg`<text id="ess_load1_value" x="409" y="${show_aux !== true ? '47' : '158'}" display="${additional_load === 1 ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj42.state)) ? '0' : convertValue(parseFloat(stateObj42.state), round)}` : `${parseFloat(stateObj42.state).toFixed(0) || 0} W`}</text>`}
+          : svg`<text id="ess_load1_value" x="409" y="${show_aux !== true ? '47' : '158'}" display="${additional_load === 1 ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj42.state)) ? '0' : convertValue(parseFloat(stateObj42.state), round)}` : `${parseFloat(stateObj42.state).toFixed(0) || 0} ${stateObj42.attributes.unit_of_measurement !== undefined ? stateObj42.attributes.unit_of_measurement : ''}`}</text>`}
             ${config.entities?.essential_load1
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1)}>
-                    <text id="ess_load2_value" x="${show_aux !== true ? '394' : '391'}" y="${show_aux !== true ? '42' : '160'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj42.state)) ? '0' : convertValue(parseFloat(stateObj42.state), round)}` : `${parseFloat(stateObj42.state).toFixed(0) || 0} W`}</text>
+                    <text id="ess_load2_value" x="${show_aux !== true ? '394' : '391'}" y="${show_aux !== true ? '42' : '160'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj42.state)) ? '0' : convertValue(parseFloat(stateObj42.state), round)}` : `${parseFloat(stateObj42.state).toFixed(0) || 0} ${stateObj42.attributes.unit_of_measurement !== undefined ? stateObj42.attributes.unit_of_measurement : ''}`}</text>
                   </a>`
-          : svg`<text id="ess_load2_value" x="${show_aux !== true ? '394' : '391'}" y="${show_aux !== true ? '42' : '160'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj42.state)) ? '0' : convertValue(parseFloat(stateObj42.state), round)}` : `${parseFloat(stateObj42.state).toFixed(0) || 0} W`}</text>`}
+          : svg`<text id="ess_load2_value" x="${show_aux !== true ? '394' : '391'}" y="${show_aux !== true ? '42' : '160'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj42.state)) ? '0' : convertValue(parseFloat(stateObj42.state), round)}` : `${parseFloat(stateObj42.state).toFixed(0) || 0} ${stateObj42.attributes.unit_of_measurement !== undefined ? stateObj42.attributes.unit_of_measurement : ''}`}</text>`}
             ${config.entities?.essential_load2
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load2)}>
-                    <text id="ess_load2_value" x="${show_aux !== true ? '430' : '427'}" y="${show_aux !== true ? '42' : '160'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj45.state)) ? '0' : convertValue(parseFloat(stateObj45.state), round)}` : `${parseFloat(stateObj45.state).toFixed(0) || 0} W`}</text>
+                    <text id="ess_load2_value" x="${show_aux !== true ? '430' : '427'}" y="${show_aux !== true ? '42' : '160'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj45.state)) ? '0' : convertValue(parseFloat(stateObj45.state), round)}` : `${parseFloat(stateObj45.state).toFixed(0) || 0} ${stateObj45.attributes.unit_of_measurement !== undefined ? stateObj45.attributes.unit_of_measurement : ''}`}</text>
                   </a>`
-          : svg`<text id="ess_load2_value" x="${show_aux !== true ? '430' : '427'}" y="${show_aux !== true ? '42' : '160'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj45.state)) ? '0' : convertValue(parseFloat(stateObj45.state), round)}` : `${parseFloat(stateObj45.state).toFixed(0) || 0} W`}</text>`}
-            ${grid_power >= 0
+          : svg`<text id="ess_load2_value" x="${show_aux !== true ? '430' : '427'}" y="${show_aux !== true ? '42' : '160'}" display="${additional_load === 2 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj45.state)) ? '0' : convertValue(parseFloat(stateObj45.state), round)}` : `${parseFloat(stateObj45.state).toFixed(0) || 0} ${stateObj45.attributes.unit_of_measurement !== undefined ? stateObj45.attributes.unit_of_measurement : ''}`}</text>`}
+            ${total_grid_power >= 0
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost_buy)}>
               <text id="energy_cost" x="414" y="305"  class="st3 right-align" fill="${grid_colour}" display="${config.entities?.energy_cost_buy  ? '' : 'none'}" >${energy_cost} ${stateObj43.attributes.unit_of_measurement}</text>
                   </a>`
@@ -1212,10 +1215,10 @@ export class SunsynkPowerFlowCard extends LitElement {
             <rect id="es-load4" x="405" y="290" width="35" height="20" rx="4.5" ry="4.5" fill="none" stroke="${load_colour}" pointer-events="all" display="${additional_load === 4 ? '' : 'none'}"/>
             <rect id="es-load4" x="441" y="290" width="35" height="20" rx="4.5" ry="4.5" fill="none" stroke="${load_colour}" pointer-events="all" display="${additional_load === 4 ? '' : 'none'}"/>
             
-            <text id="duration" x="290" y="377.5" class="${font !== true ? 'st14' : 'st4'} left-align" display="${config.show_battery === false ? 'none' : ''}" fill="${config.battery.energy === 0 || float === true || battery_power === 0 ? 'transparent' : `${battery_colour}`}" >${duration}</text>
-            <text id="duration_text" x="290" y="393.7" class="st3 left-align" display="${config.show_battery === false ? 'none' : ''}" fill="${config.battery.energy === 0 || battery_power <= 0 || float === true ? 'transparent' : `${battery_colour}`}" >${localize('common.runtime_to')} ${battery_capacity}% @${formattedResultTime}</text>
-            <text id="duration_text_charging" x="290" y="393.7" class="st3 left-align" display="${config.show_battery === false ? 'none' : ''}" fill="${config.battery.energy === 0 || battery_power >= 0 || float === true ? 'transparent' : `${battery_colour}`}" >${localize('common.to')} ${battery_capacity}% ${localize('common.charge')} @${formattedResultTime}</text>
-            <text id="floating" x="290" y="393.7" class="st3 left-align" display="${config.show_battery === false ? 'none' : ''}" fill="${config.battery.energy === 0 || float === false ? 'transparent' : `${battery_colour}`}" >${localize('common.battery_floating')}</text>
+            <text id="duration" x="290" y="377.5" class="${font !== true ? 'st14' : 'st4'} left-align" display="${config.show_battery === false ? 'none' : ''}" fill="${battery_energy === 0 || float === true || battery_power === 0 ? 'transparent' : `${battery_colour}`}" >${duration}</text>
+            <text id="duration_text" x="290" y="393.7" class="st3 left-align" display="${config.show_battery === false ? 'none' : ''}" fill="${battery_energy === 0 || battery_power <= 0 || float === true ? 'transparent' : `${battery_colour}`}" >${localize('common.runtime_to')} ${battery_capacity}% @${formattedResultTime}</text>
+            <text id="duration_text_charging" x="290" y="393.7" class="st3 left-align" display="${config.show_battery === false ? 'none' : ''}" fill="${battery_energy === 0 || battery_power >= 0 || float === true ? 'transparent' : `${battery_colour}`}" >${localize('common.to')} ${battery_capacity}% ${localize('common.charge')} @${formattedResultTime}</text>
+            <text id="floating" x="290" y="393.7" class="st3 left-align" display="${config.show_battery === false ? 'none' : ''}" fill="${battery_energy === 0 || float === false ? 'transparent' : `${battery_colour}`}" >${localize('common.battery_floating')}</text>
             <text id="daily_bat_charge" x="77.2" y="357.2" class="st3 left-align"  fill="${battery_showdaily !== true || config.show_battery === false ? 'transparent' : `${battery_colour}`}"  >${localize('common.daily_charge')}</text>
             <text id="daily_bat_dischcharge" x="77.2" y="393.7" class="st3 left-align"  fill="${battery_showdaily !== true || config.show_battery === false ? 'transparent' : `${battery_colour}`}" >${localize('common.daily_discharge')}</text>
             <text id="daily_load" x="${additional_load === 2 || additional_load === 4 ? '365' : '415'}" y="${additional_load === 2 || additional_load === 4 ? '189' : '282.1'}" class="st3 left-align" fill="${load_showdaily === false ? 'transparent' : `${load_colour}`}" >${localize('common.daily_load')}</text>
@@ -1240,12 +1243,12 @@ export class SunsynkPowerFlowCard extends LitElement {
             <text id="es-load4" x="459" y="156" class="st3 st8" display="${additional_load === 4  ? '' : 'none'}" fill="${load_colour}" >${config.load?.load2_name ? `${config.load.load2_name}` : ''}</text>
             <text id="es-load4" x="423" y="320" class="st3 st8" display="${additional_load === 4  ? '' : 'none'}" fill="${load_colour}" >${config.load?.load3_name ? `${config.load.load3_name}` : ''}</text>
             <text id="es-load4" x="459" y="320" class="st3 st8" display="${additional_load === 4  ? '' : 'none'}" fill="${load_colour}" >${config.load?.load4_name ? `${config.load.load4_name}` : ''}</text>
-            <text id="load-power-L1" x="375" y="241" display="${config.inverter.three_phase === true && config.entities?.load_power_L1 ? '' : 'none'}" class="st3 left-align" fill="${load_colour}" >${config.load.auto_scale === true ? `${convertValue(load_power_L1, round) || 0}` : `${load_power_L1 || ''} W`}</text>
-            <text id="load-power-L2" x="375" y="254" display="${config.inverter.three_phase === true && config.entities?.load_power_L2 ? '' : 'none'}" class="st3 left-align" fill="${load_colour}" >${config.load.auto_scale === true ? `${convertValue(load_power_L2, round) || 0}` : `${load_power_L2 || ''} W`}</text>
-            <text id="load-power-L3" x="375" y="267" display="${config.inverter.three_phase === true && config.entities?.load_power_L3 ? '' : 'none'}" class="st3 left-align" fill="${load_colour}" >${config.load.auto_scale === true ? `${convertValue(load_power_L3, round) || 0}` : `${load_power_L3 || ''} W`}</text>       
-            <text id="grid-power-L1" x="80" y="241" display="${config.inverter.three_phase === true  ? '' : 'none'}" class="st3 left-align" fill="${grid_colour}" >${config.load.auto_scale === true ? `${convertValue(grid_power, round) || 0}` : `${grid_power || ''} W`}</text>
-            <text id="grid-power-L2" x="80" y="254" display="${config.inverter.three_phase === true && config.entities?.grid_ct_power_L2 ? '' : 'none'}" class="st3 left-align" fill="${grid_colour}" >${config.load.auto_scale === true ? `${convertValue(grid_power_L2, round) || 0}` : `${grid_power_L2 || ''} W`}</text>
-            <text id="grid-power-L3" x="80" y="267" display="${config.inverter.three_phase === true && config.entities?.grid_ct_power_L3 ? '' : 'none'}" class="st3 left-align" fill="${grid_colour}" >${config.load.auto_scale === true ? `${convertValue(grid_power_L3, round) || 0}` : `${grid_power_L3 || ''} W`}</text>
+            <text id="load-power-L1" x="375" y="241" display="${config.inverter.three_phase === true && config.entities?.load_power_L1 ? '' : 'none'}" class="st3 left-align" fill="${load_colour}" >${config.load.auto_scale === true ? `${convertValue(load_power_L1, round) || 0}` : `${load_power_L1 || 0} W`}</text>
+            <text id="load-power-L2" x="375" y="254" display="${config.inverter.three_phase === true && config.entities?.load_power_L2 ? '' : 'none'}" class="st3 left-align" fill="${load_colour}" >${config.load.auto_scale === true ? `${convertValue(load_power_L2, round) || 0}` : `${load_power_L2 || 0} W`}</text>
+            <text id="load-power-L3" x="375" y="267" display="${config.inverter.three_phase === true && config.entities?.load_power_L3 ? '' : 'none'}" class="st3 left-align" fill="${load_colour}" >${config.load.auto_scale === true ? `${convertValue(load_power_L3, round) || 0}` : `${load_power_L3 || 0} W`}</text>       
+            <text id="grid-power-L1" x="80" y="241" display="${config.inverter.three_phase === true  ? '' : 'none'}" class="st3 left-align" fill="${grid_colour}" >${config.load.auto_scale === true ? `${convertValue(grid_power, round) || 0}` : `${grid_power || 0} W`}</text>
+            <text id="grid-power-L2" x="80" y="254" display="${config.inverter.three_phase === true && config.entities?.grid_ct_power_L2 ? '' : 'none'}" class="st3 left-align" fill="${grid_colour}" >${config.load.auto_scale === true ? `${convertValue(grid_power_L2, round) || 0}` : `${grid_power_L2 || 0} W`}</text>
+            <text id="grid-power-L3" x="80" y="267" display="${config.inverter.three_phase === true && config.entities?.grid_ct_power_L3 ? '' : 'none'}" class="st3 left-align" fill="${grid_colour}" >${config.load.auto_scale === true ? `${convertValue(grid_power_L3, round) || 0}` : `${grid_power_L3 || 0} W`}</text>
             <text x="193" y="320" class="st3" fill="${battery_colour}">${batteryStateMsg}</text>
            
             <circle id="standby" cx="220" cy="260" r="3.5" fill="${inverterStateColour}"/>
@@ -1293,23 +1296,23 @@ export class SunsynkPowerFlowCard extends LitElement {
               </animateMotion>
             </circle>
             <path id="grid-line" d="M 173 218.25 L 214 218" fill="none" stroke="${grid_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
-            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${grid_power < 0 || grid_power === 0 ? 'transparent' : `${grid_colour}`}">
+            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${total_grid_power < 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}">
               <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line"/>
               </animateMotion>
             </circle>
-            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${grid_power > 0 || grid_power === 0 ? 'transparent' : `${grid_colour}`}">
+            <circle id="grid-dot" cx="0" cy="0" r="3" fill="${total_grid_power > 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}">
               <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line"/>
               </animateMotion>
             </circle>
             <path id="grid-line1" d="M 103 218.25 L 64.5 218.25" fill="none" stroke="${grid_colour}" stroke-width="1" stroke-miterlimit="10"  pointer-events="stroke"/>
-            <circle id="grid-dot1" cx="0" cy="0" r="3" fill="${grid_power < 0 || grid_power === 0 ? 'transparent' : `${grid_colour}`}">
+            <circle id="grid-dot1" cx="0" cy="0" r="3" fill="${total_grid_power < 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}">
               <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line1"/>
               </animateMotion>
             </circle>
-            <circle id="grid-dot1" cx="0" cy="0" r="3" fill="${grid_power > 0 || grid_power === 0 ? 'transparent' : `${grid_colour}`}">
+            <circle id="grid-dot1" cx="0" cy="0" r="3" fill="${total_grid_power > 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}">
               <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                 <mpath xlink:href="#grid-line1"/>
               </animateMotion>
@@ -1522,7 +1525,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load2_extra)}>
                <text id="ess_load2_extra" x="465" y="282" display="${config.entities?.essential_load2_extra && additional_load === 2 ? '' : 'none'}" class="st3 .right-align" fill="${load_colour}">${isNaN(parseFloat(stateObj53.state)) ? '0' : `${parseFloat(stateObj53.state).toFixed(1)} ${stateObj53.attributes.unit_of_measurement}`}</text>
             </a>          
-            ${grid_power >= 0
+            ${total_grid_power >= 0
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost_buy)}>
               <text id="energy_cost" x="105" y="195" class="st3 left-align" fill="${grid_colour}" display="${config.entities?.energy_cost_buy ? '' : 'none'}" >${energy_cost} ${stateObj43.attributes.unit_of_measurement}</text>
                   </a>`
@@ -1561,35 +1564,35 @@ export class SunsynkPowerFlowCard extends LitElement {
           : svg`<text id="ess_power" x="340.1" y="219.2" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${convertValue(essential, round) || 0}` : `${essential || 0} W`}</text>`}
             ${config.entities?.essential_load1
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1)}>
-                    <text id="ess_load1" x="440" y="133" display="${(additional_load === 1 || additional_load === 2)  ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj42.state)) ? '0' : convertValue(parseFloat(stateObj42.state), round)}` : `${parseFloat(stateObj42.state).toFixed(0) || 0} W`}</text>
+                    <text id="ess_load1" x="440" y="133" display="${(additional_load === 1 || additional_load === 2)  ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj42.state)) ? '0' : convertValue(parseFloat(stateObj42.state), round)}` : `${parseFloat(stateObj42.state).toFixed(0) || 0} ${stateObj42.attributes.unit_of_measurement !== undefined ? stateObj42.attributes.unit_of_measurement : ''}`}</text>
                   </a>`
-          : svg`<text id="ess_load1" x="440" y="133" display="${(additional_load === 1 || additional_load === 2)  ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj42.state)) ? '0' : convertValue(parseFloat(stateObj42.state), round)}` : `${parseFloat(stateObj42.state).toFixed(0) || 0} W`}</text>`}
+          : svg`<text id="ess_load1" x="440" y="133" display="${(additional_load === 1 || additional_load === 2)  ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj42.state)) ? '0' : convertValue(parseFloat(stateObj42.state), round)}` : `${parseFloat(stateObj42.state).toFixed(0) || 0} ${stateObj42.attributes.unit_of_measurement !== undefined ? stateObj42.attributes.unit_of_measurement : ''}`}</text>`}
             ${config.entities?.essential_load2
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load2)}>
-                    <text id="ess_load2" x="440" y="306.5" display="${additional_load === 2 ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj45.state)) ? '0' : convertValue(parseFloat(stateObj45.state), round)}` : `${parseFloat(stateObj45.state).toFixed(0) || 0} W`}</text>
+                    <text id="ess_load2" x="440" y="306.5" display="${additional_load === 2 ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj45.state)) ? '0' : convertValue(parseFloat(stateObj45.state), round)}` : `${parseFloat(stateObj45.state).toFixed(0) || 0} ${stateObj45.attributes.unit_of_measurement !== undefined ? stateObj45.attributes.unit_of_measurement : ''}`}</text>
                   </a>`
-          : svg`<text id="ess_load2" x="440" y="306.5" display="${additional_load === 2 ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj45.state)) ? '0' : convertValue(parseFloat(stateObj45.state), round)}` : `${parseFloat(stateObj45.state).toFixed(0) || 0} W`}</text>`}   
+          : svg`<text id="ess_load2" x="440" y="306.5" display="${additional_load === 2 ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj45.state)) ? '0' : convertValue(parseFloat(stateObj45.state), round)}` : `${parseFloat(stateObj45.state).toFixed(0) || 0} ${stateObj45.attributes.unit_of_measurement !== undefined ? stateObj45.attributes.unit_of_measurement : ''}`}</text>`}   
           
           ${config.entities?.essential_load1
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1)}>
-                    <text id="ess_load4" x="423" y="138" display="${additional_load === 4 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj42.state)) ? '0' : convertValue(parseFloat(stateObj42.state), round)}` : `${parseFloat(stateObj42.state).toFixed(0) || 0} W`}</text>
+                    <text id="ess_load4" x="423" y="138" display="${additional_load === 4 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj42.state)) ? '0' : convertValue(parseFloat(stateObj42.state), round)}` : `${parseFloat(stateObj42.state).toFixed(0) || 0} ${stateObj42.attributes.unit_of_measurement !== undefined ? stateObj42.attributes.unit_of_measurement : ''}`}</text>
                   </a>`
-          : svg`<text id="ess_load4" x="423" y="138" display="${additional_load === 4 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj42.state)) ? '0' : convertValue(parseFloat(stateObj42.state), round)}` : `${parseFloat(stateObj42.state).toFixed(0) || 0} W`}</text>`}   
+          : svg`<text id="ess_load4" x="423" y="138" display="${additional_load === 4 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj42.state)) ? '0' : convertValue(parseFloat(stateObj42.state), round)}` : `${parseFloat(stateObj42.state).toFixed(0) || 0} ${stateObj42.attributes.unit_of_measurement !== undefined ? stateObj42.attributes.unit_of_measurement : ''}`}</text>`}   
             ${config.entities?.essential_load2
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load2)}>
-                    <text id="ess_load4" x="459" y="138" display="${additional_load === 4 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj45.state)) ? '0' : convertValue(parseFloat(stateObj45.state), round)}` : `${parseFloat(stateObj45.state).toFixed(0) || 0} W`}</text>
+                    <text id="ess_load4" x="459" y="138" display="${additional_load === 4 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj45.state)) ? '0' : convertValue(parseFloat(stateObj45.state), round)}` : `${parseFloat(stateObj45.state).toFixed(0) || 0} ${stateObj45.attributes.unit_of_measurement !== undefined ? stateObj45.attributes.unit_of_measurement : ''}`}</text>
                   </a>`
-          : svg`<text id="ess_load4" x="459" y="138" display="${additional_load === 4 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj45.state)) ? '0' : convertValue(parseFloat(stateObj45.state), round)}` : `${parseFloat(stateObj45.state).toFixed(0) || 0} W`}</text>`}   
+          : svg`<text id="ess_load4" x="459" y="138" display="${additional_load === 4 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj45.state)) ? '0' : convertValue(parseFloat(stateObj45.state), round)}` : `${parseFloat(stateObj45.state).toFixed(0) || 0} ${stateObj45.attributes.unit_of_measurement !== undefined ? stateObj45.attributes.unit_of_measurement : ''}`}</text>`}   
             ${config.entities?.essential_load3
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load3)}>
-                    <text id="ess_load4" x="423" y="301" display="${additional_load === 4 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj64.state)) ? '0' : convertValue(parseFloat(stateObj64.state), round)}` : `${parseFloat(stateObj64.state).toFixed(0) || 0} W`}</text>
+                    <text id="ess_load4" x="423" y="301" display="${additional_load === 4 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj64.state)) ? '0' : convertValue(parseFloat(stateObj64.state), round)}` : `${parseFloat(stateObj64.state).toFixed(0) || 0} ${stateObj64.attributes.unit_of_measurement !== undefined ? stateObj64.attributes.unit_of_measurement : ''}`}</text>
                   </a>`
-          : svg`<text id="ess_load4" x="423" y="301" display="${additional_load === 4 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj64.state)) ? '0' : convertValue(parseFloat(stateObj64.state), round)}` : `${parseFloat(stateObj64.state).toFixed(0) || 0} W`}</text>`}   
+          : svg`<text id="ess_load4" x="423" y="301" display="${additional_load === 4 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj64.state)) ? '0' : convertValue(parseFloat(stateObj64.state), round)}` : `${parseFloat(stateObj64.state).toFixed(0) || 0} ${stateObj64.attributes.unit_of_measurement !== undefined ? stateObj64.attributes.unit_of_measurement : ''}`}</text>`}   
             ${config.entities?.essential_load4
           ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load4)}>
-                    <text id="ess_load4" x="459" y="301" display="${additional_load === 4 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj65.state)) ? '0' : convertValue(parseFloat(stateObj65.state), round)}` : `${parseFloat(stateObj65.state).toFixed(0) || 0} W`}</text>
+                    <text id="ess_load4" x="459" y="301" display="${additional_load === 4 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj65.state)) ? '0' : convertValue(parseFloat(stateObj65.state), round)}` : `${parseFloat(stateObj65.state).toFixed(0) || 0} ${stateObj65.attributes.unit_of_measurement !== undefined ? stateObj65.attributes.unit_of_measurement : ''}`}</text>
                   </a>`
-          : svg`<text id="ess_load4" x="459" y="301" display="${additional_load === 4 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj65.state)) ? '0' : convertValue(parseFloat(stateObj65.state), round)}` : `${parseFloat(stateObj65.state).toFixed(0) || 0} W`}</text>`}        
+          : svg`<text id="ess_load4" x="459" y="301" display="${additional_load === 4 ? '' : 'none'}" class="st3" fill="${load_colour}">${config.load.auto_scale === true ? `${isNaN(parseFloat(stateObj65.state)) ? '0' : convertValue(parseFloat(stateObj65.state), round)}` : `${parseFloat(stateObj65.state).toFixed(0) || 0} ${stateObj65.attributes.unit_of_measurement !== undefined ? stateObj65.attributes.unit_of_measurement : ''}`}</text>`}        
         </svg>
         </div>
         </ha-card>

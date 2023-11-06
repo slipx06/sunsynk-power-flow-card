@@ -44,7 +44,7 @@ To display battery power and current as absolute values set `show_absolute: true
 
 | Attribute | Requirement |Default | Description |
 | --- | --- | --- |--- |
-|energy: | **Required** | `0` | Total battery energy in Wh (e.g. 3 x 5.32kWh = 15960). If set to `0` the remaining battery runtime will be hidden|
+|energy: | **Required** | `0` | Total battery energy in Wh (e.g. 3 x 5.32kWh = 15960). If set to `0` the remaining battery runtime will be hidden. Numeric value or sensor i.e. `sensor.sunsynk_battery_energy`|
 |shutdown_soc: | **Required** | `20` |The battery shutdown percentage used to calculate remaining runtime. Numeric value or sensor i.e. `sensor.sunsynk_battery_capacity_shutdown`  |
 |invert_power:| Optional | `false`|Set to `true` if your sensor provides a positive number for battery charge and negative number for battery discharge|
 |colour:| Optional| `pink`| Changes the colour of all the battery card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
@@ -165,10 +165,10 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |battery_power_190: | **Required** | `sensor.sunsynk_battery_power` | Battery power (W). Requires a negative number for battery charging and a positive number for battery discharging. Set the `invert_power:` battery attribute to `yes` if your sensor reports this the other way around |
 |battery_current_191: | **Required** |`sensor.sunsynk_battery_current` | Battery current (A) |
 |essential_power: | Optional | `none` | The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures essential power e.g. `Load power Essential` in the case of Solar Assistant. You should supply a sensor if using `three_phase: true` (W) |
-|essential_load1: | Optional | | Sensor that contains the power of your essential load 1 (W)|
-|essential_load2: | Optional | | Sensor that contains the power of your essential load 2 (W)|
-|essential_load3: | Optional | | Sensor that contains the power of your essential load 3 (W)|
-|essential_load4: | Optional | | Sensor that contains the power of your essential load 4 (W)|
+|essential_load1: | Optional | | Sensor that contains the power of your essential load 1 (W). Can also be used to display any sensor data i.e. temp, energy etc if `auto_scale: false`|
+|essential_load2: | Optional | | Sensor that contains the power of your essential load 2 (W). Can also be used to display any sensor data i.e. temp, energy etc if `auto_scale: false`|
+|essential_load3: | Optional | | Sensor that contains the power of your essential load 3 (W). Can also be used to display any sensor data i.e. temp, energy etc if `auto_scale: false`|
+|essential_load4: | Optional | | Sensor that contains the power of your essential load 4 (W). Can also be used to display any sensor data i.e. temp, energy etc if `auto_scale: false`|
 |essential_load1_extra: | Optional | | Sensor that contains additional information you want displayed for your essential load 1 e.g. Daily kWh, Temperature etc
 |essential_load2_extra: | Optional | | Sensor that contains additional information you want displayed for your essential load 2 e.g. Daily kWh, Temperature etc
 |load_power_L1: | Optional | | Load L1 Power (W)
