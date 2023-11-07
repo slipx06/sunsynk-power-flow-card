@@ -31,6 +31,11 @@ export const valid3phase = [true, false]
 * 136 = No Grid : Solar > EPS - Surplus > Battery Charging
 * 192 = No Grid : Solar + Battery Discharging > EPS
 */
+
+
+/* Solis Status Codes
+* Page 22: https://www.scss.tcd.ie/Brian.Coghlan/Elios4you/RS485_MODBUS-Hybrid-BACoghlan-201811228-1854.pdf
+*/
 export const inverterStatusGroups = {
     sunsynk: {
         standby: { states: ['0', 'standby', 'Stand-by'], color: 'blue', message: localize('common.standby') },
@@ -57,7 +62,14 @@ export const inverterStatusGroups = {
         fault: { states: ['3', 'Fault Mode'], color: 'red', message: localize('common.fault') },
         flash: { states: ['4', 'Flash Mode'], color: 'yellow', message: localize('common.flash') },
         check: { states: ['5', 'Check Mode'], color: 'orange', message: localize('common.check') },
-    }    
+    }  ,
+    solis: {
+        standby: { states: ['0'], color: 'blue', message: localize('common.standby') },
+        selftest: { states: [], color: 'yellow', message: localize('common.selftest') },
+        normal: { states: ['3','4'], color: 'green', message: localize('common.normal') },
+        alarm: { states: ['10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27'], color: 'orange', message: localize('common.alarm') },
+        fault: { states: ['23','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','50','51','52','53','54','55','56','57'], color: 'red', message: localize('common.fault') },
+    }
 
 };
 
@@ -76,5 +88,4 @@ export const batteryStatusGroups = {
 		charging: { states: ['3'], color: 'green', message: localize('common.charging') },
 		waiting: { states: ['4', '5'], color: 'yellow', message: localize('common.waiting') },
     }
-
 };

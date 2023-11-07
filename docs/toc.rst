@@ -11,6 +11,7 @@
    examples/sunsynk
    examples/lux
    examples/solis
+   examples/solis-s6
    examples/goodwe
 
 .. toctree::
