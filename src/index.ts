@@ -2,7 +2,14 @@ import {CSSResultGroup, html, LitElement, svg} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import {HomeAssistant} from 'custom-card-helpers';
 import {styles} from './style';
-import {InverterModel, inverterProg, sunsynkPowerFlowCardConfig} from './types';
+import {
+    AutarkyType,
+    CardConfigEntities,
+    CardStyle,
+    InverterModel,
+    InverterSettings,
+    sunsynkPowerFlowCardConfig
+} from './types';
 import defaultConfig from './defaults';
 import {batteryStatusGroups, CARD_VERSION, inverterStatusGroups, valid3phase, validLoadValues} from './const';
 import {localize} from './localize/localize';
@@ -27,7 +34,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 
     static getStubConfig() {
         return {
-            cardstyle: 'lite',
+            cardstyle: CardStyle.Lite,
             show_solar: true,
             battery: {
                 energy: 0,
@@ -78,122 +85,120 @@ export class SunsynkPowerFlowCard extends LitElement {
                 pv2_voltage_111: 'sensor.sunsynk_pv2_voltage',
                 pv2_current_112: 'sensor.sunsynk_pv2_current',
             }
-        };
+        } as unknown as sunsynkPowerFlowCardConfig;
     }
 
     render() {
         const config = this._config;
-        const stateObj = this.hass.states[config.entities.day_battery_discharge_71] || {state: '0'};
-        const stateObj1 = this.hass.states[config.entities.day_battery_charge_70] || {state: '0'};
-        const stateObj2 = this.hass.states[config.entities.day_load_energy_84] || {state: '0'};
-        const stateObj3 = this.hass.states[config.entities.day_grid_import_76] || {state: '0'};
-        const stateObj4 = this.hass.states[config.entities.day_pv_energy_108] || {state: '0'};
-        const stateObj5 = this.hass.states[config.entities.inverter_voltage_154] || {state: '0'};
-        const stateObj6 = this.hass.states[config.entities.load_frequency_192] || {state: '0'};
-        const stateObj7 = this.hass.states[config.entities.inverter_current_164] || {state: '0'};
-        const stateObj8 = this.hass.states[config.entities.pv2_power_187] || {state: '0'};
-        const stateObj9 = this.hass.states[config.entities.pv1_power_186] || {state: '0'};
-        const stateObj11 = this.hass.states[config.entities.battery_voltage_183] || {state: '0'};
-        const stateObj12 = this.hass.states[config.entities.battery_soc_184] || {state: '0'};
-        const stateObj13 = this.hass.states[config.entities.battery_power_190] || {state: '0'};
-        const stateObj14 = this.hass.states[config.entities.essential_power] || {state: '0'};
-        const stateObj15 = this.hass.states[config.entities.grid_ct_power_172] || {state: 0};
-        const stateObj16 = this.hass.states[config.entities.pv1_voltage_109] || {state: '0'};
-        const stateObj17 = this.hass.states[config.entities.pv1_current_110] || {state: '0'};
-        const stateObj18 = this.hass.states[config.entities.pv2_voltage_111] || {state: '0'};
-        const stateObj19 = this.hass.states[config.entities.pv2_current_112] || {state: '0'};
-        const stateObj20 = this.hass.states[config.entities.grid_connected_status_194] || {state: 'on'};
-        const stateObj21 = this.hass.states[config.entities.inverter_status_59] || {state: ''};
-        const stateObj22 = this.hass.states[config.entities.inverter_power_175] || {state: '0'};
-        const stateObj23 = this.hass.states[config.entities.grid_power_169] || {state: '0'};
-        const stateObj24 = this.hass.states[config.entities.aux_power_166] || {state: '0'};
-        const stateObj25 = this.hass.states[config.entities.priority_load_243] || {state: 'undefined'};
-        const stateObj26 = this.hass.states[config.entities.use_timer_248] || {state: 'undefined'};
-        const stateObj27 = this.hass.states[config.entities.pv3_voltage_113] || {state: '0'};
-        const stateObj28 = this.hass.states[config.entities.pv3_current_114] || {state: '0'};
-        const stateObj29 = this.hass.states[config.entities.pv4_voltage_115] || {state: '0'};
-        const stateObj30 = this.hass.states[config.entities.pv4_current_116] || {state: '0'};
-        const stateObj31 = this.hass.states[config.entities.pv3_power_188] || {state: '0'};
-        const stateObj32 = this.hass.states[config.entities.pv4_power_189] || {state: '0'};
-        const stateObj33 = this.hass.states[config.entities.day_grid_export_77] || {state: '0'};
-        const stateObj34 = this.hass.states[config.entities.nonessential_power] || {state: '0'};
-        const stateObj35 = this.hass.states[config.entities.battery_current_191] || {state: '0'};
-        const stateObj36 = this.hass.states[config.entities.remaining_solar] || {state: 0};
-        const stateObj37 = this.hass.states[config.entities.battery_temp_182] || {state: ''};
-        const stateObj38 = this.hass.states[config.entities.dc_transformer_temp_90] || {state: ''};
-        const stateObj39 = this.hass.states[config.entities.radiator_temp_91] || {state: ''};
-        const stateObj40 = this.hass.states[config.entities.non_essential_load1] || {state: '0'};
-        const stateObj41 = this.hass.states[config.entities.non_essential_load2] || {state: '0'};
-        const stateObj42 = this.hass.states[config.entities.essential_load1] || {
+        const stateObj = this.getState('day_battery_discharge_71', {state: '0'});
+        const stateObj1 = this.getState('day_battery_charge_70', {state: '0'});
+        const stateObj2 = this.getState('day_load_energy_84', {state: '0'});
+        const stateObj3 = this.getState('day_grid_import_76', {state: '0'});
+        const stateObj4 = this.getState('day_pv_energy_108', {state: '0'});
+        const stateObj5 = this.getState('inverter_voltage_154', {state: '0'});
+        const stateObj6 = this.getState('load_frequency_192', {state: '0'});
+        const stateObj7 = this.getState('inverter_current_164', {state: '0'});
+        const stateObj8 = this.getState('v2_power_187', {state: '0'});
+        const stateObj9 = this.getState('v1_power_186', {state: '0'});
+        const stateObj11 = this.getState('battery_voltage_183', {state: '0'});
+        const stateObj12 = this.getState('battery_soc_184', {state: '0'});
+        const stateObj13 = this.getState('battery_power_190', {state: '0'});
+        const stateObj14 = this.getState('essential_power', {state: '0'});
+        const stateObj15 = this.getState('grid_ct_power_172', {state: 0});
+        const stateObj16 = this.getState('pv1_voltage_109', {state: '0'});
+        const stateObj17 = this.getState('pv1_current_110', {state: '0'});
+        const stateObj18 = this.getState('pv2_voltage_111', {state: '0'});
+        const stateObj19 = this.getState('pv2_current_112', {state: '0'});
+        const stateObj20 = this.getState('grid_connected_status_194', {state: 'on'});
+        const stateObj21 = this.getState('inverter_status_59', {state: ''});
+        const stateObj22 = this.getState('inverter_power_175', {state: '0'});
+        const stateObj23 = this.getState('grid_power_169', {state: '0'});
+        const stateObj24 = this.getState('aux_power_166', {state: '0'});
+        const stateObj25 = this.getState('priority_load_243', {state: 'undefined'});
+        const stateObj26 = this.getState('use_timer_248', {state: 'undefined'});
+        const stateObj27 = this.getState('pv3_voltage_113', {state: '0'});
+        const stateObj28 = this.getState('pv3_current_114', {state: '0'});
+        const stateObj29 = this.getState('pv4_voltage_115', {state: '0'});
+        const stateObj30 = this.getState('pv4_current_116', {state: '0'});
+        const stateObj31 = this.getState('pv3_power_188', {state: '0'});
+        const stateObj32 = this.getState('pv4_power_189', {state: '0'});
+        const stateObj33 = this.getState('day_grid_export_77', {state: '0'});
+        const stateObj34 = this.getState('nonessential_power', {state: '0'});
+        const stateObj35 = this.getState('battery_current_191', {state: '0'});
+        const stateObj36 = this.getState('remaining_solar', {state: 0});
+        const stateObj37 = this.getState('battery_temp_182', {state: ''});
+        const stateObj38 = this.getState('dc_transformer_temp_90', {state: ''});
+        const stateObj39 = this.getState('radiator_temp_91', {state: ''});
+        const stateObj40 = this.getState('non_essential_load1', {state: '0'});
+        const stateObj41 = this.getState('non_essential_load2', {state: '0'});
+        const stateObj42 = this.getState('essential_load1', {
+            state: '0', attributes: {unit_of_measurement: ''}
+        });
+        const stateObj43 = this.getState('energy_cost_buy', {
+            state: '', attributes: {unit_of_measurement: ''}
+        });
+        const stateObj44 = this.getState('solar_sell_247', {state: 'undefined'});
+        const stateObj45 = this.getState('essential_load2', {
             state: '0',
             attributes: {unit_of_measurement: ''}
-        };
-        const stateObj43 = this.hass.states[config.entities.energy_cost_buy] || {
+        });
+        const stateObj46 = this.getState('pv_total',{state: '0'});
+        const stateObj47 = this.getState('aux_connected_status',{state: 'on'});
+        const stateObj48 = this.getState('aux_load1',{state: '0'});
+        const stateObj49 = this.getState('aux_load2', {state: '0'});
+        const stateObj50 = this.getState('day_aux_energy',{state: '0'});
+        const stateObj51 = this.getState('energy_cost_sell', {
             state: '',
             attributes: {unit_of_measurement: ''}
-        };
-        const stateObj44 = this.hass.states[config.entities.solar_sell_247] || {state: 'undefined'};
-        const stateObj45 = this.hass.states[config.entities.essential_load2] || {
+        });
+        const stateObj52 = this.getState('essential_load1_extra', {
             state: '0',
             attributes: {unit_of_measurement: ''}
-        };
-        const stateObj46 = this.hass.states[config.entities.pv_total] || {state: '0'};
-        const stateObj47 = this.hass.states[config.entities.aux_connected_status] || {state: 'on'};
-        const stateObj48 = this.hass.states[config.entities.aux_load1] || {state: '0'};
-        const stateObj49 = this.hass.states[config.entities.aux_load2] || {state: '0'};
-        const stateObj50 = this.hass.states[config.entities.day_aux_energy] || {state: '0'};
-        const stateObj51 = this.hass.states[config.entities.energy_cost_sell] || {
-            state: '',
-            attributes: {unit_of_measurement: ''}
-        };
-        const stateObj52 = this.hass.states[config.entities.essential_load1_extra] || {
+        });
+        const stateObj53 = this.getState('essential_load2_extra', {
             state: '0',
             attributes: {unit_of_measurement: ''}
-        };
-        const stateObj53 = this.hass.states[config.entities.essential_load2_extra] || {
+        });
+        const stateObj54 = this.getState('inverter_voltage_L2',{state: ''});
+        const stateObj55 = this.getState('inverter_voltage_L3',{state: ''});
+        const stateObj56 = this.getState('inverter_current_L2',{state: ''});
+        const stateObj57 = this.getState('inverter_current_L3',{state: ''});
+        const stateObj58 = this.getState('grid_ct_power_L2',{state: 0});
+        const stateObj59 = this.getState('grid_ct_power_L3',{state: 0});
+        const stateObj60 = this.getState('load_power_L1',{state: 0});
+        const stateObj61 = this.getState('load_power_L2',{state: 0});
+        const stateObj62 = this.getState('load_power_L3',{state: 0});
+        const stateObj63 = this.getState('total_pv_generation',{state: 0});
+        const stateObj64 = this.getState('essential_load3',{
             state: '0',
             attributes: {unit_of_measurement: ''}
-        };
-        const stateObj54 = this.hass.states[config.entities.inverter_voltage_L2] || {state: ''};
-        const stateObj55 = this.hass.states[config.entities.inverter_voltage_L3] || {state: ''};
-        const stateObj56 = this.hass.states[config.entities.inverter_current_L2] || {state: ''};
-        const stateObj57 = this.hass.states[config.entities.inverter_current_L3] || {state: ''};
-        const stateObj58 = this.hass.states[config.entities.grid_ct_power_L2] || {state: 0};
-        const stateObj59 = this.hass.states[config.entities.grid_ct_power_L3] || {state: 0};
-        const stateObj60 = this.hass.states[config.entities.load_power_L1] || {state: 0};
-        const stateObj61 = this.hass.states[config.entities.load_power_L2] || {state: 0};
-        const stateObj62 = this.hass.states[config.entities.load_power_L3] || {state: 0};
-        const stateObj63 = this.hass.states[config.entities.total_pv_generation] || {state: 0};
-        const stateObj64 = this.hass.states[config.entities.essential_load3] || {
+        });
+        const stateObj65 = this.getState('essential_load4', {
             state: '0',
             attributes: {unit_of_measurement: ''}
-        };
-        const stateObj65 = this.hass.states[config.entities.essential_load4] || {
+        });
+        const stateObj66 = this.getState('battery_status', {state: ''});
+        const stateObj67 = this.getState('aux_load1_extra', {
             state: '0',
             attributes: {unit_of_measurement: ''}
-        };
-        const stateObj66 = this.hass.states[config.entities.battery_status] || {state: ''};
-        const stateObj67 = this.hass.states[config.entities.aux_load1_extra] || {
+        });
+        const stateObj68 = this.getState('aux_load2_extra',  {
             state: '0',
             attributes: {unit_of_measurement: ''}
-        };
-        const stateObj68 = this.hass.states[config.entities.aux_load2_extra] || {
-            state: '0',
-            attributes: {unit_of_measurement: ''}
-        };
-        const stateObj69 = config.entities.grid_voltage ? this.hass.states[config.entities.grid_voltage] : null;
-        const stateObj70 = config.entities.battery_current_direction ? this.hass.states[config.entities.battery_current_direction] : null;
+        });
+        const stateObj69 = this.getState('grid_voltage');
+        const stateObj70 = this.getState('battery_current_direction');
 
         //Set defaults
         let {invert_aux} = config.load;
-        let aux_power = (invert_aux === true) ? parseInt(stateObj24.state) * -1 : parseInt(stateObj24.state);
+        let aux_power = this.toNum(stateObj24.state, 0, invert_aux);
         let {invert_grid} = config.grid;
-        let grid_power = (invert_grid === true) ? parseInt(stateObj15.state) * -1 : parseInt(stateObj15.state);
-        let grid_voltage = stateObj69 ? parseInt(stateObj69.state) : null;
+        let grid_power = this.toNum(stateObj15.state, 0, invert_grid);
+        let grid_voltage = stateObj69 ? this.toNum(stateObj69.state) : null;
         let battery_current_direction = stateObj70 ? parseInt(stateObj70.state) : null;
-        let grid_power_L2 = (invert_grid === true) ? parseInt(stateObj58.state) * -1 : parseInt(stateObj58.state);
-        let grid_power_L3 = (invert_grid === true) ? parseInt(stateObj59.state) * -1 : parseInt(stateObj59.state);
-        let total_grid_power = config.inverter.three_phase === true ? (grid_power + grid_power_L2 + grid_power_L3) : grid_power;
+        let grid_power_L2 = invert_grid ? this.toNum(stateObj58.state) * -1 : this.toNum(stateObj58.state);
+        let grid_power_L3 = invert_grid ? this.toNum(stateObj59.state) * -1 : this.toNum(stateObj59.state);
+        let total_grid_power = config.inverter.three_phase ? (grid_power + grid_power_L2 + grid_power_L3) : grid_power;
         let inverter_modern = config.inverter?.modern;
         let load_colour = config.load?.colour;
         let aux_colour = config.load?.aux_colour || load_colour;
@@ -203,19 +208,19 @@ export class SunsynkPowerFlowCard extends LitElement {
         let grid_show_noness = config.grid?.show_nonessential;
         let grid_status = config.entities?.grid_connected_status_194 ? stateObj20.state : 'on';
         let aux_status = config.entities?.aux_connected_status ? stateObj47.state : 'on';
-        let load_frequency = config.entities?.load_frequency_192 ? parseFloat(stateObj6.state).toFixed(2) : 0;
-        let inverter_voltage = config.entities?.inverter_voltage_154 ? (config.inverter.three_phase === true && config.cardstyle === 'lite' ? parseFloat(stateObj5.state).toFixed(0) : parseFloat(stateObj5.state).toFixed(1)) : 0;
-        let inverter_voltage_L2 = config.entities?.inverter_voltage_L2 ? (config.inverter.three_phase === true && config.cardstyle === 'lite' ? parseFloat(stateObj54.state).toFixed(0) : parseFloat(stateObj54.state).toFixed(1)) : '';
-        let inverter_voltage_L3 = config.entities?.inverter_voltage_L3 ? (config.inverter.three_phase === true && config.cardstyle === 'lite' ? parseFloat(stateObj55.state).toFixed(0) : parseFloat(stateObj55.state).toFixed(1)) : '';
-        let inverter_current = config.entities?.inverter_current_164 ? (config.inverter.three_phase === true && config.cardstyle === 'full' ? parseFloat(stateObj7.state).toFixed(0) : parseFloat(stateObj7.state).toFixed(1)) : 0;
-        let inverter_current_L2 = config.entities?.inverter_current_L2 ? (config.inverter.three_phase === true && config.cardstyle === 'full' ? parseFloat(stateObj56.state).toFixed(0) : parseFloat(stateObj56.state).toFixed(1)) : '';
-        let inverter_current_L3 = config.entities?.inverter_current_L3 ? (config.inverter.three_phase === true && config.cardstyle === 'full' ? parseFloat(stateObj57.state).toFixed(0) : parseFloat(stateObj57.state).toFixed(1)) : '';
-        let battery_voltage = config.entities?.battery_voltage_183 ? parseFloat(stateObj11.state).toFixed(1) : 0;
-        let inverter_power_round = config.entities?.inverter_power_175 ? parseFloat(stateObj22.state).toFixed(0) : 0;
-        let grid_power_round = config.entities?.grid_power_169 ? parseFloat(stateObj23.state).toFixed(0) : 0;
-        let load_power_L1 = config.entities?.load_power_L1 ? parseFloat(stateObj60.state).toFixed(0) : '';
-        let load_power_L2 = config.entities?.load_power_L2 ? parseFloat(stateObj61.state).toFixed(0) : '';
-        let load_power_L3 = config.entities?.load_power_L3 ? parseFloat(stateObj62.state).toFixed(0) : '';
+        let load_frequency = config.entities?.load_frequency_192 ? this.toNum(stateObj6.state, 2) : 0;
+        let inverter_voltage = config.entities?.inverter_voltage_154 ? (config.inverter.three_phase && this.isLiteCard ? this.toNum(stateObj5.state) : this.toNum(stateObj5.state, 1)) : 0;
+        let inverter_voltage_L2 = config.entities?.inverter_voltage_L2 ? (config.inverter.three_phase && this.isLiteCard ? this.toNum(stateObj54.state) : this.toNum(stateObj54.state, 1)) : '';
+        let inverter_voltage_L3 = config.entities?.inverter_voltage_L3 ? (config.inverter.three_phase && this.isLiteCard ? this.toNum(stateObj55.state) : this.toNum(stateObj55.state, 1)) : '';
+        let inverter_current = config.entities?.inverter_current_164 ? (config.inverter.three_phase && this.isFullCard ? this.toNum(stateObj7.state) : this.toNum(stateObj7.state, 1)) : 0;
+        let inverter_current_L2 = config.entities?.inverter_current_L2 ? (config.inverter.three_phase && this.isFullCard ? this.toNum(stateObj56.state) : this.toNum(stateObj56.state, 1)) : '';
+        let inverter_current_L3 = config.entities?.inverter_current_L3 ? (config.inverter.three_phase && this.isFullCard ? this.toNum(stateObj57.state) : this.toNum(stateObj57.state, 1)) : '';
+        let battery_voltage = config.entities?.battery_voltage_183 ? this.toNum(stateObj11.state, 1) : 0;
+        let inverter_power_round = config.entities?.inverter_power_175 ? this.toNum(stateObj22.state, 0) : 0;
+        let grid_power_round = config.entities?.grid_power_169 ? this.toNum(stateObj23.state,0) : 0;
+        let load_power_L1 = config.entities?.load_power_L1 ? this.toNum(stateObj60.state,0) : '';
+        let load_power_L2 = config.entities?.load_power_L2 ? this.toNum(stateObj61.state,0) : '';
+        let load_power_L3 = config.entities?.load_power_L3 ? this.toNum(stateObj62.state,0) : '';
 
         const grid_import_colour = config.grid?.colour;
         const grid_export_colour = config.grid?.export_colour || grid_import_colour;
@@ -236,7 +241,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let show_dailyaux = config.load?.show_daily_aux;
 
         let additional_load = config.load?.additional_loads;
-        if (!validLoadValues.includes(additional_load) || (config.cardstyle === 'full' && additional_load === 4)) {
+        if (!validLoadValues.includes(additional_load) || (this.isFullCard && additional_load === 4)) {
             additional_load = 0;
         }
 
@@ -255,16 +260,16 @@ export class SunsynkPowerFlowCard extends LitElement {
         let load2e_icon = config.load?.load2_icon; //valid options are boiler, aircon, pump
         let load3e_icon = config.load?.load3_icon;
         let load4e_icon = config.load?.load4_icon;
-        let remaining_solar = config.entities.remaining_solar ? parseFloat(stateObj36.state).toFixed(1) : false;
-        let total_solar_generation = config.entities.total_pv_generation ? parseFloat(stateObj63.state).toFixed(1) : false;
+        let remaining_solar = config.entities.remaining_solar ? this.toNum(stateObj36.state,1) : false;
+        let total_solar_generation = config.entities.total_pv_generation ? this.toNum(stateObj63.state,1) : false;
         let font = config.large_font;
         let panel = config.panel_mode;
         let inverter_colour = config.inverter?.colour;
         let useautarky = config.inverter?.autarky;
         let usetimer = (config.entities.use_timer_248 === false || !config.entities.use_timer_248) ? false : stateObj26.state;
         let priority = (config.entities.priority_load_243 === false || !config.entities.priority_load_243) ? false : stateObj25.state;
-        let battery_power = (config.battery?.invert_power === true) ? parseInt(stateObj13.state) * -1 : parseInt(stateObj13.state);
-        const card_height = this.hass.states[config.card_height] || {state: ''};
+        let battery_power = this.toNum(stateObj13.state,0,config.battery?.invert_power);
+        const card_height = (config.card_height ? this.hass.states[config.card_height] : null) || {state: ''};
         let height = card_height.state === 'unavailable' || card_height.state === 'unknown' || card_height.state === '' ? config.card_height : card_height.state;
         let width = config.card_width;
         let bat_full = config.battery?.full_capacity;
@@ -304,9 +309,9 @@ export class SunsynkPowerFlowCard extends LitElement {
         const {nonessential_power} = config.entities;
 
         if (three_phase === false) {
-            nonessential = (nonessential_power === 'none' || !nonessential_power) ? parseInt(stateObj15.state) - parseInt(stateObj23.state) : parseInt(stateObj34.state);
+            nonessential = (nonessential_power === 'none' || !nonessential_power) ? this.toNum(stateObj15.state) - this.toNum(stateObj23.state) : this.toNum(stateObj34.state);
         } else if (three_phase === true) {
-            nonessential = (nonessential_power === 'none' || !nonessential_power) ? (parseInt(stateObj15.state) + parseInt(stateObj58.state) + parseInt(stateObj59.state)) - parseInt(stateObj23.state) : parseInt(stateObj34.state);
+            nonessential = (nonessential_power === 'none' || !nonessential_power) ? (this.toNum(stateObj15.state) + this.toNum(stateObj58.state) + this.toNum(stateObj59.state)) - this.toNum(stateObj23.state) : this.toNum(stateObj34.state);
         }
 
         //Timer entities
@@ -342,8 +347,8 @@ export class SunsynkPowerFlowCard extends LitElement {
         };
 
         const shutdownsoc = this.hass.states[config.battery.shutdown_soc] || {state: ''};
-        let shutdown = isNaN(parseInt(shutdownsoc.state)) ? config.battery.shutdown_soc : parseInt(shutdownsoc.state);
-        let inverter_prog: inverterProg = {
+        let shutdown = isNaN(this.toNum(shutdownsoc.state)) ? config.battery.shutdown_soc : this.toNum(shutdownsoc.state);
+        let inverter_prog: InverterSettings = {
 //      capacity: config.battery.shutdown_soc,
             capacity: shutdown,
             entityID: ''
@@ -424,14 +429,14 @@ export class SunsynkPowerFlowCard extends LitElement {
         let duration = "";
 
         const battenergy = this.hass.states[config.battery.energy] || {state: ''};
-        let battery_energy = isNaN(parseInt(battenergy.state)) ? config.battery.energy : parseInt(battenergy.state);
+        let battery_energy = isNaN(this.toNum(battenergy.state)) ? config.battery.energy : this.toNum(battenergy.state);
 
         if (config.show_battery !== false || battery_energy !== 0) {
             if (battery_power === 0) {
 //        totalSeconds = (((parseInt(stateObj12.state) - config.battery.shutdown_soc) / 100) * config.battery.energy) / 1 * 60 * 60;
-                totalSeconds = (((parseInt(stateObj12.state) - shutdown) / 100) * battery_energy) / 1 * 60 * 60;
+                totalSeconds = (((this.toNum(stateObj12.state) - shutdown) / 100) * battery_energy) / 1 * 60 * 60;
             } else if (battery_power > 0) {
-                totalSeconds = (((parseInt(stateObj12.state) - battery_capacity) / 100) * battery_energy) / battery_power * 60 * 60;
+                totalSeconds = (((this.toNum(stateObj12.state) - battery_capacity) / 100) * battery_energy) / battery_power * 60 * 60;
             } else if (battery_power < 0) {
                 totalSeconds = ((((battery_capacity - parseInt(stateObj12.state)) / 100) * battery_energy) / battery_power) * 60 * 60 * -1;
             }
@@ -479,8 +484,13 @@ export class SunsynkPowerFlowCard extends LitElement {
                 battery_power = -battery_power;
             }
         }
+
+        /**
+         * Status can be returned as decimals "3.0", so this is just to change it to an int
+         */
         if(inverterModel == InverterModel.Solis) {
-            inverterState = !isNaN(stateObj21.state as any) ? Number(stateObj21.state).toFixed(0) : stateObj21.state
+            const state = stateObj21.state as any;
+            inverterState = !isNaN(state) ? Number(state).toFixed(0) : state
         }
 
         let typeStatusGroups = inverterStatusGroups[inverterModel];
@@ -507,10 +517,9 @@ export class SunsynkPowerFlowCard extends LitElement {
         //Set Battery Status Message and dot for goodwe
         let batteryStateColour = "";
         let batteryStateMsg = "";
-
-        let batStatusGroups = batteryStatusGroups[inverterModel];
-
         if ([InverterModel.GoodweGridMode, InverterModel.Goodwe].includes(inverterModel)) {
+            let batStatusGroups = batteryStatusGroups[inverterModel];
+
             for (const groupKey of Object.keys(batStatusGroups)) {
                 const info = batStatusGroups[groupKey];
                 const {states, color, message} = info;
@@ -607,7 +616,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             }
         }
 
-        if (config.cardstyle === 'full') {
+        if (this.isFullCard) {
             return html`
                 <ha-card>
                     <style>
@@ -844,19 +853,19 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   display="${grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}"
                                   fill="${grid_colour}">${config.grid.load2_name}
                             </text>
-                            <text id="autarkye_value" x="212" y="283" display="${useautarky === 'no' ? 'none' : ''}"
+                            <text id="autarkye_value" x="212" y="283" display="${useautarky === AutarkyType.No ? 'none' : ''}"
                                   class="${useautarky === 'energy' ? 'st4 st8 left-align' : 'st12'}"
                                   fill="${inverter_colour}">${Autarky}%
                             </text>
-                            <text id="ratioe_value" x="251" y="283" display="${useautarky === 'no' ? 'none' : ''}"
+                            <text id="ratioe_value" x="251" y="283" display="${useautarky === AutarkyType.No ? 'none' : ''}"
                                   class="${useautarky === 'energy' ? 'st4 st8 left-align' : 'st12'}"
                                   fill="${inverter_colour}">${Ratio}%
                             </text>
-                            <text id="autarkyp_value" x="212" y="283" display="${useautarky === 'no' ? 'none' : ''}"
+                            <text id="autarkyp_value" x="212" y="283" display="${useautarky === AutarkyType.No ? 'none' : ''}"
                                   class="${useautarky === 'power' ? 'st4 st8 left-align' : 'st12'}"
                                   fill="${inverter_colour}">${Autarkyp}%
                             </text>
-                            <text id="ratiop_value" x="251" y="283" display="${useautarky === 'no' ? 'none' : ''}"
+                            <text id="ratiop_value" x="251" y="283" display="${useautarky === AutarkyType.No ? 'none' : ''}"
                                   class="${useautarky === 'power' ? 'st4 st8 left-align' : 'st12'}"
                                   fill="${inverter_colour}">${Ratiop}%
                             </text>
@@ -2128,7 +2137,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             `;
         }
 
-        if (config.cardstyle === 'lite') {
+        if (this.isLiteCard) {
             return html`
                 <ha-card>
                     <style>
@@ -3029,6 +3038,35 @@ export class SunsynkPowerFlowCard extends LitElement {
         }
     }
 
+    getState(entity: keyof CardConfigEntities, defaultValue?: any) {
+        const entityString = this._config.entities[entity];
+        const state = entityString ? this.hass.states[entityString] : undefined;
+        return state !== undefined ? state : defaultValue;
+    }
+
+    toNum(val: string, decimals: number = -1, invert: boolean = false): number {
+        let numberValue = Number(val);
+        if (isNaN(numberValue)) {
+            return NaN;
+        }
+        if (decimals >= 0) {
+            numberValue = parseFloat(numberValue.toFixed(decimals));
+        }
+        if (invert) {
+            numberValue *= -1;
+        }
+        return numberValue;
+    }
+
+
+    get isLiteCard() {
+        return this._config.cardstyle == CardStyle.Lite
+    }
+
+    get isFullCard() {
+        return this._config.cardstyle == CardStyle.Full
+    }
+    
     setConfig(config) {
 
         if (config.show_battery === true && !config.battery) {
@@ -3086,9 +3124,8 @@ export class SunsynkPowerFlowCard extends LitElement {
         this._config = merge({}, defaultConfig, customConfig);
     }
 
-    handlePopup(e, entity) {
+    handlePopup(e, entityId) {
         e.stopPropagation();
-        const entityId = entity;
         this._handleClick(this, {action: "more-info"}, entityId);
     }
 
@@ -3104,7 +3141,6 @@ export class SunsynkPowerFlowCard extends LitElement {
             }
         }
     }
-
 
     getCardSize() {
         return 2;

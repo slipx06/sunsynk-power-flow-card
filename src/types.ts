@@ -1,10 +1,11 @@
-import { LovelaceCard, LovelaceCardConfig } from "custom-card-helpers";
+import {LovelaceCard, LovelaceCardConfig} from "custom-card-helpers";
 
 declare global {
     interface HTMLElementTagNameMap {
         'sunsynk-power-flow-card': LovelaceCard;
     }
 }
+
 export enum InverterModel {
     Sunsynk = 'sunsynk',
     Lux = 'lux',
@@ -13,19 +14,30 @@ export enum InverterModel {
     Solis = 'solis',
 }
 
+export enum CardStyle {
+    Lite = 'lite',
+    Full = 'full'
+}
+
+export enum AutarkyType {
+    Energy = 'energy',
+    Power = 'power',
+    No = 'no'
+}
+
 export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
     type: string;
-    cardstyle: 'lite' | 'full';
-    panel_mode: boolean;
-    large_font: boolean;
+    cardstyle: CardStyle;
+    panel_mode?: boolean;
+    large_font?: boolean;
     show_solar: boolean;
-    card_height: string;
-    card_width: string;
-    decimal_places: number;
+    card_height?: string;
+    card_width?: string;
+    decimal_places?: number;
     inverter: {
         modern: boolean;
         colour: string;
-        autarky: 'energy' | 'power' | 'no';
+        autarky: AutarkyType;
         model: InverterModel;
         auto_scale: boolean;
         three_phase: boolean;
@@ -106,10 +118,107 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         auto_scale: boolean;
         energy_cost_decimals: number;
     }
-
+    entities: CardConfigEntities
 }
 
-export interface inverterProg {
+export interface CardConfigEntities {
+    use_timer_248: any,
+    priority_load_243: any,
+    inverter_voltage_154: string,
+    load_frequency_192: string,
+    inverter_current_164: string,
+    inverter_power_175: string,
+    grid_connected_status_194: string,
+    inverter_status_59: string,
+    day_battery_charge_70: string,
+    day_battery_discharge_71: string,
+    battery_voltage_183: string,
+    battery_soc_184: string,
+    battery_power_190: string,
+    battery_current_191: string,
+    grid_power_169: string,
+    grid_voltage: string,
+    day_grid_import_76: string,
+    day_grid_export_77: string,
+    grid_ct_power_172: string,
+    day_load_energy_84: string,
+    essential_power: string,
+    nonessential_power: string,
+    aux_power_166: string,
+    day_pv_energy_108: string,
+    pv1_power_186: string,
+    pv2_power_187: string,
+    pv1_voltage_109: string,
+    pv1_current_110: string,
+    pv2_voltage_111: string,
+    pv2_current_112: string,
+    pv3_voltage_113: string,
+    pv3_current_114: string,
+    pv3_power_188: string,
+    pv4_voltage_115: string,
+    pv4_current_116: string,
+    pv4_power_189: string,
+    remaining_solar: string,
+    battery_temp_182: string,
+    dc_transformer_temp_90: string,
+    radiator_temp_91: string,
+    non_essential_load1: string,
+    non_essential_load2: string,
+    essential_load1: string
+
+    v1_power_186: string,
+    v2_power_187: string,
+
+    energy_cost_buy: string,
+
+    solar_sell_247: string,
+    essential_load2: string,
+    essential_load4: string,
+    battery_status: string,
+    aux_load1_extra: string,
+    aux_load2_extra: string,
+    pv_total: string,
+    aux_connected_status: string,
+    aux_load1: string,
+    aux_load2: string,
+    day_aux_energy: string,
+    energy_cost_sell: string,
+    essential_load1_extra: string,
+    essential_load2_extra: string,
+    inverter_voltage_L2: string,
+    inverter_voltage_L3: string,
+    inverter_current_L2: string,
+    inverter_current_L3: string,
+    grid_ct_power_L2: string,
+    grid_ct_power_L3: string,
+    load_power_L1: string,
+    load_power_L2: string,
+    load_power_L3: string,
+    total_pv_generation: string,
+    essential_load3: string,
+    battery_current_direction: string,
+
+    prog1_time: string,
+    prog2_time: string,
+    prog3_time: string,
+    prog4_time: string,
+    prog5_time: string,
+    prog6_time: string,
+    prog1_capacity: string,
+    prog2_capacity: string,
+    prog3_capacity: string,
+    prog4_capacity: string,
+    prog5_capacity: string,
+    prog6_capacity: string,
+    prog1_charge: string,
+    prog2_charge: string,
+    prog3_charge: string,
+    prog4_charge: string,
+    prog5_charge: string,
+    prog6_charge: string,
+}
+
+export interface InverterSettings {
     entityID: string;
     show?: boolean;
     charge?: string;

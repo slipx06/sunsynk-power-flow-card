@@ -1,0 +1,52 @@
+HexDecimal,Status,Inverter display,Status Category,Decimal
+0000H,Normal operation,Generating,Normal,0
+0001H,Open loop operation,OpenRun,Normal,1
+0002H,Waiting,Waiting,Standby,2
+0003H,Initialization,Initializing,SelfTest,3
+1004H,Control off-Grid,Off-Grid,Fault,4100
+1010H,Grid overvoltage,OV-G-V,Alarm,4112
+1011H,Grid undervoltage,UN-G-V,Alarm,4113
+1012H,Grid overfrequency,OV-G-F,Alarm,4114
+1013H,Grid underfrequency,UN-G-F,Alarm,4115
+1014H,Grid impedance is too large,G-IMP,Alarm,4116
+1015H,No Grid,NO-Grid,Alarm,4117
+1016H,Grid imbalance,G-PHASE,Alarm,4118
+1017H,Grid frequency jitter,G-F-FLU,Alarm,4119
+1018H,Grid overcurrent,OV-G-I,Alarm,4120
+1019H,Grid current tracking fault,IGFOL-F,Alarm,4121
+1020H,DC overvoltage,OV-DC,Alarm,4122
+1021H,DC bus overvoltage,OV-BUS,Alarm,4123
+1022H,DC busbar uneven voltage,UNB-BUS,Alarm,4124
+1023H,DC bus undervoltage,UN-BUS,Alarm,4125
+1024H,DC busbar uneven voltage 2,UNB2-BUS,Alarm,4126
+1025H,DC A way overcurrent,OV-DCA-I,Alarm,4127
+1026H,DC B path overcurrent,OV-DCB-I,Alarm,4128
+1027H,DC input disturbance,DC-INTF.,Alarm,4129
+1030H,Grid disturbance,GRID-INTF.,Alarm,4130
+1031H,DSP initialization malfunction protection,INI-FAULT,Fault,4131
+1032H,Temperature protection,OV-TEM,Fault,4132
+1033H,Ground protection,GROUND-FAULT,Fault,4133
+1034H,Leakage current fault,ILeak-FAULT,Fault,4134
+1035H,Relay failure,Relay-FAULT,Fault,4135
+1036H,DSP_B failure protection,DSP-B-FAULT,Fault,4136
+1037H,DC component is too large,DCInj-FAULT,Fault,4137
+1038H,12V undervoltage fault protection,12Power-FAULT,Fault,4138
+1039H,Leakage current self-test protection,ILeak-Check,Fault,4139
+103AH,Under temperature protection,UN-TEM,Fault,4140
+1040H,Arc self-test protection,AFCI-Check,Fault,4140
+1041H,Arc malfunction protection,ARC-FAULT,Fault,4141
+1042H,DSP on-chip SRAM exception,RAM-FAULT,Fault,4142
+1043H,DSP on-chip FLASH exception,FLASH-FAULT,Fault,4143
+1044H,DSP on-chip PC pointer is abnormal,PC-FAULT,Fault,4144
+1045H,DSP key register exception,REG-FAULT,Fault,4145
+1046H,Grid disturbance 02,GRID-INTF02,Alarm,4146
+1047H,Grid current sampling abnormality,IG-AD,Alarm,4147
+1048H,IGBT overcurrent,IGBT-OV-I,Alarm,4148
+1050H,Network side current transient,OV-IgTr,Alarm,4150
+1051H,Battery overvoltage hardware failure,OV-Vbatt-H,Fault,4151
+1052H,LLC hardware overcurrent,OV-ILLC,Fault,4152
+1053H,Battery overvoltage detection,OV-Vbatt,Fault,4153
+1054H,Battery undervoltage detection,UN-Vbatt,Fault,4154
+1055H,Battery no connected,NO-Battery,Fault,4155
+1056H,Bypass overvoltage fault,OV-VBackup,Fault,4156
+1057H,Bypass overload fault,Over-Load,Fault,4157
