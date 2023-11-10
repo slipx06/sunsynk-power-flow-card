@@ -35,7 +35,7 @@ The card can be configured through the following attributes:
 |modern:| Optional |`true`| Changes the inverter image.|
 |colour:| Optional |`grey`| Changes the colour of the inverter. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |autarky:| Optional| `power`| Display autarky and ratio as a percentage using either realtime power or daily energy values. Set to `no` to hide (`energy/power/no`). <br />Autarky is the percentage of self sufficiency through Home Production. Ratio is the percentage of produced electricity used by the home. <br />It is calculated based on the formula below and borrowed from the [Power Distribution Card](https://github.com/JonahKr/power-distribution-card)  <br /><ul><li>Autarky in Percent = Home Production / Home Consumption </li><li>Ratio in Percent = Home Consumption / Home Production</li></ul>|
-| model: | Optional | `sunsynk` | Selects which status codes to use. Set to `lux` for Lux inverters. Set to `goodwe` or `goodwe_gridmode` for Goodwe inverters depending on your `inverter_status_59` sensor.  |
+| model: | Optional | `sunsynk` | Selects which status codes to use. Set to `lux` for Lux inverters. Set to `solis` for Solis inverters. Set to `goodwe` or `goodwe_gridmode` for Goodwe inverters depending on your `inverter_status_59` sensor.  |
 |auto_scale: | Optional | `false` | If set to `true` power values greater than 999W will be displayed as kW e.g. 1.23kW. The number of decimal places can be changed using the `decimal_places` card attribute|
 | three_phase: | Optional | `false` | If set to `true` additional 3 phase sensors will be displayed. Requires entity attributes to be defined i.e. `inverter_current_L2`, `inverter_current_L3`, `inverter_voltage_L2`, `inverter_voltage_L3` , `grid_ct_power_L2`, `grid_ct_power_L3`, `load_power_L1`, `load_power_L2`, `load_power_L3`
 ### Battery
@@ -189,7 +189,7 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |pv4_voltage_115: | Optional | `sensor.sunsynk_pv4_voltage` | PV string 4 voltage (V)|
 |pv4_current_116: | Optional | `sensor.sunsynk_pv4_current` | PV string 4 current (A)|
 |grid_connected_status_194: | Optional | `binary_sensor.sunsynk_grid_connected_status` | Grid connected status `on/off`,`1/0` or `On-Grid/Off-Grid` |
-|inverter_status_59: | Optional | `sensor.sunsynk_overall_state` | Expects a sensor that contains inverter status represented as a string or number. For Sunsynk  `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault`. For Lux `0,1,2,4,5,7,8,9,10,11,12,16,17,20,32,40,64,136,192`. For Goodwe `0,1,2,3,4,5` or `Wait mode, Normal (On-Grid), Normal (Off-Grid), Fault Mode, Flash Mode, Check Mode`. For Goodwe_gridmode `0,1,2` or `Idle, Exporting, Importing` |
+|inverter_status_59: | Optional | `sensor.sunsynk_overall_state` | Expects a sensor that contains inverter status represented as a string or number. For Sunsynk  `0, 1, 2, 3, 4` or `standby, selftest, normal, alarm, fault`. For Lux `0,1,2,4,5,7,8,9,10,11,12,16,17,20,32,40,64,136,192`. For Solis expects a numeric value `0-57`.  For Goodwe `0,1,2,3,4,5` or `Wait mode, Normal (On-Grid), Normal (Off-Grid), Fault Mode, Flash Mode, Check Mode`. For Goodwe_gridmode `0,1,2` or `Idle, Exporting, Importing` |
 |battery_status: | Optional | `sensor.battery_mode_code` | Used only when inverter model is set to  `goodwe` or `goodwe_gridmode`. Battery status `0, 1, 2, 3, 4` |
 |aux_power_166: | Optional | `sensor.sunsynk_aux_power` | Auxilary power (W) |
 |aux_load1:| Optional |  | Sensor that contains the power of your AUX load 1 (W) |
@@ -223,6 +223,9 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |energy_cost_buy:| Optional | | Sensor that provides current buy energy cost per kWh
 |energy_cost_sell:| Optional | | Sensor that provides current sell energy cost per kWh
 |solar_sell_247:|Optional | `switch.sunsynk_toggle_solar_sell` | Displays icons to indicate if sell solar is active or not. The switch can be toggled by clicking on the icon (`on/off`, `1/0`)
+|grid_voltage:| Optional |`sensor.solis_grid_voltage` | Sensor providing grid voltage (v). Used only when inverter model is set to `solis`
+|battery_current_direction: | Optional |`sensor.solis_battery_current_direction` | Used only when inverter model is set to `solis` (`0`, `1`)
+
 
 The card calculates the sensors below based on supplied attributes in the config so you dont need to define them in Home Assistant. NOTE if your essential and non-essential readings are innacurate replace sensor 169 with 167. Alternatively provide the card with sensors that calculate this data i.e essential_power: and nonessential_power:
 
