@@ -29,8 +29,6 @@
     "lodash.merge": "^4.6.2"
   },
   "devDependencies": {
-    "typescript": "^5.2.2",
-    "npm": "^10.2.3",
     "@babel/cli": "^7.23.0",
     "@babel/core": "^7.23.3",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
@@ -43,15 +41,18 @@
     "@rollup/plugin-json": "^6.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
+    "@types/lodash.merge": "^4.6.9",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.10.0",
     "babel-preset-minify": "^0.5.2",
     "eslint": "^8.53.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
+    "npm": "^10.2.3",
     "prettier": "^3.0.3",
     "rollup": "^4.3.0",
     "rollup-plugin-serve": "^2.0.2",
-    "rollup-plugin-typescript2": "^0.36.0"
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "^5.2.2"
   }
 }
