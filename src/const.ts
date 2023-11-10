@@ -58,7 +58,8 @@ export const inverterStatusGroups = {
     },    
     goodwe: {
         standby: { states: ['0', 'Wait Mode'], color: 'blue', message: localize('common.standby') },
-        normal: { states: ['1', '2', 'Normal (On-Grid)', 'Normal (Off-Grid)'], color: 'green', message: localize('common.normal') },
+        ongrid: { states: ['1', 'Normal (On-Grid)'], color: 'green', message: localize('common.ongrid') },
+        offgrid: { states: ['2', 'Normal (Off-Grid)'], color: 'green', message: localize('common.offgrid') },
         fault: { states: ['3', 'Fault Mode'], color: 'red', message: localize('common.fault') },
         flash: { states: ['4', 'Flash Mode'], color: 'yellow', message: localize('common.flash') },
         check: { states: ['5', 'Check Mode'], color: 'orange', message: localize('common.check') },

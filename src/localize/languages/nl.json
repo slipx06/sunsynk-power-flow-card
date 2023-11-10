@@ -46,7 +46,9 @@
         "check": "Check",
         "idle": "Inactief",
         "exporting": "Exporteren",
-        "importing": "Importeren"
+        "importing": "Importeren",
+        "ongrid": "On-Grid",
+        "offgrid": "Off-Grid"
 
 
     },

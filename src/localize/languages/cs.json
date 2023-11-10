@@ -46,7 +46,9 @@
         "check": "Check",
         "idle": "Nečinný",
         "exporting": "Odesílání",
-        "importing": "Příjem"
+        "importing": "Příjem",
+        "ongrid": "On-Grid",
+        "offgrid": "Off-Grid"
 
 
     },

@@ -46,7 +46,9 @@
         "check": "Check",
         "idle": "Inactiu",
         "exporting": "Exportació",
-        "importing": "Importació"
+        "importing": "Importació",
+        "ongrid": "On-Grid",
+        "offgrid": "Off-Grid"
 
 
     },

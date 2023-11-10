@@ -270,8 +270,12 @@ export class SunsynkPowerFlowCard extends LitElement {
         let bat_empty = config.battery?.empty_capacity;
         let energy_cost_decimals = config.grid?.energy_cost_decimals === 0 ? 0 : config.grid?.energy_cost_decimals || 2;
         let energy_cost = total_grid_power >= 0 ? parseFloat(stateObj43.state).toFixed(energy_cost_decimals) : parseFloat(stateObj51.state).toFixed(energy_cost_decimals);
+        let inverterModel = InverterModel.Sunsynk;
 
-        //let width = config.card_width || '100%'
+        // Check if the userInputModel is a valid inverter model
+        if (Object.values(InverterModel).includes(config.inverter.model)) {
+            inverterModel = config.inverter.model as InverterModel;
+        }
 
         //totalsolar = pv1_power_186 + pv2_power_187 + pv3_power_188 + pv4_power_189
         let totalsolar = (
@@ -399,6 +403,15 @@ export class SunsynkPowerFlowCard extends LitElement {
                 inverter_prog.entityID = entityID;
             }
         }
+     
+        if (grid_voltage != null && !isNaN(grid_voltage)) {
+            grid_status = grid_voltage > 0 ? 'on' : 'off';
+        }
+        if (battery_current_direction != null && !isNaN(battery_current_direction)) {
+            if (inverterModel == InverterModel.Solis && battery_current_direction === 0) {
+                battery_power = -battery_power;
+            }
+        }
 
         //calculate battery capacity
         let battery_capacity: number = 0;
@@ -460,24 +473,10 @@ export class SunsynkPowerFlowCard extends LitElement {
         //Set Inverter Status Message and dot
         let inverterStateColour = "";
         let inverterStateMsg = "";
-        let inverterModel = InverterModel.Sunsynk;
         let inverterState = stateObj21.state as any;
 
         let found = false;
 
-        // Check if the userInputModel is a valid inverter model
-        if (Object.values(InverterModel).includes(config.inverter.model)) {
-            inverterModel = config.inverter.model as InverterModel;
-        }
-
-        if (grid_voltage != null && !isNaN(grid_voltage)) {
-            grid_status = grid_voltage > 0 ? 'on' : 'off';
-        }
-        if (battery_current_direction != null && !isNaN(battery_current_direction)) {
-            if (inverterModel == InverterModel.Solis && battery_current_direction === 0) {
-                battery_power = -battery_power;
-            }
-        }
         if(inverterModel == InverterModel.Solis) {
             inverterState = !isNaN(stateObj21.state as any) ? Number(stateObj21.state).toFixed(0) : stateObj21.state
         }
@@ -755,8 +754,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   fill="${solar_colour}">${config.solar.pv4_name}
                             </text>
                             <text x="421" y="377" class="st3 st8" fill="${grid_colour}">Grid</text>
-                            <text x="185" y="306" class="st3" fill="${inverter_colour}">${inverterStateMsg}</text>
-                            <text x="102" y="378" class="st3" fill="${battery_colour}">${batteryStateMsg}</text>
+                            <text x="167" y="306" class="st3 left-align" fill="${inverter_colour}">${inverterStateMsg}</text>
+                            <text x="80" y="378" class="st3 left-align" fill="${battery_colour}">${batteryStateMsg}</text>
                             <text x="411" y="157" class="st3 st8"
                                   display="${(additional_load === 1 || additional_load === 2) && show_aux === true ? 'none' : ''}"
                                   fill="${load_colour}">${config.grid.essential_name}
@@ -913,8 +912,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 ${config.load.auto_scale === true ? `${convertValue(grid_power_L3, round) || 0}` : `${grid_power_L3 || 0} W`}
                             </text>
 
-                            <circle id="standby" cx="164" cy="304" r="3.5" fill="${inverterStateColour}"/>
-                            <circle id="bat" cx="70" cy="377" r="3"
+                            <circle id="standby" cx="160" cy="304" r="3.5" fill="${inverterStateColour}"/>
+                            <circle id="bat" cx="73" cy="377" r="3"
                                     display="${config.entities?.battery_status === 'none' || !config.entities?.battery_status ? 'none' : ''}"
                                     fill="${batteryStateColour}"/>
 
@@ -2399,10 +2398,10 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   class="st3 left-align" fill="${grid_colour}">
                                 ${config.load.auto_scale === true ? `${convertValue(grid_power_L3, round) || 0}` : `${grid_power_L3 || 0} W`}
                             </text>
-                            <text x="193" y="320" class="st3" fill="${battery_colour}">${batteryStateMsg}</text>
+                            <text x="169" y="320" class="st3 left-align" fill="${battery_colour}">${batteryStateMsg}</text>
 
                             <circle id="standby" cx="220" cy="260" r="3.5" fill="${inverterStateColour}"/>
-                            <circle id="bat" cx="161" cy="320" r="3"
+                            <circle id="bat" cx="162" cy="319" r="3.5"
                                     display="${config.entities?.battery_status === 'none' || !config.entities?.battery_status ? 'none' : ''}"
                                     fill="${batteryStateColour}"/>
 
