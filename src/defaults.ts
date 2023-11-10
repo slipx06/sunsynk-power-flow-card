@@ -1,4 +1,5 @@
 import { localize } from "./localize/localize";
+import {InverterModel} from './types';
 
 
 export default {
@@ -14,7 +15,7 @@ export default {
         modern: true,
         colour: 'grey',
         autarky: 'power',
-        model: 'sunsynk',
+        model: InverterModel.Sunsynk,
         auto_scale: false,
         three_phase: false,
     },

@@ -5,6 +5,13 @@ declare global {
         'sunsynk-power-flow-card': LovelaceCard;
     }
 }
+export enum InverterModel {
+    Sunsynk = 'sunsynk',
+    Lux = 'lux',
+    GoodweGridMode = 'goodwe_gridmode',
+    Goodwe = 'goodwe',
+    Solis = 'solis',
+}
 
 export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
     type: string;
@@ -19,7 +26,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         modern: boolean;
         colour: string;
         autarky: 'energy' | 'power' | 'no';
-        model: 'sunsynk' | 'lux' | 'goodwe_gridmode' | 'goodwe';
+        model: InverterModel;
         auto_scale: boolean;
         three_phase: boolean;
     }
