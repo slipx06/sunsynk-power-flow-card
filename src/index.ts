@@ -1742,7 +1742,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </text>
                             </a>
                             <image x="155" y="224.75" width="53" height="72"
-                                   class="${inverter_modern === false ? '' : 'st12'}"
+                                   class="${!inverter_modern ? '' : 'st12'}"
                                    xlink:href="${inverterImg}"
                                    preserveAspectRatio="none"/>
 
