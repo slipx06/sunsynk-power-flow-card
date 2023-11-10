@@ -74,35 +74,30 @@ export const inverterStatusGroups = {
     },
     solis: {
         normal: {
-            states: ['0', '4140'],
+            states: ['0', '3'],
             color: 'green',
             message: localize('common.normal'),
         },
         standby: {
-            states: ['1', '2', '3'],
+            states: ['1', '2'],
             color: 'blue',
             message: localize('common.standby'),
         },
         alarm: {
-            states: ['4100', '4112', '4113', '4114', '4115', '4116', '4120', '4122', '4123', '4124', '4125', '4127', '4128', '4129', '4130', '4132', '4133', '4134', '4135', '4136', '4137', '4138', '4144', '4145', '4146', '4147', '4148', '4150', '4151', '4152', '4161', '4162', '4163', '4164', '4166'],
+            states: ['4140', '4100', '4112', '4113', '4114', '4115', '4116', '4120', '4122', '4123', '4124', '4125', '4127', '4128', '4129', '4130', '4132', '4133', '4134', '4135', '4136', '4137', '4138', '4144', '4145', '4146', '4147', '4148', '4150', '4151', '4152'],
             color: 'red',
             message: localize('common.alarm'),
         },
         fault: {
-            states: ['4117', '4118', '4119', '4121', '4131', '4134', '4135', '4164', '4167'],
+            states: ['4117', '4118', '4119', '4121', '4131', '4134', '4135', '4164', '4167', '4144'],
             color: 'red',
             message: localize('common.fault'),
         },
         selftest: {
-            states: ['4139', '4144'],
+            states: ['4139'],
             color: 'purple',
             message: localize('common.selftest'),
         },
-        importing: {
-            states: ['4160'],
-            color: 'blue',
-            message: localize('common.importing'),
-        }
     }
 
 };
