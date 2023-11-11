@@ -523,7 +523,6 @@ export class SunsynkPowerFlowCard extends LitElement {
                     inverterImg = sunsynkBase64Img;
                     break;
             }
-            inverterImg = sunsynkBase64Img;
         }
 
         /**
@@ -1174,7 +1173,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <path id="es-line" d="M 235 118 L 212 118 Q 200 118 200 128 L 200 162" fill="none"
                                   stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"
                                   pointer-events="stroke"/>
-
+                            
                             <svg xmlns="http://www.w3.org/2000/svg" x="154.5" y="224.75" width="54"
                                  height="79" viewBox="0 0 74 91" preserveAspectRatio="xMidYMid meet">
                                 <g transform="translate(0.000000,91.000000) scale(0.100000,-0.100000)"
@@ -1798,7 +1797,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </a>
                             <image x="155" y="224.75" width="53" height="72"
                                    class="${!inverter_modern ? '' : 'st12'}"
-                                   xlink:href="${inverterImg}"
+                                   href="${inverterImg}"
                                    preserveAspectRatio="none"/>
 
                             <a href="#" @click=${(e) => this.handlePopup(e, inverter_prog.entityID)}>
@@ -2275,7 +2274,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             ${config.title}</h1>` : ''}
                         <svg viewBox="-0.5 ${!config.show_solar ? (additional_load !== 0 || config.show_battery === false ? 80 : 145.33) : -0.5} 483 ${!config.show_solar ? (config.show_battery === true ? (additional_load !== 0 ? 350 : 270.67) : 270.67) : (config.show_battery === false ? (additional_load === 2 ? 350 : 300) : 406)}"
                              preserveAspectRatio="xMidYMid meet"
-                             height="${panel === false ? `${!config.show_solar && config.show_battery === false ? '270px' : !config.show_solar ? (additional_load !== 0 ? '330px' : '246px') : config.show_solar && config.show_battery === false ? (additional_load === 2 ? '350px' : '300px') : `${height}`}` : `${!config.show_solar ? '75%' : '100%'}`}"
+                             height="${panel === false ? `${config.show_solar === false && config.show_battery === false ? '270px' : config.show_solar === false ? (additional_load !== 0 ? '330px' : '246px') : config.show_solar === true && config.show_battery === false ? (additional_load === 2 ? '350px' : '300px') : `${height}`}` : `${config.show_solar === false ? '75%' : '100%'}`}"
                              width="${panel === true ? `${width}` : '100%'}" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <rect x="304" y="203.5" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                                   stroke="${load_colour}" pointer-events="all"/>
@@ -2862,7 +2861,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </a>
                             <image x="212" y="180" width="54" height="72"
                                    class="${!inverter_modern ? '' : 'st12'}"
-                                   xlink:href="${inverterImg}"
+                                   href="${inverterImg}"
                                    preserveAspectRatio="none"/>
                             <a href="#" @click=${(e) => this.handlePopup(e, inverter_prog.entityID)}>
                                 <svg xmlns="http://www.w3.org/2000/svg" id="prog_grid_on" x="323" y="243" width="20"
