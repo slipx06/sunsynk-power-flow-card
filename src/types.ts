@@ -84,6 +84,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         show_aux: boolean;
         show_daily_aux: boolean;
         auto_scale: boolean;
+        essential_name: string,
     }
     grid: {
         colour: string;
@@ -95,7 +96,6 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         nonessential_icon: string;
         nonessential_name: string;
         additional_loads: number;
-        essential_name: string,
         load1_name: string;
         load2_name: string;
         load1_icon: string;
