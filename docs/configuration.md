@@ -18,7 +18,7 @@ The card can be configured through the following attributes:
 |title_size:| Optional | `32px` | Set the font size for the card title i.e. `16px`, `24px` |
 |show_solar:| Optional |`true` | Toggle display of solar information |
 |show_battery:| Optional |`true` | Toggle display of battery information |
-|show_grid:|`true` | Toggle display of grid information |
+|show_grid:| Optional | `true` | Toggle display of grid information |
 |card_height:| Optional | `396px` | Only used when `panel_mode: false`. Sets the card height in pixels. Specify the value i.e. `400px` or provide a sensor i.e. `input.numer_height`|
 |card_width:| Optional | `100%` | Only used when `panel_mode: true`. Sets the card width in pixels or percentage `400px` or `80%`. For adjustments when using the Panel(1 card) view types or grid layouts |
 |decimal_places:| Optional | `2` | Sets the number of decimal places to display when using the `auto_scale` option. |
