@@ -46,7 +46,9 @@
         "check": "Check",
         "idle": "Бездействие",
         "exporting": "Экспорт",
-        "importing": "Импорт"
+        "importing": "Импорт",
+        "ongrid": "On-Grid",
+        "offgrid": "Off-Grid"
 
 
     },
