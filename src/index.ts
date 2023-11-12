@@ -422,6 +422,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         if (grid_voltage != null && !isNaN(grid_voltage)) {
             grid_status = grid_voltage > 0 ? 'on' : 'off';
         }
+
         if (battery_current_direction != null && !isNaN(battery_current_direction)) {
             if (inverterModel == InverterModel.Solis && battery_current_direction === 0) {
                 battery_power = -battery_power;
@@ -491,20 +492,6 @@ export class SunsynkPowerFlowCard extends LitElement {
         let inverterState = stateObj21.state as any;
 
         let found = false;
-
-        // Check if the userInputModel is a valid inverter model
-        if (Object.values(InverterModel).includes(config.inverter.model)) {
-            inverterModel = config.inverter.model as InverterModel;
-        }
-
-        if (grid_voltage != null && !isNaN(grid_voltage)) {
-            grid_status = grid_voltage > 0 ? 'on' : 'off';
-        }
-        if (battery_current_direction != null && !isNaN(battery_current_direction)) {
-            if (inverterModel == InverterModel.Solis && battery_current_direction === 0) {
-                battery_power = -battery_power;
-            }
-        }
 
         let inverterImg = '';
         if (!inverter_modern) {
@@ -782,7 +769,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </text>
                             <text id="floating" x="132" y="368" class="st3 left-align"
                                   display="${config.show_battery === false ? 'none' : ''}"
-                                  fill="${battery_energy === 0 || isFloating ? 'transparent' : `${battery_colour}`}">
+                                  fill="${battery_energy === 0 || !isFloating ? 'transparent' : `${battery_colour}`}">
                                 ${localize('common.battery_floating')}
                             </text>
                             <text x="0" y="78.5" class="st3 st8 left-align"
@@ -2235,8 +2222,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.radiator_temp_91)}>
-                                <text id="ac_temp" x="${config.solar?.mppts === 4 ? '137' : '158'}"
-                                      y="${config.solar?.mppts === 4 ? '222' : '153'}" class="st3 left-align"
+                                <text id="ac_temp" x="${config.solar?.mppts === 4 ? '110' : '158'}"
+                                      y="${config.solar?.mppts === 4 ? '237' : '153'}" class="st3 left-align"
                                       fill="${inverter_colour}"
                                       display="${config.entities?.radiator_temp_91 ? '' : 'none'}">AC:
                                     ${parseFloat(stateObj39.state).toFixed(1)}°
