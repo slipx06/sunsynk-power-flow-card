@@ -165,12 +165,7 @@ export interface CardConfigEntities {
     non_essential_load1: string,
     non_essential_load2: string,
     essential_load1: string
-
-    v1_power_186: string,
-    v2_power_187: string,
-
     energy_cost_buy: string,
-
     solar_sell_247: string,
     essential_load2: string,
     essential_load4: string,

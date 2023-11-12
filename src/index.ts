@@ -107,8 +107,8 @@ export class SunsynkPowerFlowCard extends LitElement {
         const stateObj5 = this.getState('inverter_voltage_154', {state: '0'});
         const stateObj6 = this.getState('load_frequency_192', {state: '0'});
         const stateObj7 = this.getState('inverter_current_164', {state: '0'});
-        const stateObj8 = this.getState('v2_power_187', {state: '0'});
-        const stateObj9 = this.getState('v1_power_186', {state: '0'});
+        const stateObj8 = this.getState('pv2_power_187', {state: '0'});
+        const stateObj9 = this.getState('pv1_power_186', {state: '0'});
         const stateObj11 = this.getState('battery_voltage_183', {state: '0'});
         const stateObj12 = this.getState('battery_soc_184', {state: '0'});
         const stateObj13 = this.getState('battery_power_190', {state: '0'});
