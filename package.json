@@ -1,57 +1,58 @@
 {
-	"name": "sunsynk-power-flow-card",
-	"version": "3.12.0",
-	"description": "A customizable Home Assistant card to emulate the Sunsynk System flow that's displayed on the Inverter screen.",
-	"main": "sunsynk-power-flow-card.js",
-	"scripts": {
-		"lint": "eslint src/*.ts | more ",
-		"lintindex": "eslint src/index.ts | more",
-		"lintindexfix": "eslint src/index.ts --fix",
-		"lintfixall": "eslint src/*.ts --fix",
-		"rollup": "rollup -c",
-		"build": "rollup -c --bundleConfigAsCjs",
-		"watch": "rollup -c --watch --config rollup-dev.config.js",
-		"docs-build": "sphinx-autobuild docs docs/_build/html"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/slipx06/sunsynk-power-flow-card.git"
-	},
-	"author": "marksie1988 <marksie1988@users.noreply.github.com>",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/slipx06/sunsynk-power-flow-card/issues"
-	},
-	"homepage": "https://github.com/slipx06/sunsynk-power-flow-card#readme",
-	"dependencies": {
-		"custom-card-helpers": "^1.9.0",
-		"lit": "^2.8.0",
-		"lodash.merge": "^4.6.2",
-		"npm": "^9.8.1",
-		"typescript": "^5.1.6"
-	},
-	"devDependencies": {
-		"@babel/cli": "^7.22.10",
-		"@babel/core": "^7.22.10",
-		"@babel/plugin-proposal-class-properties": "^7.18.6",
-		"@babel/plugin-proposal-decorators": "^7.22.10",
-		"@babel/plugin-transform-template-literals": "^7.22.5",
-		"@babel/preset-env": "^7.22.10",
-		"@rollup/plugin-babel": "^6.0.3",
-		"@rollup/plugin-commonjs": "^25.0.4",
-		"@rollup/plugin-eslint": "^9.0.4",
-		"@rollup/plugin-json": "^6.0.0",
-		"@rollup/plugin-node-resolve": "^15.1.0",
-		"@rollup/plugin-terser": "^0.4.3",
-		"@typescript-eslint/eslint-plugin": "^6.3.0",
-		"@typescript-eslint/parser": "^6.3.0",
-		"babel-preset-minify": "^0.5.2",
-		"eslint": "^8.47.0",
-		"eslint-config-prettier": "^9.0.0",
-		"eslint-plugin-prettier": "^5.0.0",
-		"prettier": "^3.0.1",
-		"rollup": "^3.28.0",
-		"rollup-plugin-serve": "^2.0.2",
-		"rollup-plugin-typescript2": "^0.35.0"
-	}
+  "name": "sunsynk-power-flow-card",
+  "version": "3.13.0",
+  "description": "A customizable Home Assistant card to emulate the Sunsynk System flow that's displayed on the Inverter screen.",
+  "main": "sunsynk-power-flow-card.js",
+  "scripts": {
+    "lint": "eslint src/*.ts | more ",
+    "lintindex": "eslint src/index.ts | more",
+    "lintindexfix": "eslint src/index.ts --fix",
+    "lintfixall": "eslint src/*.ts --fix",
+    "rollup": "rollup -c",
+    "build": "rollup -c --bundleConfigAsCjs",
+    "watch": "rollup -c --watch --config rollup-dev.config.js",
+    "docs-build": "sphinx-autobuild docs docs/_build/html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slipx06/sunsynk-power-flow-card.git"
+  },
+  "author": "marksie1988 <marksie1988@users.noreply.github.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/slipx06/sunsynk-power-flow-card/issues"
+  },
+  "homepage": "https://github.com/slipx06/sunsynk-power-flow-card#readme",
+  "dependencies": {
+    "custom-card-helpers": "^1.9.0",
+    "lit": "3.0.2",
+    "lodash.merge": "^4.6.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.23.0",
+    "@babel/core": "^7.23.3",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-proposal-decorators": "^7.23.3",
+    "@babel/plugin-transform-template-literals": "^7.23.3",
+    "@babel/preset-env": "^7.23.3",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-eslint": "^9.0.5",
+    "@rollup/plugin-json": "^6.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@types/lodash.merge": "^4.6.9",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0",
+    "babel-preset-minify": "^0.5.2",
+    "eslint": "^8.53.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "npm": "^10.2.3",
+    "prettier": "^3.0.3",
+    "rollup": "^4.3.0",
+    "rollup-plugin-serve": "^2.0.2",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "^5.2.2"
+  }
 }
