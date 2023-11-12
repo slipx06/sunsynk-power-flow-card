@@ -359,8 +359,8 @@ export class SunsynkPowerFlowCard extends LitElement {
             charge: this.hass.states[config.entities.prog6_charge] || {state: ''}
         };
 
-        const shutdownsoc = this.hass.states[config.battery.shutdown_soc] || {state: ''};
-        let shutdown = Number.isNaN(shutdownsoc.state) ? config.battery.shutdown_soc : this.toNum(shutdownsoc.state);
+        const shutdownsoc = this.hass.states[config.battery.shutdown_soc] || {state: config.battery.shutdown_soc ?? ''};
+        let shutdown = this.toNum(shutdownsoc.state);
         let inverter_prog: InverterSettings = {
 //      capacity: config.battery.shutdown_soc,
             capacity: shutdown,
@@ -451,8 +451,8 @@ export class SunsynkPowerFlowCard extends LitElement {
         let formattedResultTime = "";
         let duration = "";
 
-        const battenergy = this.hass.states[config.battery.energy] || {state: ''};
-        let battery_energy = Number.isNaN(this.toNum(battenergy.state)) ? config.battery.energy : this.toNum(battenergy.state);
+        const battenergy = this.hass.states[config.battery.energy] || {state: config.battery.energy ?? ''};
+        let battery_energy = this.toNum(battenergy.state, 0);
 
         if (config.show_battery !== false || battery_energy !== 0) {
             if (battery_power === 0) {
