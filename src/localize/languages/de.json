@@ -22,8 +22,6 @@
         "priority_load": "Lastpriorität",
         "nonessential_name": "Nebenverbraucher",
         "aux_name": "Hilfsantrieb",
-        "load1_name": "",
-        "load2_name": "",
         "pv1_name": "PV1",
         "pv2_name": "PV2",
         "pv3_name": "PV3",

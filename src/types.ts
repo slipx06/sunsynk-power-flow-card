@@ -110,8 +110,10 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         additional_loads: number;
         load1_name: string;
         load2_name: string;
+        load3_name: string;
         load1_icon: string;
         load2_icon: string;
+        load3_icon: string;
         invert_grid: boolean;
         animation_speed: number;
         max_power: number;
@@ -164,6 +166,7 @@ export interface CardConfigEntities {
     radiator_temp_91: string,
     non_essential_load1: string,
     non_essential_load2: string,
+    non_essential_load3: string,
     essential_load1: string
     energy_cost_buy: string,
     solar_sell_247: string,

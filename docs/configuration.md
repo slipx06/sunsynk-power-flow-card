@@ -119,11 +119,13 @@ These attributes are only needed if `show_solar` is set to `true`
 |show_nonessential: | Optional |`false` | Toggles the display of non-essential |
 |nonessential_icon: | Optional | `default` | Change the non-essential image using presets or any mdi icon e.g. `mdi:ev-station`. Presets are: <br /> <img height="25px" src="https://api.iconify.design/mdi/house-import-outline.svg"> `default`  <img height="25px" src="https://api.iconify.design/fluent/oven-32-regular.svg"> `oven`, <img height="25px" src="https://api.iconify.design/material-symbols/water-heater.svg"> `boiler` </br> <br/> <img height="25px" src="https://api.iconify.design/material-symbols/water-pump-outline.svg"> `pump`,  <img height="25px" src="https://api.iconify.design/mdi/air-conditioner.svg"> `aircon` </br> |
 |nonessential_name: | Optional | `Non Essential` |Set the display name for the non-essential load
-|additional_loads: | Optional |`0`| Toggle the display of additional loads on the non-essential side (`0/1/2`)
+|additional_loads: | Optional |`0`| Toggle the display of additional loads on the non-essential side (`0/1/2/3`) The third load will only be displayed if the inverter timer schedules are not used e.g. `use_timer_248: false`, or no program time i.e `prog1_time` due to limited space
 |load1_name: | Optional |  | Set the display name for the non-essential load 1
 |load2_name: | Optional |  |Set the display name for the non-essential load 2
+|load3_name: | Optional |  |Set the display name for the non-essential load 3
 |load1_icon: | Optional | `default` | Change the non-essential load 1 image using presets or any mdi icon e.g. `mdi:ev-station`. Presets are: `default`, `oven`, `boiler`, `pump`, `aircon` |
 |load2_icon: | Optional | `default` | Change the non-essential load 2 image using presets or any mdi icon e.g. `mdi:ev-station`. Presets are: `default`, `oven`, `boiler`, `pump`, `aircon` |
+|load3_icon: | Optional | none | Change the non-essential load 3 image using any mdi icon e.g. `mdi:ev-station`. |
 |invert_grid:| Optional | `false`| Set to `true` if your sensor provides a negative number for grid import and positive number for grid export |
 |animation_speed: | Optional | `8` | Set slowest animation speed in seconds, depending on power draw |
 |max_power: | Optional | `8000` | Maximum power draw to calculate animation speed |
