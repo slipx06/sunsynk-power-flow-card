@@ -319,8 +319,8 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         //essential = inverter_power_175 + grid_power_169 - aux_power_166
         let essential = (config.entities.essential_power === 'none' || !config.entities.essential_power) ?
-            parseInt(stateObj22.state) + parseInt(stateObj23.state) - parseInt(stateObj24.state) :
-            parseInt(stateObj14.state);
+            this.toNum(stateObj22.state, 0) + this.toNum(stateObj23.state, 0) - this.toNum(stateObj24.state, 0) :
+            this.toNum(stateObj14.state, 0);
 
         //nonessential = grid_ct_power_172 - grid_power_169
         //let nonessential = (config.entities.nonessential_power === 'none' || !config.entities.nonessential_power) ?
@@ -616,28 +616,28 @@ export class SunsynkPowerFlowCard extends LitElement {
         }
 
         if (config && config.battery && config.battery.animation_speed) {
-            const speed = config.battery.animation_speed - ((config.battery.animation_speed - 1) * ((battery_power < 0 ? battery_power * -1 : battery_power) / (config.battery.max_power || (battery_power < 0 ? battery_power * -1 : battery_power))));
+            const speed = config.battery.animation_speed - ((config.battery.animation_speed - 1) * (Math.abs(battery_power)  / (config.battery.max_power || Math.abs(battery_power))));
             this.changeAnimationSpeed(`battery`, speed);
         }
 
         if (config && config.load && config.load.animation_speed) {
-            const speed = config.load.animation_speed - ((config.load.animation_speed - 1) * (essential / (config.load.max_power || essential)));
+            const speed = config.load.animation_speed - ((config.load.animation_speed - 1) * (Math.abs(essential) / (config.load.max_power || Math.abs(essential))));
             this.changeAnimationSpeed(`load`, speed);
         }
 
         if (config && config.load && config.load.animation_speed) {
-            const speed = config.load.animation_speed - ((config.load.animation_speed - 1) * ((parseInt(stateObj24.state) < 0 ? parseInt(stateObj24.state) * -1 : parseInt(stateObj24.state)) / (config.load.max_power || (parseInt(stateObj24.state) < 0 ? parseInt(stateObj24.state) * -1 : parseInt(stateObj24.state)))));
+            const speed = config.load.animation_speed - ((config.load.animation_speed - 1) * (Math.abs(aux_power) / (config.load.max_power || Math.abs(aux_power))));
             this.changeAnimationSpeed(`aux`, speed);
         }
 
         if (config && config.grid && config.grid.animation_speed) {
-            const speed = config.grid.animation_speed - ((config.grid.animation_speed - 1) * ((parseInt(stateObj15.state) < 0 ? parseInt(stateObj15.state) * -1 : parseInt(stateObj15.state)) / (config.grid.max_power || (parseInt(stateObj15.state) < 0 ? parseInt(stateObj15.state) * -1 : parseInt(stateObj15.state)))));
+            const speed = config.grid.animation_speed - ((config.grid.animation_speed - 1) * (Math.abs(total_grid_power) / (config.grid.max_power || Math.abs(total_grid_power))));
             this.changeAnimationSpeed(`grid1`, speed);
             this.changeAnimationSpeed(`grid`, speed);
         }
 
         if (config && config.grid && config.grid.animation_speed) {
-            const speed = config.grid.animation_speed - ((config.grid.animation_speed - 1) * (nonessential / (config.grid.max_power || nonessential)));
+            const speed = config.grid.animation_speed - ((config.grid.animation_speed - 1) * (Math.abs(nonessential) / (config.grid.max_power || Math.abs(nonessential))));
             this.changeAnimationSpeed(`ne`, speed);
         }
 
@@ -1405,8 +1405,8 @@ export class SunsynkPowerFlowCard extends LitElement {
 
                             <g display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}">
                                 <foreignObject x="343" y="341" width="30" height="30" style="position: fixed; ">
-                                    <
-                                    <div style="position: fixed; ">body xmlns="http://www.w3.org/1999/xhtml">
+                                    <body xmlns="http://www.w3.org/1999/xhtml">
+                                    <div style="position: fixed; ">
                                         <ha-icon icon="${load2_icon}" class="nonessload-icon"></ha-icon>
                                     </div>
                                     </body>
