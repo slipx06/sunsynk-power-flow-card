@@ -1,5 +1,5 @@
 import {CSSResultGroup, html, LitElement, svg} from 'lit';
-import {customElement, property} from 'lit/decorators.js';
+import {customElement, property, query} from 'lit/decorators.js';
 import {HomeAssistant} from 'custom-card-helpers';
 import {styles} from './style';
 import {
@@ -37,6 +37,21 @@ console.groupEnd();
 export class SunsynkPowerFlowCard extends LitElement {
     @property() public hass!: HomeAssistant;
     @property() private _config!: sunsynkPowerFlowCardConfig;
+    @query("#grid-flow") gridFlow?: SVGSVGElement;
+    @query("#grid1-flow") grid1Flow?: SVGSVGElement;
+    @query("#solar-flow") solarFlow?: SVGSVGElement;
+    @query("#pv1-flow") pv1Flow?: SVGSVGElement;
+    @query("#pv2-flow") pv2Flow?: SVGSVGElement;
+    @query("#pv3-flow") pv3Flow?: SVGSVGElement;
+    @query("#pv4-flow") pv4Flow?: SVGSVGElement;
+    @query("#battery-flow") batteryFlow?: SVGSVGElement;
+    @query("#load-flow") loadFlow?: SVGSVGElement;
+    @query("#aux-flow") auxFlow?: SVGSVGElement;
+    @query("#ne-flow") neFlow?: SVGSVGElement;
+    @query("#ne1-flow") ne1Flow?: SVGSVGElement;
+
+    private durationPrev: { [name: string]: number } = {};
+    private durationCur: { [name: string]: number } = {};
 
     static get styles(): CSSResultGroup {
         return styles;
@@ -284,7 +299,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let bat_full = config.battery?.full_capacity;
         let bat_empty = config.battery?.empty_capacity;
         let energy_cost_decimals = config.grid?.energy_cost_decimals === 0 ? 0 : config.grid?.energy_cost_decimals || 2;
-        let energy_cost = total_grid_power >= 0 ? parseFloat(stateObj43.state).toFixed(energy_cost_decimals) : parseFloat(stateObj51.state).toFixed(energy_cost_decimals);
+        let energy_cost = total_grid_power >= 0 ? this.toNum(stateObj43.state, energy_cost_decimals) : this.toNum(stateObj51.state, energy_cost_decimals);
         let inverterModel = InverterModel.Sunsynk;
 
         // Check if the userInputModel is a valid inverter model
@@ -293,19 +308,19 @@ export class SunsynkPowerFlowCard extends LitElement {
         }
 
         //totalsolar = pv1_power_186 + pv2_power_187 + pv3_power_188 + pv4_power_189
-        let totalsolar = (
-            parseInt(parseFloat(stateObj8.state || '0').toFixed(0)) +
-            parseInt(parseFloat(stateObj9.state || '0').toFixed(0)) +
-            parseInt(parseFloat(stateObj31.state || '0').toFixed(0)) +
-            parseInt(parseFloat(stateObj32.state || '0').toFixed(0))
-        );
+        let totalsolar =
+            this.toNum(stateObj8.state || '0', 0) +
+            this.toNum(stateObj9.state || '0', 0) +
+            this.toNum(stateObj31.state || '0', 0) +
+            this.toNum(stateObj32.state || '0', 0)
+        ;
 
         let total_pv = config.entities?.pv_total ? parseInt(stateObj46.state) : totalsolar;
 
         //essential = inverter_power_175 + grid_power_169 - aux_power_166
         let essential = (config.entities.essential_power === 'none' || !config.entities.essential_power) ?
-            parseInt(stateObj22.state) + parseInt(stateObj23.state) - parseInt(stateObj24.state) :
-            parseInt(stateObj14.state);
+            this.toNum(stateObj22.state, 0) + this.toNum(stateObj23.state, 0) - this.toNum(stateObj24.state, 0) :
+            this.toNum(stateObj14.state, 0);
 
         //nonessential = grid_ct_power_172 - grid_power_169
         //let nonessential = (config.entities.nonessential_power === 'none' || !config.entities.nonessential_power) ?
@@ -419,11 +434,12 @@ export class SunsynkPowerFlowCard extends LitElement {
             }
         }
 
-        if (grid_voltage != null && !isNaN(grid_voltage)) {
-            grid_status = grid_voltage > 0 ? 'on' : 'off';
+        if (grid_voltage != null && !Number.isNaN(grid_voltage)) {
+            // the grid voltage can sometimes read decimals like 0.1, in cases where there is power trickled back.
+            grid_status = grid_voltage > 50 ? 'on' : 'off';
         }
 
-        if (battery_current_direction != null && !isNaN(battery_current_direction)) {
+        if (battery_current_direction != null && !Number.isNaN(battery_current_direction)) {
             if (inverterModel == InverterModel.Solis && battery_current_direction === 0) {
                 battery_power = -battery_power;
             }
@@ -590,40 +606,39 @@ export class SunsynkPowerFlowCard extends LitElement {
         let Ratiop = production_p != 0 ? Math.min(Math.round((consumption_p * 100) / production_p), 100) : 0;
 
         //Calculate power use animation speeds depending on Inverter size
-        let solar_animation_speed = config.solar?.animation_speed;
         if (config && config.solar && config.solar.animation_speed) {
-            let speed = config.solar.animation_speed - ((config.solar.animation_speed - 1) * (totalsolar / (config.solar.max_power || totalsolar)));
-            solar_animation_speed = speed >= 1 ? speed : 1;
+            const speed = config.solar.animation_speed - ((config.solar.animation_speed - 1) * (totalsolar / (config.solar.max_power || totalsolar)));
+            this.changeAnimationSpeed(`solar`, speed);
+            this.changeAnimationSpeed(`pv1`, speed);
+            this.changeAnimationSpeed(`pv2`, speed);
+            this.changeAnimationSpeed(`pv3`, speed);
+            this.changeAnimationSpeed(`pv4`, speed);
         }
 
-        let battery_animation_speed = config.battery?.animation_speed;
         if (config && config.battery && config.battery.animation_speed) {
-            let speed = config.battery.animation_speed - ((config.battery.animation_speed - 1) * ((battery_power < 0 ? battery_power * -1 : battery_power) / (config.battery.max_power || (battery_power < 0 ? battery_power * -1 : battery_power))));
-            battery_animation_speed = speed >= 1 ? speed : 1;
+            const speed = config.battery.animation_speed - ((config.battery.animation_speed - 1) * (Math.abs(battery_power)  / (config.battery.max_power || Math.abs(battery_power))));
+            this.changeAnimationSpeed(`battery`, speed);
         }
 
-        let load_animation_speed = config.load?.animation_speed;
         if (config && config.load && config.load.animation_speed) {
-            let speed = config.load.animation_speed - ((config.load.animation_speed - 1) * (essential / (config.load.max_power || essential)));
-            load_animation_speed = speed >= 1 ? speed : 1;
+            const speed = config.load.animation_speed - ((config.load.animation_speed - 1) * (Math.abs(essential) / (config.load.max_power || Math.abs(essential))));
+            this.changeAnimationSpeed(`load`, speed);
         }
 
-        let aux_animation_speed = config.load?.animation_speed;
         if (config && config.load && config.load.animation_speed) {
-            let speed = config.load.animation_speed - ((config.load.animation_speed - 1) * ((parseInt(stateObj24.state) < 0 ? parseInt(stateObj24.state) * -1 : parseInt(stateObj24.state)) / (config.load.max_power || (parseInt(stateObj24.state) < 0 ? parseInt(stateObj24.state) * -1 : parseInt(stateObj24.state)))));
-            aux_animation_speed = speed >= 1 ? speed : 1;
+            const speed = config.load.animation_speed - ((config.load.animation_speed - 1) * (Math.abs(aux_power) / (config.load.max_power || Math.abs(aux_power))));
+            this.changeAnimationSpeed(`aux`, speed);
         }
 
-        let grid_animation_speed = config.grid?.animation_speed;
         if (config && config.grid && config.grid.animation_speed) {
-            let speed = config.grid.animation_speed - ((config.grid.animation_speed - 1) * ((parseInt(stateObj15.state) < 0 ? parseInt(stateObj15.state) * -1 : parseInt(stateObj15.state)) / (config.grid.max_power || (parseInt(stateObj15.state) < 0 ? parseInt(stateObj15.state) * -1 : parseInt(stateObj15.state)))));
-            grid_animation_speed = speed >= 1 ? speed : 1;
+            const speed = config.grid.animation_speed - ((config.grid.animation_speed - 1) * (Math.abs(total_grid_power) / (config.grid.max_power || Math.abs(total_grid_power))));
+            this.changeAnimationSpeed(`grid1`, speed);
+            this.changeAnimationSpeed(`grid`, speed);
         }
 
-        let ne_animation_speed = config.grid?.animation_speed;
         if (config && config.grid && config.grid.animation_speed) {
-            let speed = config.grid.animation_speed - ((config.grid.animation_speed - 1) * (nonessential / (config.grid.max_power || nonessential)));
-            ne_animation_speed = speed >= 1 ? speed : 1;
+            const speed = config.grid.animation_speed - ((config.grid.animation_speed - 1) * (Math.abs(nonessential) / (config.grid.max_power || Math.abs(nonessential))));
+            this.changeAnimationSpeed(`ne`, speed);
         }
 
         let round = config.decimal_places;
@@ -976,169 +991,207 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <path id="es-load2" d="M 412 80 L 412 53" display="${show_aux !== true ? '' : 'none'}"
                                   class="${additional_load === 2 ? '' : 'st12'}" fill="none" stroke="${load_colour}"
                                   stroke-width="1" stroke-miterlimit="10" pointer-events="stroke"/>
-                            <path id="pv1-line"
-                                  d="${config.solar.mppts === 1 ? 'M 86 175 M 155 250 L 96 250 Q 86 250 86 240 L 86 56 H 70' : 'M 86 162 L 86 56 Q 86 56 86 56 L 70 56'}"
-                                  class="${!config.show_solar ? 'st12' : ''}" fill="none"
-                                  stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
-                                  pointer-events="stroke"/>
-                            <circle id="pv1-dot" cx="0" cy="0" r="3"
-                                    class="${!config.show_solar ? 'st12' : ''}"
-                                    fill="${parseInt(stateObj9.state) <= 0 ? 'transparent' : `${solar_colour}`}">
-                                <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="1;0"
-                                               keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#pv1-line"/>
-                                </animateMotion>
-                            </circle>
-                            <path id="pv2-line" d="M 86 162 L 86 56 Q 86 56 86 56 L 101 56"
-                                  class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
-                                  fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
-                                  pointer-events="stroke"/>
-                            <circle id="pv2-dot" cx="0" cy="0" r="3"
-                                    class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
-                                    fill="${parseInt(stateObj8.state) <= 0 ? 'transparent' : `${solar_colour}`}">
-                                <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="1;0"
-                                               keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#pv2-line"/>
-                                </animateMotion>
-                            </circle>
-                            <path id="pv3-line" d="M 86 162 L 86 115 Q 86 115 86 115 L 70 115"
-                                  class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'st12' : ''}"
-                                  fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
-                                  pointer-events="stroke"/>
-                            <circle id="pv3-dot" cx="0" cy="0" r="3"
-                                    class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'st12' : ''}"
-                                    fill="${parseInt(stateObj31.state) <= 0 ? 'transparent' : `${solar_colour}`}">
-                                <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="1;0"
-                                               keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#pv3-line"/>
-                                </animateMotion>
-                            </circle>
-                            <path id="pv4-line" d="M 86 162 L 86 115 Q 86 115 86 115 L 101 115"
-                                  class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'st12' : ''}"
-                                  fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
-                                  pointer-events="stroke"/>
-                            <circle id="pv4-dot" cx="0" cy="0" r="3"
-                                    class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'st12' : ''}"
-                                    fill="${parseInt(stateObj32.state) <= 0 ? 'transparent' : `${solar_colour}`}">
-                                <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="1;0"
-                                               keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#pv4-line"/>
-                                </animateMotion>
-                            </circle>
-                            <path id="so-line" d="M 155 250 L 96 250 Q 86 250 86 240 L 86 192"
-                                  class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
-                                  fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
-                                  pointer-events="stroke"/>
-                            <circle id="so-dot" cx="0" cy="0" r="3"
-                                    class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
-                                    fill="${totalsolar === 0 ? 'transparent' : `${solar_colour}`}">
-                                <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="1;0"
-                                               keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#so-line"/>
-                                </animateMotion>
-                            </circle>
-                            <path id="bat-line" d="M 155 280 L 91 280 Q 85 280 86 286 L 86 297"
-                                  class="${config.show_battery === false ? 'st12' : ''}" fill="none"
-                                  stroke="${battery_colour}" stroke-width="1" stroke-miterlimit="10"
-                                  pointer-events="stroke"/>
-                            <circle id="power-dot-charge" cx="0" cy="0" r="3"
-                                    class="${config.show_battery === false ? 'st12' : ''}"
-                                    fill="${battery_power < 0 || battery_power === 0 ? 'transparent' : `${battery_colour}`}">
-                                <animateMotion dur="${battery_animation_speed}s" repeatCount="indefinite"
-                                               keyPoints="1;0" keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#bat-line"/>
-                                </animateMotion>
-                            </circle>
-                            <circle id="power-dot-discharge" cx="0" cy="0" r="3"
-                                    class="${config.show_battery === false ? 'st12' : ''}"
-                                    fill="${battery_power > 0 || battery_power === 0 ? 'transparent' : `${battery_colour}`}">
-                                <animateMotion dur="${battery_animation_speed}s" repeatCount="indefinite"
-                                               keyPoints="0;1" keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#bat-line"/>
-                                </animateMotion>
-                            </circle>
-                            <path id="grid-line" d="M 304 188 L 411 188 Q 421 188 421 198 L421 265" fill="none"
-                                  stroke="${grid_colour}" stroke-width="1" stroke-miterlimit="10"
-                                  pointer-events="stroke" display="${config.show_grid === false ? 'none' : ''}"/>
-                            <circle id="grid-dot" cx="0" cy="0" r="3"
-                                    fill="${total_grid_power < 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
-                                    display="${config.show_grid === false ? 'none' : ''}">
-                                <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="1;0"
-                                               keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#grid-line"/>
-                                </animateMotion>
-                            </circle>
-                            <circle id="grid-dot" cx="0" cy="0" r="3"
-                                    fill="${total_grid_power > 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
-                                    display="${config.show_grid === false ? 'none' : ''}">
-                                <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="0;1"
-                                               keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#grid-line"/>
-                                </animateMotion>
-                            </circle>
-                            <path id="grid-line1"
-                                  d="${config.inverter.three_phase ? 'M 421 295 L 421 337' : 'M 421 295 L 421 310.5'}"
-                                  fill="none" stroke="${grid_colour}" stroke-width="1" stroke-miterlimit="10"
-                                  pointer-events="stroke" display="${config.show_grid === false ? 'none' : ''}"/>
-                            <circle id="grid-dot" cx="0" cy="0" r="3"
-                                    fill="${total_grid_power < 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
-                                    display="${config.show_grid === false ? 'none' : ''}">
-                                <animateMotion dur="${grid_animation_speed / 2}s" repeatCount="indefinite"
-                                               keyPoints="1;0" keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#grid-line1"/>
-                                </animateMotion>
-                            </circle>
-                            <circle id="grid-dot" cx="0" cy="0" r="3"
-                                    fill="${total_grid_power > 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
-                                    display="${config.show_grid === false ? 'none' : ''}">
-                                <animateMotion dur="${grid_animation_speed / 2}s" repeatCount="indefinite"
-                                               keyPoints="0;1" keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#grid-line1"/>
-                                </animateMotion>
-                            </circle>
-                            <path id="ne-line1" d="M 339 295 L 339 310" fill="none" stroke="${grid_colour}"
-                                  stroke-width="1" stroke-miterlimit="10"
-                                  display="${config.show_grid === false ? 'none' : ''}"
-                                  class="${grid_show_noness === false ? 'st12' : ''}" pointer-events="stroke"/>
-                            <circle id="ne-dot1" cx="0" cy="0" r="3" class="${grid_show_noness === false ? 'st12' : ''}"
-                                    fill="${nonessential <= 0 ? 'transparent' : `${grid_colour}`}"
-                                    display="${config.show_grid === false ? 'none' : ''}">
-                                <animateMotion dur="${ne_animation_speed / 2}s" repeatCount="indefinite" keyPoints="0;1"
-                                               keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#ne-line1"/>
-                                </animateMotion>
-                            </circle>
-                            <path id="ne-line" d="M 339 265 L 339 188" fill="none" stroke="${grid_colour}"
-                                  stroke-width="1" stroke-miterlimit="10"
-                                  display="${config.show_grid === false ? 'none' : ''}"
-                                  class="${grid_show_noness === false ? 'st12' : ''}" pointer-events="stroke"/>
-                            <circle id="ne-dot" cx="0" cy="0" r="3" class="${grid_show_noness === false ? 'st12' : ''}"
-                                    fill="${nonessential <= 0 ? 'transparent' : `${grid_colour}`}"
-                                    display="${config.show_grid === false ? 'none' : ''}">
-                                <animateMotion dur="${ne_animation_speed}s" repeatCount="indefinite" keyPoints="1;0"
-                                               keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#ne-line"/>
-                                </animateMotion>
-                            </circle>
-                            <path id="aux-line" d="M 307 47 L 371.5 47" fill="none"
-                                  class="${show_aux !== true ? 'st12' : ''}" stroke="${aux_colour}" stroke-width="1"
-                                  stroke-miterlimit="10" pointer-events="stroke"/>
-                            <circle id="aux-dot" cx="0" cy="0" r="3"
-                                    class="${show_aux !== true || aux_power === 0 ? 'st12' : ''}"
-                                    fill="${aux_power < 0 ? 'transparent' : `${aux_colour}`}">
-                                <animateMotion dur="${aux_animation_speed}s" repeatCount="indefinite" keyPoints="0;1"
-                                               keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#aux-line"/>
-                                </animateMotion>
-                            </circle>
-                            <circle id="aux-dot" cx="0" cy="0" r="3"
-                                    class="${show_aux !== true || aux_power === 0 ? 'st12' : ''}"
-                                    fill="${aux_power > 0 ? 'transparent' : `${aux_colour}`}">
-                                <animateMotion dur="${aux_animation_speed}s" repeatCount="indefinite" keyPoints="1;0"
-                                               keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#aux-line"/>
-                                </animateMotion>
-                            </circle>
+                            <svg id="pv1-flow">
+                                <path id="pv1-line"
+                                      d="${config.solar.mppts === 1 ? 'M 86 175 M 155 250 L 96 250 Q 86 250 86 240 L 86 56 H 70' : 'M 86 162 L 86 56 Q 86 56 86 56 L 70 56'}"
+                                      class="${!config.show_solar ? 'st12' : ''}" fill="none"
+                                      stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
+                                      pointer-events="stroke"/>
+                                <circle id="pv1-dot" cx="0" cy="0" r="3"
+                                        class="${!config.show_solar ? 'st12' : ''}"
+                                        fill="${parseInt(stateObj9.state) <= 0 ? 'transparent' : `${solar_colour}`}">
+                                    <animateMotion dur="${this.durationCur['pv1']}s" repeatCount="indefinite"
+                                                   keyPoints="1;0"
+                                                   keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#pv1-line"/>
+                                    </animateMotion>
+                                </circle>
+                            </svg>
+                            <svg id="pv2-flow">
+                                <path id="pv2-line" d="M 86 162 L 86 56 Q 86 56 86 56 L 101 56"
+                                      class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
+                                      fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
+                                      pointer-events="stroke"/>
+                                <circle id="pv2-dot" cx="0" cy="0" r="3"
+                                        class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
+                                        fill="${parseInt(stateObj8.state) <= 0 ? 'transparent' : `${solar_colour}`}">
+                                    <animateMotion dur="${this.durationCur['pv2']}s" repeatCount="indefinite"
+                                                   keyPoints="1;0"
+                                                   keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#pv2-line"/>
+                                    </animateMotion>
+                                </circle>
+                            </svg>
+                            <svg id="pv3-flow">
+                                <path id="pv3-line" d="M 86 162 L 86 115 Q 86 115 86 115 L 70 115"
+                                      class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'st12' : ''}"
+                                      fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
+                                      pointer-events="stroke"/>
+                                <circle id="pv3-dot" cx="0" cy="0" r="3"
+                                        class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'st12' : ''}"
+                                        fill="${parseInt(stateObj31.state) <= 0 ? 'transparent' : `${solar_colour}`}">
+                                    <animateMotion dur="${this.durationCur['pv3']}s" repeatCount="indefinite"
+                                                   keyPoints="1;0"
+                                                   keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#pv3-line"/>
+                                    </animateMotion>
+                                </circle>
+                            </svg>
+                            <svg id="pv4-flow">
+                                <path id="pv4-line" d="M 86 162 L 86 115 Q 86 115 86 115 L 101 115"
+                                      class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'st12' : ''}"
+                                      fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
+                                      pointer-events="stroke"/>
+                                <circle id="pv4-dot" cx="0" cy="0" r="3"
+                                        class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'st12' : ''}"
+                                        fill="${parseInt(stateObj32.state) <= 0 ? 'transparent' : `${solar_colour}`}">
+                                    <animateMotion dur="${this.durationCur['pv4']}s" repeatCount="indefinite"
+                                                   keyPoints="1;0"
+                                                   keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#pv4-line"/>
+                                    </animateMotion>
+                                </circle>
+                            </svg>
+                            <svg id="solar-flow">
+                                <path id="so-line" d="M 155 250 L 96 250 Q 86 250 86 240 L 86 192"
+                                      class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
+                                      fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
+                                      pointer-events="stroke"/>
+                                <circle id="so-dot" cx="0" cy="0" r="3"
+                                        class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
+                                        fill="${totalsolar === 0 ? 'transparent' : `${solar_colour}`}">
+                                    <animateMotion dur="${this.durationCur['solar']}s" repeatCount="indefinite"
+                                                   keyPoints="1;0"
+                                                   keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#so-line"/>
+                                    </animateMotion>
+                                </circle>
+                            </svg>
+                            <svg id="battery-flow">
+                                <path id="bat-line" d="M 155 280 L 91 280 Q 85 280 86 286 L 86 297"
+                                      class="${config.show_battery === false ? 'st12' : ''}" fill="none"
+                                      stroke="${battery_colour}" stroke-width="1" stroke-miterlimit="10"
+                                      pointer-events="stroke"/>
+                                <circle id="power-dot-charge" cx="0" cy="0" r="3"
+                                        class="${config.show_battery === false ? 'st12' : ''}"
+                                        fill="${battery_power < 0 || battery_power === 0 ? 'transparent' : `${battery_colour}`}">
+                                    <animateMotion dur="${this.durationCur['battery']}s" repeatCount="indefinite"
+                                                   keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#bat-line"/>
+                                    </animateMotion>
+                                </circle>
+                                <circle id="power-dot-discharge" cx="0" cy="0" r="3"
+                                        class="${config.show_battery === false ? 'st12' : ''}"
+                                        fill="${battery_power > 0 || battery_power === 0 ? 'transparent' : `${battery_colour}`}">
+                                    <animateMotion dur="${this.durationCur['battery']}s" repeatCount="indefinite"
+                                                   keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#bat-line"/>
+                                    </animateMotion>
+                                </circle>
+                            </svg>
+                            <svg id="grid-flow">
+                                <path id="grid-line" d="M 304 188 L 411 188 Q 421 188 421 198 L421 265" fill="none"
+                                      stroke="${grid_colour}" stroke-width="1" stroke-miterlimit="10"
+                                      pointer-events="stroke" display="${config.show_grid === false ? 'none' : ''}"/>
+                                <circle id="grid-dot" cx="0" cy="0" r="3"
+                                        fill="${total_grid_power < 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
+                                        display="${config.show_grid === false ? 'none' : ''}">
+                                    <animateMotion dur="${this.durationCur['grid']}s" repeatCount="indefinite"
+                                                   keyPoints="1;0"
+                                                   keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#grid-line"/>
+                                    </animateMotion>
+                                </circle>
+                                <circle id="grid-dot" cx="0" cy="0" r="3"
+                                        fill="${total_grid_power > 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
+                                        display="${config.show_grid === false ? 'none' : ''}">
+                                    <animateMotion dur="${this.durationCur['grid']}s" repeatCount="indefinite"
+                                                   keyPoints="0;1"
+                                                   keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#grid-line"/>
+                                    </animateMotion>
+                                </circle>
+                            </svg>
+                            <svg id="grid1-flow">
+                                <path id="grid-line1"
+                                      d="${config.inverter.three_phase ? 'M 421 295 L 421 337' : 'M 421 295 L 421 310.5'}"
+                                      fill="none" stroke="${grid_colour}" stroke-width="1" stroke-miterlimit="10"
+                                      pointer-events="stroke" display="${config.show_grid === false ? 'none' : ''}"/>
+                                <circle id="grid-dot" cx="0" cy="0" r="3"
+                                        fill="${total_grid_power < 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
+                                        display="${config.show_grid === false ? 'none' : ''}">
+                                    <animateMotion dur="${this.durationCur['grid'] / 1.5}s" repeatCount="indefinite"
+                                                   keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#grid-line1"/>
+                                    </animateMotion>
+                                </circle>
+                                <circle id="grid-dot" cx="0" cy="0" r="3"
+                                        fill="${total_grid_power > 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
+                                        display="${config.show_grid === false ? 'none' : ''}">
+                                    <animateMotion dur="${this.durationCur['grid'] / 1.5}s" repeatCount="indefinite"
+                                                   keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#grid-line1"/>
+                                    </animateMotion>
+                                </circle>
+                            </svg>
+                            <svg id="ne1-flow">
+                                <path id="ne-line1" d="M 339 295 L 339 310" fill="none" stroke="${grid_colour}"
+                                      stroke-width="1" stroke-miterlimit="10"
+                                      display="${config.show_grid === false ? 'none' : ''}"
+                                      class="${grid_show_noness === false ? 'st12' : ''}" pointer-events="stroke"/>
+                                <circle id="ne-dot1" cx="0" cy="0" r="3"
+                                        class="${grid_show_noness === false ? 'st12' : ''}"
+                                        fill="${nonessential <= 0 ? 'transparent' : `${grid_colour}`}"
+                                        display="${config.show_grid === false ? 'none' : ''}">
+                                    <animateMotion dur="${this.durationCur['ne'] / 1.5}s" repeatCount="indefinite"
+                                                   keyPoints="0;1"
+                                                   keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#ne-line1"/>
+                                    </animateMotion>
+                                </circle>
+                            </svg>
+
+                            <svg id="ne-flow">
+                                <path id="ne-line" d="M 339 265 L 339 188" fill="none" stroke="${grid_colour}"
+                                      stroke-width="1" stroke-miterlimit="10"
+                                      display="${config.show_grid === false ? 'none' : ''}"
+                                      class="${grid_show_noness === false ? 'st12' : ''}" pointer-events="stroke"/>
+                                <circle id="ne-dot" cx="0" cy="0" r="3"
+                                        class="${grid_show_noness === false ? 'st12' : ''}"
+                                        fill="${nonessential <= 0 ? 'transparent' : `${grid_colour}`}"
+                                        display="${config.show_grid === false ? 'none' : ''}">
+                                    <animateMotion dur="${this.durationCur['ne']}s" repeatCount="indefinite"
+                                                   keyPoints="1;0"
+                                                   keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#ne-line"/>
+                                    </animateMotion>
+                                </circle>
+                            </svg>
+
+                            <svg id="aux-flow">
+                                <path id="aux-line" d="M 307 47 L 371.5 47" fill="none"
+                                      class="${show_aux !== true ? 'st12' : ''}" stroke="${aux_colour}" stroke-width="1"
+                                      stroke-miterlimit="10" pointer-events="stroke"/>
+                                <circle id="aux-dot" cx="0" cy="0" r="3"
+                                        class="${show_aux !== true || aux_power === 0 ? 'st12' : ''}"
+                                        fill="${aux_power < 0 ? 'transparent' : `${aux_colour}`}">
+                                    <animateMotion dur="${this.durationCur['aux']}s" repeatCount="indefinite"
+                                                   keyPoints="0;1"
+                                                   keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#aux-line"/>
+                                    </animateMotion>
+                                </circle>
+                                <circle id="aux-dot" cx="0" cy="0" r="3"
+                                        class="${show_aux !== true || aux_power === 0 ? 'st12' : ''}"
+                                        fill="${aux_power > 0 ? 'transparent' : `${aux_colour}`}">
+                                    <animateMotion dur="${this.durationCur['aux']}s" repeatCount="indefinite"
+                                                   keyPoints="1;0"
+                                                   keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#aux-line"/>
+                                    </animateMotion>
+                                </circle>
+                            </svg>
+
                             <path id="aux-line2" d="M 200 162 L 200 57 Q 200 47 210 47 L 237 47" fill="none"
                                   class="${show_aux !== true ? 'st12' : ''}" stroke="${aux_colour}" stroke-width="1"
                                   stroke-miterlimit="10" pointer-events="stroke"/>
@@ -1150,17 +1203,21 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   pointer-events="stroke"/>
                             <path id="es-line2" d="M 306 118 L 374 118" fill="none" stroke="${load_colour}"
                                   stroke-width="1" stroke-miterlimit="10" pointer-events="stroke"/>
-                            <circle id="es-dot" cx="0" cy="0" r="3"
-                                    fill="${essential === 0 ? 'transparent' : `${load_colour}`}">
-                                <animateMotion dur="${load_animation_speed}s" repeatCount="indefinite" keyPoints="0;1"
-                                               keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#es-line2"/>
-                                </animateMotion>
-                            </circle>
-                            <path id="es-line" d="M 235 118 L 212 118 Q 200 118 200 128 L 200 162" fill="none"
-                                  stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"
-                                  pointer-events="stroke"/>
-                            
+
+                            <svg id="load-flow">
+                                <circle id="es-dot" cx="0" cy="0" r="3"
+                                        fill="${essential === 0 ? 'transparent' : `${load_colour}`}">
+                                    <animateMotion dur="${this.durationCur['load']}s" repeatCount="indefinite"
+                                                   keyPoints="0;1"
+                                                   keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#es-line2"/>
+                                    </animateMotion>
+                                </circle>
+                                <path id="es-line" d="M 235 118 L 212 118 Q 200 118 200 128 L 200 162" fill="none"
+                                      stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"
+                                      pointer-events="stroke"/>
+                            </svg>
+
                             <svg xmlns="http://www.w3.org/2000/svg" x="154.5" y="224.75" width="54"
                                  height="79" viewBox="0 0 74 91" preserveAspectRatio="xMidYMid meet">
                                 <g transform="translate(0.000000,91.000000) scale(0.100000,-0.100000)"
@@ -1928,7 +1985,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </text>
                             </a>`
                                     : svg` <text id="pvtotal_power" x="87" y="178" class="${font !== true ? 'st14' : 'st4'} st8" display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${config.solar.auto_scale ? `${convertValue(total_pv, round) || 0}` : `${total_pv || 0} W`}</text>`}
-                            ${config.entities?.essential_power
+                            ${config.entities?.essential_power && config.entities.essential_power !== 'none'
                                     ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_power)}>
                                 <text id="ess_power" x="270" y="119" class="${font !== true ? 'st14' : 'st4'} st8" 
                                       fill="${load_colour}">
@@ -2472,143 +2529,175 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     display="${config.entities?.battery_status === 'none' || !config.entities?.battery_status ? 'none' : ''}"
                                     fill="${batteryStateColour}"/>
 
-                            <path id="pv1-line"
-                                  d="${config.solar.mppts === 1 ? 'M 239.23 84 L 239 190' : 'M 187 84 L 187 122 Q 187 132 195 132 L 205 132.03'}"
-                                  class="${!config.show_solar ? 'st12' : ''}" fill="none"
-                                  stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
-                                  pointer-events="stroke"/>
-                            <circle id="pv1-dot" cx="0" cy="0" r="3"
-                                    class="${!config.show_solar ? 'st12' : ''}"
-                                    fill="${parseInt(stateObj9.state) <= 0 ? 'transparent' : `${solar_colour}`}">
-                                <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="0;1"
-                                               keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#pv1-line"/>
-                                </animateMotion>
-                            </circle>
-                            <path id="pv2-line" d="M 289 84.5 L 289 125 Q 289 132 282 132 L 275 132"
-                                  class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
-                                  fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
-                                  pointer-events="stroke"/>
-                            <circle id="pv2-dot" cx="0" cy="0" r="3"
-                                    class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
-                                    fill="${parseInt(stateObj8.state) <= 0 ? 'transparent' : `${solar_colour}`}">
-                                <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="0;1"
-                                               keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#pv2-line"/>
-                                </animateMotion>
-                            </circle>
-                            <path id="pv3-line" d="M 113 84 L 113 125 Q 113 132 120 132 L 205 132.03"
-                                  class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'st12' : ''}"
-                                  fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
-                                  pointer-events="stroke"/>
-                            <circle id="pv3-dot" cx="0" cy="0" r="3"
-                                    class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'st12' : ''}"
-                                    fill="${parseInt(stateObj31.state) <= 0 ? 'transparent' : `${solar_colour}`}">
-                                <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="0;1"
-                                               keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#pv3-line"/>
-                                </animateMotion>
-                            </circle>
-                            <path id="pv4-line" d="M 365 85 L 365 125 Q 365 132 358 132 L 275 132"
-                                  class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'st12' : ''}"
-                                  fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
-                                  pointer-events="stroke"/>
-                            <circle id="pv4-dot" cx="0" cy="0" r="3"
-                                    class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'st12' : ''}"
-                                    fill="${parseInt(stateObj32.state) <= 0 ? 'transparent' : `${solar_colour}`}">
-                                <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="0;1"
-                                               keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#pv4-line"/>
-                                </animateMotion>
-                            </circle>
-                            <path id="bat-line" d="M 239.23 250 L 239.21 288.03 Q 239.21 298.03 239.1 308.02 L 239 324"
-                                  class="${config.show_battery === false ? 'st12' : ''}" fill="none"
-                                  stroke="${battery_colour}" stroke-width="1" stroke-miterlimit="10"
-                                  pointer-events="stroke"/>
-                            <circle id="power-dot-charge" cx="0" cy="0" r="3"
-                                    class="${config.show_battery === false ? 'st12' : ''}"
-                                    fill="${battery_power < 0 || battery_power === 0 ? 'transparent' : `${battery_colour}`}">
-                                <animateMotion dur="${battery_animation_speed}s" repeatCount="indefinite"
-                                               keyPoints="1;0" keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#bat-line"/>
-                                </animateMotion>
-                            </circle>
-                            <circle id="power-dot-discharge" cx="0" cy="0" r="3"
-                                    class="${config.show_battery === false ? 'st12' : ''}"
-                                    fill="${battery_power > 0 || battery_power === 0 ? 'transparent' : `${battery_colour}`}">
-                                <animateMotion dur="${battery_animation_speed}s" repeatCount="indefinite"
-                                               keyPoints="0;1" keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#bat-line"/>
-                                </animateMotion>
-                            </circle>
-                            <path id="so-line" d="M 239.23 190 L 239 147"
-                                  class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
-                                  fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
-                                  pointer-events="stroke"/>
-                            <circle id="so-dot" cx="0" cy="0" r="3"
-                                    class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
-                                    fill="${totalsolar === 0 ? 'transparent' : `${solar_colour}`}">
-                                <animateMotion dur="${solar_animation_speed}s" repeatCount="indefinite" keyPoints="1;0"
-                                               keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#so-line"/>
-                                </animateMotion>
-                            </circle>
-                            <path id="grid-line" d="M 173 218.25 L 214 218" fill="none" stroke="${grid_colour}"
-                                  stroke-width="1" stroke-miterlimit="10" pointer-events="stroke"
-                                  display="${config.show_grid === false ? 'none' : ''}"/>
-                            <circle id="grid-dot" cx="0" cy="0" r="3"
-                                    fill="${total_grid_power < 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
-                                    display="${config.show_grid === false ? 'none' : ''}">
-                                <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="0;1"
-                                               keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#grid-line"/>
-                                </animateMotion>
-                            </circle>
-                            <circle id="grid-dot" cx="0" cy="0" r="3"
-                                    fill="${total_grid_power > 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
-                                    display="${config.show_grid === false ? 'none' : ''}">
-                                <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="1;0"
-                                               keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#grid-line"/>
-                                </animateMotion>
-                            </circle>
-                            <path id="grid-line1" d="M 103 218.25 L 64.5 218.25" fill="none" stroke="${grid_colour}"
-                                  stroke-width="1" stroke-miterlimit="10" pointer-events="stroke"
-                                  display="${config.show_grid === false ? 'none' : ''}"/>
-                            <circle id="grid-dot1" cx="0" cy="0" r="3"
-                                    fill="${total_grid_power < 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
-                                    display="${config.show_grid === false ? 'none' : ''}">
-                                <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="1;0"
-                                               keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#grid-line1"/>
-                                </animateMotion>
-                            </circle>
-                            <circle id="grid-dot1" cx="0" cy="0" r="3"
-                                    fill="${total_grid_power > 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
-                                    display="${config.show_grid === false ? 'none' : ''}">
-                                <animateMotion dur="${grid_animation_speed}s" repeatCount="indefinite" keyPoints="0;1"
-                                               keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#grid-line1"/>
-                                </animateMotion>
-                            </circle>
-                            <path id="es-line" d="M 304 218.5 L 264.7 218.48" fill="none" stroke="${load_colour}"
-                                  stroke-width="1" stroke-miterlimit="10" pointer-events="stroke"/>
-                            <circle id="es-dot" cx="0" cy="0" r="3"
-                                    fill="${essential === 0 ? 'transparent' : `${load_colour}`}">
-                                <animateMotion dur="${load_animation_speed}s" repeatCount="indefinite" keyPoints="1;0"
-                                               keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#es-line"/>
-                                </animateMotion>
-                            </circle>
-                            <path id="es-line1" d="M 374 218.5 L 402.38 218.52" fill="none" stroke="${load_colour}"
-                                  stroke-width="1" stroke-miterlimit="10" pointer-events="stroke"/>
-                            <circle id="es-dot" cx="0" cy="0" r="3"
-                                    fill="${essential === 0 ? 'transparent' : `${load_colour}`}">
-                                <animateMotion dur="${load_animation_speed}s" repeatCount="indefinite" keyPoints="0;1"
-                                               keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#es-line1"/>
-                                </animateMotion>
-                            </circle>
+                            <svg id="pv1-flow">
+                                <path id="pv1-line"
+                                      d="${config.solar.mppts === 1 ? 'M 239.23 84 L 239 190' : 'M 187 84 L 187 122 Q 187 132 195 132 L 205 132.03'}"
+                                      class="${!config.show_solar ? 'st12' : ''}" fill="none"
+                                      stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
+                                      pointer-events="stroke"/>
+                                <circle id="pv1-dot" cx="0" cy="0" r="3"
+                                        class="${!config.show_solar ? 'st12' : ''}"
+                                        fill="${parseInt(stateObj9.state) <= 0 ? 'transparent' : `${solar_colour}`}">
+                                    <animateMotion dur="${this.durationCur['pv1']}s" repeatCount="indefinite"
+                                                   keyPoints="0;1"
+                                                   keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#pv1-line"/>
+                                    </animateMotion>
+                                </circle>
+                            </svg>
+                            <svg id="pv2-flow">
+                                <path id="pv2-line" d="M 289 84.5 L 289 125 Q 289 132 282 132 L 275 132"
+                                      class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
+                                      fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
+                                      pointer-events="stroke"/>
+                                <circle id="pv2-dot" cx="0" cy="0" r="3"
+                                        class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
+                                        fill="${parseInt(stateObj8.state) <= 0 ? 'transparent' : `${solar_colour}`}">
+                                    <animateMotion dur="${this.durationCur['pv2']}s" repeatCount="indefinite"
+                                                   keyPoints="0;1"
+                                                   keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#pv2-line"/>
+                                    </animateMotion>
+                                </circle>
+                            </svg>
+                            <svg id="pv3-flow">
+                                <path id="pv3-line" d="M 113 84 L 113 125 Q 113 132 120 132 L 205 132.03"
+                                      class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'st12' : ''}"
+                                      fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
+                                      pointer-events="stroke"/>
+                                <circle id="pv3-dot" cx="0" cy="0" r="3"
+                                        class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'st12' : ''}"
+                                        fill="${parseInt(stateObj31.state) <= 0 ? 'transparent' : `${solar_colour}`}">
+                                    <animateMotion dur="${this.durationCur['pv3']}s" repeatCount="indefinite"
+                                                   keyPoints="0;1"
+                                                   keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#pv3-line"/>
+                                    </animateMotion>
+                                </circle>
+                            </svg>
+                            <svg id="pv4-flow">
+                                <path id="pv4-line" d="M 365 85 L 365 125 Q 365 132 358 132 L 275 132"
+                                      class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'st12' : ''}"
+                                      fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
+                                      pointer-events="stroke"/>
+                                <circle id="pv4-dot" cx="0" cy="0" r="3"
+                                        class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'st12' : ''}"
+                                        fill="${parseInt(stateObj32.state) <= 0 ? 'transparent' : `${solar_colour}`}">
+                                    <animateMotion dur="${this.durationCur['pv4']}s" repeatCount="indefinite"
+                                                   keyPoints="0;1"
+                                                   keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#pv4-line"/>
+                                    </animateMotion>
+                                </circle>
+                            </svg>
+                            <svg id="battery-flow">
+                                <path id="bat-line"
+                                      d="M 239.23 250 L 239.21 288.03 Q 239.21 298.03 239.1 308.02 L 239 324"
+                                      class="${config.show_battery === false ? 'st12' : ''}" fill="none"
+                                      stroke="${battery_colour}" stroke-width="1" stroke-miterlimit="10"
+                                      pointer-events="stroke"/>
+                                <circle id="power-dot-charge" cx="0" cy="0" r="3"
+                                        class="${config.show_battery === false ? 'st12' : ''}"
+                                        fill="${battery_power < 0 || battery_power === 0 ? 'transparent' : `${battery_colour}`}">
+                                    <animateMotion dur="${this.durationCur['battery']}s" repeatCount="indefinite"
+                                                   keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#bat-line"/>
+                                    </animateMotion>
+                                </circle>
+                                <circle id="power-dot-discharge" cx="0" cy="0" r="3"
+                                        class="${config.show_battery === false ? 'st12' : ''}"
+                                        fill="${battery_power > 0 || battery_power === 0 ? 'transparent' : `${battery_colour}`}">
+                                    <animateMotion dur="${this.durationCur['battery']}s" repeatCount="indefinite"
+                                                   keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#bat-line"/>
+                                    </animateMotion>
+                                </circle>
+                            </svg>
+                            <svg id="solar-flow">
+                                <path id="so-line" d="M 239.23 190 L 239 147"
+                                      class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
+                                      fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
+                                      pointer-events="stroke"/>
+                                <circle id="so-dot" cx="0" cy="0" r="3"
+                                        class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
+                                        fill="${totalsolar === 0 ? 'transparent' : `${solar_colour}`}">
+                                    <animateMotion dur="${this.durationCur['solar']}s" repeatCount="indefinite"
+                                                   keyPoints="1;0"
+                                                   keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#so-line"/>
+                                    </animateMotion>
+                                </circle>
+                            </svg>
+                            <svg id="grid-flow">
+                                <path id="grid-line" d="M 173 218.25 L 214 218" fill="none" stroke="${grid_colour}"
+                                      stroke-width="1" stroke-miterlimit="10" pointer-events="stroke"
+                                      display="${config.show_grid === false ? 'none' : ''}"/>
+                                <circle id="grid-dot" cx="0" cy="0" r="3"
+                                        fill="${total_grid_power < 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
+                                        display="${config.show_grid === false ? 'none' : ''}">
+                                    <animateMotion dur="${this.durationCur['grid']}s" repeatCount="indefinite"
+                                                   keyPoints="0;1"
+                                                   keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#grid-line"/>
+                                    </animateMotion>
+                                </circle>
+                                <circle id="grid-dot" cx="0" cy="0" r="3"
+                                        fill="${total_grid_power > 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
+                                        display="${config.show_grid === false ? 'none' : ''}">
+                                    <animateMotion dur="${this.durationCur['grid']}s" repeatCount="indefinite"
+                                                   keyPoints="1;0"
+                                                   keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#grid-line"/>
+                                    </animateMotion>
+                                </circle>
+                            </svg>
+                            <svg id="grid1-flow">
+                                <path id="grid-line1" d="M 103 218.25 L 64.5 218.25" fill="none" stroke="${grid_colour}"
+                                      stroke-width="1" stroke-miterlimit="10" pointer-events="stroke"
+                                      display="${config.show_grid === false ? 'none' : ''}"/>
+                                <circle id="grid-dot1" cx="0" cy="0" r="3"
+                                        fill="${total_grid_power < 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
+                                        display="${config.show_grid === false ? 'none' : ''}">
+                                    <animateMotion dur="${this.durationCur['grid']}s" repeatCount="indefinite"
+                                                   keyPoints="1;0"
+                                                   keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#grid-line1"/>
+                                    </animateMotion>
+                                </circle>
+                                <circle id="grid-dot1" cx="0" cy="0" r="3"
+                                        fill="${total_grid_power > 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
+                                        display="${config.show_grid === false ? 'none' : ''}">
+                                    <animateMotion dur="${this.durationCur['grid']}s" repeatCount="indefinite"
+                                                   keyPoints="0;1"
+                                                   keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#grid-line1"/>
+                                    </animateMotion>
+                                </circle>
+                            </svg>
+                            <svg id="load-flow">
+                                <path id="es-line" d="M 304 218.5 L 264.7 218.48" fill="none" stroke="${load_colour}"
+                                      stroke-width="1" stroke-miterlimit="10" pointer-events="stroke"/>
+                                <circle id="es-dot" cx="0" cy="0" r="3"
+                                        fill="${essential === 0 ? 'transparent' : `${load_colour}`}">
+                                    <animateMotion dur="${this.durationCur['load']}s" repeatCount="indefinite"
+                                                   keyPoints="1;0"
+                                                   keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#es-line"/>
+                                    </animateMotion>
+                                </circle>
+                            </svg>
+                            <svg id="load-flow1">
+                                <path id="es-line1" d="M 374 218.5 L 402.38 218.52" fill="none" stroke="${load_colour}"
+                                      stroke-width="1" stroke-miterlimit="10" pointer-events="stroke"/>
+                                <circle id="es-dot" cx="0" cy="0" r="3"
+                                        fill="${essential === 0 ? 'transparent' : `${load_colour}`}">
+                                    <animateMotion dur="${this.durationCur['load']}s" repeatCount="indefinite"
+                                                   keyPoints="0;1"
+                                                   keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#es-line1"/>
+                                    </animateMotion>
+                                </circle>
+                            </svg>
                             <path id="es-load1" d="M 441 180 L 441 147" class="${additional_load === 1 ? '' : 'st12'}"
                                   fill="none" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"
                                   pointer-events="stroke"/>
@@ -3134,7 +3223,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     ${config.solar.auto_scale ? `${convertValue(parseFloat(stateObj32.state).toFixed(0), round)}` : `${parseFloat(stateObj32.state).toFixed(0)} W`}</text>
                             </a>`
                                     : svg`<text id="pv4_power_189" x="366" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${!config.show_solar || config.entities.pv4_power_189 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}">${config.solar.auto_scale ? `${convertValue(parseFloat(stateObj32.state).toFixed(0), round)}` : `${parseFloat(stateObj32.state).toFixed(0)} W`}</text>`}
-                            ${config.entities?.essential_power
+                            ${config.entities?.essential_power && config.entities.essential_power !== 'none'
                                     ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_power)}>
                                 <text id="ess_power" x="340.1" y="219.2" class="${font !== true ? 'st14' : 'st4'} st8" 
                                       fill="${load_colour}">
@@ -3202,7 +3291,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         return state !== undefined ? state : defaultValue;
     }
 
-    toNum(val: string, decimals: number = -1, invert: boolean = false): number {
+    toNum(val: string | number, decimals: number = -1, invert: boolean = false): number {
         let numberValue = Number(val);
         if (Number.isNaN(numberValue)) {
             return NaN;
@@ -3216,6 +3305,18 @@ export class SunsynkPowerFlowCard extends LitElement {
         return numberValue;
     }
 
+    changeAnimationSpeed(el: string, speedRaw: number) {
+        const speed = speedRaw >= 1 ? this.toNum(speedRaw, 3) : 1;
+        const flow = this[`${el}Flow`] as SVGSVGElement;
+        this.durationCur[el] = speed;
+        if (flow && this.durationPrev[el] != speed) {
+            // console.log(`${el} found, duration change ${this.durationPrev[el]} -> ${this.durationCur[el]}`);
+            // this.gridFlow.pauseAnimations();
+            flow.setCurrentTime(flow.getCurrentTime() * (speed / this.durationPrev[el]));
+            // this.gridFlow.unpauseAnimations();
+        }
+        this.durationPrev[el] = this.durationCur[el];
+    }
 
     get isLiteCard() {
         return this._config.cardstyle == CardStyle.Lite
