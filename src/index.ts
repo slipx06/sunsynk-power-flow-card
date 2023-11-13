@@ -1985,7 +1985,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </text>
                             </a>`
                                     : svg` <text id="pvtotal_power" x="87" y="178" class="${font !== true ? 'st14' : 'st4'} st8" display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}" fill="${solar_colour}">${config.solar.auto_scale ? `${convertValue(total_pv, round) || 0}` : `${total_pv || 0} W`}</text>`}
-                            ${config.entities?.essential_power
+                            ${config.entities?.essential_power && config.entities.essential_power !== 'none'
                                     ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_power)}>
                                 <text id="ess_power" x="270" y="119" class="${font !== true ? 'st14' : 'st4'} st8" 
                                       fill="${load_colour}">
@@ -3223,7 +3223,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     ${config.solar.auto_scale ? `${convertValue(parseFloat(stateObj32.state).toFixed(0), round)}` : `${parseFloat(stateObj32.state).toFixed(0)} W`}</text>
                             </a>`
                                     : svg`<text id="pv4_power_189" x="366" y="71" class="${font !== true ? 'st14' : 'st4'} st8" display="${!config.show_solar || config.entities.pv4_power_189 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" fill="${solar_colour}">${config.solar.auto_scale ? `${convertValue(parseFloat(stateObj32.state).toFixed(0), round)}` : `${parseFloat(stateObj32.state).toFixed(0)} W`}</text>`}
-                            ${config.entities?.essential_power
+                            ${config.entities?.essential_power && config.entities.essential_power !== 'none'
                                     ? svg`<a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_power)}>
                                 <text id="ess_power" x="340.1" y="219.2" class="${font !== true ? 'st14' : 'st4'} st8" 
                                       fill="${load_colour}">
