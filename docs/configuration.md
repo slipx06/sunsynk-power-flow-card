@@ -80,7 +80,7 @@ These attributes are only needed if `show_solar` is set to `true`
 | --- | --- | --- |--- |
 |colour:| Optional |`'#5fb6ad'`| Changes the colour of all the load card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
 |show_daily: | Optional |`false` | Toggles the daily total. |
-|show_daily_aux" | Optional |`false` | Toggles the daily AUX total. Only displayed if `show_aux` is set to `true` |
+|show_daily_aux: | Optional |`false` | Toggles the daily AUX total. Only displayed if `show_aux` is set to `true` |
 |show_aux: | Optional | `false` | Toggles the display of AUX |
 |invert_aux: | Optional | `false` | Set to `true` if your sensor provides a positive number for AUX input and negative number for AUX output  |
 |show_absolute_aux: | Optional | `false` | set to `true` to display power as an absolute value
