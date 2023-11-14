@@ -612,9 +612,25 @@ export class SunsynkPowerFlowCard extends LitElement {
         if (config && config.solar && config.solar.animation_speed) {
             const speed = config.solar.animation_speed - ((config.solar.animation_speed - 1) * (totalsolar / (config.solar.max_power || totalsolar)));
             this.changeAnimationSpeed(`solar`, speed);
+        }
+
+        if (config && config.solar && config.solar.animation_speed) {
+            const speed = config.solar.animation_speed - ((config.solar.animation_speed - 1) * (this.toNum(stateObj9.state, 0) / (config.solar.max_power || this.toNum(stateObj9.state, 0))));
             this.changeAnimationSpeed(`pv1`, speed);
+        }
+
+        if (config && config.solar && config.solar.animation_speed) {
+            const speed = config.solar.animation_speed - ((config.solar.animation_speed - 1) * (this.toNum(stateObj8.state, 0) / (config.solar.max_power || this.toNum(stateObj8.state, 0))));
             this.changeAnimationSpeed(`pv2`, speed);
+        }
+
+        if (config && config.solar && config.solar.animation_speed) {
+            const speed = config.solar.animation_speed - ((config.solar.animation_speed - 1) * (this.toNum(stateObj31.state, 0) / (config.solar.max_power || this.toNum(stateObj31.state, 0))));
             this.changeAnimationSpeed(`pv3`, speed);
+        }
+
+        if (config && config.solar && config.solar.animation_speed) {
+            const speed = config.solar.animation_speed - ((config.solar.animation_speed - 1) * (this.toNum(stateObj32.state, 0) / (config.solar.max_power || this.toNum(stateObj32.state, 0))));
             this.changeAnimationSpeed(`pv4`, speed);
         }
 
