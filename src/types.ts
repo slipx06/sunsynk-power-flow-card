@@ -143,6 +143,7 @@ export interface CardConfigEntities {
     day_grid_import_76: string,
     day_grid_export_77: string,
     grid_ct_power_172: string,
+    grid_ct_power_total: string,
     day_load_energy_84: string,
     essential_power: string,
     nonessential_power: string,

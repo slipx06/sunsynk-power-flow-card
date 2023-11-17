@@ -1,6 +1,6 @@
 # Sunsynk-Power-Flow-Card
 
-An animated Home Assistant card to emulate the power flow that's shown on the Sunsynk Inverter screen. You can use this for Deye as well as other Inverters as long as you have the required sensor data. See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki) for integration methods and examples.
+An animated Home Assistant card to emulate the power flow that's shown on the Sunsynk Inverter screen. You can use this for most Inverters (Sunsynk, Deye, Solis, Lux and Goodwe) as long as you have the required sensor data. See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki) for integration methods and examples.
 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=slipx06&repository=sunsynk-power-flow-card&category=plugin)
  ![GitHub release (latest by date)](https://img.shields.io/github/v/release/slipx06/sunsynk-power-flow-card?style=for-the-badge) <a href="https://www.buymeacoffee.com/slipx" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="28" width="120"></a>
@@ -15,7 +15,6 @@ Refer to [https://slipx06.github.io/sunsynk-power-flow-card/index.html](https://
 * Animated power flow based on positive/negative/zero sensor values with configurable dynamic speed. (Supports inverted battery, AUX and grid power).
 * Dynamic battery image based on SOC (empty->low->medium->high).
 * Grid connected status.
-* Inverter status (standby, normal, self-test, alarm, fault).
 * Configurable battery size and shutdown SOC to calculate and display remaining battery runtime based on current battery usage and system time slot setting i.e. SOC, Grid Charge. Can be toggled off.
 * Daily Totals that can be toggled on or off.
 * Hide all solar data if not installed or specify number of mppts in use. Set custom MPPT labels.
@@ -25,8 +24,9 @@ Refer to [https://slipx06.github.io/sunsynk-power-flow-card/index.html](https://
 * Customisable - Change colours and images
 * Most entities can be clicked to show more-info dialog
 * Optional data points include self sufficiency and ratio percentages, battery temperature, AC and DC temperature
-* Display up to two non-essential, essential and AUX loads
+* Display additional non-essential, essential and AUX loads
 * Display energy cost per kWh and solar sell status
+* Select your inverter model for custom inverter status and battery status messages i.e. Sunsynk, Lux, Goodwe, Solis
 
 ## Screenshots
 

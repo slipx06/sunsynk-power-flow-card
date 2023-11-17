@@ -181,6 +181,7 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |non_essential_load1: | Optional | |Sensor that contains the power of your non-essential load 1 (W)|
 |non_essential_load2: | Optional | |Sensor that contains the power of your non-essential load 2 (W)
 |non_essential_load3: | Optional | |Sensor that contains the power of your non-essential load 3 (W)
+|grid_ct_power_total: | Optional | | For three phase systems. The card will automatically calculate this baseed on (Grid CT L1 power + Grid CT L2 power + Grid CT L3 power)  You can optionally provide your own sensor for total grid power. (W) 
 |grid_ct_power_172: | **Required** | `sensor.sunsynk_grid_ct_power`  | Grid CT L1 power (W)|
 |grid_ct_power_L2: | Optional | `none`  | Grid CT L2 power (W)|
 |grid_ct_power_L3: | Optional | `none`  | Grid CT L3 power (W)|
