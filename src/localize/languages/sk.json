@@ -48,7 +48,6 @@
         "ongrid": "On-Grid",
         "offgrid": "Off-Grid"
 
-
     },
     "errors": {
         "battery": {
