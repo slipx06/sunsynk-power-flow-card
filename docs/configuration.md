@@ -116,7 +116,7 @@ These attributes are only needed if `show_solar` is set to `true`
 |no_grid_colour:| Optional | `'#a40013'`|Changes the colour of the grid disconnected icon. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc)|
 |show_daily_buy: | Optional | `false` | Toggles the daily buy total |
 |show_daily_sell: | Optional | `false` | Toggles the daily sell total |
-|show_nonessential: | Optional |`false` | Toggles the display of non-essential |
+|show_nonessential: | Optional | `true` | Toggles the display of non-essential |
 |nonessential_icon: | Optional | `default` | Change the non-essential image using presets or any mdi icon e.g. `mdi:ev-station`. Presets are: <br /> <img height="25px" src="https://api.iconify.design/mdi/house-import-outline.svg"> `default`  <img height="25px" src="https://api.iconify.design/fluent/oven-32-regular.svg"> `oven`, <img height="25px" src="https://api.iconify.design/material-symbols/water-heater.svg"> `boiler` </br> <br/> <img height="25px" src="https://api.iconify.design/material-symbols/water-pump-outline.svg"> `pump`,  <img height="25px" src="https://api.iconify.design/mdi/air-conditioner.svg"> `aircon` </br> |
 |nonessential_name: | Optional | `Non Essential` |Set the display name for the non-essential load
 |additional_loads: | Optional |`0`| Toggle the display of additional loads on the non-essential side (`0/1/2/3`) The third load will only be displayed if the inverter timer schedules are not used e.g. `use_timer_248: false`, or no program time i.e `prog1_time` due to limited space
