@@ -245,12 +245,12 @@ export class SunsynkPowerFlowCard extends LitElement {
         let grid_status = config.entities?.grid_connected_status_194 ? stateObj20.state : 'on';
         let aux_status = config.entities?.aux_connected_status ? stateObj47.state : 'on';
         let load_frequency = config.entities?.load_frequency_192 ? this.toNum(stateObj6.state, 2) : 0;
-        let inverter_voltage = config.entities?.inverter_voltage_154 ? (config.inverter.three_phase && this.isLiteCard ? this.toNum(stateObj5.state) : this.toNum(stateObj5.state, 1)) : 0;
-        let inverter_voltage_L2 = config.entities?.inverter_voltage_L2 ? (config.inverter.three_phase && this.isLiteCard ? this.toNum(stateObj54.state) : this.toNum(stateObj54.state, 1)) : '';
-        let inverter_voltage_L3 = config.entities?.inverter_voltage_L3 ? (config.inverter.three_phase && this.isLiteCard ? this.toNum(stateObj55.state) : this.toNum(stateObj55.state, 1)) : '';
-        let inverter_current = config.entities?.inverter_current_164 ? (config.inverter.three_phase && this.isFullCard ? this.toNum(stateObj7.state) : this.toNum(stateObj7.state, 1)) : 0;
-        let inverter_current_L2 = config.entities?.inverter_current_L2 ? (config.inverter.three_phase && this.isFullCard ? this.toNum(stateObj56.state) : this.toNum(stateObj56.state, 1)) : '';
-        let inverter_current_L3 = config.entities?.inverter_current_L3 ? (config.inverter.three_phase && this.isFullCard ? this.toNum(stateObj57.state) : this.toNum(stateObj57.state, 1)) : '';
+        let inverter_voltage = config.entities?.inverter_voltage_154 ? (config.inverter.three_phase && this.isLiteCard ? this.toNum(stateObj5.state, 0) : this.toNum(stateObj5.state, 1)) : 0;
+        let inverter_voltage_L2 = config.entities?.inverter_voltage_L2 ? (config.inverter.three_phase && this.isLiteCard ? this.toNum(stateObj54.state, 0) : this.toNum(stateObj54.state, 1)) : '';
+        let inverter_voltage_L3 = config.entities?.inverter_voltage_L3 ? (config.inverter.three_phase && this.isLiteCard ? this.toNum(stateObj55.state, 0) : this.toNum(stateObj55.state, 1)) : '';
+        let inverter_current = config.entities?.inverter_current_164 ? (config.inverter.three_phase && this.isFullCard ? this.toNum(stateObj7.state, 1) : this.toNum(stateObj7.state, 1)) : 0;
+        let inverter_current_L2 = config.entities?.inverter_current_L2 ? (config.inverter.three_phase && this.isFullCard ? this.toNum(stateObj56.state, 1) : this.toNum(stateObj56.state, 1)) : '';
+        let inverter_current_L3 = config.entities?.inverter_current_L3 ? (config.inverter.three_phase && this.isFullCard ? this.toNum(stateObj57.state, 1) : this.toNum(stateObj57.state, 1)) : '';
         let battery_voltage = config.entities?.battery_voltage_183 ? this.toNum(stateObj11.state, 1) : 0;
         let inverter_power_round = config.entities?.inverter_power_175 ? this.toNum(stateObj22.state, 0) : 0;
         let grid_power_round = config.entities?.grid_power_169 ? this.toNum(stateObj23.state, 0) : 0;
@@ -330,29 +330,35 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         let total_pv = config.entities?.pv_total ? parseInt(stateObj46.state) : totalsolar;
 
-        //essential = inverter_power_175 + grid_power_169 - aux_power_166
-        let essential = (config.entities.essential_power === 'none' || !config.entities.essential_power) ?
-            this.toNum(stateObj22.state, 0) + this.toNum(stateObj23.state, 0) - this.toNum(stateObj24.state, 0) :
-            this.toNum(stateObj14.state, 0);
 
+        //essential = inverter_power_175 + grid_power_169 - aux_power_166     
         //nonessential = grid_ct_power_172 - grid_power_169
-        //let nonessential = (config.entities.nonessential_power === 'none' || !config.entities.nonessential_power) ?
-        //  parseInt(stateObj15.state) - parseInt(stateObj23.state) :
-        //  parseInt(stateObj34.state);
-
 
         let three_phase = config.inverter?.three_phase;
         if (!valid3phase.includes(three_phase)) {
             three_phase = false;
         }
 
+        let essential;
+        const {essential_power} = config.entities;
+
         let nonessential;
         const {nonessential_power} = config.entities;
 
         if (three_phase === false) {
-            nonessential = (nonessential_power === 'none' || !nonessential_power) ? this.toNum(stateObj15.state) - this.toNum(stateObj23.state) : this.toNum(stateObj34.state);
+            nonessential = (nonessential_power === 'none' || !nonessential_power) ? 
+                this.toNum(stateObj15.state) - this.toNum(stateObj23.state) : 
+                this.toNum(stateObj34.state);
+            essential = (essential_power === 'none' || !essential_power) ?
+                this.toNum(stateObj22.state, 0) + this.toNum(stateObj23.state, 0) - this.toNum(stateObj24.state, 0) :
+                this.toNum(stateObj14.state, 0);
         } else if (three_phase === true) {
-            nonessential = (nonessential_power === 'none' || !nonessential_power) ? (this.toNum(stateObj15.state) + this.toNum(stateObj58.state) + this.toNum(stateObj59.state)) - this.toNum(stateObj23.state) : this.toNum(stateObj34.state);
+            nonessential = (nonessential_power === 'none' || !nonessential_power) ?
+                (this.toNum(stateObj15.state) + this.toNum(stateObj58.state) + this.toNum(stateObj59.state)) - this.toNum(stateObj23.state) :
+                 this.toNum(stateObj34.state);
+            essential = (essential_power === 'none' || !essential_power) ?
+                this.toNum(stateObj60.state, 0) + this.toNum(stateObj61.state, 0) + this.toNum(stateObj62.state, 0) :
+                this.toNum(stateObj14.state, 0);
         }
 
         //Timer entities

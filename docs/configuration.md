@@ -167,7 +167,7 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |battery_soc_184: | **Required** | `sensor.sunsynk_battery_soc` | Battery state of charge (%) |
 |battery_power_190: | **Required** | `sensor.sunsynk_battery_power` | Battery power (W). Requires a negative number for battery charging and a positive number for battery discharging. Set the `invert_power:` battery attribute to `yes` if your sensor reports this the other way around |
 |battery_current_191: | **Required** |`sensor.sunsynk_battery_current` | Battery current (A) |
-|essential_power: | Optional | `none` | The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures essential power e.g. `Load power Essential` in the case of Solar Assistant. You should supply a sensor if using `three_phase: true` (W) |
+|essential_power: | Optional | `none` | The card will automatically calculate this sensor based on the formula below if the attribute is set to `none` or the sensor is not defined. You can overide this by supplying a sensor that measures essential power e.g. `Load power Essential` in the case of Solar Assistant. You should supply a sensor if using `three_phase: true` (W) |
 |essential_load1: | Optional | | Sensor that contains the power of your essential load 1 (W). Can also be used to display any sensor data i.e. temp, energy etc if `auto_scale: false`|
 |essential_load2: | Optional | | Sensor that contains the power of your essential load 2 (W). Can also be used to display any sensor data i.e. temp, energy etc if `auto_scale: false` |
 |essential_load3: | Optional | | Sensor that contains the power of your essential load 3 (W). Can also be used to display any sensor data i.e. temp, energy etc if `auto_scale: false` For Lite view only|
@@ -177,7 +177,7 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |load_power_L1: | Optional | | Load L1 Power (W)
 |load_power_L2: | Optional | | Load L2 Power (W)
 |load_power_L3: | Optional | | Load L3 Power (W)
-|nonessential_power| Optional | `none`| The card will automatically calculate this sensor based on the formula below if the attribute is set to `none`. You can overide this by supplying a sensor that measures non-essential power e.g.  `Load power Non-Essential` in the case of Solar Assistant.  (W)
+|nonessential_power| Optional | `none`| The card will automatically calculate this sensor based on the formula below if the attribute is set to `none` or the sensor is not defined. You can overide this by supplying a sensor that measures non-essential power e.g.  `Load power Non-Essential` in the case of Solar Assistant.  (W)
 |non_essential_load1: | Optional | |Sensor that contains the power of your non-essential load 1 (W)|
 |non_essential_load2: | Optional | |Sensor that contains the power of your non-essential load 2 (W)
 |non_essential_load3: | Optional | |Sensor that contains the power of your non-essential load 3 (W)
@@ -234,13 +234,22 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 
 The card calculates the sensors below based on supplied attributes in the config so you dont need to define them in Home Assistant. NOTE if your essential and non-essential readings are innacurate replace sensor 169 with 167. Alternatively provide the card with sensors that calculate this data i.e essential_power: and nonessential_power:
 
+If `three_phase:false`
+
  ```
  totalsolar = pv1_power_186 + pv2_power_187 + pv3_power_188 + pv4_power_189
- nonessential = grid_ct_power_172 - grid_power_169 (Single Phase)
- nonessential = grid_ct_power_172 + grid_ct_power_L2 + grid_ct_power_L3 - grid_power_169 (Three Phase)
+ nonessential = grid_ct_power_172 - grid_power_169
  essential = inverter_power_175 + grid_power_169 - aux_power_166
  ```
 
+If `three_phase:true`
+
+```
+ totalsolar = pv1_power_186 + pv2_power_187 + pv3_power_188 + pv4_power_189
+ nonessential = grid_ct_power_172 + grid_ct_power_L2 + grid_ct_power_L3 - grid_power_169
+ essential =  load_power_L1 +  load_power_L2 +  load_power_L3
+ ```
+ 
 The modbus registers can be visualised on the `full` card below:
 
 ![image](https://user-images.githubusercontent.com/7227275/235479493-b322d5b2-f2b1-431f-9048-f845fc2989b4.png)
