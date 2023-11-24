@@ -340,26 +340,24 @@ export class SunsynkPowerFlowCard extends LitElement {
         }
 
         let essential;
-        const {essential_power} = config.entities;
-
         let nonessential;
-        const {nonessential_power} = config.entities;
+        const { essential_power, nonessential_power } = config.entities;
 
         if (three_phase === false) {
             nonessential = (nonessential_power === 'none' || !nonessential_power) ? 
                 this.toNum(stateObj15.state) - this.toNum(stateObj23.state) : 
                 this.toNum(stateObj34.state);
-            essential = (essential_power === 'none' || !essential_power) ?
-                this.toNum(stateObj22.state, 0) + this.toNum(stateObj23.state, 0) - this.toNum(stateObj24.state, 0) :
-                this.toNum(stateObj14.state, 0);
-        } else if (three_phase === true) {
+        } else {
             nonessential = (nonessential_power === 'none' || !nonessential_power) ?
                 (this.toNum(stateObj15.state) + this.toNum(stateObj58.state) + this.toNum(stateObj59.state)) - this.toNum(stateObj23.state) :
-                 this.toNum(stateObj34.state);
-            essential = (essential_power === 'none' || !essential_power) ?
-                this.toNum(stateObj60.state, 0) + this.toNum(stateObj61.state, 0) + this.toNum(stateObj62.state, 0) :
-                this.toNum(stateObj14.state, 0);
+                this.toNum(stateObj34.state);
         }
+
+        essential = (essential_power === 'none' || !essential_power) ?
+            (three_phase === true && config.entities.load_power_L1 && config.entities.load_power_L2) ?
+                Number(load_power_L1) + Number(load_power_L2) + Number(load_power_L3) :
+                this.toNum(stateObj22.state, 0) + this.toNum(stateObj23.state, 0) - this.toNum(stateObj24.state, 0) :
+                this.toNum(stateObj14.state, 0);
 
         //Timer entities
         const prog1 = {
@@ -685,6 +683,10 @@ export class SunsynkPowerFlowCard extends LitElement {
                 return `${Math.round(value)} W`;
             }
         }
+
+        const pvPercentage = total_pv === 0 ? 0 : Math.min((total_pv / essential) * 100, 100).toFixed(0);
+        const batteryPercentage = battery_power <= 0 ? 0 : Math.min((Math.abs(battery_power) / essential) * 100, 100).toFixed(0);
+        //console.log( pvPercentage, gridPercentage, batteryPercentage);
 
         if (this.isFullCard) {
             return html`
@@ -1509,20 +1511,50 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <!-- Essential Icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" id="essen_aux" x="373.5" y="78.5" width="77"
                                  height="77" viewBox="0 0 24 24">
+                                 <defs>
+                                    <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                        <stop offset="0%" stop-color="${Number(batteryPercentage) > 0 ? battery_colour : (Number(pvPercentage) > 0 ? solar_colour : grid_colour)}" />
+                                        <stop offset="${batteryPercentage}%" stop-color="${Number(batteryPercentage) > 0 ? battery_colour : (Number(pvPercentage) > 0 ? solar_colour : grid_colour)}" />
+                                        <stop offset="${batteryPercentage}%" stop-color="${Number(pvPercentage) > 0 ? solar_colour : grid_colour}" />
+                                        <stop offset="${Number(batteryPercentage) + Number(pvPercentage)}%" stop-color="${Number(pvPercentage) > 0 ? `${solar_colour}` : `${grid_colour}`}" />
+                                        <stop offset="${Number(batteryPercentage) + Number(pvPercentage)}%" stop-color="${Number(batteryPercentage) === 100 ? battery_colour : (Number(pvPercentage) === 100 ? solar_colour : grid_colour)}" />
+                                        <stop offset="100%" stop-color="${Number(batteryPercentage) === 100 ? battery_colour : (Number(pvPercentage) === 100 ? solar_colour : grid_colour)}" />
+                                    </linearGradient>
+                                </defs>
                                 <path display="${(additional_load === 1 || additional_load === 2) && show_aux !== true ? '' : 'none'}"
-                                      fill="${load_colour}"
+                                      fill="${config.load.dynamic_colour === true ? 'url(#Lg)' : load_colour}"
                                       d="M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="essen_noaux" x="390" y="89" width="38"
                                  height="38" viewBox="0 0 24 24">
+                                 <defs>
+                                    <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                        <stop offset="0%" stop-color="${Number(batteryPercentage) > 0 ? battery_colour : (Number(pvPercentage) > 0 ? solar_colour : grid_colour)}" />
+                                        <stop offset="${batteryPercentage}%" stop-color="${Number(batteryPercentage) > 0 ? battery_colour : (Number(pvPercentage) > 0 ? solar_colour : grid_colour)}" />
+                                        <stop offset="${batteryPercentage}%" stop-color="${Number(pvPercentage) > 0 ? solar_colour : grid_colour}" />
+                                        <stop offset="${Number(batteryPercentage) + Number(pvPercentage)}%" stop-color="${Number(pvPercentage) > 0 ? `${solar_colour}` : `${grid_colour}`}" />
+                                        <stop offset="${Number(batteryPercentage) + Number(pvPercentage)}%" stop-color="${Number(batteryPercentage) === 100 ? battery_colour : (Number(pvPercentage) === 100 ? solar_colour : grid_colour)}" />
+                                        <stop offset="100%" stop-color="${Number(batteryPercentage) === 100 ? battery_colour : (Number(pvPercentage) === 100 ? solar_colour : grid_colour)}" />
+                                    </linearGradient>
+                                </defs>
                                 <path display="${(additional_load === 1 || additional_load === 2) && show_aux === true ? '' : 'none'}"
-                                      fill="${load_colour}"
+                                      fill="${config.load.dynamic_colour === true ? 'url(#Lg)' : load_colour}"
                                       d="M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="essen_default" x="373.5" y="78.5" width="77"
                                  height="77" viewBox="0 0 24 24">
+                                 <defs>
+                                    <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                        <stop offset="0%" stop-color="${Number(batteryPercentage) > 0 ? battery_colour : (Number(pvPercentage) > 0 ? solar_colour : grid_colour)}" />
+                                        <stop offset="${batteryPercentage}%" stop-color="${Number(batteryPercentage) > 0 ? battery_colour : (Number(pvPercentage) > 0 ? solar_colour : grid_colour)}" />
+                                        <stop offset="${batteryPercentage}%" stop-color="${Number(pvPercentage) > 0 ? solar_colour : grid_colour}" />
+                                        <stop offset="${Number(batteryPercentage) + Number(pvPercentage)}%" stop-color="${Number(pvPercentage) > 0 ? `${solar_colour}` : `${grid_colour}`}" />
+                                        <stop offset="${Number(batteryPercentage) + Number(pvPercentage)}%" stop-color="${Number(batteryPercentage) === 100 ? battery_colour : (Number(pvPercentage) === 100 ? solar_colour : grid_colour)}" />
+                                        <stop offset="100%" stop-color="${Number(batteryPercentage) === 100 ? battery_colour : (Number(pvPercentage) === 100 ? solar_colour : grid_colour)}" />
+                                    </linearGradient>
+                                </defs>
                                 <path display="${additional_load === 1 || additional_load === 2 ? 'none' : ''}"
-                                      fill="${load_colour}"
+                                      fill="${config.load.dynamic_colour === true ? 'url(#Lg)' : load_colour}"
                                       d="M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z"/>
                             </svg>
 
@@ -3084,8 +3116,18 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </a>
                             <svg xmlns="http://www.w3.org/2000/svg" id="essen" x="402" y="177.5" width="79" height="79"
                                  viewBox="0 0 24 24">
-                                <path fill="${load_colour}"
-                                      d="M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z"/>
+                                 <defs>
+                                    <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                        <stop offset="0%" stop-color="${Number(batteryPercentage) > 0 ? battery_colour : (Number(pvPercentage) > 0 ? solar_colour : grid_colour)}" />
+                                        <stop offset="${batteryPercentage}%" stop-color="${Number(batteryPercentage) > 0 ? battery_colour : (Number(pvPercentage) > 0 ? solar_colour : grid_colour)}" />
+                                        <stop offset="${batteryPercentage}%" stop-color="${Number(pvPercentage) > 0 ? solar_colour : grid_colour}" />
+                                        <stop offset="${Number(batteryPercentage) + Number(pvPercentage)}%" stop-color="${Number(pvPercentage) > 0 ? `${solar_colour}` : `${grid_colour}`}" />
+                                        <stop offset="${Number(batteryPercentage) + Number(pvPercentage)}%" stop-color="${Number(batteryPercentage) === 100 ? battery_colour : (Number(pvPercentage) === 100 ? solar_colour : grid_colour)}" />
+                                        <stop offset="100%" stop-color="${Number(batteryPercentage) === 100 ? battery_colour : (Number(pvPercentage) === 100 ? solar_colour : grid_colour)}" />
+                                    </linearGradient>
+                                </defs>
+                                <path fill="${config.load.dynamic_colour === true ? 'url(#Lg)' : load_colour}"
+                                      d="M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z"/>                    
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" x="213.5" y="179.5" width="54"
                                  height="79" viewBox="0 0 74 91" preserveAspectRatio="xMidYMid meet">

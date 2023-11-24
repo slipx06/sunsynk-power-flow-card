@@ -79,6 +79,7 @@ These attributes are only needed if `show_solar` is set to `true`
 | Attribute | Requirement | Default | Description |
 | --- | --- | --- |--- |
 |colour:| Optional |`'#5fb6ad'`| Changes the colour of all the load card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) |
+|dynamic_colour: | Optional | `true` | The essential icon colour will change based on the % contribution of the power source (battery, grid, solar) supplying the load. Set to `false`  to disable|
 |show_daily: | Optional |`false` | Toggles the daily total. |
 |show_daily_aux: | Optional |`false` | Toggles the daily AUX total. Only displayed if `show_aux` is set to `true` |
 |show_aux: | Optional | `false` | Toggles the display of AUX |
