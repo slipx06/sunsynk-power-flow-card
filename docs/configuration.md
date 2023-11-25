@@ -207,6 +207,7 @@ See the [WIKI](https://github.com/slipx06/sunsynk-power-flow-card/wiki/Sensor-Ma
 |total_pv_generation: | Optional | | Total Solar generation (Lifetime or forecast for the day) (kWh). Use with solar `display_mode:3` |
 |battery_temp_182:| Optional | `sensor.sunsynk_battery_temperature` | Battery temperature (℃)|
 |radiator_temp_91:| Optional | `sensor.sunsynk_radiator_temperature` | Inverter AC temperature (℃)|
+|environment_temp:| Optional |  | Display outside temperature or other environment temperature below the sun icon|
 |dc_transformer_temp_90:| Optional | `sensor.sunsynk_dc_transformer_temperature` | Inverter DC temperature (℃)|
 |prog1_time:| Optional | `sensor.sunsynk_time_slot_1` | Program 1 start time (`HH:MM`)
 |prog1_capacity:| Optional | `number.sunsynk_system_mode_soc_time1` | Program 1 capacity (SOC) setting

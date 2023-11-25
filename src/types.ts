@@ -166,6 +166,7 @@ export interface CardConfigEntities {
     remaining_solar: string,
     battery_temp_182: string,
     dc_transformer_temp_90: string,
+    environment_temp: string,
     radiator_temp_91: string,
     non_essential_load1: string,
     non_essential_load2: string,

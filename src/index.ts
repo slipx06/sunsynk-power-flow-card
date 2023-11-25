@@ -218,6 +218,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 		const stateObj70 = this.getState('battery_current_direction');
 		const stateObj71 = this.getState('non_essential_load3', { state: 0 });
 		const stateObj72 = this.getState('grid_ct_power_total', { state: 0 });
+        const stateObj73 = this.getState('environment_temp', { state: '' });
 
 		//Set defaults
 		let { invert_aux } = config.load;
@@ -2616,6 +2617,13 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     ${parseFloat(stateObj38.state).toFixed(1)}°
                                 </text>
                             </a>
+                            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.environment_temp)}>
+                                <text id="environ_temp" x="1" y="32"
+                                      class="${config.entities?.environment_temp ? 'st3 left-align' : 'st12'}"
+                                      fill="${solar_colour}" display="${!config.show_solar ? 'none' : ''}">
+                                    ${this.toNum(stateObj73.state, 1)}°
+                                </text>
+                            </a>
                         </svg>
                     </div>
                 </ha-card>
@@ -3507,6 +3515,13 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 <text id="dc_temp" x="173" y="180.4" class="st3 left-align" fill="${inverter_colour}"
                                       display="${config.entities?.dc_transformer_temp_90 ? '' : 'none'}">DC:
                                     ${parseFloat(stateObj38.state).toFixed(1)}°
+                                </text>
+                            </a>
+                            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.environment_temp)}>
+                                <text id="environ_temp" x="154" y="45"
+                                      class="${config.entities?.environment_temp ? 'st3 left-align' : 'st12'}"
+                                      fill="${solar_colour}" display="${!config.show_solar ? 'none' : ''}">
+                                    ${this.toNum(stateObj73.state, 1)}°
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1_extra)}>
