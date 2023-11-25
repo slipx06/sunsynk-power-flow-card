@@ -1,726 +1,796 @@
-import {CSSResultGroup, html, LitElement, svg} from 'lit';
-import {customElement, property, query} from 'lit/decorators.js';
-import {HomeAssistant} from 'custom-card-helpers';
-import {styles} from './style';
+import { CSSResultGroup, html, LitElement, svg } from 'lit';
+import { customElement, property, query } from 'lit/decorators.js';
+import { HomeAssistant } from 'custom-card-helpers';
+import { styles } from './style';
 import {
-    AutarkyType,
-    CardConfigEntities,
-    CardStyle,
-    InverterModel,
-    InverterSettings,
-    sunsynkPowerFlowCardConfig
+	AutarkyType,
+	CardConfigEntities,
+	CardStyle,
+	InverterModel,
+	InverterSettings,
+	sunsynkPowerFlowCardConfig,
 } from './types';
 import defaultConfig from './defaults';
 import {
-    batteryStatusGroups,
-    CARD_VERSION,
-    goodweBase64Img,
-    inverterStatusGroups,
-    luxBase64Img,
-    solisBase64Img,
-    sunsynkBase64Img,
-    valid3phase,
-    validLoadValues,
-    validnonLoadValues
+	batteryStatusGroups,
+	CARD_VERSION,
+	goodweBase64Img,
+	inverterStatusGroups,
+	luxBase64Img,
+	solisBase64Img,
+	sunsynkBase64Img,
+	valid3phase,
+	validLoadValues,
+	validnonLoadValues,
 } from './const';
-import {localize} from './localize/localize';
+import { localize } from './localize/localize';
 import merge from 'lodash.merge';
 
 console.groupCollapsed(
-    `%c ⚡ SUNSYNK-POWER-FLOW-CARD %c ${localize('common.version')}: ${CARD_VERSION} `,
-    'color: orange; font-weight: bold; background: black',
-    'color: white; font-weight: bold; background: dimgray',
+	`%c ⚡ SUNSYNK-POWER-FLOW-CARD %c ${localize('common.version')}: ${CARD_VERSION} `,
+	'color: orange; font-weight: bold; background: black',
+	'color: white; font-weight: bold; background: dimgray',
 );
-console.log("Readme:", "https://github.com/slipx06/sunsynk-power-flow-card")
+console.log('Readme:', 'https://github.com/slipx06/sunsynk-power-flow-card');
 console.groupEnd();
 
-@customElement('sunsynk-power-flow-card')
+@customElement('sunsynk-power-flow-card-dev')
 export class SunsynkPowerFlowCard extends LitElement {
-    @property() public hass!: HomeAssistant;
-    @property() private _config!: sunsynkPowerFlowCardConfig;
-    @query("#grid-flow") gridFlow?: SVGSVGElement;
-    @query("#grid1-flow") grid1Flow?: SVGSVGElement;
-    @query("#solar-flow") solarFlow?: SVGSVGElement;
-    @query("#pv1-flow") pv1Flow?: SVGSVGElement;
-    @query("#pv2-flow") pv2Flow?: SVGSVGElement;
-    @query("#pv3-flow") pv3Flow?: SVGSVGElement;
-    @query("#pv4-flow") pv4Flow?: SVGSVGElement;
-    @query("#battery-flow") batteryFlow?: SVGSVGElement;
-    @query("#load-flow") loadFlow?: SVGSVGElement;
-    @query("#aux-flow") auxFlow?: SVGSVGElement;
-    @query("#ne-flow") neFlow?: SVGSVGElement;
-    @query("#ne1-flow") ne1Flow?: SVGSVGElement;
-
-    private durationPrev: { [name: string]: number } = {};
-    private durationCur: { [name: string]: number } = {};
-
-    static get styles(): CSSResultGroup {
-        return styles;
-    }
-
-    static getStubConfig() {
-        return {
-            cardstyle: CardStyle.Lite,
-            show_solar: true,
-            battery: {
-                energy: 0,
-                shutdown_soc: 20,
-                show_daily: true,
-            },
-            solar: {
-                show_daily: true,
-                mppts: 2,
-            },
-            load: {
-                show_daily: true,
-            },
-            grid: {
-                show_daily_buy: true,
-                show_daily_sell: false,
-                show_nonessential: true,
-            },
-            entities: {
-                use_timer_248: 'switch.sunsynk_toggle_system_timer',
-                priority_load_243: 'switch.sunsynk_toggle_priority_load',
-                inverter_voltage_154: 'sensor.sunsynk_inverter_voltage',
-                load_frequency_192: 'sensor.sunsynk_load_frequency',
-                inverter_current_164: 'sensor.sunsynk_inverter_current',
-                inverter_power_175: 'sensor.sunsynk_inverter_power',
-                grid_connected_status_194: 'binary_sensor.sunsynk_grid_connected_status',
-                inverter_status_59: 'sensor.sunsynk_overall_state',
-                day_battery_charge_70: 'sensor.sunsynk_day_battery_charge',
-                day_battery_discharge_71: 'sensor.sunsynk_day_battery_discharge',
-                battery_voltage_183: 'sensor.sunsynk_battery_voltage',
-                battery_soc_184: 'sensor.sunsynk_battery_soc',
-                battery_power_190: 'sensor.sunsynk_battery_power',
-                battery_current_191: 'sensor.sunsynk_battery_current',
-                grid_power_169: 'sensor.sunsynk_grid_power',
-                day_grid_import_76: 'sensor.sunsynk_day_grid_import',
-                day_grid_export_77: 'sensor.sunsynk_day_grid_export',
-                grid_ct_power_172: 'sensor.sunsynk_grid_ct_power',
-                day_load_energy_84: 'sensor.sunsynk_day_load_energy',
-                essential_power: 'none',
-                nonessential_power: 'none',
-                aux_power_166: 'sensor.sunsynk_aux_power',
-                day_pv_energy_108: 'sensor.sunsynk_day_pv_energy',
-                pv1_power_186: 'sensor.sunsynk_pv1_power',
-                pv2_power_187: 'sensor.sunsynk_pv2_power',
-                pv1_voltage_109: 'sensor.sunsynk_pv1_voltage',
-                pv1_current_110: 'sensor.sunsynk_pv1_current',
-                pv2_voltage_111: 'sensor.sunsynk_pv2_voltage',
-                pv2_current_112: 'sensor.sunsynk_pv2_current',
-            }
-        } as unknown as sunsynkPowerFlowCardConfig;
-    }
-
-    render() {
-        const config = this._config;
-        const stateObj = this.getState('day_battery_discharge_71', {state: '0'});
-        const stateObj1 = this.getState('day_battery_charge_70', {state: '0'});
-        const stateObj2 = this.getState('day_load_energy_84', {state: '0'});
-        const stateObj3 = this.getState('day_grid_import_76', {state: '0'});
-        const stateObj4 = this.getState('day_pv_energy_108', {state: '0'});
-        const stateObj5 = this.getState('inverter_voltage_154', {state: '0'});
-        const stateObj6 = this.getState('load_frequency_192', {state: '0'});
-        const stateObj7 = this.getState('inverter_current_164', {state: '0'});
-        const stateObj8 = this.getState('pv2_power_187', {state: '0'});
-        const stateObj9 = this.getState('pv1_power_186', {state: '0'});
-        const stateObj11 = this.getState('battery_voltage_183', {state: '0'});
-        const stateObj12 = this.getState('battery_soc_184', {state: '0'});
-        const stateObj13 = this.getState('battery_power_190', {state: '0'});
-        const stateObj14 = this.getState('essential_power', {state: '0'});
-        const stateObj15 = this.getState('grid_ct_power_172', {state: 0});
-        const stateObj16 = this.getState('pv1_voltage_109', {state: '0'});
-        const stateObj17 = this.getState('pv1_current_110', {state: '0'});
-        const stateObj18 = this.getState('pv2_voltage_111', {state: '0'});
-        const stateObj19 = this.getState('pv2_current_112', {state: '0'});
-        const stateObj20 = this.getState('grid_connected_status_194', {state: 'on'});
-        const stateObj21 = this.getState('inverter_status_59', {state: ''});
-        const stateObj22 = this.getState('inverter_power_175', {state: '0'});
-        const stateObj23 = this.getState('grid_power_169', {state: '0'});
-        const stateObj24 = this.getState('aux_power_166', {state: '0'});
-        const stateObj25 = this.getState('priority_load_243', {state: 'undefined'});
-        const stateObj26 = this.getState('use_timer_248', {state: 'undefined'});
-        const stateObj27 = this.getState('pv3_voltage_113', {state: '0'});
-        const stateObj28 = this.getState('pv3_current_114', {state: '0'});
-        const stateObj29 = this.getState('pv4_voltage_115', {state: '0'});
-        const stateObj30 = this.getState('pv4_current_116', {state: '0'});
-        const stateObj31 = this.getState('pv3_power_188', {state: '0'});
-        const stateObj32 = this.getState('pv4_power_189', {state: '0'});
-        const stateObj33 = this.getState('day_grid_export_77', {state: '0'});
-        const stateObj34 = this.getState('nonessential_power', {state: '0'});
-        const stateObj35 = this.getState('battery_current_191', {state: '0'});
-        const stateObj36 = this.getState('remaining_solar', {state: 0});
-        const stateObj37 = this.getState('battery_temp_182', {state: ''});
-        const stateObj38 = this.getState('dc_transformer_temp_90', {state: ''});
-        const stateObj39 = this.getState('radiator_temp_91', {state: ''});
-        const stateObj40 = this.getState('non_essential_load1', {state: '0'});
-        const stateObj41 = this.getState('non_essential_load2', {state: '0'});
-        const stateObj42 = this.getState('essential_load1', {
-            state: '0', attributes: {unit_of_measurement: ''}
-        });
-        const stateObj43 = this.getState('energy_cost_buy', {
-            state: '', attributes: {unit_of_measurement: ''}
-        });
-        const stateObj44 = this.getState('solar_sell_247', {state: 'undefined'});
-        const stateObj45 = this.getState('essential_load2', {
-            state: '0',
-            attributes: {unit_of_measurement: ''}
-        });
-        const stateObj46 = this.getState('pv_total', {state: '0'});
-        const stateObj47 = this.getState('aux_connected_status', {state: 'on'});
-        const stateObj48 = this.getState('aux_load1', {state: '0'});
-        const stateObj49 = this.getState('aux_load2', {state: '0'});
-        const stateObj50 = this.getState('day_aux_energy', {state: '0'});
-        const stateObj51 = this.getState('energy_cost_sell', {
-            state: '',
-            attributes: {unit_of_measurement: ''}
-        });
-        const stateObj52 = this.getState('essential_load1_extra', {
-            state: '0',
-            attributes: {unit_of_measurement: ''}
-        });
-        const stateObj53 = this.getState('essential_load2_extra', {
-            state: '0',
-            attributes: {unit_of_measurement: ''}
-        });
-        const stateObj54 = this.getState('inverter_voltage_L2', {state: ''});
-        const stateObj55 = this.getState('inverter_voltage_L3', {state: ''});
-        const stateObj56 = this.getState('inverter_current_L2', {state: ''});
-        const stateObj57 = this.getState('inverter_current_L3', {state: ''});
-        const stateObj58 = this.getState('grid_ct_power_L2', {state: 0});
-        const stateObj59 = this.getState('grid_ct_power_L3', {state: 0});
-        const stateObj60 = this.getState('load_power_L1', {state: 0});
-        const stateObj61 = this.getState('load_power_L2', {state: 0});
-        const stateObj62 = this.getState('load_power_L3', {state: 0});
-        const stateObj63 = this.getState('total_pv_generation', {state: 0});
-        const stateObj64 = this.getState('essential_load3', {
-            state: '0',
-            attributes: {unit_of_measurement: ''}
-        });
-        const stateObj65 = this.getState('essential_load4', {
-            state: '0',
-            attributes: {unit_of_measurement: ''}
-        });
-        const stateObj66 = this.getState('battery_status', {state: ''});
-        const stateObj67 = this.getState('aux_load1_extra', {
-            state: '0',
-            attributes: {unit_of_measurement: ''}
-        });
-        const stateObj68 = this.getState('aux_load2_extra', {
-            state: '0',
-            attributes: {unit_of_measurement: ''}
-        });
-        const stateObj69 = this.getState('grid_voltage');
-        const stateObj70 = this.getState('battery_current_direction');
-        const stateObj71 = this.getState('non_essential_load3', {state: 0});
-        const stateObj72 = this.getState('grid_ct_power_total', {state: 0});
-
-        //Set defaults
-        let {invert_aux} = config.load;
-        let aux_power = this.toNum(stateObj24.state, 0, invert_aux);
-        let {invert_grid} = config.grid;
-        let grid_power = this.toNum(stateObj15.state, 0, invert_grid);    
-        let grid_power_L2 = this.toNum(stateObj58.state, 0, invert_grid);
-        let grid_power_L3 = this.toNum(stateObj59.state, 0, invert_grid);
-        let grid_power_3phase = this.toNum(stateObj72.state, 0, invert_grid);
-        let grid_power_total = config.entities?.grid_ct_power_total
-            ? grid_power_3phase
-            : grid_power + grid_power_L2 + grid_power_L3;
-
-        const total_grid_power = config.inverter.three_phase
-            ? grid_power_total
-            : grid_power;
-        
-        //let total_grid_power = config.inverter.three_phase ? (grid_power + grid_power_L2 + grid_power_L3) : grid_power;
-        let grid_voltage = stateObj69 ? this.toNum(stateObj69.state) : null;
-        let battery_current_direction = stateObj70 ? parseInt(stateObj70.state) : null;
-        let inverter_modern = config.inverter?.modern;
-        let load_colour = config.load?.colour;
-        let aux_colour = config.load?.aux_colour || load_colour;
-        let aux_off_colour = config.load?.aux_off_colour || load_colour;
-        let load_showdaily = config.load?.show_daily;
-        let no_grid_colour = config.grid?.no_grid_colour;
-        let grid_show_noness = config.grid?.show_nonessential;
-        let grid_status = config.entities?.grid_connected_status_194 ? stateObj20.state : 'on';
-        let aux_status = config.entities?.aux_connected_status ? stateObj47.state : 'on';
-        let load_frequency = config.entities?.load_frequency_192 ? this.toNum(stateObj6.state, 2) : 0;
-        let inverter_voltage = config.entities?.inverter_voltage_154 ? (config.inverter.three_phase && this.isLiteCard ? this.toNum(stateObj5.state, 0) : this.toNum(stateObj5.state, 1)) : 0;
-        let inverter_voltage_L2 = config.entities?.inverter_voltage_L2 ? (config.inverter.three_phase && this.isLiteCard ? this.toNum(stateObj54.state, 0) : this.toNum(stateObj54.state, 1)) : '';
-        let inverter_voltage_L3 = config.entities?.inverter_voltage_L3 ? (config.inverter.three_phase && this.isLiteCard ? this.toNum(stateObj55.state, 0) : this.toNum(stateObj55.state, 1)) : '';
-        let inverter_current = config.entities?.inverter_current_164 ? (config.inverter.three_phase && this.isFullCard ? this.toNum(stateObj7.state, 1) : this.toNum(stateObj7.state, 1)) : 0;
-        let inverter_current_L2 = config.entities?.inverter_current_L2 ? (config.inverter.three_phase && this.isFullCard ? this.toNum(stateObj56.state, 1) : this.toNum(stateObj56.state, 1)) : '';
-        let inverter_current_L3 = config.entities?.inverter_current_L3 ? (config.inverter.three_phase && this.isFullCard ? this.toNum(stateObj57.state, 1) : this.toNum(stateObj57.state, 1)) : '';
-        let battery_voltage = config.entities?.battery_voltage_183 ? this.toNum(stateObj11.state, 1) : 0;
-        let inverter_power_round = config.entities?.inverter_power_175 ? this.toNum(stateObj22.state, 0) : 0;
-        let grid_power_round = config.entities?.grid_power_169 ? this.toNum(stateObj23.state, 0) : 0;
-        let load_power_L1 = config.entities?.load_power_L1 ? this.toNum(stateObj60.state, 0) : '';
-        let load_power_L2 = config.entities?.load_power_L2 ? this.toNum(stateObj61.state, 0) : '';
-        let load_power_L3 = config.entities?.load_power_L3 ? this.toNum(stateObj62.state, 0) : '';
-
-        const grid_import_colour = config.grid?.colour;
-        const grid_export_colour = config.grid?.export_colour || grid_import_colour;
-        let grid_colour = total_grid_power < 0 ? grid_export_colour : grid_import_colour;
-
-        let noness_dual_load = config.grid?.additional_loads;
-        if (!validnonLoadValues.includes(noness_dual_load)) {
-            noness_dual_load = 0;
-        }
-
-        let grid_showdailybuy = config.grid?.show_daily_buy;
-        let grid_showdailysell = config.grid?.show_daily_sell;
-        let battery_colour = config.battery?.colour;
-        let battery_showdaily = config.battery?.show_daily;
-        let solar_colour = config.solar?.colour;
-        let solar_showdaily = config.solar?.show_daily;
-        let show_aux = config.load?.show_aux;
-        let show_dailyaux = config.load?.show_daily_aux;
-
-        let additional_load = config.load?.additional_loads;
-        if (!validLoadValues.includes(additional_load) || (this.isFullCard && additional_load === 4)) {
-            additional_load = 0;
-        }
-
-        let additional_aux_load = config.load?.aux_loads;
-        if (!validLoadValues.includes(additional_aux_load)) {
-            additional_aux_load = 0;
-        }
-
-        let aux_type = config.load?.aux_type; //valid options are gen,inverter, default, gen, boiler, pump, aircon
-        let aux_load1_icon = config.load?.aux_load1_icon;
-        let aux_load2_icon = config.load?.aux_load2_icon;
-        let nonessential_icon = config.grid?.nonessential_icon; //valid options are default, oven, boiler, pump, aircon
-        let load1_icon = config.grid?.load1_icon; //valid options are default, oven, boiler, pump
-        let load2_icon = config.grid?.load2_icon; //valid options are default, oven, boiler, pump
-        let load3_icon = config.grid?.load3_icon; //mdi icon
-        let load1e_icon = config.load?.load1_icon; //valid options are boiler, aircon, pump
-        let load2e_icon = config.load?.load2_icon; //valid options are boiler, aircon, pump
-        let load3e_icon = config.load?.load3_icon;
-        let load4e_icon = config.load?.load4_icon;
-        let remaining_solar = config.entities.remaining_solar ? this.toNum(stateObj36.state, 1) : false;
-        let total_solar_generation = config.entities.total_pv_generation ? this.toNum(stateObj63.state, 1) : false;
-        let font = config.large_font;
-        let panel = config.panel_mode;
-        let inverter_colour = config.inverter?.colour;
-        let useautarky = config.inverter?.autarky;
-        let usetimer = (config.entities.use_timer_248 === false || !config.entities.use_timer_248) ? false : stateObj26.state;
-        let priority = (config.entities.priority_load_243 === false || !config.entities.priority_load_243) ? false : stateObj25.state;
-        let battery_power = this.toNum(stateObj13.state, 0, config.battery?.invert_power);
-        const card_height = (config.card_height ? this.hass.states[config.card_height] : null) || {state: ''};
-        let height = card_height.state === 'unavailable' || card_height.state === 'unknown' || card_height.state === '' ? config.card_height : card_height.state;
-        let width = config.card_width;
-        let bat_full = config.battery?.full_capacity;
-        let bat_empty = config.battery?.empty_capacity;
-        let energy_cost_decimals = config.grid?.energy_cost_decimals === 0 ? 0 : config.grid?.energy_cost_decimals || 2;
-        let energy_cost = total_grid_power >= 0 ? this.toNum(stateObj43.state, energy_cost_decimals) : this.toNum(stateObj51.state, energy_cost_decimals);
-        let inverterModel = InverterModel.Sunsynk;
-
-        // Check if the userInputModel is a valid inverter model
-        if (Object.values(InverterModel).includes(config.inverter.model)) {
-            inverterModel = config.inverter.model as InverterModel;
-        }
-
-        //totalsolar = pv1_power_186 + pv2_power_187 + pv3_power_188 + pv4_power_189
-        let totalsolar =
-            this.toNum(stateObj8.state || '0', 0) +
-            this.toNum(stateObj9.state || '0', 0) +
-            this.toNum(stateObj31.state || '0', 0) +
-            this.toNum(stateObj32.state || '0', 0)
-        ;
-
-        let total_pv = config.entities?.pv_total ? parseInt(stateObj46.state) : totalsolar;
-
-
-        //essential = inverter_power_175 + grid_power_169 - aux_power_166     
-        //nonessential = grid_ct_power_172 - grid_power_169
-
-        let three_phase = config.inverter?.three_phase;
-        if (!valid3phase.includes(three_phase)) {
-            three_phase = false;
-        }
-
-        let essential;
-        let nonessential;
-        const { essential_power, nonessential_power } = config.entities;
-
-        if (three_phase === false) {
-            nonessential = (nonessential_power === 'none' || !nonessential_power) ? 
-                this.toNum(stateObj15.state) - this.toNum(stateObj23.state) : 
-                this.toNum(stateObj34.state);
-        } else {
-            nonessential = (nonessential_power === 'none' || !nonessential_power) ?
-                (this.toNum(stateObj15.state) + this.toNum(stateObj58.state) + this.toNum(stateObj59.state)) - this.toNum(stateObj23.state) :
-                this.toNum(stateObj34.state);
-        }
-
-        essential = (essential_power === 'none' || !essential_power) ?
-            (three_phase === true && config.entities.load_power_L1 && config.entities.load_power_L2) ?
-                Number(load_power_L1) + Number(load_power_L2) + Number(load_power_L3) :
-                this.toNum(stateObj22.state, 0) + this.toNum(stateObj23.state, 0) - this.toNum(stateObj24.state, 0) :
-                this.toNum(stateObj14.state, 0);
-
-        //Timer entities
-        const prog1 = {
-            time: this.hass.states[config.entities.prog1_time] || {state: ''},
-            capacity: this.hass.states[config.entities.prog1_capacity] || {state: ''},
-            charge: this.hass.states[config.entities.prog1_charge] || {state: ''}
-        };
-        const prog2 = {
-            time: this.hass.states[config.entities.prog2_time] || {state: ''},
-            capacity: this.hass.states[config.entities.prog2_capacity] || {state: ''},
-            charge: this.hass.states[config.entities.prog2_charge] || {state: ''}
-        };
-        const prog3 = {
-            time: this.hass.states[config.entities.prog3_time] || {state: ''},
-            capacity: this.hass.states[config.entities.prog3_capacity] || {state: ''},
-            charge: this.hass.states[config.entities.prog3_charge] || {state: ''}
-        };
-        const prog4 = {
-            time: this.hass.states[config.entities.prog4_time] || {state: ''},
-            capacity: this.hass.states[config.entities.prog4_capacity] || {state: ''},
-            charge: this.hass.states[config.entities.prog4_charge] || {state: ''}
-        };
-        const prog5 = {
-            time: this.hass.states[config.entities.prog5_time] || {state: ''},
-            capacity: this.hass.states[config.entities.prog5_capacity] || {state: ''},
-            charge: this.hass.states[config.entities.prog5_charge] || {state: ''}
-        };
-        const prog6 = {
-            time: this.hass.states[config.entities.prog6_time] || {state: ''},
-            capacity: this.hass.states[config.entities.prog6_capacity] || {state: ''},
-            charge: this.hass.states[config.entities.prog6_charge] || {state: ''}
-        };
-
-        const shutdownsoc = this.hass.states[config.battery.shutdown_soc] || {state: config.battery.shutdown_soc ?? ''};
-        let shutdown = this.toNum(shutdownsoc.state);
-        let inverter_prog: InverterSettings = {
-//      capacity: config.battery.shutdown_soc,
-            capacity: shutdown,
-            entityID: ''
-        };
-        if (!config.entities.use_timer_248 || config.entities.use_timer_248 === false || stateObj26.state === 'off') {
-            inverter_prog.show = false;
-        } else if (!config.entities.prog1_time
-            || !config.entities.prog2_time
-            || !config.entities.prog3_time
-            || !config.entities.prog4_time
-            || !config.entities.prog5_time
-            || !config.entities.prog6_time
-        ) {
-            inverter_prog.show = false;
-        } else {
-            inverter_prog.show = true;
-
-            const timer_now = new Date(); // Create a new Date object representing the current time
-
-            const progTimes: Date[] = [];
-
-            [prog1, prog2, prog3, prog4, prog5, prog6].forEach((prog, index) => {
-                const [hours, minutes] = prog.time.state.split(":").map(function (item) {
-                    return parseInt(item, 10);
-                });
-                progTimes[index] = new Date(timer_now.getTime());
-                progTimes[index].setHours(hours);
-                progTimes[index].setMinutes(minutes);
-            });
-
-            const [prog_time1, prog_time2, prog_time3, prog_time4, prog_time5, prog_time6] = progTimes;
-
-            if (timer_now >= prog_time6 || timer_now < prog_time1) {
-                assignInverterProgValues(prog6, config.entities.prog6_charge);
-            } else if (timer_now >= prog_time1 && timer_now < prog_time2) {
-                assignInverterProgValues(prog1, config.entities.prog1_charge);
-            } else if (timer_now >= prog_time2 && timer_now < prog_time3) {
-                assignInverterProgValues(prog2, config.entities.prog2_charge);
-            } else if (timer_now >= prog_time3 && timer_now < prog_time4) {
-                assignInverterProgValues(prog3, config.entities.prog3_charge);
-            } else if (timer_now >= prog_time4 && timer_now < prog_time5) {
-                assignInverterProgValues(prog4, config.entities.prog4_charge);
-            } else if (timer_now >= prog_time5 && timer_now < prog_time6) {
-                assignInverterProgValues(prog5, config.entities.prog5_charge);
-            }
-
-            function assignInverterProgValues(prog, entityID) {
-                if (prog.charge.state === 'No Grid or Gen' || prog.charge.state === '0' || prog.charge.state === 'off') {
-                    inverter_prog.charge = 'none';
-                } else {
-                    inverter_prog.charge = 'both';
-                }
-                inverter_prog.capacity = parseInt(prog.capacity.state);
-                inverter_prog.entityID = entityID;
-            }
-        }
-
-        if (grid_voltage != null && !Number.isNaN(grid_voltage)) {
-            // the grid voltage can sometimes read decimals like 0.1, in cases where there is power trickled back.
-            grid_status = grid_voltage > 50 ? 'on' : 'off';
-        }
-
-        if (battery_current_direction != null && !Number.isNaN(battery_current_direction)) {
-            if (inverterModel == InverterModel.Solis && battery_current_direction === 0) {
-                battery_power = -battery_power;
-            }
-        }
-
-        //calculate battery capacity
-        let battery_capacity: number = 0;
-        if (config.show_battery !== false && battery_power > 0) {
-            if (stateObj20.state === "off" || !inverter_prog.show || parseInt(stateObj12.state) <= inverter_prog.capacity) {
-//        battery_capacity = config.battery.shutdown_soc;
-                battery_capacity = shutdown;
-            } else {
-                battery_capacity = inverter_prog.capacity;
-            }
-        } else if (config.show_battery !== false && battery_power < 0) {
-            if (stateObj20.state === "off" || !inverter_prog.show || parseInt(stateObj12.state) >= inverter_prog.capacity) {
-                battery_capacity = 100;
-            } else if (parseInt(stateObj12.state) < inverter_prog.capacity) {
-                battery_capacity = inverter_prog.capacity;
-            }
-        }
-
-        //calculate remaining battery time to charge or discharge
-        let totalSeconds = 0;
-        let formattedResultTime = "";
-        let duration = "";
-
-        const battenergy = this.hass.states[config.battery.energy] || {state: config.battery.energy ?? ''};
-        let battery_energy = this.toNum(battenergy.state, 0);
-
-        if (config.show_battery !== false || battery_energy !== 0) {
-            if (battery_power === 0) {
-                totalSeconds = (((this.toNum(stateObj12.state) - shutdown) / 100) * battery_energy) * 60 * 60;
-            } else if (battery_power > 0) {
-                totalSeconds = (((this.toNum(stateObj12.state) - battery_capacity) / 100) * battery_energy) / battery_power * 60 * 60;
-            } else if (battery_power < 0) {
-                totalSeconds = ((((battery_capacity - parseInt(stateObj12.state)) / 100) * battery_energy) / battery_power) * 60 * 60 * -1;
-            }
-            const currentTime = new Date(); // Create a new Date object representing the current time
-            const durationMilliseconds = totalSeconds * 1000; // Convert the duration to milliseconds
-            const resultTime = new Date(currentTime.getTime() + durationMilliseconds); // Add the duration in milliseconds
-            const resultHours = resultTime.getHours(); // Get the hours component of the resulting time
-            const resultMinutes = resultTime.getMinutes(); // Get the minutes component of the resulting time
-            const formattedMinutes = resultMinutes.toString().padStart(2, "0");
-            const formattedHours = resultHours.toString().padStart(2, "0");
-            formattedResultTime = `${formattedHours}:${formattedMinutes}`;
-
-            const days = Math.floor(totalSeconds / (60 * 60 * 24));
-            const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
-            const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
-            if (days > 0) {
-                duration += `${days} ${localize('common.days')},`;
-            }
-            if (hours > 0 || days > 0) {
-                duration += `${hours} ${localize('common.hrs')},`;
-            }
-            duration += `${minutes} ${localize('common.min')}`;
-        }
-
-        let isFloating = ((-2 <= parseInt(stateObj35.state)) && (parseInt(stateObj35.state) <= 2) && (parseInt(stateObj12.state) >= 99));
-
-        //Set Inverter Status Message and dot
-        let inverterStateColour = "";
-        let inverterStateMsg = "";
-        let inverterState = stateObj21.state as any;
-
-        let found = false;
-
-        let inverterImg = '';
-        if (!inverter_modern) {
-            switch (inverterModel) {
-                case InverterModel.GoodweGridMode:
-                case InverterModel.Goodwe:
-                    inverterImg = goodweBase64Img;
-                    break;
-                case InverterModel.Lux:
-                    inverterImg = luxBase64Img;
-                    break;
-                case InverterModel.Solis:
-                    inverterImg = solisBase64Img;
-                    break;
-                default:
-                    inverterImg = sunsynkBase64Img;
-                    break;
-            }
-        }
-
-        /**
-         * Status can be returned as decimals "3.0", so this is just to change it to an int
-         */
-        if (inverterModel == InverterModel.Solis) {
-            const state = stateObj21.state as any;
-            inverterState = !Number.isNaN(state) ? Number(state).toFixed(0) : state;
-        }
-
-        let typeStatusGroups = inverterStatusGroups[inverterModel];
-        for (const groupKey of Object.keys(typeStatusGroups)) {
-            const info = typeStatusGroups[groupKey];
-            const {states, color, message} = info;
-            if (states.includes(inverterState)) {
-                inverterStateColour = color;
-                inverterStateMsg = message;
-                found = true;
-                break;
-            }
-        }
-
-        if (!found) {
-            if (config.entities?.inverter_status_59 === 'none' || !config.entities?.inverter_status_59) {
-                inverterStateColour = 'transparent';
-                inverterStateMsg = '';
-            } else {
-                inverterStateColour = 'transparent';
-                inverterStateMsg = 'Status';
-            }
-        }
-
-        //Set Battery Status Message and dot for goodwe
-        let batteryStateColour = "";
-        let batteryStateMsg = "";
-        if ([InverterModel.GoodweGridMode, InverterModel.Goodwe].includes(inverterModel)) {
-            let batStatusGroups = batteryStatusGroups[inverterModel];
-
-            for (const groupKey of Object.keys(batStatusGroups)) {
-                const info = batStatusGroups[groupKey];
-                const {states, color, message} = info;
-                if (states.includes(stateObj66.state)) {
-                    batteryStateColour = color;
-                    batteryStateMsg = message;
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                if (config.entities?.battery_status === 'none' || !config.entities?.battery_status) {
-                    batteryStateColour = 'transparent';
-                    batteryStateMsg = '';
-                } else {
-                    batteryStateColour = 'transparent';
-                    batteryStateMsg = 'Status';
-                }
-            }
-        }
-
-        //Autarky in Percent = Home Production / Home Consumption
-        //Ratio in Percent = Home Consumption / Home Production
-        //let production_e = parseFloat(stateObj4.state) + parseFloat(stateObj.state);
-        //let consumption_e = parseFloat(stateObj2.state) + parseFloat(stateObj1.state);
-        let production_e = (
-            (Number.isNaN(stateObj4.state) ? 0 : parseFloat(stateObj4.state)) +
-            (Number.isNaN(stateObj.state) ? 0 : parseFloat(stateObj.state))
-        );
-        let consumption_e = (
-            (Number.isNaN(stateObj2.state) ? 0 : parseFloat(stateObj2.state)) +
-            (Number.isNaN(stateObj1.state) ? 0 : parseFloat(stateObj1.state))
-        );
-        let Autarky = consumption_e != 0 ? Math.min(Math.round((production_e * 100) / consumption_e), 100) : 0;
-        let Ratio = production_e != 0 ? Math.min(Math.round((consumption_e * 100) / production_e), 100) : 0;
-
-        let production_p = totalsolar + parseInt(`${battery_power > 0 ? battery_power : 0}`) + parseInt(`${aux_power < 0 ? aux_power * -1 : 0}`);
-        let consumption_p = essential + nonessential + parseInt(`${aux_power > 0 ? aux_power : 0}`) + parseInt(`${battery_power < 0 ? battery_power * -1 : 0}`);
-        let Autarkyp = consumption_p != 0 ? Math.min(Math.round((production_p * 100) / consumption_p), 100) : 0;
-        let Ratiop = production_p != 0 ? Math.min(Math.round((consumption_p * 100) / production_p), 100) : 0;
-
-        //Calculate power use animation speeds depending on Inverter size
-        if (config && config.solar && config.solar.animation_speed) {
-            const speed = config.solar.animation_speed - ((config.solar.animation_speed - 1) * (totalsolar / (config.solar.max_power || totalsolar)));
-            this.changeAnimationSpeed(`solar`, speed);
-        }
-
-        if (config && config.solar && config.solar.animation_speed) {
-            const speed = config.solar.animation_speed - ((config.solar.animation_speed - 1) * (this.toNum(stateObj9.state, 0) / (config.solar.max_power || this.toNum(stateObj9.state, 0))));
-            this.changeAnimationSpeed(`pv1`, speed);
-        }
-
-        if (config && config.solar && config.solar.animation_speed) {
-            const speed = config.solar.animation_speed - ((config.solar.animation_speed - 1) * (this.toNum(stateObj8.state, 0) / (config.solar.max_power || this.toNum(stateObj8.state, 0))));
-            this.changeAnimationSpeed(`pv2`, speed);
-        }
-
-        if (config && config.solar && config.solar.animation_speed) {
-            const speed = config.solar.animation_speed - ((config.solar.animation_speed - 1) * (this.toNum(stateObj31.state, 0) / (config.solar.max_power || this.toNum(stateObj31.state, 0))));
-            this.changeAnimationSpeed(`pv3`, speed);
-        }
-
-        if (config && config.solar && config.solar.animation_speed) {
-            const speed = config.solar.animation_speed - ((config.solar.animation_speed - 1) * (this.toNum(stateObj32.state, 0) / (config.solar.max_power || this.toNum(stateObj32.state, 0))));
-            this.changeAnimationSpeed(`pv4`, speed);
-        }
-
-        if (config && config.battery && config.battery.animation_speed) {
-            const speed = config.battery.animation_speed - ((config.battery.animation_speed - 1) * (Math.abs(battery_power)  / (config.battery.max_power || Math.abs(battery_power))));
-            this.changeAnimationSpeed(`battery`, speed);
-        }
-
-        if (config && config.load && config.load.animation_speed) {
-            const speed = config.load.animation_speed - ((config.load.animation_speed - 1) * (Math.abs(essential) / (config.load.max_power || Math.abs(essential))));
-            this.changeAnimationSpeed(`load`, speed);
-        }
-
-        if (config && config.load && config.load.animation_speed) {
-            const speed = config.load.animation_speed - ((config.load.animation_speed - 1) * (Math.abs(aux_power) / (config.load.max_power || Math.abs(aux_power))));
-            this.changeAnimationSpeed(`aux`, speed);
-        }
-
-        if (config && config.grid && config.grid.animation_speed) {
-            const speed = config.grid.animation_speed - ((config.grid.animation_speed - 1) * (Math.abs(total_grid_power) / (config.grid.max_power || Math.abs(total_grid_power))));
-            this.changeAnimationSpeed(`grid1`, speed);
-            this.changeAnimationSpeed(`grid`, speed);
-        }
-
-        if (config && config.grid && config.grid.animation_speed) {
-            const speed = config.grid.animation_speed - ((config.grid.animation_speed - 1) * (Math.abs(nonessential) / (config.grid.max_power || Math.abs(nonessential))));
-            this.changeAnimationSpeed(`ne`, speed);
-        }
-
-        let round = config.decimal_places;
-
-        function convertValue(value, decimal = 2) {
-            decimal = Number.isNaN(decimal) ? 2 : decimal;
-            if (Math.abs(value) > 999) {
-                return `${(value / 1000).toFixed(decimal)} kW`;
-            } else {
-                return `${Math.round(value)} W`;
-            }
-        }
-
-        const pvPercentage = total_pv === 0 ? 0 : Math.min((total_pv / essential) * 100, 100).toFixed(0);
-        const batteryPercentage = battery_power <= 0 ? 0 : Math.min((Math.abs(battery_power) / essential) * 100, 100).toFixed(0);
-        //console.log( pvPercentage, gridPercentage, batteryPercentage);
-
-        if (this.isFullCard) {
-            return html`
-                <ha-card>
-                    <style>
-                        .essload-icon {
-                            color: ${load_colour} !important;
-                            --mdc-icon-size: 20px;
-                        }
-
-                        .essload1-icon {
-                            color: ${load_colour} !important;
-                            --mdc-icon-size: 36px;
-                        }
-
-                        .aux-icon {
-                            color: ${aux_colour} !important;
-                            --mdc-icon-size: 70px;
-                        }
-
-                        .aux-small-icon {
-                            color: ${aux_colour} !important;
-                            --mdc-icon-size: 24px;
-                        }
-
-                        .aux-off-icon {
-                            color: ${aux_off_colour} !important;
-                            --mdc-icon-size: 70px;
-                        }
-
-                        .nonessload-icon {
-                            color: ${grid_colour} !important;
-                            --mdc-icon-size: 32px;
-                        }
+	@property() public hass!: HomeAssistant;
+	@property() private _config!: sunsynkPowerFlowCardConfig;
+	@query('#grid-flow') gridFlow?: SVGSVGElement;
+	@query('#grid1-flow') grid1Flow?: SVGSVGElement;
+	@query('#solar-flow') solarFlow?: SVGSVGElement;
+	@query('#pv1-flow') pv1Flow?: SVGSVGElement;
+	@query('#pv2-flow') pv2Flow?: SVGSVGElement;
+	@query('#pv3-flow') pv3Flow?: SVGSVGElement;
+	@query('#pv4-flow') pv4Flow?: SVGSVGElement;
+	@query('#battery-flow') batteryFlow?: SVGSVGElement;
+	@query('#load-flow') loadFlow?: SVGSVGElement;
+	@query('#aux-flow') auxFlow?: SVGSVGElement;
+	@query('#ne-flow') neFlow?: SVGSVGElement;
+	@query('#ne1-flow') ne1Flow?: SVGSVGElement;
+
+	private durationPrev: { [name: string]: number } = {};
+	private durationCur: { [name: string]: number } = {};
+
+	static get styles(): CSSResultGroup {
+		return styles;
+	}
+
+	static getStubConfig() {
+		return {
+			cardstyle: CardStyle.Lite,
+			show_solar: true,
+			battery: {
+				energy: 0,
+				shutdown_soc: 20,
+				show_daily: true,
+			},
+			solar: {
+				show_daily: true,
+				mppts: 2,
+			},
+			load: {
+				show_daily: true,
+			},
+			grid: {
+				show_daily_buy: true,
+				show_daily_sell: false,
+				show_nonessential: true,
+			},
+			entities: {
+				use_timer_248: 'switch.sunsynk_toggle_system_timer',
+				priority_load_243: 'switch.sunsynk_toggle_priority_load',
+				inverter_voltage_154: 'sensor.sunsynk_inverter_voltage',
+				load_frequency_192: 'sensor.sunsynk_load_frequency',
+				inverter_current_164: 'sensor.sunsynk_inverter_current',
+				inverter_power_175: 'sensor.sunsynk_inverter_power',
+				grid_connected_status_194: 'binary_sensor.sunsynk_grid_connected_status',
+				inverter_status_59: 'sensor.sunsynk_overall_state',
+				day_battery_charge_70: 'sensor.sunsynk_day_battery_charge',
+				day_battery_discharge_71: 'sensor.sunsynk_day_battery_discharge',
+				battery_voltage_183: 'sensor.sunsynk_battery_voltage',
+				battery_soc_184: 'sensor.sunsynk_battery_soc',
+				battery_power_190: 'sensor.sunsynk_battery_power',
+				battery_current_191: 'sensor.sunsynk_battery_current',
+				grid_power_169: 'sensor.sunsynk_grid_power',
+				day_grid_import_76: 'sensor.sunsynk_day_grid_import',
+				day_grid_export_77: 'sensor.sunsynk_day_grid_export',
+				grid_ct_power_172: 'sensor.sunsynk_grid_ct_power',
+				day_load_energy_84: 'sensor.sunsynk_day_load_energy',
+				essential_power: 'none',
+				nonessential_power: 'none',
+				aux_power_166: 'sensor.sunsynk_aux_power',
+				day_pv_energy_108: 'sensor.sunsynk_day_pv_energy',
+				pv1_power_186: 'sensor.sunsynk_pv1_power',
+				pv2_power_187: 'sensor.sunsynk_pv2_power',
+				pv1_voltage_109: 'sensor.sunsynk_pv1_voltage',
+				pv1_current_110: 'sensor.sunsynk_pv1_current',
+				pv2_voltage_111: 'sensor.sunsynk_pv2_voltage',
+				pv2_current_112: 'sensor.sunsynk_pv2_current',
+			},
+		} as unknown as sunsynkPowerFlowCardConfig;
+	}
+
+	render() {
+		const config = this._config;
+		const stateObj = this.getState('day_battery_discharge_71', { state: '0' });
+		const stateObj1 = this.getState('day_battery_charge_70', { state: '0' });
+		const stateObj2 = this.getState('day_load_energy_84', { state: '0' });
+		const stateObj3 = this.getState('day_grid_import_76', { state: '0' });
+		const stateObj4 = this.getState('day_pv_energy_108', { state: '0' });
+		const stateObj5 = this.getState('inverter_voltage_154', { state: '0' });
+		const stateObj6 = this.getState('load_frequency_192', { state: '0' });
+		const stateObj7 = this.getState('inverter_current_164', { state: '0' });
+		const stateObj8 = this.getState('pv2_power_187', { state: '0' });
+		const stateObj9 = this.getState('pv1_power_186', { state: '0' });
+		const stateObj11 = this.getState('battery_voltage_183', { state: '0' });
+		const stateObj12 = this.getState('battery_soc_184', { state: '0' });
+		const stateObj13 = this.getState('battery_power_190', { state: '0' });
+		const stateObj14 = this.getState('essential_power', { state: '0' });
+		const stateObj15 = this.getState('grid_ct_power_172', { state: 0 });
+		const stateObj16 = this.getState('pv1_voltage_109', { state: '0' });
+		const stateObj17 = this.getState('pv1_current_110', { state: '0' });
+		const stateObj18 = this.getState('pv2_voltage_111', { state: '0' });
+		const stateObj19 = this.getState('pv2_current_112', { state: '0' });
+		const stateObj20 = this.getState('grid_connected_status_194', { state: 'on' });
+		const stateObj21 = this.getState('inverter_status_59', { state: '' });
+		const stateObj22 = this.getState('inverter_power_175', { state: '0' });
+		const stateObj23 = this.getState('grid_power_169', { state: '0' });
+		const stateObj24 = this.getState('aux_power_166', { state: '0' });
+		const stateObj25 = this.getState('priority_load_243', { state: 'undefined' });
+		const stateObj26 = this.getState('use_timer_248', { state: 'undefined' });
+		const stateObj27 = this.getState('pv3_voltage_113', { state: '0' });
+		const stateObj28 = this.getState('pv3_current_114', { state: '0' });
+		const stateObj29 = this.getState('pv4_voltage_115', { state: '0' });
+		const stateObj30 = this.getState('pv4_current_116', { state: '0' });
+		const stateObj31 = this.getState('pv3_power_188', { state: '0' });
+		const stateObj32 = this.getState('pv4_power_189', { state: '0' });
+		const stateObj33 = this.getState('day_grid_export_77', { state: '0' });
+		const stateObj34 = this.getState('nonessential_power', { state: '0' });
+		const stateObj35 = this.getState('battery_current_191', { state: '0' });
+		const stateObj36 = this.getState('remaining_solar', { state: 0 });
+		const stateObj37 = this.getState('battery_temp_182', { state: '' });
+		const stateObj38 = this.getState('dc_transformer_temp_90', { state: '' });
+		const stateObj39 = this.getState('radiator_temp_91', { state: '' });
+		const stateObj40 = this.getState('non_essential_load1', { state: '0' });
+		const stateObj41 = this.getState('non_essential_load2', { state: '0' });
+		const stateObj42 = this.getState('essential_load1', {
+			state: '0',
+			attributes: { unit_of_measurement: '' },
+		});
+		const stateObj43 = this.getState('energy_cost_buy', {
+			state: '',
+			attributes: { unit_of_measurement: '' },
+		});
+		const stateObj44 = this.getState('solar_sell_247', { state: 'undefined' });
+		const stateObj45 = this.getState('essential_load2', {
+			state: '0',
+			attributes: { unit_of_measurement: '' },
+		});
+		const stateObj46 = this.getState('pv_total', { state: '0' });
+		const stateObj47 = this.getState('aux_connected_status', { state: 'on' });
+		const stateObj48 = this.getState('aux_load1', { state: '0' });
+		const stateObj49 = this.getState('aux_load2', { state: '0' });
+		const stateObj50 = this.getState('day_aux_energy', { state: '0' });
+		const stateObj51 = this.getState('energy_cost_sell', {
+			state: '',
+			attributes: { unit_of_measurement: '' },
+		});
+		const stateObj52 = this.getState('essential_load1_extra', {
+			state: '0',
+			attributes: { unit_of_measurement: '' },
+		});
+		const stateObj53 = this.getState('essential_load2_extra', {
+			state: '0',
+			attributes: { unit_of_measurement: '' },
+		});
+		const stateObj54 = this.getState('inverter_voltage_L2', { state: '' });
+		const stateObj55 = this.getState('inverter_voltage_L3', { state: '' });
+		const stateObj56 = this.getState('inverter_current_L2', { state: '' });
+		const stateObj57 = this.getState('inverter_current_L3', { state: '' });
+		const stateObj58 = this.getState('grid_ct_power_L2', { state: 0 });
+		const stateObj59 = this.getState('grid_ct_power_L3', { state: 0 });
+		const stateObj60 = this.getState('load_power_L1', { state: 0 });
+		const stateObj61 = this.getState('load_power_L2', { state: 0 });
+		const stateObj62 = this.getState('load_power_L3', { state: 0 });
+		const stateObj63 = this.getState('total_pv_generation', { state: 0 });
+		const stateObj64 = this.getState('essential_load3', {
+			state: '0',
+			attributes: { unit_of_measurement: '' },
+		});
+		const stateObj65 = this.getState('essential_load4', {
+			state: '0',
+			attributes: { unit_of_measurement: '' },
+		});
+		const stateObj66 = this.getState('battery_status', { state: '' });
+		const stateObj67 = this.getState('aux_load1_extra', {
+			state: '0',
+			attributes: { unit_of_measurement: '' },
+		});
+		const stateObj68 = this.getState('aux_load2_extra', {
+			state: '0',
+			attributes: { unit_of_measurement: '' },
+		});
+		const stateObj69 = this.getState('grid_voltage');
+		const stateObj70 = this.getState('battery_current_direction');
+		const stateObj71 = this.getState('non_essential_load3', { state: 0 });
+		const stateObj72 = this.getState('grid_ct_power_total', { state: 0 });
+
+		//Set defaults
+		let { invert_aux } = config.load;
+		let aux_power = this.toNum(stateObj24.state, 0, invert_aux);
+		let { invert_grid } = config.grid;
+		let grid_power = this.toNum(stateObj15.state, 0, invert_grid);
+		let grid_power_L2 = this.toNum(stateObj58.state, 0, invert_grid);
+		let grid_power_L3 = this.toNum(stateObj59.state, 0, invert_grid);
+		let grid_power_3phase = this.toNum(stateObj72.state, 0, invert_grid);
+		let grid_power_total = config.entities?.grid_ct_power_total
+			? grid_power_3phase
+			: grid_power + grid_power_L2 + grid_power_L3;
+
+		const total_grid_power = config.inverter.three_phase ? grid_power_total : grid_power;
+
+		let grid_voltage = stateObj69 ? this.toNum(stateObj69.state) : null;
+		let battery_current_direction = stateObj70 ? parseInt(stateObj70.state) : null;
+		let inverter_modern = config.inverter?.modern;
+		let load_colour = config.load?.colour;
+		let aux_colour = config.load?.aux_colour || load_colour;
+		let aux_off_colour = config.load?.aux_off_colour || load_colour;
+		let load_showdaily = config.load?.show_daily;
+		let no_grid_colour = config.grid?.no_grid_colour;
+		let grid_show_noness = config.grid?.show_nonessential;
+		let grid_status = config.entities?.grid_connected_status_194 ? stateObj20.state : 'on';
+		let aux_status = config.entities?.aux_connected_status ? stateObj47.state : 'on';
+		let load_frequency = config.entities?.load_frequency_192 ? this.toNum(stateObj6.state, 2) : 0;
+		let inverter_voltage = config.entities?.inverter_voltage_154
+			? config.inverter.three_phase && this.isLiteCard
+				? this.toNum(stateObj5.state, 0)
+				: this.toNum(stateObj5.state, 1)
+			: 0;
+		let inverter_voltage_L2 = config.entities?.inverter_voltage_L2
+			? config.inverter.three_phase && this.isLiteCard
+				? this.toNum(stateObj54.state, 0)
+				: this.toNum(stateObj54.state, 1)
+			: '';
+		let inverter_voltage_L3 = config.entities?.inverter_voltage_L3
+			? config.inverter.three_phase && this.isLiteCard
+				? this.toNum(stateObj55.state, 0)
+				: this.toNum(stateObj55.state, 1)
+			: '';
+		let inverter_current = config.entities?.inverter_current_164
+			? config.inverter.three_phase && this.isFullCard
+				? this.toNum(stateObj7.state, 1)
+				: this.toNum(stateObj7.state, 1)
+			: 0;
+		let inverter_current_L2 = config.entities?.inverter_current_L2
+			? config.inverter.three_phase && this.isFullCard
+				? this.toNum(stateObj56.state, 1)
+				: this.toNum(stateObj56.state, 1)
+			: '';
+		let inverter_current_L3 = config.entities?.inverter_current_L3
+			? config.inverter.three_phase && this.isFullCard
+				? this.toNum(stateObj57.state, 1)
+				: this.toNum(stateObj57.state, 1)
+			: '';
+		let battery_voltage = config.entities?.battery_voltage_183 ? this.toNum(stateObj11.state, 1) : 0;
+		let inverter_power_round = config.entities?.inverter_power_175 ? this.toNum(stateObj22.state, 0) : 0;
+		let grid_power_round = config.entities?.grid_power_169 ? this.toNum(stateObj23.state, 0) : 0;
+		let load_power_L1 = config.entities?.load_power_L1 ? this.toNum(stateObj60.state, 0) : '';
+		let load_power_L2 = config.entities?.load_power_L2 ? this.toNum(stateObj61.state, 0) : '';
+		let load_power_L3 = config.entities?.load_power_L3 ? this.toNum(stateObj62.state, 0) : '';
+
+		const grid_import_colour = config.grid?.colour;
+		const grid_export_colour = config.grid?.export_colour || grid_import_colour;
+		let grid_colour = total_grid_power < 0 ? grid_export_colour : grid_import_colour;
+
+		let noness_dual_load = config.grid?.additional_loads;
+		if (!validnonLoadValues.includes(noness_dual_load)) {
+			noness_dual_load = 0;
+		}
+
+		let grid_showdailybuy = config.grid?.show_daily_buy;
+		let grid_showdailysell = config.grid?.show_daily_sell;
+		let battery_colour = config.battery?.colour;
+		let battery_showdaily = config.battery?.show_daily;
+		let solar_colour = config.solar?.colour;
+		let solar_showdaily = config.solar?.show_daily;
+		let show_aux = config.load?.show_aux;
+		let show_dailyaux = config.load?.show_daily_aux;
+
+		let additional_load = config.load?.additional_loads;
+		if (!validLoadValues.includes(additional_load) || (this.isFullCard && additional_load === 4)) {
+			additional_load = 0;
+		}
+
+		let additional_aux_load = config.load?.aux_loads;
+		if (!validLoadValues.includes(additional_aux_load)) {
+			additional_aux_load = 0;
+		}
+
+		let aux_type = config.load?.aux_type; //valid options are gen,inverter, default, gen, boiler, pump, aircon
+		let aux_load1_icon = config.load?.aux_load1_icon;
+		let aux_load2_icon = config.load?.aux_load2_icon;
+		let nonessential_icon = config.grid?.nonessential_icon; //valid options are default, oven, boiler, pump, aircon
+		let load1_icon = config.grid?.load1_icon; //valid options are default, oven, boiler, pump
+		let load2_icon = config.grid?.load2_icon; //valid options are default, oven, boiler, pump
+		let load3_icon = config.grid?.load3_icon; //mdi icon
+		let load1e_icon = config.load?.load1_icon; //valid options are boiler, aircon, pump
+		let load2e_icon = config.load?.load2_icon; //valid options are boiler, aircon, pump
+		let load3e_icon = config.load?.load3_icon;
+		let load4e_icon = config.load?.load4_icon;
+		let remaining_solar = config.entities.remaining_solar ? this.toNum(stateObj36.state, 1) : false;
+		let total_solar_generation = config.entities.total_pv_generation ? this.toNum(stateObj63.state, 1) : false;
+		let font = config.large_font;
+		let panel = config.panel_mode;
+		let inverter_colour = config.inverter?.colour;
+		let useautarky = config.inverter?.autarky;
+		let usetimer = config.entities.use_timer_248 === false || !config.entities.use_timer_248 ? false : stateObj26.state;
+		let priority =
+			config.entities.priority_load_243 === false || !config.entities.priority_load_243 ? false : stateObj25.state;
+		let battery_power = this.toNum(stateObj13.state, 0, config.battery?.invert_power);
+		const card_height = (config.card_height ? this.hass.states[config.card_height] : null) || { state: '' };
+		let height =
+			card_height.state === 'unavailable' || card_height.state === 'unknown' || card_height.state === ''
+				? config.card_height
+				: card_height.state;
+		let width = config.card_width;
+		let bat_full = config.battery?.full_capacity;
+		let bat_empty = config.battery?.empty_capacity;
+		let energy_cost_decimals = config.grid?.energy_cost_decimals === 0 ? 0 : config.grid?.energy_cost_decimals || 2;
+		let energy_cost =
+			total_grid_power >= 0
+				? this.toNum(stateObj43.state, energy_cost_decimals)
+				: this.toNum(stateObj51.state, energy_cost_decimals);
+		let inverterModel = InverterModel.Sunsynk;
+
+		// Check if the userInputModel is a valid inverter model
+		if (Object.values(InverterModel).includes(config.inverter.model)) {
+			inverterModel = config.inverter.model as InverterModel;
+		}
+
+		//totalsolar = pv1_power_186 + pv2_power_187 + pv3_power_188 + pv4_power_189
+		let totalsolar =
+			this.toNum(stateObj8.state || '0', 0) +
+			this.toNum(stateObj9.state || '0', 0) +
+			this.toNum(stateObj31.state || '0', 0) +
+			this.toNum(stateObj32.state || '0', 0);
+		let total_pv = config.entities?.pv_total ? parseInt(stateObj46.state) : totalsolar;
+
+		//essential = inverter_power_175 + grid_power_169 - aux_power_166
+		//nonessential = grid_ct_power_172 - grid_power_169
+
+		let three_phase = config.inverter?.three_phase;
+		if (!valid3phase.includes(three_phase)) {
+			three_phase = false;
+		}
+
+		let essential: number;
+		let nonessential: number;
+		const { essential_power, nonessential_power } = config.entities;
+
+		if (three_phase === false) {
+			nonessential =
+				nonessential_power === 'none' || !nonessential_power
+					? this.toNum(stateObj15.state) - this.toNum(stateObj23.state)
+					: this.toNum(stateObj34.state);
+		} else {
+			nonessential =
+				nonessential_power === 'none' || !nonessential_power
+					? this.toNum(stateObj15.state) +
+					  this.toNum(stateObj58.state) +
+					  this.toNum(stateObj59.state) -
+					  this.toNum(stateObj23.state)
+					: this.toNum(stateObj34.state);
+		}
+
+		essential =
+			essential_power === 'none' || !essential_power
+				? three_phase === true && config.entities.load_power_L1 && config.entities.load_power_L2
+					? Number(load_power_L1) + Number(load_power_L2) + Number(load_power_L3)
+					: this.toNum(stateObj22.state, 0) + this.toNum(stateObj23.state, 0) - this.toNum(stateObj24.state, 0)
+				: this.toNum(stateObj14.state, 0);
+
+		//Timer entities
+		const prog1 = {
+			time: this.hass.states[config.entities.prog1_time] || { state: '' },
+			capacity: this.hass.states[config.entities.prog1_capacity] || { state: '' },
+			charge: this.hass.states[config.entities.prog1_charge] || { state: '' },
+		};
+		const prog2 = {
+			time: this.hass.states[config.entities.prog2_time] || { state: '' },
+			capacity: this.hass.states[config.entities.prog2_capacity] || { state: '' },
+			charge: this.hass.states[config.entities.prog2_charge] || { state: '' },
+		};
+		const prog3 = {
+			time: this.hass.states[config.entities.prog3_time] || { state: '' },
+			capacity: this.hass.states[config.entities.prog3_capacity] || { state: '' },
+			charge: this.hass.states[config.entities.prog3_charge] || { state: '' },
+		};
+		const prog4 = {
+			time: this.hass.states[config.entities.prog4_time] || { state: '' },
+			capacity: this.hass.states[config.entities.prog4_capacity] || { state: '' },
+			charge: this.hass.states[config.entities.prog4_charge] || { state: '' },
+		};
+		const prog5 = {
+			time: this.hass.states[config.entities.prog5_time] || { state: '' },
+			capacity: this.hass.states[config.entities.prog5_capacity] || { state: '' },
+			charge: this.hass.states[config.entities.prog5_charge] || { state: '' },
+		};
+		const prog6 = {
+			time: this.hass.states[config.entities.prog6_time] || { state: '' },
+			capacity: this.hass.states[config.entities.prog6_capacity] || { state: '' },
+			charge: this.hass.states[config.entities.prog6_charge] || { state: '' },
+		};
+
+		const shutdownsoc = this.hass.states[config.battery.shutdown_soc] || { state: config.battery.shutdown_soc ?? '' };
+		let shutdown = this.toNum(shutdownsoc.state);
+		let inverter_prog: InverterSettings = {
+			//      capacity: config.battery.shutdown_soc,
+			capacity: shutdown,
+			entityID: '',
+		};
+		if (!config.entities.use_timer_248 || config.entities.use_timer_248 === false || stateObj26.state === 'off') {
+			inverter_prog.show = false;
+		} else if (
+			!config.entities.prog1_time ||
+			!config.entities.prog2_time ||
+			!config.entities.prog3_time ||
+			!config.entities.prog4_time ||
+			!config.entities.prog5_time ||
+			!config.entities.prog6_time
+		) {
+			inverter_prog.show = false;
+		} else {
+			inverter_prog.show = true;
+
+			const timer_now = new Date(); // Create a new Date object representing the current time
+
+			const progTimes: Date[] = [];
+
+			[prog1, prog2, prog3, prog4, prog5, prog6].forEach((prog, index) => {
+				const [hours, minutes] = prog.time.state.split(':').map(function (item) {
+					return parseInt(item, 10);
+				});
+				progTimes[index] = new Date(timer_now.getTime());
+				progTimes[index].setHours(hours);
+				progTimes[index].setMinutes(minutes);
+			});
+
+			const [prog_time1, prog_time2, prog_time3, prog_time4, prog_time5, prog_time6] = progTimes;
+
+			if (timer_now >= prog_time6 || timer_now < prog_time1) {
+				assignInverterProgValues(prog6, config.entities.prog6_charge);
+			} else if (timer_now >= prog_time1 && timer_now < prog_time2) {
+				assignInverterProgValues(prog1, config.entities.prog1_charge);
+			} else if (timer_now >= prog_time2 && timer_now < prog_time3) {
+				assignInverterProgValues(prog2, config.entities.prog2_charge);
+			} else if (timer_now >= prog_time3 && timer_now < prog_time4) {
+				assignInverterProgValues(prog3, config.entities.prog3_charge);
+			} else if (timer_now >= prog_time4 && timer_now < prog_time5) {
+				assignInverterProgValues(prog4, config.entities.prog4_charge);
+			} else if (timer_now >= prog_time5 && timer_now < prog_time6) {
+				assignInverterProgValues(prog5, config.entities.prog5_charge);
+			}
+
+			function assignInverterProgValues(prog, entityID) {
+				if (prog.charge.state === 'No Grid or Gen' || prog.charge.state === '0' || prog.charge.state === 'off') {
+					inverter_prog.charge = 'none';
+				} else {
+					inverter_prog.charge = 'both';
+				}
+				inverter_prog.capacity = parseInt(prog.capacity.state);
+				inverter_prog.entityID = entityID;
+			}
+		}
+
+		if (grid_voltage != null && !Number.isNaN(grid_voltage)) {
+			// the grid voltage can sometimes read decimals like 0.1, in cases where there is power trickled back.
+			grid_status = grid_voltage > 50 ? 'on' : 'off';
+		}
+
+		if (battery_current_direction != null && !Number.isNaN(battery_current_direction)) {
+			if (inverterModel == InverterModel.Solis && battery_current_direction === 0) {
+				battery_power = -battery_power;
+			}
+		}
+
+		//calculate battery capacity
+		let battery_capacity: number = 0;
+		if (config.show_battery !== false && battery_power > 0) {
+			if (stateObj20.state === 'off' || !inverter_prog.show || parseInt(stateObj12.state) <= inverter_prog.capacity) {
+				//        battery_capacity = config.battery.shutdown_soc;
+				battery_capacity = shutdown;
+			} else {
+				battery_capacity = inverter_prog.capacity;
+			}
+		} else if (config.show_battery !== false && battery_power < 0) {
+			if (stateObj20.state === 'off' || !inverter_prog.show || parseInt(stateObj12.state) >= inverter_prog.capacity) {
+				battery_capacity = 100;
+			} else if (parseInt(stateObj12.state) < inverter_prog.capacity) {
+				battery_capacity = inverter_prog.capacity;
+			}
+		}
+
+		//calculate remaining battery time to charge or discharge
+		let totalSeconds = 0;
+		let formattedResultTime = '';
+		let duration = '';
+
+		const battenergy = this.hass.states[config.battery.energy] || { state: config.battery.energy ?? '' };
+		let battery_energy = this.toNum(battenergy.state, 0);
+
+		if (config.show_battery !== false || battery_energy !== 0) {
+			if (battery_power === 0) {
+				totalSeconds = ((this.toNum(stateObj12.state) - shutdown) / 100) * battery_energy * 60 * 60;
+			} else if (battery_power > 0) {
+				totalSeconds =
+					((((this.toNum(stateObj12.state) - battery_capacity) / 100) * battery_energy) / battery_power) * 60 * 60;
+			} else if (battery_power < 0) {
+				totalSeconds =
+					((((battery_capacity - parseInt(stateObj12.state)) / 100) * battery_energy) / battery_power) * 60 * 60 * -1;
+			}
+			const currentTime = new Date(); // Create a new Date object representing the current time
+			const durationMilliseconds = totalSeconds * 1000; // Convert the duration to milliseconds
+			const resultTime = new Date(currentTime.getTime() + durationMilliseconds); // Add the duration in milliseconds
+			const resultHours = resultTime.getHours(); // Get the hours component of the resulting time
+			const resultMinutes = resultTime.getMinutes(); // Get the minutes component of the resulting time
+			const formattedMinutes = resultMinutes.toString().padStart(2, '0');
+			const formattedHours = resultHours.toString().padStart(2, '0');
+			formattedResultTime = `${formattedHours}:${formattedMinutes}`;
+
+			const days = Math.floor(totalSeconds / (60 * 60 * 24));
+			const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
+			const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
+			if (days > 0) {
+				duration += `${days} ${localize('common.days')},`;
+			}
+			if (hours > 0 || days > 0) {
+				duration += `${hours} ${localize('common.hrs')},`;
+			}
+			duration += `${minutes} ${localize('common.min')}`;
+		}
+
+		let isFloating =
+			-2 <= parseInt(stateObj35.state) && parseInt(stateObj35.state) <= 2 && parseInt(stateObj12.state) >= 99;
+
+		//Set Inverter Status Message and dot
+		let inverterStateColour = '';
+		let inverterStateMsg = '';
+		let inverterState = stateObj21.state as any;
+
+		let found = false;
+
+		let inverterImg = '';
+		if (!inverter_modern) {
+			switch (inverterModel) {
+				case InverterModel.GoodweGridMode:
+				case InverterModel.Goodwe:
+					inverterImg = goodweBase64Img;
+					break;
+				case InverterModel.Lux:
+					inverterImg = luxBase64Img;
+					break;
+				case InverterModel.Solis:
+					inverterImg = solisBase64Img;
+					break;
+				default:
+					inverterImg = sunsynkBase64Img;
+					break;
+			}
+		}
+
+		/**
+		 * Status can be returned as decimals "3.0", so this is just to change it to an int
+		 */
+		if (inverterModel == InverterModel.Solis) {
+			const state = stateObj21.state as any;
+			inverterState = !Number.isNaN(state) ? Number(state).toFixed(0) : state;
+		}
+
+		let typeStatusGroups = inverterStatusGroups[inverterModel];
+		for (const groupKey of Object.keys(typeStatusGroups)) {
+			const info = typeStatusGroups[groupKey];
+			const { states, color, message } = info;
+			if (states.includes(inverterState)) {
+				inverterStateColour = color;
+				inverterStateMsg = message;
+				found = true;
+				break;
+			}
+		}
+
+		if (!found) {
+			if (config.entities?.inverter_status_59 === 'none' || !config.entities?.inverter_status_59) {
+				inverterStateColour = 'transparent';
+				inverterStateMsg = '';
+			} else {
+				inverterStateColour = 'transparent';
+				inverterStateMsg = 'Status';
+			}
+		}
+
+		//Set Battery Status Message and dot for goodwe
+		let batteryStateColour = '';
+		let batteryStateMsg = '';
+		if ([InverterModel.GoodweGridMode, InverterModel.Goodwe].includes(inverterModel)) {
+			let batStatusGroups = batteryStatusGroups[inverterModel];
+
+			for (const groupKey of Object.keys(batStatusGroups)) {
+				const info = batStatusGroups[groupKey];
+				const { states, color, message } = info;
+				if (states.includes(stateObj66.state)) {
+					batteryStateColour = color;
+					batteryStateMsg = message;
+					found = true;
+					break;
+				}
+			}
+			if (!found) {
+				if (config.entities?.battery_status === 'none' || !config.entities?.battery_status) {
+					batteryStateColour = 'transparent';
+					batteryStateMsg = '';
+				} else {
+					batteryStateColour = 'transparent';
+					batteryStateMsg = 'Status';
+				}
+			}
+		}
+
+		//Autarky in Percent = Home Production / Home Consumption
+		//Ratio in Percent = Home Consumption / Home Production
+		//let production_e = parseFloat(stateObj4.state) + parseFloat(stateObj.state);
+		//let consumption_e = parseFloat(stateObj2.state) + parseFloat(stateObj1.state);
+		let production_e =
+			(Number.isNaN(stateObj4.state) ? 0 : parseFloat(stateObj4.state)) +
+			(Number.isNaN(stateObj.state) ? 0 : parseFloat(stateObj.state));
+		let consumption_e =
+			(Number.isNaN(stateObj2.state) ? 0 : parseFloat(stateObj2.state)) +
+			(Number.isNaN(stateObj1.state) ? 0 : parseFloat(stateObj1.state));
+		let Autarky = consumption_e != 0 ? Math.min(Math.round((production_e * 100) / consumption_e), 100) : 0;
+		let Ratio = production_e != 0 ? Math.min(Math.round((consumption_e * 100) / production_e), 100) : 0;
+
+		let production_p =
+			totalsolar +
+			parseInt(`${battery_power > 0 ? battery_power : 0}`) +
+			parseInt(`${aux_power < 0 ? aux_power * -1 : 0}`);
+		let consumption_p =
+			essential +
+			nonessential +
+			parseInt(`${aux_power > 0 ? aux_power : 0}`) +
+			parseInt(`${battery_power < 0 ? battery_power * -1 : 0}`);
+		let Autarkyp = consumption_p != 0 ? Math.min(Math.round((production_p * 100) / consumption_p), 100) : 0;
+		let Ratiop = production_p != 0 ? Math.min(Math.round((consumption_p * 100) / production_p), 100) : 0;
+
+		//Calculate power use animation speeds depending on Inverter size
+		if (config && config.solar && config.solar.animation_speed) {
+			const speed =
+				config.solar.animation_speed -
+				(config.solar.animation_speed - 1) * (totalsolar / (config.solar.max_power || totalsolar));
+			this.changeAnimationSpeed(`solar`, speed);
+		}
+
+		if (config && config.solar && config.solar.animation_speed) {
+			const speed =
+				config.solar.animation_speed -
+				(config.solar.animation_speed - 1) *
+					(this.toNum(stateObj9.state, 0) / (config.solar.max_power || this.toNum(stateObj9.state, 0)));
+			this.changeAnimationSpeed(`pv1`, speed);
+		}
+
+		if (config && config.solar && config.solar.animation_speed) {
+			const speed =
+				config.solar.animation_speed -
+				(config.solar.animation_speed - 1) *
+					(this.toNum(stateObj8.state, 0) / (config.solar.max_power || this.toNum(stateObj8.state, 0)));
+			this.changeAnimationSpeed(`pv2`, speed);
+		}
+
+		if (config && config.solar && config.solar.animation_speed) {
+			const speed =
+				config.solar.animation_speed -
+				(config.solar.animation_speed - 1) *
+					(this.toNum(stateObj31.state, 0) / (config.solar.max_power || this.toNum(stateObj31.state, 0)));
+			this.changeAnimationSpeed(`pv3`, speed);
+		}
+
+		if (config && config.solar && config.solar.animation_speed) {
+			const speed =
+				config.solar.animation_speed -
+				(config.solar.animation_speed - 1) *
+					(this.toNum(stateObj32.state, 0) / (config.solar.max_power || this.toNum(stateObj32.state, 0)));
+			this.changeAnimationSpeed(`pv4`, speed);
+		}
+
+		if (config && config.battery && config.battery.animation_speed) {
+			const speed =
+				config.battery.animation_speed -
+				(config.battery.animation_speed - 1) *
+					(Math.abs(battery_power) / (config.battery.max_power || Math.abs(battery_power)));
+			this.changeAnimationSpeed(`battery`, speed);
+		}
+
+		if (config && config.load && config.load.animation_speed) {
+			const speed =
+				config.load.animation_speed -
+				(config.load.animation_speed - 1) * (Math.abs(essential) / (config.load.max_power || Math.abs(essential)));
+			this.changeAnimationSpeed(`load`, speed);
+		}
+
+		if (config && config.load && config.load.animation_speed) {
+			const speed =
+				config.load.animation_speed -
+				(config.load.animation_speed - 1) * (Math.abs(aux_power) / (config.load.max_power || Math.abs(aux_power)));
+			this.changeAnimationSpeed(`aux`, speed);
+		}
+
+		if (config && config.grid && config.grid.animation_speed) {
+			const speed =
+				config.grid.animation_speed -
+				(config.grid.animation_speed - 1) *
+					(Math.abs(total_grid_power) / (config.grid.max_power || Math.abs(total_grid_power)));
+			this.changeAnimationSpeed(`grid1`, speed);
+			this.changeAnimationSpeed(`grid`, speed);
+		}
+
+		if (config && config.grid && config.grid.animation_speed) {
+			const speed =
+				config.grid.animation_speed -
+				(config.grid.animation_speed - 1) *
+					(Math.abs(nonessential) / (config.grid.max_power || Math.abs(nonessential)));
+			this.changeAnimationSpeed(`ne`, speed);
+		}
+
+		let round = config.decimal_places;
+
+		function convertValue(value, decimal = 2) {
+			decimal = Number.isNaN(decimal) ? 2 : decimal;
+			if (Math.abs(value) > 999) {
+				return `${(value / 1000).toFixed(decimal)} kW`;
+			} else {
+				return `${Math.round(value)} W`;
+			}
+		}
+
+		const pvPercentage = total_pv === 0 ? 0 : Math.min((total_pv / essential) * 100, 100).toFixed(0);
+		const batteryPercentage =
+			battery_power <= 0 ? 0 : Math.min((Math.abs(battery_power) / essential) * 100, 100).toFixed(0);
+		//console.log( pvPercentage, gridPercentage, batteryPercentage);
+
+		if (this.isFullCard) {
+			return html`
+				<ha-card>
+					<style>
+						.essload-icon {
+							color: ${load_colour} !important;
+							--mdc-icon-size: 20px;
+						}
+
+						.essload1-icon {
+							color: ${load_colour} !important;
+							--mdc-icon-size: 36px;
+						}
+
+						.aux-icon {
+							color: ${aux_colour} !important;
+							--mdc-icon-size: 70px;
+						}
+
+						.aux-small-icon {
+							color: ${aux_colour} !important;
+							--mdc-icon-size: 24px;
+						}
+
+						.aux-off-icon {
+							color: ${aux_off_colour} !important;
+							--mdc-icon-size: 70px;
+						}
+
+						.nonessload-icon {
+							color: ${grid_colour} !important;
+							--mdc-icon-size: 32px;
+						}
 
                         .noness-icon {
                             color: ${grid_colour} !important;
@@ -1522,7 +1592,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     </linearGradient>
                                 </defs>
                                 <path display="${(additional_load === 1 || additional_load === 2) && show_aux !== true ? '' : 'none'}"
-                                      fill="${config.load.dynamic_colour === true ? 'url(#Lg)' : load_colour}"
+                                      fill="${config.load.dynamic_colour ? 'url(#Lg)' : load_colour}"
                                       d="M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="essen_noaux" x="390" y="89" width="38"
@@ -1538,7 +1608,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     </linearGradient>
                                 </defs>
                                 <path display="${(additional_load === 1 || additional_load === 2) && show_aux === true ? '' : 'none'}"
-                                      fill="${config.load.dynamic_colour === true ? 'url(#Lg)' : load_colour}"
+                                      fill="${config.load.dynamic_colour ? 'url(#Lg)' : load_colour}"
                                       d="M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="essen_default" x="373.5" y="78.5" width="77"
@@ -1554,7 +1624,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     </linearGradient>
                                 </defs>
                                 <path display="${additional_load === 1 || additional_load === 2 ? 'none' : ''}"
-                                      fill="${config.load.dynamic_colour === true ? 'url(#Lg)' : load_colour}"
+                                      fill="${config.load.dynamic_colour ? 'url(#Lg)' : load_colour}"
                                       d="M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z"/>
                             </svg>
 
@@ -1625,25 +1695,25 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </g>
                             </a>
 
-                            <g display="${show_aux !== true || additional_aux_load === 0 ? 'none' : ''}">
-                                <foreignObject x="345" y="18" width="40" height="40" style="position: fixed; ">
-                                    <body xmlns="http://www.w3.org/1999/xhtml">
-                                    <div style="position: fixed; ">
-                                        <ha-icon icon="${aux_load1_icon}" class="aux-small-icon"></ha-icon>
-                                    </div>
-                                    </body>
-                                </foreignObject>
-                            </g>
+							<g display="${show_aux !== true || additional_aux_load === 0 ? 'none' : ''}">
+								<foreignObject x="345" y="18" width="40" height="40" style="position: fixed; ">
+									<body xmlns="http://www.w3.org/1999/xhtml">
+										<div style="position: fixed; ">
+											<ha-icon icon="${aux_load1_icon}" class="aux-small-icon"></ha-icon>
+										</div>
+									</body>
+								</foreignObject>
+							</g>
 
-                            <g display="${show_aux !== true || additional_aux_load === 1 || additional_aux_load === 0 ? 'none' : ''}">
-                                <foreignObject x="345" y="52" width="40" height="40" style="position: fixed; ">
-                                    <body xmlns="http://www.w3.org/1999/xhtml">
-                                    <div style="position: fixed; ">
-                                        <ha-icon icon="${aux_load2_icon}" class="aux-small-icon"></ha-icon>
-                                    </div>
-                                    </body>
-                                </foreignObject>
-                            </g>
+							<g display="${show_aux !== true || additional_aux_load === 1 || additional_aux_load === 0 ? 'none' : ''}">
+								<foreignObject x="345" y="52" width="40" height="40" style="position: fixed; ">
+									<body xmlns="http://www.w3.org/1999/xhtml">
+										<div style="position: fixed; ">
+											<ha-icon icon="${aux_load2_icon}" class="aux-small-icon"></ha-icon>
+										</div>
+									</body>
+								</foreignObject>
+							</g>
 
                             <!-- Essential Boiler Icon -->
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_boiler_left_bottom" x="369" y="123"
@@ -2063,13 +2133,13 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             ${config.grid.auto_scale ? `${convertValue(total_grid_power, round) || 0}` : `${total_grid_power || 0} W`}
                                         </text>
                                         </a>`
-                                    : svg`
+									: svg`
                                         <text id="grid_total_power" x="420" y="281.5"
                                               display="${config.show_grid === false || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
                                               class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">
                                             ${config.grid.auto_scale ? `${convertValue(total_grid_power, round) || 0}` : `${total_grid_power || 0} W`}
                                         </text>`
-                                : svg`
+								: svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_ct_power_172)}>
                                         <text id="grid_total_power" x="420" y="281.5"
                                               display="${config.show_grid === false || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
@@ -2102,7 +2172,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             ${config.load.auto_scale ? `${convertValue(essential, round) || 0}` : `${essential || 0} W`}
                                         </text>
                                     </a>`
-                                : svg`
+								: svg`
                                     <text id="ess_power" x="270" y="119" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           fill="${load_colour}">
                                         ${config.load.auto_scale ? `${convertValue(essential, round) || 0}` : `${essential || 0} W`}
@@ -2117,7 +2187,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             ${config.grid.auto_scale ? `${convertValue(nonessential, round) || 0}` : `${nonessential || 0} W`}
                                         </text>
                                     </a>`
-                                : svg`
+								: svg`
                                     <text id="non_ess_power" x="338" y="281.5"
                                           display="${config.show_grid === false || grid_show_noness === false ? 'none' : ''}" 
                                           class="${font !== true ? 'st14' : 'st4'} st8" 
@@ -2246,7 +2316,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             ${config.grid.auto_scale ? `${Number.isNaN(stateObj40.state) ? '0' : convertValue(parseFloat(stateObj40.state), round)}` : `${parseFloat(stateObj40.state).toFixed(0) || 0} W`}
                                         </text>
                                     </a>`
-                                : svg`
+								: svg`
                                     <text id="noness1_value" x="340" y="321" class="st3" 
                                           display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 ? 'none' : ''}" 
                                           fill="${grid_colour}">
@@ -2262,7 +2332,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             ${config.grid.auto_scale ? `${Number.isNaN(stateObj40.state) ? '0' : convertValue(parseFloat(stateObj40.state), round)}` : `${parseFloat(stateObj40.state).toFixed(0) || 0} W`}
                                         </text>
                                     </a>`
-                                : svg`
+								: svg`
                                     <text id="noness2_value" x="320" y="321" class="st3" 
                                           display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" 
                                           fill="${grid_colour}">
@@ -2278,7 +2348,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             ${config.grid.auto_scale ? `${Number.isNaN(stateObj41.state) ? '0' : convertValue(parseFloat(stateObj41.state), round)}` : `${parseFloat(stateObj41.state).toFixed(0) || 0} W`}
                                         </text>
                                     </a>`
-                                : svg`
+								: svg`
                                     <text id="noness2_value" x="357" y="321" class="st3" 
                                           display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" 
                                           fill="${grid_colour}">
@@ -2294,7 +2364,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             ${config.grid.auto_scale ? `${Number.isNaN(stateObj71.state) ? '0' : convertValue(parseFloat(stateObj71.state), round)}` : `${parseFloat(stateObj71.state).toFixed(0) || 0} W`}
                                         </text>
                                     </a>`
-                                : svg`
+								: svg`
                                     <text id="noness3_value" x="357" y="321" class="st3" 
                                           display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 || noness_dual_load === 2 || inverter_prog.show === true ? 'none' : ''}" 
                                           fill="${grid_colour}">
@@ -2310,7 +2380,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             ${config.load.auto_scale ? `${Number.isNaN(stateObj42.state) ? '0' : convertValue(parseFloat(stateObj42.state), round)}` : `${parseFloat(stateObj42.state).toFixed(0) || 0} ${stateObj42.attributes.unit_of_measurement !== undefined ? stateObj42.attributes.unit_of_measurement : ''}`}
                                         </text>
                                     </a>`
-                                : svg`
+								: svg`
                                     <text id="ess_load1_value" x="409" y="${show_aux !== true ? '47' : '158'}" 
                                           display="${additional_load === 1 ? '' : 'none'}" 
                                           class="${font !== true ? 'st14' : 'st4'} st8" 
@@ -2358,7 +2428,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                               display="${config.entities?.energy_cost_buy ? '' : 'none'}" >
                                             ${energy_cost} ${stateObj43.attributes.unit_of_measurement}</text>
                                     </a>`
-                                : svg`
+								: svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost_sell)}>
                                         <text id="energy_cost" x="414" y="305"  class="${config.show_grid === false ? 'st12' : 'st3 right-align'}" 
                                               fill="${grid_colour}" 
@@ -2547,14 +2617,14 @@ export class SunsynkPowerFlowCard extends LitElement {
             `;
         }
 
-        if (this.isLiteCard) {
-            return html`
-                <ha-card>
-                    <style>
-                        .essload-icon {
-                            color: ${load_colour} !important;
-                            --mdc-icon-size: 32px;
-                        }
+		if (this.isLiteCard) {
+			return html`
+				<ha-card>
+					<style>
+						.essload-icon {
+							color: ${load_colour} !important;
+							--mdc-icon-size: 32px;
+						}
 
                         .essload_small-icon {
                             color: ${load_colour} !important;
@@ -2567,7 +2637,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             ${config.title}</h1>` : ''}
                         <svg viewBox="-0.5 ${!config.show_solar ? (additional_load !== 0 || config.show_battery === false ? 80 : 145.33) : -0.5} 483 ${!config.show_solar ? (config.show_battery === true ? (additional_load !== 0 ? 350 : 270.67) : 270.67) : (config.show_battery === false ? (additional_load === 2 ? 350 : 300) : 406)}"
                              preserveAspectRatio="xMidYMid meet"
-                             height="${panel === false ? `${config.show_solar === false && config.show_battery === false ? '270px' : config.show_solar === false ? (additional_load !== 0 ? '330px' : '246px') : config.show_solar === true && config.show_battery === false ? (additional_load === 2 ? '350px' : '300px') : `${height}`}` : `${config.show_solar === false ? '75%' : '100%'}`}"
+                             height="${panel === false ? `${!config.show_solar && config.show_battery === false ? '270px' : !config.show_solar ? (additional_load !== 0 ? '330px' : '246px') : config.show_solar && config.show_battery === false ? (additional_load === 2 ? '350px' : '300px') : `${height}`}` : `${!config.show_solar ? '75%' : '100%'}`}"
                              width="${panel === true ? `${width}` : '100%'}" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <rect x="304" y="203.5" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                                   stroke="${load_colour}" pointer-events="all"/>
@@ -3008,65 +3078,65 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/>
                             </svg>
 
-                            <g display="${additional_load === 0 || additional_load === 4 ? 'none' : ''}">
-                                <foreignObject x="371" y="114" width="36" height="36" style="position: fixed; ">
-                                    <body xmlns="http://www.w3.org/1999/xhtml">
-                                    <div style="position: fixed; ">
-                                        <ha-icon icon="${load1e_icon}" class="essload-icon"></ha-icon>
-                                    </div>
-                                    </body>
-                                </foreignObject>
-                            </g>
+							<g display="${additional_load === 0 || additional_load === 4 ? 'none' : ''}">
+								<foreignObject x="371" y="114" width="36" height="36" style="position: fixed; ">
+									<body xmlns="http://www.w3.org/1999/xhtml">
+										<div style="position: fixed; ">
+											<ha-icon icon="${load1e_icon}" class="essload-icon"></ha-icon>
+										</div>
+									</body>
+								</foreignObject>
+							</g>
 
-                            <g display="${additional_load === 0 || additional_load === 1 || additional_load === 4 ? 'none' : ''}">
-                                <foreignObject x="371" y="288" width="36" height="36" style="position:fixed; ">
-                                    <body xmlns="http://www.w3.org/1999/xhtml">
-                                    <div style="position: fixed; ">
-                                        <ha-icon icon="${load2e_icon}" class="essload-icon"></ha-icon>
-                                    </div>
-                                    </body>
-                                </foreignObject>
-                            </g>
+							<g display="${additional_load === 0 || additional_load === 1 || additional_load === 4 ? 'none' : ''}">
+								<foreignObject x="371" y="288" width="36" height="36" style="position:fixed; ">
+									<body xmlns="http://www.w3.org/1999/xhtml">
+										<div style="position: fixed; ">
+											<ha-icon icon="${load2e_icon}" class="essload-icon"></ha-icon>
+										</div>
+									</body>
+								</foreignObject>
+							</g>
 
-                            <g display="${additional_load === 4 ? '' : 'none'}">
-                                <foreignObject x="412" y="101" width="30" height="30" style="position: fixed; ">
-                                    <body xmlns="http://www.w3.org/1999/xhtml">
-                                    <div style="position: fixed; ">
-                                        <ha-icon icon="${load1e_icon}" class="essload_small-icon"></ha-icon>
-                                    </div>
-                                    </body>
-                                </foreignObject>
-                            </g>
+							<g display="${additional_load === 4 ? '' : 'none'}">
+								<foreignObject x="412" y="101" width="30" height="30" style="position: fixed; ">
+									<body xmlns="http://www.w3.org/1999/xhtml">
+										<div style="position: fixed; ">
+											<ha-icon icon="${load1e_icon}" class="essload_small-icon"></ha-icon>
+										</div>
+									</body>
+								</foreignObject>
+							</g>
 
-                            <g display="${additional_load === 4 ? '' : 'none'}">
-                                <foreignObject x="449" y="101" width="30" height="30" style="position: fixed; ">
-                                    <body xmlns="http://www.w3.org/1999/xhtml">
-                                    <div style="position: fixed; ">
-                                        <ha-icon icon="${load2e_icon}" class="essload_small-icon"></ha-icon>
-                                    </div>
-                                    </body>
-                                </foreignObject>
-                            </g>
+							<g display="${additional_load === 4 ? '' : 'none'}">
+								<foreignObject x="449" y="101" width="30" height="30" style="position: fixed; ">
+									<body xmlns="http://www.w3.org/1999/xhtml">
+										<div style="position: fixed; ">
+											<ha-icon icon="${load2e_icon}" class="essload_small-icon"></ha-icon>
+										</div>
+									</body>
+								</foreignObject>
+							</g>
 
-                            <g display="${additional_load === 4 ? '' : 'none'}">
-                                <foreignObject x="412" y="264" width="30" height="30" style="position: fixed; ">
-                                    <body xmlns="http://www.w3.org/1999/xhtml">
-                                    <div style="position: fixed; ">
-                                        <ha-icon icon="${load3e_icon}" class="essload_small-icon"></ha-icon>
-                                    </div>
-                                    </body>
-                                </foreignObject>
-                            </g>
+							<g display="${additional_load === 4 ? '' : 'none'}">
+								<foreignObject x="412" y="264" width="30" height="30" style="position: fixed; ">
+									<body xmlns="http://www.w3.org/1999/xhtml">
+										<div style="position: fixed; ">
+											<ha-icon icon="${load3e_icon}" class="essload_small-icon"></ha-icon>
+										</div>
+									</body>
+								</foreignObject>
+							</g>
 
-                            <g display="${additional_load === 4 ? '' : 'none'}">
-                                <foreignObject x="449" y="264" width="30" height="30" style="position: fixed; ">
-                                    <body xmlns="http://www.w3.org/1999/xhtml">
-                                    <div style="position: fixed; ">
-                                        <ha-icon icon="${load4e_icon}" class="essload_small-icon"></ha-icon>
-                                    </div>
-                                    </body>
-                                </foreignObject>
-                            </g>
+							<g display="${additional_load === 4 ? '' : 'none'}">
+								<foreignObject x="449" y="264" width="30" height="30" style="position: fixed; ">
+									<body xmlns="http://www.w3.org/1999/xhtml">
+										<div style="position: fixed; ">
+											<ha-icon icon="${load4e_icon}" class="essload_small-icon"></ha-icon>
+										</div>
+									</body>
+								</foreignObject>
+							</g>
 
 
                             <svg xmlns="http://www.w3.org/2000/svg" id="sun" x="154" y="10" width="40" height="40"
@@ -3126,7 +3196,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <stop offset="100%" stop-color="${Number(batteryPercentage) === 100 ? battery_colour : (Number(pvPercentage) === 100 ? solar_colour : grid_colour)}" />
                                     </linearGradient>
                                 </defs>
-                                <path fill="${config.load.dynamic_colour === true ? 'url(#Lg)' : load_colour}"
+                                <path fill="${config.load.dynamic_colour ? 'url(#Lg)' : load_colour}"
                                       d="M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z"/>                    
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" x="213.5" y="179.5" width="54"
@@ -3349,13 +3419,13 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             ${config.grid.auto_scale ? `${convertValue(total_grid_power, round) || 0}` : `${total_grid_power || 0} W`}
                                         </text>
                                     </a>`
-                                    : svg`
+									: svg`
                                         <text id="grid_total_power" x="135" y="219.2"
                                               display="${config.show_grid === false || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
                                               class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">
                                             ${config.grid.auto_scale ? `${convertValue(total_grid_power, round) || 0}` : `${total_grid_power || 0} W`}
                                         </text>`
-                                : svg`
+								: svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_ct_power_172)}>
                                         <text id="grid_total_power" x="135" y="219.2"
                                               display="${config.show_grid === false || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
@@ -3456,17 +3526,16 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             ${energy_cost} ${stateObj43.attributes.unit_of_measurement}
                                         </text>
                                     </a>`
-                                : svg`
+								: svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost_sell)}>
                                         <text id="energy_cost" x="105" y="195"  class="${config.show_grid === false ? 'st12' : 'st3 left-align'}" 
                                               fill="${grid_colour}" 
                                               display="${config.entities?.energy_cost_sell ? '' : 'none'}" >
                                             ${energy_cost} ${stateObj51.attributes.unit_of_measurement}
                                         </text>
-                                    </a>`
-                            }
-                            ${config.entities?.pv_total
-                                ? svg`
+                                    </a>`}
+							${config.entities?.pv_total
+								? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv_total)}>
                                         <text id="pvtotal_power" x="238.8" y="133.9" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}" 
@@ -3490,7 +3559,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             ${config.solar.auto_scale ? `${convertValue(parseFloat(stateObj9.state).toFixed(0), round)}` : `${parseFloat(stateObj9.state).toFixed(0)} W`}
                                         </text>
                                     </a>`
-                                : svg`
+								: svg`
                                     <text id="pv1_power_186" x="${config.solar.mppts === 1 ? '238.8' : '188.1'}" y="71" 
                                           class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!config.show_solar || config.entities.pv1_power_186 === 'none' ? 'none' : ''}" 
@@ -3657,131 +3726,155 @@ export class SunsynkPowerFlowCard extends LitElement {
         }
     }
 
-    getState(entity: keyof CardConfigEntities, defaultValue?: any) {
-        const entityString = this._config.entities[entity];
-        const state = entityString ? this.hass.states[entityString] : undefined;
-        return state !== undefined ? state : defaultValue;
-    }
+	getState(entity: keyof CardConfigEntities, defaultValue?: any) {
+		const entityString = this._config.entities[entity];
+		const state = entityString ? this.hass.states[entityString] : undefined;
+		return state !== undefined ? state : defaultValue;
+	}
 
-    toNum(val: string | number, decimals: number = -1, invert: boolean = false): number {
-        let numberValue = Number(val);
-        if (Number.isNaN(numberValue)) {
-            return NaN;
-        }
-        if (decimals >= 0) {
-            numberValue = parseFloat(numberValue.toFixed(decimals));
-        }
-        if (invert) {
-            numberValue *= -1;
-        }
-        return numberValue;
-    }
+	toNum(val: string | number, decimals: number = -1, invert: boolean = false): number {
+		let numberValue = Number(val);
+		if (Number.isNaN(numberValue)) {
+			return NaN;
+		}
+		if (decimals >= 0) {
+			numberValue = parseFloat(numberValue.toFixed(decimals));
+		}
+		if (invert) {
+			numberValue *= -1;
+		}
+		return numberValue;
+	}
 
-    changeAnimationSpeed(el: string, speedRaw: number) {
-        const speed = speedRaw >= 1 ? this.toNum(speedRaw, 3) : 1;
-        const flow = this[`${el}Flow`] as SVGSVGElement;
-        this.durationCur[el] = speed;
-        if (flow && this.durationPrev[el] != speed) {
-            // console.log(`${el} found, duration change ${this.durationPrev[el]} -> ${this.durationCur[el]}`);
-            // this.gridFlow.pauseAnimations();
-            flow.setCurrentTime(flow.getCurrentTime() * (speed / this.durationPrev[el]));
-            // this.gridFlow.unpauseAnimations();
-        }
-        this.durationPrev[el] = this.durationCur[el];
-    }
+	changeAnimationSpeed(el: string, speedRaw: number) {
+		const speed = speedRaw >= 1 ? this.toNum(speedRaw, 3) : 1;
+		const flow = this[`${el}Flow`] as SVGSVGElement;
+		this.durationCur[el] = speed;
+		if (flow && this.durationPrev[el] != speed) {
+			// console.log(`${el} found, duration change ${this.durationPrev[el]} -> ${this.durationCur[el]}`);
+			// this.gridFlow.pauseAnimations();
+			flow.setCurrentTime(flow.getCurrentTime() * (speed / this.durationPrev[el]));
+			// this.gridFlow.unpauseAnimations();
+		}
+		this.durationPrev[el] = this.durationCur[el];
+	}
 
-    get isLiteCard() {
-        return this._config.cardstyle == CardStyle.Lite
-    }
+	get isLiteCard() {
+		return this._config.cardstyle == CardStyle.Lite;
+	}
 
-    get isFullCard() {
-        return this._config.cardstyle == CardStyle.Full
-    }
+	get isFullCard() {
+		return this._config.cardstyle == CardStyle.Full;
+	}
 
-    setConfig(config) {
+	setConfig(config) {
+		if (config.show_battery && !config.battery) {
+			throw Error(localize('errors.battery.bat'));
+		} else {
+			if (config.show_battery && !config.battery.shutdown_soc) {
+				throw new Error(localize('errors.battery.shutdown_soc'));
+			}
+			if (config.show_battery && config.battery.full_capacity < 80) {
+				throw new Error(localize('errors.battery.full_capacity'));
+			}
+			if (config.show_battery && config.battery.empty_capacity > 30) {
+				throw new Error(localize('errors.battery.empty_capacity'));
+			}
+			if (
+				config.show_battery &&
+				config.battery.show_daily === true &&
+				(!config.entities.day_battery_charge_70 || !config.entities.day_battery_discharge_71)
+			) {
+				throw Error(localize('errors.battery.show_daily'));
+			}
+		}
+		if (config.show_solar === true && !config.solar) {
+			throw Error(localize('errors.solar.sol'));
+		} else {
+			if (config.show_solar === true && !config.solar.mppts) {
+				throw Error(localize('errors.solar.mppts'));
+			}
+			if (
+				config &&
+				config.solar &&
+				config.show_solar === true &&
+				config.solar.show_daily === true &&
+				!config.entities.day_pv_energy_108
+			) {
+				throw Error(localize('errors.solar.show_daily'));
+			}
+		}
 
-        if (config.show_battery && !config.battery) {
-            throw Error(localize('errors.battery.bat'));
-        } else {
-            if (config.show_battery && !config.battery.shutdown_soc) {
-                throw new Error(localize('errors.battery.shutdown_soc'));
-            }
-            if (config.show_battery && config.battery.full_capacity < 80) {
-                throw new Error(localize('errors.battery.full_capacity'));
-            }
-            if (config.show_battery && config.battery.empty_capacity > 30) {
-                throw new Error(localize('errors.battery.empty_capacity'));
-            }
-            if (config.show_battery && config.battery.show_daily === true && (!config.entities.day_battery_charge_70 || !config.entities.day_battery_discharge_71)) {
-                throw Error(localize('errors.battery.show_daily'));
-            }
-        }
-        if (config.show_solar === true && !config.solar) {
-            throw Error(localize('errors.solar.sol'));
-        } else {
-            if (config.show_solar === true && !config.solar.mppts) {
-                throw Error(localize('errors.solar.mppts'));
-            }
-            if (config && config.solar && config.show_solar === true && config.solar.show_daily === true && !config.entities.day_pv_energy_108) {
-                throw Error(localize('errors.solar.show_daily'));
-            }
-        }
+		if (
+			(config && config.grid && config.grid.show_daily_buy === true && !config.entities.day_grid_import_76) ||
+			(config && config.grid && config.grid.show_daily_sell === true && !config.entities.day_grid_export_77)
+		) {
+			throw Error(localize('errors.grid.show_daily'));
+		}
 
-        if ((config && config.grid && config.grid.show_daily_buy === true && !config.entities.day_grid_import_76) || (config && config.grid && config.grid.show_daily_sell === true && !config.entities.day_grid_export_77)) {
-            throw Error(localize('errors.grid.show_daily'));
-        }
+		if (
+			(config &&
+				config.entities &&
+				config.entities.essential_power === 'none' &&
+				!config.entities.inverter_power_175) ||
+			(config &&
+				config.entities &&
+				config.entities.essential_power === 'none' &&
+				config.entities.inverter_power_175 === 'none')
+		) {
+			throw Error(localize('errors.essential_power'));
+		}
 
-        if ((config && config.entities && config.entities.essential_power === 'none' && !config.entities.inverter_power_175) || (config && config.entities && config.entities.essential_power === 'none' && config.entities.inverter_power_175 === 'none')) {
-            throw Error(localize('errors.essential_power'));
-        }
+		if (config && config.entities && config.entities.nonessential_power === 'none' && !config.entities.grid_power_169) {
+			throw Error(localize('errors.nonessential_power'));
+		}
 
-        if ((config && config.entities && config.entities.nonessential_power === 'none' && !config.entities.grid_power_169)) {
-            throw Error(localize('errors.nonessential_power'));
-        }
+		const all_attributes = [
+			'battery_soc_184',
+			'battery_power_190',
+			'battery_current_191',
+			'grid_ct_power_172',
+			'pv1_power_186',
+		];
 
-        const all_attributes = [
-            'battery_soc_184', 'battery_power_190', 'battery_current_191', 'grid_ct_power_172', 'pv1_power_186'
-        ];
+		for (const attr of all_attributes) {
+			if (attr === 'pv1_power_186' && config.show_solar === true && !config.entities[attr] && !config.entities[attr]) {
+				throw new Error(`${localize('errors.missing_entity')} e.g: ${attr}: sensor.example`);
+			}
+		}
 
-        for (const attr of all_attributes) {
+		const customConfig: sunsynkPowerFlowCardConfig = JSON.parse(JSON.stringify(config));
 
-            if ((attr === 'pv1_power_186' && config.show_solar === true && !config.entities[attr]) && !config.entities[attr]) {
-                throw new Error(`${localize('errors.missing_entity')} e.g: ${attr}: sensor.example`);
-            }
-        }
+		this._config = merge({}, defaultConfig, customConfig);
+	}
 
-        const customConfig: sunsynkPowerFlowCardConfig = JSON.parse(JSON.stringify(config));
+	handlePopup(e, entityId) {
+		e.stopPropagation();
+		this._handleClick(this, { action: 'more-info' }, entityId);
+	}
 
-        this._config = merge({}, defaultConfig, customConfig);
-    }
+	_handleClick(node, actionConfig, entityId) {
+		let e;
+		// eslint-disable-next-line default-case
+		switch (actionConfig.action) {
+			case 'more-info': {
+				e = new Event('hass-more-info', { composed: true });
+				e.detail = { entityId };
+				node.dispatchEvent(e);
+				break;
+			}
+		}
+	}
 
-    handlePopup(e, entityId) {
-        e.stopPropagation();
-        this._handleClick(this, {action: "more-info"}, entityId);
-    }
-
-    _handleClick(node, actionConfig, entityId) {
-        let e;
-        // eslint-disable-next-line default-case
-        switch (actionConfig.action) {
-            case "more-info": {
-                e = new Event("hass-more-info", {composed: true});
-                e.detail = {entityId};
-                node.dispatchEvent(e);
-                break;
-            }
-        }
-    }
-
-    getCardSize() {
-        return 2;
-    }
+	getCardSize() {
+		return 2;
+	}
 }
 
 (window as any).customCards = (window as any).customCards || [];
 (window as any).customCards.push({
-    type: "sunsynk-power-flow-card",
-    name: "Sunsynk Power Flow Card",
-    preview: false, // Optional - defaults to false
-    description: localize('common.description'), // Optional
+	type: 'sunsynk-power-flow-card-dev',
+	name: 'Sunsynk Power Flow Card',
+	preview: false, // Optional - defaults to false
+	description: localize('common.description'), // Optional
 });
