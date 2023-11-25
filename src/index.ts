@@ -19,6 +19,7 @@ import {
 	luxBase64Img,
 	solisBase64Img,
 	sunsynkBase64Img,
+    huaweiBase64Img,
 	valid3phase,
 	validLoadValues,
 	validnonLoadValues,
@@ -575,6 +576,9 @@ export class SunsynkPowerFlowCard extends LitElement {
 				case InverterModel.Solis:
 					inverterImg = solisBase64Img;
 					break;
+                case InverterModel.Huawei:
+                    inverterImg = huaweiBase64Img;
+                    break;
 				default:
 					inverterImg = sunsynkBase64Img;
 					break;
@@ -1333,7 +1337,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </svg>
 
                             <svg xmlns="http://www.w3.org/2000/svg" x="154.5" y="224.75" width="54"
-                                 height="79" viewBox="0 0 74 91" preserveAspectRatio="xMidYMid meet">
+                                 height="79" viewBox="0 0 74 91" preserveAspectRatio="xMidYMid meet"
+                                 opacity="${!inverter_modern ? 0 : 1}">
                                 <g transform="translate(0.000000,91.000000) scale(0.100000,-0.100000)"
                                    fill="${inverter_colour}" stroke="none">
                                     <path d="M35 887 l-27 -23 0 -404 0 -404 27 -23 c26 -23 28 -23 329 -23 284 0 305 1 327 19 l24 19 0 412 0 412 -24 19 c-22 18 -43 19 -327 19 -301 0 -303 0 -329 -23z m585 -157 l0 -80 -255 0 -255 0 0 80 0 80 255 0 255 0 0 -80z m-242 -229 c44 -34 40 -46 -14 -46 -60 0 -97 -38 -93 -94 5 -64 -23 -80 -35 -20 -9 44 24 113 63 134 35 18 34 15 21 50 -11 29 -14 30 58 -24z m110 -129 c4 -51 -19 -97 -59 -117 -27 -14 -30 -20 -23 -48 l6 -31 -51 43 c-29 24 -49 46 -46 49 3 4 23 5 44 3 58 -4 95 32 97 95 3 60 1 57 17 52 6 -3 13 -23 15 -46z"/>
@@ -3200,7 +3205,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       d="M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z"/>                    
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" x="213.5" y="179.5" width="54"
-                                 height="79" viewBox="0 0 74 91" preserveAspectRatio="xMidYMid meet">
+                                 height="79" viewBox="0 0 74 91" preserveAspectRatio="xMidYMid meet"
+                                 opacity="${!inverter_modern ? 0 : 1}">
                                 <g transform="translate(0.000000,91.000000) scale(0.100000,-0.100000)"
                                    fill="${inverter_colour}" stroke="none">
                                     <path d="M35 887 l-27 -23 0 -404 0 -404 27 -23 c26 -23 28 -23 329 -23 284 0 305 1 327 19 l24 19 0 412 0 412 -24 19 c-22 18 -43 19 -327 19 -301 0 -303 0 -329 -23z m585 -157 l0 -80 -255 0 -255 0 0 80 0 80 255 0 255 0 0 -80z m-242 -229 c44 -34 40 -46 -14 -46 -60 0 -97 -38 -93 -94 5 -64 -23 -80 -35 -20 -9 44 24 113 63 134 35 18 34 15 21 50 -11 29 -14 30 58 -24z m110 -129 c4 -51 -19 -97 -59 -117 -27 -14 -30 -20 -23 -48 l6 -31 -51 43 c-29 24 -49 46 -46 49 3 4 23 5 44 3 58 -4 95 32 97 95 3 60 1 57 17 52 6 -3 13 -23 15 -46z"/>

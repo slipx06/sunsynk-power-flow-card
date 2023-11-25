@@ -46,7 +46,10 @@
         "exporting": "Exportation",
         "importing": "Importation",
         "ongrid": "On-Grid",
-        "offgrid": "Off-Grid"
+        "offgrid": "Off-Grid",
+        "normalstop": " Normal Stop",
+        "shutdown": "Shutdown"
+        
 
 
     },
