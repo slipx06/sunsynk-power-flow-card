@@ -34,7 +34,7 @@ console.groupCollapsed(
 console.log('Readme:', 'https://github.com/slipx06/sunsynk-power-flow-card');
 console.groupEnd();
 
-@customElement('sunsynk-power-flow-card-dev')
+@customElement('sunsynk-power-flow-card')
 export class SunsynkPowerFlowCard extends LitElement {
 	@property() public hass!: HomeAssistant;
 	@property() private _config!: sunsynkPowerFlowCardConfig;
@@ -3873,7 +3873,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 
 (window as any).customCards = (window as any).customCards || [];
 (window as any).customCards.push({
-	type: 'sunsynk-power-flow-card-dev',
+	type: 'sunsynk-power-flow-card',
 	name: 'Sunsynk Power Flow Card',
 	preview: false, // Optional - defaults to false
 	description: localize('common.description'), // Optional
