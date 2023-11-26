@@ -2160,7 +2160,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </a>
                             ${config.inverter.three_phase
                                     ? config.entities?.grid_ct_power_total
-                                            ? svg`
+                                        ? svg`
                                         <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_ct_power_total)}>
                                         <text id="grid_total_power" x="420" y="281.5"
                                               display="${config.show_grid === false || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
@@ -2168,7 +2168,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             ${config.grid.auto_scale ? `${convertValue(total_grid_power, round) || 0}` : `${total_grid_power || 0} W`}
                                         </text>
                                         </a>`
-                                            : svg`
+                                        : svg`
                                         <text id="grid_total_power" x="420" y="281.5"
                                               display="${config.show_grid === false || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
                                               class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">
@@ -3460,7 +3460,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </a>
                             ${config.inverter.three_phase
                                     ? config.entities?.grid_ct_power_total
-                                            ? svg`
+                                        ? svg`
                                         <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_ct_power_total)}>
                                         <text id="total_grid_power" x="135" y="219.2"
                                               display="${config.show_grid === false || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
@@ -3468,7 +3468,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             ${config.grid.auto_scale ? `${convertValue(total_grid_power, round) || 0}` : `${total_grid_power || 0} W`}
                                         </text>
                                     </a>`
-                                            : svg`
+                                        : svg`
                                         <text id="grid_total_power" x="135" y="219.2"
                                               display="${config.show_grid === false || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
                                               class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">

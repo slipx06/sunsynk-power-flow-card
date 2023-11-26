@@ -63,22 +63,20 @@ The `invert_power` attribute can be used to reverse direction if needed by your 
 ### Solar
 
 These attributes are only needed if `show_solar` is set to `true`
-| Attribute | Requirement |Default | Description |
-| --- | --- | --- |--- |
-|colour:| Optional | `orange` | Changes the colour of all the solar card objects. Hex codes (`'#66ff00'` etc) or
-names (`red`, `green`, `blue` etc) |
-|show_daily: | Optional | `false` | Toggles the daily total |
-|display_mode: | Optional | `1` | `1` - Only display the daily total, `2` - Display the daily total and remaining daily
-forecast, `3` - Display the daily total and total solar generation |
-|mppts: | **Required** | `2` | Specify the number of MPPT's in use `1`, `2`, `3` or `4` |
-|animation_speed: | Optional | `9` | Set slowest animation speed in seconds, depending on Power produced |
-|max_power: | Optional | `8000` | Maximum power draw to calculate animation speed |
-|pv1_name: | Optional | `PV1` | Set the disaply name for MPPT1 |
-|pv2_name: | Optional | `PV2` | Set the disaply name for MPPT2 |
-|pv3_name: | Optional | `PV3` | Set the disaply name for MPPT3 |
-|pv4_name: | Optional | `PV4` | Set the disaply name for MPPT4 |
-|auto_scale: | Optional | `false` | If set to `true` power values greater than 999W will be displayed as kW e.g. 1.23kW.
-The number of decimal places can be changed using the `decimal_places` card attribute|
+
+| Attribute        | Requirement  | Default | Description                                                                                                                                                                     |
+|------------------|--------------|---------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| colour:          | Optional     | `orange`| Changes the colour of all the solar card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) 
+| show_daily:      | Optional     | `false` | Toggles the daily total 
+| display_mode:    | Optional     | `1`     | `1` - Only display the daily total, `2` - Display the daily total and remaining daily forecast, `3` - Display the daily total and total solar generation 
+| mppts:           | **Required** | `2`     | Specify the number of MPPT's in use `1`, `2`, `3` or `4` 
+| animation_speed: | Optional     | `9`     | Set slowest animation speed in seconds, depending on Power produced 
+| max_power:       | Optional     | `8000`  | Maximum power draw to calculate animation speed 
+| pv1_name:        | Optional     | `PV1`   | Set the disaply name for MPPT1 
+| pv2_name:        | Optional     | `PV2`   | Set the disaply name for MPPT2 
+| pv3_name:        | Optional     | `PV3`   | Set the disaply name for MPPT3 
+| pv4_name:        | Optional     | `PV4`   | Set the disaply name for MPPT4 
+| auto_scale:      | Optional     | `false` | If set to `true` power values greater than 999W will be displayed as kW e.g. 1.23kW. The number of decimal places can be changed using the `decimal_places` card attribute
 
 ### Load
 
