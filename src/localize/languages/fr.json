@@ -48,7 +48,10 @@
         "ongrid": "On-Grid",
         "offgrid": "Off-Grid",
         "normalstop": " Normal Stop",
-        "shutdown": "Shutdown"
+        "shutdown": "Shutdown",
+        "offline": "Offline",
+        "running": "Running",
+        "sleepmode": "Sleep Mode"
         
 
 

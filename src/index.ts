@@ -615,7 +615,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         for (const groupKey of Object.keys(typeStatusGroups)) {
             const info = typeStatusGroups[groupKey];
             const {states, color, message} = info;
-            if (states.includes(inverterState)) {
+            if (states.includes(inverterState.toLowerCase())) {
                 inverterStateColour = color;
                 inverterStateMsg = message;
                 found = true;
@@ -636,13 +636,13 @@ export class SunsynkPowerFlowCard extends LitElement {
         //Set Battery Status Message and dot for goodwe
         let batteryStateColour = '';
         let batteryStateMsg = '';
-        if ([InverterModel.GoodweGridMode, InverterModel.Goodwe].includes(inverterModel)) {
+        if ([InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(inverterModel)) {
             let batStatusGroups = batteryStatusGroups[inverterModel];
 
             for (const groupKey of Object.keys(batStatusGroups)) {
                 const info = batStatusGroups[groupKey];
                 const {states, color, message} = info;
-                if (states.includes(state_battery_status.state)) {
+                if (states.includes(state_battery_status.state.toLowerCase())) {
                     batteryStateColour = color;
                     batteryStateMsg = message;
                     found = true;

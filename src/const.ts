@@ -44,11 +44,11 @@ export const huaweiBase64Img = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD
 */
 export const inverterStatusGroups = {
     sunsynk: {
-        standby: {states: ['0', 'standby', 'Stand-by'], color: 'blue', message: localize('common.standby')},
-        selftest: {states: ['1', 'selftest', 'Self-checking'], color: 'yellow', message: localize('common.selftest')},
-        normal: {states: ['2', 'normal', 'ok', 'Normal'], color: 'green', message: localize('common.normal')},
+        standby: {states: ['0', 'standby', 'stand-by'], color: 'blue', message: localize('common.standby')},
+        selftest: {states: ['1', 'selftest', 'self-checking'], color: 'yellow', message: localize('common.selftest')},
+        normal: {states: ['2', 'normal', 'ok'], color: 'green', message: localize('common.normal')},
         alarm: {states: ['3', 'alarm'], color: 'orange', message: localize('common.alarm')},
-        fault: {states: ['4', 'fault', 'FAULT'], color: 'red', message: localize('common.fault')},
+        fault: {states: ['4', 'fault'], color: 'red', message: localize('common.fault')},
     },
     lux: {
         standby: {states: ['0'], color: 'blue', message: localize('common.standby')},
@@ -62,33 +62,33 @@ export const inverterStatusGroups = {
         fault: {states: ['1'], color: 'red', message: localize('common.fault')},
     },
     goodwe_gridmode: {
-        idle: {states: ['0', 'Idle'], color: 'blue', message: localize('common.idle')},
-        exporting: {states: ['1', 'Exporting'], color: 'green', message: localize('common.exporting')},
-        importing: {states: ['2', 'Importing'], color: 'red', message: localize('common.importing')},
+        idle: {states: ['0', 'idle'], color: 'blue', message: localize('common.idle')},
+        exporting: {states: ['1', 'exporting'], color: 'green', message: localize('common.exporting')},
+        importing: {states: ['2', 'importing'], color: 'red', message: localize('common.importing')},
     },
     goodwe: {
-        standby: {states: ['0', 'Wait Mode'], color: 'blue', message: localize('common.standby')},
+        standby: {states: ['0', 'wait mode'], color: 'blue', message: localize('common.standby')},
         ongrid: {
-            states: ['1', 'Normal (On-Grid)'], color: 'green', message: localize('common.ongrid') },
-        offgrid: { states: ['2', 'Normal (Off-Grid)'],
+            states: ['1', 'normal (on-grid)'], color: 'green', message: localize('common.ongrid') },
+        offgrid: { states: ['2', 'normal (off-grid)'],
             color: 'green',
             message: localize('common.offgrid')
         },
-        fault: {states: ['3', 'Fault Mode'], color: 'red', message: localize('common.fault')},
-        flash: {states: ['4', 'Flash Mode'], color: 'yellow', message: localize('common.flash')},
-        check: {states: ['5', 'Check Mode'], color: 'orange', message: localize('common.check')},
+        fault: {states: ['3', 'fault mode'], color: 'red', message: localize('common.fault')},
+        flash: {states: ['4', 'flash mode'], color: 'yellow', message: localize('common.flash')},
+        check: {states: ['5', 'check mode'], color: 'orange', message: localize('common.check')},
     },
     huawei: {
-        standby: {states: ['Standby'], color: 'blue', message: localize('common.standby')},
-        selftest: {states: ['Spot check'], color: 'yellow', message: localize('common.selftest')},
-        normal: {states: ['Grid-Connected, Grid-Connected normally'], color: 'green', message: localize('common.normal')},
-        shutdown: {states: ['Shutdown'], color: 'red', message: localize('common.shutdown')},
-        normalstop: {states: ['Normal stop'], color: 'yellow', message: localize('common.normalstop')},
+        standby: {states: ['standby'], color: 'blue', message: localize('common.standby')},
+        selftest: {states: ['spot check'], color: 'yellow', message: localize('common.selftest')},
+        normal: {states: ['grid-connected, grid-connected normally'], color: 'green', message: localize('common.normal')},
+        shutdown: {states: ['shutdown'], color: 'red', message: localize('common.shutdown')},
+        normalstop: {states: ['normal stop'], color: 'yellow', message: localize('common.normalstop')},
         alarm: {
-            states: ['Grid-Connected, Grid connection with derating due to power rationing', 'Grid-Connected, Grid connection with derating due to internal causes of the solar inverter' ], 
+            states: ['grid-connected, grid connection with derating due to power rationing', 'grid-connected, grid connection with derating due to internal causes of the solar inverter' ], 
             color: 'orange', message: localize('common.alarm')
         },
-        fault: {states: ['Stop due to faults', 'Stop due to power rationing' ], color: 'red', message: localize('common.fault')},
+        fault: {states: ['stop due to faults', 'stop due to power rationing' ], color: 'red', message: localize('common.fault')},
     },
     solis: {
         normal: {
@@ -134,5 +134,12 @@ export const batteryStatusGroups = {
         discharging: {states: ['2'], color: 'red', message: localize('common.discharging')},
         charging: {states: ['3'], color: 'green', message: localize('common.charging')},
         waiting: {states: ['4', '5'], color: 'yellow', message: localize('common.waiting')},
+    },
+    huawei: {
+        offline: {states: ['0', 'offline'], color: 'yellow', message: localize('common.offline')},
+        standby: {states: ['1', 'standby'], color: 'blue', message: localize('common.standby')},
+        running: {states: ['2', 'running'], color: 'green', message: localize('common.running')},
+        fault: {states: ['3', 'fault'], color: 'red', message: localize('common.fault')},
+        sleepmode: {states: ['4', 'sleep_mode'], color: 'yellow', message: localize('common.sleepmode')},
     }
 };
