@@ -1,6 +1,6 @@
 {
   "name": "sunsynk-power-flow-card",
-  "version": "3.19.0",
+  "version": "3.20.0",
   "description": "A customizable Home Assistant card to emulate the Sunsynk System flow that's displayed on the Inverter screen.",
   "main": "sunsynk-power-flow-card.js",
   "scripts": {
@@ -25,7 +25,7 @@
   "homepage": "https://github.com/slipx06/sunsynk-power-flow-card#readme",
   "dependencies": {
     "custom-card-helpers": "^1.9.0",
-    "lit": "3.0.2",
+    "lit": "3.1.0",
     "lodash.merge": "^4.6.2"
   },
   "devDependencies": {
