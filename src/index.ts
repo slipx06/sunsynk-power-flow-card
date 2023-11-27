@@ -776,11 +776,25 @@ export class SunsynkPowerFlowCard extends LitElement {
             }
         }
 
-        const pvPercentage = total_pv === 0 ? 0 : Math.min((total_pv / essential) * 100, 100).toFixed(0);
-        const batteryPercentage =
-            battery_power <= 0 ? 0 : Math.min((Math.abs(battery_power) / essential) * 100, 100).toFixed(0);
-        //console.log( pvPercentage, gridPercentage, batteryPercentage);
+        //Calculate dynamic colour for load icon based on the contribution of the power source (battery, grid, solar) supplying the load
+        const pvPercentage_raw = total_pv === 0 ? 0 : (total_pv / essential) * 100;
+        const batteryPercentage_raw = battery_power <= 0 ? 0 : (Math.abs(battery_power) / essential) * 100;
 
+        // Normalize percentages
+        const totalPercentage = pvPercentage_raw + batteryPercentage_raw;
+        const normalizedPvPercentage = totalPercentage === 0 ? 0 : (pvPercentage_raw / totalPercentage) * 100;
+        const normalizedBatteryPercentage = totalPercentage === 0 ? 0 : (batteryPercentage_raw / totalPercentage) * 100;
+        
+        let pvPercentage = 0;
+        let batteryPercentage = 0;
+        if ((pvPercentage_raw  >= 100 && batteryPercentage_raw > 0) || (pvPercentage_raw > 0 && batteryPercentage_raw >= 100)) {
+            pvPercentage = this.toNum(normalizedPvPercentage,0);
+            batteryPercentage = this.toNum(normalizedBatteryPercentage,0);
+        } else {
+            pvPercentage = this.toNum(Math.min(pvPercentage_raw, 100),0);
+            batteryPercentage = this.toNum(Math.min(batteryPercentage_raw, 100),0);
+        }
+ 
         if (this.isFullCard) {
             return html`
                 <ha-card>
