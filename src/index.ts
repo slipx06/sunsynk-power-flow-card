@@ -213,6 +213,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             attributes: {unit_of_measurement: ''},
         });
         const state_grid_voltage = this.getState('grid_voltage');
+        const state_prepaid_units = this.getState('prepaid_units', {state: 0});
 
         //Solar
         const state_pv1_voltage = this.getState('pv1_voltage_109', {state: '0'});
@@ -634,7 +635,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         }
 
         //Set Battery Status Message and dot for goodwe
-        let batteryStateColour = '';
+        let batteryStateColour = 'transparent';
         let batteryStateMsg = '';
         if ([InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(inverterModel)) {
             let batStatusGroups = batteryStatusGroups[inverterModel];
@@ -2662,6 +2663,13 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     ${this.toNum(state_environment_temp.state, 1)}°
                                 </text>
                             </a>
+                            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.prepaid_units)}>
+                                <text id="prepaid" x="428" y="258"
+                                      class="${config.entities?.prepaid_units ? 'st3 left-align' : 'st12'}"
+                                      fill="${grid_colour}" display="${config.show_grid === false ? 'none' : ''}">
+                                    ${this.toNum(state_prepaid_units.state, 0)}
+                                </text>
+                            </a>                            
                         </svg>
                     </div>
                 </ha-card>
@@ -3784,6 +3792,13 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         ${config.load.auto_scale ? `${Number.isNaN(state_essential_load4.state) ? '0' : convertValue(parseFloat(state_essential_load4.state), round)}` : `${parseFloat(state_essential_load4.state).toFixed(0) || 0} ${state_essential_load4.attributes.unit_of_measurement !== undefined ? state_essential_load4.attributes.unit_of_measurement : ''}`}
                                     </text>`
                             }
+                            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.prepaid_units)}>
+                                <text id="prepaid" x="32" y="253"
+                                      class="${config.entities?.prepaid_units ? 'st3' : 'st12'}"
+                                      fill="${grid_colour}" display="${config.show_grid === false ? 'none' : ''}">
+                                    ${this.toNum(state_prepaid_units.state, 0)}
+                                </text>
+                            </a>
                         </svg>
                     </div>
                 </ha-card>

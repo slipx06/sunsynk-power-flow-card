@@ -200,7 +200,7 @@ export interface CardConfigEntities {
     total_pv_generation: string,
     essential_load3: string,
     battery_current_direction: string,
-
+    prepaid_units: string,
     prog1_time: string,
     prog2_time: string,
     prog3_time: string,
