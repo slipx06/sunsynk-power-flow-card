@@ -24,6 +24,7 @@ export default {
         energy: 0,
         shutdown_soc: 20,
         invert_power: false,
+        hide_soc: false,
         colour: 'pink',
         show_daily: false,
         animation_speed: 6,
@@ -44,7 +45,8 @@ export default {
         pv3_name: localize('common.pv3_name'),
         pv4_name: localize('common.pv4_name'),
         auto_scale: false,
-        display_mode: 1
+        display_mode: 1,
+        dynamic_colour: true,
     },
     load: {
         colour: '#5fb6ad',

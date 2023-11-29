@@ -157,7 +157,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         const state_nonessential_power = this.getState('nonessential_power', {state: '0'});
         const state_non_essential_load1 = this.getState('non_essential_load1', {state: '0'});
         const state_non_essential_load2 = this.getState('non_essential_load2', {state: '0'});
-        const state_non_essential_load3 = this.getState('non_essential_load3', {state: 0});
+        const state_non_essential_load3 = this.getState('non_essential_load3', {state: '0'});
         const state_essential_load1 = this.getState('essential_load1', {
             state: '0',
             attributes: {unit_of_measurement: ''},
@@ -309,7 +309,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let grid_showdailysell = config.grid?.show_daily_sell;
         let battery_colour = config.battery?.colour;
         let battery_showdaily = config.battery?.show_daily;
-        let solar_colour = config.solar?.colour;
+
         let solar_showdaily = config.solar?.show_daily;
         let show_aux = config.load?.show_aux;
         let show_dailyaux = config.load?.show_daily_aux;
@@ -341,7 +341,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let panel = config.panel_mode;
         let inverter_colour = config.inverter?.colour;
         let useautarky = config.inverter?.autarky;
-        let usetimer = config.entities.use_timer_248 === false || !config.entities.use_timer_248 ? false : state_use_timer.state;
+        let usetimer = config.entities.use_timer_248 === false || !config.entities.use_timer_248 || config.entities.use_timer_248 === null ? false : state_use_timer.state;
         let priority =
             config.entities.priority_load_243 === false || !config.entities.priority_load_243 ? false : state_priority_load.state;
         let battery_power = this.toNum(state_battery_power.state, 0, config.battery?.invert_power);
@@ -372,6 +372,13 @@ export class SunsynkPowerFlowCard extends LitElement {
             this.toNum(state_pv3_power.state || '0', 0) +
             this.toNum(state_pv4_power.state || '0', 0);
         let total_pv = config.entities?.pv_total ? parseInt(state_pv_total.state) : totalsolar;
+
+        let solar_colour = 
+                config.solar.dynamic_colour === false 
+                    ? config.solar?.colour
+                    : this.toNum(total_pv,0) > 10 
+                        ? config.solar?.colour 
+                        : 'grey';
 
         //essential = inverter_power_175 + grid_power_169 - aux_power_166
         //nonessential = grid_ct_power_172 - grid_power_169
@@ -440,12 +447,17 @@ export class SunsynkPowerFlowCard extends LitElement {
         };
 
         const shutdownsoc = this.hass.states[config.battery.shutdown_soc] || {state: config.battery.shutdown_soc ?? ''};
+        const shutdownsoc_offgrid = this.hass.states[config.battery.shutdown_soc_offgrid] || {state: config.battery.shutdown_soc_offgrid ?? ''};
+
+        let shutdownoffgrid = this.toNum(shutdownsoc_offgrid.state);
         let shutdown = this.toNum(shutdownsoc.state);
+
         let inverter_prog: InverterSettings = {
             capacity: shutdown,
             entityID: '',
         };
-        if (!config.entities.use_timer_248 || config.entities.use_timer_248 === false || state_use_timer.state === 'off') {
+
+        if (usetimer === false || state_use_timer.state === 'off') {
             inverter_prog.show = false;
         } else if (
             !config.entities.prog1_time ||
@@ -513,21 +525,46 @@ export class SunsynkPowerFlowCard extends LitElement {
         //calculate battery capacity
         let battery_capacity: number = 0;
         if (config.show_battery) {
-            if (battery_power > 0) {
-                if (state_grid_connected_status.state === 'off' || !inverter_prog.show || parseInt(state_battery_soc.state) <= inverter_prog.capacity) {
-                    //        battery_capacity = config.battery.shutdown_soc;
-                    battery_capacity = shutdown;
-                } else {
-                    battery_capacity = inverter_prog.capacity;
-                }
-            } else if (battery_power < 0) {
-                if (state_grid_connected_status.state === 'off' || !inverter_prog.show || parseInt(state_battery_soc.state) >= inverter_prog.capacity) {
-                    battery_capacity = 100;
-                } else if (parseInt(state_battery_soc.state) < inverter_prog.capacity) {
-                    battery_capacity = inverter_prog.capacity;
-                }
+            switch (inverterModel) {
+                case InverterModel.GoodweGridMode:
+                case InverterModel.Goodwe:
+                    if (battery_power > 0) {    
+                        if (
+                            (grid_status === 'on' || grid_status === '1' || grid_status.toLowerCase() === 'on-grid') &&
+                            !inverter_prog.show
+                        ) {
+                            battery_capacity = shutdown;
+                        } else if (
+                            (grid_status === 'off' || grid_status === '0' || grid_status.toLowerCase() === 'off-grid') &&
+                            config.battery.shutdown_soc_offgrid &&
+                            config.battery?.shutdown_soc_offgrid !== null &&
+                            config.battery?.shutdown_soc_offgrid !== undefined &&
+                            !inverter_prog.show
+                        ) {
+                            battery_capacity = shutdownoffgrid;
+                        } else {
+                            battery_capacity = shutdown;
+                        }
+                    } else if (battery_power < 0) {
+                        battery_capacity = 100;
+                    }
+                    break;
+            
+                default:
+                    if (battery_power > 0) {
+                        if (grid_status === 'off' || grid_status === '0' || grid_status.toLowerCase() === 'off-grid' || !inverter_prog.show || parseInt(state_battery_soc.state) <= inverter_prog.capacity) {
+                            battery_capacity = shutdown;
+                        } else {
+                            battery_capacity = inverter_prog.capacity;
+                        }
+                    } else if (battery_power < 0) {
+                        if (grid_status === 'off' || grid_status === '0' || grid_status.toLowerCase() === 'off-grid' || !inverter_prog.show || parseInt(state_battery_soc.state) >= inverter_prog.capacity) {
+                            battery_capacity = 100;
+                        } else if (parseInt(state_battery_soc.state) < inverter_prog.capacity) {
+                            battery_capacity = inverter_prog.capacity;
+                        }
+                    }
             }
-
         }
 
         //calculate remaining battery time to charge or discharge
@@ -794,7 +831,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             pvPercentage = this.toNum(Math.min(pvPercentage_raw, 100),0);
             batteryPercentage = this.toNum(Math.min(batteryPercentage_raw, 100),0);
         }
- 
+
         if (this.isFullCard) {
             return html`
                 <ha-card>
@@ -893,7 +930,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   pointer-events="all"
                                   class="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 1 ? 'st12' : ''}"/>
                             <rect id="noness3" x="266" y="310" width="35" height="20" rx="4.5" ry="4.5"
-                                  display="${noness_dual_load === 3 && inverter_prog.show === false ? '' : 'none'}"
+                                  display="${noness_dual_load === 3 && config.battery.hide_soc === true ? '' : 'none'}"
                                   fill="none" stroke="${grid_colour}"
                                   pointer-events="all"
                                   class="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 1 ? 'st12' : ''}"/>
@@ -958,7 +995,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </text>
                             <text x="167" y="306" class="st3 left-align" fill="${inverter_colour}">${inverterStateMsg}
                             </text>
-                            <text x="80" y="378" class="st3 left-align" fill="${battery_colour}">${batteryStateMsg}
+                            <text x="80" y="378" class="st3 left-align" display="${config.show_battery === false ? 'none' : ''}" fill="${battery_colour}">${batteryStateMsg}
                             </text>
                             <text x="411" y="157" class="st3 st8"
                                   display="${(additional_load === 1 || additional_load === 2) && show_aux === true ? 'none' : ''}"
@@ -1049,8 +1086,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}"
                                   fill="${grid_colour}">${config.grid.load2_name}
                             </text>
-                            <text id="noness3" x="284" y="338" class="st3 st8"
-                                  display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 || noness_dual_load === 2 || inverter_prog.show === true ? 'none' : ''}"
+                            <text id="noness3" x="284" y="338" class="${config.battery.hide_soc === true ? 'st3 st8' : 'st12'}"
+                                  display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 || noness_dual_load === 2 ? 'none' : ''}"
                                   fill="${grid_colour}">${config.grid.load3_name}
                             </text>
                             <text id="autarkye_value" x="212" y="283"
@@ -1129,10 +1166,20 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   fill="${grid_colour}">
                                 ${config.load.auto_scale ? `${convertValue(grid_power_L3, round) || 0}` : `${grid_power_L3 || 0} W`}
                             </text>
+                            <text id="battery_soc_184" x="210" y="327" fill=${battery_colour}
+                                      class="${config.battery.hide_soc === true || config.show_battery === false ? 'st12' : 'st14 left-align'}"
+                                      display="${(config.inverter.model === 'goodwe' || config.inverter.model === 'goodwe_gridmode') && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
+                                    ${shutdown} %
+                            </text>
+                            <text id="battery_soc_184" x="210" y="340" fill=${battery_colour}
+                                      class="${config.battery.hide_soc === true || config.show_battery === false ? 'st12' : 'st14 left-align'}"
+                                      display="${(config.inverter.model === 'goodwe' || config.inverter.model === 'goodwe_gridmode') && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
+                                    ${shutdownoffgrid} %
+                            </text>
 
                             <circle id="standby" cx="160" cy="304" r="3.5" fill="${inverterStateColour}"/>
                             <circle id="bat" cx="73" cy="377" r="3"
-                                    display="${config.entities?.battery_status === 'none' || !config.entities?.battery_status ? 'none' : ''}"
+                                    display="${config.entities?.battery_status === 'none' || !config.entities?.battery_status || config.show_battery === false ? 'none' : ''}"
                                     fill="${batteryStateColour}"/>
 
                             <path id="es-load1" d="M 409 143 L 409 135" display="${show_aux === true ? '' : 'none'}"
@@ -1568,7 +1615,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </foreignObject>
                             </g>
 
-                            <g display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 || noness_dual_load === 2 || inverter_prog.show === true ? 'none' : ''}">
+                            <g display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 || noness_dual_load === 2 || config.battery.hide_soc === false ? 'none' : ''}"
+                               opacity="${config.battery.hide_soc === true ? 1 : 0}">
                                 <foreignObject x="269" y="341" width="30" height="30" style="position: fixed; ">
                                     <body xmlns="http://www.w3.org/1999/xhtml">
                                     <div style="position: fixed; ">
@@ -2377,7 +2425,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     </a>`
                                     : svg`
                                     <text id="noness1_value" x="340" y="321" class="st3" 
-                                          display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 ? 'none' : ''}" 
+                                          display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 || noness_dual_load === 3 ? 'none' : ''}" 
                                           fill="${grid_colour}">
                                         ${config.grid.auto_scale ? `${Number.isNaN(state_non_essential_load1.state) ? '0' : convertValue(parseFloat(state_non_essential_load1.state), round)}` : `${parseFloat(state_non_essential_load1.state).toFixed(0) || 0} W`}
                                     </text>`
@@ -2417,15 +2465,15 @@ export class SunsynkPowerFlowCard extends LitElement {
                             ${config.entities?.non_essential_load3
                                     ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.non_essential_load3)}>
-                                        <text id="noness3_value" x="283" y="321" class="st3" 
-                                              display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 || noness_dual_load === 2 || inverter_prog.show === true ? 'none' : ''}" 
+                                        <text id="noness3_value" x="283" y="321" class="${config.battery.hide_soc === true ? 'st3' : 'st12'}" 
+                                              display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 || noness_dual_load === 2  ? 'none' : ''}" 
                                               fill="${grid_colour}">
                                             ${config.grid.auto_scale ? `${Number.isNaN(state_non_essential_load3.state) ? '0' : convertValue(parseFloat(state_non_essential_load3.state), round)}` : `${parseFloat(state_non_essential_load3.state).toFixed(0) || 0} W`}
                                         </text>
                                     </a>`
                                     : svg`
-                                    <text id="noness3_value" x="357" y="321" class="st3" 
-                                          display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 || noness_dual_load === 2 || inverter_prog.show === true ? 'none' : ''}" 
+                                    <text id="noness3_value" x="283" y="321" class="${config.battery.hide_soc === true ? 'st3' : 'st12'}" 
+                                          display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 || noness_dual_load === 2 ? 'none' : ''}" 
                                           fill="${grid_colour}">
                                         ${config.grid.auto_scale ? `${Number.isNaN(state_non_essential_load3.state) ? '0' : convertValue(parseFloat(state_non_essential_load3.state), round)}` : `${parseFloat(state_non_essential_load3.state).toFixed(0) || 0} W`}
                                     </text>`
@@ -2566,8 +2614,28 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
                                 <text id="battery_soc_184" x="196.5" y="333" fill=${battery_colour}
                                       class="st13 st8 left-align"
-                                      display="${inverter_prog.show === false || config.entities.battery_soc_184 === 'none' || config.show_battery === false ? 'none' : ''}">
+                                      display="${inverter_prog.show === false 
+                                               || config.entities.battery_soc_184 === 'none' 
+                                               || config.show_battery === false
+                                               || config.inverter.model === 'goodwe' 
+                                               || config.inverter.model === 'goodwe_gridmode' 
+                                               || config.battery.hide_soc === true ? 'none' : ''}">
                                     | ${inverter_prog.capacity || 0} %
+                                </text>
+                            </a>
+                            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
+                                <text id="battery_soc_184" x="196.5" y="333" fill=${battery_colour}
+                                      class="${config.battery.hide_soc === true || config.show_battery === false ? 'st12' : 'st13 st8 left-align'}"
+                                      display="${(config.inverter.model === 'goodwe' || config.inverter.model === 'goodwe_gridmode') && config.battery?.shutdown_soc && !config.battery?.shutdown_soc_offgrid
+                                               ? '' : 'none'}">
+                                    | ${shutdown || 0} %
+                                </text>
+                            </a>
+                            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
+                                <text id="battery_soc_184" x="196.5" y="333" fill=${battery_colour}
+                                      class="${config.battery.hide_soc === true || config.show_battery === false ? 'st12' : 'st13 st8 left-align'}"
+                                      display="${(config.inverter.model === 'goodwe' || config.inverter.model === 'goodwe_gridmode') && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
+                                    | 
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_power_190)}>
@@ -2913,12 +2981,22 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   fill="${grid_colour}">
                                 ${config.load.auto_scale ? `${convertValue(grid_power_L3, round) || 0}` : `${grid_power_L3 || 0} W`}
                             </text>
-                            <text x="169" y="320" class="st3 left-align" fill="${battery_colour}">${batteryStateMsg}
+                            <text x="169" y="320" class="st3 left-align" display="${config.show_battery === false ? 'none' : ''}" fill="${battery_colour}">${batteryStateMsg}
+                            </text>
+                            <text id="battery_soc_184" x="368.5" y="351" fill=${battery_colour}
+                                      class="${config.battery.hide_soc === true || config.show_battery === false ? 'st12' : 'st14 left-align'}"
+                                      display="${(config.inverter.model === 'goodwe' || config.inverter.model === 'goodwe_gridmode') && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
+                                    ${shutdown} %
+                            </text>
+                            <text id="battery_soc_184" x="368.5" y="364" fill=${battery_colour}
+                                      class="${config.battery.hide_soc === true || config.show_battery === false ? 'st12' : 'st14 left-align'}"
+                                      display="${(config.inverter.model === 'goodwe' || config.inverter.model === 'goodwe_gridmode') && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
+                                    ${shutdownoffgrid} %
                             </text>
 
                             <circle id="standby" cx="220" cy="260" r="3.5" fill="${inverterStateColour}"/>
                             <circle id="bat" cx="162" cy="319" r="3.5"
-                                    display="${config.entities?.battery_status === 'none' || !config.entities?.battery_status ? 'none' : ''}"
+                                    display="${config.entities?.battery_status === 'none' || !config.entities?.battery_status || config.show_battery === false ? 'none' : ''}"
                                     fill="${batteryStateColour}"/>
 
                             <svg id="pv1-flow">
@@ -3211,7 +3289,6 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </foreignObject>
                             </g>
 
-
                             <svg xmlns="http://www.w3.org/2000/svg" id="sun" x="154" y="10" width="40" height="40"
                                  viewBox="0 0 24 24">
                                 <path class="${!config.show_solar ? 'st12' : ''}" fill="${solar_colour}"
@@ -3470,8 +3547,28 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
                                 <text id="battery_soc_184" x="355" y="358" fill=${battery_colour}
                                       class="st13 st8 left-align"
-                                      display="${inverter_prog.show === false || config.entities.battery_soc_184 === 'none' || config.show_battery === false ? 'none' : ''}">
+                                      display="${inverter_prog.show === false 
+                                               || config.entities.battery_soc_184 === 'none' 
+                                               || config.show_battery === false 
+                                               || config.inverter.model === 'goodwe' 
+                                               || config.inverter.model === 'goodwe_gridmode' 
+                                               || config.battery.hide_soc === true ? 'none' : ''}">
                                     | ${inverter_prog.capacity || 0} %
+                                </text>
+                            </a>
+                            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
+                                <text id="battery_soc_184" x="355" y="358" fill=${battery_colour}
+                                      class="${config.battery.hide_soc === true || config.show_battery === false ? 'st12' : 'st13 st8 left-align'}"
+                                      display="${(config.inverter.model === 'goodwe' || config.inverter.model === 'goodwe_gridmode') && config.battery?.shutdown_soc && !config.battery?.shutdown_soc_offgrid
+                                               ? '' : 'none'}">
+                                    | ${shutdown || 0} %
+                                </text>
+                            </a>
+                            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
+                                <text id="battery_soc_184" x="355" y="358" fill=${battery_colour}
+                                      class="${config.battery.hide_soc === true || config.show_battery === false ? 'st12' : 'st13 st8 left-align'}"
+                                      display="${(config.inverter.model === 'goodwe' || config.inverter.model === 'goodwe_gridmode') && config.battery.shutdown_soc_offgrid ? '' : 'none'}">
+                                    | 
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_power_190)}>
@@ -3866,12 +3963,12 @@ export class SunsynkPowerFlowCard extends LitElement {
             throw Error(localize('errors.battery.bat'));
         } else {
             if (config.show_battery && !config.battery.shutdown_soc) {
-                throw new Error(localize('errors.battery.shutdown_soc'));
+               throw new Error(localize('errors.battery.shutdown_soc'));
             }
             if (config.show_battery && config.battery.full_capacity < 80) {
                 throw new Error(localize('errors.battery.full_capacity'));
             }
-            if (config.show_battery && config.battery.empty_capacity > 30) {
+            if (config.show_battery && config.battery.empty_capacity > 40) {
                 throw new Error(localize('errors.battery.empty_capacity'));
             }
             if (

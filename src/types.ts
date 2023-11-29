@@ -32,6 +32,8 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
     panel_mode?: boolean;
     large_font?: boolean;
     show_solar: boolean;
+    show_battery: boolean;
+    show_grid: boolean;
     card_height?: string;
     card_width?: string;
     decimal_places?: number;
@@ -46,6 +48,8 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
     battery: {
         energy: number;
         shutdown_soc: number;
+        shutdown_soc_offgrid: number;
+        hide_soc: boolean;
         invert_power: boolean;
         colour: string;
         show_daily: boolean;
@@ -68,6 +72,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         pv4_name: string;
         auto_scale: boolean;
         display_mode: number;
+        dynamic_colour: boolean;
     }
     load: {
         colour: string;
