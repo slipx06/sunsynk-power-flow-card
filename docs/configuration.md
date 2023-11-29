@@ -60,6 +60,7 @@ The `invert_power` attribute can be used to reverse direction if needed by your 
 | empty_capacity:  | Optional     | `30`    | If SOC <= to this value the empty battery image will be shown. Accepts any value between 1-40                                                                                   
 | show_absolute:   | Optional     | `false` | set to `true` to display power and current as absolute values                                                                                                                   
 | auto_scale:      | Optional     | `false` | If set to `true` power values greater than 999W will be displayed as kW e.g. 1.23kW. The number of decimal places can be changed using the `decimal_places` card attribute      |
+| hide_soc:      | Optional     | `false` | If set to `true` the current program capacity (soc), or for Goodwe inverters the shutdown soc and offgrid shutdown soc that is shown to the left of the current battery SOC will be hidden.      |
 
 ### Solar
 
@@ -70,6 +71,7 @@ These attributes are only needed if `show_solar` is set to `true`
 | colour:          | Optional     | `orange`| Changes the colour of all the solar card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc) 
 | show_daily:      | Optional     | `false` | Toggles the daily total 
 | display_mode:    | Optional     | `1`     | `1` - Only display the daily total, `2` - Display the daily total and remaining daily forecast, `3` - Display the daily total and total solar generation 
+| dynamic_colour:  | Optional     | `true`  | The solar elements on the card will be greyed out if total solar power < 10W. 
 | mppts:           | **Required** | `2`     | Specify the number of MPPT's in use `1`, `2`, `3` or `4` 
 | animation_speed: | Optional     | `9`     | Set slowest animation speed in seconds, depending on Power produced 
 | max_power:       | Optional     | `8000`  | Maximum power draw to calculate animation speed 
