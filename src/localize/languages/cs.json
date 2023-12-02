@@ -51,7 +51,8 @@
         "shutdown": "Shutdown",
         "offline": "Offline",
         "running": "Running",
-        "sleepmode": "Sleep Mode"
+        "sleepmode": "Sleep Mode",
+        "grid": "Grid"
 
 
     },
@@ -61,7 +62,7 @@
             "energy": "Uveďte prosím atribut energie baterie a hodnotu ve Wh, např. 5,32 Energie baterie: 5320",
             "shutdown_soc": "Uveďte atribut battery shut down_soc a hodnotu, např. shutdown_soc: 20 shutdown_soc: 20",
             "full_capacity": "Plná kapacita musí být mezi 80 a 100",
-            "empty_capacity": "Prázdná kapacita musí být <= 30",
+            "empty_capacity": "Prázdná kapacita musí být <= 40",
             "show_daily": "Uveďte prosím atributy day_battery_charge_70 a day_battery_discharge_71 a ID entit"
         },
         "solar": {

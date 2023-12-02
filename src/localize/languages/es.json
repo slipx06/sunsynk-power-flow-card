@@ -51,7 +51,8 @@
         "shutdown": "Shutdown",
         "offline": "Offline",
         "running": "Running",
-        "sleepmode": "Sleep Mode"
+        "sleepmode": "Sleep Mode",
+        "grid": "Grid"
 
 
     },
@@ -61,7 +62,7 @@
             "energy": "Por favor, incluye el atributo de energía de la batería y su valor en Wh, por ejemplo, 5.32 Energía de la batería: 5320",
             "shutdown_soc": "Por favor, incluye el atributo shutdown_soc de la batería y su valor, por ejemplo shutdown_soc: 20",
             "full_capacity": "La capacidad completa debe estar entre 80 y 100",
-            "empty_capacity": "La capacidad vacía debe ser <= 30",
+            "empty_capacity": "La capacidad vacía debe ser <= 40",
             "show_daily": "Por favor, incluye los atributos day_battery_charge_70 y day_battery_discharge_71 y las IDs de las entidades"
         },
         "solar": {

@@ -12,12 +12,13 @@ export enum InverterModel {
     GoodweGridMode = 'goodwe_gridmode',
     Goodwe = 'goodwe',
     Solis = 'solis',
-    Huawei = 'huawei',
+    Huawei = 'huawei'
 }
 
 export enum CardStyle {
     Lite = 'lite',
-    Full = 'full'
+    Full = 'full',
+    Compact = 'compact'
 }
 
 export enum AutarkyType {

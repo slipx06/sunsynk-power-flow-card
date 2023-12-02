@@ -336,7 +336,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let load3e_icon = config.load?.load3_icon;
         let load4e_icon = config.load?.load4_icon;
         let remaining_solar = config.entities.remaining_solar ? this.toNum(state_remaining_solar.state, 1) : false;
-        let total_solar_generation = config.entities.total_pv_generation ? this.toNum(state_total_pv_generation.state, 1) : false;
+        let total_solar_generation = config.entities.total_pv_generation ? this.toNum((state_total_pv_generation.state / 1000), 3)  : false;
         let font = config.large_font;
         let panel = config.panel_mode;
         let inverter_colour = config.inverter?.colour;
@@ -365,6 +365,11 @@ export class SunsynkPowerFlowCard extends LitElement {
             inverterModel = config.inverter.model as InverterModel;
         }
 
+
+        let compact = false;
+        if (this.isCompactCard) {
+            compact = true;
+        }
         //totalsolar = pv1_power_186 + pv2_power_187 + pv3_power_188 + pv4_power_189
         let totalsolar =
             this.toNum(state_pv2_power.state || '0', 0) +
@@ -991,7 +996,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   fill="${solar_colour}">${config.solar.pv4_name}
                             </text>
                             <text x="421" y="377" class="st3 st8" fill="${grid_colour}"
-                                  display="${config.show_grid === false ? 'none' : ''}">Grid
+                                  display="${config.show_grid === false ? 'none' : ''}">${localize('common.grid')}
                             </text>
                             <text x="167" y="306" class="st3 left-align" fill="${inverter_colour}">${inverterStateMsg}
                             </text>
@@ -2144,7 +2149,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${config.solar.display_mode === 3 ? '' : 'none'}"
                                       fill="${solar_showdaily !== true || !config.show_solar ? 'transparent' : `${solar_colour}`}">
                                     ${Number.isNaN(state_day_pv_energy.state) ? '0' : `${parseFloat(state_day_pv_energy.state).toFixed(1)} kWh / ${total_solar_generation}`}
-                                    kWh
+                                    MWh
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_load_energy_84)}>
@@ -2758,7 +2763,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             `;
         }
 
-        if (this.isLiteCard) {
+        if (this.isLiteCard || this.isCompactCard) {
             return html`
                 <ha-card>
                     <style>
@@ -2786,9 +2791,14 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   stroke="${solar_colour}" pointer-events="all"
                                   display="${config.solar.mppts === 1 ? 'none' : ''}"
                                   class="${!config.show_solar ? 'st12' : ''}"/>
-                            <rect x="159" y="329.75" width="70" height="70" rx="10.5" ry="10.5" fill="none"
+                            <rect x="205" y="290" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                                   stroke="${battery_colour}" pointer-events="all"
-                                  display="${config.show_battery === false ? 'none' : ''}"/>
+                                  display="${config.show_battery === false  ? 'none' : ''}"
+                                  class="${compact === true ? '' : 'st12'}"/>
+                            <rect x="159" y="${compact === true ? '348' : '329.75'}" width="70" height="${compact === true ? '50' : '70'}" rx="${compact === true ? '7.5' : '10.5'}" ry="${compact === true ? '7.5' : '10.5'}" fill="none"
+                                  stroke="${battery_colour}" pointer-events="all"
+                                  display="${config.show_battery === false ? 'none' : ''}"
+                                  class="${compact === true ? 'st12' : ''}"/>
                             <rect x="103" y="203.5" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                                   stroke="${grid_colour}" pointer-events="all"
                                   display="${config.show_grid === false ? 'none' : ''}"/>
@@ -2826,32 +2836,32 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   stroke="${load_colour}" pointer-events="all"
                                   display="${additional_load === 4 ? '' : 'none'}"/>
 
-                            <text id="duration" x="290" y="377.5" class="${font !== true ? 'st14' : 'st4'} left-align"
+                            <text id="duration" x="${compact === true ? '270' : '290'}" y="377.5" class="${font !== true ? 'st14' : 'st4'} left-align"
                                   display="${config.show_battery === false ? 'none' : ''}"
                                   fill="${battery_energy === 0 || isFloating || battery_power === 0 ? 'transparent' : `${battery_colour}`}">
                                 ${duration}
                             </text>
-                            <text id="duration_text" x="290" y="393.7" class="st3 left-align"
+                            <text id="duration_text" x="${compact === true ? '270' : '290'}" y="393.7" class="st3 left-align"
                                   display="${config.show_battery === false ? 'none' : ''}"
                                   fill="${battery_energy === 0 || battery_power <= 0 || isFloating ? 'transparent' : `${battery_colour}`}">
                                 ${localize('common.runtime_to')} ${battery_capacity}% @${formattedResultTime}
                             </text>
-                            <text id="duration_text_charging" x="290" y="393.7" class="st3 left-align"
+                            <text id="duration_text_charging" x="${compact === true ? '270' : '290'}" y="393.7" class="st3 left-align"
                                   display="${config.show_battery === false ? 'none' : ''}"
                                   fill="${battery_energy === 0 || battery_power >= 0 || isFloating ? 'transparent' : `${battery_colour}`}">
                                 ${localize('common.to')} ${battery_capacity}% ${localize('common.charge')}
                                     @${formattedResultTime}
                             </text>
-                            <text id="floating" x="290" y="393.7" class="st3 left-align"
+                            <text id="floating" x="${compact === true ? '270' : '290'}" y="393.7" class="st3 left-align"
                                   display="${config.show_battery === false ? 'none' : ''}"
                                   fill="${battery_energy === 0 || !isFloating ? 'transparent' : `${battery_colour}`}">
                                 ${localize('common.battery_floating')}
                             </text>
-                            <text id="daily_bat_charge" x="77.2" y="357.2" class="st3 left-align"
+                            <text id="daily_bat_charge" x="${compact === true ? '132' : '77.2'}" y="357.2" class="st3 left-align"
                                   fill="${battery_showdaily !== true || config.show_battery === false ? 'transparent' : `${battery_colour}`}">
                                 ${localize('common.daily_charge')}
                             </text>
-                            <text id="daily_bat_dischcharge" x="77.2" y="393.7" class="st3 left-align"
+                            <text id="daily_bat_dischcharge" x="${compact === true ? '132' : '77.2'}" y="393.7" class="st3 left-align"
                                   fill="${battery_showdaily !== true || config.show_battery === false ? 'transparent' : `${battery_colour}`}">
                                 ${localize('common.daily_discharge')}
                             </text>
@@ -2981,7 +2991,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   fill="${grid_colour}">
                                 ${config.load.auto_scale ? `${convertValue(grid_power_L3, round) || 0}` : `${grid_power_L3 || 0} W`}
                             </text>
-                            <text x="169" y="320" class="st3 left-align" display="${config.show_battery === false ? 'none' : ''}" fill="${battery_colour}">${batteryStateMsg}
+                            <text x="169" y="320" class="st3 left-align" display="${config.show_battery === false || compact === true ? 'none' : ''}" fill="${battery_colour}">${batteryStateMsg}
                             </text>
                             <text id="battery_soc_184" x="368.5" y="351" fill=${battery_colour}
                                       class="${config.battery.hide_soc === true || config.show_battery === false ? 'st12' : 'st14 left-align'}"
@@ -2995,8 +3005,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </text>
 
                             <circle id="standby" cx="220" cy="260" r="3.5" fill="${inverterStateColour}"/>
-                            <circle id="bat" cx="162" cy="319" r="3.5"
-                                    display="${config.entities?.battery_status === 'none' || !config.entities?.battery_status || config.show_battery === false ? 'none' : ''}"
+                            <circle id="bat" cx="${compact === true ? '238.5' : '162'}" cy="${compact === true ? '326' : '319'}" r="3.5"
+                                    display="${config.entities?.battery_status === 'none' || !config.entities?.battery_status || config.show_battery === false  ? 'none' : ''}"
                                     fill="${batteryStateColour}"/>
 
                             <svg id="pv1-flow">
@@ -3062,7 +3072,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </svg>
                             <svg id="battery-flow">
                                 <path id="bat-line"
-                                      d="M 239.23 250 L 239.21 288.03 Q 239.21 298.03 239.1 308.02 L 239 324"
+                                      d="${compact === true ? 'M 239 250 L 239 290' : 'M 239 250 L 239 324'}"
                                       class="${config.show_battery === false ? 'st12' : ''}" fill="none"
                                       stroke="${battery_colour}" stroke-width="1" stroke-miterlimit="10"
                                       pointer-events="stroke"/>
@@ -3084,7 +3094,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </circle>
                             </svg>
                             <svg id="solar-flow">
-                                <path id="so-line" d="M 239.23 190 L 239 147"
+                                <path id="so-line" d="M 239 190 L 239 147"
                                       class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
                                       fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
                                       pointer-events="stroke"/>
@@ -3099,7 +3109,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </circle>
                             </svg>
                             <svg id="grid-flow">
-                                <path id="grid-line" d="M 173 218.25 L 214 218" fill="none" stroke="${grid_colour}"
+                                <path id="grid-line" d="M 173 218 L 214 218" fill="none" stroke="${grid_colour}"
                                       stroke-width="1" stroke-miterlimit="10" pointer-events="stroke"
                                       display="${config.show_grid === false ? 'none' : ''}"/>
                                 <circle id="grid-dot" cx="0" cy="0" r="3"
@@ -3122,7 +3132,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </circle>
                             </svg>
                             <svg id="grid1-flow">
-                                <path id="grid-line1" d="M 103 218.25 L 64.5 218.25" fill="none" stroke="${grid_colour}"
+                                <path id="grid-line1" d="M 103 218 L 64.5 218" fill="none" stroke="${grid_colour}"
                                       stroke-width="1" stroke-miterlimit="10" pointer-events="stroke"
                                       display="${config.show_grid === false ? 'none' : ''}"/>
                                 <circle id="grid-dot1" cx="0" cy="0" r="3"
@@ -3145,7 +3155,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </circle>
                             </svg>
                             <svg id="load-flow">
-                                <path id="es-line" d="M 304 218.5 L 264.7 218.48" fill="none" stroke="${load_colour}"
+                                <path id="es-line" d="M 304 218.5 L 264.7 218.5" fill="none" stroke="${load_colour}"
                                       stroke-width="1" stroke-miterlimit="10" pointer-events="stroke"/>
                                 <circle id="es-dot" cx="0" cy="0" r="3"
                                         fill="${essential === 0 ? 'transparent' : `${load_colour}`}">
@@ -3157,7 +3167,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </circle>
                             </svg>
                             <svg id="load-flow1">
-                                <path id="es-line1" d="M 374 218.5 L 402.38 218.52" fill="none" stroke="${load_colour}"
+                                <path id="es-line1" d="M 374 218.5 L 402.38 218.5" fill="none" stroke="${load_colour}"
                                       stroke-width="1" stroke-miterlimit="10" pointer-events="stroke"/>
                                 <circle id="es-dot" cx="0" cy="0" r="3"
                                         fill="${essential === 0 ? 'transparent' : `${load_colour}`}">
@@ -3294,27 +3304,27 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 <path class="${!config.show_solar ? 'st12' : ''}" fill="${solar_colour}"
                                       d="M11.45 2v3.55L15 3.77L11.45 2m-1 6L8 10.46l3.75 1.25L10.45 8M2 11.45L3.77 15l1.78-3.55H2M10 2H2v8c.57.17 1.17.25 1.77.25c3.58.01 6.49-2.9 6.5-6.5c-.01-.59-.1-1.18-.27-1.75m7 20v-6h-3l5-9v6h3l-5 9Z"/>
                             </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" id="bat-high" x="232.5" y="325.5" width="78.75"
+                            <svg xmlns="http://www.w3.org/2000/svg" id="bat-high" x="${compact === true ? '212.5' : '232.5'}" y="325.5" width="78.75"
                                  height="78.75" preserveAspectRatio="none"
                                  opacity="${parseInt(state_battery_soc.state) >= bat_full ? 1 : 0}" viewBox="0 0 24 24">
                                 <path class="${config.show_battery === false ? 'st12' : ''}" fill="${battery_colour}"
                                       d="M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 11 16 H 5 v 3 h 6 v -3 m 0 -9 H 5 v 3 h 6 V 7 m 0 4.5 H 5 v 3 h 6 v -3 h -3 h 3"/>
                             </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" id="bat-med" x="232.5" y="325.5" width="78.75"
+                            <svg xmlns="http://www.w3.org/2000/svg" id="bat-med" x="${compact === true ? '212.5' : '232.5'}" y="325.5" width="78.75"
                                  height="78.75" preserveAspectRatio="none"
                                  opacity="${parseInt(state_battery_soc.state) >= 50 && parseInt(state_battery_soc.state) < bat_full ? 1 : 0}"
                                  viewBox="0 0 24 24">
                                 <path class="${config.show_battery === false ? 'st12' : ''}" fill="${battery_colour}"
                                       d="M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 11 16 H 5 v 3 h 6 v -3 m 0 -4.5 H 5 v 3 h 6 v -3 h -3 h 3"/>
                             </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" id="bat-low" x="232.5" y="325.5" width="78.75"
+                            <svg xmlns="http://www.w3.org/2000/svg" id="bat-low" x="${compact === true ? '212.5' : '232.5'}" y="325.5" width="78.75"
                                  height="78.75" preserveAspectRatio="none"
                                  opacity="${parseInt(state_battery_soc.state) > bat_empty && parseInt(state_battery_soc.state) <= 49 ? 1 : 0}"
                                  viewBox="0 0 24 24">
                                 <path class="${config.show_battery === false ? 'st12' : ''}" fill="${battery_colour}"
                                       d="M 12 20 H 4 V 6 h 8 L 12 6 L 12 20 m 0.67 -15.999 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 11 16 H 5 v 3 h 6 v -3"/>
                             </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" id="bat-empty" x="232.5" y="325.5" width="78.75"
+                            <svg xmlns="http://www.w3.org/2000/svg" id="bat-empty" x="${compact === true ? '212.5' : '232.5'}" y="325.5" width="78.75"
                                  height="78.75" preserveAspectRatio="none"
                                  opacity="${parseInt(state_battery_soc.state) <= bat_empty ? 1 : 0}" viewBox="0 0 24 24">
                                 <path class="${config.show_battery === false ? 'st12' : ''}" fill="${battery_colour}"
@@ -3442,7 +3452,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </svg>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_battery_charge_70)}>
-                                <text id="daily_bat_charge_value" x="77.2" y="343" class="st10 left-align"
+                                <text id="daily_bat_charge_value" x="${compact === true ? '132' : '77.2'}" y="343" class="st10 left-align"
                                       display="${battery_showdaily !== true || config.show_battery === false ? 'none' : ''}"
                                       fill="${battery_colour}">
                                     ${Number.isNaN(state_day_battery_charge.state) ? '0' : `${parseFloat(state_day_battery_charge.state).toFixed(1)}`}
@@ -3470,11 +3480,11 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${config.solar.display_mode === 3 ? '' : 'none'}"
                                       fill="${solar_showdaily !== true || !config.show_solar ? 'transparent' : `${solar_colour}`}">
                                     ${Number.isNaN(state_day_pv_energy.state) ? '0' : `${parseFloat(state_day_pv_energy.state).toFixed(1)} kWh / ${total_solar_generation}`}
-                                    kWh
+                                    MWh
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_battery_discharge_71)}>
-                                <text id="daily_bat_discharge_value" x="77.2" y="380.1" class="st10 left-align"
+                                <text id="daily_bat_discharge_value" x="${compact === true ? '132' : '77.2'}" y="380.1" class="st10 left-align"
                                       display="${battery_showdaily !== true || config.show_battery === false ? 'none' : ''}"
                                       fill="${battery_colour}">
                                     ${Number.isNaN(state_day_battery_discharge.state) ? '0' : `${parseFloat(state_day_battery_discharge.state).toFixed(1)}`}
@@ -3533,19 +3543,28 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_voltage_183)}>
                                 <text id="battery_voltage_183" x="193" y="346"
-                                      display="${config.entities.battery_voltage_183 === 'none' || !config.entities.battery_voltage_183 || config.show_battery === false ? 'none' : ''}"
+                                      display="${config.entities.battery_voltage_183 === 'none' 
+                                               || !config.entities.battery_voltage_183 || config.show_battery === false || compact === true ? 'none' : ''}"
                                       fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">
                                     ${battery_voltage} V
                                 </text>
                             </a>
+                            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_voltage_183)}>
+                                <text id="battery_voltage_183" x="281" y="299"
+                                      display="${config.entities.battery_voltage_183 === 'none' 
+                                               || !config.entities.battery_voltage_183 || config.show_battery === false || compact === false ? 'none' : ''}"
+                                      fill=${battery_colour} class="${compact === true ? 'st3 left-align' : 'st12'}">
+                                    ${battery_voltage} V
+                                </text>
+                            </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
-                                <text id="battery_soc_184" x="290" y="358"
+                                <text id="battery_soc_184" x="${compact === true ? '270' : '290'}" y="358"
                                       display="${config.entities.battery_soc_184 === 'none' || config.show_battery === false ? 'none' : ''}"
                                       fill=${battery_colour} class="st13 st8 left-align">${parseInt(state_battery_soc.state)} %
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
-                                <text id="battery_soc_184" x="355" y="358" fill=${battery_colour}
+                                <text id="battery_soc_184" x="${compact === true ? '335' : '355'}" y="358" fill=${battery_colour}
                                       class="st13 st8 left-align"
                                       display="${inverter_prog.show === false 
                                                || config.entities.battery_soc_184 === 'none' 
@@ -3557,7 +3576,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
-                                <text id="battery_soc_184" x="355" y="358" fill=${battery_colour}
+                                <text id="battery_soc_184" x="${compact === true ? '335' : '355'}" y="358" fill=${battery_colour}
                                       class="${config.battery.hide_soc === true || config.show_battery === false ? 'st12' : 'st13 st8 left-align'}"
                                       display="${(config.inverter.model === 'goodwe' || config.inverter.model === 'goodwe_gridmode') && config.battery?.shutdown_soc && !config.battery?.shutdown_soc_offgrid
                                                ? '' : 'none'}">
@@ -3565,14 +3584,14 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
-                                <text id="battery_soc_184" x="355" y="358" fill=${battery_colour}
+                                <text id="battery_soc_184" x="${compact === true ? '335' : '355'}" y="358" fill=${battery_colour}
                                       class="${config.battery.hide_soc === true || config.show_battery === false ? 'st12' : 'st13 st8 left-align'}"
                                       display="${(config.inverter.model === 'goodwe' || config.inverter.model === 'goodwe_gridmode') && config.battery.shutdown_soc_offgrid ? '' : 'none'}">
                                     | 
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_power_190)}>
-                                <text id="battery_power_190" x="193" y="386"
+                                <text id="battery_power_190" x="${compact === true ? '239' : '193'}" y="${compact === true ? '307' : '386'}"
                                       display="${config.entities.battery_power_190 === 'none' || config.show_battery === false ? 'none' : ''}"
                                       fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">
                                     ${config.battery.auto_scale ? `${config.battery.show_absolute ? `${Math.abs(parseFloat(convertValue(battery_power, round)))} ${convertValue(battery_power, round).split(' ')[1]}` : convertValue(battery_power, round) || '0'}` : `${config.battery.show_absolute ? `${Math.abs(battery_power)}` : battery_power || 0} W`}
@@ -3580,8 +3599,16 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_current_191)}>
                                 <text id="battery_current_191" x="193" y="365.3"
-                                      display="${config.entities.battery_current_191 === 'none' || config.show_battery === false ? 'none' : ''}"
+                                      display="${!config.entities.battery_current_191 || config.entities.battery_current_191 === 'none' || config.show_battery === false || compact === true ? 'none' : ''}"
                                       fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">
+                                    ${config.battery.show_absolute ? Math.abs(parseFloat(state_battery_current.state)).toFixed(1) : parseFloat(state_battery_current.state).toFixed(1)}
+                                    A
+                                </text>
+                            </a>
+                            <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_current_191)}>
+                                <text id="battery_current_191" x="281" y="312"
+                                      display="${!config.entities.battery_current_191 || config.entities.battery_current_191 === 'none' || config.show_battery === false || compact === false ? 'none' : ''}"
+                                      fill=${battery_colour} class="${compact === true ? 'st3 left-align' : 'st12'}">
                                     ${config.battery.show_absolute ? Math.abs(parseFloat(state_battery_current.state)).toFixed(1) : parseFloat(state_battery_current.state).toFixed(1)}
                                     A
                                 </text>
@@ -3662,7 +3689,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_temp_182)}>
-                                <text id="battery_temp_182" x="250" y="324.5"
+                                <text id="battery_temp_182" x="${compact === true ? '205' : '250'}" y="${compact === true ? '332' : '324.5'}"
                                       class="${config.entities?.battery_temp_182 ? 'st3 left-align' : 'st12'}"
                                       fill="${battery_colour}" display="${config.show_battery === false ? 'none' : ''}">
                                     ${state_battery_temp.state}°
@@ -3948,6 +3975,10 @@ export class SunsynkPowerFlowCard extends LitElement {
             // this.gridFlow.unpauseAnimations();
         }
         this.durationPrev[el] = this.durationCur[el];
+    }
+
+    get isCompactCard() {
+        return this._config.cardstyle == CardStyle.Compact;
     }
 
     get isLiteCard() {

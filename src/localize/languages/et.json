@@ -51,7 +51,8 @@
         "shutdown": "Shutdown",
         "offline": "Offline",
         "running": "Running",
-        "sleepmode": "Sleep Mode"
+        "sleepmode": "Sleep Mode",
+        "grid": "Grid"
 
 
     },
@@ -61,7 +62,7 @@
             "energy": "Palun sisestage aku energiat atribuut ja väärtus Wh-s, näiteks 5,32 Aku energia: 5320",
             "shutdown_soc": "Palun sisestage aku shutdown_soc atribuut ja väärtus, näiteks shutdown_soc: 20",
             "full_capacity": "Täiskasvanu maht peab olema vahemikus 80 kuni 100",
-            "empty_capacity": "Tühi mahutavus peab olema <= 30",
+            "empty_capacity": "Tühi mahutavus peab olema <= 40",
             "show_daily": "Palun sisestage päeva_battery_charge_70 ja päeva_battery_discharge_71 atribuudid ning seadmete ID-d"
         },
         "solar": {

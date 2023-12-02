@@ -27,7 +27,7 @@
         "pv3_name": "PV3",
         "pv4_name": "PV4",
         "essential": "Essentielles",
-        "autarky": "Autarky",
+        "autarky": "AutoConso",
         "discharging": "Décharge",
         "charging": "Charge",
         "waiting": "En attente",
@@ -51,7 +51,8 @@
         "shutdown": "Shutdown",
         "offline": "Offline",
         "running": "Running",
-        "sleepmode": "Sleep Mode"
+        "sleepmode": "Sleep Mode",
+        "grid": "Réseau"
         
 
 
@@ -62,7 +63,7 @@
             "energy": "Veuillez inclure l'attribut d'énergie de la batterie et la valeur en Wh, par exemple 5.32 Énergie de la batterie : 5320",
             "shutdown_soc": "Veuillez inclure l'attribut de batterie shutdown_soc et la valeur, par exemple shutdown_soc : 20",
             "full_capacity": "La capacité totale doit être comprise entre 80 et 100",
-            "empty_capacity": "La capacité vide doit être <= 30",
+            "empty_capacity": "La capacité vide doit être <= 40",
             "show_daily": "Veuillez inclure les attributs day_battery_charge_70 et day_battery_discharge_71 ainsi que les ID d'entité"
         },
         "solar": {

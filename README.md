@@ -11,7 +11,7 @@ Refer to [https://slipx06.github.io/sunsynk-power-flow-card/index.html](https://
 
 ## Features
 
-* Option to switch between two card styles: `lite` or `full`.
+* Option to switch between three card styles: `compact`, `lite` or `full`.
 * Animated power flow based on positive/negative/zero sensor values with configurable dynamic speed. (Supports inverted battery, AUX and grid power).
 * Dynamic battery image based on SOC (empty->low->medium->high).
 * Grid connected status.
@@ -29,6 +29,8 @@ Refer to [https://slipx06.github.io/sunsynk-power-flow-card/index.html](https://
 * Select your inverter model for custom inverter status and battery status messages i.e. Sunsynk, Lux, Goodwe, Solis.
 
 ## Screenshots
+*Compact Version*
+
 
 *Lite Version*
 

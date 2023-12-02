@@ -10,7 +10,7 @@ The card can be configured through the following attributes:
 | Attribute       | Requirement  | Default                                             | Description                                                                                                                                                              |
 |-----------------|--------------|-----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | type:           | **Required** | `custom:sunsynk-power-flow-card`                    | The custom card                                                                                                                                                          |
-| cardstyle:      | **Required** | `lite`                                              | Selects the card layout that is used  `lite` or `full`                                                                                                                   |
+| cardstyle:      | **Required** | `lite`                                              | Selects the card layout that is used  `compact`, `lite` or `full`                                                                                                                   |
 | panel_mode:     | Optional     | `false`                                             | Toggles panel mode setting card height to `100%`. For use with Panel(1 card) view types or grid layouts                                                                  |
 | large_font:     | Optional     | `false`                                             | Increases font size of sensor data                                                                                                                                       |
 | title:          | Optional     | ``                                                  | Set the card title i.e. Inverter One                                                                                                                                     |
@@ -60,7 +60,7 @@ The `invert_power` attribute can be used to reverse direction if needed by your 
 | empty_capacity:  | Optional     | `30`    | If SOC <= to this value the empty battery image will be shown. Accepts any value between 1-40                                                                                   
 | show_absolute:   | Optional     | `false` | set to `true` to display power and current as absolute values                                                                                                                   
 | auto_scale:      | Optional     | `false` | If set to `true` power values greater than 999W will be displayed as kW e.g. 1.23kW. The number of decimal places can be changed using the `decimal_places` card attribute      |
-| hide_soc:      | Optional     | `false` | If set to `true` the current program capacity (soc), or for Goodwe inverters the shutdown soc and offgrid shutdown soc that is shown to the left of the current battery SOC will be hidden.      |
+| hide_soc:        | Optional     | `false` | If set to `true` the current program capacity (soc), or for Goodwe inverters the shutdown soc and offgrid shutdown soc that is shown to the left of the current battery SOC will be hidden.      |
 
 ### Solar
 

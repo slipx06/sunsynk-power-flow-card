@@ -51,7 +51,8 @@
         "shutdown": "Shutdown",
         "offline": "Offline",
         "running": "Running",
-        "sleepmode": "Sleep Mode"
+        "sleepmode": "Sleep Mode",
+        "grid": "Grid"
 
 
     },
@@ -61,7 +62,7 @@
             "energy": "Please include the battery energy attribute and value in Wh e.g. 5.32 Battery energy: 5320",
             "shutdown_soc": "Please include the battery shutdown_soc attribute and value e.g shutdown_soc: 20",
             "full_capacity": "Full capacity needs to be between 80 and 100",
-            "empty_capacity": "Empty capacity needs to be <= 30",
+            "empty_capacity": "Empty capacity needs to be <= 40",
             "show_daily": "Please include the day_battery_charge_70 and day_battery_discharge_71 attributes and entity IDs"
         },
         "solar": {
