@@ -20,6 +20,7 @@ import {
     luxBase64Img,
     solisBase64Img,
     sunsynkBase64Img,
+    foxessBase64Img,
     valid3phase,
     validLoadValues,
     validnonLoadValues,
@@ -692,6 +693,9 @@ export class SunsynkPowerFlowCard extends LitElement {
                     break;
                 case InverterModel.Huawei:
                     inverterImg = huaweiBase64Img;
+                    break;
+                case InverterModel.FoxESS:
+                    inverterImg = foxessBase64Img;
                     break;
                 default:
                     inverterImg = sunsynkBase64Img;

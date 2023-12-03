@@ -12,6 +12,7 @@
    examples/lux
    examples/solis
    examples/goodwe
+   examples/foxess
 
 .. toctree::
    :caption: Contribute

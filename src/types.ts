@@ -12,7 +12,8 @@ export enum InverterModel {
     GoodweGridMode = 'goodwe_gridmode',
     Goodwe = 'goodwe',
     Solis = 'solis',
-    Huawei = 'huawei'
+    Huawei = 'huawei',
+    FoxESS = 'foxess'
 }
 
 export enum CardStyle {
