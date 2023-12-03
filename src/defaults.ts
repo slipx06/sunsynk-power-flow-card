@@ -44,7 +44,7 @@ export default {
         pv2_name: localize('common.pv2_name'),
         pv3_name: localize('common.pv3_name'),
         pv4_name: localize('common.pv4_name'),
-        auto_scale: false,
+        auto_scale: true,
         display_mode: 1,
         dynamic_colour: true,
     },

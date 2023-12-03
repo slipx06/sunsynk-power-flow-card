@@ -121,7 +121,10 @@ export class SunsynkPowerFlowCard extends LitElement {
         const state_day_battery_charge = this.getState('day_battery_charge_70', {state: '0'});
         const state_day_load_energy = this.getState('day_load_energy_84', {state: '0'});
         const state_day_grid_import = this.getState('day_grid_import_76', {state: '0'});
-        const state_day_pv_energy = this.getState('day_pv_energy_108', {state: '0'});
+        const state_day_pv_energy = this.getState('day_pv_energy_108', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
         const state_day_grid_export = this.getState('day_grid_export_77', {state: '0'});
         const state_day_aux_energy = this.getState('day_aux_energy', {state: '0'});
         
@@ -144,7 +147,10 @@ export class SunsynkPowerFlowCard extends LitElement {
         //Battery
         const state_battery_voltage = this.getState('battery_voltage_183', {state: '0'});
         const state_battery_soc = this.getState('battery_soc_184', {state: '0'});
-        const state_battery_power = this.getState('battery_power_190', {state: '0'});
+        const state_battery_power = this.getState('battery_power_190', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
         const state_battery_current = this.getState('battery_current_191', {state: '0'});
         const state_battery_temp = this.getState('battery_temp_182', {state: ''});
         const state_battery_status = this.getState('battery_status', {state: ''});
@@ -223,15 +229,36 @@ export class SunsynkPowerFlowCard extends LitElement {
         const state_pv3_voltage = this.getState('pv3_voltage_113', {state: '0'});
         const state_pv3_current = this.getState('pv3_current_114', {state: '0'});
         const state_pv4_voltage = this.getState('pv4_voltage_115', {state: '0'});
-        const state_pv4_current = this.getState('pv4_current_116', {state: '0'});        
-        const state_pv1_power = this.getState('pv1_power_186', {state: '0'});
-        const state_pv2_power = this.getState('pv2_power_187', {state: '0'});      
-        const state_pv3_power = this.getState('pv3_power_188', {state: '0'});
-        const state_pv4_power = this.getState('pv4_power_189', {state: '0'});       
-        const state_remaining_solar = this.getState('remaining_solar', {state: 0});
-        const state_solar_sell = this.getState('solar_sell_247', {state: 'undefined'});   
-        const state_pv_total = this.getState('pv_total', {state: '0'});
-        const state_total_pv_generation = this.getState('total_pv_generation', {state: 0});
+        const state_pv4_current = this.getState('pv4_current_116', {state: '0'});      
+        const state_pv1_power = this.getState('pv1_power_186', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
+        const state_pv2_power = this.getState('pv2_power_187', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });    
+        const state_pv3_power = this.getState('pv3_power_188', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
+        const state_pv4_power = this.getState('pv4_power_189', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
+        const state_remaining_solar = this.getState('remaining_solar', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
+        const state_solar_sell = this.getState('solar_sell_247', {state: 'undefined'});
+        const state_pv_total = this.getState('pv_total', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
+        const state_total_pv_generation = this.getState('total_pv_generation', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
     
         //Set defaults
         let {invert_aux} = config.load;
@@ -335,8 +362,8 @@ export class SunsynkPowerFlowCard extends LitElement {
         let load2e_icon = config.load?.load2_icon; //valid options are boiler, aircon, pump
         let load3e_icon = config.load?.load3_icon;
         let load4e_icon = config.load?.load4_icon;
-        let remaining_solar = config.entities.remaining_solar ? this.toNum(state_remaining_solar.state, 1) : false;
-        let total_solar_generation = config.entities.total_pv_generation ? this.toNum((state_total_pv_generation.state / 1000), 3)  : false;
+        let remaining_solar = config.entities.remaining_solar ? convertValueNew(parseFloat(state_remaining_solar.state), state_remaining_solar.attributes.unit_of_measurement, 1) : false;
+        let total_solar_generation = config.entities.total_pv_generation ? convertValueNew(parseFloat(state_total_pv_generation.state), state_total_pv_generation.attributes.unit_of_measurement, 1)  : false;
         let font = config.large_font;
         let panel = config.panel_mode;
         let inverter_colour = config.inverter?.colour;
@@ -372,10 +399,18 @@ export class SunsynkPowerFlowCard extends LitElement {
         }
         //totalsolar = pv1_power_186 + pv2_power_187 + pv3_power_188 + pv4_power_189
         let totalsolar =
-            this.toNum(state_pv2_power.state || '0', 0) +
-            this.toNum(state_pv1_power.state || '0', 0) +
-            this.toNum(state_pv3_power.state || '0', 0) +
-            this.toNum(state_pv4_power.state || '0', 0);
+            ((state_pv1_power.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
+                ? this.toNum(state_pv1_power.state || '0', 0) * 1000
+                : this.toNum(state_pv1_power.state || '0', 0)) +
+            ((state_pv2_power.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
+                ? this.toNum(state_pv2_power.state || '0', 0) * 1000
+                : this.toNum(state_pv2_power.state || '0', 0)) +
+            ((state_pv3_power.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
+                ? this.toNum(state_pv3_power.state || '0', 0) * 1000
+                : this.toNum(state_pv3_power.state || '0', 0)) +
+            ((state_pv4_power.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
+                ? this.toNum(state_pv4_power.state || '0', 0) * 1000
+                : this.toNum(state_pv4_power.state || '0', 0));
         let total_pv = config.entities?.pv_total ? parseInt(state_pv_total.state) : totalsolar;
 
         let solar_colour = 
@@ -815,6 +850,74 @@ export class SunsynkPowerFlowCard extends LitElement {
                 return `${(value / 1000).toFixed(decimal)} kW`;
             } else {
                 return `${Math.round(value)} W`;
+            }
+        }
+
+        function convertValueNew(value, unit: string = '', decimal: number = 2) {
+            decimal = Number.isNaN(decimal) ? 2 : decimal;
+        
+            const units = ['W', 'kW', 'MW', 'Wh', 'kWh', 'MWh'];
+        
+            // Find the index of the unit in the units array
+            const unitIndex = units.findIndex(u => u.toLowerCase() === unit.toLowerCase());
+
+            //console.log(`Input: ${value} ${unit}`);
+            //console.log(`Unit Index: ${unitIndex}`);
+
+            // Check if the unit is in the allowed units array
+            if (unitIndex !== -1) {
+                // Perform the conversion based on the unit index
+                switch (unitIndex) {
+                    case 0: // W
+                        if (Math.abs(value) >= 1e6) {
+                            return `${(value / 1e6).toFixed(decimal)} ${units[2]}`;
+                        } else if (Math.abs(value) >= 1e3) {
+                            return `${(value / 1e3).toFixed(decimal)} ${units[1]}`;
+                        } else {
+                            return `${Math.round(value)} ${units[unitIndex]}`;
+                        }
+                    case 1: // kW
+                        if (Math.abs(value) >= 1e3) {
+                            return `${(value / 1e3).toFixed(decimal)} ${units[2]}`;
+                        } else if (Math.abs(value) < 1) {
+                            return `${Math.round(value * 1000)} ${units[0]}`;
+                        } else {
+                            return `${value.toFixed(decimal)} ${units[unitIndex]}`;
+                        }
+                    case 2: // MW
+                        if (Math.abs(value) < 1) {
+                            return `${(value * 1000).toFixed(decimal)} ${units[1]}`;
+                        } else {
+                            return `${value.toFixed(decimal)} ${units[unitIndex]}`;
+                        }
+                    case 3: // Wh
+                        if (Math.abs(value) >= 1e6) {
+                            return `${(value / 1e6).toFixed(1)} ${units[5]}`;
+                        } else if (Math.abs(value) >= 1e3) {
+                            return `${(value / 1e3).toFixed(1)} ${units[4]}`;
+                        } else {
+                            return `${value.toFixed(1)} ${units[unitIndex]}`;
+                        }
+                    case 4: // kWh
+                        if (Math.abs(value) >= 1e3) {
+                            return `${(value / 1e3).toFixed(1)} ${units[5]}`;
+                        //} else if (Math.abs(value) < 1) {
+                        //    return `${(value * 1000).toFixed(1)} ${units[3]}`;
+                        } else {
+                            return `${value.toFixed(1)} ${units[unitIndex]}`;
+                        }
+                    case 5: // MWh
+                        if (Math.abs(value) < 1) {
+                            return `${(value * 1000).toFixed(1)} ${units[4]}`;
+                        } else {
+                            return `${value.toFixed(1)} ${units[unitIndex]}`;
+                        }
+                    default:
+                        return `${Math.round(value)} ${unit}`;
+                }
+            } else {
+                // If the unit is not in the allowed units, return the numeric value without unit
+                return value.toFixed(decimal);
             }
         }
 
@@ -2132,24 +2235,21 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 <text id="daily_solar_value" x="43.5" y="15" class="st10 left-align"
                                       display="${config.solar.display_mode === 1 ? '' : 'none'}"
                                       fill="${solar_showdaily !== true || !config.show_solar ? 'transparent' : `${solar_colour}`}">
-                                    ${Number.isNaN(state_day_pv_energy.state) ? '0' : `${parseFloat(state_day_pv_energy.state).toFixed(1)}`}
-                                    kWh
+                                    ${Number.isNaN(state_day_pv_energy.state) ? '0' : `${convertValueNew(parseFloat(state_day_pv_energy.state), state_day_pv_energy.attributes.unit_of_measurement, 1)}`}
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_pv_energy_108)}>
                                 <text id="remaining_solar_value" x="43.5" y="15" class="st10 left-align"
                                       display="${config.solar.display_mode === 2 ? '' : 'none'}"
                                       fill="${solar_showdaily !== true || !config.show_solar ? 'transparent' : `${solar_colour}`}">
-                                    ${Number.isNaN(state_day_pv_energy.state) ? '0' : `${parseFloat(state_day_pv_energy.state).toFixed(1)} kWh / ${remaining_solar}`}
-                                    kWh
+                                    ${Number.isNaN(state_day_pv_energy.state) ? '0' : `${convertValueNew(parseFloat(state_day_pv_energy.state), state_day_pv_energy.attributes.unit_of_measurement, 1)} / ${remaining_solar}`}
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_pv_energy_108)}>
                                 <text id="total_solar_value" x="43.5" y="15" class="st10 left-align"
                                       display="${config.solar.display_mode === 3 ? '' : 'none'}"
                                       fill="${solar_showdaily !== true || !config.show_solar ? 'transparent' : `${solar_colour}`}">
-                                    ${Number.isNaN(state_day_pv_energy.state) ? '0' : `${parseFloat(state_day_pv_energy.state).toFixed(1)} kWh / ${total_solar_generation}`}
-                                    MWh
+                                    ${Number.isNaN(state_day_pv_energy.state) ? '0' : `${convertValueNew(parseFloat(state_day_pv_energy.state), state_day_pv_energy.attributes.unit_of_measurement, 1)} / ${total_solar_generation}`}
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_load_energy_84)}>
@@ -2266,14 +2366,24 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="pvtotal_power" x="19%" y="46.5%" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}" 
                                               fill="${solar_colour}">
-                                            ${config.solar.auto_scale ? `${convertValue(total_pv, round) || 0}` : `${total_pv || 0} W`}
+                                            ${config.solar.auto_scale 
+                                                ? config.entities?.pv_total
+                                                    ? convertValueNew(total_pv, state_pv_total.attributes.unit_of_measurement, round)
+                                                    : convertValue(total_pv, round) || 0
+                                                : `${total_pv || 0} W`
+                                            }
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="pvtotal_power" x="87" y="178" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}" 
                                           fill="${solar_colour}">
-                                        ${config.solar.auto_scale ? `${convertValue(total_pv, round) || 0}` : `${total_pv || 0} W`}
+                                          ${config.solar.auto_scale 
+                                                ? config.entities?.pv_total
+                                                    ? convertValueNew(total_pv, state_pv_total.attributes.unit_of_measurement, round)
+                                                    : convertValue(total_pv, round) || 0
+                                                : `${total_pv || 0} W`
+                                            }
                                     </text>`
                             }
                             ${config.entities?.essential_power && config.entities.essential_power !== 'none'
@@ -2329,14 +2439,14 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="pv1_power_186" x="36.5" y="56.5" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!config.show_solar ? 'none' : ''}" 
                                               fill="${solar_colour}" >
-                                            ${config.solar.auto_scale ? `${convertValue(parseFloat(state_pv1_power.state).toFixed(0), round)}` : `${parseFloat(state_pv1_power.state).toFixed(0)} W`}
+                                            ${config.solar.auto_scale ? `${convertValueNew(parseFloat(state_pv1_power.state), state_pv1_power.attributes.unit_of_measurement, round)}` : `${parseFloat(state_pv1_power.state).toFixed(0)} W`}
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="pv1_power_186" x="36.5" y="56.5" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!config.show_solar || config.entities.pv1_power_186 === 'none' ? 'none' : ''}" 
                                           fill="${solar_colour}" >
-                                        ${config.solar.auto_scale ? `${convertValue(parseFloat(state_pv1_power.state).toFixed(0), round)}` : `${parseFloat(state_pv1_power.state).toFixed(0)} W`}
+                                        ${config.solar.auto_scale ? `${convertValueNew(parseFloat(state_pv1_power.state), state_pv1_power.attributes.unit_of_measurement, round)}` : `${parseFloat(state_pv1_power.state).toFixed(0)} W`}
                                     </text>`
                             }
                             ${config.entities?.pv2_power_187
@@ -2345,14 +2455,14 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="pv2_power_187" x="137" y="56.5" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}" 
                                               fill="${solar_colour}">
-                                            ${config.solar.auto_scale ? `${convertValue(parseFloat(state_pv2_power.state).toFixed(0), round)}` : `${parseFloat(state_pv2_power.state).toFixed(0)} W`}
+                                            ${config.solar.auto_scale ? `${convertValueNew(parseFloat(state_pv2_power.state), state_pv2_power.attributes.unit_of_measurement, round)}` : `${parseFloat(state_pv2_power.state).toFixed(0)} W`}
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="pv2_power_187" x="137" y="56.5" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!config.show_solar || config.entities.pv2_power_187 === 'none' || config.solar.mppts === 1 ? 'none' : ''}" 
                                           fill="${solar_colour}">
-                                        ${config.solar.auto_scale ? `${convertValue(parseFloat(state_pv2_power.state).toFixed(0), round)}` : `${parseFloat(state_pv2_power.state).toFixed(0)} W`}
+                                        ${config.solar.auto_scale ? `${convertValueNew(parseFloat(state_pv2_power.state), state_pv2_power.attributes.unit_of_measurement, round)}` : `${parseFloat(state_pv2_power.state).toFixed(0)} W`}
                                     </text>`
                             }
                             ${config.entities?.pv3_power_188
@@ -2361,14 +2471,14 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="pv3_power_188" x="36.5" y="117" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" 
                                               fill="${solar_colour}">
-                                            ${config.solar.auto_scale ? `${convertValue(parseFloat(state_pv3_power.state).toFixed(0), round)}` : `${parseFloat(state_pv3_power.state).toFixed(0)} W`}
+                                            ${config.solar.auto_scale ? `${convertValueNew(parseFloat(state_pv3_power.state), state_pv3_power.attributes.unit_of_measurement, round)}` : `${parseFloat(state_pv3_power.state).toFixed(0)} W`}
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="pv3_power_188" x="36.5" y="117" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!config.show_solar || config.entities.pv3_power_188 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" 
                                           fill="${solar_colour}">
-                                        ${config.solar.auto_scale ? `${convertValue(parseFloat(state_pv3_power.state).toFixed(0), round)}` : `${parseFloat(state_pv3_power.state).toFixed(0)} W`}
+                                        ${config.solar.auto_scale ? `${convertValueNew(parseFloat(state_pv3_power.state), state_pv3_power.attributes.unit_of_measurement, round)}` : `${parseFloat(state_pv3_power.state).toFixed(0)} W`}
                                     </text>`
                             }
                             ${config.entities?.pv4_power_189
@@ -2377,14 +2487,14 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="pv4_power_189" x="137" y="117" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" 
                                               fill="${solar_colour}">
-                                            ${config.solar.auto_scale ? `${convertValue(parseFloat(state_pv4_power.state).toFixed(0), round)}` : `${parseFloat(state_pv4_power.state).toFixed(0)} W`}
+                                            ${config.solar.auto_scale ? `${convertValueNew(parseFloat(state_pv4_power.state), state_pv4_power.attributes.unit_of_measurement, round)}` : `${parseFloat(state_pv4_power.state).toFixed(0)} W`}
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="pv4_power_189" x="137" y="117" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!config.show_solar || config.entities.pv4_power_189 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" 
                                           fill="${solar_colour}">
-                                        ${config.solar.auto_scale ? `${convertValue(parseFloat(state_pv4_power.state).toFixed(0), round)}` : `${parseFloat(state_pv4_power.state).toFixed(0)} W`}
+                                        ${config.solar.auto_scale ? `${convertValueNew(parseFloat(state_pv4_power.state), state_pv4_power.attributes.unit_of_measurement, round)}` : `${parseFloat(state_pv4_power.state).toFixed(0)} W`}
                                     </text>`
                             }
                             ${config.entities?.aux_load1
@@ -3463,24 +3573,21 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 <text id="daily_solar_value" x="200" y="26" class="st10 left-align"
                                       display="${config.solar.display_mode === 1 ? '' : 'none'}"
                                       fill="${solar_showdaily !== true || !config.show_solar ? 'transparent' : `${solar_colour}`}">
-                                    ${Number.isNaN(state_day_pv_energy.state) ? '0' : `${parseFloat(state_day_pv_energy.state).toFixed(1)}`}
-                                    kWh
+                                    ${Number.isNaN(state_day_pv_energy.state) ? '0' : `${convertValueNew(parseFloat(state_day_pv_energy.state), state_day_pv_energy.attributes.unit_of_measurement, 1)}`}
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_pv_energy_108)}>
                                 <text id="remaining_solar_value" x="200" y="26" class="st10 left-align"
                                       display="${config.solar.display_mode === 2 ? '' : 'none'}"
                                       fill="${solar_showdaily !== true || !config.show_solar ? 'transparent' : `${solar_colour}`}">
-                                    ${Number.isNaN(state_day_pv_energy.state) ? '0' : `${parseFloat(state_day_pv_energy.state).toFixed(1)} kWh / ${remaining_solar}`}
-                                    kWh
+                                    ${Number.isNaN(state_day_pv_energy.state) ? '0' : `${convertValueNew(parseFloat(state_day_pv_energy.state), state_day_pv_energy.attributes.unit_of_measurement, 1)} / ${remaining_solar}`}
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_pv_energy_108)}>
                                 <text id="total_solar_value" x="200" y="26" class="st10 left-align"
                                       display="${config.solar.display_mode === 3 ? '' : 'none'}"
                                       fill="${solar_showdaily !== true || !config.show_solar ? 'transparent' : `${solar_colour}`}">
-                                    ${Number.isNaN(state_day_pv_energy.state) ? '0' : `${parseFloat(state_day_pv_energy.state).toFixed(1)} kWh / ${total_solar_generation}`}
-                                    MWh
+                                    ${Number.isNaN(state_day_pv_energy.state) ? '0' : `${convertValueNew(parseFloat(state_day_pv_energy.state), state_day_pv_energy.attributes.unit_of_measurement, 1)} / ${total_solar_generation}`}
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_battery_discharge_71)}>
@@ -3751,14 +3858,24 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="pvtotal_power" x="238.8" y="133.9" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}" 
                                               fill="${solar_colour}">
-                                            ${config.solar.auto_scale ? `${convertValue(total_pv, round) || 0}` : `${total_pv || 0} W`}
+                                              ${config.solar.auto_scale 
+                                                ? config.entities?.pv_total
+                                                    ? convertValueNew(total_pv, state_pv_total.attributes.unit_of_measurement, round)
+                                                    : convertValue(total_pv, round) || 0
+                                                : `${total_pv || 0} W`
+                                            }
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="pvtotal_power" x="238.8" y="133.9" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}" 
                                           fill="${solar_colour}">
-                                        ${config.solar.auto_scale ? `${convertValue(total_pv, round) || 0}` : `${total_pv || 0} W`}
+                                          ${config.solar.auto_scale 
+                                                ? config.entities?.pv_total
+                                                    ? convertValueNew(total_pv, state_pv_total.attributes.unit_of_measurement, round)
+                                                    : convertValue(total_pv, round) || 0
+                                                : `${total_pv || 0} W`
+                                            }
                                     </text>`
                             }
                             ${config.entities?.pv1_power_186
@@ -3767,7 +3884,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="pv1_power_186" x="${config.solar.mppts === 1 ? '238.8' : '188.1'}" y="71" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!config.show_solar ? 'none' : ''}" 
                                               fill="${solar_colour}">
-                                            ${config.solar.auto_scale ? `${convertValue(parseFloat(state_pv1_power.state).toFixed(0), round)}` : `${parseFloat(state_pv1_power.state).toFixed(0)} W`}
+                                            ${config.solar.auto_scale ? `${convertValueNew(parseFloat(state_pv1_power.state), state_pv1_power.attributes.unit_of_measurement, round)}` : `${parseFloat(state_pv1_power.state).toFixed(0)} W`}
                                         </text>
                                     </a>`
                                     : svg`
@@ -3775,7 +3892,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                           class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!config.show_solar || config.entities.pv1_power_186 === 'none' ? 'none' : ''}" 
                                           fill="${solar_colour}">
-                                        ${config.solar.auto_scale ? `${convertValue(parseFloat(state_pv1_power.state).toFixed(0), round)}` : `${parseFloat(state_pv1_power.state).toFixed(0)} W`}
+                                        ${config.solar.auto_scale ? `${convertValueNew(parseFloat(state_pv1_power.state), state_pv1_power.attributes.unit_of_measurement, round)}` : `${parseFloat(state_pv1_power.state).toFixed(0)} W`}
                                     </text>`
                             }
                             ${config.entities?.pv2_power_187
@@ -3784,14 +3901,14 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="pv2_power_187" x="289.5" y="71" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}" 
                                               fill="${solar_colour}">
-                                            ${config.solar.auto_scale ? `${convertValue(parseFloat(state_pv2_power.state).toFixed(0), round)}` : `${parseFloat(state_pv2_power.state).toFixed(0)} W`}
+                                            ${config.solar.auto_scale ? `${convertValueNew(parseFloat(state_pv2_power.state), state_pv2_power.attributes.unit_of_measurement, round)}` : `${parseFloat(state_pv2_power.state).toFixed(0)} W`}
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="pv2_power_187" x="289.5" y="71" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!config.show_solar || config.entities.pv2_power_187 === 'none' || config.solar.mppts === 1 ? 'none' : ''}" 
                                           fill="${solar_colour}">
-                                        ${config.solar.auto_scale ? `${convertValue(parseFloat(state_pv2_power.state).toFixed(0), round)}` : `${parseFloat(state_pv2_power.state).toFixed(0)} W`}
+                                        ${config.solar.auto_scale ? `${convertValueNew(parseFloat(state_pv2_power.state), state_pv2_power.attributes.unit_of_measurement, round)}` : `${parseFloat(state_pv2_power.state).toFixed(0)} W`}
                                     </text>`
                             }
                             ${config.entities?.pv3_power_188
@@ -3800,14 +3917,14 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="pv3_power_188" x="113" y="71" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" 
                                               fill="${solar_colour}">
-                                            ${config.solar.auto_scale ? `${convertValue(parseFloat(state_pv3_power.state).toFixed(0), round)}` : `${parseFloat(state_pv3_power.state).toFixed(0)} W`}
+                                            ${config.solar.auto_scale ? `${convertValueNew(parseFloat(state_pv3_power.state), state_pv3_power.attributes.unit_of_measurement, round)}` : `${parseFloat(state_pv3_power.state).toFixed(0)} W`}
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="pv3_power_188" x="113" y="71" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!config.show_solar || config.entities.pv3_power_188 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" 
                                           fill="${solar_colour}">
-                                        ${config.solar.auto_scale ? `${convertValue(parseFloat(state_pv3_power.state).toFixed(0), round)}` : `${parseFloat(state_pv3_power.state).toFixed(0)} W`}
+                                        ${config.solar.auto_scale ? `${convertValueNew(parseFloat(state_pv3_power.state), state_pv3_power.attributes.unit_of_measurement, round)}` : `${parseFloat(state_pv3_power.state).toFixed(0)} W`}
                                     </text>`
                             }
                             ${config.entities?.pv4_power_189
@@ -3816,14 +3933,14 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="pv4_power_189" x="366" y="71" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" 
                                               fill="${solar_colour}">
-                                            ${config.solar.auto_scale ? `${convertValue(parseFloat(state_pv4_power.state).toFixed(0), round)}` : `${parseFloat(state_pv4_power.state).toFixed(0)} W`}
+                                            ${config.solar.auto_scale ? `${convertValueNew(parseFloat(state_pv4_power.state), state_pv4_power.attributes.unit_of_measurement, round)}` : `${parseFloat(state_pv4_power.state).toFixed(0)} W`}
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="pv4_power_189" x="366" y="71" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!config.show_solar || config.entities.pv4_power_189 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" 
                                           fill="${solar_colour}">
-                                        ${config.solar.auto_scale ? `${convertValue(parseFloat(state_pv4_power.state).toFixed(0), round)}` : `${parseFloat(state_pv4_power.state).toFixed(0)} W`}
+                                        ${config.solar.auto_scale ? `${convertValueNew(parseFloat(state_pv4_power.state), state_pv4_power.attributes.unit_of_measurement, round)}` : `${parseFloat(state_pv4_power.state).toFixed(0)} W`}
                                     </text>`
                             }
                             ${config.entities?.essential_power && config.entities.essential_power !== 'none'
