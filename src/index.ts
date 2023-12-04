@@ -417,19 +417,21 @@ export class SunsynkPowerFlowCard extends LitElement {
             compact = true;
         }
         //totalsolar = pv1_power_186 + pv2_power_187 + pv3_power_188 + pv4_power_189
-        let totalsolar =
-            ((state_pv1_power.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
-                ? this.toNum(state_pv1_power.state || '0', 0) * 1000
-                : this.toNum(state_pv1_power.state || '0', 0)) +
-            ((state_pv2_power.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
-                ? this.toNum(state_pv2_power.state || '0', 0) * 1000
-                : this.toNum(state_pv2_power.state || '0', 0)) +
-            ((state_pv3_power.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
-                ? this.toNum(state_pv3_power.state || '0', 0) * 1000
-                : this.toNum(state_pv3_power.state || '0', 0)) +
-            ((state_pv4_power.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
-                ? this.toNum(state_pv4_power.state || '0', 0) * 1000
-                : this.toNum(state_pv4_power.state || '0', 0));
+        
+        let pv1_power_watts = (state_pv1_power.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
+                ? this.toNum(state_pv1_power.state || '0') * 1000
+                : this.toNum(state_pv1_power.state || '0');
+        let pv2_power_watts = (state_pv2_power.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
+                ? this.toNum(state_pv2_power.state || '0') * 1000
+                : this.toNum(state_pv2_power.state || '0');
+        let pv3_power_watts = (state_pv3_power.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
+                ? this.toNum(state_pv3_power.state || '0') * 1000
+                : this.toNum(state_pv3_power.state || '0');
+        let pv4_power_watts = (state_pv4_power.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
+                ? this.toNum(state_pv4_power.state || '0') * 1000
+                : this.toNum(state_pv4_power.state || '0');
+
+        let totalsolar = pv1_power_watts + pv2_power_watts + pv3_power_watts + pv4_power_watts;
         let total_pv = config.entities?.pv_total ? parseInt(state_pv_total.state) : totalsolar;
 
         let solar_colour = 
@@ -797,7 +799,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             const speed =
                 config.solar.animation_speed -
                 (config.solar.animation_speed - 1) *
-                (this.toNum(state_pv1_power.state, 0) / (config.solar.max_power || this.toNum(state_pv1_power.state, 0)));
+                (pv1_power_watts / (config.solar.max_power || pv1_power_watts));
             this.changeAnimationSpeed(`pv1`, speed);
         }
 
@@ -805,7 +807,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             const speed =
                 config.solar.animation_speed -
                 (config.solar.animation_speed - 1) *
-                (this.toNum(state_pv2_power.state, 0) / (config.solar.max_power || this.toNum(state_pv2_power.state, 0)));
+                (pv2_power_watts / (config.solar.max_power || pv2_power_watts));
             this.changeAnimationSpeed(`pv2`, speed);
         }
 
@@ -813,7 +815,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             const speed =
                 config.solar.animation_speed -
                 (config.solar.animation_speed - 1) *
-                (this.toNum(state_pv3_power.state, 0) / (config.solar.max_power || this.toNum(state_pv3_power.state, 0)));
+                (pv3_power_watts / (config.solar.max_power || pv3_power_watts));
             this.changeAnimationSpeed(`pv3`, speed);
         }
 
@@ -821,7 +823,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             const speed =
                 config.solar.animation_speed -
                 (config.solar.animation_speed - 1) *
-                (this.toNum(state_pv4_power.state, 0) / (config.solar.max_power || this.toNum(state_pv4_power.state, 0)));
+                (pv4_power_watts / (config.solar.max_power || pv4_power_watts));
             this.changeAnimationSpeed(`pv4`, speed);
         }
 
@@ -1253,7 +1255,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       pointer-events="stroke"/>
                                 <circle id="pv1-dot" cx="0" cy="0" r="3"
                                         class="${!config.show_solar ? 'st12' : ''}"
-                                        fill="${parseInt(state_pv1_power.state) <= 0 ? 'transparent' : `${solar_colour}`}">
+                                        fill="${Math.round(pv1_power_watts) <= 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['pv1']}s" repeatCount="indefinite"
                                                    keyPoints="1;0"
                                                    keyTimes="0;1" calcMode="linear">
@@ -1268,7 +1270,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       pointer-events="stroke"/>
                                 <circle id="pv2-dot" cx="0" cy="0" r="3"
                                         class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
-                                        fill="${parseInt(state_pv2_power.state) <= 0 ? 'transparent' : `${solar_colour}`}">
+                                        fill="${Math.round(pv2_power_watts) <= 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['pv2']}s" repeatCount="indefinite"
                                                    keyPoints="1;0"
                                                    keyTimes="0;1" calcMode="linear">
@@ -1283,7 +1285,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       pointer-events="stroke"/>
                                 <circle id="pv3-dot" cx="0" cy="0" r="3"
                                         class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'st12' : ''}"
-                                        fill="${parseInt(state_pv3_power.state) <= 0 ? 'transparent' : `${solar_colour}`}">
+                                        fill="${Math.round(pv3_power_watts) <= 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['pv3']}s" repeatCount="indefinite"
                                                    keyPoints="1;0"
                                                    keyTimes="0;1" calcMode="linear">
@@ -1298,7 +1300,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       pointer-events="stroke"/>
                                 <circle id="pv4-dot" cx="0" cy="0" r="3"
                                         class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'st12' : ''}"
-                                        fill="${parseInt(state_pv4_power.state) <= 0 ? 'transparent' : `${solar_colour}`}">
+                                        fill="${Math.round(pv4_power_watts) <= 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['pv4']}s" repeatCount="indefinite"
                                                    keyPoints="1;0"
                                                    keyTimes="0;1" calcMode="linear">
@@ -1517,7 +1519,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                      y="${config.inverter.three_phase ? '339' : '310'}"
                                      width="${config.inverter.three_phase ? '34' : '67'}"
                                      height="${config.inverter.three_phase ? '34' : '67'}" viewBox="0 0 24 24">
-                                    <path class="${grid_status === 'off' || grid_status === '0' || grid_status.toLowerCase() === 'off-grid' ? 'st12' : ''}"
+                                    <path class="${['off', '0', 'off-grid', 'off grid'].includes(grid_status.toLowerCase()) ? 'st12' : ''}"
                                           fill="${grid_colour}" display="${config.show_grid === false ? 'none' : ''}"
                                           d="m8.28 5.45l-1.78-.9L7.76 2h8.47l1.27 2.55l-1.78.89L15 4H9l-.72 1.45M18.62 8h-4.53l-.79-3h-2.6l-.79 3H5.38L4.1 10.55l1.79.89l.73-1.44h10.76l.72 1.45l1.79-.89L18.62 8m-.85 14H15.7l-.24-.9L12 15.9l-3.47 5.2l-.23.9H6.23l2.89-11h2.07l-.36 1.35L12 14.1l1.16-1.75l-.35-1.35h2.07l2.89 11m-6.37-7l-.9-1.35l-1.18 4.48L11.4 15m3.28 3.12l-1.18-4.48l-.9 1.36l2.08 3.12Z"/>
                                 </svg>
@@ -1526,7 +1528,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                      y="${config.inverter.three_phase ? '339' : '310'}"
                                      width="${config.inverter.three_phase ? '34' : '67'}"
                                      height="${config.inverter.three_phase ? '34' : '67'}" viewBox="0 0 24 24">
-                                    <path class="${grid_status === 'on' || grid_status === '1' || grid_status.toLowerCase() === 'on-grid' ? 'st12' : ''}"
+                                    <path class="${['on', '1', 'on-grid', 'on grid'].includes(grid_status.toLowerCase()) ? 'st12' : ''}"
                                           fill="${no_grid_colour}" display="${config.show_grid === false ? 'none' : ''}"
                                           d="M22.1 21.5L2.4 1.7L1.1 3l5 5h-.7l-1.3 2.5l1.8.9l.7-1.4h1.5l1 1l-2.9 11h2.1l.2-.9l3.5-5.2l3.5 5.2l.2.9h2.1l-.8-3.2l3.9 3.9l1.2-1.2M9.3 18.1l1.2-4.5l.9 1.3l-2.1 3.2m5.4 0L12.6 15l.2-.3l1.3 1.3l.6 2.1m-.5-7.1h.7l.2.9l-.9-.9m-.1-3h4.5l1.3 2.6l-1.8.9l-.7-1.5h-4.2l-3-3l.5-2h2.6l.8 3M8.4 5.2L6.9 3.7L7.8 2h8.5l1.3 2.5l-1.8.9L15 4H9l-.6 1.2Z"/>
                                 </svg>
@@ -3088,7 +3090,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       pointer-events="stroke"/>
                                 <circle id="pv1-dot" cx="0" cy="0" r="3"
                                         class="${!config.show_solar ? 'st12' : ''}"
-                                        fill="${parseInt(state_pv1_power.state) <= 0 ? 'transparent' : `${solar_colour}`}">
+                                        fill="${Math.round(pv1_power_watts) <= 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['pv1']}s" repeatCount="indefinite"
                                                    keyPoints="0;1"
                                                    keyTimes="0;1" calcMode="linear">
@@ -3103,7 +3105,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       pointer-events="stroke"/>
                                 <circle id="pv2-dot" cx="0" cy="0" r="3"
                                         class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
-                                        fill="${parseInt(state_pv2_power.state) <= 0 ? 'transparent' : `${solar_colour}`}">
+                                        fill="${Math.round(pv2_power_watts) <= 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['pv2']}s" repeatCount="indefinite"
                                                    keyPoints="0;1"
                                                    keyTimes="0;1" calcMode="linear">
@@ -3118,7 +3120,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       pointer-events="stroke"/>
                                 <circle id="pv3-dot" cx="0" cy="0" r="3"
                                         class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'st12' : ''}"
-                                        fill="${parseInt(state_pv3_power.state) <= 0 ? 'transparent' : `${solar_colour}`}">
+                                        fill="${Math.round(pv3_power_watts) <= 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['pv3']}s" repeatCount="indefinite"
                                                    keyPoints="0;1"
                                                    keyTimes="0;1" calcMode="linear">
@@ -3133,7 +3135,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       pointer-events="stroke"/>
                                 <circle id="pv4-dot" cx="0" cy="0" r="3"
                                         class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'st12' : ''}"
-                                        fill="${parseInt(state_pv4_power.state) <= 0 ? 'transparent' : `${solar_colour}`}">
+                                        fill="${Math.round(pv4_power_watts) <= 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['pv4']}s" repeatCount="indefinite"
                                                    keyPoints="0;1"
                                                    keyTimes="0;1" calcMode="linear">
@@ -3404,13 +3406,13 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_connected_status_194)}>
                                 <svg xmlns="http://www.w3.org/2000/svg" id="transmission_on" x="-0.5" y="187.5"
                                      width="64.5" height="64.5" viewBox="0 0 24 24">
-                                    <path class="${grid_status === 'off' || grid_status === '0' || grid_status.toLowerCase() === 'off-grid' ? 'st12' : ''}"
+                                    <path class="${['off', '0', 'off-grid', 'off grid'].includes(grid_status.toLowerCase()) ? 'st12' : ''}"
                                           fill="${grid_colour}" display="${config.show_grid === false ? 'none' : ''}"
                                           d="m8.28 5.45l-1.78-.9L7.76 2h8.47l1.27 2.55l-1.78.89L15 4H9l-.72 1.45M18.62 8h-4.53l-.79-3h-2.6l-.79 3H5.38L4.1 10.55l1.79.89l.73-1.44h10.76l.72 1.45l1.79-.89L18.62 8m-.85 14H15.7l-.24-.9L12 15.9l-3.47 5.2l-.23.9H6.23l2.89-11h2.07l-.36 1.35L12 14.1l1.16-1.75l-.35-1.35h2.07l2.89 11m-6.37-7l-.9-1.35l-1.18 4.48L11.4 15m3.28 3.12l-1.18-4.48l-.9 1.36l2.08 3.12Z"/>
                                 </svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" id="transmission_off" x="-0.5" y="187.5"
                                      width="64.5" height="64.5" viewBox="0 0 24 24">
-                                    <path class="${grid_status === 'on' || grid_status === '1' || grid_status.toLowerCase() === 'on-grid' ? 'st12' : ''}"
+                                    <path class="${['on', '1', 'on-grid', 'on grid'].includes(grid_status.toLowerCase()) ? 'st12' : ''}"
                                           fill="${no_grid_colour}" display="${config.show_grid === false ? 'none' : ''}"
                                           d="M22.1 21.5L2.4 1.7L1.1 3l5 5h-.7l-1.3 2.5l1.8.9l.7-1.4h1.5l1 1l-2.9 11h2.1l.2-.9l3.5-5.2l3.5 5.2l.2.9h2.1l-.8-3.2l3.9 3.9l1.2-1.2M9.3 18.1l1.2-4.5l.9 1.3l-2.1 3.2m5.4 0L12.6 15l.2-.3l1.3 1.3l.6 2.1m-.5-7.1h.7l.2.9l-.9-.9m-.1-3h4.5l1.3 2.6l-1.8.9l-.7-1.5h-4.2l-3-3l.5-2h2.6l.8 3M8.4 5.2L6.9 3.7L7.8 2h8.5l1.3 2.5l-1.8.9L15 4H9l-.6 1.2Z"/>
                                 </svg>

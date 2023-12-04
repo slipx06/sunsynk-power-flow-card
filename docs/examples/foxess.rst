@@ -64,8 +64,8 @@ Example 1 - Integration via https://github.com/nathanmarlor/foxess_modbus
       inverter_voltage_154: sensor.emontx4_vrms
       inverter_current_164: sensor.foxess_rcurrent
       inverter_power_175: sensor.sensor_foxess_rpower_watts
-      grid_connected_status_194: none
-      inverter_status_59: sensor.foxess_inverter_fault_code
+      grid_connected_status_194: sensor.foxess_inverter_state
+      inverter_status_59: sensor.foxess_inverter_state
       day_battery_charge_70: sensor.foxess_battery_charge_today
       day_battery_discharge_71: sensor.foxess_battery_discharge_today
       battery_voltage_183: sensor.foxess_batvolt

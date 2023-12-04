@@ -122,7 +122,7 @@ export const inverterStatusGroups = {
     foxess: {
         standby: {states: ['waiting'], color: 'blue', message: localize('common.standby')},
         selftest: {states: ['self test'], color: 'yellow', message: localize('common.selftest')},
-        ongrid: {states: ['on-grid'], color: 'green', message: localize('common.ongrid') },
+        ongrid: {states: ['on grid'], color: 'green', message: localize('common.ongrid') },
         offgrid: { states: ['off grid / eps'], color: 'green', message: localize('common.offgrid')},
         fault: {states: ['recoverable fault', 'unrecoverable fault' ], color: 'red', message: localize('common.fault')},
         check: {states: ['checking'], color: 'orange', message: localize('common.check')},
