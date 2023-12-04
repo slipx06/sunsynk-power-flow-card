@@ -152,7 +152,10 @@ export class SunsynkPowerFlowCard extends LitElement {
         const state_load_frequency = this.getState('load_frequency_192', {state: '0'});
         const state_inverter_current = this.getState('inverter_current_164', {state: '0'});
         const state_inverter_status = this.getState('inverter_status_59', {state: ''});
-        const state_inverter_power = this.getState('inverter_power_175', {state: '0'});
+        const state_inverter_power = this.getState('inverter_power_175', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
         const state_priority_load = this.getState('priority_load_243', {state: 'undefined'});
         const state_use_timer = this.getState('use_timer_248', {state: 'undefined'});
         const state_dc_transformer_temp = this.getState('dc_transformer_temp_90', {state: ''});
@@ -177,12 +180,30 @@ export class SunsynkPowerFlowCard extends LitElement {
         const state_battery_rated_capacity = this.getState('battery_rated_capacity')?.state;
         
         //Load
-        const state_essential_power = this.getState('essential_power', {state: '0'});
-        const state_aux_power = this.getState('aux_power_166', {state: '0'});
-        const state_nonessential_power = this.getState('nonessential_power', {state: '0'});
-        const state_non_essential_load1 = this.getState('non_essential_load1', {state: '0'});
-        const state_non_essential_load2 = this.getState('non_essential_load2', {state: '0'});
-        const state_non_essential_load3 = this.getState('non_essential_load3', {state: '0'});
+        const state_essential_power = this.getState('essential_power', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
+        const state_aux_power = this.getState('aux_power_166', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
+        const state_nonessential_power = this.getState('nonessential_power', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
+        const state_non_essential_load1 = this.getState('non_essential_load1', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
+        const state_non_essential_load2 = this.getState('non_essential_load2', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
+        const state_non_essential_load3 = this.getState('non_essential_load3', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
         const state_essential_load1 = this.getState('essential_load1', {
             state: '0',
             attributes: {unit_of_measurement: ''},
@@ -192,8 +213,14 @@ export class SunsynkPowerFlowCard extends LitElement {
             attributes: {unit_of_measurement: ''},
         });
         const state_aux_connected_status = this.getState('aux_connected_status', {state: 'on'});
-        const state_aux_load1 = this.getState('aux_load1', {state: '0'});
-        const state_aux_load2 = this.getState('aux_load2', {state: '0'});
+        const state_aux_load1 = this.getState('aux_load1', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
+        const state_aux_load2 = this.getState('aux_load2', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
         const state_essential_load1_extra = this.getState('essential_load1_extra', {
             state: '0',
             attributes: {unit_of_measurement: ''},
@@ -210,9 +237,18 @@ export class SunsynkPowerFlowCard extends LitElement {
             state: '0',
             attributes: {unit_of_measurement: ''},
         });
-        const state_load_power_L1 = this.getState('load_power_L1', {state: 0});
-        const state_load_power_L2 = this.getState('load_power_L2', {state: 0});
-        const state_load_power_L3 = this.getState('load_power_L3', {state: 0});
+        const state_load_power_L1 = this.getState('load_power_L1', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
+        const state_load_power_L2 = this.getState('load_power_L2', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
+        const state_load_power_L3 = this.getState('load_power_L3', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
         const state_aux_load1_extra = this.getState('aux_load1_extra', {
             state: '0',
             attributes: {unit_of_measurement: ''},
@@ -223,12 +259,27 @@ export class SunsynkPowerFlowCard extends LitElement {
         });
         
         //Grid
-        const state_grid_ct_power = this.getState('grid_ct_power_172', {state: 0});
-        const state_grid_ct_power_L2 = this.getState('grid_ct_power_L2', {state: 0});
-        const state_grid_ct_power_L3 = this.getState('grid_ct_power_L3', {state: 0});
-        const state_grid_ct_power_total = this.getState('grid_ct_power_total', {state: 0});
+        const state_grid_ct_power = this.getState('grid_ct_power_172', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
+        const state_grid_ct_power_L2 = this.getState('grid_ct_power_L2', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
+        const state_grid_ct_power_L3 = this.getState('grid_ct_power_L3', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
+        const state_grid_ct_power_total = this.getState('grid_ct_power_total', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
         const state_grid_connected_status = this.getState('grid_connected_status_194', {state: 'on'});
-        const state_grid_power = this.getState('grid_power_169', {state: '0'});
+        const state_grid_power = this.getState('grid_power_169', {
+            state: '0',
+            attributes: {unit_of_measurement: ''},
+        });
         const state_energy_cost_buy = this.getState('energy_cost_buy', {
             state: '',
             attributes: {unit_of_measurement: ''},
@@ -281,12 +332,24 @@ export class SunsynkPowerFlowCard extends LitElement {
     
         //Set defaults
         let {invert_aux} = config.load;
-        let aux_power = this.toNum(state_aux_power.state, 0, invert_aux);
+        let aux_power = (state_aux_power.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
+            ? this.toNum((state_aux_power.state * 1000), 0, invert_aux)
+            : this.toNum(state_aux_power.state, 0, invert_aux);    
+
         let {invert_grid} = config.grid;
-        let grid_power = this.toNum(state_grid_ct_power.state, 0, invert_grid);
-        let grid_power_L2 = this.toNum(state_grid_ct_power_L2.state, 0, invert_grid);
-        let grid_power_L3 = this.toNum(state_grid_ct_power_L3.state, 0, invert_grid);
-        let grid_power_3phase = this.toNum(state_grid_ct_power_total.state, 0, invert_grid);
+        let grid_power = (state_grid_ct_power.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
+            ? this.toNum((state_grid_ct_power.state * 1000), 0, invert_aux)
+            : this.toNum(state_grid_ct_power.state, 0, invert_grid); 
+        let grid_power_L2 = (state_grid_ct_power_L2.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
+            ? this.toNum((state_grid_ct_power_L2.state * 1000), 0, invert_grid)
+            : this.toNum(state_grid_ct_power_L2.state, 0, invert_grid);
+        let grid_power_L3 = (state_grid_ct_power_L3.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
+            ? this.toNum((state_grid_ct_power_L3.state * 1000), 0, invert_grid)
+            : this.toNum(state_grid_ct_power_L3.state, 0, invert_grid);
+
+        let grid_power_3phase = (state_grid_ct_power_total.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
+            ? this.toNum((state_grid_ct_power_total.state * 1000), 0, invert_grid)
+            : this.toNum(state_grid_ct_power_total.state, 0, invert_grid);
         let grid_power_total = config.entities?.grid_ct_power_total
             ? grid_power_3phase
             : grid_power + grid_power_L2 + grid_power_L3;
@@ -336,11 +399,31 @@ export class SunsynkPowerFlowCard extends LitElement {
                 : this.toNum(state_inverter_current_L3.state, 1)
             : '';
         let battery_voltage = config.entities?.battery_voltage_183 ? this.toNum(state_battery_voltage.state, 1) : 0;
-        let inverter_power_round = config.entities?.inverter_power_175 ? this.toNum(state_inverter_power.state, 0) : 0;
-        let grid_power_round = config.entities?.grid_power_169 ? this.toNum(state_grid_power.state, 0) : 0;
-        let load_power_L1 = config.entities?.load_power_L1 ? this.toNum(state_load_power_L1.state, 0) : '';
-        let load_power_L2 = config.entities?.load_power_L2 ? this.toNum(state_load_power_L2.state, 0) : '';
-        let load_power_L3 = config.entities?.load_power_L3 ? this.toNum(state_load_power_L3.state, 0) : '';
+        let inverter_power_round = config.entities?.inverter_power_175 
+            ? (state_inverter_power.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
+                ? this.toNum((state_inverter_power.state * 1000), 0)
+                : this.toNum(state_inverter_power.state, 0) 
+            : 0;
+        let grid_power_round = config.entities?.grid_power_169 
+            ? (state_grid_power.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
+                ? this.toNum((state_grid_power.state * 1000), 0) 
+                : this.toNum(state_grid_power.state, 0)
+            : 0;
+        let load_power_L1 = config.entities?.load_power_L1
+            ? (state_load_power_L1.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
+                ? this.toNum((state_load_power_L1.state * 1000), 0)
+                : this.toNum(state_load_power_L1.state, 0)
+            : '';
+        let load_power_L2 = config.entities?.load_power_L2
+            ? (state_load_power_L2.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
+                ? this.toNum((state_load_power_L2.state * 1000), 0)
+                : this.toNum(state_load_power_L2.state, 0)
+            : '';
+        let load_power_L3 = config.entities?.load_power_L3
+            ? (state_load_power_L3.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
+                ? this.toNum((state_load_power_L3.state * 1000), 0)
+                : this.toNum(state_load_power_L3.state, 0)
+            : '';
 
         const grid_import_colour = config.grid?.colour;
         const grid_export_colour = config.grid?.export_colour || grid_import_colour;
@@ -390,7 +473,9 @@ export class SunsynkPowerFlowCard extends LitElement {
         let usetimer = config.entities.use_timer_248 === false || !config.entities.use_timer_248 || config.entities.use_timer_248 === null ? false : state_use_timer.state;
         let priority =
             config.entities.priority_load_243 === false || !config.entities.priority_load_243 ? false : state_priority_load.state;
-        let battery_power = this.toNum(state_battery_power.state, 0, config.battery?.invert_power);
+        let battery_power = (state_battery_power.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
+            ? this.toNum((state_battery_power.state * 1000), 0, config.battery?.invert_power)
+            : this.toNum(state_battery_power.state, 0, config.battery?.invert_power);    
         const card_height = (config.card_height ? this.hass.states[config.card_height] : null) || {state: ''};
         let height =
             card_height.state === 'unavailable' || card_height.state === 'unknown' || card_height.state === ''
@@ -456,24 +541,30 @@ export class SunsynkPowerFlowCard extends LitElement {
         if (three_phase === false) {
             nonessential =
                 nonessential_power === 'none' || !nonessential_power
-                    ? this.toNum(state_grid_ct_power.state) - this.toNum(state_grid_power.state)
-                    : this.toNum(state_nonessential_power.state);
+                    ? grid_power - grid_power_round
+                    : (state_nonessential_power.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
+                        ? this.toNum((state_nonessential_power.state * 1000), 0)
+                        : this.toNum(state_nonessential_power.state, 0);
         } else {
             nonessential =
                 nonessential_power === 'none' || !nonessential_power
-                    ? this.toNum(state_grid_ct_power.state) +
-                    this.toNum(state_grid_ct_power_L2.state) +
-                    this.toNum(state_grid_ct_power_L3.state) -
-                    this.toNum(state_grid_power.state)
-                    : this.toNum(state_nonessential_power.state);
+                    ? grid_power
+                    + grid_power_L2
+                    + grid_power_L3 
+                    - grid_power_round
+                    : (state_nonessential_power.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
+                        ? this.toNum((state_nonessential_power.state * 1000), 0)
+                        : this.toNum(state_nonessential_power.state, 0);
         }
 
         essential =
             essential_power === 'none' || !essential_power
                 ? three_phase === true && config.entities.load_power_L1 && config.entities.load_power_L2
                     ? Number(load_power_L1) + Number(load_power_L2) + Number(load_power_L3)
-                    : this.toNum(state_inverter_power.state, 0) + this.toNum(state_grid_power.state, 0) - this.toNum(state_aux_power.state, 0)
-                : this.toNum(state_essential_power.state, 0);
+                    : inverter_power_round + grid_power_round - aux_power
+                : (state_essential_power.attributes.unit_of_measurement || '').toLowerCase() === 'kw' 
+                    ? this.toNum((state_essential_power.state * 1000), 0)
+                    : this.toNum(state_essential_power.state, 0);
 
         //Timer entities
         const prog1 = {
@@ -767,11 +858,9 @@ export class SunsynkPowerFlowCard extends LitElement {
         //let production_e = parseFloat(state_day_pv_energy.state) + parseFloat(state_day_battery_discharge.state);
         //let consumption_e = parseFloat(state_day_load_energy.state) + parseFloat(state_day_battery_charge.state);
         let production_e =
-            (Number.isNaN(state_day_pv_energy.state) ? 0 : parseFloat(state_day_pv_energy.state)) +
-            (Number.isNaN(state_day_battery_discharge.state) ? 0 : parseFloat(state_day_battery_discharge.state));
+            this.toNum(state_day_pv_energy.state) + this.toNum(state_day_battery_discharge.state);
         let consumption_e =
-            (Number.isNaN(state_day_load_energy.state) ? 0 : parseFloat(state_day_load_energy.state)) +
-            (Number.isNaN(state_day_battery_charge.state) ? 0 : parseFloat(state_day_battery_charge.state));
+            this.toNum(state_day_load_energy.state) + this.toNum(state_day_battery_charge.state);
         let Autarky = consumption_e != 0 ? Math.min(Math.round((production_e * 100) / consumption_e), 100) : 0;
         let Ratio = production_e != 0 ? Math.min(Math.round((consumption_e * 100) / production_e), 100) : 0;
 
@@ -880,11 +969,11 @@ export class SunsynkPowerFlowCard extends LitElement {
         let pvPercentage = 0;
         let batteryPercentage = 0;
         if ((pvPercentage_raw  >= 100 && batteryPercentage_raw > 0) || (pvPercentage_raw > 0 && batteryPercentage_raw >= 100)) {
-            pvPercentage = this.toNum(normalizedPvPercentage,0);
-            batteryPercentage = this.toNum(normalizedBatteryPercentage,0);
+            pvPercentage = this.toNum(normalizedPvPercentage, 0);
+            batteryPercentage = this.toNum(normalizedBatteryPercentage, 0);
         } else {
-            pvPercentage = this.toNum(Math.min(pvPercentage_raw, 100),0);
-            batteryPercentage = this.toNum(Math.min(batteryPercentage_raw, 100),0);
+            pvPercentage = this.toNum(Math.min(pvPercentage_raw, 100), 0);
+            batteryPercentage = this.toNum(Math.min(batteryPercentage_raw, 100), 0);
         }
 
         if (this.isFullCard) {
@@ -1182,12 +1271,12 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <text id="aux_load1_extra" x="360" y="14" class="st3 st8"
                                   display="${show_aux !== true || additional_aux_load === 0 || !config.entities.aux_load1_extra ? 'none' : ''}"
                                   fill="${aux_colour}">
-                                ${Number.isNaN(state_aux_load1_extra.state) ? '0' : `${parseFloat(state_aux_load1_extra.state).toFixed(1)} ${state_aux_load1_extra.attributes.unit_of_measurement}`}
+                                ${this.toNum(state_aux_load1_extra.state, 1)} ${state_aux_load1_extra.attributes.unit_of_measurement}
                             </text>
                             <text id="aux_load2_extra" x="360" y="83" class="st3 st8"
                                   display="${show_aux !== true || additional_aux_load === 0 || additional_aux_load === 1 || !config.entities.aux_load2_extra ? 'none' : ''}"
                                   fill="${aux_colour}">
-                                ${Number.isNaN(state_aux_load2_extra.state) ? '0' : `${parseFloat(state_aux_load2_extra.state).toFixed(1)} ${state_aux_load2_extra.attributes.unit_of_measurement}`}
+                                ${this.toNum(state_aux_load2_extra.state, 1)} ${state_aux_load2_extra.attributes.unit_of_measurement}
                             </text>
                             <text id="aux_daily_text"
                                   x="${(additional_aux_load === 1 || additional_aux_load === 2) ? '238' : '306'}" y="24"
@@ -2258,21 +2347,21 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 <text id="ess_load1_value_extra" x="430" y="23"
                                       display="${config.entities?.essential_load1_extra && additional_load === 1 && show_aux !== true ? '' : 'none'}"
                                       class="st3 .right-align" fill="${load_colour}">
-                                    ${Number.isNaN(state_essential_load1_extra.state) ? '0' : `${parseFloat(state_essential_load1_extra.state).toFixed(1)} ${state_essential_load1_extra.attributes.unit_of_measurement}`}
+                                    ${this.toNum(state_essential_load1_extra.state, 1)} ${state_essential_load1_extra.attributes.unit_of_measurement}
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1_extra)}>
                                 <text id="ess_load2_value_extra" x="392" y="70"
                                       display="${config.entities?.essential_load1_extra && additional_load === 2 && show_aux !== true ? '' : 'none'}"
                                       class="st3 .right-align" fill="${load_colour}">
-                                    ${Number.isNaN(state_essential_load1_extra.state) ? '0' : `${this.toNum(state_essential_load1_extra.state, 1)} ${state_essential_load1_extra.attributes.unit_of_measurement}`}
+                                    ${this.toNum(state_essential_load1_extra.state, 1)} ${state_essential_load1_extra.attributes.unit_of_measurement}
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load2_extra)}>
                                 <text id="ess_load2_value_extra" x="430" y="70"
                                       display="${config.entities?.essential_load2_extra && additional_load === 2 && show_aux !== true ? '' : 'none'}"
                                       class="st3 .left-align" fill="${load_colour}">
-                                    ${Number.isNaN(state_essential_load1_extra.state) ? '0' : `${this.toNum(state_essential_load2_extra.state, 1)} ${state_essential_load2_extra.attributes.unit_of_measurement}`}
+                                    ${this.toNum(state_essential_load2_extra.state, 1)} ${state_essential_load2_extra.attributes.unit_of_measurement}
                                 </text>
                             </a>
                             ${config.inverter.three_phase
@@ -2363,14 +2452,28 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="aux_power_166" x="270" y="48" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${show_aux !== true ? 'none' : ''}" 
                                               fill="${aux_colour}">
-                                            ${config.load.auto_scale ? `${config.load.show_absolute_aux ? `${Math.abs(parseFloat(this.convertValue(aux_power, round)))} ${this.convertValue(aux_power, round).split(' ')[1]}` : this.convertValue(aux_power, round) || '0'}` : `${config.load.show_absolute_aux ? `${Math.abs(aux_power)}` : aux_power || 0} W`}
+                                            ${config.load.auto_scale 
+                                                ? `${config.load.show_absolute_aux 
+                                                    ? `${Math.abs(parseFloat(this.convertValue(aux_power, round)))} ${this.convertValue(aux_power, round).split(' ')[1]}` 
+                                                    : this.convertValue(aux_power, round) || '0'}` 
+                                                : `${config.load.show_absolute_aux 
+                                                    ? `${Math.abs(aux_power)}` 
+                                                    : aux_power || 0} W`
+                                            }
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="aux_power_166" x="270" y="48" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${show_aux !== true ? 'none' : ''}" 
                                           fill="${aux_colour}">
-                                        ${config.load.auto_scale ? `${config.load.show_absolute_aux ? `${Math.abs(parseFloat(this.convertValue(aux_power, round)))} ${this.convertValue(aux_power, round).split(' ')[1]}` : this.convertValue(aux_power, round) || '0'}` : `${config.load.show_absolute_aux ? `${Math.abs(aux_power)}` : aux_power || 0} W`}
+                                        ${config.load.auto_scale 
+                                            ? `${config.load.show_absolute_aux 
+                                                ? `${Math.abs(parseFloat(this.convertValue(aux_power, round)))} ${this.convertValue(aux_power, round).split(' ')[1]}` 
+                                                : this.convertValue(aux_power, round) || '0'}` 
+                                            : `${config.load.show_absolute_aux 
+                                                ? `${Math.abs(aux_power)}` 
+                                                : aux_power || 0} W`
+                                        }
                                         </text>`
                             }
                             ${config.entities?.pv1_power_186
@@ -2466,14 +2569,20 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="aux_load1_value" x="411" y="34" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${show_aux !== true || additional_aux_load === 0 ? 'none' : ''}" 
                                               fill="${aux_colour}">
-                                            ${config.load.auto_scale ? `${Number.isNaN(state_aux_load1.state) ? '0' : this.convertValue(parseFloat(state_aux_load1.state), round)}` : `${parseFloat(state_aux_load1.state).toFixed(0) || 0} W`}
+                                            ${config.load.auto_scale 
+                                                ? this.convertValueNew(state_aux_load1.state, state_aux_load1.attributes.unit_of_measurement , round) 
+                                                : `${this.toNum(state_aux_load1.state, 0) || 0} W`
+                                            }
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="aux_load1_value" x="411" y="34" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${show_aux !== true || additional_aux_load === 0 ? 'none' : ''}" 
                                           fill="${aux_colour}">
-                                        ${config.load.auto_scale ? `${Number.isNaN(state_aux_load1.state) ? '0' : this.convertValue(parseFloat(state_aux_load1.state), round)}` : `${parseFloat(state_aux_load1.state).toFixed(0) || 0} W`}
+                                        ${config.load.auto_scale 
+                                            ? this.convertValueNew(state_aux_load1.state, state_aux_load1.attributes.unit_of_measurement , round) 
+                                            : `${this.toNum(state_aux_load1.state, 0) || 0} W`
+                                        }
                                     </text>`
                             }
                             ${config.entities?.aux_load2
@@ -2482,14 +2591,20 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="aux_load2_value" x="411" y="64" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${show_aux !== true || additional_aux_load === 0 || additional_aux_load === 1 ? 'none' : ''}" 
                                               fill="${aux_colour}">
-                                            ${config.load.auto_scale ? `${Number.isNaN(state_aux_load2.state) ? '0' : this.convertValue(parseFloat(state_aux_load2.state), round)}` : `${parseFloat(state_aux_load2.state).toFixed(0) || 0} W`}
+                                            ${config.load.auto_scale 
+                                                ? this.convertValueNew(state_aux_load2.state, state_aux_load2.attributes.unit_of_measurement, round) 
+                                                : `${this.toNum(state_aux_load2.state, 0) || 0} W`
+                                            }
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="aux_load2_value" x="411" y="64" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${show_aux !== true || additional_aux_load === 0 || additional_aux_load === 1 ? 'none' : ''}" 
                                           fill="${aux_colour}">
-                                        ${config.load.auto_scale ? `${Number.isNaN(state_aux_load2.state) ? '0' : this.convertValue(parseFloat(state_aux_load2.state), round)}` : `${parseFloat(state_aux_load2.state).toFixed(0) || 0} W`}
+                                        ${config.load.auto_scale 
+                                            ? this.convertValueNew(state_aux_load2.state, state_aux_load2.attributes.unit_of_measurement, round) 
+                                            : `${this.toNum(state_aux_load2.state, 0) || 0} W`
+                                        }
                                     </text>`
                             }
                             ${config.entities?.non_essential_load1
@@ -2498,14 +2613,20 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="noness1_value" x="340" y="321" class="st3" 
                                               display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 || noness_dual_load === 3 ? 'none' : ''}" 
                                               fill="${grid_colour}">
-                                            ${config.grid.auto_scale ? `${Number.isNaN(state_non_essential_load1.state) ? '0' : this.convertValue(parseFloat(state_non_essential_load1.state), round)}` : `${parseFloat(state_non_essential_load1.state).toFixed(0) || 0} W`}
+                                            ${config.grid.auto_scale 
+                                                ? this.convertValueNew(state_non_essential_load1.state, state_non_essential_load1.attributes.unit_of_measurement, round) 
+                                                : `${this.toNum(state_non_essential_load1.state, 0) || 0} W`
+                                            }
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="noness1_value" x="340" y="321" class="st3" 
                                           display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 || noness_dual_load === 3 ? 'none' : ''}" 
                                           fill="${grid_colour}">
-                                        ${config.grid.auto_scale ? `${Number.isNaN(state_non_essential_load1.state) ? '0' : this.convertValue(parseFloat(state_non_essential_load1.state), round)}` : `${parseFloat(state_non_essential_load1.state).toFixed(0) || 0} W`}
+                                        ${config.grid.auto_scale 
+                                            ? this.convertValueNew(state_non_essential_load1.state, state_non_essential_load1.attributes.unit_of_measurement, round) 
+                                            : `${this.toNum(state_non_essential_load1.state, 0) || 0} W`
+                                        }
                                     </text>`
                             }
                             ${config.entities?.non_essential_load1
@@ -2514,14 +2635,20 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="noness2_value" x="320" y="321" class="st3" 
                                               display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" 
                                               fill="${grid_colour}">
-                                            ${config.grid.auto_scale ? `${Number.isNaN(state_non_essential_load1.state) ? '0' : this.convertValue(parseFloat(state_non_essential_load1.state), round)}` : `${parseFloat(state_non_essential_load1.state).toFixed(0) || 0} W`}
+                                            ${config.grid.auto_scale 
+                                                ? this.convertValueNew(state_non_essential_load1.state, state_non_essential_load1.attributes.unit_of_measurement, round) 
+                                                : `${this.toNum(state_non_essential_load1.state, 0) || 0} W`
+                                            }
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="noness2_value" x="320" y="321" class="st3" 
                                           display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" 
                                           fill="${grid_colour}">
-                                        ${config.grid.auto_scale ? `${Number.isNaN(state_non_essential_load1.state) ? '0' : this.convertValue(parseFloat(state_non_essential_load1.state), round)}` : `${parseFloat(state_non_essential_load1.state).toFixed(0) || 0} W`}
+                                        ${config.grid.auto_scale 
+                                            ? this.convertValueNew(state_non_essential_load1.state, state_non_essential_load1.attributes.unit_of_measurement, round) 
+                                            : `${this.toNum(state_non_essential_load1.state, 0) || 0} W`
+                                        }
                                     </text>`
                             }
                             ${config.entities?.non_essential_load2
@@ -2530,14 +2657,20 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="noness2_value" x="357" y="321" class="st3" 
                                               display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" 
                                               fill="${grid_colour}">
-                                            ${config.grid.auto_scale ? `${Number.isNaN(state_non_essential_load2.state) ? '0' : this.convertValue(parseFloat(state_non_essential_load2.state), round)}` : `${parseFloat(state_non_essential_load2.state).toFixed(0) || 0} W`}
+                                            ${config.grid.auto_scale 
+                                                ? this.convertValueNew(state_non_essential_load2.state, state_non_essential_load2.attributes.unit_of_measurement, round) 
+                                                : `${this.toNum(state_non_essential_load2.state, 0) || 0} W`
+                                            }
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="noness2_value" x="357" y="321" class="st3" 
                                           display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" 
                                           fill="${grid_colour}">
-                                        ${config.grid.auto_scale ? `${Number.isNaN(state_non_essential_load2.state) ? '0' : this.convertValue(parseFloat(state_non_essential_load2.state), round)}` : `${parseFloat(state_non_essential_load2.state).toFixed(0) || 0} W`}
+                                        ${config.grid.auto_scale 
+                                            ? this.convertValueNew(state_non_essential_load2.state, state_non_essential_load2.attributes.unit_of_measurement, round)
+                                            : `${this.toNum(state_non_essential_load2.state, 0) || 0} W`
+                                        }
                                     </text>`
                             }
                             ${config.entities?.non_essential_load3
@@ -2546,14 +2679,20 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="noness3_value" x="283" y="321" class="${config.battery.hide_soc === true ? 'st3' : 'st12'}" 
                                               display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 || noness_dual_load === 2  ? 'none' : ''}" 
                                               fill="${grid_colour}">
-                                            ${config.grid.auto_scale ? `${Number.isNaN(state_non_essential_load3.state) ? '0' : this.convertValue(parseFloat(state_non_essential_load3.state), round)}` : `${parseFloat(state_non_essential_load3.state).toFixed(0) || 0} W`}
+                                            ${config.grid.auto_scale 
+                                                ? this.convertValueNew(state_non_essential_load3.state, state_non_essential_load3.attributes.unit_of_measurement, round)
+                                                : `${this.toNum(state_non_essential_load3.state, 0) || 0} W`
+                                            }
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="noness3_value" x="283" y="321" class="${config.battery.hide_soc === true ? 'st3' : 'st12'}" 
                                           display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 || noness_dual_load === 2 ? 'none' : ''}" 
                                           fill="${grid_colour}">
-                                        ${config.grid.auto_scale ? `${Number.isNaN(state_non_essential_load3.state) ? '0' : this.convertValue(parseFloat(state_non_essential_load3.state), round)}` : `${parseFloat(state_non_essential_load3.state).toFixed(0) || 0} W`}
+                                        ${config.grid.auto_scale 
+                                            ? this.convertValueNew(state_non_essential_load3.state, state_non_essential_load3.attributes.unit_of_measurement, round) 
+                                            : `${this.toNum(state_non_essential_load3.state, 0) || 0} W`
+                                        }
                                     </text>`
                             }
                             ${config.entities?.essential_load1
@@ -2562,7 +2701,14 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="ess_load1_value" x="409" y="${show_aux !== true ? '47' : '158'}" 
                                               display="${additional_load === 1 ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               fill="${load_colour}">
-                                            ${config.load.auto_scale ? `${Number.isNaN(state_essential_load1.state) ? '0' : this.convertValue(parseFloat(state_essential_load1.state), round)}` : `${parseFloat(state_essential_load1.state).toFixed(0) || 0} ${state_essential_load1.attributes.unit_of_measurement !== undefined ? state_essential_load1.attributes.unit_of_measurement : ''}`}
+                                            ${config.load.auto_scale 
+                                                ? this.convertValueNew(state_essential_load1.state, state_essential_load1.attributes.unit_of_measurement, round)
+                                                : `${this.toNum(state_essential_load1.state, 0) || 0} ${
+                                                    state_essential_load1.attributes.unit_of_measurement !== undefined 
+                                                    ? state_essential_load1.attributes.unit_of_measurement 
+                                                    : ''
+                                                }`
+                                            }
                                         </text>
                                     </a>`
                                     : svg`
@@ -2570,7 +2716,14 @@ export class SunsynkPowerFlowCard extends LitElement {
                                           display="${additional_load === 1 ? '' : 'none'}" 
                                           class="${font !== true ? 'st14' : 'st4'} st8" 
                                           fill="${load_colour}">
-                                        ${config.load.auto_scale ? `${Number.isNaN(state_essential_load1.state) ? '0' : this.convertValue(parseFloat(state_essential_load1.state), round)}` : `${parseFloat(state_essential_load1.state).toFixed(0) || 0} ${state_essential_load1.attributes.unit_of_measurement !== undefined ? state_essential_load1.attributes.unit_of_measurement : ''}`}
+                                        ${config.load.auto_scale 
+                                            ? this.convertValueNew(state_essential_load1.state, state_essential_load1.attributes.unit_of_measurement, round)
+                                            : `${this.toNum(state_essential_load1.state, 0) || 0} ${
+                                                state_essential_load1.attributes.unit_of_measurement !== undefined 
+                                                ? state_essential_load1.attributes.unit_of_measurement 
+                                                : ''
+                                            }`
+                                        }
                                     </text>`
                             }
                             ${config.entities?.essential_load1
@@ -2579,14 +2732,28 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="ess_load2_value" x="${show_aux !== true ? '394' : '391'}" y="${show_aux !== true ? '42' : '160'}" 
                                               display="${additional_load === 2 ? '' : 'none'}" class="st3" 
                                               fill="${load_colour}">
-                                            ${config.load.auto_scale ? `${Number.isNaN(state_essential_load1.state) ? '0' : this.convertValue(parseFloat(state_essential_load1.state), round)}` : `${parseFloat(state_essential_load1.state).toFixed(0) || 0} ${state_essential_load1.attributes.unit_of_measurement !== undefined ? state_essential_load1.attributes.unit_of_measurement : ''}`}
+                                            ${config.load.auto_scale 
+                                                ? this.convertValueNew(state_essential_load1.state, state_essential_load1.attributes.unit_of_measurement, round)
+                                                : `${this.toNum(state_essential_load1.state, 0) || 0} ${
+                                                    state_essential_load1.attributes.unit_of_measurement !== undefined 
+                                                    ? state_essential_load1.attributes.unit_of_measurement 
+                                                    : ''
+                                                }`
+                                            }
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="ess_load2_value" x="${show_aux !== true ? '394' : '391'}" y="${show_aux !== true ? '42' : '160'}" 
                                           display="${additional_load === 2 ? '' : 'none'}" 
                                           class="st3" fill="${load_colour}">
-                                        ${config.load.auto_scale ? `${Number.isNaN(state_essential_load1.state) ? '0' : this.convertValue(parseFloat(state_essential_load1.state), round)}` : `${parseFloat(state_essential_load1.state).toFixed(0) || 0} ${state_essential_load1.attributes.unit_of_measurement !== undefined ? state_essential_load1.attributes.unit_of_measurement : ''}`}
+                                        ${config.load.auto_scale 
+                                            ? this.convertValueNew(state_essential_load1.state, state_essential_load1.attributes.unit_of_measurement, round)
+                                            : `${this.toNum(state_essential_load1.state, 0) || 0} ${
+                                                state_essential_load1.attributes.unit_of_measurement !== undefined 
+                                                ? state_essential_load1.attributes.unit_of_measurement 
+                                                : ''
+                                            }`
+                                        }
                                     </text>`
                             }
                             ${config.entities?.essential_load2
@@ -2595,14 +2762,28 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="ess_load2_value" x="${show_aux !== true ? '430' : '427'}" y="${show_aux !== true ? '42' : '160'}" 
                                               display="${additional_load === 2 ? '' : 'none'}" class="st3" 
                                               fill="${load_colour}">
-                                            ${config.load.auto_scale ? `${Number.isNaN(state_essential_load2.state) ? '0' : this.convertValue(parseFloat(state_essential_load2.state), round)}` : `${parseFloat(state_essential_load2.state).toFixed(0) || 0} ${state_essential_load2.attributes.unit_of_measurement !== undefined ? state_essential_load2.attributes.unit_of_measurement : ''}`}
+                                            ${config.load.auto_scale 
+                                                ? this.convertValueNew(state_essential_load2.state, state_essential_load2.attributes.unit_of_measurement, round)
+                                                : `${this.toNum(state_essential_load2.state, 0) || 0} ${
+                                                    state_essential_load2.attributes.unit_of_measurement !== undefined 
+                                                    ? state_essential_load2.attributes.unit_of_measurement 
+                                                    : ''
+                                                }`
+                                            }
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="ess_load2_value" x="${show_aux !== true ? '430' : '427'}" y="${show_aux !== true ? '42' : '160'}" 
                                           display="${additional_load === 2 ? '' : 'none'}" 
                                           class="st3" fill="${load_colour}">
-                                        ${config.load.auto_scale ? `${Number.isNaN(state_essential_load2.state) ? '0' : this.convertValue(parseFloat(state_essential_load2.state), round)}` : `${parseFloat(state_essential_load2.state).toFixed(0) || 0} ${state_essential_load2.attributes.unit_of_measurement !== undefined ? state_essential_load2.attributes.unit_of_measurement : ''}`}
+                                        ${config.load.auto_scale 
+                                            ? this.convertValueNew(state_essential_load2.state, state_essential_load2.attributes.unit_of_measurement, round) 
+                                            : `${this.toNum(state_essential_load2.state, 0) || 0} ${
+                                                state_essential_load2.attributes.unit_of_measurement !== undefined 
+                                                ? state_essential_load2.attributes.unit_of_measurement 
+                                                : ''
+                                            }`
+                                        }
                                     </text>`
                             }
                             ${total_grid_power >= 0
@@ -2720,14 +2901,25 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 <text id="battery_power_190" x="41" y="356"
                                       display="${config.entities.battery_power_190 === 'none' || config.show_battery === false ? 'none' : ''}"
                                       fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">
-                                    ${config.battery.auto_scale ? `${config.battery.show_absolute ? `${Math.abs(parseFloat(this.convertValue(battery_power, round)))} ${this.convertValue(battery_power, round).split(' ')[1]}` : this.convertValue(battery_power, round) || '0'}` : `${config.battery.show_absolute ? `${Math.abs(battery_power)}` : battery_power || 0} W`}
+                                    ${config.battery.auto_scale 
+                                        ? `${config.battery.show_absolute 
+                                            ? `${Math.abs(parseFloat(this.convertValue(battery_power, round)))} ${this.convertValue(battery_power, round).split(' ')[1]}` 
+                                            : this.convertValue(battery_power, round) || '0'}` 
+                                        : `${config.battery.show_absolute 
+                                            ? `${Math.abs(battery_power)} W` 
+                                            : `${battery_power || 0} W`
+                                        }`
+                                    }
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_current_191)}>
                                 <text id="battery_current_191" x="41" y="336"
                                       display="${config.entities.battery_current_191 === 'none' || config.show_battery === false ? 'none' : ''}"
                                       fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">
-                                    ${config.battery.show_absolute ? Math.abs(parseFloat(state_battery_current.state)).toFixed(1) : parseFloat(state_battery_current.state).toFixed(1)}
+                                    ${config.battery.show_absolute 
+                                        ? Math.abs(this.toNum(state_battery_current.state, 1))
+                                        : this.toNum(state_battery_current.state, 1)
+                                    }
                                     A
                                 </text>
                             </a>
@@ -2736,7 +2928,9 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       y="${config.inverter.three_phase ? '174' : '178'}"
                                       display="${config.entities.inverter_power_175 === 'none' ? 'none' : ''}"
                                       class="${font !== true ? 'st14' : 'st4'} st8" fill="${inverter_colour}">
-                                    ${config.inverter.auto_scale ? `${this.convertValue(inverter_power_round, round) || 0}` : `${parseFloat(state_inverter_power.state).toFixed(0) || 0} W`}
+                                    ${config.inverter.auto_scale 
+                                        ? `${this.convertValue(inverter_power_round, round) || 0}` 
+                                        : `${inverter_power_round} W`}
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_power_169)}>
@@ -2744,62 +2938,65 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       y="${config.inverter.three_phase ? '216' : '209'}"
                                       display="${config.show_grid === false || config.entities.grid_power_169 === 'none' ? 'none' : ''}"
                                       class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">
-                                    ${config.grid.auto_scale ? `${this.convertValue(grid_power_round, round) || 0}` : `${parseFloat(state_grid_power.state).toFixed(0) || 0} W`}
+                                    ${config.grid.auto_scale 
+                                        ? `${this.convertValue(grid_power_round, round) || 0}` 
+                                        : `${grid_power_round} W`
+                                    }
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_voltage_109)}>
                                 <text id="pv1_voltage" x="41" y="78.5" class="st3 left-align"
                                       display="${!config.show_solar || !config.entities.pv1_voltage_109 || config.entities.pv1_voltage_109 === 'none' ? 'none' : ''}"
-                                      fill="${solar_colour}">${parseFloat(state_pv1_voltage.state).toFixed(1)} V
+                                      fill="${solar_colour}">${this.toNum(state_pv1_voltage.state, 1)} V
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_current_110)}>
                                 <text id="pv1_current" x="41" y="90" class="st3 left-align"
                                       display="${!config.show_solar || !config.entities.pv1_current_110 || config.entities.pv1_current_110 === 'none' ? 'none' : ''}"
-                                      fill="${solar_colour}">${parseFloat(state_pv1_current.state).toFixed(1)} A
+                                      fill="${solar_colour}">${this.toNum(state_pv1_current.state, 1)} A
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_voltage_111)}>
                                 <text id="pv2_voltage" x="142" y="78.5" class="st3 left-align"
                                       display="${!config.show_solar || !config.entities.pv2_voltage_111 || config.entities.pv2_voltage_111 === 'none' || config.solar.mppts === 1 ? 'none' : ''}"
-                                      fill="${solar_colour}">${parseFloat(state_pv2_voltage.state).toFixed(1)} V
+                                      fill="${solar_colour}">${this.toNum(state_pv2_voltage.state, 1)} V
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_current_112)}>
                                 <text id="pv2_current" x="142" y="90" class="st3 left-align"
                                       display="${!config.show_solar || !config.entities.pv2_current_112 || config.entities.pv2_current_112 === 'none' || config.solar.mppts === 1 ? 'none' : ''}"
-                                      fill="${solar_colour}">${parseFloat(state_pv2_current.state).toFixed(1)} A
+                                      fill="${solar_colour}">${this.toNum(state_pv2_current.state, 1)} A
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_voltage_113)}>
                                 <text id="pv3_voltage" x="41" y="139" class="st3 left-align"
                                       display="${!config.show_solar || !config.entities.pv3_voltage_113 || config.entities.pv3_voltage_113 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}"
-                                      fill="${solar_colour}">${parseFloat(state_pv3_voltage.state).toFixed(1)} V
+                                      fill="${solar_colour}">${this.toNum(state_pv3_voltage.state, 1)} V
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_current_114)}>
                                 <text id="pv3_current" x="41" y="150" class="st3 left-align"
                                       display="${!config.show_solar || !config.entities.pv3_current_114 || config.entities.pv3_current_114 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}"
-                                      fill="${solar_colour}">${parseFloat(state_pv3_current.state).toFixed(1)} A
+                                      fill="${solar_colour}">${this.toNum(state_pv3_current.state, 1)} A
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_voltage_115)}>
                                 <text id="pv4_voltage" x="142" y="139" class="st3 left-align"
                                       display="${!config.show_solar || !config.entities.pv4_voltage_115 || config.entities.pv4_voltage_115 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}"
-                                      fill="${solar_colour}">${parseFloat(state_pv4_voltage.state).toFixed(1)} V
+                                      fill="${solar_colour}">${this.toNum(state_pv4_voltage.state, 1)} V
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_current_116)}>
                                 <text id="pv4_current" x="142" y="150" class="st3 left-align"
                                       display="${!config.show_solar || !config.entities.pv4_current_116 || config.entities.pv4_current_116 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}"
-                                      fill="${solar_colour}">${parseFloat(state_pv4_current.state).toFixed(1)} A
+                                      fill="${solar_colour}">${this.toNum(state_pv4_current.state, 1)} A
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_temp_182)}>
                                 <text id="battery_temp_182" x="93.7" y="295"
                                       class="${config.entities?.battery_temp_182 ? 'st3 left-align' : 'st12'}"
                                       fill="${battery_colour}" display="${config.show_battery === false ? 'none' : ''}">
-                                    ${state_battery_temp.state}°
+                                    ${this.toNum(state_battery_temp.state, 1)}°
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.radiator_temp_91)}>
@@ -2807,13 +3004,13 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       y="${config.solar?.mppts === 4 ? '237' : '153'}" class="st3 left-align"
                                       fill="${inverter_colour}"
                                       display="${config.entities?.radiator_temp_91 ? '' : 'none'}">AC:
-                                    ${parseFloat(state_radiator_temp.state).toFixed(1)}°
+                                    ${this.toNum(state_radiator_temp.state, 1)}°
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.dc_transformer_temp_90)}>
                                 <text id="dc_temp" x="110" y="266" class="st3 left-align" fill="${inverter_colour}"
                                       display="${config.entities?.dc_transformer_temp_90 ? '' : 'none'}">DC:
-                                    ${parseFloat(state_dc_transformer_temp.state).toFixed(1)}°
+                                    ${this.toNum(state_dc_transformer_temp.state, 1)}°
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.environment_temp)}>
@@ -3659,14 +3856,22 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 <text id="battery_power_190" x="${compact === true ? '239' : '193'}" y="${compact === true ? '307' : '386'}"
                                       display="${config.entities.battery_power_190 === 'none' || config.show_battery === false ? 'none' : ''}"
                                       fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">
-                                    ${config.battery.auto_scale ? `${config.battery.show_absolute ? `${Math.abs(parseFloat(this.convertValue(battery_power, round)))} ${this.convertValue(battery_power, round).split(' ')[1]}` : this.convertValue(battery_power, round) || '0'}` : `${config.battery.show_absolute ? `${Math.abs(battery_power)}` : battery_power || 0} W`}
+                                    ${config.battery.auto_scale 
+                                        ? `${config.battery.show_absolute 
+                                            ? `${Math.abs(parseFloat(this.convertValue(battery_power, round)))} ${this.convertValue(battery_power, round).split(' ')[1]}` 
+                                            : this.convertValue(battery_power, round) || '0'}` 
+                                        : `${config.battery.show_absolute 
+                                            ? `${Math.abs(battery_power)} W` 
+                                            : `${battery_power || 0} W`
+                                        }`
+                                    }
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_current_191)}>
                                 <text id="battery_current_191" x="193" y="365.3"
                                       display="${!config.entities.battery_current_191 || config.entities.battery_current_191 === 'none' || config.show_battery === false || compact === true ? 'none' : ''}"
                                       fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">
-                                    ${config.battery.show_absolute ? Math.abs(parseFloat(state_battery_current.state)).toFixed(1) : parseFloat(state_battery_current.state).toFixed(1)}
+                                    ${config.battery.show_absolute ? Math.abs(this.toNum(state_battery_current.state, 1)) : this.toNum(state_battery_current.state, 1)}
                                     A
                                 </text>
                             </a>
@@ -3674,7 +3879,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 <text id="battery_current_191" x="281" y="312"
                                       display="${!config.entities.battery_current_191 || config.entities.battery_current_191 === 'none' || config.show_battery === false || compact === false ? 'none' : ''}"
                                       fill=${battery_colour} class="${compact === true ? 'st3 left-align' : 'st12'}">
-                                    ${config.battery.show_absolute ? Math.abs(parseFloat(state_battery_current.state)).toFixed(1) : parseFloat(state_battery_current.state).toFixed(1)}
+                                    ${config.battery.show_absolute ? Math.abs(this.toNum(state_battery_current.state, 1)) : this.toNum(state_battery_current.state, 1)}
                                     A
                                 </text>
                             </a>
@@ -3707,69 +3912,69 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 <text id="pv1_voltage" x="${config.solar.mppts === 1 ? '244.7' : '194'}" y="106"
                                       class="st3 left-align"
                                       display="${!config.show_solar || !config.entities.pv1_voltage_109 || config.entities.pv1_voltage_109 === 'none' ? 'none' : ''}"
-                                      fill="${solar_colour}">${parseFloat(state_pv1_voltage.state).toFixed(1)} V
+                                      fill="${solar_colour}">${this.toNum(state_pv1_voltage.state, 1)} V
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_current_110)}>
                                 <text id="pv1_current" x="${config.solar.mppts === 1 ? '244.7' : '194'}" y="94"
                                       class="st3 left-align"
                                       display="${!config.show_solar || !config.entities.pv1_current_110 || config.entities.pv1_current_110 === 'none' ? 'none' : ''}"
-                                      fill="${solar_colour}">${parseFloat(state_pv1_current.state).toFixed(1)} A
+                                      fill="${solar_colour}">${this.toNum(state_pv1_current.state, 1)} A
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_voltage_111)}>
                                 <text id="pv2_voltage" x="296" y="106" class="st3 left-align"
                                       display="${!config.show_solar || !config.entities.pv2_voltage_111 || config.entities.pv2_voltage_111 === 'none' || config.solar.mppts === 1 ? 'none' : ''}"
-                                      fill="${solar_colour}">${parseFloat(state_pv2_voltage.state).toFixed(1)} V
+                                      fill="${solar_colour}">${this.toNum(state_pv2_voltage.state, 1)} V
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_current_112)}>
                                 <text id="pv2_current" x="296" y="94" class="st3 left-align"
                                       display="${!config.show_solar || !config.entities.pv2_current_112 || config.entities.pv2_current_112 === 'none' || config.solar.mppts === 1 ? 'none' : ''}"
-                                      fill="${solar_colour}">${parseFloat(state_pv2_current.state).toFixed(1)} A
+                                      fill="${solar_colour}">${this.toNum(state_pv2_current.state, 1)} A
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_voltage_113)}>
                                 <text id="pv3_voltage" x="120" y="106" class="st3 left-align"
                                       display="${!config.show_solar || !config.entities.pv3_voltage_113 || config.entities.pv3_voltage_113 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}"
-                                      fill="${solar_colour}">${parseFloat(state_pv3_voltage.state).toFixed(1)} V
+                                      fill="${solar_colour}">${this.toNum(state_pv3_voltage.state, 1)} V
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_current_114)}>
                                 <text id="pv3_current" x="120" y="94" class="st3 left-align"
                                       display="${!config.show_solar || !config.entities.pv3_current_114 || config.entities.pv3_current_114 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}"
-                                      fill="${solar_colour}">${parseFloat(state_pv3_current.state).toFixed(1)} A
+                                      fill="${solar_colour}">${this.toNum(state_pv3_current.state, 1)} A
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_voltage_115)}>
                                 <text id="pv4_voltage" x="372" y="106" class="st3 left-align"
                                       display="${!config.show_solar || !config.entities.pv4_voltage_115 || config.entities.pv4_voltage_115 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}"
-                                      fill="${solar_colour}">${parseFloat(state_pv4_voltage.state).toFixed(1)} V
+                                      fill="${solar_colour}">${this.toNum(state_pv4_voltage.state, 1)} V
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_current_116)}>
                                 <text id="pv4_current" x="372" y="94" class="st3 left-align"
                                       display="${!config.show_solar || !config.entities.pv4_current_116 || config.entities.pv4_current_116 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}"
-                                      fill="${solar_colour}">${parseFloat(state_pv4_current.state).toFixed(1)} A
+                                      fill="${solar_colour}">${this.toNum(state_pv4_current.state, 1)} A
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_temp_182)}>
                                 <text id="battery_temp_182" x="${compact === true ? '205' : '250'}" y="${compact === true ? '332' : '324.5'}"
                                       class="${config.entities?.battery_temp_182 ? 'st3 left-align' : 'st12'}"
                                       fill="${battery_colour}" display="${config.show_battery === false ? 'none' : ''}">
-                                    ${state_battery_temp.state}°
+                                    ${this.toNum(state_battery_temp.state, 1)}°
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.radiator_temp_91)}>
                                 <text id="ac_temp" x="173" y="168.2" class="st3 left-align" fill="${inverter_colour}"
                                       display="${config.entities?.radiator_temp_91 ? '' : 'none'}">AC:
-                                    ${parseFloat(state_radiator_temp.state).toFixed(1)}°
+                                    ${this.toNum(state_radiator_temp.state, 1)}°
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.dc_transformer_temp_90)}>
                                 <text id="dc_temp" x="173" y="180.4" class="st3 left-align" fill="${inverter_colour}"
                                       display="${config.entities?.dc_transformer_temp_90 ? '' : 'none'}">DC:
-                                    ${parseFloat(state_dc_transformer_temp.state).toFixed(1)}°
+                                    ${this.toNum(state_dc_transformer_temp.state, 1)}°
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.environment_temp)}>
@@ -3783,14 +3988,14 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 <text id="ess_load1_extra" x="465" y="157"
                                       display="${config.entities?.essential_load1_extra && (additional_load === 1 || additional_load === 2) ? '' : 'none'}"
                                       class="st3 .right-align" fill="${load_colour}">
-                                    ${Number.isNaN(state_essential_load1_extra.state) ? '0' : `${parseFloat(state_essential_load1_extra.state).toFixed(1)} ${state_essential_load1_extra.attributes.unit_of_measurement}`}
+                                    ${this.toNum(state_essential_load1_extra.state, 1)} ${state_essential_load1_extra.attributes.unit_of_measurement}
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load2_extra)}>
                                 <text id="ess_load2_extra" x="465" y="282"
                                       display="${config.entities?.essential_load2_extra && additional_load === 2 ? '' : 'none'}"
                                       class="st3 .right-align" fill="${load_colour}">
-                                    ${Number.isNaN(state_essential_load2_extra.state) ? '0' : `${parseFloat(state_essential_load2_extra.state).toFixed(1)} ${state_essential_load2_extra.attributes.unit_of_measurement}`}
+                                    ${this.toNum(state_essential_load2_extra.state, 1)} ${state_essential_load2_extra.attributes.unit_of_measurement}
                                 </text>
                             </a>
                             ${total_grid_power >= 0
@@ -3945,13 +4150,27 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="ess_load1" x="440" y="133" display="${(additional_load === 1 || additional_load === 2) ? '' : 'none'}" 
                                               class="${font !== true ? 'st14' : 'st4'} st8" 
                                               fill="${load_colour}">
-                                            ${config.load.auto_scale ? `${Number.isNaN(state_essential_load1.state) ? '0' : this.convertValue(parseFloat(state_essential_load1.state), round)}` : `${parseFloat(state_essential_load1.state).toFixed(0) || 0} ${state_essential_load1.attributes.unit_of_measurement !== undefined ? state_essential_load1.attributes.unit_of_measurement : ''}`}
+                                            ${config.load.auto_scale 
+                                                ? this.convertValueNew(state_essential_load1.state, state_essential_load1.attributes.unit_of_measurement, round)
+                                                : `${this.toNum(state_essential_load1.state, 0) || 0} ${
+                                                    state_essential_load1.attributes.unit_of_measurement !== undefined 
+                                                    ? state_essential_load1.attributes.unit_of_measurement 
+                                                    : ''
+                                                }`
+                                            }
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="ess_load1" x="440" y="133" display="${(additional_load === 1 || additional_load === 2) ? '' : 'none'}" 
                                           class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">
-                                        ${config.load.auto_scale ? `${Number.isNaN(state_essential_load1.state) ? '0' : this.convertValue(parseFloat(state_essential_load1.state), round)}` : `${parseFloat(state_essential_load1.state).toFixed(0) || 0} ${state_essential_load1.attributes.unit_of_measurement !== undefined ? state_essential_load1.attributes.unit_of_measurement : ''}`}
+                                        ${config.load.auto_scale 
+                                            ? this.convertValueNew(state_essential_load1.state, state_essential_load1.attributes.unit_of_measurement, round)
+                                            : `${this.toNum(state_essential_load1.state, 0) || 0} ${
+                                                state_essential_load1.attributes.unit_of_measurement !== undefined 
+                                                ? state_essential_load1.attributes.unit_of_measurement 
+                                                : ''
+                                            }`
+                                        }
                                     </text>`
                             }
                             ${config.entities?.essential_load2
@@ -3960,13 +4179,27 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="ess_load2" x="440" y="306.5" display="${additional_load === 2 ? '' : 'none'}" 
                                               class="${font !== true ? 'st14' : 'st4'} st8" 
                                               fill="${load_colour}">
-                                            ${config.load.auto_scale ? `${Number.isNaN(state_essential_load2.state) ? '0' : this.convertValue(parseFloat(state_essential_load2.state), round)}` : `${parseFloat(state_essential_load2.state).toFixed(0) || 0} ${state_essential_load2.attributes.unit_of_measurement !== undefined ? state_essential_load2.attributes.unit_of_measurement : ''}`}
+                                            ${config.load.auto_scale 
+                                                ? this.convertValueNew(state_essential_load2.state, state_essential_load2.attributes.unit_of_measurement, round)
+                                                : `${this.toNum(state_essential_load2.state, 0) || 0} ${
+                                                    state_essential_load2.attributes.unit_of_measurement !== undefined 
+                                                    ? state_essential_load2.attributes.unit_of_measurement 
+                                                    : ''
+                                                }`
+                                            }
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="ess_load2" x="440" y="306.5" display="${additional_load === 2 ? '' : 'none'}" 
                                           class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">
-                                        ${config.load.auto_scale ? `${Number.isNaN(state_essential_load2.state) ? '0' : this.convertValue(parseFloat(state_essential_load2.state), round)}` : `${parseFloat(state_essential_load2.state).toFixed(0) || 0} ${state_essential_load2.attributes.unit_of_measurement !== undefined ? state_essential_load2.attributes.unit_of_measurement : ''}`}
+                                        ${config.load.auto_scale 
+                                            ? this.convertValueNew(state_essential_load2.state, state_essential_load2.attributes.unit_of_measurement, round)
+                                            : `${this.toNum(state_essential_load2.state, 0) || 0} ${
+                                                state_essential_load2.attributes.unit_of_measurement !== undefined 
+                                                ? state_essential_load2.attributes.unit_of_measurement 
+                                                : ''
+                                            }`
+                                        }
                                     </text>`
                             }
                             ${config.entities?.essential_load1
@@ -3975,13 +4208,27 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="ess_load4" x="423" y="138" display="${additional_load === 4 ? '' : 'none'}" 
                                               class="st3" 
                                               fill="${load_colour}">
-                                            ${config.load.auto_scale ? `${Number.isNaN(state_essential_load1.state) ? '0' : this.convertValue(parseFloat(state_essential_load1.state), round)}` : `${parseFloat(state_essential_load1.state).toFixed(0) || 0} ${state_essential_load1.attributes.unit_of_measurement !== undefined ? state_essential_load1.attributes.unit_of_measurement : ''}`}
+                                            ${config.load.auto_scale 
+                                                ? this.convertValueNew(state_essential_load1.state, state_essential_load1.attributes.unit_of_measurement, round)
+                                                : `${this.toNum(state_essential_load1.state, 0) || 0} ${
+                                                    state_essential_load1.attributes.unit_of_measurement !== undefined 
+                                                    ? state_essential_load1.attributes.unit_of_measurement 
+                                                    : ''
+                                                }`
+                                            }
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="ess_load4" x="423" y="138" display="${additional_load === 4 ? '' : 'none'}" 
                                           class="st3" fill="${load_colour}">
-                                        ${config.load.auto_scale ? `${Number.isNaN(state_essential_load1.state) ? '0' : this.convertValue(parseFloat(state_essential_load1.state), round)}` : `${parseFloat(state_essential_load1.state).toFixed(0) || 0} ${state_essential_load1.attributes.unit_of_measurement !== undefined ? state_essential_load1.attributes.unit_of_measurement : ''}`}
+                                        ${config.load.auto_scale 
+                                            ? this.convertValueNew(state_essential_load1.state, state_essential_load1.attributes.unit_of_measurement, round)
+                                            : `${this.toNum(state_essential_load1.state, 0) || 0} ${
+                                                state_essential_load1.attributes.unit_of_measurement !== undefined 
+                                                ? state_essential_load1.attributes.unit_of_measurement 
+                                                : ''
+                                            }`
+                                        }
                                     </text>`
                             }
                             ${config.entities?.essential_load2
@@ -3990,13 +4237,27 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="ess_load4" x="459" y="138" display="${additional_load === 4 ? '' : 'none'}" 
                                               class="st3" 
                                               fill="${load_colour}">
-                                            ${config.load.auto_scale ? `${Number.isNaN(state_essential_load2.state) ? '0' : this.convertValue(parseFloat(state_essential_load2.state), round)}` : `${parseFloat(state_essential_load2.state).toFixed(0) || 0} ${state_essential_load2.attributes.unit_of_measurement !== undefined ? state_essential_load2.attributes.unit_of_measurement : ''}`}
+                                            ${config.load.auto_scale 
+                                                ? this.convertValueNew(state_essential_load2.state, state_essential_load2.attributes.unit_of_measurement, round)
+                                                : `${this.toNum(state_essential_load2.state, 0) || 0} ${
+                                                    state_essential_load2.attributes.unit_of_measurement !== undefined 
+                                                    ? state_essential_load2.attributes.unit_of_measurement 
+                                                    : ''
+                                                }`
+                                            }
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="ess_load4" x="459" y="138" display="${additional_load === 4 ? '' : 'none'}" 
                                           class="st3" fill="${load_colour}">
-                                        ${config.load.auto_scale ? `${Number.isNaN(state_essential_load2.state) ? '0' : this.convertValue(parseFloat(state_essential_load2.state), round)}` : `${parseFloat(state_essential_load2.state).toFixed(0) || 0} ${state_essential_load2.attributes.unit_of_measurement !== undefined ? state_essential_load2.attributes.unit_of_measurement : ''}`}
+                                        ${config.load.auto_scale 
+                                            ? this.convertValueNew(state_essential_load2.state, state_essential_load2.attributes.unit_of_measurement, round)
+                                            : `${this.toNum(state_essential_load2.state, 0) || 0} ${
+                                                state_essential_load2.attributes.unit_of_measurement !== undefined 
+                                                ? state_essential_load2.attributes.unit_of_measurement 
+                                                : ''
+                                            }`
+                                        }
                                     </text>`
                             }
                             ${config.entities?.essential_load3
@@ -4005,13 +4266,27 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="ess_load4" x="423" y="301" display="${additional_load === 4 ? '' : 'none'}" 
                                               class="st3" 
                                               fill="${load_colour}">
-                                            ${config.load.auto_scale ? `${Number.isNaN(state_essential_load3.state) ? '0' : this.convertValue(parseFloat(state_essential_load3.state), round)}` : `${parseFloat(state_essential_load3.state).toFixed(0) || 0} ${state_essential_load3.attributes.unit_of_measurement !== undefined ? state_essential_load3.attributes.unit_of_measurement : ''}`}
+                                            ${config.load.auto_scale 
+                                                ? this.convertValueNew(state_essential_load3.state, state_essential_load3.attributes.unit_of_measurement, round)
+                                                : `${this.toNum(state_essential_load3.state, 0) || 0} ${
+                                                    state_essential_load3.attributes.unit_of_measurement !== undefined 
+                                                    ? state_essential_load3.attributes.unit_of_measurement 
+                                                    : ''
+                                                }`
+                                            }
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="ess_load4" x="423" y="301" display="${additional_load === 4 ? '' : 'none'}" class="st3" 
                                           fill="${load_colour}">
-                                        ${config.load.auto_scale ? `${Number.isNaN(state_essential_load3.state) ? '0' : this.convertValue(parseFloat(state_essential_load3.state), round)}` : `${parseFloat(state_essential_load3.state).toFixed(0) || 0} ${state_essential_load3.attributes.unit_of_measurement !== undefined ? state_essential_load3.attributes.unit_of_measurement : ''}`}
+                                        ${config.load.auto_scale 
+                                            ? this.convertValueNew(state_essential_load4.state, state_essential_load4.attributes.unit_of_measurement, round)
+                                            : `${this.toNum(state_essential_load3.state, 0) || 0} ${
+                                                state_essential_load3.attributes.unit_of_measurement !== undefined 
+                                                ? state_essential_load3.attributes.unit_of_measurement 
+                                                : ''
+                                            }`
+                                        }
                                     </text>`
                             }
                             ${config.entities?.essential_load4
@@ -4020,13 +4295,27 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="ess_load4" x="459" y="301" display="${additional_load === 4 ? '' : 'none'}" 
                                               class="st3" 
                                               fill="${load_colour}">
-                                            ${config.load.auto_scale ? `${Number.isNaN(state_essential_load4.state) ? '0' : this.convertValue(parseFloat(state_essential_load4.state), round)}` : `${parseFloat(state_essential_load4.state).toFixed(0) || 0} ${state_essential_load4.attributes.unit_of_measurement !== undefined ? state_essential_load4.attributes.unit_of_measurement : ''}`}
+                                            ${config.load.auto_scale 
+                                                ? this.convertValueNew(state_essential_load4.state, state_essential_load4.attributes.unit_of_measurement, round)
+                                                : `${this.toNum(state_essential_load4.state, 0) || 0} ${
+                                                    state_essential_load4.attributes.unit_of_measurement !== undefined 
+                                                    ? state_essential_load4.attributes.unit_of_measurement 
+                                                    : ''
+                                                }`
+                                            }
                                         </text>
                                     </a>`
                                     : svg`
                                     <text id="ess_load4" x="459" y="301" display="${additional_load === 4 ? '' : 'none'}" 
                                           class="st3" fill="${load_colour}">
-                                        ${config.load.auto_scale ? `${Number.isNaN(state_essential_load4.state) ? '0' : this.convertValue(parseFloat(state_essential_load4.state), round)}` : `${parseFloat(state_essential_load4.state).toFixed(0) || 0} ${state_essential_load4.attributes.unit_of_measurement !== undefined ? state_essential_load4.attributes.unit_of_measurement : ''}`}
+                                        ${config.load.auto_scale 
+                                            ? this.convertValueNew(state_essential_load4.state, state_essential_load4.attributes.unit_of_measurement, round)
+                                            : `${this.toNum(state_essential_load4.state, 0) || 0} ${
+                                                state_essential_load4.attributes.unit_of_measurement !== undefined 
+                                                ? state_essential_load4.attributes.unit_of_measurement 
+                                                : ''
+                                            }`
+                                        }
                                     </text>`
                             }
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.prepaid_units)}>
@@ -4127,7 +4416,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             }
         } else {
             // If the unit is not in the allowed units, return the numeric value without unit
-            return numberValue.toFixed(decimal);
+            return Math.round(numberValue);
         }
     }
 
