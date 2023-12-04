@@ -59,6 +59,10 @@ export class SunsynkPowerFlowCard extends LitElement {
         return styles;
     }
 
+    static getConfigElement() {
+        return document.createElement("content-card-editor");
+    }
+
     static getStubConfig() {
         return {
             cardstyle: CardStyle.Lite,
@@ -3925,12 +3929,23 @@ export class SunsynkPowerFlowCard extends LitElement {
     getCardSize() {
         return 2;
     }
+
+    configChanged(newConfig) {
+        const event = new Event("config-changed", {
+            bubbles: true,
+            composed: true,
+        });
+        (event as any).detail = {config: newConfig};
+        this.dispatchEvent(event);
+    }
 }
 
+customElements.define("content-card-editor", SunsynkPowerFlowCard);
 (window as any).customCards = (window as any).customCards || [];
 (window as any).customCards.push({
     type: 'sunsynk-power-flow-card',
     name: 'Sunsynk Power Flow Card',
     preview: false, // Optional - defaults to false
     description: localize('common.description'), // Optional
+    configurable: true
 });
