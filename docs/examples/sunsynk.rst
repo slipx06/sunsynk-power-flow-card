@@ -194,6 +194,7 @@ Full Configuration (All Options)
   title_size: 32px
   show_solar: true
   show_battery: true
+  show_grid: true
   decimal_places: 2
   inverter:
     modern: true
@@ -213,6 +214,7 @@ Full Configuration (All Options)
     empty_capacity: 30
     show_absolute: false
     auto_scale: true
+    hide_soc: false
   solar:
     colour: orange
     show_daily: true
@@ -249,6 +251,7 @@ Full Configuration (All Options)
     load1_icon: boiler
     load2_icon: mdi:pool
     auto_scale: true
+    dynamic_colour: true
   grid:
     colour: '#5490c2'
     export_colour: brown
@@ -302,6 +305,8 @@ Full Configuration (All Options)
     essential_power: none
     essential_load1: sensor.tuya_geyser_current_consumption
     essential_load2: sensor.load2_power
+    essential_load1_extra: sensor.daily_geyser_energy
+    essential_load2_extra: sensor.load2_extra
     nonessential_power: none
     non_essential_load1: sensor.nonessential1_power
     non_essential_load2: sensor.nonessential2_power
@@ -314,24 +319,25 @@ Full Configuration (All Options)
     battery_temp_182: sensor.sunsynk_battery_temperature
     radiator_temp_91: sensor.sunsynk_radiator_temperature
     dc_transformer_temp_90: sensor.sunsynk_dc_transformer_temperature
+    environment_temp: sensor.home_realfeel_temperature
     prog1_time: sensor.sunsynk_time_slot_1
-    prog1_capacity: number.sunsynk_system_mode_soc_time1
-    prog1_charge: switch.sunsynk_system_mode_grid_charge_time1
+    prog1_capacity: number.sunsynk_prog1_capacity
+    prog1_charge: switch.sunsynk_prog1_grid_charge
     prog2_time: sensor.sunsynk_time_slot_2
-    prog2_capacity: number.sunsynk_system_mode_soc_time2
-    prog2_charge: switch.sunsynk_system_mode_grid_charge_time2
+    prog2_capacity: number.sunsynk_prog2_capacity
+    prog2_charge: switch.sunsynk_prog2_grid_charge
     prog3_time: sensor.sunsynk_time_slot_3
-    prog3_capacity: number.sunsynk_system_mode_soc_time3
-    prog3_charge: switch.sunsynk_system_mode_grid_charge_time3
+    prog3_capacity: number.sunsynk_prog3_capacity
+    prog3_charge: switch.sunsynk_prog3_grid_charge
     prog4_time: sensor.sunsynk_time_slot_4
-    prog4_capacity: number.sunsynk_system_mode_soc_time4
-    prog4_charge: switch.sunsynk_system_mode_grid_charge_time4
+    prog4_capacity: number.sunsynk_prog4_capacity
+    prog4_charge: switch.sunsynk_prog4_grid_charge
     prog5_time: sensor.sunsynk_time_slot_5
-    prog5_capacity: number.sunsynk_system_mode_soc_time5
-    prog5_charge: switch.sunsynk_system_mode_grid_charge_time5
+    prog5_capacity: number.sunsynk_prog5_capacity
+    prog5_charge: switch.sunsynk_prog5_grid_charge
     prog6_time: sensor.sunsynk_time_slot_6
-    prog6_capacity: number.sunsynk_system_mode_soc_time6
-    prog6_charge: switch.sunsynk_system_mode_grid_charge_time6
+    prog6_capacity: number.sunsynk_prog6_capacity
+    prog6_charge: switch.sunsynk_prog6_grid_charge
     energy_cost_buy: sensor.tibber_energy_cost_buy
     energy_cost_sell: sensor.tibber_energy_cost_sell
     solar_sell_247: switch.sunsynk_toggle_solar_sell

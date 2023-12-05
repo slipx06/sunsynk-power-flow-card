@@ -48,7 +48,11 @@
         "ongrid": "On-Grid",
         "offgrid": "Off-Grid",
         "normalstop": " Normal Stop",
-        "shutdown": "Shutdown"
+        "shutdown": "Shutdown",
+        "offline": "Offline",
+        "running": "Running",
+        "sleepmode": "Sleep Mode",
+        "grid": "Grid"
 
 
     },
@@ -58,7 +62,7 @@
             "energy": "Si us plau, inclou l'atribut d'energia de la bateria i el seu valor a Wh, per exemple, 5.32 Energia de la bateria: 5320",
             "shutdown_soc": "Si us plau, inclou l'atribut shutdown_soc de la bateria i el seu valor, per exemple shutdown_soc: 20",
             "full_capacity": "La capacitat completa ha d'estar entre 80 i 100",
-            "empty_capacity": "La capacitat buida ha de ser <= 30",
+            "empty_capacity": "La capacitat buida ha de ser <= 40",
             "show_daily": "Si us plau, inclou els atributs day_battery_charge_70 i day_battery_discharge_71 i les IDs de les entitats"
         },
         "solar": {

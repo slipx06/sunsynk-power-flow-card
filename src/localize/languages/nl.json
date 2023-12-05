@@ -48,7 +48,11 @@
         "ongrid": "On-Grid",
         "offgrid": "Off-Grid",
         "normalstop": " Normal Stop",
-        "shutdown": "Shutdown"
+        "shutdown": "Shutdown",
+        "offline": "Offline",
+        "running": "Running",
+        "sleepmode": "Sleep Mode",
+        "grid": "Grid"
 
 
     },
@@ -58,7 +62,7 @@
             "energy": "Voeg alstublieft het batterij-energieattribuut en de waarde in Wh toe, bijvoorbeeld 5.32 Batterij-energie: 5320",
             "shutdown_soc": "Voeg alstublieft het batterij-shutdown_soc-attribuut en de waarde toe, bijvoorbeeld shutdown_soc: 20",
             "full_capacity": "De volledige capaciteit moet tussen 80 en 100 liggen",
-            "empty_capacity": "De lege capaciteit moet <= 30 zijn",
+            "empty_capacity": "De lege capaciteit moet <= 40 zijn",
             "show_daily": "Voeg alstublieft de attributen day_battery_charge_70 en day_battery_discharge_71 toe, evenals de entiteits-ID's"
         },
         "solar": {

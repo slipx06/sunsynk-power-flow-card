@@ -17,13 +17,14 @@ export default {
         colour: 'grey',
         autarky: 'power',
         model: InverterModel.Sunsynk,
-        auto_scale: false,
+        auto_scale: true,
         three_phase: false,
     },
     battery: {
         energy: 0,
         shutdown_soc: 20,
         invert_power: false,
+        hide_soc: false,
         colour: 'pink',
         show_daily: false,
         animation_speed: 6,
@@ -31,7 +32,7 @@ export default {
         full_capacity: 80,
         empty_capacity: 30,
         show_absolute: false,
-        auto_scale: false,
+        auto_scale: true,
     },
     solar: {
         colour: 'orange',
@@ -43,8 +44,9 @@ export default {
         pv2_name: localize('common.pv2_name'),
         pv3_name: localize('common.pv3_name'),
         pv4_name: localize('common.pv4_name'),
-        auto_scale: false,
-        display_mode: 1
+        auto_scale: true,
+        display_mode: 1,
+        dynamic_colour: true,
     },
     load: {
         colour: '#5fb6ad',
@@ -67,7 +69,7 @@ export default {
         load2_icon: 'default',
         load1_name: localize('common.load1_name'),
         load2_name: localize('common.load2_name'),
-        auto_scale: false,
+        auto_scale: true,
     },
     grid: {
         colour: '#5490c2',
@@ -87,7 +89,7 @@ export default {
         invert_grid: false,
         animation_speed: 8,
         max_power: 8000,
-        auto_scale: false,
+        auto_scale: true,
         energy_cost_decimals: 2,
     },
 

@@ -27,7 +27,7 @@ Example 1
     three_phase: true
   battery:
     energy: 10650
-    shutdown_soc: 20
+    shutdown_soc: sensor.goodwe_shutdown_soc
     invert_power: false
     show_daily: true
     max_power: 5400
@@ -93,3 +93,19 @@ Example 1
     remaining_solar: sensor.energy_production_today_total
     energy_cost_buy: sensor.spot_price_buy
     energy_cost_sell: sensor.spot_price_sell
+
+.. note::
+
+   The Goodwe integration does not provide a sensor for ``shutdown_soc``. 
+   A template sensor can be created using the provided depth of discharge (DOD) sensor i.e ``number.depth_of_discharge_on_grid``. 
+   See example below. Note that the depth of discharge sensor name may vary depending on your HA language. 
+
+.. code-block:: bash
+
+      - platform: template
+          sensors:
+            goodwe_shutdown_soc:
+              friendly_name: "GoodWe Shutdown SOC"
+              unit_of_measurement: "%"
+              icon_template: mdi:battery-arrow-down  
+              value_template: "{{100 - states('number.depth_of_discharge_on_grid') | int }}"

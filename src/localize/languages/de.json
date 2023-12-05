@@ -48,7 +48,11 @@
         "ongrid": "On-Grid",
         "offgrid": "Off-Grid",
         "normalstop": " Normal Stop",
-        "shutdown": "Shutdown"
+        "shutdown": "Shutdown",
+        "offline": "Offline",
+        "running": "Running",
+        "sleepmode": "Sleep Mode",
+        "grid": "Grid"
 
 
     },
@@ -58,7 +62,7 @@
             "energy": "Bitte fügen Sie das Batterieenergieattribut und den Wert in Wh hinzu, z.B. 5.32 Batterieenergie: 5320",
             "shutdown_soc": "Bitte fügen Sie das Batterie-Shutdown-SOC-Attribut und den Wert hinzu, z.B. shutdown_soc: 20",
             "full_capacity": "Die volle Kapazität muss zwischen 80 und 100 liegen",
-            "empty_capacity": "Die leere Kapazität muss <= 30 sein",
+            "empty_capacity": "Die leere Kapazität muss <= 40 sein",
             "show_daily": "Bitte fügen Sie die Tages-Batterieladung_70- und Tages-Batterieentladung_71-Attribute und die Entity-IDs hinzu"
         },
         "solar": {

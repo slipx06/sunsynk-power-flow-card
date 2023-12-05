@@ -1,6 +1,6 @@
 # Sunsynk-Power-Flow-Card
 
-An animated Home Assistant card to emulate the power flow that's shown on the Sunsynk Inverter screen. You can use this for most Inverters (Sunsynk, Deye, Solis, Lux and Goodwe) as long as you have the required sensor data. See the [wiki](https://github.com/slipx06/sunsynk-power-flow-card/wiki) for integration methods and examples.
+An animated Home Assistant card to emulate the power flow that's shown on the Sunsynk Inverter screen. You can use this for most Inverters (Sunsynk, Deye, Solis, Lux, FoxESS and Goodwe) as long as you have the required sensor data. See the [wiki](https://github.com/slipx06/sunsynk-power-flow-card/wiki) for integration methods and examples.
 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=slipx06&repository=sunsynk-power-flow-card&category=plugin)
  ![GitHub release (latest by date)](https://img.shields.io/github/v/release/slipx06/sunsynk-power-flow-card?style=for-the-badge) <a href="https://www.buymeacoffee.com/slipx" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="28" width="120"></a>
@@ -11,7 +11,7 @@ Refer to [https://slipx06.github.io/sunsynk-power-flow-card/index.html](https://
 
 ## Features
 
-* Option to switch between two card styles: `lite` or `full`.
+* Option to switch between three card styles: `compact`, `lite` or `full`.
 * Animated power flow based on positive/negative/zero sensor values with configurable dynamic speed. (Supports inverted battery, AUX and grid power).
 * Dynamic battery image based on SOC (empty->low->medium->high).
 * Grid connected status.
@@ -29,6 +29,13 @@ Refer to [https://slipx06.github.io/sunsynk-power-flow-card/index.html](https://
 * Select your inverter model for custom inverter status and battery status messages i.e. Sunsynk, Lux, Goodwe, Solis.
 
 ## Screenshots
+*Compact Version*
+
+![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/ab3574b1-e8e3-487f-b486-f41c2941763a) 
+![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/d9c58df6-d6d4-4796-97bd-e698298576b4)
+
+
+
 
 *Lite Version*
 

@@ -48,7 +48,11 @@
         "ongrid": "On-Grid",
         "offgrid": "Off-Grid",
         "normalstop": " Normal Stop",
-        "shutdown": "Shutdown"
+        "shutdown": "Shutdown",
+        "offline": "Offline",
+        "running": "Running",
+        "sleepmode": "Sleep Mode",
+        "grid": "Grid"
 
 
     },
@@ -58,7 +62,7 @@
             "energy": "Inkluder venligst batterienergiattribut og værdi i Wh, f.eks. 5,32 Batterienergi: 5320",
             "shutdown_soc": "Inkluder venligst batteri shutdown_soc-attribut og værdi, f.eks. shutdown_soc: 20",
             "full_capacity": "Fuld kapacitet skal være mellem 80 og 100",
-            "empty_capacity": "Tom kapacitet skal være <= 30",
+            "empty_capacity": "Tom kapacitet skal være <= 40",
             "show_daily": "Inkluder venligst attributterne day_battery_charge_70 og day_battery_discharge_71 samt enheds-ID'er"
         },
         "solar": {
