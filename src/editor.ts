@@ -30,20 +30,34 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                         /*{name: "entity", selector: {entity: {domain: "power"}}},
                         {name: "battery_sensor", selector: {entity: {device_class: "battery"}}},*/
                         {
+                            type: "grid",
+                            schema: [
+                                {name: "title", selector: { text: {}}},
+                                {name: "title_colour", selector: {text: {}}},
+                                {name: "title_size", selector: {text: {}}},
+                                {name: "decimal_places", selector: {number: {}}},
+                            ]
+                        },{
                             name: "cardstyle",
                             selector: {
                                 select: {
                                     options: Object.values(CardStyle).map(x => ({label: capitalize(x), value: x}))
                                 }
                             }
-                        },
-                        {
-                            name: "large_font", selector: {boolean: {}}
-                        },
-                        {
-                            name: "panel_mode", selector: {boolean: {}}
-                        },
-                        {
+                        },{
+                            type: "grid",
+                            schema: [
+                                {name: "large_font", selector: {boolean: {}}},
+                                {name: "panel_mode", selector: {boolean: {}}},
+                            ]
+                        },{
+                            type: "grid",
+                            schema: [
+                                {name: "show_solar",selector: {boolean: {}}},
+                                {name: "show_battery",selector: {boolean: {}}},
+                                {name: "show_grid",selector: {boolean: {}}},  
+                            ]
+                        },{
                             name: "inverter",
                             type: "grid",
                             schema: [
@@ -74,12 +88,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                     }
                                 },
                             ]
-                        },
-                        {
-                            name: "show_solar",
-                            selector: {boolean: {}}
-                        },
-                        {
+                        },{
                             name: "solar",
                             type: "grid",
                             schema: [
