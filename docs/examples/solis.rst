@@ -136,10 +136,10 @@ Example 2 (Solis S6 or S2-WL-ST) - Integration via https://github.com/Pho3niX90/
       pv1_voltage_109: sensor.solis_inverter_dc_voltage_1
       pv1_current_110: sensor.solis_inverter_dc_current_1
       pv1_power_186: sensor.solis_inverter_dc_power_1
+      pv2_voltage_111: sensor.solis_inverter_dc_voltage_2
+      pv2_current_112: sensor.solis_inverter_dc_current_2
       pv2_power_187: sensor.solis_inverter_dc_power_2
       pv_total: sensor.solis_inverter_total_dc_output
-      pv2_voltage_111: sensor.solis_inverter_dc_voltage_2
-      pv2_current_112: sensor.solis_inverter_dc_voltage_2
       grid_voltage: sensor.solis_inverter_a_phase_voltage
       battery_current_direction: sensor.solis_inverter_battery_current_direction
       inverter_status_59: sensor.solis_inverter_current_status
