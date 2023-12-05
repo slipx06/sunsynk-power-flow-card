@@ -227,6 +227,7 @@ Full Configuration (All Options)
     pv4_name: West
     auto_scale: true
     display_mode: 1
+    dynamic_colour: true
   load:
     colour: '#5fb6ad'
     show_daily: true
@@ -281,8 +282,12 @@ Full Configuration (All Options)
     day_pv_energy_108: sensor.sunsynk_day_pv_energy
     day_aux_energy: sensor.sunsynk_day_aux_energy
     inverter_voltage_154: sensor.sunsynk_inverter_voltage
+    inverter_voltage_L2: null
+    inverter_voltage_L3: null
     load_frequency_192: sensor.sunsynk_load_frequency
     inverter_current_164: sensor.sunsynk_inverter_current
+    inverter_current_L2: null
+    inverter_current_L3: null
     inverter_power_175: sensor.sunsynk_inverter_power
     grid_power_169: sensor.sunsynk_grid_power
     pv1_power_186: sensor.sunsynk_pv1_power
@@ -311,6 +316,8 @@ Full Configuration (All Options)
     non_essential_load1: sensor.nonessential1_power
     non_essential_load2: sensor.nonessential2_power
     grid_ct_power_172: sensor.sunsynk_grid_ct_power
+    grid_ct_power_L2: null
+    grid_ct_power_L3: null
     grid_connected_status_194: binary_sensor.sunsynk_grid_connected_status
     inverter_status_59: sensor.sunsynk_overall_state
     aux_power_166: sensor.sunsynk_aux_power
@@ -345,3 +352,10 @@ Full Configuration (All Options)
     aux_load2: sensor.pool_pump
     aux_load1_extra: sensor.daily_geyser_energy
     aux_load2_extra: sensor.pool_temperature
+    load_power_L1: null
+    load_power_L2: null
+    load_power_L3: null
+    total_pv_generation: null
+    battery_status: null
+
+

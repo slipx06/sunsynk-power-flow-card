@@ -2276,21 +2276,30 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 <text id="daily_solar_value" x="43.5" y="15" class="st10 left-align"
                                       display="${config.solar.display_mode === 1 ? '' : 'none'}"
                                       fill="${solar_showdaily !== true || !config.show_solar ? 'transparent' : `${solar_colour}`}">
-                                    ${this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes.unit_of_measurement, 1)}
+                                    ${config.solar.auto_scale 
+                                                ? this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes.unit_of_measurement, 1)
+                                                : `${this.toNum(state_day_pv_energy.state, 1)} kWh`
+                                    }
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_pv_energy_108)}>
                                 <text id="remaining_solar_value" x="43.5" y="15" class="st10 left-align"
                                       display="${config.solar.display_mode === 2 ? '' : 'none'}"
                                       fill="${solar_showdaily !== true || !config.show_solar ? 'transparent' : `${solar_colour}`}">
-                                    ${this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes.unit_of_measurement, 1)} / ${remaining_solar}
+                                    ${config.solar.auto_scale
+                                        ? `${this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes.unit_of_measurement, 1)} / ${remaining_solar}`
+                                        : `${this.toNum(state_day_pv_energy.state, 1)} kWh / ${remaining_solar}`
+                                    }
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_pv_energy_108)}>
                                 <text id="total_solar_value" x="43.5" y="15" class="st10 left-align"
                                       display="${config.solar.display_mode === 3 ? '' : 'none'}"
                                       fill="${solar_showdaily !== true || !config.show_solar ? 'transparent' : `${solar_colour}`}">
-                                    ${this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes.unit_of_measurement, 1)} / ${total_solar_generation}
+                                    ${config.solar.auto_scale
+                                        ? `${this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes.unit_of_measurement, 1)} / ${total_solar_generation}`
+                                        : `${this.toNum(state_day_pv_energy.state, 1)} kWh / ${total_solar_generation}`
+                                    }
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_load_energy_84)}>
@@ -2298,7 +2307,10 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       class="st10 left-align"
                                       display="${load_showdaily !== true || show_aux !== true ? 'none' : ''}"
                                       fill="${load_colour}">
-                                    ${this.convertValueNew(state_day_load_energy.state, state_day_load_energy.attributes.unit_of_measurement, 1)}
+                                    ${config.load.auto_scale
+                                        ? this.convertValueNew(state_day_load_energy.state, state_day_load_energy.attributes.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_load_energy.state, 1)} kWh`
+                                    }
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_load_energy_84)}>
@@ -2306,21 +2318,30 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       y="${additional_load === 0 ? '57' : '80'}" class="st10 left-align"
                                       display="${load_showdaily !== true || show_aux === true ? 'none' : ''}"
                                       fill="${load_colour}">
-                                    ${this.convertValueNew(state_day_load_energy.state, state_day_load_energy.attributes.unit_of_measurement, 1)}
+                                    ${config.load.auto_scale
+                                        ? this.convertValueNew(state_day_load_energy.state, state_day_load_energy.attributes.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_load_energy.state, 1)} kWh`
+                                    }
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_battery_charge_70)}>
                                 <text id="daily_bat_charge_value" x="4.5" y="237" class="st10 left-align"
                                       display="${battery_showdaily !== true || config.show_battery === false ? 'none' : ''}"
                                       fill="${battery_colour}">
-                                    ${this.convertValueNew(state_day_battery_charge.state, state_day_battery_charge.attributes.unit_of_measurement, 1)}
+                                    ${config.battery.auto_scale
+                                        ? this.convertValueNew(state_day_battery_charge.state, state_day_battery_charge.attributes.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_battery_charge.state, 1)} kWh`
+                                    }
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_battery_discharge_71)}>
                                 <text id="daily_bat_discharge_value" x="4.5" y="271" class="st10 left-align"
                                       display="${battery_showdaily !== true || config.show_battery === false ? 'none' : ''}"
                                       fill="${battery_colour}">
-                                    ${this.convertValueNew(state_day_battery_discharge.state, state_day_battery_discharge.attributes.unit_of_measurement, 1)}
+                                    ${config.battery.auto_scale
+                                        ? this.convertValueNew(state_day_battery_discharge.state, state_day_battery_discharge.attributes.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_battery_discharge.state, 1)} kWh`
+                                    }
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_grid_import_76)}>
@@ -2328,7 +2349,10 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       y="${grid_show_noness === false ? '354' : '239'}" class="st10 left-align"
                                       display="${config.show_grid === false || grid_showdailybuy !== true ? 'none' : ''}"
                                       fill="${grid_colour}">
-                                    ${this.convertValueNew(state_day_grid_import.state, state_day_grid_import.attributes.unit_of_measurement, 1)}
+                                    ${config.grid.auto_scale
+                                        ? this.convertValueNew(state_day_grid_import.state, state_day_grid_import.attributes.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_grid_import.state, 1)} kWh`
+                                    }
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_grid_export_77)}>
@@ -2336,7 +2360,10 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       y="${grid_show_noness === false ? '323' : '209'}" class="st10 left-align"
                                       display="${config.show_grid === false || grid_showdailysell !== true ? 'none' : ''}"
                                       fill="${grid_colour}">
-                                    ${this.convertValueNew(state_day_grid_export.state, state_day_grid_export.attributes.unit_of_measurement, 1)}
+                                    ${config.grid.auto_scale
+                                        ? this.convertValueNew(state_day_grid_export.state, state_day_grid_export.attributes.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_grid_export.state, 1)} kWh`
+                                    }
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_aux_energy)}>
@@ -2345,7 +2372,10 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       y="12" class="st10 left-align"
                                       display="${show_aux !== true || show_dailyaux !== true ? 'none' : ''}"
                                       fill="${aux_colour}">
-                                    ${this.convertValueNew(state_day_aux_energy.state, state_day_aux_energy.attributes.unit_of_measurement, 1)}
+                                    ${config.load.auto_scale
+                                        ? this.convertValueNew(state_day_aux_energy.state, state_day_aux_energy.attributes.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_aux_energy.state, 1)} kWh`
+                                    }
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1_extra)}>
@@ -3730,35 +3760,50 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 <text id="daily_bat_charge_value" x="${compact === true ? '132' : '77.2'}" y="343" class="st10 left-align"
                                       display="${battery_showdaily !== true || config.show_battery === false ? 'none' : ''}"
                                       fill="${battery_colour}">
-                                    ${this.convertValueNew(state_day_battery_charge.state, state_day_battery_charge.attributes.unit_of_measurement, 1)}
+                                    ${config.battery.auto_scale
+                                        ? this.convertValueNew(state_day_battery_charge.state, state_day_battery_charge.attributes.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_battery_charge.state, 1)} kWh`
+                                    }
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_pv_energy_108)}>
                                 <text id="daily_solar_value" x="200" y="26" class="st10 left-align"
                                       display="${config.solar.display_mode === 1 ? '' : 'none'}"
                                       fill="${solar_showdaily !== true || !config.show_solar ? 'transparent' : `${solar_colour}`}">
-                                    ${this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes.unit_of_measurement, 1)}
+                                    ${config.solar.auto_scale 
+                                                ? this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes.unit_of_measurement, 1)
+                                                : `${this.toNum(state_day_pv_energy.state, 1)} kWh`
+                                    }
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_pv_energy_108)}>
                                 <text id="remaining_solar_value" x="200" y="26" class="st10 left-align"
                                       display="${config.solar.display_mode === 2 ? '' : 'none'}"
                                       fill="${solar_showdaily !== true || !config.show_solar ? 'transparent' : `${solar_colour}`}">
-                                    ${this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes.unit_of_measurement, 1)} / ${remaining_solar}
+                                    ${config.solar.auto_scale
+                                        ? `${this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes.unit_of_measurement, 1)} / ${remaining_solar}`
+                                        : `${this.toNum(state_day_pv_energy.state, 1)} kWh / ${remaining_solar}`
+                                    }
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_pv_energy_108)}>
                                 <text id="total_solar_value" x="200" y="26" class="st10 left-align"
                                       display="${config.solar.display_mode === 3 ? '' : 'none'}"
                                       fill="${solar_showdaily !== true || !config.show_solar ? 'transparent' : `${solar_colour}`}">
-                                    ${this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes.unit_of_measurement, 1)} / ${total_solar_generation}
+                                    ${config.solar.auto_scale
+                                        ? `${this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes.unit_of_measurement, 1)} / ${total_solar_generation}`
+                                        : `${this.toNum(state_day_pv_energy.state, 1)} kWh / ${total_solar_generation}`
+                                    }
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_battery_discharge_71)}>
                                 <text id="daily_bat_discharge_value" x="${compact === true ? '132' : '77.2'}" y="380.1" class="st10 left-align"
                                       display="${battery_showdaily !== true || config.show_battery === false ? 'none' : ''}"
                                       fill="${battery_colour}">
-                                    ${this.convertValueNew(state_day_battery_discharge.state, state_day_battery_discharge.attributes.unit_of_measurement, 1)}
+                                    ${config.battery.auto_scale
+                                        ? this.convertValueNew(state_day_battery_discharge.state, state_day_battery_discharge.attributes.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_battery_discharge.state, 1)} kWh`
+                                    }
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_load_energy_84)}>
@@ -3767,21 +3812,30 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       y="${additional_load === 2 || additional_load === 4 ? '175' : '267.9'}"
                                       class="st10 left-align" display="${load_showdaily === false ? 'none' : ''}"
                                       fill="${load_colour}">
-                                    ${this.convertValueNew(state_day_load_energy.state, state_day_load_energy.attributes.unit_of_measurement, 1)}
+                                    ${config.load.auto_scale
+                                        ? this.convertValueNew(state_day_load_energy.state, state_day_load_energy.attributes.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_load_energy.state, 1)} kWh`
+                                    }
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_grid_import_76)}>
                                 <text id="daily_grid_buy_value" x="5" y="267.9" class="st10 left-align"
                                       display="${config.show_grid === false || grid_showdailybuy !== true ? 'none' : ''}"
                                       fill="${grid_colour}">
-                                    ${this.convertValueNew(state_day_grid_import.state, state_day_grid_import.attributes.unit_of_measurement, 1)}
+                                    ${config.grid.auto_scale
+                                        ? this.convertValueNew(state_day_grid_import.state, state_day_grid_import.attributes.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_grid_import.state, 1)} kWh`
+                                    }
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_grid_export_77)}>
                                 <text id="daily_grid_sell_value" x="5" y="165" class="st10 left-align"
                                       display="${config.show_grid === false || grid_showdailysell !== true ? 'none' : ''}"
                                       fill="${grid_colour}">
-                                    ${this.convertValueNew(state_day_grid_export.state, state_day_grid_export.attributes.unit_of_measurement, 1)}
+                                    ${config.grid.auto_scale
+                                        ? this.convertValueNew(state_day_grid_export.state, state_day_grid_export.attributes.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_grid_export.state, 1)} kWh`
+                                    }
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.inverter_voltage_154)}>
