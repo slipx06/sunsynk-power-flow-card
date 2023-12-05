@@ -227,6 +227,7 @@ Full Configuration (All Options)
     pv4_name: West
     auto_scale: true
     display_mode: 1
+    dynamic_colour: true
   load:
     colour: '#5fb6ad'
     show_daily: true
