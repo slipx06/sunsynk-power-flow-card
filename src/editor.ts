@@ -36,8 +36,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                 schema: [
                                     {name: "title", selector: {text: {}}},
                                     {name: "title_colour", selector: {color_rgb: {}}},
-                                    {name: "title_size", selector: {text: {}}},
-                                    {name: "decimal_places", selector: {number: {}}},
+                                    {name: "title_size", selector: {text: {}}},                                   
                                 ]
                             }]
                         },
@@ -60,6 +59,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                     {name: "show_solar", selector: {boolean: {}}},
                                     {name: "show_battery", selector: {boolean: {}}},
                                     {name: "show_grid", selector: {boolean: {}}},
+                                    {name: "decimal_places", selector: {number: {}}},
                                 ]
                             }]
                         },
@@ -70,6 +70,8 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                 name: "inverter",
                                 type: "grid",
                                 schema: [
+                                    {name: 'three_phase', selector: {boolean: {}}},
+                                    {name: 'auto_scale', selector: {boolean: {}}},
                                     {
                                         name: 'model',
                                         selector: {
@@ -81,10 +83,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                             }
                                         }
                                     },
-                                    {
-                                        name: 'modern',
-                                        selector: {boolean: {}}
-                                    },
+                                    {name: 'modern', selector: {boolean: {}}},
                                     {
                                         name: 'autarky',
                                         selector: {
@@ -96,6 +95,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                             }
                                         }
                                     },
+                                    {name: 'colour', selector: {color_rgb: {}}},                                 
                                 ]
                             }]
                         },
@@ -108,11 +108,16 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                 schema: [
                                     {name: 'mppts', selector: {number: {min: 0, max: 4,}}},
                                     {name: 'show_daily', selector: {boolean: {}}},
-                                    {name: 'animation_speed', selector: {number: {}}},
-                                    {name: 'max_power', selector: {number: {}}},
-                                    {name: 'colour', selector: {color_rgb: {}}},
                                     {name: 'pv1_name', selector: {text: {}}},
                                     {name: 'pv2_name', selector: {text: {}}},
+                                    {name: 'pv3_name', selector: {text: {}}},
+                                    {name: 'pv4_name', selector: {text: {}}},
+                                    {name: 'auto_scale', selector: {boolean: {}}},
+                                    {name: 'display_mode', selector: {number: {mode: 'box', min: 1, max: 3,}}},
+                                    {name: 'colour', selector: {color_rgb: {}}},
+                                    {name: 'dynamic_colour', selector: {boolean: {}}},
+                                    {name: 'animation_speed', selector: {number: {}}},
+                                    {name: 'max_power', selector: {number: {}}},    
                                 ]
                             }]
                         }, {
@@ -121,11 +126,17 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                             schema: [{
                                 name: "battery",
                                 type: "grid",
-                                schema: [
-                                    {name: 'show_daily', selector: {boolean: {}}},
+                                schema: [   
                                     {name: 'energy', selector: {number: {min: 0,}}},
                                     {name: 'shutdown_soc', selector: {number: {mode: 'box', min: 0, max: 100,}}},
+                                    {name: 'show_daily', selector: {boolean: {}}},
+                                    {name: 'auto_scale', selector: {boolean: {}}},
+                                    {name: 'invert_power', selector: {boolean: {}}},                          
+                                    {name: 'show_absolute', selector: {boolean: {}}},
                                     {name: 'colour', selector: {color_rgb: {}}},
+                                    {name: 'hide_soc', selector: {boolean: {}}},
+                                    {name: 'full_capacity', selector: {number: {min: 80, max: 100,}}},
+                                    {name: 'empty_capacity', selector: {number: {min: 0, max: 40,}}},
                                     {name: 'animation_speed', selector: {number: {}}},
                                     {name: 'max_power', selector: {number: {}}}
                                 ]

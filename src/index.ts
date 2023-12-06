@@ -476,7 +476,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let total_solar_generation = config.entities.total_pv_generation ? this.convertValueNew(state_total_pv_generation.state, state_total_pv_generation.attributes.unit_of_measurement, 1)  : false;
         let font = config.large_font;
         let panel = config.panel_mode;
-        let inverter_colour = config.inverter?.colour;
+        let inverter_colour = this.colourConvert(config.inverter?.colour);
         let useautarky = config.inverter?.autarky;
         let usetimer = config.entities.use_timer_248 === false || !config.entities.use_timer_248 || config.entities.use_timer_248 === null ? false : state_use_timer.state;
         let priority =
@@ -529,9 +529,9 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         let solar_colour = 
                 config.solar.dynamic_colour === false 
-                    ? config.solar?.colour
+                    ? this.colourConvert(config.solar?.colour)
                     : this.toNum(total_pv,0) > 10 
-                        ? config.solar?.colour 
+                        ? this.colourConvert(config.solar?.colour) 
                         : 'grey';
 
         //essential = inverter_power_175 + grid_power_169 - aux_power_166
