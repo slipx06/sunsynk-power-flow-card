@@ -27,13 +27,11 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                     .data=${this._config}
                     .computeLabel=${this._computeLabelCallback}
                     .schema=${[
-                        /*{name: "entity", selector: {entity: {domain: "power"}}},
-                        {name: "battery_sensor", selector: {entity: {device_class: "battery"}}},*/
                         {
                             type: "grid",
                             schema: [
                                 {name: "title", selector: { text: {}}},
-                                {name: "title_colour", selector: {text: {}}},
+                                {name: "title_colour", selector: {ui_color: {}}},
                                 {name: "title_size", selector: {text: {}}},
                                 {name: "decimal_places", selector: {number: {}}},
                             ]
@@ -96,7 +94,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                 {name: 'show_daily', selector: {boolean: {}}},
                                 {name: 'animation_speed', selector: {number: {}}},
                                 {name: 'max_power', selector: {number: {}}},
-                                {name: 'colour', selector: {color_rgb: {}}},
+                                {name: 'colour', selector: {ui_color: {}}},
                                 {name: 'pv1_name', selector: {text: {}}},
                                 {name: 'pv2_name', selector: {text: {}}},
                             ]
@@ -107,7 +105,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                 {name: 'show_daily', selector: {boolean: {}}},
                                 {name: 'energy', selector: {number: {min: 0,}}},
                                 {name: 'shutdown_soc', selector: {number: {min: 0, max: 100,}}},
-                                {name: 'colour', selector: {color_rgb: {}}},
+                                {name: 'colour', selector: {ui_color: {}}},
                                 {name: 'animation_speed', selector: {number: {}}},
                                 {name: 'max_power', selector: {number: {}}}
                             ]
@@ -129,7 +127,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                             type: "grid",
                             schema: [
                                 {name: 'show_daily_buy', selector: {boolean: {}}},
-                                {name: 'no_grid_colour', selector: {color_rgb: {}}},
+                                {name: 'no_grid_colour', selector: {ui_color: {}}},
                                 {name: 'animation_speed', selector: {number: {}}},
                                 {name: 'max_power', selector: {number: {}}},
                                 {name: "invert_grid", selector: {boolean: {}}}
@@ -184,29 +182,11 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
     }
 
     private _valueChanged(ev): void {
-        console.log(ev.detail.value)
-        console.log(ev)
         this.setConfig(ev.detail.value)
         fireEvent(this, 'config-changed', {config: this._config});
     }
 
     static styles: CSSResultGroup = css`
-      ha-formfield {
-        height: 20px !important;
-      }
-
-      mwc-select,
-      mwc-textfield {
-        display: block;
-      }
-
-      mwc-formfield {
-        height: 20px !important;
-        display: flex;
-      }
-
-      mwc-switch {
-        --mdc-theme-secondary: var(--switch-checked-color);
-      }
+        
     `;
 }
