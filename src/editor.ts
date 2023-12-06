@@ -34,7 +34,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                 type: "grid",
                                 schema: [
                                     {name: "title", selector: {text: {}}},
-                                    {name: "title_colour", selector: {ui_color: {}}},
+                                    {name: "title_colour", selector: {color_rgb: {}}},
                                     {name: "title_size", selector: {text: {}}},
                                     {name: "decimal_places", selector: {number: {}}},
                                 ]
@@ -109,7 +109,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                     {name: 'show_daily', selector: {boolean: {}}},
                                     {name: 'animation_speed', selector: {number: {}}},
                                     {name: 'max_power', selector: {number: {}}},
-                                    {name: 'colour', selector: {ui_color: {}}},
+                                    {name: 'colour', selector: {color_rgb: {}}},
                                     {name: 'pv1_name', selector: {text: {}}},
                                     {name: 'pv2_name', selector: {text: {}}},
                                 ]
@@ -124,7 +124,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                     {name: 'show_daily', selector: {boolean: {}}},
                                     {name: 'energy', selector: {number: {min: 0,}}},
                                     {name: 'shutdown_soc', selector: {number: {min: 0, max: 100,}}},
-                                    {name: 'colour', selector: {ui_color: {}}},
+                                    {name: 'colour', selector: {color_rgb: {}}},
                                     {name: 'animation_speed', selector: {number: {}}},
                                     {name: 'max_power', selector: {number: {}}}
                                 ]
@@ -155,7 +155,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                 type: "grid",
                                 schema: [
                                     {name: 'show_daily_buy', selector: {boolean: {}}},
-                                    {name: 'no_grid_colour', selector: {ui_color: {}}},
+                                    {name: 'no_grid_colour', selector: {color_rgb: {}}},
                                     {name: 'animation_speed', selector: {number: {}}},
                                     {name: 'max_power', selector: {number: {}}},
                                     {name: "invert_grid", selector: {boolean: {}}}

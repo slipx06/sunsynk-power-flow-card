@@ -364,11 +364,14 @@ export class SunsynkPowerFlowCard extends LitElement {
         let grid_voltage = state_grid_voltage ? this.toNum(state_grid_voltage.state) : null;
         let battery_current_direction = state_battery_current_direction ? parseInt(state_battery_current_direction.state) : null;
         let inverter_modern = config.inverter?.modern;
-        let load_colour = config.load?.colour;
-        let aux_colour = config.load?.aux_colour || load_colour;
-        let aux_off_colour = config.load?.aux_off_colour || load_colour;
+
+        let load_colour = this.colourConvert(config.load?.colour);
+        let aux_colour = this.colourConvert(config.load?.aux_colour || load_colour);
+        let aux_off_colour = this.colourConvert(config.load?.aux_off_colour || load_colour);
+        let no_grid_colour = this.colourConvert(config.grid?.no_grid_colour);
+        config.title_colour = this.colourConvert(config.title_colour);
+
         let load_showdaily = config.load?.show_daily;
-        let no_grid_colour = config.grid?.no_grid_colour;
         let grid_show_noness = config.grid?.show_nonessential;
         let grid_status = config.entities?.grid_connected_status_194 ? state_grid_connected_status.state : 'on';
         let aux_status = config.entities?.aux_connected_status ? state_aux_connected_status.state : 'on';
@@ -430,8 +433,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                 : this.toNum(state_load_power_L3.state, 0)
             : '';
 
-        const grid_import_colour = config.grid?.colour;
-        const grid_export_colour = config.grid?.export_colour || grid_import_colour;
+        const grid_import_colour = this.colourConvert(config.grid?.colour);
+        const grid_export_colour = this.colourConvert(config.grid?.export_colour || grid_import_colour);
         let grid_colour = total_grid_power < 0 ? grid_export_colour : grid_import_colour;
 
         let noness_dual_load = config.grid?.additional_loads;
@@ -441,7 +444,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         let grid_showdailybuy = config.grid?.show_daily_buy;
         let grid_showdailysell = config.grid?.show_daily_sell;
-        let battery_colour = config.battery?.colour;
+        let battery_colour = this.colourConvert(config.battery?.colour);
         let battery_showdaily = config.battery?.show_daily;
 
         let solar_showdaily = config.solar?.show_daily;
@@ -4516,6 +4519,10 @@ export class SunsynkPowerFlowCard extends LitElement {
 
     get isFullCard() {
         return this._config.cardstyle == CardStyle.Full;
+    }
+
+    colourConvert(colour) {
+        return colour && Array.isArray(colour) ? `rgb(${colour})` : colour;
     }
 
     setConfig(config) {
