@@ -123,7 +123,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                 schema: [
                                     {name: 'show_daily', selector: {boolean: {}}},
                                     {name: 'energy', selector: {number: {min: 0,}}},
-                                    {name: 'shutdown_soc', selector: {number: {min: 0, max: 100,}}},
+                                    {name: 'shutdown_soc', selector: {number: {mode: 'box', min: 0, max: 100,}}},
                                     {name: 'colour', selector: {color_rgb: {}}},
                                     {name: 'animation_speed', selector: {number: {}}},
                                     {name: 'max_power', selector: {number: {}}}
