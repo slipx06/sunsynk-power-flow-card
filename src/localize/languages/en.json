@@ -78,7 +78,7 @@
   "config": {
     "title": "Title",
     "title_colour": "Title Colour",
-    "title_size": "Title Size",
+    "title_size": "Title Size (px)",
     "decimal_places": "Decimal Places",
     "model": "Model",
     "autarky": "Autarky",
@@ -152,7 +152,13 @@
       "grid": "Grid Options",
       "load": "Load Options",
       "entities": "Entities",
-      "aux": "Aux Options"
+      "aux": "Aux Options",
+      "energy": "Energy Entities",
+      "bat": "Battery Entities",
+      "sol": "Solar Entities",
+      "inv": "Inverter Entities",
+      "ld": "Load Entities",
+      "gri": "Grid Entities"
     }
   }
 }
