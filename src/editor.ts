@@ -117,7 +117,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                     {name: 'colour', selector: {color_rgb: {}}},
                                     {name: 'dynamic_colour', selector: {boolean: {}}},
                                     {name: 'animation_speed', selector: {number: {}}},
-                                    {name: 'max_power', selector: {number: {}}},    
+                                    {name: 'max_power', selector: {number: {}}}    
                                 ]
                             }]
                         }, {
@@ -148,18 +148,50 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                             schema: [{
                                 name: "load",
                                 type: "grid",
-                                schema: [
-                                    {name: 'show_aux', selector: {boolean: {}}},
+                                schema: [   
                                     {name: 'show_daily', selector: {boolean: {}}},
-                                    {name: 'animation_speed', selector: {number: {}}},
-                                    {name: 'max_power', selector: {number: {}}},
+                                    {name: 'auto_scale', selector: {boolean: {}}},
+                                    {name: 'colour', selector: {color_rgb: {}}},
+                                    {name: 'dynamic_colour', selector: {boolean: {}}},
+                                    {name: 'essential_name', selector: {text: {}}},
+                                    {name: 'additional_loads', selector: {number: {mode: 'box', min: 0, max: 4,}}},
                                     {name: 'load1_name', selector: {text: {}}},
                                     {name: 'load1_icon', selector: {icon: {}}},
                                     {name: 'load2_name', selector: {text: {}}},
-                                    {name: 'load2_icon', selector: {icon: {}}}
+                                    {name: 'load2_icon', selector: {icon: {}}},
+                                    {name: 'load3_name', selector: {text: {}}},
+                                    {name: 'load3_icon', selector: {icon: {}}},
+                                    {name: 'load4_name', selector: {text: {}}},
+                                    {name: 'load4_icon', selector: {icon: {}}},
+                                    {name: 'animation_speed', selector: {number: {}}},
+                                    {name: 'max_power', selector: {number: {}}},
                                 ]
-                            }]
-                        }, {
+                            },  {    
+                                type: "expandable",
+                                title: this._title('aux'),
+                                schema: [{
+                                    name: "load",
+                                    type: "grid",
+                                    schema: [
+                                        {name: 'show_aux', selector: {boolean: {}}},
+                                        {name: 'aux_name', selector: {text: {}}},
+                                        {name: 'aux_type', selector: {icon: {}}},
+                                        {name: 'invert_aux', selector: {boolean: {}}},
+                                        {name: 'show_absolute_aux', selector: {boolean: {}}},
+                                        {name: 'aux_colour', selector: {color_rgb: {}}},
+                                        {name: 'aux_off_colour', selector: {color_rgb: {}}},
+                                        {name: 'aux_loads', selector: {number: {mode: 'box', min: 0, max: 2,}}},
+                                        {name: 'aux_load1_name', selector: {text: {}}},
+                                        {name: 'aux_load1_icon', selector: {icon: {}}},
+                                        {name: 'aux_load2_name', selector: {text: {}}},
+                                        {name: 'aux_load2_icon', selector: {icon: {}}},
+                                        {name: 'show_daily_aux', selector: {boolean: {}}}
+
+                                    ]
+                                }]
+                                }]
+                        },
+                           {
                             type: "expandable",
                             title: this._title('grid'),
                             schema: [{
@@ -167,10 +199,25 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                 type: "grid",
                                 schema: [
                                     {name: 'show_daily_buy', selector: {boolean: {}}},
+                                    {name: 'show_daily_sell', selector: {boolean: {}}},
+                                    {name: 'auto_scale', selector: {boolean: {}}},
+                                    {name: "invert_grid", selector: {boolean: {}}},
+                                    {name: 'colour', selector: {color_rgb: {}}},
                                     {name: 'no_grid_colour', selector: {color_rgb: {}}},
+                                    {name: 'export_colour', selector: {color_rgb: {}}},
+                                    {name: 'energy_cost_decimals', selector: {number: {mode: 'box', min: 0, max: 3,}}},
+                                    {name: 'show_nonessential', selector: {boolean: {}}},
+                                    {name: 'additional_loads', selector: {number: {mode: 'box', min: 0, max: 3,}}},
+                                    {name: 'nonessential_name', selector: {text: {}}},
+                                    {name: 'nonessential_icon', selector: {icon: {}}},
+                                    {name: 'load1_name', selector: {text: {}}},
+                                    {name: 'load1_icon', selector: {icon: {}}},
+                                    {name: 'load2_name', selector: {text: {}}},
+                                    {name: 'load2_icon', selector: {icon: {}}},
+                                    {name: 'load3_name', selector: {text: {}}},
+                                    {name: 'load3_icon', selector: {icon: {}}},
                                     {name: 'animation_speed', selector: {number: {}}},
-                                    {name: 'max_power', selector: {number: {}}},
-                                    {name: "invert_grid", selector: {boolean: {}}}
+                                    {name: 'max_power', selector: {number: {}}},    
                                 ]
                             }]
                         }, {
