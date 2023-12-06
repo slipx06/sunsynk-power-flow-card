@@ -104,6 +104,19 @@
     "show_daily_buy": "Show Daily Buy",
     "no_grid_colour": "No Grid Colour",
     "colour": "Colour",
-    "panel_mode": "Panel Mode"
+    "panel_mode": "Panel Mode",
+    "invert_grid": "Invert Values",
+    "shutdown_soc": "Shutdown SOC",
+    "energy": "Energy",
+    "cat_title": {
+      "title": "Title Options",
+      "general": "General Options",
+      "inverter": "Inverter Options",
+      "solar": "Solar Options",
+      "battery": "Battery Options",
+      "grid": "Grid Options",
+      "load": "Load Options",
+      "entities": "Entities"
+    }
   }
 }
