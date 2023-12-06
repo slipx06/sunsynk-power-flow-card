@@ -71,8 +71,10 @@ export const inverterStatusGroups = {
     goodwe: {
         standby: {states: ['0', 'wait mode'], color: 'blue', message: localize('common.standby')},
         ongrid: {
-            states: ['1', 'normal (on-grid)'], color: 'green', message: localize('common.ongrid') },
-        offgrid: { states: ['2', 'normal (off-grid)'],
+            states: ['1', 'normal (on-grid)'], color: 'green', message: localize('common.ongrid')
+        },
+        offgrid: {
+            states: ['2', 'normal (off-grid)'],
             color: 'green',
             message: localize('common.offgrid')
         },
@@ -87,10 +89,10 @@ export const inverterStatusGroups = {
         shutdown: {states: ['shutdown'], color: 'red', message: localize('common.shutdown')},
         normalstop: {states: ['normal stop'], color: 'yellow', message: localize('common.normalstop')},
         alarm: {
-            states: ['grid-connected, grid connection with derating due to power rationing', 'grid-connected, grid connection with derating due to internal causes of the solar inverter' ], 
+            states: ['grid-connected, grid connection with derating due to power rationing', 'grid-connected, grid connection with derating due to internal causes of the solar inverter'],
             color: 'orange', message: localize('common.alarm')
         },
-        fault: {states: ['stop due to faults', 'stop due to power rationing' ], color: 'red', message: localize('common.fault')},
+        fault: {states: ['stop due to faults', 'stop due to power rationing'], color: 'red', message: localize('common.fault')},
     },
     solis: {
         normal: {
@@ -122,9 +124,9 @@ export const inverterStatusGroups = {
     foxess: {
         standby: {states: ['waiting'], color: 'blue', message: localize('common.standby')},
         selftest: {states: ['self test'], color: 'yellow', message: localize('common.selftest')},
-        ongrid: {states: ['on grid'], color: 'green', message: localize('common.ongrid') },
-        offgrid: { states: ['off grid / eps'], color: 'green', message: localize('common.offgrid')},
-        fault: {states: ['recoverable fault', 'unrecoverable fault' ], color: 'red', message: localize('common.fault')},
+        ongrid: {states: ['on grid'], color: 'green', message: localize('common.ongrid')},
+        offgrid: {states: ['off grid / eps'], color: 'green', message: localize('common.offgrid')},
+        fault: {states: ['recoverable fault', 'unrecoverable fault'], color: 'red', message: localize('common.fault')},
         check: {states: ['checking'], color: 'orange', message: localize('common.check')},
     }
 };
@@ -152,3 +154,25 @@ export const batteryStatusGroups = {
         sleepmode: {states: ['4', 'sleep_mode'], color: 'yellow', message: localize('common.sleepmode')},
     }
 };
+
+export const enum SensorDeviceClass {
+    DATE = "date",
+    ENUM = "enum",
+    TIMESTAMP = "timestamp",
+    APPARENT_POWER = "apparent_power",
+    ATMOSPHERIC_PRESSURE = "atmospheric_pressure",
+    BATTERY = "battery",
+    CO = "carbon_monoxide",
+    CO2 = "carbon_dioxide",
+    CURRENT = "current",
+    ENERGY = "energy",
+    ENERGY_STORAGE = "energy_storage",
+    FREQUENCY = "frequency",
+    IRRADIANCE = "irradiance",
+    MONETARY = "monetary",
+    POWER_FACTOR = "power_factor",
+    POWER = "power",
+    REACTIVE_POWER = "reactive_power",
+    TEMPERATURE = "temperature",
+    VOLTAGE = "voltage"
+}
