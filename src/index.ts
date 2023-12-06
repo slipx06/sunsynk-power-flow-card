@@ -1059,10 +1059,10 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"/>
                             <rect id="pv3" x="0" y="100" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                                   stroke="${solar_colour}" pointer-events="all"
-                                  class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'st12' : ''}"/>
+                                  class="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'st12' : ''}"/>
                             <rect id="pv4" x="101" y="100" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                                   stroke="${solar_colour}" pointer-events="all"
-                                  class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'st12' : ''}"/>
+                                  class="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"/>
                             <rect id="nonesstotal" x="304" y="265" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                                   stroke="${grid_colour}" pointer-events="all"
                                   class="${grid_show_noness === false ? 'st12' : ''}"
@@ -1072,12 +1072,12 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   pointer-events="all"
                                   class="${config.show_grid === false || grid_show_noness === false ? 'st12' : ''}"/>
                             <rect id="noness2" x="303" y="310" width="35" height="20" rx="4.5" ry="4.5"
-                                  display="${noness_dual_load === 2 || noness_dual_load === 3 ? '' : 'none'}"
+                                  display="${[2, 3].includes(noness_dual_load) ? '' : 'none'}"
                                   fill="none" stroke="${grid_colour}"
                                   pointer-events="all"
                                   class="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 1 ? 'st12' : ''}"/>
                             <rect id="noness2" x="340" y="310" width="35" height="20" rx="4.5" ry="4.5"
-                                  display="${noness_dual_load === 2 || noness_dual_load === 3 ? '' : 'none'}"
+                                  display="${[2, 3].includes(noness_dual_load) ? '' : 'none'}"
                                   fill="none" stroke="${grid_colour}"
                                   pointer-events="all"
                                   class="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 1 ? 'st12' : ''}"/>
@@ -1100,7 +1100,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <rect id="aux-load1" x="374" y="20" width="70" height="25" rx="4.5" ry="4.5" fill="none"
                                   stroke="${aux_colour}" pointer-events="all"
                                   display="${show_aux !== true ? 'none' : ''}"
-                                  class="${additional_aux_load === 1 || additional_aux_load === 2 ? '' : 'st12'}"/>
+                                  class="${[1, 2].includes(additional_aux_load) ? '' : 'st12'}"/>
                             <rect id="aux-load2" x="374" y="50" width="70" height="25" rx="4.5" ry="4.5" fill="none"
                                   stroke="${aux_colour}" pointer-events="all"
                                   display="${show_aux !== true ? 'none' : ''}"
@@ -1135,11 +1135,11 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   fill="${solar_colour}">${config.solar.pv2_name}
                             </text>
                             <text x="0" y="139" class="st3 st8 left-align"
-                                  display="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}"
+                                  display="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'none' : ''}"
                                   fill="${solar_colour}">${config.solar.pv3_name}
                             </text>
                             <text x="99" y="139" class="st3 st8 left-align"
-                                  display="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}"
+                                  display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}"
                                   fill="${solar_colour}">${config.solar.pv4_name}
                             </text>
                             <text x="421" y="377" class="st3 st8" fill="${grid_colour}"
@@ -1150,7 +1150,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <text x="80" y="378" class="st3 left-align" display="${config.show_battery === false ? 'none' : ''}" fill="${battery_colour}">${batteryStateMsg}
                             </text>
                             <text x="411" y="157" class="st3 st8"
-                                  display="${(additional_load === 1 || additional_load === 2) && show_aux === true ? 'none' : ''}"
+                                  display="${[1, 2].includes(additional_load) && show_aux === true ? 'none' : ''}"
                                   fill="${load_colour}">${config.load.essential_name}
                             </text>
                             <text id="ess_load" x="411" y="130" class="st3 st8"
@@ -1217,7 +1217,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 ${localize('common.daily_grid_sell')}
                             </text>
                             <text id="aux_one" x="411" y="82" class="st3 st8"
-                                  display="${show_aux !== true || additional_aux_load === 1 || additional_aux_load === 2 ? 'none' : ''}"
+                                  display="${show_aux !== true || [1, 2].includes(additional_aux_load) ? 'none' : ''}"
                                   fill="${aux_status === 'on' || aux_status === '1' ? `${aux_colour}` : `${aux_off_colour}`}">
                                 ${config.load.aux_name}
                             </text>
@@ -1227,19 +1227,19 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 ${config.grid.nonessential_name}
                             </text>
                             <text id="noness1" x="340" y="338" class="st3 st8"
-                                  display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 || noness_dual_load === 3 ? 'none' : ''}"
+                                  display="${config.show_grid === false || grid_show_noness === false || [0, 2, 3].includes(noness_dual_load) ? 'none' : ''}"
                                   fill="${grid_colour}">${config.grid.load1_name}
                             </text>
                             <text id="noness2" x="321" y="338" class="st3 st8"
-                                  display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}"
+                                  display="${config.show_grid === false || grid_show_noness === false || [0, 1].includes(noness_dual_load) ? 'none' : ''}"
                                   fill="${grid_colour}">${config.grid.load1_name}
                             </text>
                             <text id="noness2" x="358" y="338" class="st3 st8"
-                                  display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}"
+                                  display="${config.show_grid === false || grid_show_noness === false || [0, 1].includes(noness_dual_load) ? 'none' : ''}"
                                   fill="${grid_colour}">${config.grid.load2_name}
                             </text>
                             <text id="noness3" x="284" y="338" class="${config.battery.hide_soc === true ? 'st3 st8' : 'st12'}"
-                                  display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 || noness_dual_load === 2 ? 'none' : ''}"
+                                  display="${config.show_grid === false || grid_show_noness === false || [0, 1, 2].includes(noness_dual_load) ? 'none' : ''}"
                                   fill="${grid_colour}">${config.grid.load3_name}
                             </text>
                             <text id="autarkye_value" x="212" y="283"
@@ -1273,7 +1273,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   fill="${aux_colour}">${config.load.aux_load1_name}
                             </text>
                             <text id="aux_load2" x="411" y="83" class="st3 st8"
-                                  display="${show_aux !== true || additional_aux_load === 0 || additional_aux_load === 1 ? 'none' : ''}"
+                                  display="${show_aux !== true || [0, 1].includes(additional_aux_load) ? 'none' : ''}"
                                   fill="${aux_colour}">${config.load.aux_load2_name}
                             </text>
                             <text id="aux_load1_extra" x="360" y="14" class="st3 st8"
@@ -1282,12 +1282,12 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 ${this.toNum(state_aux_load1_extra.state, 1)} ${state_aux_load1_extra.attributes.unit_of_measurement}
                             </text>
                             <text id="aux_load2_extra" x="360" y="83" class="st3 st8"
-                                  display="${show_aux !== true || additional_aux_load === 0 || additional_aux_load === 1 || !config.entities.aux_load2_extra ? 'none' : ''}"
+                                  display="${show_aux !== true || [0, 1].includes(additional_aux_load) || !config.entities.aux_load2_extra ? 'none' : ''}"
                                   fill="${aux_colour}">
                                 ${this.toNum(state_aux_load2_extra.state, 1)} ${state_aux_load2_extra.attributes.unit_of_measurement}
                             </text>
                             <text id="aux_daily_text"
-                                  x="${(additional_aux_load === 1 || additional_aux_load === 2) ? '238' : '306'}" y="24"
+                                  x="${[1, 2].includes(additional_aux_load) ? '238' : '306'}" y="24"
                                   class="st3 left-align"
                                   display="${show_aux !== true || show_dailyaux !== true ? 'none' : ''}"
                                   fill="${aux_colour}">${localize('common.daily_aux')}
@@ -1335,7 +1335,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     fill="${batteryStateColour}"/>
 
                             <path id="es-load1" d="M 409 143 L 409 135" display="${show_aux === true ? '' : 'none'}"
-                                  class="${additional_load === 1 || additional_load === 2 ? '' : 'st12'}" fill="none"
+                                  class="${[1, 2].includes(additional_load) ? '' : 'st12'}" fill="none"
                                   stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"
                                   pointer-events="stroke"/>
                             <path id="es-load1" d="M 412 80 L 412 60" display="${show_aux !== true ? '' : 'none'}"
@@ -1377,11 +1377,11 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </svg>
                             <svg id="pv3-flow">
                                 <path id="pv3-line" d="M 86 162 L 86 115 Q 86 115 86 115 L 70 115"
-                                      class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'st12' : ''}"
+                                      class="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'st12' : ''}"
                                       fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
                                       pointer-events="stroke"/>
                                 <circle id="pv3-dot" cx="0" cy="0" r="3"
-                                        class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'st12' : ''}"
+                                        class="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'st12' : ''}"
                                         fill="${Math.round(pv3_power_watts) <= 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['pv3']}s" repeatCount="indefinite"
                                                    keyPoints="1;0"
@@ -1392,11 +1392,11 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </svg>
                             <svg id="pv4-flow">
                                 <path id="pv4-line" d="M 86 162 L 86 115 Q 86 115 86 115 L 101 115"
-                                      class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'st12' : ''}"
+                                      class="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"
                                       fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
                                       pointer-events="stroke"/>
                                 <circle id="pv4-dot" cx="0" cy="0" r="3"
-                                        class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'st12' : ''}"
+                                        class="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"
                                         fill="${Math.round(pv4_power_watts) <= 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['pv4']}s" repeatCount="indefinite"
                                                    keyPoints="1;0"
@@ -1635,38 +1635,38 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness_default" x="303.5" y="305.5" width="70"
                                  height="70" viewBox="0 0 24 24"
                                  opacity="${nonessential_icon === 'default' ? '1' : '0'}">
-                                <path display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 2 || noness_dual_load === 1 || noness_dual_load === 3 ? 'none' : ''}"
+                                <path display="${config.show_grid === false || grid_show_noness === false || [1, 2, 3].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
                                       d="m15 13l-4 4v-3H2v-2h9V9l4 4M5 20v-4h2v2h10v-7.81l-5-4.5L7.21 10H4.22L12 3l10 9h-3v8H5Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness_oven" x="303.5" y="305.5" width="70"
                                  height="70" viewBox="0 0 32 32" opacity="${nonessential_icon === 'oven' ? '1' : '0'}">
-                                <path display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 2 || noness_dual_load === 1 || noness_dual_load === 3 ? 'none' : ''}"
+                                <path display="${config.show_grid === false || grid_show_noness === false || [1, 2, 3].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
                                       d="M3 7.5A4.5 4.5 0 0 1 7.5 3h17A4.5 4.5 0 0 1 29 7.5v17a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17Zm24 0A2.5 2.5 0 0 0 24.5 5h-17A2.5 2.5 0 0 0 5 7.5V11h22V7.5Zm0 17V13H5v11.5A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5Zm-17-15a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Zm6 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3ZM23.5 8a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0ZM9 23v-6h14v6H9Zm-.5-8A1.5 1.5 0 0 0 7 16.5v7A1.5 1.5 0 0 0 8.5 25h15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5h-15Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness_boiler" x="303.5" y="305.5" width="70"
                                  height="70" viewBox="0 0 24 24"
                                  opacity="${nonessential_icon === 'boiler' ? '1' : '0'}">
-                                <path display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 2 || noness_dual_load === 1 || noness_dual_load === 3 ? 'none' : ''}"
+                                <path display="${config.show_grid === false || grid_show_noness === false || [1, 2, 3].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
                                       d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness_pump" x="303.5" y="305.5" width="70"
                                  height="70" viewBox="0 0 24 24" opacity="${nonessential_icon === 'pump' ? '1' : '0'}">
-                                <path display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 2 || noness_dual_load === 1 || noness_dual_load === 3 ? 'none' : ''}"
+                                <path display="${config.show_grid === false || grid_show_noness === false || [1, 2, 3].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
                                       d="M3 17h4.1q-.425-.425-.787-.925T5.675 15H3v2Zm9 0q2.075 0 3.538-1.463T17 12q0-2.075-1.463-3.538T12 7Q9.925 7 8.462 8.463T7 12q0 2.075 1.463 3.538T12 17Zm6.325-8H21V7h-4.1q.425.425.788.925T18.325 9ZM1 20v-8h2v1h2.075q-.05-.25-.063-.488T5 12q0-2.925 2.038-4.963T12 5h9V4h2v8h-2v-1h-2.075q.05.25.063.488T19 12q0 2.925-2.038 4.963T12 19H3v1H1Zm2-3v-2v2Zm18-8V7v2Zm-9 3Zm0 3q-.825 0-1.413-.588T10 13q0-.575.238-1.137t.912-1.613L12 9l.85 1.25q.675 1.05.913 1.613T14 13q0 .825-.588 1.413T12 15Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness_ac" x="311" y="312" width="55"
                                  height="55" viewBox="0 0 24 24"
                                  opacity="${nonessential_icon === 'aircon' ? '1' : '0'}">
-                                <path display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 2 || noness_dual_load === 1 || noness_dual_load === 3 ? 'none' : ''}"
+                                <path display="${config.show_grid === false || grid_show_noness === false || [1, 2, 3].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
                                       d="M6.59.66c2.34-1.81 4.88.4 5.45 3.84c.43 0 .85.12 1.23.34c.52-.6.98-1.42.8-2.34c-.42-2.15 1.99-3.89 4.28-.92c1.81 2.34-.4 4.88-3.85 5.45c0 .43-.11.86-.34 1.24c.6.51 1.42.97 2.34.79c2.13-.42 3.88 1.98.91 4.28c-2.34 1.81-4.88-.4-5.45-3.84c-.43 0-.85-.13-1.22-.35c-.52.6-.99 1.43-.81 2.35c.42 2.14-1.99 3.89-4.28.92c-1.82-2.35.4-4.89 3.85-5.45c0-.43.13-.85.35-1.23c-.6-.51-1.42-.98-2.35-.8c-2.13.42-3.88-1.98-.91-4.28M5 16h2a2 2 0 0 1 2 2v6H7v-2H5v2H3v-6a2 2 0 0 1 2-2m0 2v2h2v-2H5m7.93-2H15l-2.93 8H10l2.93-8M18 16h3v2h-3v4h3v2h-3a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z"/>
                             </svg>
 
-                            <g display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 2 || noness_dual_load === 1 || noness_dual_load === 3 ? 'none' : ''}">
+                            <g display="${config.show_grid === false || grid_show_noness === false || [1, 2, 3].includes(noness_dual_load) ? 'none' : ''}">
                                 <foreignObject x="303.5" y="303.5" width="85" height="85" style="position: fixed; ">
                                     <body xmlns="http://www.w3.org/1999/xhtml">
                                     <div style="position: fixed; ">
@@ -1680,74 +1680,74 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness_default" x="320" y="339" width="38"
                                  height="38" viewBox="0 0 24 24"
                                  opacity="${load1_icon === 'default' && load2_icon === 'default' ? '1' : '0'}">
-                                <path display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}"
+                                <path display="${config.show_grid === false || grid_show_noness === false || [0, 1].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
                                       d="m15 13l-4 4v-3H2v-2h9V9l4 4M5 20v-4h2v2h10v-7.81l-5-4.5L7.21 10H4.22L12 3l10 9h-3v8H5Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness_default_left" x="306" y="341" width="32"
                                  height="32" viewBox="0 0 24 24"
                                  opacity="${load1_icon === 'default' && load2_icon != 'default' ? '1' : '0'}">
-                                <path display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}"
+                                <path display="${config.show_grid === false || grid_show_noness === false || [0, 1].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
                                       d="m15 13l-4 4v-3H2v-2h9V9l4 4M5 20v-4h2v2h10v-7.81l-5-4.5L7.21 10H4.22L12 3l10 9h-3v8H5Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness_default_right" x="343" y="341" width="32"
                                  height="32" viewBox="0 0 24 24"
                                  opacity="${load1_icon != 'default' && load2_icon === 'default' ? '1' : '0'}">
-                                <path display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}"
+                                <path display="${config.show_grid === false || grid_show_noness === false || [0, 1].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
                                       d="m15 13l-4 4v-3H2v-2h9V9l4 4M5 20v-4h2v2h10v-7.81l-5-4.5L7.21 10H4.22L12 3l10 9h-3v8H5Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness_boiler_left" x="306" y="341" width="32"
                                  height="32" viewBox="0 0 24 24" opacity="${load1_icon === 'boiler' ? '1' : '0'}">
-                                <path display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}"
+                                <path display="${config.show_grid === false || grid_show_noness === false || [0, 1].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
                                       d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness_boiler_right" x="343" y="341" width="32"
                                  height="32" viewBox="0 0 24 24" opacity="${load2_icon === 'boiler' ? '1' : '0'}">
-                                <path display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}"
+                                <path display="${config.show_grid === false || grid_show_noness === false || [0, 1].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
                                       d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness_pump_left" x="306" y="341" width="32"
                                  height="32" viewBox="0 0 24 24" opacity="${load1_icon === 'pump' ? '1' : '0'}">
-                                <path display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}"
+                                <path display="${config.show_grid === false || grid_show_noness === false || [0, 1].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
                                       d="M3 17h4.1q-.425-.425-.787-.925T5.675 15H3v2Zm9 0q2.075 0 3.538-1.463T17 12q0-2.075-1.463-3.538T12 7Q9.925 7 8.462 8.463T7 12q0 2.075 1.463 3.538T12 17Zm6.325-8H21V7h-4.1q.425.425.788.925T18.325 9ZM1 20v-8h2v1h2.075q-.05-.25-.063-.488T5 12q0-2.925 2.038-4.963T12 5h9V4h2v8h-2v-1h-2.075q.05.25.063.488T19 12q0 2.925-2.038 4.963T12 19H3v1H1Zm2-3v-2v2Zm18-8V7v2Zm-9 3Zm0 3q-.825 0-1.413-.588T10 13q0-.575.238-1.137t.912-1.613L12 9l.85 1.25q.675 1.05.913 1.613T14 13q0 .825-.588 1.413T12 15Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness_pump_right" x="343" y="341" width="32"
                                  height="32" viewBox="0 0 24 24" opacity="${load2_icon === 'pump' ? '1' : '0'}">
-                                <path display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}"
+                                <path display="${config.show_grid === false || grid_show_noness === false || [0, 1].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
                                       d="M3 17h4.1q-.425-.425-.787-.925T5.675 15H3v2Zm9 0q2.075 0 3.538-1.463T17 12q0-2.075-1.463-3.538T12 7Q9.925 7 8.462 8.463T7 12q0 2.075 1.463 3.538T12 17Zm6.325-8H21V7h-4.1q.425.425.788.925T18.325 9ZM1 20v-8h2v1h2.075q-.05-.25-.063-.488T5 12q0-2.925 2.038-4.963T12 5h9V4h2v8h-2v-1h-2.075q.05.25.063.488T19 12q0 2.925-2.038 4.963T12 19H3v1H1Zm2-3v-2v2Zm18-8V7v2Zm-9 3Zm0 3q-.825 0-1.413-.588T10 13q0-.575.238-1.137t.912-1.613L12 9l.85 1.25q.675 1.05.913 1.613T14 13q0 .825-.588 1.413T12 15Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness_oven_left" x="306" y="341" width="32"
                                  height="32" viewBox="0 0 32 32" opacity="${load1_icon === 'oven' ? '1' : '0'}">
-                                <path display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}"
+                                <path display="${config.show_grid === false || grid_show_noness === false || [0, 1].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
                                       d="M3 7.5A4.5 4.5 0 0 1 7.5 3h17A4.5 4.5 0 0 1 29 7.5v17a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17Zm24 0A2.5 2.5 0 0 0 24.5 5h-17A2.5 2.5 0 0 0 5 7.5V11h22V7.5Zm0 17V13H5v11.5A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5Zm-17-15a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Zm6 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3ZM23.5 8a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0ZM9 23v-6h14v6H9Zm-.5-8A1.5 1.5 0 0 0 7 16.5v7A1.5 1.5 0 0 0 8.5 25h15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5h-15Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness_oven_right" x="343" y="341" width="32"
                                  height="32" viewBox="0 0 32 32" opacity="${load2_icon === 'oven' ? '1' : '0'}">
-                                <path display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}"
+                                <path display="${config.show_grid === false || grid_show_noness === false || [0, 1].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
                                       d="M3 7.5A4.5 4.5 0 0 1 7.5 3h17A4.5 4.5 0 0 1 29 7.5v17a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17Zm24 0A2.5 2.5 0 0 0 24.5 5h-17A2.5 2.5 0 0 0 5 7.5V11h22V7.5Zm0 17V13H5v11.5A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5Zm-17-15a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Zm6 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3ZM23.5 8a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0ZM9 23v-6h14v6H9Zm-.5-8A1.5 1.5 0 0 0 7 16.5v7A1.5 1.5 0 0 0 8.5 25h15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5h-15Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness_ac_left" x="308" y="345" width="25"
                                  height="25" viewBox="0 0 24 24" opacity="${load1_icon === 'aircon' ? '1' : '0'}">
-                                <path display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}"
+                                <path display="${config.show_grid === false || grid_show_noness === false || [0, 1].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
                                       d="M6.59.66c2.34-1.81 4.88.4 5.45 3.84c.43 0 .85.12 1.23.34c.52-.6.98-1.42.8-2.34c-.42-2.15 1.99-3.89 4.28-.92c1.81 2.34-.4 4.88-3.85 5.45c0 .43-.11.86-.34 1.24c.6.51 1.42.97 2.34.79c2.13-.42 3.88 1.98.91 4.28c-2.34 1.81-4.88-.4-5.45-3.84c-.43 0-.85-.13-1.22-.35c-.52.6-.99 1.43-.81 2.35c.42 2.14-1.99 3.89-4.28.92c-1.82-2.35.4-4.89 3.85-5.45c0-.43.13-.85.35-1.23c-.6-.51-1.42-.98-2.35-.8c-2.13.42-3.88-1.98-.91-4.28M5 16h2a2 2 0 0 1 2 2v6H7v-2H5v2H3v-6a2 2 0 0 1 2-2m0 2v2h2v-2H5m7.93-2H15l-2.93 8H10l2.93-8M18 16h3v2h-3v4h3v2h-3a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness_ac_right" x="345" y="345" width="25"
                                  height="25" viewBox="0 0 24 24" opacity="${load2_icon === 'aircon' ? '1' : '0'}">
-                                <path display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}"
+                                <path display="${config.show_grid === false || grid_show_noness === false || [0, 1].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
                                       d="M6.59.66c2.34-1.81 4.88.4 5.45 3.84c.43 0 .85.12 1.23.34c.52-.6.98-1.42.8-2.34c-.42-2.15 1.99-3.89 4.28-.92c1.81 2.34-.4 4.88-3.85 5.45c0 .43-.11.86-.34 1.24c.6.51 1.42.97 2.34.79c2.13-.42 3.88 1.98.91 4.28c-2.34 1.81-4.88-.4-5.45-3.84c-.43 0-.85-.13-1.22-.35c-.52.6-.99 1.43-.81 2.35c.42 2.14-1.99 3.89-4.28.92c-1.82-2.35.4-4.89 3.85-5.45c0-.43.13-.85.35-1.23c-.6-.51-1.42-.98-2.35-.8c-2.13.42-3.88-1.98-.91-4.28M5 16h2a2 2 0 0 1 2 2v6H7v-2H5v2H3v-6a2 2 0 0 1 2-2m0 2v2h2v-2H5m7.93-2H15l-2.93 8H10l2.93-8M18 16h3v2h-3v4h3v2h-3a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z"/>
                             </svg>
 
-                            <g display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}">
+                            <g display="${config.show_grid === false || grid_show_noness === false || [0, 1].includes(noness_dual_load) ? 'none' : ''}">
                                 <foreignObject x="306" y="341" width="30" height="30" style="position: fixed; ">
                                     <body xmlns="http://www.w3.org/1999/xhtml">
                                     <div style="position: fixed; ">
@@ -1757,7 +1757,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </foreignObject>
                             </g>
 
-                            <g display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}">
+                            <g display="${config.show_grid === false || grid_show_noness === false || [0, 1].includes(noness_dual_load) ? 'none' : ''}">
                                 <foreignObject x="343" y="341" width="30" height="30" style="position: fixed; ">
                                     <body xmlns="http://www.w3.org/1999/xhtml">
                                     <div style="position: fixed; ">
@@ -1767,7 +1767,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </foreignObject>
                             </g>
 
-                            <g display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 || noness_dual_load === 2 || config.battery.hide_soc === false ? 'none' : ''}"
+                            <g display="${config.show_grid === false || grid_show_noness === false || [0, 1, 2].includes(noness_dual_load) || config.battery.hide_soc === false ? 'none' : ''}"
                                opacity="${config.battery.hide_soc === true ? 1 : 0}">
                                 <foreignObject x="269" y="341" width="30" height="30" style="position: fixed; ">
                                     <body xmlns="http://www.w3.org/1999/xhtml">
@@ -1780,36 +1780,36 @@ export class SunsynkPowerFlowCard extends LitElement {
 
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness1_default" x="324.5" y="341" width="32"
                                  height="32" viewBox="0 0 24 24" opacity="${load1_icon === 'default' ? '1' : '0'}">
-                                <path display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 || noness_dual_load === 3 ? 'none' : ''}"
+                                <path display="${config.show_grid === false || grid_show_noness === false || [0, 2, 3].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
                                       d="m15 13l-4 4v-3H2v-2h9V9l4 4M5 20v-4h2v2h10v-7.81l-5-4.5L7.21 10H4.22L12 3l10 9h-3v8H5Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness1_boiler" x="324.5" y="341" width="32"
                                  height="32" viewBox="0 0 24 24" opacity="${load1_icon === 'boiler' ? '1' : '0'}">
-                                <path display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 || noness_dual_load === 3 ? 'none' : ''}"
+                                <path display="${config.show_grid === false || grid_show_noness === false || [0, 2, 3].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
                                       d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness1_pump" x="324.5" y="341" width="32"
                                  height="32" viewBox="0 0 24 24" opacity="${load1_icon === 'pump' ? '1' : '0'}">
-                                <path display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 || noness_dual_load === 3 ? 'none' : ''}"
+                                <path display="${config.show_grid === false || grid_show_noness === false || [0, 2, 3].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
                                       d="M3 17h4.1q-.425-.425-.787-.925T5.675 15H3v2Zm9 0q2.075 0 3.538-1.463T17 12q0-2.075-1.463-3.538T12 7Q9.925 7 8.462 8.463T7 12q0 2.075 1.463 3.538T12 17Zm6.325-8H21V7h-4.1q.425.425.788.925T18.325 9ZM1 20v-8h2v1h2.075q-.05-.25-.063-.488T5 12q0-2.925 2.038-4.963T12 5h9V4h2v8h-2v-1h-2.075q.05.25.063.488T19 12q0 2.925-2.038 4.963T12 19H3v1H1Zm2-3v-2v2Zm18-8V7v2Zm-9 3Zm0 3q-.825 0-1.413-.588T10 13q0-.575.238-1.137t.912-1.613L12 9l.85 1.25q.675 1.05.913 1.613T14 13q0 .825-.588 1.413T12 15Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness1_oven" x="324.5" y="341" width="32"
                                  height="32" viewBox="0 0 32 32" opacity="${load1_icon === 'oven' ? '1' : '0'}">
-                                <path display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 || noness_dual_load === 3 ? 'none' : ''}"
+                                <path display="${config.show_grid === false || grid_show_noness === false || [0, 2, 3].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
                                       d="M3 7.5A4.5 4.5 0 0 1 7.5 3h17A4.5 4.5 0 0 1 29 7.5v17a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17Zm24 0A2.5 2.5 0 0 0 24.5 5h-17A2.5 2.5 0 0 0 5 7.5V11h22V7.5Zm0 17V13H5v11.5A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5Zm-17-15a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Zm6 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3ZM23.5 8a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0ZM9 23v-6h14v6H9Zm-.5-8A1.5 1.5 0 0 0 7 16.5v7A1.5 1.5 0 0 0 8.5 25h15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5h-15Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness1_ac" x="326.5" y="345" width="25"
                                  height="25" viewBox="0 0 24 24" opacity="${load1_icon === 'aircon' ? '1' : '0'}">
-                                <path display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 || noness_dual_load === 3 ? 'none' : ''}"
+                                <path display="${config.show_grid === false || grid_show_noness === false || [0, 2, 3].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
                                       d="M6.59.66c2.34-1.81 4.88.4 5.45 3.84c.43 0 .85.12 1.23.34c.52-.6.98-1.42.8-2.34c-.42-2.15 1.99-3.89 4.28-.92c1.81 2.34-.4 4.88-3.85 5.45c0 .43-.11.86-.34 1.24c.6.51 1.42.97 2.34.79c2.13-.42 3.88 1.98.91 4.28c-2.34 1.81-4.88-.4-5.45-3.84c-.43 0-.85-.13-1.22-.35c-.52.6-.99 1.43-.81 2.35c.42 2.14-1.99 3.89-4.28.92c-1.82-2.35.4-4.89 3.85-5.45c0-.43.13-.85.35-1.23c-.6-.51-1.42-.98-2.35-.8c-2.13.42-3.88-1.98-.91-4.28M5 16h2a2 2 0 0 1 2 2v6H7v-2H5v2H3v-6a2 2 0 0 1 2-2m0 2v2h2v-2H5m7.93-2H15l-2.93 8H10l2.93-8M18 16h3v2h-3v4h3v2h-3a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z"/>
                             </svg>
 
-                            <g display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 || noness_dual_load === 3 ? 'none' : ''}">
+                            <g display="${config.show_grid === false || grid_show_noness === false || [0, 2, 3].includes(noness_dual_load) ? 'none' : ''}">
                                 <foreignObject x="324.5" y="341" width="30" height="30" style="position: fixed; ">
                                     <body xmlns="http://www.w3.org/1999/xhtml">
                                     <div style="position: fixed; ">
@@ -1838,7 +1838,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                               stop-color="${Number(batteryPercentage) === 100 ? battery_colour : (Number(pvPercentage) === 100 ? solar_colour : grid_colour)}"/>
                                     </linearGradient>
                                 </defs>
-                                <path display="${(additional_load === 1 || additional_load === 2) && show_aux !== true ? '' : 'none'}"
+                                <path display="${[1, 2].includes(additional_load) && show_aux !== true ? '' : 'none'}"
                                       fill="${config.load.dynamic_colour ? 'url(#Lg)' : load_colour}"
                                       d="M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z"/>
                             </svg>
@@ -1860,7 +1860,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                               stop-color="${Number(batteryPercentage) === 100 ? battery_colour : (Number(pvPercentage) === 100 ? solar_colour : grid_colour)}"/>
                                     </linearGradient>
                                 </defs>
-                                <path display="${(additional_load === 1 || additional_load === 2) && show_aux === true ? '' : 'none'}"
+                                <path display="${[1, 2].includes(additional_load) && show_aux === true ? '' : 'none'}"
                                       fill="${config.load.dynamic_colour ? 'url(#Lg)' : load_colour}"
                                       d="M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z"/>
                             </svg>
@@ -1882,7 +1882,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                               stop-color="${Number(batteryPercentage) === 100 ? battery_colour : (Number(pvPercentage) === 100 ? solar_colour : grid_colour)}"/>
                                     </linearGradient>
                                 </defs>
-                                <path display="${additional_load === 1 || additional_load === 2 ? 'none' : ''}"
+                                <path display="${[1, 2].includes(additional_load) ? 'none' : ''}"
                                       fill="${config.load.dynamic_colour ? 'url(#Lg)' : load_colour}"
                                       d="M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z"/>
                             </svg>
@@ -1892,14 +1892,14 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 <svg xmlns="http://www.w3.org/2000/svg" id="aux_default" x="371" y="5" width="83"
                                      height="83" viewBox="0 0 24 24">
                                     <path class="${aux_type === 'default' ? '' : 'st12'}"
-                                          display="${show_aux !== true || additional_aux_load === 1 || additional_aux_load === 2 ? 'none' : ''}"
+                                          display="${show_aux !== true || [1, 2].includes(additional_aux_load) ? 'none' : ''}"
                                           fill="${aux_status === 'on' || aux_status === '1' ? `${aux_colour}` : `${aux_off_colour}`}"
                                           d="M5 20v-8H2l10-9l10 9h-3v8H5m7-14.31l-5 4.5V18h10v-7.81l-5-4.5M11.5 18v-4H9l3.5-7v4H15l-3.5 7Z"/>
                                 </svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" id="aux_generator" x="374" y="5" width="74"
                                      height="74" viewBox="0 0 24 24">
                                     <path class="${aux_type === 'gen' ? '' : 'st12'}"
-                                          display="${show_aux !== true || additional_aux_load === 1 || additional_aux_load === 2 ? 'none' : ''}"
+                                          display="${show_aux !== true || [1, 2].includes(additional_aux_load) ? 'none' : ''}"
                                           fill="${aux_status === 'on' || aux_status === '1' ? `${aux_colour}` : `${aux_off_colour}`}"
                                           d="M6 3a2 2 0 0 0-2 2v11h2v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h6v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h2V5a2 2 0 0 0-2-2H6m6 4V5h6v2h-6m0 2h6v2h-6V9M8 5v4h2l-3 6v-4H5l3-6m14 15v2H2v-2h20Z"/>
                                 </svg>
@@ -1907,7 +1907,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                      height="69" viewBox="0 0 74 91" preserveAspectRatio="xMidYMid meet">
                                     <g transform="translate(0.000000,91.000000) scale(0.100000,-0.100000)"
                                        class="${aux_type === 'inverter' ? '' : 'st12'}"
-                                       display="${show_aux !== true || additional_aux_load === 1 || additional_aux_load === 2 ? 'none' : ''}"
+                                       display="${show_aux !== true || [1, 2].includes(additional_aux_load) ? 'none' : ''}"
                                        fill="${aux_status === 'on' || aux_status === '1' ? `${aux_colour}` : `${aux_off_colour}`}"
                                        stroke="none">
                                         <path d="M35 887 l-27 -23 0 -404 0 -404 27 -23 c26 -23 28 -23 329 -23 284 0 305 1 327 19 l24 19 0 412 0 412 -24 19 c-22 18 -43 19 -327 19 -301 0 -303 0 -329 -23z m585 -157 l0 -80 -255 0 -255 0 0 80 0 80 255 0 255 0 0 -80z m-242 -229 c44 -34 40 -46 -14 -46 -60 0 -97 -38 -93 -94 5 -64 -23 -80 -35 -20 -9 44 24 113 63 134 35 18 34 15 21 50 -11 29 -14 30 58 -24z m110 -129 c4 -51 -19 -97 -59 -117 -27 -14 -30 -20 -23 -48 l6 -31 -51 43 c-29 24 -49 46 -46 49 3 4 23 5 44 3 58 -4 95 32 97 95 3 60 1 57 17 52 6 -3 13 -23 15 -46z"/>
@@ -1916,33 +1916,33 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 <svg xmlns="http://www.w3.org/2000/svg" id="aux_oven" x="375" y="5" width="70"
                                      height="70" viewBox="0 0 32 32">
                                     <path class="${aux_type === 'oven' ? '' : 'st12'}"
-                                          display="${show_aux !== true || additional_aux_load === 1 || additional_aux_load === 2 ? 'none' : ''}"
+                                          display="${show_aux !== true || [1, 2].includes(additional_aux_load) ? 'none' : ''}"
                                           fill="${aux_status === 'on' || aux_status === '1' ? `${aux_colour}` : `${aux_off_colour}`}"
                                           d="M3 7.5A4.5 4.5 0 0 1 7.5 3h17A4.5 4.5 0 0 1 29 7.5v17a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17Zm24 0A2.5 2.5 0 0 0 24.5 5h-17A2.5 2.5 0 0 0 5 7.5V11h22V7.5Zm0 17V13H5v11.5A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5Zm-17-15a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Zm6 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3ZM23.5 8a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0ZM9 23v-6h14v6H9Zm-.5-8A1.5 1.5 0 0 0 7 16.5v7A1.5 1.5 0 0 0 8.5 25h15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5h-15Z"/>
                                 </svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" id="aux_boiler" x="375" y="5" width="70"
                                      height="70" viewBox="0 0 24 24">
                                     <path class="${aux_type === 'boiler' ? '' : 'st12'}"
-                                          display="${show_aux !== true || additional_aux_load === 1 || additional_aux_load === 2 ? 'none' : ''}"
+                                          display="${show_aux !== true || [1, 2].includes(additional_aux_load) ? 'none' : ''}"
                                           fill="${aux_status === 'on' || aux_status === '1' ? `${aux_colour}` : `${aux_off_colour}`}"
                                           d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/>
                                 </svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" id="aux_ac" x="380" y="10" width="60"
                                      height="60" viewBox="0 0 24 24">
                                     <path class="${aux_type === 'aircon' ? '' : 'st12'}"
-                                          display="${show_aux !== true || additional_aux_load === 1 || additional_aux_load === 2 ? 'none' : ''}"
+                                          display="${show_aux !== true || [1, 2].includes(additional_aux_load) ? 'none' : ''}"
                                           fill="${aux_status === 'on' || aux_status === '1' ? `${aux_colour}` : `${aux_off_colour}`}"
                                           d="M6.59.66c2.34-1.81 4.88.4 5.45 3.84c.43 0 .85.12 1.23.34c.52-.6.98-1.42.8-2.34c-.42-2.15 1.99-3.89 4.28-.92c1.81 2.34-.4 4.88-3.85 5.45c0 .43-.11.86-.34 1.24c.6.51 1.42.97 2.34.79c2.13-.42 3.88 1.98.91 4.28c-2.34 1.81-4.88-.4-5.45-3.84c-.43 0-.85-.13-1.22-.35c-.52.6-.99 1.43-.81 2.35c.42 2.14-1.99 3.89-4.28.92c-1.82-2.35.4-4.89 3.85-5.45c0-.43.13-.85.35-1.23c-.6-.51-1.42-.98-2.35-.8c-2.13.42-3.88-1.98-.91-4.28M5 16h2a2 2 0 0 1 2 2v6H7v-2H5v2H3v-6a2 2 0 0 1 2-2m0 2v2h2v-2H5m7.93-2H15l-2.93 8H10l2.93-8M18 16h3v2h-3v4h3v2h-3a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z"/>
                                 </svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" id="aux_pump" x="380" y="15" width="60"
                                      height="70" viewBox="0 0 24 24">
                                     <path class="${aux_type === 'pump' ? '' : 'st12'}"
-                                          display="${show_aux !== true || additional_aux_load === 1 || additional_aux_load === 2 ? 'none' : ''}"
+                                          display="${show_aux !== true || [1, 2].includes(additional_aux_load) ? 'none' : ''}"
                                           fill="${aux_status === 'on' || aux_status === '1' ? `${aux_colour}` : `${aux_off_colour}`}"
                                           d="M3 17h4.1q-.425-.425-.787-.925T5.675 15H3v2Zm9 0q2.075 0 3.538-1.463T17 12q0-2.075-1.463-3.538T12 7Q9.925 7 8.462 8.463T7 12q0 2.075 1.463 3.538T12 17Zm6.325-8H21V7h-4.1q.425.425.788.925T18.325 9ZM1 20v-8h2v1h2.075q-.05-.25-.063-.488T5 12q0-2.925 2.038-4.963T12 5h9V4h2v8h-2v-1h-2.075q.05.25.063.488T19 12q0 2.925-2.038 4.963T12 19H3v1H1Zm2-3v-2v2Zm18-8V7v2Zm-9 3Zm0 3q-.825 0-1.413-.588T10 13q0-.575.238-1.137t.912-1.613L12 9l.85 1.25q.675 1.05.913 1.613T14 13q0 .825-.588 1.413T12 15Z"/>
                                 </svg>
 
-                                <g display="${show_aux !== true || additional_aux_load === 1 || additional_aux_load === 2 ? 'none' : ''}">
+                                <g display="${show_aux !== true || [1, 2].includes(additional_aux_load) ? 'none' : ''}">
                                     <foreignObject x="375" y="5" width="85" height="85" style="position: fixed; ">
                                         <body xmlns="http://www.w3.org/1999/xhtml">
                                         <div style="position: fixed; ">
@@ -1964,7 +1964,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </foreignObject>
                             </g>
 
-                            <g display="${show_aux !== true || additional_aux_load === 1 || additional_aux_load === 0 ? 'none' : ''}">
+                            <g display="${show_aux !== true || [0, 1].includes(additional_aux_load) ? 'none' : ''}">
                                 <foreignObject x="345" y="52" width="40" height="40" style="position: fixed; ">
                                     <body xmlns="http://www.w3.org/1999/xhtml">
                                     <div style="position: fixed; ">
@@ -1978,42 +1978,42 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_boiler_left_bottom" x="369" y="123"
                                  width="24" height="24" viewBox="0 0 24 24"
                                  opacity="${load1e_icon === 'boiler' && additional_load === 2 ? '1' : '0'}">
-                                <path display="${show_aux !== true || additional_load === 0 || additional_load === 1 ? 'none' : ''}"
+                                <path display="${show_aux !== true || [0, 1].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_boiler_right_bottom" x="427" y="123"
                                  width="24" height="24" viewBox="0 0 24 24"
                                  opacity="${load2e_icon === 'boiler' && additional_load === 2 ? '1' : '0'}">
-                                <path display="${show_aux !== true || additional_load === 0 || additional_load === 1 ? 'none' : ''}"
+                                <path display="${show_aux !== true || [0, 1].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_boiler_left_top" x="382" y="5" width="24"
                                  height="24" viewBox="0 0 24 24"
                                  opacity="${load1e_icon === 'boiler' && additional_load === 2 && show_aux !== true ? '1' : '0'}">
-                                <path display="${additional_load === 0 || additional_load === 1 ? 'none' : ''}"
+                                <path display="${[0, 1].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_boiler_right_top" x="419" y="5" width="24"
                                  height="24" viewBox="0 0 24 24"
                                  opacity="${load2e_icon === 'boiler' && additional_load === 2 && show_aux !== true ? '1' : '0'}">
-                                <path display="${additional_load === 0 || additional_load === 1 ? 'none' : ''}"
+                                <path display="${[0, 1].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_boiler_aux" x="340" y="140" width="36"
                                  height="36" viewBox="0 0 24 24"
                                  opacity="${load1e_icon === 'boiler' && additional_load === 1 ? '1' : '0'}">
-                                <path display="${show_aux !== true || additional_load === 0 || additional_load === 2 ? 'none' : ''}"
+                                <path display="${show_aux !== true || [0, 2].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_boiler_noaux" x="340" y="27" width="36"
                                  height="36" viewBox="0 0 24 24"
                                  opacity="${load1e_icon === 'boiler' && additional_load === 1 && show_aux !== true ? '1' : '0'}">
-                                <path display="${additional_load === 0 || additional_load === 2 ? 'none' : ''}"
+                                <path display="${[0, 2].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/>
                             </svg>
@@ -2022,42 +2022,42 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_ac_left_bottom" x="371" y="124" width="20"
                                  height="20" viewBox="0 0 24 24"
                                  opacity="${load1e_icon === 'aircon' && additional_load === 2 ? '1' : '0'}">
-                                <path display="${show_aux !== true || additional_load === 0 || additional_load === 1 ? 'none' : ''}"
+                                <path display="${show_aux !== true || [0, 1].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M6.59.66c2.34-1.81 4.88.4 5.45 3.84c.43 0 .85.12 1.23.34c.52-.6.98-1.42.8-2.34c-.42-2.15 1.99-3.89 4.28-.92c1.81 2.34-.4 4.88-3.85 5.45c0 .43-.11.86-.34 1.24c.6.51 1.42.97 2.34.79c2.13-.42 3.88 1.98.91 4.28c-2.34 1.81-4.88-.4-5.45-3.84c-.43 0-.85-.13-1.22-.35c-.52.6-.99 1.43-.81 2.35c.42 2.14-1.99 3.89-4.28.92c-1.82-2.35.4-4.89 3.85-5.45c0-.43.13-.85.35-1.23c-.6-.51-1.42-.98-2.35-.8c-2.13.42-3.88-1.98-.91-4.28M5 16h2a2 2 0 0 1 2 2v6H7v-2H5v2H3v-6a2 2 0 0 1 2-2m0 2v2h2v-2H5m7.93-2H15l-2.93 8H10l2.93-8M18 16h3v2h-3v4h3v2h-3a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_ac_right_bottom" x="429" y="124" width="20"
                                  height="20" viewBox="0 0 24 24"
                                  opacity="${load2e_icon === 'aircon' && additional_load === 2 ? '1' : '0'}">
-                                <path display="${show_aux !== true || additional_load === 0 || additional_load === 1 ? 'none' : ''}"
+                                <path display="${show_aux !== true || [0, 1].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M6.59.66c2.34-1.81 4.88.4 5.45 3.84c.43 0 .85.12 1.23.34c.52-.6.98-1.42.8-2.34c-.42-2.15 1.99-3.89 4.28-.92c1.81 2.34-.4 4.88-3.85 5.45c0 .43-.11.86-.34 1.24c.6.51 1.42.97 2.34.79c2.13-.42 3.88 1.98.91 4.28c-2.34 1.81-4.88-.4-5.45-3.84c-.43 0-.85-.13-1.22-.35c-.52.6-.99 1.43-.81 2.35c.42 2.14-1.99 3.89-4.28.92c-1.82-2.35.4-4.89 3.85-5.45c0-.43.13-.85.35-1.23c-.6-.51-1.42-.98-2.35-.8c-2.13.42-3.88-1.98-.91-4.28M5 16h2a2 2 0 0 1 2 2v6H7v-2H5v2H3v-6a2 2 0 0 1 2-2m0 2v2h2v-2H5m7.93-2H15l-2.93 8H10l2.93-8M18 16h3v2h-3v4h3v2h-3a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_ac_left_top" x="382" y="6" width="20"
                                  height="20" viewBox="0 0 24 24"
                                  opacity="${load1e_icon === 'aircon' && additional_load === 2 && show_aux !== true ? '1' : '0'}">
-                                <path display="${additional_load === 0 || additional_load === 1 ? 'none' : ''}"
+                                <path display="${[0, 1].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M6.59.66c2.34-1.81 4.88.4 5.45 3.84c.43 0 .85.12 1.23.34c.52-.6.98-1.42.8-2.34c-.42-2.15 1.99-3.89 4.28-.92c1.81 2.34-.4 4.88-3.85 5.45c0 .43-.11.86-.34 1.24c.6.51 1.42.97 2.34.79c2.13-.42 3.88 1.98.91 4.28c-2.34 1.81-4.88-.4-5.45-3.84c-.43 0-.85-.13-1.22-.35c-.52.6-.99 1.43-.81 2.35c.42 2.14-1.99 3.89-4.28.92c-1.82-2.35.4-4.89 3.85-5.45c0-.43.13-.85.35-1.23c-.6-.51-1.42-.98-2.35-.8c-2.13.42-3.88-1.98-.91-4.28M5 16h2a2 2 0 0 1 2 2v6H7v-2H5v2H3v-6a2 2 0 0 1 2-2m0 2v2h2v-2H5m7.93-2H15l-2.93 8H10l2.93-8M18 16h3v2h-3v4h3v2h-3a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_ac_right_top" x="419" y="6" width="20"
                                  height="20" viewBox="0 0 24 24"
                                  opacity="${load2e_icon === 'aircon' && additional_load === 2 && show_aux !== true ? '1' : '0'}">
-                                <path display="${additional_load === 0 || additional_load === 1 ? 'none' : ''}"
+                                <path display="${[0, 1].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M6.59.66c2.34-1.81 4.88.4 5.45 3.84c.43 0 .85.12 1.23.34c.52-.6.98-1.42.8-2.34c-.42-2.15 1.99-3.89 4.28-.92c1.81 2.34-.4 4.88-3.85 5.45c0 .43-.11.86-.34 1.24c.6.51 1.42.97 2.34.79c2.13-.42 3.88 1.98.91 4.28c-2.34 1.81-4.88-.4-5.45-3.84c-.43 0-.85-.13-1.22-.35c-.52.6-.99 1.43-.81 2.35c.42 2.14-1.99 3.89-4.28.92c-1.82-2.35.4-4.89 3.85-5.45c0-.43.13-.85.35-1.23c-.6-.51-1.42-.98-2.35-.8c-2.13.42-3.88-1.98-.91-4.28M5 16h2a2 2 0 0 1 2 2v6H7v-2H5v2H3v-6a2 2 0 0 1 2-2m0 2v2h2v-2H5m7.93-2H15l-2.93 8H10l2.93-8M18 16h3v2h-3v4h3v2h-3a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_ac_aux" x="342" y="143" width="30"
                                  height="30" viewBox="0 0 24 24"
                                  opacity="${load1e_icon === 'aircon' && additional_load === 1 ? '1' : '0'}">
-                                <path display="${show_aux !== true || additional_load === 0 || additional_load === 2 ? 'none' : ''}"
+                                <path display="${show_aux !== true || [0, 2].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M6.59.66c2.34-1.81 4.88.4 5.45 3.84c.43 0 .85.12 1.23.34c.52-.6.98-1.42.8-2.34c-.42-2.15 1.99-3.89 4.28-.92c1.81 2.34-.4 4.88-3.85 5.45c0 .43-.11.86-.34 1.24c.6.51 1.42.97 2.34.79c2.13-.42 3.88 1.98.91 4.28c-2.34 1.81-4.88-.4-5.45-3.84c-.43 0-.85-.13-1.22-.35c-.52.6-.99 1.43-.81 2.35c.42 2.14-1.99 3.89-4.28.92c-1.82-2.35.4-4.89 3.85-5.45c0-.43.13-.85.35-1.23c-.6-.51-1.42-.98-2.35-.8c-2.13.42-3.88-1.98-.91-4.28M5 16h2a2 2 0 0 1 2 2v6H7v-2H5v2H3v-6a2 2 0 0 1 2-2m0 2v2h2v-2H5m7.93-2H15l-2.93 8H10l2.93-8M18 16h3v2h-3v4h3v2h-3a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_ac_noaux" x="342" y="30" width="30"
                                  height="30" viewBox="0 0 24 24"
                                  opacity="${load1e_icon === 'aircon' && additional_load === 1 && show_aux !== true ? '1' : '0'}">
-                                <path display="${additional_load === 0 || additional_load === 2 ? 'none' : ''}"
+                                <path display="${[0, 2].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M6.59.66c2.34-1.81 4.88.4 5.45 3.84c.43 0 .85.12 1.23.34c.52-.6.98-1.42.8-2.34c-.42-2.15 1.99-3.89 4.28-.92c1.81 2.34-.4 4.88-3.85 5.45c0 .43-.11.86-.34 1.24c.6.51 1.42.97 2.34.79c2.13-.42 3.88 1.98.91 4.28c-2.34 1.81-4.88-.4-5.45-3.84c-.43 0-.85-.13-1.22-.35c-.52.6-.99 1.43-.81 2.35c.42 2.14-1.99 3.89-4.28.92c-1.82-2.35.4-4.89 3.85-5.45c0-.43.13-.85.35-1.23c-.6-.51-1.42-.98-2.35-.8c-2.13.42-3.88-1.98-.91-4.28M5 16h2a2 2 0 0 1 2 2v6H7v-2H5v2H3v-6a2 2 0 0 1 2-2m0 2v2h2v-2H5m7.93-2H15l-2.93 8H10l2.93-8M18 16h3v2h-3v4h3v2h-3a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z"/>
                             </svg>
@@ -2066,42 +2066,42 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_pump_left_bottom" x="371" y="125" width="20"
                                  height="25" viewBox="0 0 24 24"
                                  opacity="${load1e_icon === 'pump' && additional_load === 2 ? '1' : '0'}">
-                                <path display="${show_aux !== true || additional_load === 0 || additional_load === 1 ? 'none' : ''}"
+                                <path display="${show_aux !== true || [0, 1].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M3 17h4.1q-.425-.425-.787-.925T5.675 15H3v2Zm9 0q2.075 0 3.538-1.463T17 12q0-2.075-1.463-3.538T12 7Q9.925 7 8.462 8.463T7 12q0 2.075 1.463 3.538T12 17Zm6.325-8H21V7h-4.1q.425.425.788.925T18.325 9ZM1 20v-8h2v1h2.075q-.05-.25-.063-.488T5 12q0-2.925 2.038-4.963T12 5h9V4h2v8h-2v-1h-2.075q.05.25.063.488T19 12q0 2.925-2.038 4.963T12 19H3v1H1Zm2-3v-2v2Zm18-8V7v2Zm-9 3Zm0 3q-.825 0-1.413-.588T10 13q0-.575.238-1.137t.912-1.613L12 9l.85 1.25q.675 1.05.913 1.613T14 13q0 .825-.588 1.413T12 15Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_pump_right_bottom" x="429" y="125"
                                  width="20" height="25" viewBox="0 0 24 24"
                                  opacity="${load2e_icon === 'pump' && additional_load === 2 ? '1' : '0'}">
-                                <path display="${show_aux !== true || additional_load === 0 || additional_load === 1 ? 'none' : ''}"
+                                <path display="${show_aux !== true || [0, 1].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M3 17h4.1q-.425-.425-.787-.925T5.675 15H3v2Zm9 0q2.075 0 3.538-1.463T17 12q0-2.075-1.463-3.538T12 7Q9.925 7 8.462 8.463T7 12q0 2.075 1.463 3.538T12 17Zm6.325-8H21V7h-4.1q.425.425.788.925T18.325 9ZM1 20v-8h2v1h2.075q-.05-.25-.063-.488T5 12q0-2.925 2.038-4.963T12 5h9V4h2v8h-2v-1h-2.075q.05.25.063.488T19 12q0 2.925-2.038 4.963T12 19H3v1H1Zm2-3v-2v2Zm18-8V7v2Zm-9 3Zm0 3q-.825 0-1.413-.588T10 13q0-.575.238-1.137t.912-1.613L12 9l.85 1.25q.675 1.05.913 1.613T14 13q0 .825-.588 1.413T12 15Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_pump_left_top" x="383" y="7" width="20"
                                  height="25" viewBox="0 0 24 24"
                                  opacity="${load1e_icon === 'pump' && additional_load === 2 && show_aux !== true ? '1' : '0'}">
-                                <path display="${additional_load === 0 || additional_load === 1 ? 'none' : ''}"
+                                <path display="${[0, 1].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M3 17h4.1q-.425-.425-.787-.925T5.675 15H3v2Zm9 0q2.075 0 3.538-1.463T17 12q0-2.075-1.463-3.538T12 7Q9.925 7 8.462 8.463T7 12q0 2.075 1.463 3.538T12 17Zm6.325-8H21V7h-4.1q.425.425.788.925T18.325 9ZM1 20v-8h2v1h2.075q-.05-.25-.063-.488T5 12q0-2.925 2.038-4.963T12 5h9V4h2v8h-2v-1h-2.075q.05.25.063.488T19 12q0 2.925-2.038 4.963T12 19H3v1H1Zm2-3v-2v2Zm18-8V7v2Zm-9 3Zm0 3q-.825 0-1.413-.588T10 13q0-.575.238-1.137t.912-1.613L12 9l.85 1.25q.675 1.05.913 1.613T14 13q0 .825-.588 1.413T12 15Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_pump_right_top" x="421" y="7" width="20"
                                  height="25" viewBox="0 0 24 24"
                                  opacity="${load2e_icon === 'pump' && additional_load === 2 && show_aux !== true ? '1' : '0'}">
-                                <path display="${additional_load === 0 || additional_load === 1 ? 'none' : ''}"
+                                <path display="${[0, 1].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M3 17h4.1q-.425-.425-.787-.925T5.675 15H3v2Zm9 0q2.075 0 3.538-1.463T17 12q0-2.075-1.463-3.538T12 7Q9.925 7 8.462 8.463T7 12q0 2.075 1.463 3.538T12 17Zm6.325-8H21V7h-4.1q.425.425.788.925T18.325 9ZM1 20v-8h2v1h2.075q-.05-.25-.063-.488T5 12q0-2.925 2.038-4.963T12 5h9V4h2v8h-2v-1h-2.075q.05.25.063.488T19 12q0 2.925-2.038 4.963T12 19H3v1H1Zm2-3v-2v2Zm18-8V7v2Zm-9 3Zm0 3q-.825 0-1.413-.588T10 13q0-.575.238-1.137t.912-1.613L12 9l.85 1.25q.675 1.05.913 1.613T14 13q0 .825-.588 1.413T12 15Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_pump_aux" x="336" y="140" width="36"
                                  height="36" viewBox="0 0 24 24"
                                  opacity="${load1e_icon === 'pump' && additional_load === 1 ? '1' : '0'}">
-                                <path display="${show_aux !== true || additional_load === 0 || additional_load === 2 ? 'none' : ''}"
+                                <path display="${show_aux !== true || [0, 2].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M3 17h4.1q-.425-.425-.787-.925T5.675 15H3v2Zm9 0q2.075 0 3.538-1.463T17 12q0-2.075-1.463-3.538T12 7Q9.925 7 8.462 8.463T7 12q0 2.075 1.463 3.538T12 17Zm6.325-8H21V7h-4.1q.425.425.788.925T18.325 9ZM1 20v-8h2v1h2.075q-.05-.25-.063-.488T5 12q0-2.925 2.038-4.963T12 5h9V4h2v8h-2v-1h-2.075q.05.25.063.488T19 12q0 2.925-2.038 4.963T12 19H3v1H1Zm2-3v-2v2Zm18-8V7v2Zm-9 3Zm0 3q-.825 0-1.413-.588T10 13q0-.575.238-1.137t.912-1.613L12 9l.85 1.25q.675 1.05.913 1.613T14 13q0 .825-.588 1.413T12 15Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_pump_noaux" x="336" y="27" width="36"
                                  height="36" viewBox="0 0 24 24"
                                  opacity="${load1e_icon === 'pump' && additional_load === 1 && show_aux !== true ? '1' : '0'}">
-                                <path display="${additional_load === 0 || additional_load === 2 ? 'none' : ''}"
+                                <path display="${[0, 2].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M3 17h4.1q-.425-.425-.787-.925T5.675 15H3v2Zm9 0q2.075 0 3.538-1.463T17 12q0-2.075-1.463-3.538T12 7Q9.925 7 8.462 8.463T7 12q0 2.075 1.463 3.538T12 17Zm6.325-8H21V7h-4.1q.425.425.788.925T18.325 9ZM1 20v-8h2v1h2.075q-.05-.25-.063-.488T5 12q0-2.925 2.038-4.963T12 5h9V4h2v8h-2v-1h-2.075q.05.25.063.488T19 12q0 2.925-2.038 4.963T12 19H3v1H1Zm2-3v-2v2Zm18-8V7v2Zm-9 3Zm0 3q-.825 0-1.413-.588T10 13q0-.575.238-1.137t.912-1.613L12 9l.85 1.25q.675 1.05.913 1.613T14 13q0 .825-.588 1.413T12 15Z"/>
                             </svg>
@@ -2110,47 +2110,47 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_oven_left_bottom" x="371" y="126" width="20"
                                  height="20" viewBox="0 0 32 32"
                                  opacity="${load1e_icon === 'oven' && additional_load === 2 ? '1' : '0'}">
-                                <path display="${show_aux !== true || additional_load === 0 || additional_load === 1 ? 'none' : ''}"
+                                <path display="${show_aux !== true || [0, 1].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M3 7.5A4.5 4.5 0 0 1 7.5 3h17A4.5 4.5 0 0 1 29 7.5v17a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17Zm24 0A2.5 2.5 0 0 0 24.5 5h-17A2.5 2.5 0 0 0 5 7.5V11h22V7.5Zm0 17V13H5v11.5A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5Zm-17-15a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Zm6 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3ZM23.5 8a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0ZM9 23v-6h14v6H9Zm-.5-8A1.5 1.5 0 0 0 7 16.5v7A1.5 1.5 0 0 0 8.5 25h15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5h-15Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_oven_right_bottom" x="429" y="126"
                                  width="20" height="20" viewBox="0 0 32 32"
                                  opacity="${load2e_icon === 'oven' && additional_load === 2 ? '1' : '0'}">
-                                <path display="${show_aux !== true || additional_load === 0 || additional_load === 1 ? 'none' : ''}"
+                                <path display="${show_aux !== true || [0, 1].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M3 7.5A4.5 4.5 0 0 1 7.5 3h17A4.5 4.5 0 0 1 29 7.5v17a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17Zm24 0A2.5 2.5 0 0 0 24.5 5h-17A2.5 2.5 0 0 0 5 7.5V11h22V7.5Zm0 17V13H5v11.5A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5Zm-17-15a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Zm6 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3ZM23.5 8a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0ZM9 23v-6h14v6H9Zm-.5-8A1.5 1.5 0 0 0 7 16.5v7A1.5 1.5 0 0 0 8.5 25h15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5h-15Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_oven_left_top" x="382" y="5" width="24"
                                  height="24" viewBox="0 0 32 32"
                                  opacity="${load1e_icon === 'oven' && additional_load === 2 && show_aux !== true ? '1' : '0'}">
-                                <path display="${additional_load === 0 || additional_load === 1 ? 'none' : ''}"
+                                <path display="${[0, 1].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M3 7.5A4.5 4.5 0 0 1 7.5 3h17A4.5 4.5 0 0 1 29 7.5v17a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17Zm24 0A2.5 2.5 0 0 0 24.5 5h-17A2.5 2.5 0 0 0 5 7.5V11h22V7.5Zm0 17V13H5v11.5A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5Zm-17-15a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Zm6 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3ZM23.5 8a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0ZM9 23v-6h14v6H9Zm-.5-8A1.5 1.5 0 0 0 7 16.5v7A1.5 1.5 0 0 0 8.5 25h15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5h-15Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_oven_right_top" x="419" y="5" width="24"
                                  height="24" viewBox="0 0 32 32"
                                  opacity="${load2e_icon === 'oven' && additional_load === 2 && show_aux !== true ? '1' : '0'}">
-                                <path display="${additional_load === 0 || additional_load === 1 ? 'none' : ''}"
+                                <path display="${[0, 1].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M3 7.5A4.5 4.5 0 0 1 7.5 3h17A4.5 4.5 0 0 1 29 7.5v17a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17Zm24 0A2.5 2.5 0 0 0 24.5 5h-17A2.5 2.5 0 0 0 5 7.5V11h22V7.5Zm0 17V13H5v11.5A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5Zm-17-15a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Zm6 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3ZM23.5 8a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0ZM9 23v-6h14v6H9Zm-.5-8A1.5 1.5 0 0 0 7 16.5v7A1.5 1.5 0 0 0 8.5 25h15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5h-15Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_oven_noaux" x="336" y="27" width="36"
                                  height="36" viewBox="0 0 32 32"
                                  opacity="${load1e_icon === 'oven' && additional_load === 1 && show_aux !== true ? '1' : '0'}">
-                                <path display="${additional_load === 0 || additional_load === 2 ? 'none' : ''}"
+                                <path display="${[0, 2].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M3 7.5A4.5 4.5 0 0 1 7.5 3h17A4.5 4.5 0 0 1 29 7.5v17a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17Zm24 0A2.5 2.5 0 0 0 24.5 5h-17A2.5 2.5 0 0 0 5 7.5V11h22V7.5Zm0 17V13H5v11.5A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5Zm-17-15a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Zm6 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3ZM23.5 8a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0ZM9 23v-6h14v6H9Zm-.5-8A1.5 1.5 0 0 0 7 16.5v7A1.5 1.5 0 0 0 8.5 25h15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5h-15Z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_oven_aux" x="336" y="140" width="36"
                                  height="36" viewBox="0 0 32 32"
                                  opacity="${load1e_icon === 'oven' && additional_load === 1 ? '1' : '0'}">
-                                <path display="${show_aux !== true || additional_load === 0 || additional_load === 2 ? 'none' : ''}"
+                                <path display="${show_aux !== true || [0, 2].includes(additional_load) ? 'none' : ''}"
                                       fill="${load_colour}"
                                       d="M3 7.5A4.5 4.5 0 0 1 7.5 3h17A4.5 4.5 0 0 1 29 7.5v17a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17Zm24 0A2.5 2.5 0 0 0 24.5 5h-17A2.5 2.5 0 0 0 5 7.5V11h22V7.5Zm0 17V13H5v11.5A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5Zm-17-15a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Zm6 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3ZM23.5 8a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0ZM9 23v-6h14v6H9Zm-.5-8A1.5 1.5 0 0 0 7 16.5v7A1.5 1.5 0 0 0 8.5 25h15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5h-15Z"/>
                             </svg>
 
-                            <g display="${additional_load === 0 || additional_load === 1 ? 'none' : ''}">
+                            <g display="${[0, 1].includes(additional_load) ? 'none' : ''}">
                                 <foreignObject x="${show_aux === true ? '371' : '384'}"
                                                y="${show_aux === true ? '123' : '5'}" width="30" height="30"
                                                style="position: fixed; ">
@@ -2162,9 +2162,9 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </foreignObject>
                             </g>
 
-                            <g display="${additional_load === 0 || additional_load === 1 ? 'none' : ''}">
+                            <g display="${[0, 1].includes(additional_load) ? 'none' : ''}">
                                 <foreignObject x="${show_aux === true ? '429' : '421'}"
-                                               y="${show_aux === true ? '123' : '5'}" width="30" height="30"
+                                               y="${show_aux === true  ? '123' : '5'}" width="30" height="30"
                                                style="position: fixed;">
                                     <body xmlns="http://www.w3.org/1999/xhtml">
                                     <div style="position: fixed;">
@@ -2174,7 +2174,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </foreignObject>
                             </g>
 
-                            <g display="${additional_load === 0 || additional_load === 2 ? 'none' : ''}">
+                            <g display="${[0, 2].includes(additional_load) ? 'none' : ''}">
                                 <foreignObject x="${show_aux === true ? '336' : '336'}"
                                                y="${show_aux === true ? '140' : '27'}" width="40" height="40"
                                                style="position: fixed; ">
@@ -2371,7 +2371,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_aux_energy)}>
                                 <text id="aux_daily_value"
-                                      x="${(additional_aux_load === 1 || additional_aux_load === 2) ? '238' : '306'}"
+                                      x="${[1, 2].includes(additional_aux_load) ? '238' : '306'}"
                                       y="12" class="st10 left-align"
                                       display="${show_aux !== true || show_dailyaux !== true ? 'none' : ''}"
                                       fill="${aux_colour}">
@@ -2562,7 +2562,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_power_188)}>
                                         <text id="pv3_power_188" x="36.5" y="117" class="${font !== true ? 'st14' : 'st4'} st8" 
-                                              display="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" 
+                                              display="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'none' : ''}" 
                                               fill="${solar_colour}">
                                             ${config.solar.auto_scale 
                                                 ? this.convertValueNew(state_pv3_power.state, state_pv3_power.attributes.unit_of_measurement, round)
@@ -2572,7 +2572,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     </a>`
                                     : svg`
                                     <text id="pv3_power_188" x="36.5" y="117" class="${font !== true ? 'st14' : 'st4'} st8" 
-                                          display="${!config.show_solar || config.entities.pv3_power_188 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" 
+                                          display="${!config.show_solar || config.entities.pv3_power_188 === 'none' || [1, 2].includes(config.solar.mppts) ? 'none' : ''}" 
                                           fill="${solar_colour}">
                                         ${config.solar.auto_scale 
                                             ? this.convertValueNew(state_pv3_power.state, state_pv3_power.attributes.unit_of_measurement, round) 
@@ -2583,7 +2583,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_power_189)}>
                                         <text id="pv4_power_189" x="137" y="117" class="${font !== true ? 'st14' : 'st4'} st8" 
-                                              display="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" 
+                                              display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}" 
                                               fill="${solar_colour}">
                                             ${config.solar.auto_scale 
                                                 ? this.convertValueNew(state_pv4_power.state, state_pv4_power.attributes.unit_of_measurement, round) 
@@ -2593,7 +2593,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     </a>`
                                     : svg`
                                     <text id="pv4_power_189" x="137" y="117" class="${font !== true ? 'st14' : 'st4'} st8" 
-                                          display="${!config.show_solar || config.entities.pv4_power_189 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" 
+                                          display="${!config.show_solar || config.entities.pv4_power_189 === 'none' || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}" 
                                           fill="${solar_colour}">
                                         ${config.solar.auto_scale 
                                             ? this.convertValueNew(state_pv4_power.state, state_pv4_power.attributes.unit_of_measurement, round)
@@ -2627,7 +2627,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.aux_load2)}>
                                         <text id="aux_load2_value" x="411" y="64" class="${font !== true ? 'st14' : 'st4'} st8" 
-                                              display="${show_aux !== true || additional_aux_load === 0 || additional_aux_load === 1 ? 'none' : ''}" 
+                                              display="${show_aux !== true || [0, 1].includes(additional_aux_load) ? 'none' : ''}" 
                                               fill="${aux_colour}">
                                             ${config.load.auto_scale 
                                                 ? this.convertValueNew(state_aux_load2.state, state_aux_load2.attributes.unit_of_measurement, round) 
@@ -2637,7 +2637,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     </a>`
                                     : svg`
                                     <text id="aux_load2_value" x="411" y="64" class="${font !== true ? 'st14' : 'st4'} st8" 
-                                          display="${show_aux !== true || additional_aux_load === 0 || additional_aux_load === 1 ? 'none' : ''}" 
+                                          display="${show_aux !== true || [0, 1].includes(additional_aux_load) ? 'none' : ''}" 
                                           fill="${aux_colour}">
                                         ${config.load.auto_scale 
                                             ? this.convertValueNew(state_aux_load2.state, state_aux_load2.attributes.unit_of_measurement, round) 
@@ -2649,7 +2649,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.non_essential_load1)}>
                                         <text id="noness1_value" x="340" y="321" class="st3" 
-                                              display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 || noness_dual_load === 3 ? 'none' : ''}" 
+                                              display="${config.show_grid === false || grid_show_noness === false || [0, 2, 3].includes(noness_dual_load) ? 'none' : ''}" 
                                               fill="${grid_colour}">
                                             ${config.grid.auto_scale 
                                                 ? this.convertValueNew(state_non_essential_load1.state, state_non_essential_load1.attributes.unit_of_measurement, round) 
@@ -2659,7 +2659,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     </a>`
                                     : svg`
                                     <text id="noness1_value" x="340" y="321" class="st3" 
-                                          display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 2 || noness_dual_load === 3 ? 'none' : ''}" 
+                                          display="${config.show_grid === false || grid_show_noness === false || [0, 2, 3].includes(noness_dual_load) ? 'none' : ''}" 
                                           fill="${grid_colour}">
                                         ${config.grid.auto_scale 
                                             ? this.convertValueNew(state_non_essential_load1.state, state_non_essential_load1.attributes.unit_of_measurement, round) 
@@ -2671,7 +2671,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.non_essential_load1)}>
                                         <text id="noness2_value" x="320" y="321" class="st3" 
-                                              display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" 
+                                              display="${config.show_grid === false || grid_show_noness === false || [0, 1].includes(noness_dual_load) ? 'none' : ''}" 
                                               fill="${grid_colour}">
                                             ${config.grid.auto_scale 
                                                 ? this.convertValueNew(state_non_essential_load1.state, state_non_essential_load1.attributes.unit_of_measurement, round) 
@@ -2681,7 +2681,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     </a>`
                                     : svg`
                                     <text id="noness2_value" x="320" y="321" class="st3" 
-                                          display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" 
+                                          display="${config.show_grid === false || grid_show_noness === false || [0, 1].includes(noness_dual_load) ? 'none' : ''}" 
                                           fill="${grid_colour}">
                                         ${config.grid.auto_scale 
                                             ? this.convertValueNew(state_non_essential_load1.state, state_non_essential_load1.attributes.unit_of_measurement, round) 
@@ -2693,7 +2693,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.non_essential_load2)}>
                                         <text id="noness2_value" x="357" y="321" class="st3" 
-                                              display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" 
+                                              display="${config.show_grid === false || grid_show_noness === false || [0, 1].includes(noness_dual_load) ? 'none' : ''}" 
                                               fill="${grid_colour}">
                                             ${config.grid.auto_scale 
                                                 ? this.convertValueNew(state_non_essential_load2.state, state_non_essential_load2.attributes.unit_of_measurement, round) 
@@ -2703,7 +2703,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     </a>`
                                     : svg`
                                     <text id="noness2_value" x="357" y="321" class="st3" 
-                                          display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 ? 'none' : ''}" 
+                                          display="${config.show_grid === false || grid_show_noness === false || [0, 1].includes(noness_dual_load) ? 'none' : ''}" 
                                           fill="${grid_colour}">
                                         ${config.grid.auto_scale 
                                             ? this.convertValueNew(state_non_essential_load2.state, state_non_essential_load2.attributes.unit_of_measurement, round)
@@ -2715,7 +2715,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.non_essential_load3)}>
                                         <text id="noness3_value" x="283" y="321" class="${config.battery.hide_soc === true ? 'st3' : 'st12'}" 
-                                              display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 || noness_dual_load === 2  ? 'none' : ''}" 
+                                              display="${config.show_grid === false || grid_show_noness === false || [0, 1, 2].includes(noness_dual_load) ? 'none' : ''}" 
                                               fill="${grid_colour}">
                                             ${config.grid.auto_scale 
                                                 ? this.convertValueNew(state_non_essential_load3.state, state_non_essential_load3.attributes.unit_of_measurement, round)
@@ -2725,7 +2725,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     </a>`
                                     : svg`
                                     <text id="noness3_value" x="283" y="321" class="${config.battery.hide_soc === true ? 'st3' : 'st12'}" 
-                                          display="${config.show_grid === false || grid_show_noness === false || noness_dual_load === 0 || noness_dual_load === 1 || noness_dual_load === 2 ? 'none' : ''}" 
+                                          display="${config.show_grid === false || grid_show_noness === false || [0, 1, 2].includes(noness_dual_load) ? 'none' : ''}" 
                                           fill="${grid_colour}">
                                         ${config.grid.auto_scale 
                                             ? this.convertValueNew(state_non_essential_load3.state, state_non_essential_load3.attributes.unit_of_measurement, round) 
@@ -3008,25 +3008,25 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_voltage_113)}>
                                 <text id="pv3_voltage" x="41" y="139" class="st3 left-align"
-                                      display="${!config.show_solar || !config.entities.pv3_voltage_113 || config.entities.pv3_voltage_113 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}"
+                                      display="${!config.show_solar || !config.entities.pv3_voltage_113 || config.entities.pv3_voltage_113 === 'none' || [1, 2].includes(config.solar.mppts) ? 'none' : ''}"
                                       fill="${solar_colour}">${this.toNum(state_pv3_voltage.state, 1)} V
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_current_114)}>
                                 <text id="pv3_current" x="41" y="150" class="st3 left-align"
-                                      display="${!config.show_solar || !config.entities.pv3_current_114 || config.entities.pv3_current_114 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}"
+                                      display="${!config.show_solar || !config.entities.pv3_current_114 || config.entities.pv3_current_114 === 'none' || [1, 2].includes(config.solar.mppts) ? 'none' : ''}"
                                       fill="${solar_colour}">${this.toNum(state_pv3_current.state, 1)} A
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_voltage_115)}>
                                 <text id="pv4_voltage" x="142" y="139" class="st3 left-align"
-                                      display="${!config.show_solar || !config.entities.pv4_voltage_115 || config.entities.pv4_voltage_115 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}"
+                                      display="${!config.show_solar || !config.entities.pv4_voltage_115 || config.entities.pv4_voltage_115 === 'none' || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}"
                                       fill="${solar_colour}">${this.toNum(state_pv4_voltage.state, 1)} V
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_current_116)}>
                                 <text id="pv4_current" x="142" y="150" class="st3 left-align"
-                                      display="${!config.show_solar || !config.entities.pv4_current_116 || config.entities.pv4_current_116 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}"
+                                      display="${!config.show_solar || !config.entities.pv4_current_116 || config.entities.pv4_current_116 === 'none' || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}"
                                       fill="${solar_colour}">${this.toNum(state_pv4_current.state, 1)} A
                                 </text>
                             </a>
@@ -3118,10 +3118,10 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"/>
                             <rect id="pv3" x="78" y="54.5" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                                   stroke="${solar_colour}" pointer-events="all"
-                                  class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'st12' : ''}"/>
+                                  class="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'st12' : ''}"/>
                             <rect id="pv4" x="330" y="54.5" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                                   stroke="${solar_colour}" pointer-events="all"
-                                  class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'st12' : ''}"/>
+                                  class="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"/>
                             <rect id="es-load1" x="406" y="116.5" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                                   stroke="${load_colour}" pointer-events="all"
                                   display="${additional_load === 1 ? '' : 'none'}"/>
@@ -3173,8 +3173,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   fill="${battery_showdaily !== true || config.show_battery === false ? 'transparent' : `${battery_colour}`}">
                                 ${localize('common.daily_discharge')}
                             </text>
-                            <text id="daily_load" x="${additional_load === 2 || additional_load === 4 ? '365' : '415'}"
-                                  y="${additional_load === 2 || additional_load === 4 ? '189' : '282.1'}"
+                            <text id="daily_load" x="${[2, 4].includes(additional_load) ? '365' : '415'}"
+                                  y="${[2, 4].includes(additional_load) ? '189' : '282.1'}"
                                   class="st3 left-align"
                                   fill="${load_showdaily === false ? 'transparent' : `${load_colour}`}">
                                 ${localize('common.daily_load')}
@@ -3213,11 +3213,11 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   fill="${solar_colour}">${config.solar.pv2_name}
                             </text>
                             <text x="88" y="94" class="st3 st8"
-                                  display="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}"
+                                  display="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'none' : ''}"
                                   fill="${solar_colour}">${config.solar.pv3_name}
                             </text>
                             <text x="340" y="94" class="st3 st8"
-                                  display="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}"
+                                  display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}"
                                   fill="${solar_colour}">${config.solar.pv4_name}
                             </text>
                             <text id="autarkye_value" x="130" y="260" display="${useautarky === "no" ? 'none' : ''}"
@@ -3243,7 +3243,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   class="st3 left-align" fill="${inverter_colour}">${localize('common.ratio')}
                             </text>
                             <text id="es-load1" x="441" y="108" class="st3"
-                                  display="${(additional_load === 1 || additional_load === 2) ? '' : 'none'}"
+                                  display="${[1, 2].includes(additional_load) ? '' : 'none'}"
                                   fill="${load_colour}">${config.load?.load1_name ? `${config.load.load1_name}` : ''}
                             </text>
                             <text id="es-load2" x="441" y="330.5" class="st3"
@@ -3350,11 +3350,11 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </svg>
                             <svg id="pv3-flow">
                                 <path id="pv3-line" d="M 113 84 L 113 125 Q 113 132 120 132 L 205 132.03"
-                                      class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'st12' : ''}"
+                                      class="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'st12' : ''}"
                                       fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
                                       pointer-events="stroke"/>
                                 <circle id="pv3-dot" cx="0" cy="0" r="3"
-                                        class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'st12' : ''}"
+                                        class="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'st12' : ''}"
                                         fill="${Math.round(pv3_power_watts) <= 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['pv3']}s" repeatCount="indefinite"
                                                    keyPoints="0;1"
@@ -3365,11 +3365,11 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </svg>
                             <svg id="pv4-flow">
                                 <path id="pv4-line" d="M 365 85 L 365 125 Q 365 132 358 132 L 275 132"
-                                      class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'st12' : ''}"
+                                      class="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"
                                       fill="none" stroke="${solar_colour}" stroke-width="1" stroke-miterlimit="10"
                                       pointer-events="stroke"/>
                                 <circle id="pv4-dot" cx="0" cy="0" r="3"
-                                        class="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'st12' : ''}"
+                                        class="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"
                                         fill="${Math.round(pv4_power_watts) <= 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['pv4']}s" repeatCount="indefinite"
                                                    keyPoints="0;1"
@@ -3490,17 +3490,17 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   fill="none" stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"
                                   pointer-events="stroke"/>
                             <path id="es-load1" d="M 441 180 L 441 147"
-                                  class="${additional_load === 2 || additional_load === 4 ? '' : 'st12'}" fill="none"
+                                  class="${[2, 4].includes(additional_load) ? '' : 'st12'}" fill="none"
                                   stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"
                                   pointer-events="stroke"/>
                             <path id="es-load2" d="M 441 290 L 441 257"
-                                  class="${additional_load === 2 || additional_load === 4 ? '' : 'st12'}" fill="none"
+                                  class="${[2, 4].includes(additional_load) ? '' : 'st12'}" fill="none"
                                   stroke="${load_colour}" stroke-width="1" stroke-miterlimit="10"
                                   pointer-events="stroke"/>
 
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_oven_top" x="368" y="113" width="36"
                                  height="36" viewBox="0 0 32 32"
-                                 opacity="${load1e_icon === 'oven' && (additional_load === 1 || additional_load === 2) ? '1' : '0'}">
+                                 opacity="${load1e_icon === 'oven' && [1, 2].includes(additional_load) ? '1' : '0'}">
                                 <path display="${additional_load === 0 ? 'none' : ''}" fill="${load_colour}"
                                       d="M3 7.5A4.5 4.5 0 0 1 7.5 3h17A4.5 4.5 0 0 1 29 7.5v17a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17Zm24 0A2.5 2.5 0 0 0 24.5 5h-17A2.5 2.5 0 0 0 5 7.5V11h22V7.5Zm0 17V13H5v11.5A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5Zm-17-15a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Zm6 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3ZM23.5 8a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0ZM9 23v-6h14v6H9Zm-.5-8A1.5 1.5 0 0 0 7 16.5v7A1.5 1.5 0 0 0 8.5 25h15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5h-15Z"/>
                             </svg>
@@ -3512,7 +3512,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_pump_top" x="368" y="113" width="36"
                                  height="36" viewBox="0 0 24 24"
-                                 opacity="${load1e_icon === 'pump' && (additional_load === 1 || additional_load === 2) ? '1' : '0'}">
+                                 opacity="${load1e_icon === 'pump' && [1, 2].includes(additional_load) ? '1' : '0'}">
                                 <path display="${additional_load === 0 ? 'none' : ''}" fill="${load_colour}"
                                       d="M3 17h4.1q-.425-.425-.787-.925T5.675 15H3v2Zm9 0q2.075 0 3.538-1.463T17 12q0-2.075-1.463-3.538T12 7Q9.925 7 8.462 8.463T7 12q0 2.075 1.463 3.538T12 17Zm6.325-8H21V7h-4.1q.425.425.788.925T18.325 9ZM1 20v-8h2v1h2.075q-.05-.25-.063-.488T5 12q0-2.925 2.038-4.963T12 5h9V4h2v8h-2v-1h-2.075q.05.25.063.488T19 12q0 2.925-2.038 4.963T12 19H3v1H1Zm2-3v-2v2Zm18-8V7v2Zm-9 3Zm0 3q-.825 0-1.413-.588T10 13q0-.575.238-1.137t.912-1.613L12 9l.85 1.25q.675 1.05.913 1.613T14 13q0 .825-.588 1.413T12 15Z"/>
                             </svg>
@@ -3524,7 +3524,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_ac_top" x="374" y="116" width="30"
                                  height="30" viewBox="0 0 24 24"
-                                 opacity="${load1e_icon === 'aircon' && (additional_load === 1 || additional_load === 2) ? '1' : '0'}">
+                                 opacity="${load1e_icon === 'aircon' && [1, 2].includes(additional_load) ? '1' : '0'}">
                                 <path display="${additional_load === 0 ? 'none' : ''}" fill="${load_colour}"
                                       d="M6.59.66c2.34-1.81 4.88.4 5.45 3.84c.43 0 .85.12 1.23.34c.52-.6.98-1.42.8-2.34c-.42-2.15 1.99-3.89 4.28-.92c1.81 2.34-.4 4.88-3.85 5.45c0 .43-.11.86-.34 1.24c.6.51 1.42.97 2.34.79c2.13-.42 3.88 1.98.91 4.28c-2.34 1.81-4.88-.4-5.45-3.84c-.43 0-.85-.13-1.22-.35c-.52.6-.99 1.43-.81 2.35c.42 2.14-1.99 3.89-4.28.92c-1.82-2.35.4-4.89 3.85-5.45c0-.43.13-.85.35-1.23c-.6-.51-1.42-.98-2.35-.8c-2.13.42-3.88-1.98-.91-4.28M5 16h2a2 2 0 0 1 2 2v6H7v-2H5v2H3v-6a2 2 0 0 1 2-2m0 2v2h2v-2H5m7.93-2H15l-2.93 8H10l2.93-8M18 16h3v2h-3v4h3v2h-3a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z"/>
                             </svg>
@@ -3536,7 +3536,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="ess_boiler_top" x="371" y="113" width="36"
                                  height="36" viewBox="0 0 24 24"
-                                 opacity="${load1e_icon === 'boiler' && (additional_load === 1 || additional_load === 2) ? '1' : '0'}">
+                                 opacity="${load1e_icon === 'boiler' && [1, 2].includes(additional_load) ? '1' : '0'}">
                                 <path display="${additional_load === 0 ? 'none' : ''}" fill="${load_colour}"
                                       d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/>
                             </svg>
@@ -3547,7 +3547,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/>
                             </svg>
 
-                            <g display="${additional_load === 0 || additional_load === 4 ? 'none' : ''}">
+                            <g display="${[0, 4].includes(additional_load) ? 'none' : ''}">
                                 <foreignObject x="371" y="114" width="36" height="36" style="position: fixed; ">
                                     <body xmlns="http://www.w3.org/1999/xhtml">
                                     <div style="position: fixed; ">
@@ -3557,7 +3557,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </foreignObject>
                             </g>
 
-                            <g display="${additional_load === 0 || additional_load === 1 || additional_load === 4 ? 'none' : ''}">
+                            <g display="${[0, 1, 4].includes(additional_load) ? 'none' : ''}">
                                 <foreignObject x="371" y="288" width="36" height="36" style="position:fixed; ">
                                     <body xmlns="http://www.w3.org/1999/xhtml">
                                     <div style="position: fixed; ">
@@ -3811,8 +3811,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_load_energy_84)}>
                                 <text id="daily_load_value"
-                                      x="${additional_load === 2 || additional_load === 4 ? '365' : '415'}"
-                                      y="${additional_load === 2 || additional_load === 4 ? '175' : '267.9'}"
+                                      x="${[2, 4].includes(additional_load) ? '365' : '415'}"
+                                      y="${[2, 4].includes(additional_load) ? '175' : '267.9'}"
                                       class="st10 left-align" display="${load_showdaily === false ? 'none' : ''}"
                                       fill="${load_colour}">
                                     ${config.load.auto_scale
@@ -3998,25 +3998,25 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_voltage_113)}>
                                 <text id="pv3_voltage" x="120" y="106" class="st3 left-align"
-                                      display="${!config.show_solar || !config.entities.pv3_voltage_113 || config.entities.pv3_voltage_113 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}"
+                                      display="${!config.show_solar || !config.entities.pv3_voltage_113 || config.entities.pv3_voltage_113 === 'none' || [1, 2].includes(config.solar.mppts) ? 'none' : ''}"
                                       fill="${solar_colour}">${this.toNum(state_pv3_voltage.state, 1)} V
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_current_114)}>
                                 <text id="pv3_current" x="120" y="94" class="st3 left-align"
-                                      display="${!config.show_solar || !config.entities.pv3_current_114 || config.entities.pv3_current_114 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}"
+                                      display="${!config.show_solar || !config.entities.pv3_current_114 || config.entities.pv3_current_114 === 'none' || [1, 2].includes(config.solar.mppts) ? 'none' : ''}"
                                       fill="${solar_colour}">${this.toNum(state_pv3_current.state, 1)} A
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_voltage_115)}>
                                 <text id="pv4_voltage" x="372" y="106" class="st3 left-align"
-                                      display="${!config.show_solar || !config.entities.pv4_voltage_115 || config.entities.pv4_voltage_115 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}"
+                                      display="${!config.show_solar || !config.entities.pv4_voltage_115 || config.entities.pv4_voltage_115 === 'none' || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}"
                                       fill="${solar_colour}">${this.toNum(state_pv4_voltage.state, 1)} V
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_current_116)}>
                                 <text id="pv4_current" x="372" y="94" class="st3 left-align"
-                                      display="${!config.show_solar || !config.entities.pv4_current_116 || config.entities.pv4_current_116 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}"
+                                      display="${!config.show_solar || !config.entities.pv4_current_116 || config.entities.pv4_current_116 === 'none' || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}"
                                       fill="${solar_colour}">${this.toNum(state_pv4_current.state, 1)} A
                                 </text>
                             </a>
@@ -4048,7 +4048,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1_extra)}>
                                 <text id="ess_load1_extra" x="465" y="157"
-                                      display="${config.entities?.essential_load1_extra && (additional_load === 1 || additional_load === 2) ? '' : 'none'}"
+                                      display="${config.entities?.essential_load1_extra && [1, 2].includes(additional_load) ? '' : 'none'}"
                                       class="st3 .right-align" fill="${load_colour}">
                                     ${this.toNum(state_essential_load1_extra.state, 1)} ${state_essential_load1_extra.attributes.unit_of_measurement}
                                 </text>
@@ -4152,7 +4152,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_power_188)}>
                                         <text id="pv3_power_188" x="113" y="71" class="${font !== true ? 'st14' : 'st4'} st8" 
-                                              display="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" 
+                                              display="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'none' : ''}" 
                                               fill="${solar_colour}">
                                             ${config.solar.auto_scale 
                                                 ? this.convertValueNew(state_pv3_power.state, state_pv3_power.attributes.unit_of_measurement, round)
@@ -4162,7 +4162,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     </a>`
                                     : svg`
                                     <text id="pv3_power_188" x="113" y="71" class="${font !== true ? 'st14' : 'st4'} st8" 
-                                          display="${!config.show_solar || config.entities.pv3_power_188 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 ? 'none' : ''}" 
+                                          display="${!config.show_solar || config.entities.pv3_power_188 === 'none' || [1, 2].includes(config.solar.mppts) ? 'none' : ''}" 
                                           fill="${solar_colour}">
                                         ${config.solar.auto_scale 
                                             ? this.convertValueNew(state_pv3_power.state, state_pv3_power.attributes.unit_of_measurement, round)
@@ -4174,7 +4174,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_power_189)}>
                                         <text id="pv4_power_189" x="366" y="71" class="${font !== true ? 'st14' : 'st4'} st8" 
-                                              display="${!config.show_solar || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" 
+                                              display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}" 
                                               fill="${solar_colour}">
                                             ${config.solar.auto_scale 
                                                 ? this.convertValueNew(state_pv4_power.state, state_pv4_power.attributes.unit_of_measurement, round)
@@ -4184,7 +4184,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     </a>`
                                     : svg`
                                     <text id="pv4_power_189" x="366" y="71" class="${font !== true ? 'st14' : 'st4'} st8" 
-                                          display="${!config.show_solar || config.entities.pv4_power_189 === 'none' || config.solar.mppts === 1 || config.solar.mppts === 2 || config.solar.mppts === 3 ? 'none' : ''}" 
+                                          display="${!config.show_solar || config.entities.pv4_power_189 === 'none' || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}" 
                                           fill="${solar_colour}">
                                         ${config.solar.auto_scale 
                                             ? this.convertValueNew(state_pv4_power.state, state_pv4_power.attributes.unit_of_measurement, round)
@@ -4209,7 +4209,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             ${config.entities?.essential_load1
                                     ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1)}>
-                                        <text id="ess_load1" x="440" y="133" display="${(additional_load === 1 || additional_load === 2) ? '' : 'none'}" 
+                                        <text id="ess_load1" x="440" y="133" display="${[1, 2].includes(additional_load) ? '' : 'none'}" 
                                               class="${font !== true ? 'st14' : 'st4'} st8" 
                                               fill="${load_colour}">
                                             ${config.load.auto_scale 
@@ -4223,7 +4223,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         </text>
                                     </a>`
                                     : svg`
-                                    <text id="ess_load1" x="440" y="133" display="${(additional_load === 1 || additional_load === 2) ? '' : 'none'}" 
+                                    <text id="ess_load1" x="440" y="133" display="${[1, 2].includes(additional_load) ? '' : 'none'}" 
                                           class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">
                                         ${config.load.auto_scale 
                                             ? this.convertValueNew(state_essential_load1.state, state_essential_load1.attributes.unit_of_measurement, round)
