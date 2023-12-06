@@ -18,6 +18,8 @@ Example 1 - Integration via https://github.com/nathanmarlor/foxess_modbus
       auto_scale: true
       colour: '#b6baa9'
       modern: true
+      model: foxess
+      autarky: power
     battery:
       energy: 33000
       shutdown_soc: 35
@@ -29,7 +31,7 @@ Example 1 - Integration via https://github.com/nathanmarlor/foxess_modbus
     solar:
       show_daily: true
       mppts: 3
-      auto_scale: false
+      auto_scale: true
       max_power: 5000
       pv1_name: 1 South F
       pv2_name: 2 South R
@@ -63,19 +65,19 @@ Example 1 - Integration via https://github.com/nathanmarlor/foxess_modbus
       priority_load_243: 'no'
       inverter_voltage_154: sensor.emontx4_vrms
       inverter_current_164: sensor.foxess_rcurrent
-      inverter_power_175: sensor.sensor_foxess_rpower_watts
+      inverter_power_175: sensor.foxess_rpower
       grid_connected_status_194: sensor.foxess_inverter_state
       inverter_status_59: sensor.foxess_inverter_state
       day_battery_charge_70: sensor.foxess_battery_charge_today
       day_battery_discharge_71: sensor.foxess_battery_discharge_today
       battery_voltage_183: sensor.foxess_batvolt
       battery_soc_184: sensor.foxess_battery_soc
-      battery_power_190: sensor.sensor_foxess_invbatpower_watts
+      battery_power_190: sensor.foxess_invbatpower
       battery_current_191: sensor.foxess_invbatcurrent
       day_grid_import_76: sensor.foxess_grid_consumption_energy_today
       day_grid_export_77: sensor.foxess_feed_in_energy_today
-      grid_power_169: sensor.sensor_foxess_load_power_watts
-      grid_ct_power_172: sensor.sensor_foxess_grid_ct_watts
+      grid_power_169: sensor.foxess_load_power
+      grid_ct_power_172: sensor.foxess_grid_ct
       day_load_energy_84: sensor.foxess_load_energy_today
       essential_power: sensor.essential_total_power
       nonessential_power: sensor.emontx4_p3
@@ -97,5 +99,4 @@ Example 1 - Integration via https://github.com/nathanmarlor/foxess_modbus
       aux_load2: sensor.shlyclkrm_heater_power
       aux_load2_extra: sensor.shlycloakroom_temperature_2
       energy_cost_buy: sensor.octopus_energy_electricity_xxx_yyy_current_rate
-      energy_cost_sell: >-
-          sensor.octopus_energy_electricity_xxx_yyy_export_current_rate
+      energy_cost_sell: sensor.octopus_energy_electricity_xxx_yyy_export_current_rate
