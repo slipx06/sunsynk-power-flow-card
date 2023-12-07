@@ -17,9 +17,9 @@ export enum InverterModel {
 }
 
 export enum CardStyle {
+    Compact = 'compact',
     Lite = 'lite',
-    Full = 'full',
-    Compact = 'compact'
+    Full = 'full'
 }
 
 export enum AutarkyType {
