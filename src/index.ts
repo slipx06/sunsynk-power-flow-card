@@ -4636,7 +4636,7 @@ try {
 (window as any).customCards.push({
     type: 'sunsynk-power-flow-card',
     name: 'Sunsynk Power Flow Card',
-    preview: false, // Optional - defaults to false
+    preview: true, 
     description: localize('common.description'), // Optional
     configurable: true
 });
