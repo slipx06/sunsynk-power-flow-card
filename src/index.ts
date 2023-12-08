@@ -981,7 +981,8 @@ export class SunsynkPowerFlowCard extends LitElement {
         
         let pvPercentage = 0;
         let batteryPercentage = 0;
-        if ((pvPercentage_raw  >= 100 && batteryPercentage_raw > 0) || (pvPercentage_raw > 0 && batteryPercentage_raw >= 100)) {
+        //if ((pvPercentage_raw  >= 100 && batteryPercentage_raw > 0) || (pvPercentage_raw > 0 && batteryPercentage_raw >= 100)) {
+        if (totalPercentage > 100) {
             pvPercentage = this.toNum(normalizedPvPercentage, 0);
             batteryPercentage = this.toNum(normalizedBatteryPercentage, 0);
         } else {
