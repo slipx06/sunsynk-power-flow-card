@@ -344,7 +344,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         let {invert_grid} = config.grid;
         let grid_power = (state_grid_ct_power.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
-            ? this.toNum((state_grid_ct_power.state * 1000), 0, invert_aux)
+            ? this.toNum((state_grid_ct_power.state * 1000), 0, invert_grid)
             : this.toNum(state_grid_ct_power.state, 0, invert_grid); 
         let grid_power_L2 = (state_grid_ct_power_L2.attributes.unit_of_measurement || '').toLowerCase() === 'kw'
             ? this.toNum((state_grid_ct_power_L2.state * 1000), 0, invert_grid)
