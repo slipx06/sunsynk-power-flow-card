@@ -4629,7 +4629,9 @@ export class SunsynkPowerFlowCard extends LitElement {
     }
 }
 
-customElements.define("content-card-editor", SunSynkCardEditor);
+try {
+   customElements.define("content-card-editor", SunSynkCardEditor);
+} catch (_e) {}
 (window as any).customCards = (window as any).customCards || [];
 (window as any).customCards.push({
     type: 'sunsynk-power-flow-card',
