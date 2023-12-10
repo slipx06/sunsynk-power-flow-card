@@ -60,6 +60,7 @@ Example 1 - Integration via https://github.com/nathanmarlor/foxess_modbus
       show_nonessential: true
       nonessential_name: EV
       nonessential_icon: mdi:ev-station
+      invert_grid: true
     entities:
       use_timer_248: 'no'
       priority_load_243: 'no'
