@@ -360,7 +360,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             ? grid_power_3phase
             : grid_power + grid_power_L2 + grid_power_L3;
 
-        const total_grid_power = config.inverter.three_phase ? grid_power_total : grid_power;
+        let total_grid_power = config.inverter.three_phase ? grid_power_total : grid_power;
 
         let grid_voltage = state_grid_voltage ? this.toNum(state_grid_voltage.state) : null;
         let battery_current_direction = state_battery_current_direction ? parseInt(state_battery_current_direction.state) : null;
@@ -369,7 +369,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let load_colour = this.colourConvert(config.load?.colour);
         let aux_colour = this.colourConvert(config.load?.aux_colour || load_colour);
         let aux_off_colour = this.colourConvert(config.load?.aux_off_colour || load_colour);
-        let no_grid_colour = this.colourConvert(config.grid?.no_grid_colour);
+        
         config.title_colour = this.colourConvert(config.title_colour);
 
         let load_showdaily = config.load?.show_daily;
@@ -436,7 +436,20 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         const grid_import_colour = this.colourConvert(config.grid?.colour);
         const grid_export_colour = this.colourConvert(config.grid?.export_colour || grid_import_colour);
-        let grid_colour = total_grid_power < 0 ? grid_export_colour : grid_import_colour;
+        const no_grid_colour = this.colourConvert(config.grid?.no_grid_colour || grid_import_colour);
+        
+        let grid_colour;
+        switch (true) {
+            case total_grid_power < 0:
+              grid_colour = grid_export_colour;
+              break;
+            case total_grid_power === 0 && config.grid.dynamic_colour:
+              grid_colour = no_grid_colour;
+              break;
+            default:
+              grid_colour = grid_import_colour;
+              break;
+        }
 
         let noness_dual_load = config.grid?.additional_loads;
         if (!validnonLoadValues.includes(noness_dual_load)) {
@@ -988,6 +1001,32 @@ export class SunsynkPowerFlowCard extends LitElement {
         } else {
             pvPercentage = this.toNum(Math.min(pvPercentage_raw, 100), 0);
             batteryPercentage = this.toNum(Math.min(batteryPercentage_raw, 100), 0);
+        }
+
+        const essBat = 'M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z';
+        const essGrid = 'M5 20v-8H2l10-9l10 9h-3v8zm7-14.31l-5 4.5V18h10v-7.81zM11.5 18v-4H9l3.5-7v4H15z';
+        const essPv = 'M6.58 2c-.07 2.616-2.05 4.596-4.596 4.596V8.01C5.45 8.081 8.136 5.394 7.994 2zM1.984 3.626v1.415C3.752 4.97 5.024 3.697 5.024 2H3.612a1.95 1.95 0 0 1-1.627 1.626m20.032 2.97c-2.546 0-4.526-1.98-4.596-4.596h-1.415c-.141 3.394 2.546 6.081 6.01 6.01zm0-1.555V3.626A1.95 1.95 0 0 1 20.389 2h-1.414c0 1.697 1.273 2.97 3.04 3.04M19 20v-8h3L12 3L2 12h3v8zM12 5.7l5 4.5V18H7v-7.8z';
+        const ess = 'm15 13l-4 4v-3H2v-2h9V9l4 4M5 20v-4h2v2h10v-7.81l-5-4.5L7.21 10H4.22L12 3l10 9h-3v8H5Z';
+
+        let essIcon;
+        let essIconsize;
+        switch (true) {
+            case pvPercentage_raw >= 100 && batteryPercentage_raw <= 5 && config.load.dynamic_icon:
+              essIcon = essPv;
+              essIconsize === 1;
+              break;
+            case batteryPercentage_raw >= 100 && pvPercentage_raw <= 5 && config.load.dynamic_icon:
+              essIcon = essBat;
+              essIconsize === 0;
+              break;
+            case pvPercentage_raw === 0 && batteryPercentage_raw === 0 && config.load.dynamic_icon:
+              essIcon = essGrid;
+              essIconsize === 0;
+              break;
+            default:
+              essIcon = ess;
+              essIconsize === 0;
+              break;
         }
 
         if (this.isFullCard) {
@@ -1623,7 +1662,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                      width="${config.inverter.three_phase ? '34' : '67'}"
                                      height="${config.inverter.three_phase ? '34' : '67'}" viewBox="0 0 24 24">
                                     <path class="${['off', '0', 'off-grid', 'off grid'].includes(grid_status.toLowerCase()) ? 'st12' : ''}"
-                                          fill="${grid_colour}" display="${!config.show_grid ? 'none' : ''}"
+                                          fill="${grid_colour}" display="${!config.show_grid || total_grid_power < 0 ? 'none' : ''}"
                                           d="m8.28 5.45l-1.78-.9L7.76 2h8.47l1.27 2.55l-1.78.89L15 4H9l-.72 1.45M18.62 8h-4.53l-.79-3h-2.6l-.79 3H5.38L4.1 10.55l1.79.89l.73-1.44h10.76l.72 1.45l1.79-.89L18.62 8m-.85 14H15.7l-.24-.9L12 15.9l-3.47 5.2l-.23.9H6.23l2.89-11h2.07l-.36 1.35L12 14.1l1.16-1.75l-.35-1.35h2.07l2.89 11m-6.37-7l-.9-1.35l-1.18 4.48L11.4 15m3.28 3.12l-1.18-4.48l-.9 1.36l2.08 3.12Z"/>
                                 </svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" id="transmission_off"
@@ -1635,6 +1674,15 @@ export class SunsynkPowerFlowCard extends LitElement {
                                           fill="${no_grid_colour}" display="${!config.show_grid ? 'none' : ''}"
                                           d="M22.1 21.5L2.4 1.7L1.1 3l5 5h-.7l-1.3 2.5l1.8.9l.7-1.4h1.5l1 1l-2.9 11h2.1l.2-.9l3.5-5.2l3.5 5.2l.2.9h2.1l-.8-3.2l3.9 3.9l1.2-1.2M9.3 18.1l1.2-4.5l.9 1.3l-2.1 3.2m5.4 0L12.6 15l.2-.3l1.3 1.3l.6 2.1m-.5-7.1h.7l.2.9l-.9-.9m-.1-3h4.5l1.3 2.6l-1.8.9l-.7-1.5h-4.2l-3-3l.5-2h2.6l.8 3M8.4 5.2L6.9 3.7L7.8 2h8.5l1.3 2.5l-1.8.9L15 4H9l-.6 1.2Z"/>
                                 </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" id="grid_export"
+                                     x="${config.inverter.three_phase ? '404' : '387'}"
+                                     y="${config.inverter.three_phase ? '339' : '310'}"
+                                     width="${config.inverter.three_phase ? '34' : '67'}"
+                                     height="${config.inverter.three_phase ? '34' : '67'}" viewBox="0 0 24 24">
+                                    <path class="${['off', '0', 'off-grid', 'off grid'].includes(grid_status.toLowerCase()) ? 'st12' : ''}"
+                                          fill="${grid_colour}" display="${!config.show_grid || total_grid_power >= 0 ? 'none' : ''}"
+                                          d="m11.39 5.45l-1.78-.9L10.87 2h8.47l1.27 2.55l-1.78.89L18.11 4h-6zM21.73 8H17.2l-.79-3h-2.6L13 8H8.5l-1.29 2.55l1.79.89l.73-1.44H20.5l.71 1.45l1.79-.89zm-.85 14h-2.07l-.24-.9l-3.46-5.2l-3.47 5.2l-.23.9H9.34l2.89-11h2.07l-.36 1.35l1.17 1.75l1.16-1.75l-.35-1.35H18zm-6.38-7l-.89-1.35l-1.18 4.48zm3.29 3.12l-1.18-4.48l-.9 1.36zM9 16l-4-4v3H1v2h4v3z"/>
+                                </svg>
                             </a>
 
                             <!-- Nonessential Icon -->
@@ -1643,7 +1691,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                  opacity="${nonessential_icon === 'default' ? '1' : '0'}">
                                 <path display="${!config.show_grid || !grid_show_noness  || [1, 2, 3].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
-                                      d="m15 13l-4 4v-3H2v-2h9V9l4 4M5 20v-4h2v2h10v-7.81l-5-4.5L7.21 10H4.22L12 3l10 9h-3v8H5Z"/>
+                                      d="M 12 3 z z M 19 20 v -8 h 3 L 12 3 L 2 12 h 3 v 8 z M 12 5.7 l 5 4.5 V 18 H 7 v -7.8 z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness_oven" x="303.5" y="305.5" width="70"
                                  height="70" viewBox="0 0 32 32" opacity="${nonessential_icon === 'oven' ? '1' : '0'}">
@@ -1688,21 +1736,21 @@ export class SunsynkPowerFlowCard extends LitElement {
                                  opacity="${load1_icon === 'default' && load2_icon === 'default' ? '1' : '0'}">
                                 <path display="${!config.show_grid || !grid_show_noness  || [0, 1].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
-                                      d="m15 13l-4 4v-3H2v-2h9V9l4 4M5 20v-4h2v2h10v-7.81l-5-4.5L7.21 10H4.22L12 3l10 9h-3v8H5Z"/>
+                                      d="M 12 3 z z M 19 20 v -8 h 3 L 12 3 L 2 12 h 3 v 8 z M 12 5.7 l 5 4.5 V 18 H 7 v -7.8 z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness_default_left" x="306" y="341" width="32"
                                  height="32" viewBox="0 0 24 24"
                                  opacity="${load1_icon === 'default' && load2_icon != 'default' ? '1' : '0'}">
                                 <path display="${!config.show_grid || !grid_show_noness  || [0, 1].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
-                                      d="m15 13l-4 4v-3H2v-2h9V9l4 4M5 20v-4h2v2h10v-7.81l-5-4.5L7.21 10H4.22L12 3l10 9h-3v8H5Z"/>
+                                      d="M 12 3 z z M 19 20 v -8 h 3 L 12 3 L 2 12 h 3 v 8 z M 12 5.7 l 5 4.5 V 18 H 7 v -7.8 z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness_default_right" x="343" y="341" width="32"
                                  height="32" viewBox="0 0 24 24"
                                  opacity="${load1_icon != 'default' && load2_icon === 'default' ? '1' : '0'}">
                                 <path display="${!config.show_grid || !grid_show_noness  || [0, 1].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
-                                      d="m15 13l-4 4v-3H2v-2h9V9l4 4M5 20v-4h2v2h10v-7.81l-5-4.5L7.21 10H4.22L12 3l10 9h-3v8H5Z"/>
+                                      d="M 12 3 z z M 19 20 v -8 h 3 L 12 3 L 2 12 h 3 v 8 z M 12 5.7 l 5 4.5 V 18 H 7 v -7.8 z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness_boiler_left" x="306" y="341" width="32"
                                  height="32" viewBox="0 0 24 24" opacity="${load1_icon === 'boiler' ? '1' : '0'}">
@@ -1788,7 +1836,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                  height="32" viewBox="0 0 24 24" opacity="${load1_icon === 'default' ? '1' : '0'}">
                                 <path display="${!config.show_grid || !grid_show_noness  || [0, 2, 3].includes(noness_dual_load) ? 'none' : ''}"
                                       fill="${grid_colour}"
-                                      d="m15 13l-4 4v-3H2v-2h9V9l4 4M5 20v-4h2v2h10v-7.81l-5-4.5L7.21 10H4.22L12 3l10 9h-3v8H5Z"/>
+                                      d="M 12 3 z z M 19 20 v -8 h 3 L 12 3 L 2 12 h 3 v 8 z M 12 5.7 l 5 4.5 V 18 H 7 v -7.8 z"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="noness1_boiler" x="324.5" y="341" width="32"
                                  height="32" viewBox="0 0 24 24" opacity="${load1_icon === 'boiler' ? '1' : '0'}">
@@ -1826,7 +1874,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </g>
 
                             <!-- Essential Icon -->
-                            <svg xmlns="http://www.w3.org/2000/svg" id="essen_aux" x="373.5" y="78.5" width="77"
+                            <svg xmlns="http://www.w3.org/2000/svg" id="essen_aux" x="373.5" y="${essIconsize === 1 ? "82.5" : "78.5"}" width="77"
                                  height="77" viewBox="0 0 24 24">
                                 <defs>
                                     <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
@@ -1846,7 +1894,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </defs>
                                 <path display="${[1, 2].includes(additional_load) && !show_aux ? '' : 'none'}"
                                       fill="${config.load.dynamic_colour ? 'url(#Lg)' : load_colour}"
-                                      d="M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z"/>
+                                      d="${essIcon}"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="essen_noaux" x="390" y="89" width="38"
                                  height="38" viewBox="0 0 24 24">
@@ -1868,9 +1916,9 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </defs>
                                 <path display="${[1, 2].includes(additional_load) && show_aux ? '' : 'none'}"
                                       fill="${config.load.dynamic_colour ? 'url(#Lg)' : load_colour}"
-                                      d="M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z"/>
+                                      d="${essIcon}"/>
                             </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" id="essen_default" x="373.5" y="78.5" width="77"
+                            <svg xmlns="http://www.w3.org/2000/svg" id="essen_default" x="373.5" y="${essIconsize === 1 ? "82.5" : "78.5"}" width="77"
                                  height="77" viewBox="0 0 24 24">
                                 <defs>
                                     <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
@@ -1890,7 +1938,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </defs>
                                 <path display="${[1, 2].includes(additional_load) ? 'none' : ''}"
                                       fill="${config.load.dynamic_colour ? 'url(#Lg)' : load_colour}"
-                                      d="M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z"/>
+                                      d="${essIcon}"/>
                             </svg>
 
                             <!-- Aux Icon -->
@@ -3648,7 +3696,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 <svg xmlns="http://www.w3.org/2000/svg" id="transmission_on" x="-0.5" y="187.5"
                                      width="64.5" height="64.5" viewBox="0 0 24 24">
                                     <path class="${['off', '0', 'off-grid', 'off grid'].includes(grid_status.toLowerCase()) ? 'st12' : ''}"
-                                          fill="${grid_colour}" display="${!config.show_grid ? 'none' : ''}"
+                                          fill="${grid_colour}" display="${!config.show_grid || total_grid_power < 0 ? 'none' : ''}"
                                           d="m8.28 5.45l-1.78-.9L7.76 2h8.47l1.27 2.55l-1.78.89L15 4H9l-.72 1.45M18.62 8h-4.53l-.79-3h-2.6l-.79 3H5.38L4.1 10.55l1.79.89l.73-1.44h10.76l.72 1.45l1.79-.89L18.62 8m-.85 14H15.7l-.24-.9L12 15.9l-3.47 5.2l-.23.9H6.23l2.89-11h2.07l-.36 1.35L12 14.1l1.16-1.75l-.35-1.35h2.07l2.89 11m-6.37-7l-.9-1.35l-1.18 4.48L11.4 15m3.28 3.12l-1.18-4.48l-.9 1.36l2.08 3.12Z"/>
                                 </svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" id="transmission_off" x="-0.5" y="187.5"
@@ -3656,6 +3704,12 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     <path class="${['on', '1', 'on-grid', 'on grid'].includes(grid_status.toLowerCase()) ? 'st12' : ''}"
                                           fill="${no_grid_colour}" display="${!config.show_grid ? 'none' : ''}"
                                           d="M22.1 21.5L2.4 1.7L1.1 3l5 5h-.7l-1.3 2.5l1.8.9l.7-1.4h1.5l1 1l-2.9 11h2.1l.2-.9l3.5-5.2l3.5 5.2l.2.9h2.1l-.8-3.2l3.9 3.9l1.2-1.2M9.3 18.1l1.2-4.5l.9 1.3l-2.1 3.2m5.4 0L12.6 15l.2-.3l1.3 1.3l.6 2.1m-.5-7.1h.7l.2.9l-.9-.9m-.1-3h4.5l1.3 2.6l-1.8.9l-.7-1.5h-4.2l-3-3l.5-2h2.6l.8 3M8.4 5.2L6.9 3.7L7.8 2h8.5l1.3 2.5l-1.8.9L15 4H9l-.6 1.2Z"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" id="grid_export" x="-0.5" y="187.5"
+                                width="64.5" height="64.5" viewBox="0 0 24 24">
+                                    <path class="${['off', '0', 'off-grid', 'off grid'].includes(grid_status.toLowerCase()) ? 'st12' : ''}"
+                                          fill="${grid_colour}" display="${!config.show_grid || total_grid_power >= 0 ? 'none' : ''}"
+                                          d="m11.39 5.45l-1.78-.9L10.87 2h8.47l1.27 2.55l-1.78.89L18.11 4h-6zM21.73 8H17.2l-.79-3h-2.6L13 8H8.5l-1.29 2.55l1.79.89l.73-1.44H20.5l.71 1.45l1.79-.89zm-.85 14h-2.07l-.24-.9l-3.46-5.2l-3.47 5.2l-.23.9H9.34l2.89-11h2.07l-.36 1.35l1.17 1.75l1.16-1.75l-.35-1.35H18zm-6.38-7l-.89-1.35l-1.18 4.48zm3.29 3.12l-1.18-4.48l-.9 1.36zM9 16l-4-4v3H1v2h4v3z"/>
                                 </svg>
                             </a>
                             <svg xmlns="http://www.w3.org/2000/svg" id="essen" x="402" y="177.5" width="79" height="79"
@@ -3677,7 +3731,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     </linearGradient>
                                 </defs>
                                 <path fill="${config.load.dynamic_colour ? 'url(#Lg)' : load_colour}"
-                                      d="M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z"/>
+                                      d="${essIcon}"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" x="213.5" y="179.5" width="54"
                                  height="79" viewBox="0 0 74 91" preserveAspectRatio="xMidYMid meet"

@@ -79,6 +79,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
     load: {
         colour: string;
         dynamic_colour: boolean;
+        dynamic_icon: boolean;
         show_daily: boolean;
         invert_aux: boolean;
         show_absolute_aux: boolean,
@@ -111,6 +112,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         colour: string;
         export_colour: string;
         no_grid_colour: string;
+        dynamic_colour: boolean;
         show_daily_buy: boolean;
         show_daily_sell: boolean;
         show_nonessential: boolean;

@@ -51,6 +51,7 @@ export default {
     load: {
         colour: '#5fb6ad',
         dynamic_colour: true,
+        dynamic_icon: true,
         show_daily: false,
         show_aux: false,
         show_daily_aux: false,
@@ -73,7 +74,7 @@ export default {
     },
     grid: {
         colour: '#5490c2',
-        no_grid_colour: '#a40013',
+        dynamic_colour: true,
         show_daily_buy: false,
         show_daily_sell: false,
         show_nonessential: true,
