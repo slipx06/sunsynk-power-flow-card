@@ -2347,8 +2347,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </text>
                             </a>
                             ${config.inverter.three_phase
-                                    ? config.entities?.grid_ct_power_total
-                                        ? svg`
+                                ? config.entities?.grid_ct_power_total
+                                    ? svg`
                                         <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_ct_power_total)}>
                                         <text id="grid_total_power" x="420" y="281.5"
                                               display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
@@ -2356,13 +2356,13 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             ${config.grid.auto_scale ? `${this.convertValue(total_grid_power, round) || 0}` : `${total_grid_power || 0} W`}
                                         </text>
                                         </a>`
-                                        : svg`
+                                    : svg`
                                         <text id="grid_total_power" x="420" y="281.5"
                                               display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
                                               class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">
                                             ${config.grid.auto_scale ? `${this.convertValue(total_grid_power, round) || 0}` : `${total_grid_power || 0} W`}
                                         </text>`
-                                    : svg`
+                                : svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_ct_power_172)}>
                                         <text id="grid_total_power" x="420" y="281.5"
                                               display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
@@ -2378,10 +2378,10 @@ export class SunsynkPowerFlowCard extends LitElement {
                                               display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}" 
                                               fill="${solar_colour}">
                                             ${config.solar.auto_scale
-                                            ? config.entities?.pv_total
+                                                ? config.entities?.pv_total
                                                     ? this.convertValueNew(total_pv, state_pv_total.attributes?.unit_of_measurement, round)
                                                     : this.convertValue(total_pv, round) || 0
-                                            : `${total_pv || 0} W`
+                                                : `${total_pv || 0} W`
                                             }
                                         </text>
                                     </a>`
@@ -2389,12 +2389,12 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     <text id="pvtotal_power" x="87" y="178" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}" 
                                           fill="${solar_colour}">
-                                          ${config.solar.auto_scale
+                                        ${config.solar.auto_scale
                                             ? config.entities?.pv_total
-                                                    ? this.convertValueNew(total_pv, state_pv_total.attributes?.unit_of_measurement, round)
-                                                    : this.convertValue(total_pv, round) || 0
+                                                ? this.convertValueNew(total_pv, state_pv_total.attributes?.unit_of_measurement, round)
+                                                : this.convertValue(total_pv, round) || 0
                                             : `${total_pv || 0} W`
-                                          }
+                                        }
                                     </text>`
                             }
                             ${config.entities?.essential_power && config.entities.essential_power !== 'none'
@@ -2436,11 +2436,11 @@ export class SunsynkPowerFlowCard extends LitElement {
                                               fill="${aux_colour}">
                                             ${config.load.auto_scale
                                                 ? `${config.load.show_absolute_aux
-                                                        ? `${Math.abs(parseFloat(this.convertValue(aux_power, round)))} ${this.convertValue(aux_power, round).split(' ')[1]}`
-                                                        : this.convertValue(aux_power, round) || '0'}`
+                                                       ? `${Math.abs(parseFloat(this.convertValue(aux_power, round)))} ${this.convertValue(aux_power, round).split(' ')[1]}`
+                                                       : this.convertValue(aux_power, round) || '0'}`
                                                 : `${config.load.show_absolute_aux
-                                                        ? `${Math.abs(aux_power)}`
-                                                        : aux_power || 0} W`
+                                                       ? `${Math.abs(aux_power)}`
+                                                       : aux_power || 0} W`
                                             }
                                         </text>
                                     </a>`
@@ -2450,11 +2450,11 @@ export class SunsynkPowerFlowCard extends LitElement {
                                           fill="${aux_colour}">
                                         ${config.load.auto_scale
                                             ? `${config.load.show_absolute_aux
-                                                    ? `${Math.abs(parseFloat(this.convertValue(aux_power, round)))} ${this.convertValue(aux_power, round).split(' ')[1]}`
-                                                    : this.convertValue(aux_power, round) || '0'}`
+                                                   ? `${Math.abs(parseFloat(this.convertValue(aux_power, round)))} ${this.convertValue(aux_power, round).split(' ')[1]}`
+                                                   : this.convertValue(aux_power, round) || '0'}`
                                             : `${config.load.show_absolute_aux
-                                                    ? `${Math.abs(aux_power)}`
-                                                    : aux_power || 0} W`
+                                                   ? `${Math.abs(aux_power)}`
+                                                   : aux_power || 0} W`
                                         }
                                         </text>`
                             }
@@ -2510,7 +2510,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                               fill="${solar_colour}">
                                             ${config.solar.auto_scale
                                                 ? this.convertValueNew(state_pv3_power.state, state_pv3_power.attributes?.unit_of_measurement, round)
-                                                 : `${this.toNum(state_pv3_power.state, 0)} W`
+                                                : `${this.toNum(state_pv3_power.state, 0)} W`
                                             }
                                         </text>
                                     </a>`
@@ -2886,11 +2886,11 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">
                                     ${config.battery.auto_scale
                                         ? `${config.battery.show_absolute
-                                                ? `${Math.abs(parseFloat(this.convertValue(battery_power, round)))} ${this.convertValue(battery_power, round).split(' ')[1]}`
-                                                : this.convertValue(battery_power, round) || '0'}`
+                                               ? `${Math.abs(parseFloat(this.convertValue(battery_power, round)))} ${this.convertValue(battery_power, round).split(' ')[1]}`
+                                               : this.convertValue(battery_power, round) || '0'}`
                                         : `${config.battery.show_absolute
-                                                ? `${Math.abs(battery_power)} W`
-                                                : `${battery_power || 0} W`
+                                               ? `${Math.abs(battery_power)} W`
+                                               : `${battery_power || 0} W`
                                            }`
                                     }
                                 </text>
@@ -3890,11 +3890,11 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">
                                     ${config.battery.auto_scale
                                         ? `${config.battery.show_absolute
-                                                ? `${Math.abs(parseFloat(this.convertValue(battery_power, round)))} ${this.convertValue(battery_power, round).split(' ')[1]}`
-                                                : this.convertValue(battery_power, round) || '0'}`
+                                               ? `${Math.abs(parseFloat(this.convertValue(battery_power, round)))} ${this.convertValue(battery_power, round).split(' ')[1]}`
+                                               : this.convertValue(battery_power, round) || '0'}`
                                         : `${config.battery.show_absolute
-                                                ? `${Math.abs(battery_power)} W`
-                                                : `${battery_power || 0} W`
+                                               ? `${Math.abs(battery_power)} W`
+                                               : `${battery_power || 0} W`
                                            }`
                                     }
                                 </text>
