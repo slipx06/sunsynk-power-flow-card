@@ -2221,8 +2221,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${config.solar.display_mode === 1 ? '' : 'none'}"
                                       fill="${!solar_showdaily || !config.show_solar ? 'transparent' : `${solar_colour}`}">
                                     ${config.solar.auto_scale
-                                            ? this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes?.unit_of_measurement, 1)
-                                            : `${this.toNum(state_day_pv_energy.state, 1)} kWh`
+                                        ? this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes?.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_pv_energy.state, 1)} kWh`
                                     }
                                 </text>
                             </a>
@@ -2231,8 +2231,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${config.solar.display_mode === 2 ? '' : 'none'}"
                                       fill="${!solar_showdaily || !config.show_solar ? 'transparent' : `${solar_colour}`}">
                                     ${config.solar.auto_scale
-                                            ? `${this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes?.unit_of_measurement, 1)} / ${remaining_solar}`
-                                            : `${this.toNum(state_day_pv_energy.state, 1)} kWh / ${remaining_solar}`
+                                        ? `${this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes?.unit_of_measurement, 1)} / ${remaining_solar}`
+                                        : `${this.toNum(state_day_pv_energy.state, 1)} kWh / ${remaining_solar}`
                                     }
                                 </text>
                             </a>
@@ -2241,8 +2241,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${config.solar.display_mode === 3 ? '' : 'none'}"
                                       fill="${!solar_showdaily || !config.show_solar ? 'transparent' : `${solar_colour}`}">
                                     ${config.solar.auto_scale
-                                            ? `${this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes?.unit_of_measurement, 1)} / ${total_solar_generation}`
-                                            : `${this.toNum(state_day_pv_energy.state, 1)} kWh / ${total_solar_generation}`
+                                        ? `${this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes?.unit_of_measurement, 1)} / ${total_solar_generation}`
+                                        : `${this.toNum(state_day_pv_energy.state, 1)} kWh / ${total_solar_generation}`
                                     }
                                 </text>
                             </a>
@@ -2252,8 +2252,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${!load_showdaily || !show_aux ? 'none' : ''}"
                                       fill="${load_colour}">
                                     ${config.load.auto_scale
-                                            ? this.convertValueNew(state_day_load_energy.state, state_day_load_energy.attributes?.unit_of_measurement, 1)
-                                            : `${this.toNum(state_day_load_energy.state, 1)} kWh`
+                                        ? this.convertValueNew(state_day_load_energy.state, state_day_load_energy.attributes?.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_load_energy.state, 1)} kWh`
                                     }
                                 </text>
                             </a>
@@ -2263,8 +2263,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${!load_showdaily || show_aux ? 'none' : ''}"
                                       fill="${load_colour}">
                                     ${config.load.auto_scale
-                                            ? this.convertValueNew(state_day_load_energy.state, state_day_load_energy.attributes?.unit_of_measurement, 1)
-                                            : `${this.toNum(state_day_load_energy.state, 1)} kWh`
+                                        ? this.convertValueNew(state_day_load_energy.state, state_day_load_energy.attributes?.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_load_energy.state, 1)} kWh`
                                     }
                                 </text>
                             </a>
@@ -2273,8 +2273,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${battery_showdaily !== true || !config.show_battery ? 'none' : ''}"
                                       fill="${battery_colour}">
                                     ${config.battery.auto_scale
-                                            ? this.convertValueNew(state_day_battery_charge.state, state_day_battery_charge.attributes?.unit_of_measurement, 1)
-                                            : `${this.toNum(state_day_battery_charge.state, 1)} kWh`
+                                        ? this.convertValueNew(state_day_battery_charge.state, state_day_battery_charge.attributes?.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_battery_charge.state, 1)} kWh`
                                     }
                                 </text>
                             </a>
@@ -2283,8 +2283,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${battery_showdaily !== true || !config.show_battery ? 'none' : ''}"
                                       fill="${battery_colour}">
                                     ${config.battery.auto_scale
-                                            ? this.convertValueNew(state_day_battery_discharge.state, state_day_battery_discharge.attributes?.unit_of_measurement, 1)
-                                            : `${this.toNum(state_day_battery_discharge.state, 1)} kWh`
+                                        ? this.convertValueNew(state_day_battery_discharge.state, state_day_battery_discharge.attributes?.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_battery_discharge.state, 1)} kWh`
                                     }
                                 </text>
                             </a>
@@ -2294,8 +2294,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${!config.show_grid || grid_showdailybuy !== true ? 'none' : ''}"
                                       fill="${grid_colour}">
                                     ${config.grid.auto_scale
-                                            ? this.convertValueNew(state_day_grid_import.state, state_day_grid_import.attributes?.unit_of_measurement, 1)
-                                            : `${this.toNum(state_day_grid_import.state, 1)} kWh`
+                                        ? this.convertValueNew(state_day_grid_import.state, state_day_grid_import.attributes?.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_grid_import.state, 1)} kWh`
                                     }
                                 </text>
                             </a>
@@ -2305,8 +2305,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${!config.show_grid || grid_showdailysell !== true ? 'none' : ''}"
                                       fill="${grid_colour}">
                                     ${config.grid.auto_scale
-                                            ? this.convertValueNew(state_day_grid_export.state, state_day_grid_export.attributes?.unit_of_measurement, 1)
-                                            : `${this.toNum(state_day_grid_export.state, 1)} kWh`
+                                        ? this.convertValueNew(state_day_grid_export.state, state_day_grid_export.attributes?.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_grid_export.state, 1)} kWh`
                                     }
                                 </text>
                             </a>
@@ -2317,8 +2317,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${!show_aux || show_dailyaux !== true ? 'none' : ''}"
                                       fill="${aux_colour}">
                                     ${config.load.auto_scale
-                                            ? this.convertValueNew(state_day_aux_energy.state, state_day_aux_energy.attributes?.unit_of_measurement, 1)
-                                            : `${this.toNum(state_day_aux_energy.state, 1)} kWh`
+                                        ? this.convertValueNew(state_day_aux_energy.state, state_day_aux_energy.attributes?.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_aux_energy.state, 1)} kWh`
                                     }
                                 </text>
                             </a>
@@ -2348,7 +2348,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </a>
                             ${config.inverter.three_phase
                                     ? config.entities?.grid_ct_power_total
-                                            ? svg`
+                                        ? svg`
                                         <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_ct_power_total)}>
                                         <text id="grid_total_power" x="420" y="281.5"
                                               display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
@@ -2356,7 +2356,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             ${config.grid.auto_scale ? `${this.convertValue(total_grid_power, round) || 0}` : `${total_grid_power || 0} W`}
                                         </text>
                                         </a>`
-                                            : svg`
+                                        : svg`
                                         <text id="grid_total_power" x="420" y="281.5"
                                               display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
                                               class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">
@@ -2372,7 +2372,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     </a>`
                             }
                             ${config.entities?.pv_total
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv_total)}>
                                         <text id="pvtotal_power" x="19%" y="46.5%" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}" 
@@ -2382,10 +2382,10 @@ export class SunsynkPowerFlowCard extends LitElement {
                                                     ? this.convertValueNew(total_pv, state_pv_total.attributes?.unit_of_measurement, round)
                                                     : this.convertValue(total_pv, round) || 0
                                             : `${total_pv || 0} W`
-                                    }
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="pvtotal_power" x="87" y="178" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}" 
                                           fill="${solar_colour}">
@@ -2394,25 +2394,25 @@ export class SunsynkPowerFlowCard extends LitElement {
                                                     ? this.convertValueNew(total_pv, state_pv_total.attributes?.unit_of_measurement, round)
                                                     : this.convertValue(total_pv, round) || 0
                                             : `${total_pv || 0} W`
-                                    }
+                                          }
                                     </text>`
                             }
                             ${config.entities?.essential_power && config.entities.essential_power !== 'none'
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_power)}>
                                         <text id="ess_power" x="270" y="119" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               fill="${load_colour}">
                                             ${config.load.auto_scale ? `${this.convertValue(essential, round) || 0}` : `${essential || 0} W`}
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="ess_power" x="270" y="119" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           fill="${load_colour}">
                                         ${config.load.auto_scale ? `${this.convertValue(essential, round) || 0}` : `${essential || 0} W`}
                                     </text>`
                             }
                             ${config.entities?.nonessential_power
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.nonessential_power)}>
                                         <text id="non_ess_power" x="338" y="281.5" display="${!config.show_grid || !grid_show_noness ? 'none' : ''}" 
                                               class="${font !== true ? 'st14' : 'st4'} st8" 
@@ -2420,7 +2420,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             ${config.grid.auto_scale ? `${this.convertValue(nonessential, round) || 0}` : `${nonessential || 0} W`}
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="non_ess_power" x="338" y="281.5"
                                           display="${!config.show_grid || !grid_show_noness ? 'none' : ''}" 
                                           class="${font !== true ? 'st14' : 'st4'} st8" 
@@ -2429,22 +2429,22 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     </text>`
                             }
                             ${config.entities?.aux_power_166
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.aux_power_166)}>
                                         <text id="aux_power_166" x="270" y="48" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!show_aux ? 'none' : ''}" 
                                               fill="${aux_colour}">
                                             ${config.load.auto_scale
-                                            ? `${config.load.show_absolute_aux
-                                                    ? `${Math.abs(parseFloat(this.convertValue(aux_power, round)))} ${this.convertValue(aux_power, round).split(' ')[1]}`
-                                                    : this.convertValue(aux_power, round) || '0'}`
-                                            : `${config.load.show_absolute_aux
-                                                    ? `${Math.abs(aux_power)}`
-                                                    : aux_power || 0} W`
-                                    }
+                                                ? `${config.load.show_absolute_aux
+                                                        ? `${Math.abs(parseFloat(this.convertValue(aux_power, round)))} ${this.convertValue(aux_power, round).split(' ')[1]}`
+                                                        : this.convertValue(aux_power, round) || '0'}`
+                                                : `${config.load.show_absolute_aux
+                                                        ? `${Math.abs(aux_power)}`
+                                                        : aux_power || 0} W`
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="aux_power_166" x="270" y="48" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!show_aux ? 'none' : ''}" 
                                           fill="${aux_colour}">
@@ -2455,66 +2455,66 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             : `${config.load.show_absolute_aux
                                                     ? `${Math.abs(aux_power)}`
                                                     : aux_power || 0} W`
-                                    }
+                                        }
                                         </text>`
                             }
                             ${config.entities?.pv1_power_186
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_power_186)}>
                                         <text id="pv1_power_186" x="36.5" y="56.5" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!config.show_solar ? 'none' : ''}" 
                                               fill="${solar_colour}" >
                                             ${config.solar.auto_scale
-                                            ? this.convertValueNew(state_pv1_power.state, state_pv1_power.attributes?.unit_of_measurement, round)
-                                            : `${this.toNum(state_pv1_power.state, 0)} W`
-                                    }
+                                                ? this.convertValueNew(state_pv1_power.state, state_pv1_power.attributes?.unit_of_measurement, round)
+                                                : `${this.toNum(state_pv1_power.state, 0)} W`
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="pv1_power_186" x="36.5" y="56.5" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!config.show_solar || config.entities.pv1_power_186 === 'none' ? 'none' : ''}" 
                                           fill="${solar_colour}" >
                                         ${config.solar.auto_scale
                                             ? this.convertValueNew(state_pv1_power.state, state_pv1_power.attributes?.unit_of_measurement, round)
                                             : `${this.toNum(state_pv1_power.state, 0)} W`
-                                    }
+                                        }
                                     </text>`
                             }
                             ${config.entities?.pv2_power_187
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_power_187)}>
                                         <text id="pv2_power_187" x="137" y="56.5" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}" 
                                               fill="${solar_colour}">
                                             ${config.solar.auto_scale
-                                            ? this.convertValueNew(state_pv2_power.state, state_pv2_power.attributes?.unit_of_measurement, round)
-                                            : `${this.toNum(state_pv2_power.state, 0)} W`
-                                    }
+                                                ? this.convertValueNew(state_pv2_power.state, state_pv2_power.attributes?.unit_of_measurement, round)
+                                                : `${this.toNum(state_pv2_power.state, 0)} W`
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="pv2_power_187" x="137" y="56.5" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!config.show_solar || config.entities.pv2_power_187 === 'none' || config.solar.mppts === 1 ? 'none' : ''}" 
                                           fill="${solar_colour}">
                                         ${config.solar.auto_scale
                                             ? this.convertValueNew(state_pv2_power.state, state_pv2_power.attributes?.unit_of_measurement, round)
                                             : `${this.toNum(state_pv2_power.state, 0)} W`
-                                    }
+                                        }
                                     </text>`
                             }
                             ${config.entities?.pv3_power_188
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_power_188)}>
                                         <text id="pv3_power_188" x="36.5" y="117" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'none' : ''}" 
                                               fill="${solar_colour}">
                                             ${config.solar.auto_scale
-                                            ? this.convertValueNew(state_pv3_power.state, state_pv3_power.attributes?.unit_of_measurement, round)
-                                            : `${this.toNum(state_pv3_power.state, 0)} W`
-                                    }
+                                                ? this.convertValueNew(state_pv3_power.state, state_pv3_power.attributes?.unit_of_measurement, round)
+                                                 : `${this.toNum(state_pv3_power.state, 0)} W`
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="pv3_power_188" x="36.5" y="117" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!config.show_solar || config.entities.pv3_power_188 === 'none' || [1, 2].includes(config.solar.mppts) ? 'none' : ''}" 
                                           fill="${solar_colour}">
@@ -2524,176 +2524,176 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     </text>`
                             }
                             ${config.entities?.pv4_power_189
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_power_189)}>
                                         <text id="pv4_power_189" x="137" y="117" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}" 
                                               fill="${solar_colour}">
                                             ${config.solar.auto_scale
-                                            ? this.convertValueNew(state_pv4_power.state, state_pv4_power.attributes?.unit_of_measurement, round)
-                                            : `${this.toNum(state_pv4_power.state, 0)} W`
-                                    }
+                                                ? this.convertValueNew(state_pv4_power.state, state_pv4_power.attributes?.unit_of_measurement, round)
+                                                : `${this.toNum(state_pv4_power.state, 0)} W`
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="pv4_power_189" x="137" y="117" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!config.show_solar || config.entities.pv4_power_189 === 'none' || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}" 
                                           fill="${solar_colour}">
                                         ${config.solar.auto_scale
                                             ? this.convertValueNew(state_pv4_power.state, state_pv4_power.attributes?.unit_of_measurement, round)
                                             : `${this.toNum(state_pv4_power.state, 0)} W`
-                                    }
+                                        }
                                     </text>`
                             }
                             ${config.entities?.aux_load1
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.aux_load1)}>
                                         <text id="aux_load1_value" x="411" y="34" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!show_aux || additional_aux_load === 0 ? 'none' : ''}" 
                                               fill="${aux_colour}">
                                             ${config.load.auto_scale
-                                            ? this.convertValueNew(state_aux_load1.state, state_aux_load1.attributes?.unit_of_measurement, round)
-                                            : `${this.toNum(state_aux_load1.state, 0) || 0} W`
-                                    }
+                                                ? this.convertValueNew(state_aux_load1.state, state_aux_load1.attributes?.unit_of_measurement, round)
+                                                : `${this.toNum(state_aux_load1.state, 0) || 0} W`
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="aux_load1_value" x="411" y="34" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!show_aux || additional_aux_load === 0 ? 'none' : ''}" 
                                           fill="${aux_colour}">
                                         ${config.load.auto_scale
                                             ? this.convertValueNew(state_aux_load1.state, state_aux_load1.attributes?.unit_of_measurement, round)
                                             : `${this.toNum(state_aux_load1.state, 0) || 0} W`
-                                    }
+                                        }
                                     </text>`
                             }
                             ${config.entities?.aux_load2
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.aux_load2)}>
                                         <text id="aux_load2_value" x="411" y="64" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!show_aux || [0, 1].includes(additional_aux_load) ? 'none' : ''}" 
                                               fill="${aux_colour}">
                                             ${config.load.auto_scale
-                                            ? this.convertValueNew(state_aux_load2.state, state_aux_load2.attributes?.unit_of_measurement, round)
-                                            : `${this.toNum(state_aux_load2.state, 0) || 0} W`
-                                    }
+                                                ? this.convertValueNew(state_aux_load2.state, state_aux_load2.attributes?.unit_of_measurement, round)
+                                                : `${this.toNum(state_aux_load2.state, 0) || 0} W`
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="aux_load2_value" x="411" y="64" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!show_aux || [0, 1].includes(additional_aux_load) ? 'none' : ''}" 
                                           fill="${aux_colour}">
                                         ${config.load.auto_scale
                                             ? this.convertValueNew(state_aux_load2.state, state_aux_load2.attributes?.unit_of_measurement, round)
                                             : `${this.toNum(state_aux_load2.state, 0) || 0} W`
-                                    }
+                                        }
                                     </text>`
                             }
                             ${config.entities?.non_essential_load1
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.non_essential_load1)}>
                                         <text id="noness1_value" x="340" y="321" class="st3" 
                                               display="${!config.show_grid || !grid_show_noness || [0, 2, 3].includes(noness_dual_load) ? 'none' : ''}" 
                                               fill="${grid_colour}">
                                             ${config.grid.auto_scale
-                                            ? this.convertValueNew(state_non_essential_load1.state, state_non_essential_load1.attributes?.unit_of_measurement, round)
-                                            : `${this.toNum(state_non_essential_load1.state, 0) || 0} W`
-                                    }
+                                                ? this.convertValueNew(state_non_essential_load1.state, state_non_essential_load1.attributes?.unit_of_measurement, round)
+                                                : `${this.toNum(state_non_essential_load1.state, 0) || 0} W`
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="noness1_value" x="340" y="321" class="st3" 
                                           display="${!config.show_grid || !grid_show_noness || [0, 2, 3].includes(noness_dual_load) ? 'none' : ''}" 
                                           fill="${grid_colour}">
                                         ${config.grid.auto_scale
                                             ? this.convertValueNew(state_non_essential_load1.state, state_non_essential_load1.attributes?.unit_of_measurement, round)
                                             : `${this.toNum(state_non_essential_load1.state, 0) || 0} W`
-                                    }
+                                        }
                                     </text>`
                             }
                             ${config.entities?.non_essential_load1
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.non_essential_load1)}>
                                         <text id="noness2_value" x="320" y="321" class="st3" 
                                               display="${!config.show_grid || !grid_show_noness || [0, 1].includes(noness_dual_load) ? 'none' : ''}" 
                                               fill="${grid_colour}">
                                             ${config.grid.auto_scale
-                                            ? this.convertValueNew(state_non_essential_load1.state, state_non_essential_load1.attributes?.unit_of_measurement, round)
-                                            : `${this.toNum(state_non_essential_load1.state, 0) || 0} W`
-                                    }
+                                                ? this.convertValueNew(state_non_essential_load1.state, state_non_essential_load1.attributes?.unit_of_measurement, round)
+                                                : `${this.toNum(state_non_essential_load1.state, 0) || 0} W`
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="noness2_value" x="320" y="321" class="st3" 
                                           display="${!config.show_grid || !grid_show_noness || [0, 1].includes(noness_dual_load) ? 'none' : ''}" 
                                           fill="${grid_colour}">
                                         ${config.grid.auto_scale
                                             ? this.convertValueNew(state_non_essential_load1.state, state_non_essential_load1.attributes?.unit_of_measurement, round)
                                             : `${this.toNum(state_non_essential_load1.state, 0) || 0} W`
-                                    }
+                                        }
                                     </text>`
                             }
                             ${config.entities?.non_essential_load2
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.non_essential_load2)}>
                                         <text id="noness2_value" x="357" y="321" class="st3" 
                                               display="${!config.show_grid || !grid_show_noness || [0, 1].includes(noness_dual_load) ? 'none' : ''}" 
                                               fill="${grid_colour}">
                                             ${config.grid.auto_scale
-                                            ? this.convertValueNew(state_non_essential_load2.state, state_non_essential_load2.attributes?.unit_of_measurement, round)
-                                            : `${this.toNum(state_non_essential_load2.state, 0) || 0} W`
-                                    }
+                                                ? this.convertValueNew(state_non_essential_load2.state, state_non_essential_load2.attributes?.unit_of_measurement, round)
+                                                : `${this.toNum(state_non_essential_load2.state, 0) || 0} W`
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="noness2_value" x="357" y="321" class="st3" 
                                           display="${!config.show_grid || !grid_show_noness || [0, 1].includes(noness_dual_load) ? 'none' : ''}" 
                                           fill="${grid_colour}">
                                         ${config.grid.auto_scale
                                             ? this.convertValueNew(state_non_essential_load2.state, state_non_essential_load2.attributes?.unit_of_measurement, round)
                                             : `${this.toNum(state_non_essential_load2.state, 0) || 0} W`
-                                    }
+                                        }
                                     </text>`
                             }
                             ${config.entities?.non_essential_load3
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.non_essential_load3)}>
                                         <text id="noness3_value" x="283" y="321" class="${config.battery.hide_soc ? 'st3' : 'st12'}" 
                                               display="${!config.show_grid || !grid_show_noness || [0, 1, 2].includes(noness_dual_load) ? 'none' : ''}" 
                                               fill="${grid_colour}">
                                             ${config.grid.auto_scale
-                                            ? this.convertValueNew(state_non_essential_load3.state, state_non_essential_load3.attributes?.unit_of_measurement, round)
-                                            : `${this.toNum(state_non_essential_load3.state, 0) || 0} W`
-                                    }
+                                                ? this.convertValueNew(state_non_essential_load3.state, state_non_essential_load3.attributes?.unit_of_measurement, round)
+                                                : `${this.toNum(state_non_essential_load3.state, 0) || 0} W`
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="noness3_value" x="283" y="321" class="${config.battery.hide_soc ? 'st3' : 'st12'}" 
                                           display="${!config.show_grid || !grid_show_noness || [0, 1, 2].includes(noness_dual_load) ? 'none' : ''}" 
                                           fill="${grid_colour}">
                                         ${config.grid.auto_scale
                                             ? this.convertValueNew(state_non_essential_load3.state, state_non_essential_load3.attributes?.unit_of_measurement, round)
                                             : `${this.toNum(state_non_essential_load3.state, 0) || 0} W`
-                                    }
+                                        }
                                     </text>`
                             }
                             ${config.entities?.essential_load1
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1)}>
                                         <text id="ess_load1_value" x="409" y="${!show_aux ? '47' : '158'}" 
                                               display="${additional_load === 1 ? '' : 'none'}" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               fill="${load_colour}">
                                             ${config.load.auto_scale
-                                            ? this.convertValueNew(state_essential_load1.state, state_essential_load1.attributes?.unit_of_measurement, round)
-                                            : `${this.toNum(state_essential_load1.state, 0) || 0} ${
-                                                    state_essential_load1.attributes?.unit_of_measurement !== undefined
+                                                ? this.convertValueNew(state_essential_load1.state, state_essential_load1.attributes?.unit_of_measurement, round)
+                                                : `${this.toNum(state_essential_load1.state, 0) || 0} ${
+                                                        state_essential_load1.attributes?.unit_of_measurement !== undefined
                                                             ? state_essential_load1.attributes?.unit_of_measurement
                                                             : ''
-                                            }`
-                                    }
+                                                   }`
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="ess_load1_value" x="409" y="${!show_aux ? '47' : '158'}" 
                                           display="${additional_load === 1 ? '' : 'none'}" 
                                           class="${font !== true ? 'st14' : 'st4'} st8" 
@@ -2702,29 +2702,29 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             ? this.convertValueNew(state_essential_load1.state, state_essential_load1.attributes?.unit_of_measurement, round)
                                             : `${this.toNum(state_essential_load1.state, 0) || 0} ${
                                                     state_essential_load1.attributes?.unit_of_measurement !== undefined
-                                                            ? state_essential_load1.attributes?.unit_of_measurement
-                                                            : ''
-                                            }`
-                                    }
+                                                        ? state_essential_load1.attributes?.unit_of_measurement
+                                                        : ''
+                                               }`
+                                        }
                                     </text>`
                             }
                             ${config.entities?.essential_load1
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1)}>
                                         <text id="ess_load2_value" x="${!show_aux ? '394' : '391'}" y="${!show_aux ? '42' : '160'}" 
                                               display="${additional_load === 2 ? '' : 'none'}" class="st3" 
                                               fill="${load_colour}">
                                             ${config.load.auto_scale
-                                            ? this.convertValueNew(state_essential_load1.state, state_essential_load1.attributes?.unit_of_measurement, round)
-                                            : `${this.toNum(state_essential_load1.state, 0) || 0} ${
-                                                    state_essential_load1.attributes?.unit_of_measurement !== undefined
+                                                ? this.convertValueNew(state_essential_load1.state, state_essential_load1.attributes?.unit_of_measurement, round)
+                                                : `${this.toNum(state_essential_load1.state, 0) || 0} ${
+                                                        state_essential_load1.attributes?.unit_of_measurement !== undefined
                                                             ? state_essential_load1.attributes?.unit_of_measurement
                                                             : ''
-                                            }`
-                                    }
+                                                   }`
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="ess_load2_value" x="${!show_aux ? '394' : '391'}" y="${!show_aux ? '42' : '160'}" 
                                           display="${additional_load === 2 ? '' : 'none'}" 
                                           class="st3" fill="${load_colour}">
@@ -2732,29 +2732,29 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             ? this.convertValueNew(state_essential_load1.state, state_essential_load1.attributes?.unit_of_measurement, round)
                                             : `${this.toNum(state_essential_load1.state, 0) || 0} ${
                                                     state_essential_load1.attributes?.unit_of_measurement !== undefined
-                                                            ? state_essential_load1.attributes?.unit_of_measurement
-                                                            : ''
-                                            }`
-                                    }
+                                                        ? state_essential_load1.attributes?.unit_of_measurement
+                                                        : ''
+                                               }`
+                                        }
                                     </text>`
                             }
                             ${config.entities?.essential_load2
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load2)}>
                                         <text id="ess_load2_value" x="${!show_aux ? '430' : '427'}" y="${!show_aux ? '42' : '160'}" 
                                               display="${additional_load === 2 ? '' : 'none'}" class="st3" 
                                               fill="${load_colour}">
                                             ${config.load.auto_scale
-                                            ? this.convertValueNew(state_essential_load2.state, state_essential_load2.attributes?.unit_of_measurement, round)
-                                            : `${this.toNum(state_essential_load2.state, 0) || 0} ${
-                                                    state_essential_load2.attributes?.unit_of_measurement !== undefined
+                                                ? this.convertValueNew(state_essential_load2.state, state_essential_load2.attributes?.unit_of_measurement, round)
+                                                : `${this.toNum(state_essential_load2.state, 0) || 0} ${
+                                                        state_essential_load2.attributes?.unit_of_measurement !== undefined
                                                             ? state_essential_load2.attributes?.unit_of_measurement
                                                             : ''
-                                            }`
-                                    }
+                                                   }`
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="ess_load2_value" x="${!show_aux ? '430' : '427'}" y="${!show_aux ? '42' : '160'}" 
                                           display="${additional_load === 2 ? '' : 'none'}" 
                                           class="st3" fill="${load_colour}">
@@ -2762,21 +2762,21 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             ? this.convertValueNew(state_essential_load2.state, state_essential_load2.attributes?.unit_of_measurement, round)
                                             : `${this.toNum(state_essential_load2.state, 0) || 0} ${
                                                     state_essential_load2.attributes?.unit_of_measurement !== undefined
-                                                            ? state_essential_load2.attributes?.unit_of_measurement
-                                                            : ''
-                                            }`
-                                    }
+                                                        ? state_essential_load2.attributes?.unit_of_measurement
+                                                        : ''
+                                               }`
+                                        }
                                     </text>`
                             }
                             ${total_grid_power >= 0
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost_buy)}>
                                         <text id="energy_cost" x="414" y="305" class="${!config.show_grid ? 'st12' : 'st3 right-align'}" 
                                               fill="${grid_colour}" 
                                               display="${config.entities?.energy_cost_buy ? '' : 'none'}" >
                                             ${energy_cost} ${state_energy_cost_buy.attributes?.unit_of_measurement}</text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost_sell)}>
                                         <text id="energy_cost" x="414" y="305"  class="${!config.show_grid ? 'st12' : 'st3 right-align'}" 
                                               fill="${grid_colour}" 
@@ -2885,13 +2885,13 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${config.entities.battery_power_190 === 'none' || !config.show_battery ? 'none' : ''}"
                                       fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">
                                     ${config.battery.auto_scale
-                                            ? `${config.battery.show_absolute
-                                                    ? `${Math.abs(parseFloat(this.convertValue(battery_power, round)))} ${this.convertValue(battery_power, round).split(' ')[1]}`
-                                                    : this.convertValue(battery_power, round) || '0'}`
-                                            : `${config.battery.show_absolute
-                                                    ? `${Math.abs(battery_power)} W`
-                                                    : `${battery_power || 0} W`
-                                            }`
+                                        ? `${config.battery.show_absolute
+                                                ? `${Math.abs(parseFloat(this.convertValue(battery_power, round)))} ${this.convertValue(battery_power, round).split(' ')[1]}`
+                                                : this.convertValue(battery_power, round) || '0'}`
+                                        : `${config.battery.show_absolute
+                                                ? `${Math.abs(battery_power)} W`
+                                                : `${battery_power || 0} W`
+                                           }`
                                     }
                                 </text>
                             </a>
@@ -2900,8 +2900,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${config.entities.battery_current_191 === 'none' || !config.show_battery ? 'none' : ''}"
                                       fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">
                                     ${config.battery.show_absolute
-                                            ? Math.abs(this.toNum(state_battery_current.state, 1))
-                                            : this.toNum(state_battery_current.state, 1)
+                                        ? Math.abs(this.toNum(state_battery_current.state, 1))
+                                        : this.toNum(state_battery_current.state, 1)
                                     }
                                     A
                                 </text>
@@ -2912,8 +2912,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${config.entities.inverter_power_175 === 'none' ? 'none' : ''}"
                                       class="${font !== true ? 'st14' : 'st4'} st8" fill="${inverter_colour}">
                                     ${config.inverter.auto_scale
-                                            ? `${this.convertValue(inverter_power_round, round) || 0}`
-                                            : `${inverter_power_round} W`}
+                                        ? `${this.convertValue(inverter_power_round, round) || 0}`
+                                        : `${inverter_power_round} W`}
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_power_169)}>
@@ -2922,8 +2922,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${!config.show_grid || config.entities.grid_power_169 === 'none' ? 'none' : ''}"
                                       class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">
                                     ${config.grid.auto_scale
-                                            ? `${this.convertValue(grid_power_round, round) || 0}`
-                                            : `${grid_power_round} W`
+                                        ? `${this.convertValue(grid_power_round, round) || 0}`
+                                        : `${grid_power_round} W`
                                     }
                                 </text>
                             </a>
@@ -3731,8 +3731,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${battery_showdaily !== true || !config.show_battery ? 'none' : ''}"
                                       fill="${battery_colour}">
                                     ${config.battery.auto_scale
-                                            ? this.convertValueNew(state_day_battery_charge.state, state_day_battery_charge.attributes?.unit_of_measurement, 1)
-                                            : `${this.toNum(state_day_battery_charge.state, 1)} kWh`
+                                        ? this.convertValueNew(state_day_battery_charge.state, state_day_battery_charge.attributes?.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_battery_charge.state, 1)} kWh`
                                     }
                                 </text>
                             </a>
@@ -3741,8 +3741,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${config.solar.display_mode === 1 ? '' : 'none'}"
                                       fill="${!solar_showdaily || !config.show_solar ? 'transparent' : `${solar_colour}`}">
                                     ${config.solar.auto_scale
-                                            ? this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes?.unit_of_measurement, 1)
-                                            : `${this.toNum(state_day_pv_energy.state, 1)} kWh`
+                                        ? this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes?.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_pv_energy.state, 1)} kWh`
                                     }
                                 </text>
                             </a>
@@ -3751,8 +3751,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${config.solar.display_mode === 2 ? '' : 'none'}"
                                       fill="${!solar_showdaily || !config.show_solar ? 'transparent' : `${solar_colour}`}">
                                     ${config.solar.auto_scale
-                                            ? `${this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes?.unit_of_measurement, 1)} / ${remaining_solar}`
-                                            : `${this.toNum(state_day_pv_energy.state, 1)} kWh / ${remaining_solar}`
+                                        ? `${this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes?.unit_of_measurement, 1)} / ${remaining_solar}`
+                                        : `${this.toNum(state_day_pv_energy.state, 1)} kWh / ${remaining_solar}`
                                     }
                                 </text>
                             </a>
@@ -3761,8 +3761,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${config.solar.display_mode === 3 ? '' : 'none'}"
                                       fill="${!solar_showdaily || !config.show_solar ? 'transparent' : `${solar_colour}`}">
                                     ${config.solar.auto_scale
-                                            ? `${this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes?.unit_of_measurement, 1)} / ${total_solar_generation}`
-                                            : `${this.toNum(state_day_pv_energy.state, 1)} kWh / ${total_solar_generation}`
+                                        ? `${this.convertValueNew(state_day_pv_energy.state, state_day_pv_energy.attributes?.unit_of_measurement, 1)} / ${total_solar_generation}`
+                                        : `${this.toNum(state_day_pv_energy.state, 1)} kWh / ${total_solar_generation}`
                                     }
                                 </text>
                             </a>
@@ -3772,8 +3772,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${battery_showdaily !== true || !config.show_battery ? 'none' : ''}"
                                       fill="${battery_colour}">
                                     ${config.battery.auto_scale
-                                            ? this.convertValueNew(state_day_battery_discharge.state, state_day_battery_discharge.attributes?.unit_of_measurement, 1)
-                                            : `${this.toNum(state_day_battery_discharge.state, 1)} kWh`
+                                        ? this.convertValueNew(state_day_battery_discharge.state, state_day_battery_discharge.attributes?.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_battery_discharge.state, 1)} kWh`
                                     }
                                 </text>
                             </a>
@@ -3784,8 +3784,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       class="st10 left-align" display="${!load_showdaily ? 'none' : ''}"
                                       fill="${load_colour}">
                                     ${config.load.auto_scale
-                                            ? this.convertValueNew(state_day_load_energy.state, state_day_load_energy.attributes?.unit_of_measurement, 1)
-                                            : `${this.toNum(state_day_load_energy.state, 1)} kWh`
+                                        ? this.convertValueNew(state_day_load_energy.state, state_day_load_energy.attributes?.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_load_energy.state, 1)} kWh`
                                     }
                                 </text>
                             </a>
@@ -3794,8 +3794,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${!config.show_grid || grid_showdailybuy !== true ? 'none' : ''}"
                                       fill="${grid_colour}">
                                     ${config.grid.auto_scale
-                                            ? this.convertValueNew(state_day_grid_import.state, state_day_grid_import.attributes?.unit_of_measurement, 1)
-                                            : `${this.toNum(state_day_grid_import.state, 1)} kWh`
+                                        ? this.convertValueNew(state_day_grid_import.state, state_day_grid_import.attributes?.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_grid_import.state, 1)} kWh`
                                     }
                                 </text>
                             </a>
@@ -3804,8 +3804,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${!config.show_grid || grid_showdailysell !== true ? 'none' : ''}"
                                       fill="${grid_colour}">
                                     ${config.grid.auto_scale
-                                            ? this.convertValueNew(state_day_grid_export.state, state_day_grid_export.attributes?.unit_of_measurement, 1)
-                                            : `${this.toNum(state_day_grid_export.state, 1)} kWh`
+                                        ? this.convertValueNew(state_day_grid_export.state, state_day_grid_export.attributes?.unit_of_measurement, 1)
+                                        : `${this.toNum(state_day_grid_export.state, 1)} kWh`
                                     }
                                 </text>
                             </a>
@@ -3889,13 +3889,13 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${config.entities.battery_power_190 === 'none' || !config.show_battery ? 'none' : ''}"
                                       fill=${battery_colour} class="${font !== true ? 'st14' : 'st4'} st8">
                                     ${config.battery.auto_scale
-                                            ? `${config.battery.show_absolute
-                                                    ? `${Math.abs(parseFloat(this.convertValue(battery_power, round)))} ${this.convertValue(battery_power, round).split(' ')[1]}`
-                                                    : this.convertValue(battery_power, round) || '0'}`
-                                            : `${config.battery.show_absolute
-                                                    ? `${Math.abs(battery_power)} W`
-                                                    : `${battery_power || 0} W`
-                                            }`
+                                        ? `${config.battery.show_absolute
+                                                ? `${Math.abs(parseFloat(this.convertValue(battery_power, round)))} ${this.convertValue(battery_power, round).split(' ')[1]}`
+                                                : this.convertValue(battery_power, round) || '0'}`
+                                        : `${config.battery.show_absolute
+                                                ? `${Math.abs(battery_power)} W`
+                                                : `${battery_power || 0} W`
+                                           }`
                                     }
                                 </text>
                             </a>
@@ -3916,8 +3916,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </text>
                             </a>
                             ${config.inverter.three_phase
-                                    ? config.entities?.grid_ct_power_total
-                                            ? svg`
+                                ? config.entities?.grid_ct_power_total
+                                    ? svg`
                                         <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_ct_power_total)}>
                                         <text id="total_grid_power" x="135" y="219.2"
                                               display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
@@ -3925,13 +3925,13 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             ${config.grid.auto_scale ? `${this.convertValue(total_grid_power, round) || 0}` : `${total_grid_power || 0} W`}
                                         </text>
                                     </a>`
-                                            : svg`
+                                    : svg`
                                         <text id="grid_total_power" x="135" y="219.2"
                                               display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
                                               class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">
                                             ${config.grid.auto_scale ? `${this.convertValue(total_grid_power, round) || 0}` : `${total_grid_power || 0} W`}
                                         </text>`
-                                    : svg`
+                                : svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_ct_power_172)}>
                                         <text id="grid_total_power" x="135" y="219.2"
                                               display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
@@ -4034,7 +4034,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 </text>
                             </a>
                             ${total_grid_power >= 0
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost_buy)}>
                                         <text id="energy_cost" x="105" y="195" class="${!config.show_grid ? 'st12' : 'st3 left-align'}" 
                                               fill="${grid_colour}" 
@@ -4042,7 +4042,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             ${energy_cost} ${state_energy_cost_buy.attributes?.unit_of_measurement}
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.energy_cost_sell)}>
                                         <text id="energy_cost" x="105" y="195"  class="${!config.show_grid ? 'st12' : 'st3 left-align'}" 
                                               fill="${grid_colour}" 
@@ -4051,44 +4051,44 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         </text>
                                     </a>`}
                             ${config.entities?.pv_total
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv_total)}>
                                         <text id="pvtotal_power" x="238.8" y="133.9" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}" 
                                               fill="${solar_colour}">
-                                              ${config.solar.auto_scale
-                                            ? config.entities?.pv_total
+                                            ${config.solar.auto_scale
+                                                ? config.entities?.pv_total
                                                     ? this.convertValueNew(total_pv, state_pv_total.attributes?.unit_of_measurement, round)
                                                     : this.convertValue(total_pv, round) || 0
-                                            : `${total_pv || 0} W`
-                                    }
+                                                : `${total_pv || 0} W`
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="pvtotal_power" x="238.8" y="133.9" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}" 
                                           fill="${solar_colour}">
-                                          ${config.solar.auto_scale
+                                        ${config.solar.auto_scale
                                             ? config.entities?.pv_total
-                                                    ? this.convertValueNew(total_pv, state_pv_total.attributes?.unit_of_measurement, round)
-                                                    : this.convertValue(total_pv, round) || 0
+                                                ? this.convertValueNew(total_pv, state_pv_total.attributes?.unit_of_measurement, round)
+                                                : this.convertValue(total_pv, round) || 0
                                             : `${total_pv || 0} W`
-                                    }
+                                        }
                                     </text>`
                             }
                             ${config.entities?.pv1_power_186
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv1_power_186)}>
                                         <text id="pv1_power_186" x="${config.solar.mppts === 1 ? '238.8' : '188.1'}" y="71" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!config.show_solar ? 'none' : ''}" 
                                               fill="${solar_colour}">
                                             ${config.solar.auto_scale
-                                            ? this.convertValueNew(state_pv1_power.state, state_pv1_power.attributes?.unit_of_measurement, round)
-                                            : `${this.toNum(state_pv1_power.state, 0)} W`
-                                    }
+                                                ? this.convertValueNew(state_pv1_power.state, state_pv1_power.attributes?.unit_of_measurement, round)
+                                                : `${this.toNum(state_pv1_power.state, 0)} W`
+                                             }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="pv1_power_186" x="${config.solar.mppts === 1 ? '238.8' : '188.1'}" y="71" 
                                           class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!config.show_solar || config.entities.pv1_power_186 === 'none' ? 'none' : ''}" 
@@ -4100,40 +4100,40 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     </text>`
                             }
                             ${config.entities?.pv2_power_187
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv2_power_187)}>
                                         <text id="pv2_power_187" x="289.5" y="71" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}" 
                                               fill="${solar_colour}">
                                             ${config.solar.auto_scale
-                                            ? this.convertValueNew(state_pv2_power.state, state_pv2_power.attributes?.unit_of_measurement, round)
-                                            : `${this.toNum(state_pv2_power.state, 0)} W`
-                                    }
+                                                ? this.convertValueNew(state_pv2_power.state, state_pv2_power.attributes?.unit_of_measurement, round)
+                                                : `${this.toNum(state_pv2_power.state, 0)} W`
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="pv2_power_187" x="289.5" y="71" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!config.show_solar || config.entities.pv2_power_187 === 'none' || config.solar.mppts === 1 ? 'none' : ''}" 
                                           fill="${solar_colour}">
                                         ${config.solar.auto_scale
                                             ? this.convertValueNew(state_pv2_power.state, state_pv2_power.attributes?.unit_of_measurement, round)
                                             : `${this.toNum(state_pv2_power.state, 0)} W`
-                                    }
+                                        }
                                     </text>`
                             }
                             ${config.entities?.pv3_power_188
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv3_power_188)}>
                                         <text id="pv3_power_188" x="113" y="71" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'none' : ''}" 
                                               fill="${solar_colour}">
                                             ${config.solar.auto_scale
-                                            ? this.convertValueNew(state_pv3_power.state, state_pv3_power.attributes?.unit_of_measurement, round)
-                                            : `${this.toNum(state_pv3_power.state, 0)} W`
-                                    }
+                                                ? this.convertValueNew(state_pv3_power.state, state_pv3_power.attributes?.unit_of_measurement, round)
+                                                : `${this.toNum(state_pv3_power.state, 0)} W`
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="pv3_power_188" x="113" y="71" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!config.show_solar || config.entities.pv3_power_188 === 'none' || [1, 2].includes(config.solar.mppts) ? 'none' : ''}" 
                                           fill="${solar_colour}">
@@ -4144,213 +4144,213 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     </text>`
                             }
                             ${config.entities?.pv4_power_189
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.pv4_power_189)}>
                                         <text id="pv4_power_189" x="366" y="71" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}" 
                                               fill="${solar_colour}">
                                             ${config.solar.auto_scale
-                                            ? this.convertValueNew(state_pv4_power.state, state_pv4_power.attributes?.unit_of_measurement, round)
-                                            : `${this.toNum(state_pv4_power.state, 0)} W`
-                                    }
+                                                ? this.convertValueNew(state_pv4_power.state, state_pv4_power.attributes?.unit_of_measurement, round)
+                                                : `${this.toNum(state_pv4_power.state, 0)} W`
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="pv4_power_189" x="366" y="71" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           display="${!config.show_solar || config.entities.pv4_power_189 === 'none' || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}" 
                                           fill="${solar_colour}">
                                         ${config.solar.auto_scale
                                             ? this.convertValueNew(state_pv4_power.state, state_pv4_power.attributes?.unit_of_measurement, round)
                                             : `${this.toNum(state_pv4_power.state, 0)} W`
-                                    }
+                                        }
                                     </text>`
                             }
                             ${config.entities?.essential_power && config.entities.essential_power !== 'none'
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_power)}>
                                         <text id="ess_power" x="340.1" y="219.2" class="${font !== true ? 'st14' : 'st4'} st8" 
                                               fill="${load_colour}">
                                             ${config.load.auto_scale ? `${this.convertValue(essential, round) || 0}` : `${essential || 0} W`}
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="ess_power" x="340.1" y="219.2" class="${font !== true ? 'st14' : 'st4'} st8" 
                                           fill="${load_colour}">
                                         ${config.load.auto_scale ? `${this.convertValue(essential, round) || 0}` : `${essential || 0} W`}
                                     </text>`
                             }
                             ${config.entities?.essential_load1
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1)}>
                                         <text id="ess_load1" x="440" y="133" display="${[1, 2].includes(additional_load) ? '' : 'none'}" 
                                               class="${font !== true ? 'st14' : 'st4'} st8" 
                                               fill="${load_colour}">
                                             ${config.load.auto_scale
-                                            ? this.convertValueNew(state_essential_load1.state, state_essential_load1.attributes?.unit_of_measurement, round)
-                                            : `${this.toNum(state_essential_load1.state, 0) || 0} ${
-                                                    state_essential_load1.attributes?.unit_of_measurement !== undefined
+                                                ? this.convertValueNew(state_essential_load1.state, state_essential_load1.attributes?.unit_of_measurement, round)
+                                                : `${this.toNum(state_essential_load1.state, 0) || 0} ${
+                                                        state_essential_load1.attributes?.unit_of_measurement !== undefined
                                                             ? state_essential_load1.attributes?.unit_of_measurement
                                                             : ''
-                                            }`
-                                    }
+                                                   }`
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="ess_load1" x="440" y="133" display="${[1, 2].includes(additional_load) ? '' : 'none'}" 
                                           class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">
                                         ${config.load.auto_scale
                                             ? this.convertValueNew(state_essential_load1.state, state_essential_load1.attributes?.unit_of_measurement, round)
                                             : `${this.toNum(state_essential_load1.state, 0) || 0} ${
                                                     state_essential_load1.attributes?.unit_of_measurement !== undefined
-                                                            ? state_essential_load1.attributes?.unit_of_measurement
-                                                            : ''
-                                            }`
-                                    }
+                                                        ? state_essential_load1.attributes?.unit_of_measurement
+                                                        : ''
+                                               }`
+                                        }
                                     </text>`
                             }
                             ${config.entities?.essential_load2
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load2)}>
                                         <text id="ess_load2" x="440" y="306.5" display="${additional_load === 2 ? '' : 'none'}" 
                                               class="${font !== true ? 'st14' : 'st4'} st8" 
                                               fill="${load_colour}">
                                             ${config.load.auto_scale
-                                            ? this.convertValueNew(state_essential_load2.state, state_essential_load2.attributes?.unit_of_measurement, round)
-                                            : `${this.toNum(state_essential_load2.state, 0) || 0} ${
-                                                    state_essential_load2.attributes?.unit_of_measurement !== undefined
+                                                ? this.convertValueNew(state_essential_load2.state, state_essential_load2.attributes?.unit_of_measurement, round)
+                                                : `${this.toNum(state_essential_load2.state, 0) || 0} ${
+                                                        state_essential_load2.attributes?.unit_of_measurement !== undefined
                                                             ? state_essential_load2.attributes?.unit_of_measurement
                                                             : ''
-                                            }`
-                                    }
+                                                   }`
+                                               }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="ess_load2" x="440" y="306.5" display="${additional_load === 2 ? '' : 'none'}" 
                                           class="${font !== true ? 'st14' : 'st4'} st8" fill="${load_colour}">
                                         ${config.load.auto_scale
                                             ? this.convertValueNew(state_essential_load2.state, state_essential_load2.attributes?.unit_of_measurement, round)
                                             : `${this.toNum(state_essential_load2.state, 0) || 0} ${
                                                     state_essential_load2.attributes?.unit_of_measurement !== undefined
-                                                            ? state_essential_load2.attributes?.unit_of_measurement
-                                                            : ''
-                                            }`
-                                    }
+                                                        ? state_essential_load2.attributes?.unit_of_measurement
+                                                        : ''
+                                               }`
+                                        }
                                     </text>`
                             }
                             ${config.entities?.essential_load1
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load1)}>
                                         <text id="ess_load4" x="423" y="138" display="${additional_load === 4 ? '' : 'none'}" 
                                               class="st3" 
                                               fill="${load_colour}">
                                             ${config.load.auto_scale
-                                            ? this.convertValueNew(state_essential_load1.state, state_essential_load1.attributes?.unit_of_measurement, round)
-                                            : `${this.toNum(state_essential_load1.state, 0) || 0} ${
-                                                    state_essential_load1.attributes?.unit_of_measurement !== undefined
+                                                ? this.convertValueNew(state_essential_load1.state, state_essential_load1.attributes?.unit_of_measurement, round)
+                                                : `${this.toNum(state_essential_load1.state, 0) || 0} ${
+                                                        state_essential_load1.attributes?.unit_of_measurement !== undefined
                                                             ? state_essential_load1.attributes?.unit_of_measurement
                                                             : ''
-                                            }`
-                                    }
+                                                   }`
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="ess_load4" x="423" y="138" display="${additional_load === 4 ? '' : 'none'}" 
                                           class="st3" fill="${load_colour}">
                                         ${config.load.auto_scale
                                             ? this.convertValueNew(state_essential_load1.state, state_essential_load1.attributes?.unit_of_measurement, round)
                                             : `${this.toNum(state_essential_load1.state, 0) || 0} ${
                                                     state_essential_load1.attributes?.unit_of_measurement !== undefined
-                                                            ? state_essential_load1.attributes?.unit_of_measurement
-                                                            : ''
-                                            }`
-                                    }
+                                                        ? state_essential_load1.attributes?.unit_of_measurement
+                                                        : ''
+                                               }`
+                                        }
                                     </text>`
                             }
                             ${config.entities?.essential_load2
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load2)}>
                                         <text id="ess_load4" x="459" y="138" display="${additional_load === 4 ? '' : 'none'}" 
                                               class="st3" 
                                               fill="${load_colour}">
                                             ${config.load.auto_scale
-                                            ? this.convertValueNew(state_essential_load2.state, state_essential_load2.attributes?.unit_of_measurement, round)
-                                            : `${this.toNum(state_essential_load2.state, 0) || 0} ${
-                                                    state_essential_load2.attributes?.unit_of_measurement !== undefined
+                                                ? this.convertValueNew(state_essential_load2.state, state_essential_load2.attributes?.unit_of_measurement, round)
+                                                : `${this.toNum(state_essential_load2.state, 0) || 0} ${
+                                                        state_essential_load2.attributes?.unit_of_measurement !== undefined
                                                             ? state_essential_load2.attributes?.unit_of_measurement
                                                             : ''
-                                            }`
-                                    }
+                                                   }`
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="ess_load4" x="459" y="138" display="${additional_load === 4 ? '' : 'none'}" 
                                           class="st3" fill="${load_colour}">
                                         ${config.load.auto_scale
                                             ? this.convertValueNew(state_essential_load2.state, state_essential_load2.attributes?.unit_of_measurement, round)
                                             : `${this.toNum(state_essential_load2.state, 0) || 0} ${
                                                     state_essential_load2.attributes?.unit_of_measurement !== undefined
-                                                            ? state_essential_load2.attributes?.unit_of_measurement
-                                                            : ''
-                                            }`
-                                    }
+                                                        ? state_essential_load2.attributes?.unit_of_measurement
+                                                        : ''
+                                               }`
+                                        }
                                     </text>`
                             }
                             ${config.entities?.essential_load3
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load3)}>
                                         <text id="ess_load4" x="423" y="301" display="${additional_load === 4 ? '' : 'none'}" 
                                               class="st3" 
                                               fill="${load_colour}">
                                             ${config.load.auto_scale
-                                            ? this.convertValueNew(state_essential_load3.state, state_essential_load3.attributes?.unit_of_measurement, round)
-                                            : `${this.toNum(state_essential_load3.state, 0) || 0} ${
+                                                ? this.convertValueNew(state_essential_load3.state, state_essential_load3.attributes?.unit_of_measurement, round)
+                                                : `${this.toNum(state_essential_load3.state, 0) || 0} ${
                                                     state_essential_load3.attributes?.unit_of_measurement !== undefined
                                                             ? state_essential_load3.attributes?.unit_of_measurement
                                                             : ''
-                                            }`
-                                    }
+                                                   }`
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="ess_load4" x="423" y="301" display="${additional_load === 4 ? '' : 'none'}" class="st3" 
                                           fill="${load_colour}">
                                         ${config.load.auto_scale
                                             ? this.convertValueNew(state_essential_load4.state, state_essential_load4.attributes?.unit_of_measurement, round)
                                             : `${this.toNum(state_essential_load3.state, 0) || 0} ${
                                                     state_essential_load3.attributes?.unit_of_measurement !== undefined
-                                                            ? state_essential_load3.attributes?.unit_of_measurement
-                                                            : ''
-                                            }`
-                                    }
+                                                        ? state_essential_load3.attributes?.unit_of_measurement
+                                                        : ''
+                                               }`
+                                        }
                                     </text>`
                             }
                             ${config.entities?.essential_load4
-                                    ? svg`
+                                ? svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.essential_load4)}>
                                         <text id="ess_load4" x="459" y="301" display="${additional_load === 4 ? '' : 'none'}" 
                                               class="st3" 
                                               fill="${load_colour}">
                                             ${config.load.auto_scale
-                                            ? this.convertValueNew(state_essential_load4.state, state_essential_load4.attributes?.unit_of_measurement, round)
-                                            : `${this.toNum(state_essential_load4.state, 0) || 0} ${
-                                                    state_essential_load4.attributes?.unit_of_measurement !== undefined
+                                                ? this.convertValueNew(state_essential_load4.state, state_essential_load4.attributes?.unit_of_measurement, round)
+                                                : `${this.toNum(state_essential_load4.state, 0) || 0} ${
+                                                        state_essential_load4.attributes?.unit_of_measurement !== undefined
                                                             ? state_essential_load4.attributes?.unit_of_measurement
                                                             : ''
-                                            }`
-                                    }
+                                                   }`
+                                            }
                                         </text>
                                     </a>`
-                                    : svg`
+                                : svg`
                                     <text id="ess_load4" x="459" y="301" display="${additional_load === 4 ? '' : 'none'}" 
                                           class="st3" fill="${load_colour}">
                                         ${config.load.auto_scale
                                             ? this.convertValueNew(state_essential_load4.state, state_essential_load4.attributes?.unit_of_measurement, round)
                                             : `${this.toNum(state_essential_load4.state, 0) || 0} ${
                                                     state_essential_load4.attributes?.unit_of_measurement !== undefined
-                                                            ? state_essential_load4.attributes?.unit_of_measurement
-                                                            : ''
-                                            }`
-                                    }
+                                                        ? state_essential_load4.attributes?.unit_of_measurement
+                                                        : ''
+                                               }`
+                                        }
                                     </text>`
                             }
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.prepaid_units)}>
