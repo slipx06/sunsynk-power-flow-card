@@ -1013,19 +1013,19 @@ export class SunsynkPowerFlowCard extends LitElement {
         switch (true) {
             case pvPercentage_raw >= 100 && batteryPercentage_raw <= 5 && config.load.dynamic_icon:
               essIcon = essPv;
-              essIconsize === 1;
+              essIconsize = 1;
               break;
             case batteryPercentage_raw >= 100 && pvPercentage_raw <= 5 && config.load.dynamic_icon:
               essIcon = essBat;
-              essIconsize === 0;
+              essIconsize = 0;
               break;
             case pvPercentage_raw === 0 && batteryPercentage_raw === 0 && config.load.dynamic_icon:
               essIcon = essGrid;
-              essIconsize === 0;
+              essIconsize = 0;
               break;
             default:
               essIcon = ess;
-              essIconsize === 0;
+              essIconsize = 0;
               break;
         }
 
@@ -3712,7 +3712,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                           d="m11.39 5.45l-1.78-.9L10.87 2h8.47l1.27 2.55l-1.78.89L18.11 4h-6zM21.73 8H17.2l-.79-3h-2.6L13 8H8.5l-1.29 2.55l1.79.89l.73-1.44H20.5l.71 1.45l1.79-.89zm-.85 14h-2.07l-.24-.9l-3.46-5.2l-3.47 5.2l-.23.9H9.34l2.89-11h2.07l-.36 1.35l1.17 1.75l1.16-1.75l-.35-1.35H18zm-6.38-7l-.89-1.35l-1.18 4.48zm3.29 3.12l-1.18-4.48l-.9 1.36zM9 16l-4-4v3H1v2h4v3z"/>
                                 </svg>
                             </a>
-                            <svg xmlns="http://www.w3.org/2000/svg" id="essen" x="402" y="177.5" width="79" height="79"
+                            <svg xmlns="http://www.w3.org/2000/svg" id="essen" x="${essIconsize === 1 ? "405" : "402"}" y="${essIconsize === 1 ? "186" : "177.5"}" width="${essIconsize === 1 ? "75" : "79"}" height="${essIconsize === 1 ? "75" : "79"}"
                                  viewBox="0 0 24 24">
                                 <defs>
                                     <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
