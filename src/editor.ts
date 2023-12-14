@@ -306,7 +306,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                             {name: "prog4_charge", selector: {entity: {}}},
                                             {name: "prog5_time", selector: {entity: {}}},
                                             {name: "prog5_capacity", selector: {entity: {}}},
-                                            {name: "prog1_charge", selector: {entity: {}}},
+                                            {name: "prog5_charge", selector: {entity: {}}},
                                             {name: "prog6_time", selector: {entity: {}}},
                                             {name: "prog6_capacity", selector: {entity: {}}},
                                             {name: "prog6_charge", selector: {entity: {}}},  
