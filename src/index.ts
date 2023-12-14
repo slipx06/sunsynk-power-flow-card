@@ -196,7 +196,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             state: '',
             attributes: {unit_of_measurement: ''},
         });
-        const state_grid_voltage = this.getEntity('grid_voltage');
+        const state_grid_voltage = this.getEntity('grid_voltage', undefined);
         const state_prepaid_units = this.getEntity('prepaid_units', {state: '0'});
 
         //Solar
