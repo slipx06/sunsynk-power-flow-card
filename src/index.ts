@@ -156,8 +156,8 @@ export class SunsynkPowerFlowCard extends LitElement {
         const state_battery_current = this.getEntity('battery_current_191', {state: '0'});
         const state_battery_temp = this.getEntity('battery_temp_182', {state: ''});
         const state_battery_status = this.getEntity('battery_status', {state: ''});
-        const state_battery_current_direction = this.getEntity('battery_current_direction');
-        const state_battery_rated_capacity = this.getEntity('battery_rated_capacity')?.state;
+        const state_battery_current_direction = this.getEntity('battery_current_direction', null);
+        const state_battery_rated_capacity = this.getEntity('battery_rated_capacity', null)?.state;
 
         //Load
         const state_essential_power = this.getEntity('essential_power');
@@ -196,7 +196,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             state: '',
             attributes: {unit_of_measurement: ''},
         });
-        const state_grid_voltage = this.getEntity('grid_voltage');
+        const state_grid_voltage = this.getEntity('grid_voltage', null);
         const state_prepaid_units = this.getEntity('prepaid_units', {state: '0'});
 
         //Solar
@@ -243,8 +243,8 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         let total_grid_power = config.inverter.three_phase ? grid_power_total : grid_power;
 
-        let grid_voltage = state_grid_voltage ? this.toNum(state_grid_voltage.state) : null;
-        let battery_current_direction = state_battery_current_direction ? parseInt(state_battery_current_direction.state) : null;
+        let grid_voltage = !isNaN(state_grid_voltage?.state) ? this.toNum(state_grid_voltage.state) : null;
+        let battery_current_direction = !isNaN(state_battery_current_direction?.state) ? parseInt(state_battery_current_direction.state) : null;
         let inverter_modern = config.inverter?.modern;
 
         let load_colour = this.colourConvert(config.load?.colour);
@@ -4367,12 +4367,17 @@ export class SunsynkPowerFlowCard extends LitElement {
         }
     }
 
-    getEntity(entity: keyof CardConfigEntities, defaultValue: Partial<HassEntity> = {
+    /**
+     * Fetches the entity object, returned the defaultValue when the entity is not found. Pass null for no default.
+     * @param entity
+     * @param defaultValue
+     */
+    getEntity(entity: keyof CardConfigEntities, defaultValue: Partial<HassEntity> | null = {
         state: '0', attributes: {unit_of_measurement: ''},
     }): Partial<HassEntity & { state: any }> {
         const entityString = this._config.entities[entity];
         const state = entityString ? this.hass.states[entityString] : undefined;
-        return state !== undefined ? state : defaultValue;
+        return state !== undefined ? state : defaultValue ? defaultValue : {state: undefined};
     }
 
     convertValue(value, decimal = 2) {
