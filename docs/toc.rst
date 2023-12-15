@@ -13,6 +13,7 @@
    examples/solis
    examples/goodwe
    examples/foxess
+   examples/solax
 
 .. toctree::
    :caption: Contribute
