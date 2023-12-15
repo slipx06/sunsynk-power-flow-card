@@ -57,11 +57,11 @@ Example 1
         - 194
         - 6
         - 219
-    dynamic_colour: true
-    no_grid_colour:
-      - 189
-      - 188
-      - 188
+      dynamic_colour: true
+      no_grid_colour:
+        - 189
+        - 188
+        - 188
     entities:
       inverter_status_59: sensor.solax_run_mode
       inverter_voltage_154: sensor.solax_inverter_voltage
