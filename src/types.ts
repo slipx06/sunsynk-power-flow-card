@@ -13,7 +13,8 @@ export enum InverterModel {
     Goodwe = 'goodwe',
     Solis = 'solis',
     Huawei = 'huawei',
-    FoxESS = 'foxess'
+    FoxESS = 'foxess',
+    Solax = 'solax'
 }
 
 export enum CardStyle {
