@@ -57,7 +57,6 @@ Example 1
         - 194
         - 6
         - 219
-      dynamic_colour: true
       no_grid_colour:
         - 189
         - 188

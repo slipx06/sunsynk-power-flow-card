@@ -256,6 +256,7 @@ Full Configuration (All Options)
   grid:
     colour: '#5490c2'
     export_colour: brown
+    grid_off_colour: red
     show_daily_buy: true
     show_daily_sell: true
     no_grid_colour: '#a40013'

@@ -15,6 +15,7 @@ import {
     batteryStatusGroups,
     CARD_VERSION,
     foxessBase64Img,
+    froniusBase64Img,
     goodweBase64Img,
     huaweiBase64Img,
     inverterStatusGroups,
@@ -26,6 +27,7 @@ import {
     validaux,
     validLoadValues,
     validnonLoadValues,
+    victronBase64Img,
 } from './const';
 import {localize} from './localize/localize';
 import merge from 'lodash.merge';
@@ -40,7 +42,7 @@ console.groupCollapsed(
 console.log('Readme:', 'https://github.com/slipx06/sunsynk-power-flow-card');
 console.groupEnd();
 
-@customElement('sunsynk-power-flow-card')
+@customElement('sunsynk-power-flow-card-dev')
 export class SunsynkPowerFlowCard extends LitElement {
     @property() public hass!: HomeAssistant;
     @property() private _config!: sunsynkPowerFlowCardConfig;
@@ -319,19 +321,22 @@ export class SunsynkPowerFlowCard extends LitElement {
         const grid_import_colour = this.colourConvert(config.grid?.colour);
         const grid_export_colour = this.colourConvert(config.grid?.export_colour || grid_import_colour);
         const no_grid_colour = this.colourConvert(config.grid?.no_grid_colour || grid_import_colour);
+        
 
-        let grid_colour;
+        let grid_colour:string;
         switch (true) {
             case total_grid_power < 0:
                 grid_colour = grid_export_colour;
                 break;
-            case total_grid_power === 0 && config.grid.dynamic_colour:
+            case total_grid_power === 0:
                 grid_colour = no_grid_colour;
                 break;
             default:
                 grid_colour = grid_import_colour;
                 break;
         }
+
+        const grid_off_colour = this.colourConvert(config.grid?.grid_off_colour || grid_colour);
 
         let noness_dual_load = config.grid?.additional_loads;
         if (!validnonLoadValues.includes(noness_dual_load)) {
@@ -698,6 +703,12 @@ export class SunsynkPowerFlowCard extends LitElement {
                     break;
                 case InverterModel.Solax:
                     inverterImg = solaxBase64Img;
+                    break;
+                case InverterModel.Victron:
+                    inverterImg = victronBase64Img;
+                    break;
+                case InverterModel.Fronius:
+                    inverterImg = froniusBase64Img;
                     break;
                 default:
                     inverterImg = sunsynkBase64Img;
@@ -1559,7 +1570,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                      width="${config.inverter.three_phase ? '34' : '67'}"
                                      height="${config.inverter.three_phase ? '34' : '67'}" viewBox="0 0 24 24">
                                     <path class="${['on', '1', 'on-grid', 'on grid'].includes(grid_status.toLowerCase()) ? 'st12' : ''}"
-                                          fill="${no_grid_colour}" display="${!config.show_grid ? 'none' : ''}"
+                                          fill="${grid_off_colour}" display="${!config.show_grid ? 'none' : ''}"
                                           d="M22.1 21.5L2.4 1.7L1.1 3l5 5h-.7l-1.3 2.5l1.8.9l.7-1.4h1.5l1 1l-2.9 11h2.1l.2-.9l3.5-5.2l3.5 5.2l.2.9h2.1l-.8-3.2l3.9 3.9l1.2-1.2M9.3 18.1l1.2-4.5l.9 1.3l-2.1 3.2m5.4 0L12.6 15l.2-.3l1.3 1.3l.6 2.1m-.5-7.1h.7l.2.9l-.9-.9m-.1-3h4.5l1.3 2.6l-1.8.9l-.7-1.5h-4.2l-3-3l.5-2h2.6l.8 3M8.4 5.2L6.9 3.7L7.8 2h8.5l1.3 2.5l-1.8.9L15 4H9l-.6 1.2Z"/>
                                 </svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" id="grid_export"
@@ -3609,7 +3620,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 <svg xmlns="http://www.w3.org/2000/svg" id="transmission_off" x="-0.5" y="187.5"
                                      width="64.5" height="64.5" viewBox="0 0 24 24">
                                     <path class="${['on', '1', 'on-grid', 'on grid'].includes(grid_status.toLowerCase()) ? 'st12' : ''}"
-                                          fill="${no_grid_colour}" display="${!config.show_grid ? 'none' : ''}"
+                                          fill="${grid_off_colour}" display="${!config.show_grid ? 'none' : ''}"
                                           d="M22.1 21.5L2.4 1.7L1.1 3l5 5h-.7l-1.3 2.5l1.8.9l.7-1.4h1.5l1 1l-2.9 11h2.1l.2-.9l3.5-5.2l3.5 5.2l.2.9h2.1l-.8-3.2l3.9 3.9l1.2-1.2M9.3 18.1l1.2-4.5l.9 1.3l-2.1 3.2m5.4 0L12.6 15l.2-.3l1.3 1.3l.6 2.1m-.5-7.1h.7l.2.9l-.9-.9m-.1-3h4.5l1.3 2.6l-1.8.9l-.7-1.5h-4.2l-3-3l.5-2h2.6l.8 3M8.4 5.2L6.9 3.7L7.8 2h8.5l1.3 2.5l-1.8.9L15 4H9l-.6 1.2Z"/>
                                 </svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" id="grid_export" x="-0.5" y="187.5"
@@ -4613,13 +4624,13 @@ export class SunsynkPowerFlowCard extends LitElement {
     }
 }
 
-try {
-    customElements.define("content-card-editor", SunSynkCardEditor);
-} catch (_e) {
-}
+//try {
+//    customElements.define("content-card-editor", SunSynkCardEditor);
+//} catch (_e) {
+//}
 (window as any).customCards = (window as any).customCards || [];
 (window as any).customCards.push({
-    type: 'sunsynk-power-flow-card',
+    type: 'sunsynk-power-flow-card-dev',
     name: 'Sunsynk Power Flow Card',
     preview: true,
     description: localize('common.description'),

@@ -116,6 +116,7 @@
     "show_daily_buy": "Show Daily Buy",
     "show_daily_sell": "Show Daily Sell",
     "no_grid_colour": "No Grid Colour",
+    "grid_off_colour": "Grid Off Colour",
     "colour": "Colour",
     "aux_colour": "Colour",
     "aux_off_colour": "Off Colour",

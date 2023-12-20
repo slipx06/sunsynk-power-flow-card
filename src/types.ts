@@ -14,7 +14,9 @@ export enum InverterModel {
     Solis = 'solis',
     Huawei = 'huawei',
     FoxESS = 'foxess',
-    Solax = 'solax'
+    Solax = 'solax',
+    Victron = 'victron',
+    Fronius = 'fronius'
 }
 
 export enum CardStyle {
@@ -113,7 +115,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         colour: string;
         export_colour: string;
         no_grid_colour: string;
-        dynamic_colour: boolean;
+        grid_off_colour: string;
         show_daily_buy: boolean;
         show_daily_sell: boolean;
         show_nonessential: boolean;
