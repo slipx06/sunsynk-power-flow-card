@@ -379,9 +379,9 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
         return localize(`config.cat_title.${opt}`) ?? opt
     }
 
-    private _valueChanged(ev): void {
-        this.setConfig(ev.detail.value)
-        fireEvent(this, 'config-changed', {config: this._config});
+    private _valueChanged(ev: CustomEvent): void {
+        //this.setConfig(ev.detail.value)
+        fireEvent(this, 'config-changed', {config: ev.detail.value});
     }
 
     static styles: CSSResultGroup = css`
