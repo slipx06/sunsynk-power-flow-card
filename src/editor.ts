@@ -14,7 +14,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
     @state() private _config?: sunsynkPowerFlowCardConfig;
 
     public setConfig(config: sunsynkPowerFlowCardConfig): void {
-        this._config = config;
+        this._config = {...this._config, ...config};
     }
 
     protected render(): TemplateResult | void {
