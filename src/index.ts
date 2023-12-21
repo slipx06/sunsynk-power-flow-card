@@ -878,7 +878,13 @@ export class SunsynkPowerFlowCard extends LitElement {
         let round = config.decimal_places;
 
         //Calculate dynamic colour for load icon based on the contribution of the power source (battery, grid, solar) supplying the load
-        const pvPercentage_raw = total_pv === 0 ? 0 : (total_pv / essential) * 100;
+        const pvPercentage_raw = total_pv === 0 
+            ? 0 
+            : priority === 'off' 
+                ? battery_power > 0 
+                    ? (total_pv / essential) * 100
+                    : ((total_pv -  Math.abs(battery_power)) / essential) * 100
+                : (total_pv / essential) * 100;
         const batteryPercentage_raw = battery_power <= 0 ? 0 : (Math.abs(battery_power) / essential) * 100;
 
         // Normalize percentages
@@ -2186,25 +2192,25 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 <svg xmlns="http://www.w3.org/2000/svg" id="pbat" x="210"
                                      y="${useautarky != 'no' ? "251" : "268"}" width="18" height="18"
                                      viewBox="0 0 24 24">
-                                    <path display="${state_priority_load.state === 'off' && priority !== 'no' ? '' : 'none'}"
+                                    <path display="${priority === 'off' && ( priority !== 'no' || !priority) ? '' : 'none'}"
                                           fill="${inverter_colour}"
                                           d="M15.95 21.175L13.1 18.35l1.425-1.4l1.425 1.4l3.525-3.525l1.425 1.4l-4.95 4.95ZM8 22q-.425 0-.713-.288T7 21V5q0-.425.288-.713T8 4h2V2h4v2h2q.425 0 .713.288T17 5v7q-.525 0-1.025.088T15 12.35V6H9v14h2.35q.2.575.488 1.075t.687.925H8Zm1-2h2.35H11h.35H9Z"/>
                                 </svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" id="pload" x="210"
                                      y="${useautarky != 'no' ? "251" : "268"}" width="18" height="18"
                                      viewBox="0 0 24 24">
-                                    <path display="${state_priority_load.state === 'on' && priority !== 'no' ? '' : 'none'}"
+                                    <path display="${priority === 'on' && ( priority !== 'no' || !priority) ? '' : 'none'}"
                                           fill="${inverter_colour}"
                                           d="m15 13l-4 4v-3H2v-2h9V9l4 4M5 20v-4h2v2h10v-7.81l-5-4.5L7.21 10H4.22L12 3l10 9h-3v8H5Z"/>
                                 </svg>
                                 <text id="priority_text_load" x="228.5" y="${useautarky != 'no' ? "262" : "280"}"
                                       class="st3 left-align"
-                                      display="${state_priority_load.state === 'on' && priority !== 'no' ? '' : 'none'}"
+                                      display="${priority === 'on' && ( priority !== 'no' || !priority) ? '' : 'none'}"
                                       fill="${inverter_colour}">${localize('common.priority_load')}
                                 </text>
                                 <text id="priority_text_batt" x="228.5" y="${useautarky != 'no' ? "262" : "280"}"
                                       class="st3 left-align"
-                                      display="${state_priority_load.state === 'off' && priority !== 'no' ? '' : 'none'}"
+                                      display="${priority === 'off' && ( priority !== 'no' || !priority) ? '' : 'none'}"
                                       fill="${inverter_colour}">${localize('common.priority_batt')}
                                 </text>
                             </a>
@@ -3687,22 +3693,22 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.priority_load_243)}>
                                 <svg xmlns="http://www.w3.org/2000/svg" id="pbat" x="267.7" y="262.5" width="18"
                                      height="18" viewBox="0 0 24 24">
-                                    <path display="${state_priority_load.state === 'off' && priority !== false ? '' : 'none'}"
+                                    <path display="${priority === 'off' && ( priority !== 'no' || !priority) ? '' : 'none'}"
                                           fill="${inverter_colour}"
                                           d="M15.95 21.175L13.1 18.35l1.425-1.4l1.425 1.4l3.525-3.525l1.425 1.4l-4.95 4.95ZM8 22q-.425 0-.713-.288T7 21V5q0-.425.288-.713T8 4h2V2h4v2h2q.425 0 .713.288T17 5v7q-.525 0-1.025.088T15 12.35V6H9v14h2.35q.2.575.488 1.075t.687.925H8Zm1-2h2.35H11h.35H9Z"/>
                                 </svg>
                                 <svg xmlns="http://www.w3.org/2000/svg" id="pload" x="267.7" y="262.5" width="18"
                                      height="18" viewBox="0 0 24 24">
-                                    <path display="${state_priority_load.state === 'on' && priority !== false ? '' : 'none'}"
+                                    <path display="${priority === 'on' && ( priority !== 'no' || !priority) ? '' : 'none'}"
                                           fill="${inverter_colour}"
                                           d="m15 13l-4 4v-3H2v-2h9V9l4 4M5 20v-4h2v2h10v-7.81l-5-4.5L7.21 10H4.22L12 3l10 9h-3v8H5Z"/>
                                 </svg>
                                 <text id="priority_text_batt" x="287" y="273" class="st3 left-align"
-                                      display="${state_priority_load.state === 'off' && priority !== false ? '' : 'none'}"
+                                      display="${priority === 'off' && ( priority !== 'no' || !priority) ? '' : 'none'}"
                                       fill="${inverter_colour}">${localize('common.priority_batt')}
                                 </text>
                                 <text id="priority_text_load" x="287" y="273" class="st3 left-align"
-                                      display="${state_priority_load.state === 'on' && priority !== false ? '' : 'none'}"
+                                      display="${priority === 'on' && ( priority !== 'no' || !priority) ? '' : 'none'}"
                                       fill="${inverter_colour}">${localize('common.priority_load')}
                                 </text>
                             </a>
