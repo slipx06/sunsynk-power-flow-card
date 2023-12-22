@@ -919,7 +919,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                 essIcon = essBat;
                 essIconSize = 0;
                 break;
-            case pvPercentage_raw === 0 && batteryPercentage_raw === 0 && config.load.dynamic_icon:
+            case pvPercentage_raw < 5 && batteryPercentage_raw < 5 && config.load.dynamic_icon:
                 essIcon = essGrid;
                 essIconSize = 0;
                 break;
@@ -1787,13 +1787,13 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
                                         <stop offset="0%"
                                               stop-color="${Number(batteryPercentage) > 0 ? battery_colour : (Number(pvPercentage) > 0 ? solar_colour : grid_colour)}"/>
-                                        <stop offset="${batteryPercentage}%"
+                                        <stop offset="${batteryPercentage < 2 ? 0 : batteryPercentage}%"
                                               stop-color="${Number(batteryPercentage) > 0 ? battery_colour : (Number(pvPercentage) > 0 ? solar_colour : grid_colour)}"/>
-                                        <stop offset="${batteryPercentage}%"
+                                        <stop offset="${batteryPercentage < 2 ? 0 : batteryPercentage}%"
                                               stop-color="${Number(pvPercentage) > 0 ? solar_colour : grid_colour}"/>
-                                        <stop offset="${Number(batteryPercentage) + Number(pvPercentage)}%"
+                                        <stop offset="${(Number(batteryPercentage < 2 ? 0 : batteryPercentage) + Number(pvPercentage < 2 ? 0 : pvPercentage))}%"
                                               stop-color="${Number(pvPercentage) > 0 ? `${solar_colour}` : `${grid_colour}`}"/>
-                                        <stop offset="${Number(batteryPercentage) + Number(pvPercentage)}%"
+                                        <stop offset="${(Number(batteryPercentage < 2 ? 0 : batteryPercentage) + Number(pvPercentage < 2 ? 0 : pvPercentage))}%"
                                               stop-color="${Number(batteryPercentage) === 100 ? battery_colour : (Number(pvPercentage) === 100 ? solar_colour : grid_colour)}"/>
                                         <stop offset="100%"
                                               stop-color="${Number(batteryPercentage) === 100 ? battery_colour : (Number(pvPercentage) === 100 ? solar_colour : grid_colour)}"/>
@@ -1809,13 +1809,13 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
                                         <stop offset="0%"
                                               stop-color="${Number(batteryPercentage) > 0 ? battery_colour : (Number(pvPercentage) > 0 ? solar_colour : grid_colour)}"/>
-                                        <stop offset="${batteryPercentage}%"
+                                        <stop offset="${batteryPercentage < 2 ? 0 : batteryPercentage}%"
                                               stop-color="${Number(batteryPercentage) > 0 ? battery_colour : (Number(pvPercentage) > 0 ? solar_colour : grid_colour)}"/>
-                                        <stop offset="${batteryPercentage}%"
+                                        <stop offset="${batteryPercentage < 2 ? 0 : batteryPercentage}%"
                                               stop-color="${Number(pvPercentage) > 0 ? solar_colour : grid_colour}"/>
-                                        <stop offset="${Number(batteryPercentage) + Number(pvPercentage)}%"
+                                        <stop offset="${(Number(batteryPercentage < 2 ? 0 : batteryPercentage) + Number(pvPercentage < 2 ? 0 : pvPercentage))}%"
                                               stop-color="${Number(pvPercentage) > 0 ? `${solar_colour}` : `${grid_colour}`}"/>
-                                        <stop offset="${Number(batteryPercentage) + Number(pvPercentage)}%"
+                                        <stop offset="${(Number(batteryPercentage < 2 ? 0 : batteryPercentage) + Number(pvPercentage < 2 ? 0 : pvPercentage))}%"
                                               stop-color="${Number(batteryPercentage) === 100 ? battery_colour : (Number(pvPercentage) === 100 ? solar_colour : grid_colour)}"/>
                                         <stop offset="100%"
                                               stop-color="${Number(batteryPercentage) === 100 ? battery_colour : (Number(pvPercentage) === 100 ? solar_colour : grid_colour)}"/>
@@ -1832,13 +1832,13 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
                                         <stop offset="0%"
                                               stop-color="${Number(batteryPercentage) > 0 ? battery_colour : (Number(pvPercentage) > 0 ? solar_colour : grid_colour)}"/>
-                                        <stop offset="${batteryPercentage}%"
+                                        <stop offset="${batteryPercentage < 2 ? 0 : batteryPercentage}%"
                                               stop-color="${Number(batteryPercentage) > 0 ? battery_colour : (Number(pvPercentage) > 0 ? solar_colour : grid_colour)}"/>
-                                        <stop offset="${batteryPercentage}%"
+                                        <stop offset="${batteryPercentage < 2 ? 0 : batteryPercentage}%"
                                               stop-color="${Number(pvPercentage) > 0 ? solar_colour : grid_colour}"/>
-                                        <stop offset="${Number(batteryPercentage) + Number(pvPercentage)}%"
+                                        <stop offset="${(Number(batteryPercentage < 2 ? 0 : batteryPercentage) + Number(pvPercentage < 2 ? 0 : pvPercentage))}%"
                                               stop-color="${Number(pvPercentage) > 0 ? `${solar_colour}` : `${grid_colour}`}"/>
-                                        <stop offset="${Number(batteryPercentage) + Number(pvPercentage)}%"
+                                        <stop offset="${(Number(batteryPercentage < 2 ? 0 : batteryPercentage) + Number(pvPercentage < 2 ? 0 : pvPercentage))}%"
                                               stop-color="${Number(batteryPercentage) === 100 ? battery_colour : (Number(pvPercentage) === 100 ? solar_colour : grid_colour)}"/>
                                         <stop offset="100%"
                                               stop-color="${Number(batteryPercentage) === 100 ? battery_colour : (Number(pvPercentage) === 100 ? solar_colour : grid_colour)}"/>
@@ -3645,13 +3645,13 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
                                         <stop offset="0%"
                                               stop-color="${Number(batteryPercentage) > 0 ? battery_colour : (Number(pvPercentage) > 0 ? solar_colour : grid_colour)}"/>
-                                        <stop offset="${batteryPercentage}%"
+                                        <stop offset="${batteryPercentage < 2 ? 0 : batteryPercentage}%"
                                               stop-color="${Number(batteryPercentage) > 0 ? battery_colour : (Number(pvPercentage) > 0 ? solar_colour : grid_colour)}"/>
-                                        <stop offset="${batteryPercentage}%"
+                                        <stop offset="${batteryPercentage < 2 ? 0 : batteryPercentage}%"
                                               stop-color="${Number(pvPercentage) > 0 ? solar_colour : grid_colour}"/>
-                                        <stop offset="${Number(batteryPercentage) + Number(pvPercentage)}%"
+                                        <stop offset="${(Number(batteryPercentage < 2 ? 0 : batteryPercentage) + Number(pvPercentage < 2 ? 0 : pvPercentage))}%"
                                               stop-color="${Number(pvPercentage) > 0 ? `${solar_colour}` : `${grid_colour}`}"/>
-                                        <stop offset="${Number(batteryPercentage) + Number(pvPercentage)}%"
+                                        <stop offset="${(Number(batteryPercentage < 2 ? 0 : batteryPercentage) + Number(pvPercentage < 2 ? 0 : pvPercentage))}%"
                                               stop-color="${Number(batteryPercentage) === 100 ? battery_colour : (Number(pvPercentage) === 100 ? solar_colour : grid_colour)}"/>
                                         <stop offset="100%"
                                               stop-color="${Number(batteryPercentage) === 100 ? battery_colour : (Number(pvPercentage) === 100 ? solar_colour : grid_colour)}"/>
