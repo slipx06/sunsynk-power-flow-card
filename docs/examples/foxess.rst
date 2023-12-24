@@ -24,7 +24,6 @@ Example 1 - Integration via https://github.com/nathanmarlor/foxess_modbus
       energy: 33000
       shutdown_soc: 35
       colour: pink
-      full_capacity: 87
       max_power: 9000
       show_daily: true
       auto_scale: true

@@ -395,8 +395,6 @@ export class SunsynkPowerFlowCard extends LitElement {
                 ? config.card_height
                 : card_height.state;
         let width = config.card_width;
-        let bat_full = config.battery?.full_capacity;
-        let bat_empty = config.battery?.empty_capacity;
         let energy_cost_decimals = config.grid?.energy_cost_decimals === 0 ? 0 : config.grid?.energy_cost_decimals || 2;
         let energy_cost =
             total_grid_power >= 0
@@ -928,6 +926,55 @@ export class SunsynkPowerFlowCard extends LitElement {
                 essIconSize = 0;
                 break;
         }
+
+        const battery100 = 'M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 5.02 18.5 v 1 L 11 19.5 L 11 18.5 z M 5 18 L 11 18 L 11 17 H 5 z M 5 16.5 L 11 16.5 L 11 15.5 H 5 z M 5 14 L 11 14 L 11 15 H 5 z M 5 12.5 L 11 12.5 L 11 13.5 H 5 z M 5 11 L 11 11 L 11 12 H 5 z M 5 9.5 L 11 9.5 L 11 10.5 H 5 z M 5 8 L 11 8 L 11 9 H 5 z M 5 6.5 L 11 6.5 L 11 7.5 H 5 z';
+        const battery90 = 'M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 5.02 18.5 v 1 L 11 19.5 L 11 18.5 z M 5 18 L 11 18 L 11 17 H 5 z M 5 16.5 L 11 16.5 L 11 15.5 H 5 z M 5 14 L 11 14 L 11 15 H 5 z M 5 12.5 L 11 12.5 L 11 13.5 H 5 z M 5 11 L 11 11 L 11 12 H 5 z M 5 9.5 L 11 9.5 L 11 10.5 H 5 z M 5 8 L 11 8 L 11 9 H 5 z';
+        const battery80 = 'M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 5.02 18.5 v 1 L 11 19.5 L 11 18.5 z M 5 18 L 11 18 L 11 17 H 5 z M 5 16.5 L 11 16.5 L 11 15.5 H 5 z M 5 14 L 11 14 L 11 15 H 5 z M 5 12.5 L 11 12.5 L 11 13.5 H 5 z M 5 11 L 11 11 L 11 12 H 5 z M 5 9.5 L 11 9.5 L 11 10.5 H 5 z';
+        const battery70 = 'M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 5.02 18.5 v 1 L 11 19.5 L 11 18.5 z M 5 18 L 11 18 L 11 17 H 5 z M 5 16.5 L 11 16.5 L 11 15.5 H 5 z M 5 14 L 11 14 L 11 15 H 5 z M 5 12.5 L 11 12.5 L 11 13.5 H 5 z M 5 11 L 11 11 L 11 12 H 5 z';
+        const battery60 = 'M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 5.02 18.5 v 1 L 11 19.5 L 11 18.5 z M 5 18 L 11 18 L 11 17 H 5 z M 5 16.5 L 11 16.5 L 11 15.5 H 5 z M 5 14 L 11 14 L 11 15 H 5 z M 5 12.5 L 11 12.5 L 11 13.5 H 5 z';
+        const battery50 = 'M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 5.02 18.5 v 1 L 11 19.5 L 11 18.5 z M 5 18 L 11 18 L 11 17 H 5 z M 5 16.5 L 11 16.5 L 11 15.5 H 5 z M 5 14 L 11 14 L 11 15 H 5 z';
+        const battery40 = 'M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 5.02 18.5 v 1 L 11 19.5 L 11 18.5 z M 5 18 L 11 18 L 11 17 H 5 z M 5 16.5 L 11 16.5 L 11 15.5 H 5 z';
+        const battery30 = 'M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 5.02 18.5 v 1 L 11 19.5 L 11 18.5 z M 5 18 L 11 18 L 11 17 H 5 z';
+        const battery20 = 'M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 5.02 18.5 v 1 L 11 19.5 L 11 18.5 z';
+        const battery0 = 'M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 ';
+        let batteryIcon: string
+        
+        switch (true) {
+            case parseInt(state_battery_soc.state) >= 95:
+                batteryIcon = battery100;
+                break;
+            case 85 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 95:
+                batteryIcon = battery90;
+                break;
+            case 75 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 85:
+                batteryIcon = battery80;
+                break;
+            case 65 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 75:
+                batteryIcon = battery70;
+                break;
+            case 55 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 65:
+                batteryIcon = battery60;
+                break;
+            case 45 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 55:
+                batteryIcon = battery50;
+                break;
+            case 35 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 45:
+                batteryIcon = battery40;
+                break;
+            case 25 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 35:
+                batteryIcon = battery30;
+                break;
+            case 10 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 25:
+                batteryIcon = battery20;
+                break;
+            case 0 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 10:
+                batteryIcon = battery0;
+                break;
+            default:
+                batteryIcon = battery0;
+                break;
+        }
+
 
         if (this.isFullCard) {
             return html`
@@ -1527,32 +1574,11 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     <path d="M35 887 l-27 -23 0 -404 0 -404 27 -23 c26 -23 28 -23 329 -23 284 0 305 1 327 19 l24 19 0 412 0 412 -24 19 c-22 18 -43 19 -327 19 -301 0 -303 0 -329 -23z m585 -157 l0 -80 -255 0 -255 0 0 80 0 80 255 0 255 0 0 -80z m-242 -229 c44 -34 40 -46 -14 -46 -60 0 -97 -38 -93 -94 5 -64 -23 -80 -35 -20 -9 44 24 113 63 134 35 18 34 15 21 50 -11 29 -14 30 58 -24z m110 -129 c4 -51 -19 -97 -59 -117 -27 -14 -30 -20 -23 -48 l6 -31 -51 43 c-29 24 -49 46 -46 49 3 4 23 5 44 3 58 -4 95 32 97 95 3 60 1 57 17 52 6 -3 13 -23 15 -46z"/>
                                 </g>
                             </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" id="bat-high" x="74.5" y="296.25" width="82"
+                            <svg xmlns="http://www.w3.org/2000/svg" id="bat" x="74.5" y="296.25" width="82"
                                  height="82" preserveAspectRatio="none"
-                                 opacity="${parseInt(state_battery_soc.state) >= bat_full ? 1 : 0}" viewBox="0 0 24 24">
-                                <path class="${!config.show_battery ? 'st12' : ''}" fill="${battery_colour}"
-                                      d="M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 11 16 H 5 v 3 h 6 v -3 m 0 -9 H 5 v 3 h 6 V 7 m 0 4.5 H 5 v 3 h 6 v -3 h -3 h 3"/>
-                            </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" id="bat-med" x="74.5" y="296.25" width="82"
-                                 height="82" preserveAspectRatio="none"
-                                 opacity="${parseInt(state_battery_soc.state) >= 50 && parseInt(state_battery_soc.state) < bat_full ? 1 : 0}"
                                  viewBox="0 0 24 24">
                                 <path class="${!config.show_battery ? 'st12' : ''}" fill="${battery_colour}"
-                                      d="M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 11 16 H 5 v 3 h 6 v -3 m 0 -4.5 H 5 v 3 h 6 v -3 h -3 h 3"/>
-                            </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" id="bat-low" x="74.5" y="296.25" width="82"
-                                 height="82" preserveAspectRatio="none"
-                                 opacity="${parseInt(state_battery_soc.state) > bat_empty && parseInt(state_battery_soc.state) <= 49 ? '1' : '0'}"
-                                 viewBox="0 0 24 24">
-                                <path class="${!config.show_battery ? 'st12' : ''}" fill="${battery_colour}"
-                                      d="M 12 20 H 4 V 6 h 8 L 12 6 L 12 20 m 0.67 -15.999 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 11 16 H 5 v 3 h 6 v -3"/>
-                            </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" id="bat-empty" x="74.5" y="296.25" width="82"
-                                 height="82" preserveAspectRatio="none"
-                                 opacity="${parseInt(state_battery_soc.state) <= bat_empty ? 1 : 0}"
-                                 viewBox="0 0 24 24">
-                                <path class="${!config.show_battery ? 'st12' : ''}" fill="${battery_colour}"
-                                      d="M 12 6 L 12 20 M 12 20 H 4 l 0.05 -14 h 7.95 m 0.67 -2 h -1.67 V 2 h -6 v 2 H 3.38 a 1.33 1.33 0 0 0 -1.33 1.33 v 15.34 c 0 0.73 0.6 1.33 1.33 1.33 h 9.34 c 0.73 0 1.33 -0.6 1.33 -1.33 V 5.33 A 1.33 1.33 0 0 0 12.72 4 Z"/>
+                                      d="${batteryIcon}"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="sun" x="0" y="-0.5" width="40" height="40"
                                  viewBox="0 0 24 24">
@@ -3584,36 +3610,12 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 <path class="${!config.show_solar ? 'st12' : ''}" fill="${solar_colour}"
                                       d="M11.45 2v3.55L15 3.77L11.45 2m-1 6L8 10.46l3.75 1.25L10.45 8M2 11.45L3.77 15l1.78-3.55H2M10 2H2v8c.57.17 1.17.25 1.77.25c3.58.01 6.49-2.9 6.5-6.5c-.01-.59-.1-1.18-.27-1.75m7 20v-6h-3l5-9v6h3l-5 9Z"/>
                             </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" id="bat-high" x="${compact ? '212.5' : '232.5'}"
+                            <svg xmlns="http://www.w3.org/2000/svg" id="bat" x="${compact ? '212.5' : '232.5'}"
                                  y="325.5" width="78.75"
                                  height="78.75" preserveAspectRatio="none"
-                                 opacity="${parseInt(state_battery_soc.state) >= bat_full ? 1 : 0}" viewBox="0 0 24 24">
-                                <path class="${!config.show_battery ? 'st12' : ''}" fill="${battery_colour}"
-                                      d="M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 11 16 H 5 v 3 h 6 v -3 m 0 -9 H 5 v 3 h 6 V 7 m 0 4.5 H 5 v 3 h 6 v -3 h -3 h 3"/>
-                            </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" id="bat-med" x="${compact ? '212.5' : '232.5'}"
-                                 y="325.5" width="78.75"
-                                 height="78.75" preserveAspectRatio="none"
-                                 opacity="${parseInt(state_battery_soc.state) >= 50 && parseInt(state_battery_soc.state) < bat_full ? 1 : 0}"
                                  viewBox="0 0 24 24">
                                 <path class="${!config.show_battery ? 'st12' : ''}" fill="${battery_colour}"
-                                      d="M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 11 16 H 5 v 3 h 6 v -3 m 0 -4.5 H 5 v 3 h 6 v -3 h -3 h 3"/>
-                            </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" id="bat-low" x="${compact ? '212.5' : '232.5'}"
-                                 y="325.5" width="78.75"
-                                 height="78.75" preserveAspectRatio="none"
-                                 opacity="${parseInt(state_battery_soc.state) > bat_empty && parseInt(state_battery_soc.state) <= 49 ? 1 : 0}"
-                                 viewBox="0 0 24 24">
-                                <path class="${!config.show_battery ? 'st12' : ''}" fill="${battery_colour}"
-                                      d="M 12 20 H 4 V 6 h 8 L 12 6 L 12 20 m 0.67 -15.999 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 11 16 H 5 v 3 h 6 v -3"/>
-                            </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" id="bat-empty" x="${compact ? '212.5' : '232.5'}"
-                                 y="325.5" width="78.75"
-                                 height="78.75" preserveAspectRatio="none"
-                                 opacity="${parseInt(state_battery_soc.state) <= bat_empty ? 1 : 0}"
-                                 viewBox="0 0 24 24">
-                                <path class="${!config.show_battery ? 'st12' : ''}" fill="${battery_colour}"
-                                      d="M 12 6 L 12 20 M 12 20 H 4 l 0.05 -14 h 7.95 m 0.67 -2 h -1.67 V 2 h -6 v 2 H 3.38 a 1.33 1.33 0 0 0 -1.33 1.33 v 15.34 c 0 0.73 0.6 1.33 1.33 1.33 h 9.34 c 0.73 0 1.33 -0.6 1.33 -1.33 V 5.33 A 1.33 1.33 0 0 0 12.72 4 Z"/>
+                                      d="${batteryIcon}"/>
                             </svg>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_connected_status_194)}>
                                 <svg xmlns="http://www.w3.org/2000/svg" id="transmission_on" x="-0.5" y="187.5"
@@ -4532,12 +4534,6 @@ export class SunsynkPowerFlowCard extends LitElement {
         } else {
             if (config.show_battery && !config.battery.shutdown_soc) {
                 throw new Error(localize('errors.battery.shutdown_soc'));
-            }
-            if (config.show_battery && config.battery.full_capacity < 80) {
-                throw new Error(localize('errors.battery.full_capacity'));
-            }
-            if (config.show_battery && config.battery.empty_capacity > 40) {
-                throw new Error(localize('errors.battery.empty_capacity'));
             }
             if (
                 config.show_battery &&

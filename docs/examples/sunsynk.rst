@@ -210,8 +210,6 @@ Full Configuration (All Options)
     show_daily: true
     animation_speed: 6
     max_power: 4500
-    full_capacity: 80
-    empty_capacity: 30
     show_absolute: false
     auto_scale: true
     hide_soc: false

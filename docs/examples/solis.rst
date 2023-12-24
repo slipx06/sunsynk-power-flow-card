@@ -19,8 +19,6 @@ Example 1 - Integration via https://github.com/wills106/homeassistant-solax-modb
     battery:
       energy: 14400
       shutdown_soc: 20
-      full_capacity: 100
-      empty_capacity: 20
       show_daily: true
     solar:
       show_daily: true

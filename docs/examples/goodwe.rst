@@ -31,8 +31,6 @@ Example 1
     invert_power: false
     show_daily: true
     max_power: 5400
-    full_capacity: 100
-    empty_capacity: 20
     show_absolute: false
     auto_scale: true
   solar:

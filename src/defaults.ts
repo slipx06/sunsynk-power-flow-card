@@ -29,8 +29,6 @@ export default {
         show_daily: false,
         animation_speed: 6,
         max_power: 4500,
-        full_capacity: 80,
-        empty_capacity: 30,
         show_absolute: false,
         auto_scale: true,
     },

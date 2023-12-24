@@ -132,8 +132,6 @@
       "invert_power": "Invert Power",
       "show_absolute": "Show Absolute",
       "hide_soc": "Hide SOC",
-      "full_capacity": "Full Cap.",
-      "empty_capacity": "Empty Cap.",
       "invert_aux": "Invert Aux",
       "show_absolute_aux": "Show Absolute",
       "show_nonessential": "Show Non Essential",

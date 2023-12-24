@@ -13,7 +13,7 @@ Refer to [https://slipx06.github.io/sunsynk-power-flow-card/index.html](https://
 
 * Option to switch between three card styles: `compact`, `lite` or `full`.
 * Animated power flow based on positive/negative/zero sensor values with configurable dynamic speed. (Supports inverted battery, AUX and grid power).
-* Dynamic battery image based on SOC (empty->low->medium->high).
+* Dynamic battery image based on SOC.
 * Grid connected status.
 * Configurable battery size and shutdown SOC to calculate and display remaining battery runtime based on current battery usage and system time slot setting i.e. SOC, Grid Charge. Can be toggled off.
 * Daily Totals that can be toggled on or off.
