@@ -892,7 +892,6 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         let pvPercentage = 0;
         let batteryPercentage = 0;
-        //if ((pvPercentage_raw  >= 100 && batteryPercentage_raw > 0) || (pvPercentage_raw > 0 && batteryPercentage_raw >= 100)) {
         if (totalPercentage > 100) {
             pvPercentage = this.toNum(normalizedPvPercentage, 0);
             batteryPercentage = this.toNum(normalizedBatteryPercentage, 0);
@@ -909,11 +908,11 @@ export class SunsynkPowerFlowCard extends LitElement {
         let essIcon: string;
         let essIconSize: number;
         switch (true) {
-            case pvPercentage_raw >= 100 && batteryPercentage_raw <= 5 && config.load.dynamic_icon:
+            case pvPercentage_raw >= 100 && batteryPercentage_raw <= 5 && (total_grid_power - nonessential) < 50 && config.load.dynamic_icon:
                 essIcon = essPv;
                 essIconSize = 1;
                 break;
-            case batteryPercentage_raw >= 100 && pvPercentage_raw <= 5 && config.load.dynamic_icon:
+            case batteryPercentage_raw >= 100 && pvPercentage_raw <= 5 && (total_grid_power - nonessential) < 50 && config.load.dynamic_icon:
                 essIcon = essBat;
                 essIconSize = 0;
                 break;
@@ -927,16 +926,16 @@ export class SunsynkPowerFlowCard extends LitElement {
                 break;
         }
 
-        const battery100 = 'M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 5.02 18.5 v 1 L 11 19.5 L 11 18.5 z M 5 18 L 11 18 L 11 17 H 5 z M 5 16.5 L 11 16.5 L 11 15.5 H 5 z M 5 14 L 11 14 L 11 15 H 5 z M 5 12.5 L 11 12.5 L 11 13.5 H 5 z M 5 11 L 11 11 L 11 12 H 5 z M 5 9.5 L 11 9.5 L 11 10.5 H 5 z M 5 8 L 11 8 L 11 9 H 5 z M 5 6.5 L 11 6.5 L 11 7.5 H 5 z';
-        const battery90 = 'M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 5.02 18.5 v 1 L 11 19.5 L 11 18.5 z M 5 18 L 11 18 L 11 17 H 5 z M 5 16.5 L 11 16.5 L 11 15.5 H 5 z M 5 14 L 11 14 L 11 15 H 5 z M 5 12.5 L 11 12.5 L 11 13.5 H 5 z M 5 11 L 11 11 L 11 12 H 5 z M 5 9.5 L 11 9.5 L 11 10.5 H 5 z M 5 8 L 11 8 L 11 9 H 5 z';
-        const battery80 = 'M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 5.02 18.5 v 1 L 11 19.5 L 11 18.5 z M 5 18 L 11 18 L 11 17 H 5 z M 5 16.5 L 11 16.5 L 11 15.5 H 5 z M 5 14 L 11 14 L 11 15 H 5 z M 5 12.5 L 11 12.5 L 11 13.5 H 5 z M 5 11 L 11 11 L 11 12 H 5 z M 5 9.5 L 11 9.5 L 11 10.5 H 5 z';
-        const battery70 = 'M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 5.02 18.5 v 1 L 11 19.5 L 11 18.5 z M 5 18 L 11 18 L 11 17 H 5 z M 5 16.5 L 11 16.5 L 11 15.5 H 5 z M 5 14 L 11 14 L 11 15 H 5 z M 5 12.5 L 11 12.5 L 11 13.5 H 5 z M 5 11 L 11 11 L 11 12 H 5 z';
-        const battery60 = 'M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 5.02 18.5 v 1 L 11 19.5 L 11 18.5 z M 5 18 L 11 18 L 11 17 H 5 z M 5 16.5 L 11 16.5 L 11 15.5 H 5 z M 5 14 L 11 14 L 11 15 H 5 z M 5 12.5 L 11 12.5 L 11 13.5 H 5 z';
-        const battery50 = 'M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 5.02 18.5 v 1 L 11 19.5 L 11 18.5 z M 5 18 L 11 18 L 11 17 H 5 z M 5 16.5 L 11 16.5 L 11 15.5 H 5 z M 5 14 L 11 14 L 11 15 H 5 z';
-        const battery40 = 'M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 5.02 18.5 v 1 L 11 19.5 L 11 18.5 z M 5 18 L 11 18 L 11 17 H 5 z M 5 16.5 L 11 16.5 L 11 15.5 H 5 z';
-        const battery30 = 'M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 5.02 18.5 v 1 L 11 19.5 L 11 18.5 z M 5 18 L 11 18 L 11 17 H 5 z';
-        const battery20 = 'M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 M 5.02 18.5 v 1 L 11 19.5 L 11 18.5 z';
-        const battery0 = 'M 12 20 H 4 V 6 h 8 L 12 20 m 0.67 -16 H 11 V 2 H 5 v 2 H 3.33 C 2.6 4 2 4.6 2 5.33 v 15.34 C 2 21.4 2.6 22 3.33 22 h 9.34 c 0.74 0 1.33 -0.59 1.33 -1.33 V 5.33 C 14 4.6 13.4 4 12.67 4 ';
+        const battery100 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5zM5 12.5 11 12.5 11 13.5H5zM5 11 11 11 11 12H5zM5 9.5 11 9.5 11 10.5H5zM5 8 11 8 11 9H5zM5 6.5 11 6.5 11 7.5H5z';
+        const battery90 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5zM5 12.5 11 12.5 11 13.5H5zM5 11 11 11 11 12H5zM5 9.5 11 9.5 11 10.5H5zM5 8 11 8 11 9H5z';
+        const battery80 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5zM5 12.5 11 12.5 11 13.5H5zM5 11 11 11 11 12H5zM5 9.5 11 9.5 11 10.5H5z';
+        const battery70 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5zM5 12.5 11 12.5 11 13.5H5zM5 11 11 11 11 12H5z';
+        const battery60 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5zM5 12.5 11 12.5 11 13.5H5z';
+        const battery50 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5z';
+        const battery40 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5z';
+        const battery30 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5z';
+        const battery20 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5z';
+        const battery0 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4';
         let batteryIcon: string
         
         switch (true) {
@@ -974,7 +973,6 @@ export class SunsynkPowerFlowCard extends LitElement {
                 batteryIcon = battery0;
                 break;
         }
-
 
         if (this.isFullCard) {
             return html`
@@ -1141,6 +1139,9 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </text>
                             <text x="80" y="378" class="st3 left-align" display="${!config.show_battery ? 'none' : ''}"
                                   fill="${battery_colour}">${batteryStateMsg}
+                            </text>
+                            <text x="101" y="378" class="st3" display="${!config.show_battery || !config.battery.show_remaining_energy || config.entities?.battery_status ? 'none' : ''}"
+                                  fill="${battery_colour}">${this.toNum(((battery_energy * (parseFloat(state_battery_soc.state) / 100) /1000)), 2)} kWh
                             </text>
                             <text x="411" y="157" class="st3 st8"
                                   display="${[1, 2].includes(additional_load) && show_aux ? 'none' : ''}"
@@ -3298,6 +3299,9 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <text x="169" y="320" class="st3 left-align"
                                   display="${!config.show_battery || compact ? 'none' : ''}" fill="${battery_colour}">
                                 ${batteryStateMsg}
+                            </text>
+                            <text x="193" y="323" class="st3" display="${!config.show_battery || !config.battery.show_remaining_energy || config.entities?.battery_status || compact ? 'none' : ''}"
+                                  fill="${battery_colour}">${this.toNum(((battery_energy * (parseFloat(state_battery_soc.state) / 100) /1000)), 2)} kWh
                             </text>
                             <text id="battery_soc_184" x="368.5" y="351" fill=${battery_colour}
                                   class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st14 left-align'}"

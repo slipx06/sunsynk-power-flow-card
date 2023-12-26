@@ -143,6 +143,7 @@
     "nonessential_name": "Non Essential Name",
     "nonessential_icon": "Non Essential Icon",
     "energy_cost_decimals": "Energy Cost Decimals",
+    "show_remaining_energy": "Show Remaining Energy",
     "cat_title": {
       "title": "Title Options",
       "general": "General Options",
