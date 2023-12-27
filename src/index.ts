@@ -1575,7 +1575,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     <path d="M35 887 l-27 -23 0 -404 0 -404 27 -23 c26 -23 28 -23 329 -23 284 0 305 1 327 19 l24 19 0 412 0 412 -24 19 c-22 18 -43 19 -327 19 -301 0 -303 0 -329 -23z m585 -157 l0 -80 -255 0 -255 0 0 80 0 80 255 0 255 0 0 -80z m-242 -229 c44 -34 40 -46 -14 -46 -60 0 -97 -38 -93 -94 5 -64 -23 -80 -35 -20 -9 44 24 113 63 134 35 18 34 15 21 50 -11 29 -14 30 58 -24z m110 -129 c4 -51 -19 -97 -59 -117 -27 -14 -30 -20 -23 -48 l6 -31 -51 43 c-29 24 -49 46 -46 49 3 4 23 5 44 3 58 -4 95 32 97 95 3 60 1 57 17 52 6 -3 13 -23 15 -46z"/>
                                 </g>
                             </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" id="bat" x="74.5" y="296.25" width="82"
+                            <svg xmlns="http://www.w3.org/2000/svg" id="bat" x="74.5" y="${config.battery?.show_remaining_energy ? "294" : "296.25"}" width="82"
                                  height="82" preserveAspectRatio="none"
                                  viewBox="0 0 24 24">
                                 <path class="${!config.show_battery ? 'st12' : ''}" fill="${battery_colour}"
@@ -3055,7 +3055,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 <text id="prepaid" x="428" y="258"
                                       class="${config.entities?.prepaid_units ? 'st3 left-align' : 'st12'}"
                                       fill="${grid_colour}" display="${!config.show_grid ? 'none' : ''}">
-                                    ${this.toNum(state_prepaid_units.state, 0)}
+                                    ${this.toNum(state_prepaid_units.state, 1)}
                                 </text>
                             </a>
                         </svg>
@@ -4381,10 +4381,10 @@ export class SunsynkPowerFlowCard extends LitElement {
                                     </text>`
                             }
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.prepaid_units)}>
-                                <text id="prepaid" x="32" y="253"
+                                <text id="prepaid" x="31.5" y="253"
                                       class="${config.entities?.prepaid_units ? 'st3' : 'st12'}"
                                       fill="${grid_colour}" display="${!config.show_grid ? 'none' : ''}">
-                                    ${this.toNum(state_prepaid_units.state, 0)}
+                                    ${this.toNum(state_prepaid_units.state, 1)}
                                 </text>
                             </a>
                         </svg>
