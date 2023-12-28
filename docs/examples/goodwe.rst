@@ -100,10 +100,9 @@ Example 1
 
 .. code-block:: bash
 
-      - platform: template
-          sensors:
-            goodwe_shutdown_soc:
-              friendly_name: "GoodWe Shutdown SOC"
-              unit_of_measurement: "%"
-              icon_template: mdi:battery-arrow-down  
-              value_template: "{{100 - states('number.depth_of_discharge_on_grid') | int }}"
+      - sensor:
+          - name: GoodWe Shutdown SOC
+            unique_id: goodwe_shutdown_soc
+            unit_of_measurement: "%"
+            icon: mdi:battery-arrow-down
+            state: "{{100 - states('number.depth_of_discharge_on_grid') | int }}"
