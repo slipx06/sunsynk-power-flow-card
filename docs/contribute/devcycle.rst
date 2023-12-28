@@ -77,7 +77,7 @@ Testing
 *******
 
 There are no automated tests for this project, however it is expected that any
-development work is tested against a HA Server with workgin inverter integration, 
+development work is tested against a HA Server with working inverter integration, 
 this ensures no adverse impact is added with the feature or bugfix.
 
 **********
