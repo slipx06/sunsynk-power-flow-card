@@ -20,6 +20,7 @@ import {
     huaweiBase64Img,
     inverterStatusGroups,
     luxBase64Img,
+    solaredgeBase64Img,
     solaxBase64Img,
     solisBase64Img,
     sunsynkBase64Img,
