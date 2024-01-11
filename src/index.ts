@@ -20,6 +20,7 @@ import {
     huaweiBase64Img,
     inverterStatusGroups,
     luxBase64Img,
+    solaredgeBase64Img,
     solaxBase64Img,
     solisBase64Img,
     sunsynkBase64Img,
@@ -707,6 +708,9 @@ export class SunsynkPowerFlowCard extends LitElement {
                     break;
                 case InverterModel.Fronius:
                     inverterImg = froniusBase64Img;
+                    break;
+                case InverterModel.SolarEdge:
+                    inverterImg = solaredgeBase64Img;
                     break;
                 default:
                     inverterImg = sunsynkBase64Img;
