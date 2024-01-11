@@ -17,7 +17,7 @@ export enum InverterModel {
     Solax = 'solax',
     Victron = 'victron',
     Fronius = 'fronius',
-    SolarEgde = 'solaredge'
+    SolarEdge = 'solaredge'
 }
 
 export enum CardStyle {

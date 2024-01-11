@@ -709,7 +709,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                 case InverterModel.Fronius:
                     inverterImg = froniusBase64Img;
                     break;
-                case InverterModel.SolarEgde:
+                case InverterModel.SolarEdge:
                     inverterImg = solaredgeBase64Img;
                     break;
                 default:
