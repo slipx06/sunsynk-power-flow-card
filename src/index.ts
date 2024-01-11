@@ -379,7 +379,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let load3e_icon = config.load?.load3_icon;
         let load4e_icon = config.load?.load4_icon;
         let remaining_solar = config.entities.remaining_solar ? this.convertValueNew(state_remaining_solar.state, state_remaining_solar.attributes?.unit_of_measurement, 1) : false;
-        let total_solar_generation = config.entities.total_pv_generation ? this.convertValueNew(state_total_pv_generation.state, state_total_pv_generation.attributes?.unit_of_measurement, 1) : false;
+        let total_solar_generation = config.entities.total_pv_generation ? this.convertValueNew(state_total_pv_generation.state, state_total_pv_generation.attributes?.unit_of_measurement, 2) : false;
         let font = config.large_font;
         let panel = config.panel_mode;
         let inverter_colour = this.colourConvert(config.inverter?.colour);
@@ -4472,7 +4472,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                     }
                 case 4: // kWh
                     if (Math.abs(numberValue) >= 1e3) {
-                        return `${(numberValue / 1e3).toFixed(1)} ${units[5]}`;
+                        return `${(numberValue / 1e3).toFixed(2)} ${units[5]}`;
                         //} else if (Math.abs(numberValue) < 1) {
                         //    return `${(numberValue * 1000).toFixed(1)} ${units[3]}`;
                     } else {
