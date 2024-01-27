@@ -94,7 +94,7 @@ export const inverterStatusGroups = {
         shutdown: {states: ['Shutdown'], color: 'red', message: localize('common.shutdown')},
         normalstop: {states: ['Normal stop'], color: 'yellow', message: localize('common.normalstop')},
         alarm: {
-            states: [`Grid-Connected, Grid connection with derating due to internal causes of the solar inverter` ], 
+            states: ['Grid-Connected, Grid connection with derating due to internal causes of the solar inverter' ], 
             color: 'orange', message: localize('common.alarm')
         },
         fault: {states: ['Stop due to faults', 'Stop due to power rationing'], color: 'red', message: localize('common.fault')},
