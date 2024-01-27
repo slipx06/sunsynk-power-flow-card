@@ -88,16 +88,16 @@ export const inverterStatusGroups = {
         check: {states: ['5', 'check mode'], color: 'orange', message: localize('common.check')},
     },
     huawei: {
-        standby: {states: ['standby'], color: 'blue', message: localize('common.standby')},
-        selftest: {states: ['spot check'], color: 'yellow', message: localize('common.selftest')},
-        normal: {states: ['grid-connected, grid-connected normally'], color: 'green', message: localize('common.normal')},
-        shutdown: {states: ['shutdown'], color: 'red', message: localize('common.shutdown')},
-        normalstop: {states: ['normal stop'], color: 'yellow', message: localize('common.normalstop')},
+        standby: {states: ['Standby'], color: 'blue', message: localize('common.standby')},
+        selftest: {states: ['Spot check'], color: 'yellow', message: localize('common.selftest')},
+        normal: {states: ['Grid-Connected, Grid-Connected normally', 'Grid-Connected, Grid connection with derating due to power rationing'], color: 'green', message: localize('common.normal')},
+        shutdown: {states: ['Shutdown'], color: 'red', message: localize('common.shutdown')},
+        normalstop: {states: ['Normal stop'], color: 'yellow', message: localize('common.normalstop')},
         alarm: {
-            states: ['grid-connected, grid connection with derating due to power rationing', 'grid-connected, grid connection with derating due to internal causes of the solar inverter'],
+            states: [`Grid-Connected, Grid connection with derating due to internal causes of the solar inverter` ], 
             color: 'orange', message: localize('common.alarm')
         },
-        fault: {states: ['stop due to faults', 'stop due to power rationing'], color: 'red', message: localize('common.fault')},
+        fault: {states: ['Stop due to faults', 'Stop due to power rationing'], color: 'red', message: localize('common.fault')},
     },
     solis: {
         normal: {
