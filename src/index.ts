@@ -263,17 +263,17 @@ export class SunsynkPowerFlowCard extends LitElement {
         let aux_status = config.entities?.aux_connected_status ? state_aux_connected_status.state : 'on';
         let load_frequency = config.entities?.load_frequency_192 ? this.toNum(state_load_frequency.state, 2) : 0;
         let inverter_voltage = config.entities?.inverter_voltage_154
-            ? config.inverter.three_phase && this.isLiteCard
+            ? config.inverter.three_phase && (this.isLiteCard || this.isCompactCard)
                 ? this.toNum(state_inverter_voltage.state, 0)
                 : this.toNum(state_inverter_voltage.state, 1)
             : 0;
         let inverter_voltage_L2 = config.entities?.inverter_voltage_L2
-            ? config.inverter.three_phase && this.isLiteCard
+            ? config.inverter.three_phase && (this.isLiteCard || this.isCompactCard)
                 ? this.toNum(state_inverter_voltage_L2.state, 0)
                 : this.toNum(state_inverter_voltage_L2.state, 1)
             : '';
         let inverter_voltage_L3 = config.entities?.inverter_voltage_L3
-            ? config.inverter.three_phase && this.isLiteCard
+            ? config.inverter.three_phase && (this.isLiteCard || this.isCompactCard)
                 ? this.toNum(state_inverter_voltage_L3.state, 0)
                 : this.toNum(state_inverter_voltage_L3.state, 1)
             : '';
