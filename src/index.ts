@@ -3174,7 +3174,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   fill="${battery_showdaily !== true || !config.show_battery ? 'transparent' : `${battery_colour}`}">
                                 ${localize('common.daily_discharge')}
                             </text>
-                            <text id="daily_load" x="${[2, 4].includes(additional_load) ? '365' : '415'}"
+                            <text id="daily_load" x="${[2, 4].includes(additional_load) ? '365' : '412'}"
                                   y="${[2, 4].includes(additional_load) ? '189' : '282.1'}"
                                   class="st3 left-align"
                                   fill="${!load_showdaily ? 'transparent' : `${load_colour}`}">
@@ -3810,7 +3810,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </a>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.day_load_energy_84)}>
                                 <text id="daily_load_value"
-                                      x="${[2, 4].includes(additional_load) ? '365' : '415'}"
+                                      x="${[2, 4].includes(additional_load) ? '365' : '412'}"
                                       y="${[2, 4].includes(additional_load) ? '175' : '267.9'}"
                                       class="st10 left-align" display="${!load_showdaily ? 'none' : ''}"
                                       fill="${load_colour}">
