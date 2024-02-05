@@ -14,6 +14,7 @@
    examples/goodwe
    examples/foxess
    examples/solax
+   examples/huawei
 
 .. toctree::
    :caption: Contribute
