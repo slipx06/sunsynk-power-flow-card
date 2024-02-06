@@ -1,3 +1,7 @@
+################
+Huawei Inverter 
+################
+
 Integration via WLCRS "Huawei Solar". See https://github.com/wlcrs/huawei_solar/wiki
 
 NOTE THIS EXAMPLE IS CURRENTLY IN DRAFT MODE.

@@ -1,6 +1,6 @@
-##########################
-FoxESS Inverter Configuration
-##########################
+################
+FoxESS Inverter
+################
 
 ******************************************************************************************
 Example 1 - Integration via https://github.com/nathanmarlor/foxess_modbus

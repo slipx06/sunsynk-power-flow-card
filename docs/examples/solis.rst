@@ -1,6 +1,6 @@
-##########################
-Solis Inverter Configuration
-##########################
+################
+Solis Inverter
+################
 
 ******************************************************************************************
 Example 1 - Integration via https://github.com/wills106/homeassistant-solax-modbus
