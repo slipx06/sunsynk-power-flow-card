@@ -4,13 +4,17 @@ Huawei Inverter
 
 Integration via WLCRS "Huawei Solar". See https://github.com/wlcrs/huawei_solar/wiki
 
-NOTE THIS EXAMPLE IS CURRENTLY IN DRAFT MODE.
+.. note::
+
+   THIS EXAMPLE IS CURRENTLY IN DRAFT MODE.
 
 Additional yaml (or links to them) is still pending for all the derived sensors that are required
 to be created, from the baseline sensors that the WLCRS integration provides. Also the energy_meter
 integration (installable via HACS) is required to be installed
 
-Note: Solar 'max_power' is based upon 6.6kW of panels per inverter, please update to reflect actual panels total capacity.
+.. note::
+    
+   Solar 'max_power' is based upon 6.6kW of panels per inverter, please update to reflect actual panels total capacity.
 
 
 ***********************************************************************************************
