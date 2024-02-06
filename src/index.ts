@@ -2445,7 +2445,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                                 ? config.entities?.pv_total
                                                     ? this.convertValueNew(total_pv, state_pv_total.attributes?.unit_of_measurement, round)
                                                     : this.convertValue(total_pv, round) || 0
-                                                : `${this.toNum(total_pv || 0)} W`
+                                                : `${this.toNum(total_pv || 0, 0)} W`
                                             }
                                         </text>
                                     </a>`
@@ -2457,7 +2457,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             ? config.entities?.pv_total
                                                 ? this.convertValueNew(total_pv, state_pv_total.attributes?.unit_of_measurement, round)
                                                 : this.convertValue(total_pv, round) || 0
-                                            : `${this.toNum(total_pv || 0)} W`
+                                            : `${this.toNum(total_pv || 0, 0)} W`
                                         }
                                     </text>`
                             }
@@ -4103,7 +4103,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                                 ? config.entities?.pv_total
                                                     ? this.convertValueNew(total_pv, state_pv_total.attributes?.unit_of_measurement, round)
                                                     : this.convertValue(total_pv, round) || 0
-                                                : `${this.toNum(total_pv || 0)} W`
+                                                : `${this.toNum(total_pv || 0, 0)} W`
                                             }
                                         </text>
                                     </a>`
@@ -4115,7 +4115,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                             ? config.entities?.pv_total
                                                 ? this.convertValueNew(total_pv, state_pv_total.attributes?.unit_of_measurement, round)
                                                 : this.convertValue(total_pv, round) || 0
-                                            : `${this.toNum(total_pv || 0)} W`
+                                            : `${this.toNum(total_pv || 0, 0)} W`
                                         }
                                     </text>`
                             }
