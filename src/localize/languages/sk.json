@@ -95,6 +95,7 @@
       "show_daily": "Show Daily",
       "show_daily_aux": "Show Daily Aux",
       "dynamic_line_width": "Dynamic Line Width",
+      "max_line_width": "Max Line Width",
       "animation_speed": "Anim. Speed",
       "max_power": "Max Power",
       "pv1_name": "PV1 Name",

@@ -61,6 +61,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                     {name: "show_grid", selector: {boolean: {}}},
                                     {name: "decimal_places", selector: {number: {}}},
                                     {name: "dynamic_line_width", selector: {boolean: {}}},
+                                    {name: "max_line_width", selector: {number: {}}},
                                 ]
                             }]
                         },

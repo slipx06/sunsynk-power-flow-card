@@ -13,6 +13,7 @@ export default {
     card_width: '100%',
     decimal_places: 2,
     dynamic_line_width: false,
+    max_line_width: 4,
     inverter: {
         modern: true,
         colour: 'grey',

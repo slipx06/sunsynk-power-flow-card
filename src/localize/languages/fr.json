@@ -93,6 +93,7 @@
       "show_grid": "Show Grid",
       "show_aux": "Show Aux",
       "dynamic_line_width": "Dynamic Line Width",
+      "max_line_width": "Max Line Width",
       "solar": "Solar",
       "mppts": "MPPTs",
       "show_daily": "Show Daily",

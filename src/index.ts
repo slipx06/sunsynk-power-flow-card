@@ -798,17 +798,18 @@ export class SunsynkPowerFlowCard extends LitElement {
         let Autarkyp = consumption_p != 0 ? Math.min(Math.round((production_p * 100) / consumption_p), 100) : 0;
         let Ratiop = production_p != 0 ? Math.min(Math.round((consumption_p * 100) / production_p), 100) : 0;
 
+        let max_linewidth = (this.toNum(config.max_line_width) < 1 ? 1 : config.max_line_width) - 1;
         //Calculate line width depending on power usage
-        let pv1LineWidth = !config.solar.max_power ? 1 : this.dynamicLineWidth(pv1_power_watts, (config.solar.max_power || pv1_power_watts));
-        let pv2LineWidth = !config.solar.max_power ? 1 : this.dynamicLineWidth(pv2_power_watts, (config.solar.max_power || pv2_power_watts));
-        let pv3LineWidth = !config.solar.max_power ? 1 : this.dynamicLineWidth(pv3_power_watts, (config.solar.max_power || pv3_power_watts));
-        let pv4LineWidth = !config.solar.max_power ? 1 : this.dynamicLineWidth(pv4_power_watts, (config.solar.max_power || pv4_power_watts));
-        let batLineWidth = !config.battery.max_power ? 1 : this.dynamicLineWidth(Math.abs(battery_power), (config.battery.max_power || Math.abs(battery_power)));
-        let loadLineWidth = !config.load.max_power ? 1 : this.dynamicLineWidth(Math.abs(essential), (config.load.max_power || Math.abs(essential)));
-        let auxLineWidth = !config.load.max_power ? 1 : this.dynamicLineWidth(Math.abs(aux_power), (config.load.max_power || Math.abs(aux_power)));
-        let gridLineWidth = !config.grid.max_power ? 1 : this.dynamicLineWidth(Math.abs(total_grid_power), (config.grid.max_power || Math.abs(total_grid_power)));
-        let nonessLineWidth = !config.grid.max_power ? 1 : this.dynamicLineWidth(Math.abs(nonessential), (config.grid.max_power || Math.abs(nonessential)));
-        let solarLineWidth = !config.solar.max_power ? 1 : this.dynamicLineWidth(totalsolar, (config.solar.max_power || totalsolar));
+        let pv1LineWidth = !config.solar.max_power ? 1 : this.dynamicLineWidth(pv1_power_watts, (config.solar.max_power || pv1_power_watts), max_linewidth );
+        let pv2LineWidth = !config.solar.max_power ? 1 : this.dynamicLineWidth(pv2_power_watts, (config.solar.max_power || pv2_power_watts), max_linewidth);
+        let pv3LineWidth = !config.solar.max_power ? 1 : this.dynamicLineWidth(pv3_power_watts, (config.solar.max_power || pv3_power_watts), max_linewidth);
+        let pv4LineWidth = !config.solar.max_power ? 1 : this.dynamicLineWidth(pv4_power_watts, (config.solar.max_power || pv4_power_watts), max_linewidth);
+        let batLineWidth = !config.battery.max_power ? 1 : this.dynamicLineWidth(Math.abs(battery_power), (config.battery.max_power || Math.abs(battery_power)), max_linewidth);
+        let loadLineWidth = !config.load.max_power ? 1 : this.dynamicLineWidth(Math.abs(essential), (config.load.max_power || Math.abs(essential)), max_linewidth);
+        let auxLineWidth = !config.load.max_power ? 1 : this.dynamicLineWidth(Math.abs(aux_power), (config.load.max_power || Math.abs(aux_power)), max_linewidth);
+        let gridLineWidth = !config.grid.max_power ? 1 : this.dynamicLineWidth(Math.abs(total_grid_power), (config.grid.max_power || Math.abs(total_grid_power)), max_linewidth);
+        let nonessLineWidth = !config.grid.max_power ? 1 : this.dynamicLineWidth(Math.abs(nonessential), (config.grid.max_power || Math.abs(nonessential)), max_linewidth);
+        let solarLineWidth = !config.solar.max_power ? 1 : this.dynamicLineWidth(totalsolar, (config.solar.max_power || totalsolar), max_linewidth);
 
         //Calculate power use animation speeds depending on Inverter size
         if (config && config.solar && config.solar.animation_speed) {
@@ -4548,26 +4549,17 @@ export class SunsynkPowerFlowCard extends LitElement {
         return colour && Array.isArray(colour) ? `rgb(${colour})` : colour;
     }
 
-    dynamicLineWidth(power: number, maxpower: number) {
-        let lineWidth: number;
+     dynamicLineWidth(power: number, maxpower: number, width: number) {
+         let lineWidth: number;  
+         // Check if dynamic_line_width is disabled in the config
+         if (!this._config.dynamic_line_width) {
+             lineWidth = 1;
+         } else {     
+             lineWidth = 1 + Math.min(power / maxpower, 1) * width;
+         }
     
-        // Check if dynamic_line_width is disabled in the config
-        if (!this._config.dynamic_line_width) {
-            lineWidth = 1;
-        } else {
-            const ratio = Math.min(power / maxpower, 1); // Ensure the ratio is between 0 and 1
-        
-            if (power >= maxpower) {
-                lineWidth = 5;
-            } else {
-                // Use a logarithmic scale for line width between 1 and 5 based on the ratio
-                let innerLineWidth = 1 + Math.floor(Math.log2(1 + ratio * 10));
-                lineWidth = Math.min(innerLineWidth, 4); // Ensure the result is between 1 and 4
-            }
-        }
-    
-        return lineWidth;
-    }
+         return lineWidth;
+     }
     
     setConfig(config) {
         if (config.show_battery && !config.battery) {
