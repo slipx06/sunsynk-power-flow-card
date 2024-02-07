@@ -52,7 +52,7 @@
         "offline": "Offline",
         "running": "Running",
         "sleepmode": "Sleep Mode",
-        "grid": "Grid"
+        "grid_name": "Grid"
 
 
     },
@@ -121,6 +121,7 @@
       "show_daily_sell": "Show Daily Sell",
       "no_grid_colour": "No Grid Colour",
       "grid_off_colour": "Grid Off Colour",
+      "grid_name": "Grid Name",
       "colour": "Colour",
       "aux_colour": "Colour",
       "aux_off_colour": "Off Colour",
