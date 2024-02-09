@@ -12,7 +12,7 @@ export default {
     card_height: '396px',
     card_width: '100%',
     decimal_places: 2,
-    dynamic_line_width: false,
+    dynamic_line_width: true,
     max_line_width: 4,
     inverter: {
         modern: true,
