@@ -123,7 +123,7 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings.
     priority_load_243: null
     day_battery_charge_70: sensor.battery_day_charge
     day_battery_discharge_71: sensor.battery_day_discharge
-    day_load_energy_84: sensor.house_consumption_energy_less_known
+    day_load_energy_84: sensor.house_consumption_energy_daily
     day_grid_import_76: sensor.hs_grid_imported_daily
     day_grid_export_77: sensor.hs_grid_exported_daily
     day_pv_energy_108: sensor.inverter_daily_yield
@@ -278,7 +278,7 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
     priority_load_243: null
     day_battery_charge_70: sensor.battery_day_charge
     day_battery_discharge_71: sensor.battery_day_discharge
-    day_load_energy_84: sensor.house_consumption_energy_less_known
+    day_load_energy_84: sensor.house_consumption_energy_daily
     day_grid_import_76: sensor.hs_grid_imported_daily
     day_grid_export_77: sensor.hs_grid_exported_daily
     day_pv_energy_108: sensor.inverters_daily_yield
@@ -440,7 +440,7 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings
     priority_load_243: null
     day_battery_charge_70: sensor.battery_day_charge
     day_battery_discharge_71: sensor.battery_day_discharge
-    day_load_energy_84: sensor.house_consumption_energy_less_known
+    day_load_energy_84: sensor.house_consumption_energy_daily
     day_grid_import_76: sensor.hs_grid_imported_daily
     day_grid_export_77: sensor.hs_grid_exported_daily
     day_pv_energy_108: sensor.inverter_daily_yield
@@ -607,7 +607,7 @@ Example 4 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
     priority_load_243: null
     day_battery_charge_70: sensor.battery_day_charge
     day_battery_discharge_71: sensor.battery_day_discharge
-    day_load_energy_84: sensor.house_consumption_energy_less_known
+    day_load_energy_84: sensor.house_consumption_energy_daily
     day_grid_import_76: sensor.hs_grid_imported_daily
     day_grid_export_77: sensor.hs_grid_exported_daily
     day_pv_energy_108: sensor.inverters_daily_yield
