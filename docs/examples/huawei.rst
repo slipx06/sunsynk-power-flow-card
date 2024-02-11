@@ -148,7 +148,7 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings.
     battery_soc_184: sensor.battery_state_of_capacity
     battery_power_190: sensor.battery_charge_discharge_power
     battery_current_191: sensor.battery_bus_current
-    battery_temp_182: sensor.battery_temperature
+    battery_temp_182: sensor.battery_1_temperature
     battery_status: sensor.battery_status
     essential_power: sensor.house_consumption_power_less_known
     essential_load1: sensor.all_lights_active_power
@@ -308,7 +308,7 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
     battery_soc_184: sensor.battery_state_of_capacity
     battery_power_190: sensor.battery_charge_discharge_power
     battery_current_191: sensor.battery_bus_current
-    battery_temp_182: sensor.battery_temperature
+    battery_temp_182: sensor.battery_1_temperature
     battery_status: sensor.battery_status
     essential_power: sensor.house_consumption_power_less_known
     essential_load1: sensor.all_lights_active_power
@@ -469,7 +469,7 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings
     battery_soc_184: sensor.battery_state_of_capacity
     battery_power_190: sensor.battery_charge_discharge_power
     battery_current_191: sensor.battery_bus_current
-    battery_temp_182: sensor.battery_temperature
+    battery_temp_182: sensor.battery_1_temperature
     battery_status: sensor.battery_status
     essential_power: sensor.house_consumption_power_less_known
     essential_load1: sensor.all_lights_active_power
@@ -642,7 +642,7 @@ Example 4 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
     battery_soc_184: sensor.battery_state_of_capacity
     battery_power_190: sensor.battery_charge_discharge_power
     battery_current_191: sensor.battery_bus_current
-    battery_temp_182: sensor.battery_temperature
+    battery_temp_182: sensor.battery_1_temperature
     battery_status: sensor.battery_status
     essential_power: sensor.house_consumption_power_less_known
     essential_load1: sensor.all_lights_active_power
