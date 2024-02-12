@@ -3245,7 +3245,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}"
                                   fill="${solar_colour}">${config.solar.pv4_name}
                             </text>
-                            <text id="autarkye_value" x="125" y="260" display="${useautarky === "no" ? 'none' : ''}"
+                            <text id="autarkye_value" x="127" y="260" display="${useautarky === "no" ? 'none' : ''}"
                                   class="${useautarky === 'energy' ? 'st4 st8 left-align' : 'st12'}"
                                   fill="${inverter_colour}">${Autarky}%
                             </text>
@@ -3253,7 +3253,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   class="${useautarky === 'energy' ? 'st4 st8 left-align' : 'st12'}"
                                   fill="${inverter_colour}">${Ratio}%
                             </text>
-                            <text id="autarkyp_value" x="125" y="260" display="${useautarky === "no" ? 'none' : ''}"
+                            <text id="autarkyp_value" x="127" y="260" display="${useautarky === "no" ? 'none' : ''}"
                                   class="${useautarky === 'power' ? 'st4 st8 left-align' : 'st12'}"
                                   fill="${inverter_colour}">${Autarkyp}%
                             </text>
@@ -3261,7 +3261,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   class="${useautarky === 'power' ? 'st4 st8 left-align' : 'st12'}"
                                   fill="${inverter_colour}">${Ratiop}%
                             </text>
-                            <text id="autarky" x="125" y="273" display="${useautarky === "no" ? 'none' : ''}"
+                            <text id="autarky" x="127" y="273" display="${useautarky === "no" ? 'none' : ''}"
                                   class="st3 left-align" fill="${inverter_colour}">${localize('common.autarky')}
                             </text>
                             <text id="ratio" x="173" y="273" display="${useautarky === "no" ? 'none' : ''}"
