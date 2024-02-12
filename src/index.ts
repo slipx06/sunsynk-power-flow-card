@@ -575,7 +575,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             }
         }
 
-        if (grid_voltage != null && !Number.isNaN(grid_voltage)) {
+        if (grid_voltage != null && !Number.isNaN(grid_voltage) && inverterModel == InverterModel.Solis) {
             // the grid voltage can sometimes read decimals like 0.1, in cases where there is power trickled back.
             grid_status = grid_voltage > 50 ? 'on' : 'off';
         }
