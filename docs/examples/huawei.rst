@@ -48,6 +48,7 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings.
     shutdown_soc: 15
     invert_power: true
     colour: pink
+    charge_colour: yellow
     show_daily: true
     animation_speed: 5
     max_power: 5000
@@ -202,6 +203,7 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
     shutdown_soc: 15
     invert_power: true
     colour: pink
+    charge_colour: yellow
     show_daily: true
     animation_speed: 5
     max_power: 5000
@@ -365,6 +367,7 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings
     shutdown_soc: 15
     invert_power: true
     colour: pink
+    charge_colour: yellow
     show_daily: true
     animation_speed: 5
     max_power: 5000
@@ -533,6 +536,7 @@ Notes to self: Need to update to refelct using 2 x battery and combined sensors 
     shutdown_soc: 15
     invert_power: true
     colour: pink
+    charge_colour: yellow
     show_daily: true
     animation_speed: 5
     max_power: 10000
@@ -703,6 +707,7 @@ Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
     shutdown_soc: 15
     invert_power: true
     colour: pink
+    charge_colour: yellow
     show_daily: true
     animation_speed: 5
     max_power: 5000
