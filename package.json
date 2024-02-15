@@ -51,7 +51,7 @@
     "eslint-plugin-prettier": "^5.0.1",
     "npm": "^10.4.0",
     "prettier": "^3.0.3",
-    "rollup": "^4.3.0",
+    "rollup": "^4.11.0",
     "rollup-plugin-serve": "^2.0.2",
     "rollup-plugin-typescript2": "^0.36.0",
     "typescript": "^5.2.2"
