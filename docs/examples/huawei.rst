@@ -128,7 +128,7 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings.
     day_grid_import_76: sensor.hs_grid_imported_daily
     day_grid_export_77: sensor.hs_grid_exported_daily
     day_pv_energy_108: sensor.inverter_daily_yield
-    day_aux_energy: sensor.sunsynk_power_flow_card_aux_devices_energy
+    day_aux_energy: sensor.sunsynk_power_flow_card_aux_devices_energy_daily
     inverter_voltage_154: sensor.power_meter_voltage
     load_frequency_192: sensor.power_meter_frequency
     grid_power_169: sensor.house_consumption_power
@@ -284,7 +284,7 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
     day_grid_import_76: sensor.hs_grid_imported_daily
     day_grid_export_77: sensor.hs_grid_exported_daily
     day_pv_energy_108: sensor.inverters_daily_yield
-    day_aux_energy: sensor.sunsynk_power_flow_card_aux_devices_energy
+    day_aux_energy: sensor.sunsynk_power_flow_card_aux_devices_energy_daily
     inverter_voltage_154: sensor.power_meter_voltage
     load_frequency_192: sensor.power_meter_frequency
     inverter_current_164: sensor.inverter_phase_a_current
@@ -447,7 +447,7 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings
     day_grid_import_76: sensor.hs_grid_imported_daily
     day_grid_export_77: sensor.hs_grid_exported_daily
     day_pv_energy_108: sensor.inverter_daily_yield
-    day_aux_energy: sensor.sunsynk_power_flow_card_aux_devices_energy
+    day_aux_energy: sensor.sunsynk_power_flow_card_aux_devices_energy_daily
     inverter_voltage_154: sensor.power_meter_phase_a_voltage
     inverter_voltage_L2: sensor.power_meter_phase_b_voltage
     inverter_voltage_L3: sensor.power_meter_phase_c_voltage
@@ -618,7 +618,7 @@ Notes to self: Need to update to refelct using 2 x battery and combined sensors 
     day_grid_import_76: sensor.hs_grid_imported_daily
     day_grid_export_77: sensor.hs_grid_exported_daily
     day_pv_energy_108: sensor.inverters_daily_yield
-    day_aux_energy: sensor.sunsynk_power_flow_card_aux_devices_energy
+    day_aux_energy: sensor.sunsynk_power_flow_card_aux_devices_energy_daily
     inverter_voltage_154: sensor.power_meter_phase_a_voltage
     inverter_voltage_L2: sensor.power_meter_phase_b_voltage
     inverter_voltage_L3: sensor.power_meter_phase_c_voltage
@@ -789,7 +789,7 @@ Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
     day_grid_import_76: sensor.hs_grid_imported_daily
     day_grid_export_77: sensor.hs_grid_exported_daily
     day_pv_energy_108: sensor.inverters_daily_yield
-    day_aux_energy: sensor.sunsynk_power_flow_card_aux_devices_energy
+    day_aux_energy: sensor.sunsynk_power_flow_card_aux_devices_energy_daily
     inverter_voltage_154: sensor.power_meter_phase_a_voltage
     inverter_voltage_L2: sensor.power_meter_phase_b_voltage
     inverter_voltage_L3: sensor.power_meter_phase_c_voltage
