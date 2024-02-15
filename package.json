@@ -47,7 +47,7 @@
     "@typescript-eslint/parser": "^6.10.0",
     "babel-preset-minify": "^0.5.2",
     "eslint": "^8.53.0",
-    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.0.1",
     "npm": "^10.4.0",
     "prettier": "^3.2.5",
