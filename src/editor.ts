@@ -137,6 +137,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                     {name: 'invert_power', selector: {boolean: {}}},
                                     {name: 'show_absolute', selector: {boolean: {}}},
                                     {name: 'colour', selector: {color_rgb: {}}},
+                                    {name: 'charge_colour', selector: {color_rgb: {}}},
                                     {name: 'hide_soc', selector: {boolean: {}}},
                                     {name: 'show_remaining_energy', selector: {boolean: {}}},
                                     {name: 'animation_speed', selector: {number: {}}},
