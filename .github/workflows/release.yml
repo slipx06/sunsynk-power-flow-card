@@ -16,7 +16,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
 
       - name: Get latest tag or fail
         id: get-latest-tag
