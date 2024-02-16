@@ -34,6 +34,8 @@ export default {
         max_power: 4500,
         show_absolute: false,
         auto_scale: true,
+        dynamic_colour: true,
+        linear_gradient: true,
     },
     solar: {
         colour: 'orange',

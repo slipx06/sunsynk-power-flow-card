@@ -906,7 +906,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         //Calculate dynamic colour for load icon based on the contribution of the power source (battery, grid, solar) supplying the load
         const pvPercentage_raw = total_pv === 0 
             ? 0 
-            : priority === 'off' 
+            : priority === 'off' || !priority
                 ? battery_power > 0 
                     ? (total_pv / essential) * 100
                     : ((total_pv -  Math.abs(battery_power)) / essential) * 100
@@ -927,6 +927,40 @@ export class SunsynkPowerFlowCard extends LitElement {
             pvPercentage = this.toNum(Math.min(pvPercentage_raw, 100), 0);
             batteryPercentage = this.toNum(Math.min(batteryPercentage_raw, 100), 0);
         }
+
+        //Calculate dynamic colour for battery icon based on the contribution of the power source (grid, solar) supplying the battery
+        const pvPercentage_raw_bat = (total_pv === 0 || battery_power >= 0)
+            ? 0 
+            : priority === 'off' || !priority
+                ? (total_pv / Math.abs(battery_power)) * 100
+                : ((total_pv - essential) / Math.abs(battery_power)) * 100;
+        const gridPercentage_raw_bat = (battery_power >= 0 || total_grid_power <= 0)
+            ? 0 
+            : priority === 'on' 
+                ? (total_pv - essential) >= Math.abs(battery_power) 
+                    ? 0
+                    : (total_grid_power - Math.max((essential - total_pv),0) / Math.abs(battery_power)) * 100
+                : total_pv >= Math.abs(battery_power)
+                    ? 0
+                    : ((Math.abs(battery_power) - total_pv) / Math.abs(battery_power)) * 100;
+
+        console.log(`${pvPercentage_raw_bat} % RAW PV to charge battery, ${gridPercentage_raw_bat} % RAW Grid to charge battery`);        
+        // Normalize percentages
+        const totalPercentage_bat = pvPercentage_raw_bat + gridPercentage_raw_bat;
+        const normalizedPvPercentage_bat = totalPercentage_bat === 0 ? 0 : (pvPercentage_raw_bat / totalPercentage_bat) * 100;
+        const normalizedGridPercentage = totalPercentage_bat === 0 ? 0 : (gridPercentage_raw_bat / totalPercentage_bat) * 100;
+
+        let pvPercentagebat = 0;
+        let gridPercentagebat = 0;
+        if (totalPercentage_bat > 100) {
+            pvPercentagebat = this.toNum(normalizedPvPercentage_bat, 0);
+            gridPercentagebat = this.toNum(normalizedGridPercentage, 0);
+        } else {
+            pvPercentagebat = this.toNum(Math.min(pvPercentage_raw_bat, 100), 0);
+            gridPercentagebat = this.toNum(Math.min(gridPercentage_raw_bat, 100), 0);
+        }
+
+        console.log(`${pvPercentagebat} % PV to charge battery, ${gridPercentagebat} % Grid to charge battery`);
 
         const essBat = 'M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z';
         const essGrid = 'M5 20v-8H2l10-9l10 9h-3v8zm7-14.31l-5 4.5V18h10v-7.81zM11.5 18v-4H9l3.5-7v4H15z';
@@ -954,51 +988,90 @@ export class SunsynkPowerFlowCard extends LitElement {
                 break;
         }
 
-        const battery100 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5zM5 12.5 11 12.5 11 13.5H5zM5 11 11 11 11 12H5zM5 9.5 11 9.5 11 10.5H5zM5 8 11 8 11 9H5zM5 6.5 11 6.5 11 7.5H5z';
-        const battery90 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5zM5 12.5 11 12.5 11 13.5H5zM5 11 11 11 11 12H5zM5 9.5 11 9.5 11 10.5H5zM5 8 11 8 11 9H5z';
-        const battery80 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5zM5 12.5 11 12.5 11 13.5H5zM5 11 11 11 11 12H5zM5 9.5 11 9.5 11 10.5H5z';
-        const battery70 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5zM5 12.5 11 12.5 11 13.5H5zM5 11 11 11 11 12H5z';
-        const battery60 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5zM5 12.5 11 12.5 11 13.5H5z';
-        const battery50 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5z';
-        const battery40 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5z';
-        const battery30 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5z';
-        const battery20 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5z';
-        const battery0 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4';
+        //Complete Battery Icon 
+        const batteryIcon100 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5zM5 12.5 11 12.5 11 13.5H5zM5 11 11 11 11 12H5zM5 9.5 11 9.5 11 10.5H5zM5 8 11 8 11 9H5zM5 6.5 11 6.5 11 7.5H5z';
+        const batteryIcon90 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5zM5 12.5 11 12.5 11 13.5H5zM5 11 11 11 11 12H5zM5 9.5 11 9.5 11 10.5H5zM5 8 11 8 11 9H5z';
+        const batteryIcon80 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5zM5 12.5 11 12.5 11 13.5H5zM5 11 11 11 11 12H5zM5 9.5 11 9.5 11 10.5H5z';
+        const batteryIcon70 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5zM5 12.5 11 12.5 11 13.5H5zM5 11 11 11 11 12H5z';
+        const batteryIcon60 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5zM5 12.5 11 12.5 11 13.5H5z';
+        const batteryIcon50 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5z';
+        const batteryIcon40 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5z';
+        const batteryIcon30 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5z';
+        const batteryIcon20 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4M5.02 18.5v1L11 19.5 11 18.5z';
+            
+        //Battery Infill, no shell
+        const battery100 = 'M11 19M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5zM5 12.5 11 12.5 11 13.5H5zM5 11 11 11 11 12H5zM5 9.5 11 9.5 11 10.5H5zM5 8 11 8 11 9H5zM5 6.5 11 6.5 11 7.5H5z';
+        const battery90 = 'M11 19M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5zM5 12.5 11 12.5 11 13.5H5zM5 11 11 11 11 12H5zM5 9.5 11 9.5 11 10.5H5zM5 8 11 8 11 9H5z';
+        const battery80 = 'M11 19M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5zM5 12.5 11 12.5 11 13.5H5zM5 11 11 11 11 12H5zM5 9.5 11 9.5 11 10.5H5zH5z';
+        const battery70 = 'M11 19M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5zM5 12.5 11 12.5 11 13.5H5zM5 11 11 11 11 12H5zM5 11z';
+        const battery60 = 'M11 19M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5zM5 12.5 11 12.5 11 13.5H5z';
+        const battery50 = 'M11 19M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zM5 14 11 14 11 15H5zH5z';
+        const battery40 = 'M11 19M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 16.5 11 16.5 11 15.5H5zH5z';
+        const battery30 = 'M11 19M5.02 18.5v1L11 19.5 11 18.5zM5 18 11 18 11 17H5zM5 17z';
+        const battery20 = 'M11 19M5.02 18.5v1L11 19.5 11 18.5zM5 19z';
+        
+        //Empty Battery shell
+        const battery0 = 'M12 20H4V6h8L12 20m.67-16H11V2H5v2H3.33C2.6 4 2 4.6 2 5.33v15.34C2 21.4 2.6 22 3.33 22h9.34c.74 0 1.33-.59 1.33-1.33V5.33C14 4.6 13.4 4 12.67 4';      
+        
         let batteryIcon: string
+        let batteryCharge:string
+        let stopColour: string
         
         switch (true) {
             case parseInt(state_battery_soc.state) >= 95:
-                batteryIcon = battery100;
+                batteryIcon = batteryIcon100;
+                batteryCharge = battery100;
+                stopColour = 'green';
                 break;
             case 85 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 95:
-                batteryIcon = battery90;
+                batteryIcon = batteryIcon90;
+                batteryCharge = battery90;
+                stopColour = 'green';
                 break;
             case 75 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 85:
-                batteryIcon = battery80;
+                batteryIcon = batteryIcon80;
+                batteryCharge = battery80;
+                stopColour = '#9ACD32';
                 break;
             case 65 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 75:
-                batteryIcon = battery70;
+                batteryIcon = batteryIcon70;
+                batteryCharge = battery70;
+                stopColour = 'yellow';
                 break;
             case 55 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 65:
-                batteryIcon = battery60;
+                batteryIcon = batteryIcon60;
+                batteryCharge = battery60;
+                stopColour = 'yellow';
                 break;
             case 45 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 55:
-                batteryIcon = battery50;
+                batteryIcon = batteryIcon50;
+                batteryCharge = battery50;
+                stopColour = 'yellow';
                 break;
             case 35 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 45:
-                batteryIcon = battery40;
+                batteryIcon = batteryIcon40;
+                batteryCharge = battery40;
+                stopColour = 'orange';
                 break;
             case 25 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 35:
-                batteryIcon = battery30;
+                batteryIcon = batteryIcon30;
+                batteryCharge = battery30;
+                stopColour = 'orange';
                 break;
             case 10 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 25:
-                batteryIcon = battery20;
+                batteryIcon = batteryIcon20;
+                batteryCharge = battery20;
+                stopColour = 'orange';
                 break;
             case 0 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 10:
                 batteryIcon = battery0;
+                batteryCharge = battery0;
+                stopColour = 'red';
                 break;
             default:
                 batteryIcon = battery0;
+                batteryCharge = battery0;
+                stopColour = 'red';
                 break;
         }
 
@@ -1606,8 +1679,40 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <svg xmlns="http://www.w3.org/2000/svg" id="bat" x="74.5" y="${config.battery?.show_remaining_energy ? "294" : "296.25"}" width="82"
                                  height="82" preserveAspectRatio="none"
                                  viewBox="0 0 24 24">
-                                <path class="${!config.show_battery ? 'st12' : ''}" fill="${bat_colour}"
-                                      d="${batteryIcon}"/>
+                                 <defs>
+                                    <linearGradient id="bLg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                        <stop offset="0%"
+                                              stop-color="${Number(pvPercentagebat) > 0 ? solar_colour : (Number(gridPercentagebat) > 0 ? grid_colour : bat_colour)}"/>
+                                        <stop offset="${pvPercentagebat < 2 ? 0 : pvPercentagebat}%"
+                                              stop-color="${Number(pvPercentagebat) > 0 ? solar_colour : (Number(gridPercentagebat) > 0 ? grid_colour : bat_colour)}"/>
+                                        <stop offset="${pvPercentagebat < 2 ? 0 : pvPercentagebat}%"
+                                              stop-color="${Number(gridPercentagebat) > 0 ? grid_colour : bat_colour}"/>
+                                        <stop offset="${(Number(pvPercentagebat < 2 ? 0 : pvPercentagebat) + Number(gridPercentagebat < 2 ? 0 : gridPercentagebat))}%"
+                                              stop-color="${Number(gridPercentagebat) > 0 ? `${grid_colour}` : `${bat_colour}`}"/>
+                                        <stop offset="${(Number(pvPercentagebat < 2 ? 0 : pvPercentagebat) + Number(gridPercentagebat < 2 ? 0 : gridPercentagebat))}%"
+                                              stop-color="${Number(pvPercentagebat) === 100 ? solar_colour : (Number(gridPercentagebat) === 100 ? grid_colour : bat_colour)}"/>
+                                        <stop offset="100%"
+                                              stop-color="${Number(pvPercentagebat) === 100 ? solar_colour : (Number(gridPercentagebat) === 100 ? grid_colour : bat_colour)}"/>
+                                    </linearGradient>
+                                </defs>
+                                <path class="${!config.show_battery ? 'st12' : ''}" fill="${config.battery.dynamic_colour ? 'url(#bLg)' : bat_colour}"
+                                      d="${config.battery.linear_gradient ? battery0 : batteryIcon}"/>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" id="bat" x="74.5" y="${config.battery?.show_remaining_energy ? "294" : "296.25"}" width="82"
+                                 height="82" preserveAspectRatio="none"
+                                 viewBox="0 0 24 24">
+                                 <defs>
+                                    <linearGradient id="sLg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                        <stop offset="0%"
+                                              stop-color="red"/>
+                                        <stop offset="100%"
+                                              stop-color="${stopColour}"/>
+                                    </linearGradient>
+                                </defs>
+                                <path class="${!config.show_battery ? 'st12' : ''}" 
+                                      fill="${config.battery.linear_gradient ? 'url(#sLg)' : bat_colour}"
+                                      display="${!config.battery.linear_gradient ? 'none' : ''}"
+                                      d="${batteryCharge}"/>
                             </svg>
                             <svg xmlns="http://www.w3.org/2000/svg" id="sun" x="0" y="-0.5" width="40" height="40"
                                  viewBox="0 0 24 24">
@@ -3646,8 +3751,41 @@ export class SunsynkPowerFlowCard extends LitElement {
                                  y="325.5" width="78.75"
                                  height="78.75" preserveAspectRatio="none"
                                  viewBox="0 0 24 24">
-                                <path class="${!config.show_battery ? 'st12' : ''}" fill="${bat_colour}"
-                                      d="${batteryIcon}"/>
+                                 <defs>
+                                    <linearGradient id="bLg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                        <stop offset="0%"
+                                              stop-color="${Number(pvPercentagebat) > 0 ? solar_colour : (Number(gridPercentagebat) > 0 ? grid_colour : bat_colour)}"/>
+                                        <stop offset="${pvPercentagebat < 2 ? 0 : pvPercentagebat}%"
+                                              stop-color="${Number(pvPercentagebat) > 0 ? solar_colour : (Number(gridPercentagebat) > 0 ? grid_colour : bat_colour)}"/>
+                                        <stop offset="${pvPercentagebat < 2 ? 0 : pvPercentagebat}%"
+                                              stop-color="${Number(gridPercentagebat) > 0 ? grid_colour : bat_colour}"/>
+                                        <stop offset="${(Number(pvPercentagebat < 2 ? 0 : pvPercentagebat) + Number(gridPercentagebat < 2 ? 0 : gridPercentagebat))}%"
+                                              stop-color="${Number(gridPercentagebat) > 0 ? `${grid_colour}` : `${bat_colour}`}"/>
+                                        <stop offset="${(Number(pvPercentagebat < 2 ? 0 : pvPercentagebat) + Number(gridPercentagebat < 2 ? 0 : gridPercentagebat))}%"
+                                              stop-color="${Number(pvPercentagebat) === 100 ? solar_colour : (Number(gridPercentagebat) === 100 ? grid_colour : bat_colour)}"/>
+                                        <stop offset="100%"
+                                              stop-color="${Number(pvPercentagebat) === 100 ? solar_colour : (Number(gridPercentagebat) === 100 ? grid_colour : bat_colour)}"/>
+                                    </linearGradient>
+                                </defs>
+                                <path class="${!config.show_battery ? 'st12' : ''}" fill="${config.battery.dynamic_colour ? 'url(#bLg)' : bat_colour}"
+                                      d="${config.battery.linear_gradient ? battery0 : batteryIcon}"/>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" id="bat" x="${compact ? '212.5' : '232.5'}"
+                                 y="325.5" width="78.75"
+                                 height="78.75" preserveAspectRatio="none"
+                                 viewBox="0 0 24 24">
+                                 <defs>
+                                    <linearGradient id="sLg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                        <stop offset="0%"
+                                              stop-color="red"/>
+                                        <stop offset="100%"
+                                              stop-color="${stopColour}"/>
+                                    </linearGradient>
+                                </defs>
+                                <path class="${!config.show_battery ? 'st12' : ''}" 
+                                      fill="${config.battery.linear_gradient ? 'url(#sLg)' : bat_colour}"
+                                      display="${!config.battery.linear_gradient ? 'none' : ''}"
+                                      d="${batteryCharge}"/>
                             </svg>
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_connected_status_194)}>
                                 <svg xmlns="http://www.w3.org/2000/svg" id="transmission_on" x="-0.5" y="187.5"
