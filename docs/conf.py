@@ -9,7 +9,7 @@ sys.path.insert(0, os.path.abspath(".."))
 
 project = "sunsynk-power-flow-card"
 slug = re.sub(r"\W+", "-", project.lower())
-copyright = "2023, slipx06"
+copyright = "2024, slipx06"
 author = "slipx06"
 
 # Get version from package.json file
