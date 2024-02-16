@@ -55,7 +55,9 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings.
     show_absolute: false
     auto_scale: true
     hide_soc: false
-    show_remaining_energy: false
+    show_remaining_energy: true
+    dynamic_colour: true
+    linear_gradient: true
   solar:
     colour: '#5fb6ad'
     show_daily: true
@@ -210,7 +212,9 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
     show_absolute: false
     auto_scale: true
     hide_soc: false
-    show_remaining_energy: false
+    show_remaining_energy: true
+    dynamic_colour: true
+    linear_gradient: true
   solar:
     colour: '#5fb6ad'
     show_daily: true
@@ -374,7 +378,9 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings
     show_absolute: false
     auto_scale: true
     hide_soc: false
-    show_remaining_energy: false
+    show_remaining_energy: true
+    dynamic_colour: true
+    linear_gradient: true
   solar:
     colour: '#5fb6ad'
     show_daily: true
@@ -543,7 +549,9 @@ Notes to self: Need to update to refelct using 2 x battery and combined sensors 
     show_absolute: false
     auto_scale: true
     hide_soc: false
-    show_remaining_energy: false
+    show_remaining_energy: true
+    dynamic_colour: true
+    linear_gradient: true
   solar:
     colour: '#5fb6ad'
     show_daily: true
@@ -714,7 +722,9 @@ Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
     show_absolute: false
     auto_scale: true
     hide_soc: false
-    show_remaining_energy: false
+    show_remaining_energy: true
+    dynamic_colour: true
+    linear_gradient: true
   solar:
     colour: '#5fb6ad'
     show_daily: true
