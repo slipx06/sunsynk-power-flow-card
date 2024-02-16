@@ -26,7 +26,8 @@ const languages: any = {
 	it: it,
 	ca: ca,
 	sk: sk,
-	"pt-br": pt_br,
+	"pt-BR": pt_br,
+	pt: pt_br,
 };
 
 export function localize(string: string, search = '', replace = '') {
