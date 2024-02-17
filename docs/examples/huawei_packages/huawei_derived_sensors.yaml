@@ -276,45 +276,45 @@ template:
   # See: https://github.com/wlcrs/huawei_solar/wiki/Daily-Solar-Yield
 
   # This version works if you have an inverter and a LUNA ESS battery attached.
-  - sensor:
-    - name: "Inverter 1 - Input Power with Efficiency Loss"
-      unique_id: inverter_input_power_with_efficiency_loss
-      unit_of_measurement: "W"
-      device_class: power
-      state_class: measurement
-      state: >-
-        {% set inverter_rating = 5000 %} {# adjust this value to the rated power of your inverter(s) ie. 5000 = 5kW #}
-        {% set inpower = states('sensor.inverter_input_power')|float(0) %}
-        {% if inpower < (inverter_rating*0.1) %}
-          {{ inpower * 0.90 }}
-        {% elif inpower < (inverter_rating*0.2) %}  
-          {{ inpower * 0.95 }}
-        {% else %}
-          {{ inpower * 0.98 }}
-        {% endif %}
-      availability: >-
-        {{ (states('sensor.inverter_input_power')|is_number) }}
+#  - sensor:
+#    - name: "Inverter 1 - Input Power with Efficiency Loss"
+#      unique_id: inverter_input_power_with_efficiency_loss
+#      unit_of_measurement: "W"
+#      device_class: power
+#      state_class: measurement
+#      state: >-
+#        {% set inverter_rating = 5000 %} {# adjust this value to the rated power of your inverter(s) ie. 5000 = 5kW #}
+#        {% set inpower = states('sensor.inverter_input_power')|float(0) %}
+#        {% if inpower < (inverter_rating*0.1) %}
+#          {{ inpower * 0.90 }}
+#        {% elif inpower < (inverter_rating*0.2) %}  
+#          {{ inpower * 0.95 }}
+#        {% else %}
+#          {{ inpower * 0.98 }}
+#        {% endif %}
+#      availability: >-
+#        {{ (states('sensor.inverter_input_power')|is_number) }}
 
 
   # This version works if you have an inverter and a LUNA ESS battery attached.
-  - sensor:
-    - name: "Inverter 2 - Input Power with Efficiency Loss"
-      unique_id: inverter_input_power_with_efficiency_loss_2
-      unit_of_measurement: "W"
-      device_class: power
-      state_class: measurement
-      state: >-
-        {% set inverter_rating = 5000 %} {# adjust this value to the rated power of your inverter(s) ie. 5000 = 5kW #}
-        {% set inpower = states('sensor.inverter_input_power_2')|float(0) %}
-        {% if inpower < (inverter_rating*0.1) %}
-          {{ inpower * 0.90 }}
-        {% elif inpower < (inverter_rating*0.2) %}  
-          {{ inpower * 0.95 }}
-        {% else %}
-          {{ inpower * 0.98 }}
-        {% endif %}
-      availability: >-
-        {{ (states('sensor.inverter_input_power_2')|is_number) }}
+ # - sensor:
+ #   - name: "Inverter 2 - Input Power with Efficiency Loss"
+ #     unique_id: inverter_input_power_with_efficiency_loss_2
+ #     unit_of_measurement: "W"
+ #     device_class: power
+ #     state_class: measurement
+ #     state: >-
+ #       {% set inverter_rating = 5000 %} {# adjust this value to the rated power of your inverter(s) ie. 5000 = 5kW #}
+ #       {% set inpower = states('sensor.inverter_input_power_2')|float(0) %}
+ #       {% if inpower < (inverter_rating*0.1) %}
+ #         {{ inpower * 0.90 }}
+ #       {% elif inpower < (inverter_rating*0.2) %}  
+ #         {{ inpower * 0.95 }}
+ #       {% else %}
+ #         {{ inpower * 0.98 }}
+ #       {% endif %}
+ #     availability: >-
+ #       {{ (states('sensor.inverter_input_power_2')|is_number) }}
 
 
   # This version works if you have an inverter and a LUNA ESS battery attached.
