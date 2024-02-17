@@ -10,6 +10,7 @@ import * as cs from './languages/cs.json';
 import * as it from './languages/it.json';
 import * as ca from './languages/ca.json';
 import * as sk from './languages/sk.json';
+import * as pt_br from './languages/pt-br.json';
 import { globalData } from '../helpers/globals';
 
 const languages: any = {
@@ -25,6 +26,8 @@ const languages: any = {
 	it: it,
 	ca: ca,
 	sk: sk,
+	"pt-BR": pt_br,
+	pt: pt_br,
 };
 
 export function localize(string: string, search = '', replace = '') {

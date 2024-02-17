@@ -69,6 +69,8 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         show_absolute: boolean;
         auto_scale: boolean;
         show_remaining_energy: boolean;
+        dynamic_colour: boolean;
+        linear_gradient: boolean;
     }
     solar: {
         colour: string;
