@@ -23,7 +23,8 @@ template:
       unit_of_measurement: "W"
       icon: mdi:solar-power
       state: >-
-        {{ (states('sensor.inverter_pv_1_current')|float * states('sensor.inverter_pv_1_voltage')|float) }}
+        {{ (states('sensor.inverter_pv_1_current')|float 
+          * states('sensor.inverter_pv_1_voltage')|float) }}
       availability: >-
         {{ (states('sensor.inverter_pv_1_current')|is_number)
             and (states('sensor.inverter_pv_1_voltage')|is_number) }}
@@ -39,7 +40,8 @@ template:
       unit_of_measurement: "W"
       icon: mdi:solar-power
       state: >-
-        {{ (states('sensor.inverter_pv_2_current')|float * states('sensor.inverter_pv_2_voltage')|float) }}
+        {{ (states('sensor.inverter_pv_2_current')|float
+          * states('sensor.inverter_pv_2_voltage')|float) }}
       availability: >-
         {{ (states('sensor.inverter_pv_2_current')|is_number)
             and (states('sensor.inverter_pv_2_voltage')|is_number) }}
@@ -55,7 +57,8 @@ template:
       unit_of_measurement: "W"
       icon: mdi:solar-power
       state: >-
-        {{ (states('sensor.inverter_pv_1_current_2')|float * states('sensor.inverter_pv_1_voltage_2')|float) }}
+        {{ (states('sensor.inverter_pv_1_current_2')|float
+          * states('sensor.inverter_pv_1_voltage_2')|float) }}
       availability: >-
         {{ (states('sensor.inverter_pv_1_current_2')|is_number)
             and (states('sensor.inverter_pv_1_voltage_2')|is_number) }}
@@ -71,7 +74,8 @@ template:
       unit_of_measurement: "W"
       icon: mdi:solar-power
       state: >-
-        {{ (states('sensor.inverter_pv_2_current_2')|float * states('sensor.inverter_pv_2_voltage_2')|float) }}
+        {{ (states('sensor.inverter_pv_2_current_2')|float
+          * states('sensor.inverter_pv_2_voltage_2')|float) }}
       availability: >-
         {{ (states('sensor.inverter_pv_2_current_2')|is_number)
             and (states('sensor.inverter_pv_2_voltage_2')|is_number) }}
@@ -85,7 +89,9 @@ template:
       unit_of_measurement: "W"
       device_class: "power"
       state_class: measurement
-      state: "{{ (states('sensor.inverter_active_power') | float) + (states('sensor.inverter_active_power_2') | float) }}"
+      state: >-
+        {{ (states('sensor.inverter_active_power')|float
+          + states('sensor.inverter_active_power_2')|float) }}
       availability: >-
         {{ (states('sensor.inverter_active_power')|is_number)
             and (states('sensor.inverter_active_power_2')|is_number) }}
@@ -97,7 +103,9 @@ template:
       unit_of_measurement: "W"
       device_class: "power"
       state_class: measurement
-      state: "{{ (states('sensor.inverter_input_power') | float) + (states('sensor.inverter_input_power_2') | float)}}"
+      state: >-
+        {{ (states('sensor.inverter_input_power')|float
+          + states('sensor.inverter_input_power_2')|float) }}
       availability: >-
         {{ (states('sensor.inverter_input_power')|is_number)
             and (states('sensor.inverter_input_power_2')|is_number) }}
@@ -110,7 +118,9 @@ template:
       unit_of_measurement: "kWh"
       device_class: "energy"
       state_class: total_increasing
-      state: "{{ states('sensor.inverter_total_yield') | float + (states('sensor.inverter_total_yield_2') | float) }}"
+      state: >-
+        {{ (states('sensor.inverter_total_yield')|float
+          + states('sensor.inverter_total_yield_2')|float) }}
       availability: >-
         {{ (states('sensor.inverter_total_yield')|is_number)
             and (states('sensor.inverter_total_yield_2')|is_number) }}
@@ -123,7 +133,9 @@ template:
       unit_of_measurement: "kWh"
       device_class: "energy"
       state_class: total_increasing
-      state: "{{ states('sensor.inverter_daily_yield') | float + (states('sensor.inverter_daily_yield_2') | float) }}"
+      state: >-
+        {{ (states('sensor.inverter_daily_yield')|float
+          + states('sensor.inverter_daily_yield_2')|float) }}
       availability: >-
         {{ (states('sensor.inverter_daily_yield')|is_number)
             and (states('sensor.inverter_daily_yield_2')|is_number) }}
@@ -134,67 +146,181 @@ template:
 #        casued by the  sensor.battery_<entity_name>_2 not being detected.
 #
 
+  # Provides the combined daily yield of both batteries, as a %.
   - sensor:
     - name: "Batteries - State of Capacity"
       unique_id: batteries_state_of_capacity
       unit_of_measurement: "%"
       device_class: "battery"
       state_class: measurement
-      state: "{{ ((states('sensor.battery_state_of_capacity') | float) + (states('sensor.battery_state_of_capacity_2') | float)) | round(2)}}"
+      state: >-
+        {{ (states('sensor.battery_state_of_capacity')|float
+          + states('sensor.battery_state_of_capacity_2')|float)|round(2) }}
       availability: >-
         {{ (states('sensor.battery_state_of_capacity')|is_number)
             and (states('sensor.battery_state_of_capacity_2')|is_number) }}
 
-
+  # Provides the combined charge/discharge power of both batteries, in watts.
   - sensor:
-    - name: "Batteries - Charge Discharge Power"
+    - name: "Batteries - Charge/Discharge Power"
       unique_id: batteries_charge_discharge_power
       unit_of_measurement: "W"
       device_class: "power"
       state_class: measurement
-      state: "{{ (states('sensor.battery_charge_discharge_power') | float) + (states('sensor.battery_charge_discharge_power_2') | float) }}"
+      state: >-
+        {{ (states('sensor.battery_charge_discharge_power')|float
+          + states('sensor.battery_charge_discharge_power_2')|float) }}
        availability: >-
          {{ (states('sensor.battery_charge_discharge_power')|is_number)
              and (states('sensor.battery_charge_discharge_power_2')|is_number) }}
 
-
+  # Provides the combined daily charge of both batteries, in kWh.
   - sensor:
     - name: "Batteries - Day Charge"
       unique_id: batteries_day_charge
       unit_of_measurement: "kWh"
       device_class: "energy"
-      state: "{{ (states('sensor.battery_day_charge') | float) + (states('sensor.battery_day_charge_2') | float) /2) }}"
+      state: >-
+        {{ (states('sensor.battery_day_charge')|float 
+          + states('sensor.battery_day_charge_2')|float) / 2 }}
        availability: >-
          {{ (states('sensor.battery_day_charge')|is_number)
              and (states('sensor.battery_day_charge_2')|is_number) }}
 
-
+  # Provides the combined daily discharge of both batteries, in kWh.
   - sensor:
     - name: "Batteries - Day Discharge"
       unique_id: batteries_day_discharge
       unit_of_measurement: "kWh"
       device_class: "energy"
-      state: "{{ (states('sensor.battery_day_discharge') | float) + (states('sensor.battery_day_discharge_2') | float) /2) }}"
+      state: >-
+        {{ (states('sensor.battery_day_discharge')|float
+          + states('sensor.battery_day_discharge_2')|float) /2  }}
        availability: >-
          {{ (states('sensor.battery_day_discharge')|is_number)
              and (states('sensor.battery_day_discharge_2')|is_number) }}
 
 
-  - sensor:
-    - name: "Batteries - Charge/Discharge power"
-      unique_id: 
-
+  # Provides the combined buss current both batteries, in Amps.
   - sensor:
     - name: "Batteries - Bus Current"
       unique_id: sensor.batteries_bus_current
+      unit_of_measurement: "A"
+      device_class: "current"      
+      state: >-
+        {{ (states('sensor.battery_bus_current')|float 
+          + states('sensor.battery_bus_current_2')|float) / 2 }}
+       availability: >-
+         {{ (states('sensor.battery_bus_current')|is_number)
+             and (states('sensor.battery_bus_current_2')|is_number) }}
 
+
+  # Provides the combined daily charge of both batteries, in kWh.
   - sensor:
     - name: "Batteries - Temperature"
       unique_id: sensor.batteries_temperature 
+      unit_of_measurement: "°C"
+      device_class: "temperature"      
+      state: >-
+        {{ (states('sensor.battery_battery_1_temperature')|float 
+          + states('sensor.battery_battery_2_temperature')|float) / 2 }}
+       availability: >-
+         {{ (states('sensor.battery_battery_1_temperature')|is_number)
+             and (states('sensor.battery_battery_2_temperature')|is_number) }}
 
+  # Provides the combined average temperature of both batteriesm in °C.
+  # Note: If either battery state is 'uknown' then displays the state of the other battery.
+  - sensor:
+    - name: "Batteries - Temperature (Average)"
+      unique_id: sensor.batteries_temperature 
+      unit_of_measurement: "°C"
+      state: >-
+        {% set temp_1 = states('sensor.battery_battery_1_temperature') | float(default=0) %}
+        {% set temp_2 = states('sensor.battery_battery_2_temperature') | float(default=0) %}
+
+        {% if states('sensor.battery_battery_2_temperature') == 'unknown' %}
+          {{ temp_1 | round(1) }}
+        {% else %}
+          {% set count = 0 %}
+          {% set sum = 0 %}
+
+          {% if states('sensor.battery_battery_1_temperature') != 'unknown' %}
+            {% set sum = sum + temp_1 %}
+            {% set count = count + 1 %}
+          {% endif %}
+
+          {% if states('sensor.battery_battery_2_temperature') != 'unknown' %}
+            {% set sum = sum + temp_2 %}
+            {% set count = count + 1 %}
+          {% endif %}
+
+          {% if count > 0 %}
+            {{ sum / count | round(1) }}
+          {% else %}
+            N/A
+          {% endif %}
+        {% endif %}
+        availability: >-
+          {{ states('sensor.battery_battery_1_temperature') != 'unavailable'
+          or states('sensor.battery_battery_2_temperature') != 'unavailable' }}
+
+     
+  # Provides the combined status both batteries. If either battery is offline of faulty
+  # then the sensor will show this as the overall status, otherwise it will the status of the online battery.
   - sensor:
     - name: "Batteries - Status"
       unique_id: sensor.batteries_status
+      state: >-
+          {% set battery_1_state = states('sensor.battery_status') %}
+          {% set battery_2_state = states('sensor.battery_status_2') %}
+          {% if 'offline' in [battery_1_state, battery_2_state] %}
+            offline
+          {% elif 'fault' in [battery_1_state, battery_2_state] %}
+            fault
+          {% else %}
+            {{ battery_1_state if battery_1_state != 'standby' else sensor_2_state }}
+          {% endif %}
+      availability: >-
+        {{ (states('sensor.battery_status') not in [ 'unavailable', 'none', 'unknown' ] )
+        or (states('sensor.battery_status_2') not in [ 'unavailable', 'none', 'unknown' ]) }}
+    
+
+  # Provides the combined bus current both batteries, in Amps.
+  - sensor:
+    - name: "Batteries - Bus Current"
+      unique_id: sensor.batteries_bus_current
+      unit_of_measurement: "A"
+      device_class: "current"      
+      state: >-
+        {% set battery_bus_current_1 = states('sensor.battery_bus_current') | float(default=0) %}
+        {% set battery_bus_current_2 = states('sensor.battery_bus_current_2') | float(default=0) %}
+
+        {% if states('sensor.battery_bus_current_2') == 'unknown' %}
+          {{ battery_bus_current_1 | round(1) }}
+        {% else %}
+          {% set count = 0 %}
+          {% set sum = 0 %}
+
+          {% if states('sensor.battery_bus_current') != 'unknown' %}
+            {% set sum = sum + battery_bus_current__1 %}
+            {% set count = count + 1 %}
+          {% endif %}
+
+          {% if states('sensor.battery_bus_current__2') != 'unknown' %}
+            {% set sum = sum + battery_bus_current_2 %}
+            {% set count = count + 1 %}
+          {% endif %}
+
+          {% if count > 0 %}
+            {{ (sum / count) | round(1) }}
+          {% else %}
+            N/A
+          {% endif %}
+        {% endif %}
+        availability: >-
+          {{ states('sensor.battery_bus_current') != 'unavailable'
+          or states('sensor.battery_bus_current_2') != 'unavailable' }}
+
 
 #############################
 
