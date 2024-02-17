@@ -9,7 +9,6 @@
 #   If your HA instance has a /homeasssistant/packages directory configured, this may be deployed by saving this text into a file
 #   in that location. i.e.   /homeasssistant/packages/huawei_derived_sensors.yaml
 #
-#
 template:
 
 ########### Start: PV Strings - Power ###########
