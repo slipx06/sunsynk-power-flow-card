@@ -26,14 +26,14 @@ const languages: any = {
 	it: it,
 	ca: ca,
 	sk: sk,
-	"pt-BR": pt_br,
-	pt: pt_br,
+	pt_BR: pt_br,
 };
 
 export function localize(string: string, search = '', replace = '') {
 	const langFromLocalStorage = (localStorage.getItem('selectedLanguage') || 'en')
 		.replace(/['"]+/g, '')
 		.replace('-', '_');
+	//console.log(`${langFromLocalStorage} local language`);
 	const lang = `${globalData.hass?.locale?.language || globalData.hass?.language || langFromLocalStorage}`;
 
 	let translated: string;

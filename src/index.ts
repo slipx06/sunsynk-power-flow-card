@@ -944,7 +944,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                     ? 0
                     : ((Math.abs(battery_power) - total_pv) / Math.abs(battery_power)) * 100;
 
-        console.log(`${pvPercentage_raw_bat} % RAW PV to charge battery, ${gridPercentage_raw_bat} % RAW Grid to charge battery`);        
+        //console.log(`${pvPercentage_raw_bat} % RAW PV to charge battery, ${gridPercentage_raw_bat} % RAW Grid to charge battery`);        
         // Normalize percentages
         const totalPercentage_bat = pvPercentage_raw_bat + gridPercentage_raw_bat;
         const normalizedPvPercentage_bat = totalPercentage_bat === 0 ? 0 : (pvPercentage_raw_bat / totalPercentage_bat) * 100;
@@ -960,7 +960,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             gridPercentagebat = this.toNum(Math.min(gridPercentage_raw_bat, 100), 0);
         }
 
-        console.log(`${pvPercentagebat} % PV to charge battery, ${gridPercentagebat} % Grid to charge battery`);
+        //console.log(`${pvPercentagebat} % PV to charge battery, ${gridPercentagebat} % Grid to charge battery`);
 
         const essBat = 'M15 9h1V7.5h4V9h1c.55 0 1 .45 1 1v11c0 .55-.45 1-1 1h-6c-.55 0-1-.45-1-1V10c0-.55.45-1 1-1m1 2v3h4v-3h-4m-4-5.31l-5 4.5V18h5v2H5v-8H2l10-9l2.78 2.5H14v1.67l-.24.1L12 5.69Z';
         const essGrid = 'M5 20v-8H2l10-9l10 9h-3v8zm7-14.31l-5 4.5V18h10v-7.81zM11.5 18v-4H9l3.5-7v4H15z';
