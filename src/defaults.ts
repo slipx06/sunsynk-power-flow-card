@@ -95,6 +95,7 @@ export default {
         max_power: 8000,
         auto_scale: true,
         energy_cost_decimals: 2,
+        show_absolute: false,
     },
 
 }
