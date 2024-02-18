@@ -638,12 +638,19 @@ template:
       device_class: "power"
       state_class: measurement
       state: >-
-        {{ (states('sensor.inverters_active_power')|float
-          - states('sensor.batteries_charge_discharge_power')|float
-          - states('sensor.power_meter_active_power')|float) }}
+        {% set inverters_power = states('sensor.inverters_active_power') | float(default=0) %}
+        {% set batteries_power = states('sensor.batteries_charge_discharge_power') | float(default=0) %}
+        {% set power_meter_power = states('sensor.power_meter_active_power') | float(default=0) %}
+
+        {% if states('sensor.batteries_charge_discharge_power') | is_number %}
+          {{ inverters_power - batteries_power - power_meter_power }}
+        {% else %}
+          {{ inverters_power - power_meter_power }}
+        {% endif %}
       availability: >-
         {% if states('sensor.batteries_charge_discharge_power') | is_number %}
           {{  states('sensor.inverters_active_power') | is_number
+          and states('sensor.batteries_charge_discharge_power') | is_number
           and states('sensor.power_meter_active_power') | is_number }}
         {% else %}
           {{ (states('sensor.inverters_active_power') | is_number)
