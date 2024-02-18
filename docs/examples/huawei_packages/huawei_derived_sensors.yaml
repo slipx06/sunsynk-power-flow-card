@@ -382,16 +382,11 @@ template:
       device_class: "temperature"      
       state: >-
         {% set inverter_temp_1 = states('sensor.inverter_internal_temperature') | float(default=0) %}
-          {% set inverter_temp_2 = states('sensor.inverter_internal_temperature_2') | float(default=0) %}
-
-          {% if states('sensor.inverter_internal_temperature_2') == 'unknown' %}
-            {{ inverter_temp_1 | round(1) }}
-          {% else %}
-            {{ max(inverter_temp_1, inverter_temp_2) | round(1) }}
-          {% endif %}
-        availability: >-
-          {{ states('sensor.inverter_internal_temperature') != 'unavailable'
-          or states('sensor.inverter_internal_temperature_2') != 'unavailable' }}
+        {% set inverter_temp_2 = states('sensor.inverter_internal_temperature_2') | float(default=0) %}
+        {{ max(inverter_temp_1, inverter_temp_2) | round(1) }}
+      availability: >-
+        {{ states('sensor.inverter_internal_temperature') != 'unavailable'
+        or states('sensor.inverter_internal_temperature_2') != 'unavailable' }}
         
         
   # Provides the combined status off-grid status of both inverters. If either inverter is off-grid
@@ -651,12 +646,7 @@ template:
       state: >-
         {% set battery_temp_1 = states('sensor.battery_battery_1_temperature') | float(default=0) %}
         {% set battery_temp_2 = states('sensor.battery_battery_2_temperature') | float(default=0) %}
-
-        {% if states('sensor.battery_battery_1_temperature_2') == 'unknown' %}
-          {{ battery_temp_1 | round(1) }}
-        {% else %}
-          {{ max(battery_temp_1, battery_temp_2) | round(1) }}
-        {% endif %}
+        {{ max(battery_temp_1, battery_temp_2) | round(1) }}
       availability: >-
         {{ states('sensor.battery_battery_1_temperature') != 'unavailable'
         or states('sensor.battery_battery_1_temperature_2') != 'unavailable' }}
