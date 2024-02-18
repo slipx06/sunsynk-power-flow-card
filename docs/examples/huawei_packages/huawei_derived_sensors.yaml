@@ -642,10 +642,13 @@ template:
           - states('sensor.batteries_charge_discharge_power')|float
           - states('sensor.power_meter_active_power')|float) }}
       availability: >-
-        {{  (states('sensor.inverters_active_power')           | is_number)
-        and (states('sensor.batteries_charge_discharge_power') | is_number)
-        and (states('sensor.power_meter_active_power')         | is_number) }}
-
+        {% if states('sensor.batteries_charge_discharge_power') | is_number %}
+          {{  states('sensor.inverters_active_power') | is_number
+          and states('sensor.power_meter_active_power') | is_number }}
+        {% else %}
+          {{ (states('sensor.inverters_active_power') | is_number)
+           and (states('sensor.power_meter_active_power') | is_number) }}
+      {% endif %}
 
 ########### Start: Helpers - Riemann Sum to conver Power (W) to Energy (kWh) ###########
 
