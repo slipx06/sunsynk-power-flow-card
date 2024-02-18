@@ -17,7 +17,7 @@ template:
   # Referred to as PV1 on the SunSynk card.
   - sensor:
     - name: "Inverter 1 - PV 1 Power"
-      unique_id: inverter_pv_1_power
+      unique_id: inverter_1_pv_1_power
       state_class: "measurement"
       device_class: power
       unit_of_measurement: "W"
@@ -43,7 +43,7 @@ template:
   # Referred to as PV2 on the SunSynk card.
   - sensor:
     - name: "Inverter 1 - PV 2 Power"
-      unique_id: inverter_pv_2_power
+      unique_id: inverter_1_pv_2_power
       state_class: "measurement"
       device_class: power
       unit_of_measurement: "W"
@@ -69,7 +69,7 @@ template:
   # Referred to as PV3 on the SunSynk card.
   - sensor:
     - name: "Inverter 2 - PV 1 Power"
-      unique_id: inverter_pv_1_power_2
+      unique_id: inverter_2_pv_1_power
       state_class: "measurement"
       device_class: power
       unit_of_measurement: "W"
@@ -94,7 +94,7 @@ template:
   # Referred to as PV2 on the SunSynk card.
   - sensor:
     - name: "Inverter 2 - PV 2 Power"
-      unique_id: inverter_pv_2_power_2
+      unique_id: inverter_2_pv_2_power
       state_class: "measurement"
       device_class: power
       unit_of_measurement: "W"
@@ -340,6 +340,93 @@ template:
         {{ (states('sensor.inverters_input_power') | is_number) }}
 
 
+  # Provides the combined status of inverter(s).  If either inverter is in state unknown or an error/stop state
+  # then the combined state will be shown as the error/stop state. Otherwise the standby/grid connected state
+  # of Inverter 1 will be shown, with Inverter 2 state as a fall back.
+  #       
+  - sensor:
+    - name: "Inverters - State"
+      unique_id: inverters_state
+      state: >-
+          {% set inverter_1_state = states('sensor.inverter_inverter_state') %}
+          {% set inverter_2_state = states('sensor.inverter_inverter_state_2') %}
+
+          {% if ['unknown', 'unavailable'] in [inverter_1_state, inverter_2_state] %}
+              unknown
+            {% elif 'shutdown' in [inverter_1_state, inverter_2_state] %}
+              shutdown
+            {% elif 'spot check' in [inverter_1_state, inverter_2_state] %}
+              'spot check'
+            {% elif 'normal stop' in [inverter_1_state, inverter_2_state] %}
+              'normal stop'
+            {% elif 'stop due to faults' in [inverter_1_state, inverter_2_state] %}
+              'stop due to faults'
+            {% elif 'stop due to power rationing' in [inverter_1_state, inverter_2_state] %}
+              'stop due to power rationing'
+            {% else %}
+              {{ inverter_1_state if inverter_1_state not in ['unknown', 'unavailable'] else inverter_2_state }}
+            {% endif %}
+      availability: >-
+        {{ (states('sensor.inverter_inverter_state') not in [ 'unknown', 'unavailable' ] )
+        or (states('sensor.inverter_inverter_state_2') not in [ 'unknown', 'unavailable' ]) }}
+
+
+  # Provides the combined average Temperature of both inverters in °C.
+  # Note: If either inverter temperature state is 'uknown', then displays the state of the other inverter.
+  - sensor:
+    - name: "Inverters - Internal Temperature (Average)"
+      unique_id: inverters_internal_temperature_average
+      unit_of_measurement: "°C"
+      device_class: "temperature"      
+      state: >-
+        {% set inverter_temp_1 = states('sensor.inverter_internal_temperature') | float(default=0) %}
+        {% set inverter_temp_2 = states('sensor.inverter_internal_temperature_2') | float(default=0) %}
+
+        {% if states('sensor.inverter_internal_temperature_2') == 'unknown' %}
+          {{ inverter_temp_1 | round(1) }}
+        {% else %}
+          {% set count = 0 %}
+          {% set sum = 0 %}
+
+          {% if states('sensor.inverter_internal_temperature') != 'unknown' %}
+            {% set sum = sum + inverter_temp_1 %}
+            {% set count = count + 1 %}
+          {% endif %}
+
+          {% if states('sensor.inverter_internal_temperature_2') != 'unknown' %}
+            {% set sum = sum + inverter_temp_2 %}
+            {% set count = count + 1 %}
+          {% endif %}
+
+          {% if count > 0 %}
+            {{ (sum / count) | round(1) }}
+          {% else %}
+            N/A
+          {% endif %}
+        {% endif %}
+        availability: >-
+          {{ states('sensor.inverter_internal_temperature') != 'unavailable'
+          or states('sensor.inverter_internal_temperature_2') != 'unavailable' }}
+
+
+  # Provides the combined status off-grid status of both inverters. If either inverter is off-grid
+  # then the sensor will show this as the overall status both the combined status.
+  - sensor:
+    - name: "Inverters - Off Grid Status"
+      unique_id: inverters_off_grid_status
+      state: >-
+          {% set inverter_1_grid_status = states('sensor.inverter_off_grid_status') %}
+          {% set inverter_2_grid_status = states('sensor.inverter_off_grid_status_2') %}
+          {% if 'Off-grid' in [inverter_1_grid_status, inverter_2_grid_status] %}
+            Off-grid
+          {% else %}
+            {{ inverter_1_grid_status if inverter_1_grid_status not in ['unknown', 'unavailable'] else inverter_2_grid_status }}
+          {% endif %}
+      availability: >-
+        {{ (states('sensor.inverter_off_grid_status') not in [ 'unknown', 'unavailable' ] )
+        or (states('sensor.inverter_off_grid_status_2') not in [ 'unknown', 'unavailable' ]) }}
+
+
 ########### Start: Batteries - Combined values for 2 batteries ###########
 #
 #  Note: If you do NOT have two batteries, these sensors may cause your configuration to not load, due to yaml error
@@ -498,7 +585,7 @@ template:
   # Provides the combined averaged Bus Current both batteries, in Amps.
   - sensor:
     - name: "Batteries - Bus Current"
-      unique_id: sensor.batteries_bus_current
+      unique_id: batteries_bus_current
       unit_of_measurement: "A"
       device_class: "current"      
       state: >-
@@ -535,7 +622,7 @@ template:
   # Provides the combined averaged Bus Voltage both batteries, in Volts.
   - sensor:
     - name: "Batteries - Bus Voltage"
-      unique_id: sensor.batteries_bus_voltage
+      unique_id: batteries_bus_voltage
       unit_of_measurement: "V"
       device_class: "voltage"      
       state: >-
@@ -573,7 +660,7 @@ template:
   # Note: If either battery state is 'uknown' then displays the state of the other battery.
   - sensor:
     - name: "Batteries - Temperature (Average)"
-      unique_id: sensor.batteries_temperature 
+      unique_id: batteries_temperature_average
       unit_of_measurement: "°C"
       device_class: "temperature"      
       state: >-
@@ -611,7 +698,7 @@ template:
   # then the sensor will show this as the overall status, otherwise it will the status of the online battery.
   - sensor:
     - name: "Batteries - Status"
-      unique_id: sensor.batteries_status
+      unique_id: batteries_status
       state: >-
           {% set battery_1_state = states('sensor.battery_status') %}
           {% set battery_2_state = states('sensor.battery_status_2') %}
@@ -620,11 +707,11 @@ template:
           {% elif 'fault' in [battery_1_state, battery_2_state] %}
             fault
           {% else %}
-            {{ battery_1_state if battery_1_state != 'standby' else sensor_2_state }}
+            {{ battery_1_state if battery_1_state not in ['unknown', 'unavailable'] else battery_2_state }}
           {% endif %}
       availability: >-
-        {{ (states('sensor.battery_status') not in [ 'unavailable', 'none', 'unknown' ] )
-        or (states('sensor.battery_status_2') not in [ 'unavailable', 'none', 'unknown' ]) }}
+        {{ (states('sensor.battery_status') not in [ 'unknown', 'unavailable' ] )
+        or (states('sensor.battery_status_2') not in [ 'unknown', 'unavailable' ]) }}
     
 
 ########### Start: Power Meter - Calculates the Active Power being consumed in the house from grid, inveters & battery ###########
