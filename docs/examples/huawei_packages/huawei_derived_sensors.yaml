@@ -276,49 +276,51 @@ template:
   # See: https://github.com/wlcrs/huawei_solar/wiki/Daily-Solar-Yield
 
   # This version works if you have an inverter and a LUNA ESS battery attached.
+  # Note: Update 'inverter_rating = 6000' to the total rating of your inverter 1.   
 #  - sensor:
 #    - name: "Inverter 1 - Input Power with Efficiency Loss"
-#      unique_id: inverter_input_power_with_efficiency_loss
+#      unique_id: inverter_1_input_power_with_efficiency_loss
 #      unit_of_measurement: "W"
 #      device_class: power
 #      state_class: measurement
 #      state: >-
-#        {% set inverter_rating = 5000 %} {# adjust this value to the rated power of your inverter(s) ie. 5000 = 5kW #}
+#        {% set inverter_rating = 6000 %} {# adjust this value to the rated power of your inverter(s) ie. 5000 = 5kW #}
 #        {% set inpower = states('sensor.inverter_input_power')|float(0) %}
 #        {% if inpower < (inverter_rating*0.1) %}
-#          {{ inpower * 0.90 }}
+#          {{ (inpower * 0.90) | round(2) }}
 #        {% elif inpower < (inverter_rating*0.2) %}  
-#          {{ inpower * 0.95 }}
+#          {{ (inpower * 0.95) | round(2) }}
 #        {% else %}
-#          {{ inpower * 0.98 }}
+#          {{ (inpower * 0.98) | round(2) }}
 #        {% endif %}
 #      availability: >-
 #        {{ (states('sensor.inverter_input_power')|is_number) }}
 
 
   # This version works if you have an inverter and a LUNA ESS battery attached.
+  # Note: Update 'inverter_rating = 120000' to the total rating of your inverter 2.   
  # - sensor:
  #   - name: "Inverter 2 - Input Power with Efficiency Loss"
- #     unique_id: inverter_input_power_with_efficiency_loss_2
+ #     unique_id: inverter_2_input_power_with_efficiency_loss
  #     unit_of_measurement: "W"
  #     device_class: power
  #     state_class: measurement
  #     state: >-
- #       {% set inverter_rating = 5000 %} {# adjust this value to the rated power of your inverter(s) ie. 5000 = 5kW #}
+ #       {% set inverter_rating = 6000 %} {# adjust this value to the rated power of your inverter(s) ie. 5000 = 5kW #}
  #       {% set inpower = states('sensor.inverter_input_power_2')|float(0) %}
  #       {% if inpower < (inverter_rating*0.1) %}
- #         {{ inpower * 0.90 }}
+ #         {{ (inpower * 0.90) | round(2) }}
  #       {% elif inpower < (inverter_rating*0.2) %}  
- #         {{ inpower * 0.95 }}
+ #         {{ (inpower * 0.95) | round(2) }}
  #       {% else %}
- #         {{ inpower * 0.98 }}
+ #         {{ (inpower * 0.98) | round(2) }}
  #       {% endif %}
  #     availability: >-
  #       {{ (states('sensor.inverter_input_power_2')|is_number) }}
 
 
-  # This version works if you have an inverter and a LUNA ESS battery attached.
-  # Note: Update 'inverter_rating = 5000' to the total rating of your inverter(s). 
+  # This versions calculations works if you have an inverter and a LUNA ESS battery attached.
+  # Note: Update 'inverter_rating = 120000' to the total rating of your inverter(s). 
   #       i.e. 1 x 5KW inverter enter 5000 or 2 x 6Kw inverters enter 12000.
   - sensor:
     - name: "Inverters - Input Power with Efficiency Loss"
@@ -327,19 +329,19 @@ template:
       device_class: power
       state_class: measurement
       state: >-
-        {% set inverter_rating = 10000 %} {# adjust this value to the rated power of your inverter(s) #}
+        {% set inverter_rating = 12000 %} {# adjust this value to the rated power of your inverter(s) #}
         {% set inpower = states('sensor.inverters_input_power')|float(0) %}
         {% if inpower < (inverter_rating*0.1) %}
-          {{ inpower * 0.90 }}
+          {{ (inpower * 0.90) | round(2) }}
         {% elif inpower < (inverter_rating*0.2) %}  
-          {{ inpower * 0.95 }}
+          {{ (inpower * 0.95) | round(2) }}
         {% else %}
-          {{ inpower * 0.98 }}
+          {{ (inpower * 0.98) | round(2) }}
         {% endif %}
       availability: >-
         {{ (states('sensor.inverters_input_power') | is_number) }}
 
-
+        
   # Provides the combined status of inverter(s).  If either inverter is in state unknown or an error/stop state
   # then the combined state will be shown as the error/stop state. Otherwise the standby/grid connected state
   # of Inverter 1 will be shown, with Inverter 2 state as a fall back.
