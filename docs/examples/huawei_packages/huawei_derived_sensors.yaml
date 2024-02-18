@@ -648,7 +648,7 @@ template:
         {% else %}
           {{ (states('sensor.inverters_active_power') | is_number)
            and (states('sensor.power_meter_active_power') | is_number) }}
-      {% endif %}
+        {% endif %}
 
 ########### Start: Helpers - Riemann Sum to conver Power (W) to Energy (kWh) ###########
 
