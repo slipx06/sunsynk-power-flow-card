@@ -371,44 +371,27 @@ template:
         or (states('sensor.inverter_inverter_state_2') not in [ 'unknown', 'unavailable' ]) }}
 
 
-  # Provides the combined average Temperature of both inverters in °C.
+  # Provides the Temperature of both inverters in °C, with the inverter with the higher temperature being displayed.
   # Note: If either inverter temperature state is 'uknown', then displays the state of the other inverter.
   - sensor:
-    - name: "Inverters - Internal Temperature (Average)"
-      unique_id: inverters_internal_temperature_average
+    - name: "Inverters - Internal Temperature"
+      unique_id: inverters_internal_temperature
       unit_of_measurement: "°C"
       device_class: "temperature"      
       state: >-
         {% set inverter_temp_1 = states('sensor.inverter_internal_temperature') | float(default=0) %}
-        {% set inverter_temp_2 = states('sensor.inverter_internal_temperature_2') | float(default=0) %}
+          {% set inverter_temp_2 = states('sensor.inverter_internal_temperature_2') | float(default=0) %}
 
-        {% if states('sensor.inverter_internal_temperature_2') == 'unknown' %}
-          {{ inverter_temp_1 | round(1) }}
-        {% else %}
-          {% set count = 0 %}
-          {% set sum = 0 %}
-
-          {% if states('sensor.inverter_internal_temperature') != 'unknown' %}
-            {% set sum = sum + inverter_temp_1 %}
-            {% set count = count + 1 %}
-          {% endif %}
-
-          {% if states('sensor.inverter_internal_temperature_2') != 'unknown' %}
-            {% set sum = sum + inverter_temp_2 %}
-            {% set count = count + 1 %}
-          {% endif %}
-
-          {% if count > 0 %}
-            {{ (sum / count) | round(1) }}
+          {% if states('sensor.inverter_internal_temperature_2') == 'unknown' %}
+            {{ inverter_temp_1 | round(1) }}
           {% else %}
-            N/A
+            {{ max(inverter_temp_1, inverter_temp_2) | round(1) }}
           {% endif %}
-        {% endif %}
         availability: >-
           {{ states('sensor.inverter_internal_temperature') != 'unavailable'
           or states('sensor.inverter_internal_temperature_2') != 'unavailable' }}
-
-
+        
+        
   # Provides the combined status off-grid status of both inverters. If either inverter is off-grid
   # then the sensor will show this as the overall status both the combined status.
   - sensor:
@@ -614,9 +597,9 @@ template:
             N/A
           {% endif %}
         {% endif %}
-        availability: >-
-          {{ states('sensor.battery_bus_current')   | is_number
-          or states('sensor.battery_bus_current_2') | is_number }}
+      availability: >-
+        {{ states('sensor.battery_bus_current')   | is_number
+        or states('sensor.battery_bus_current_2') | is_number }}
 
 
   # Provides the combined averaged Bus Voltage both batteries, in Volts.
@@ -651,47 +634,30 @@ template:
             N/A
           {% endif %}
         {% endif %}
-        availability: >-
-          {{ states('sensor.battery_bus_voltage')   | is_number
-          or states('sensor.battery_bus_voltage_2') | is_number }}
+      availability: >-
+        {{ states('sensor.battery_bus_voltage')   | is_number
+        or states('sensor.battery_bus_voltage_2') | is_number }}
 
 
-  # Provides the combined average Temperature of both batteries in °C.
-  # Note: If either battery state is 'uknown' then displays the state of the other battery.
+  # Provides the Temperature of both batteries in °C, with the battery with the higher temperature being displayed.
+  # Note: If either batteries temperature state is 'uknown', then displays the state of the other battery.
   - sensor:
-    - name: "Batteries - Temperature (Average)"
-      unique_id: batteries_temperature_average
+    - name: "Batteries - Temperature"
+      unique_id: batteries_temperature
       unit_of_measurement: "°C"
       device_class: "temperature"      
       state: >-
-        {% set temp_1 = states('sensor.battery_battery_1_temperature') | float(default=0) %}
-        {% set temp_2 = states('sensor.battery_battery_2_temperature') | float(default=0) %}
+        {% set battery_temp_1 = states('sensor.battery_battery_1_temperature') | float(default=0) %}
+        {% set battery_temp_2 = states('sensor.battery_battery_2_temperature') | float(default=0) %}
 
-        {% if states('sensor.battery_battery_2_temperature') == 'unknown' %}
-          {{ temp_1 | round(1) }}
+        {% if states('sensor.battery_battery_1_temperature_2') == 'unknown' %}
+          {{ battery_temp_1 | round(1) }}
         {% else %}
-          {% set count = 0 %}
-          {% set sum = 0 %}
-
-          {% if states('sensor.battery_battery_1_temperature') != 'unknown' %}
-            {% set sum = sum + temp_1 %}
-            {% set count = count + 1 %}
-          {% endif %}
-
-          {% if states('sensor.battery_battery_2_temperature') != 'unknown' %}
-            {% set sum = sum + temp_2 %}
-            {% set count = count + 1 %}
-          {% endif %}
-
-          {% if count > 0 %}
-            {{ sum / count | round(1) }}
-          {% else %}
-            N/A
-          {% endif %}
+          {{ max(battery_temp_1, battery_temp_2) | round(1) }}
         {% endif %}
-        availability: >-
-          {{ states('sensor.battery_battery_1_temperature') != 'unavailable'
-          or states('sensor.battery_battery_2_temperature') != 'unavailable' }}
+      availability: >-
+        {{ states('sensor.battery_battery_1_temperature') != 'unavailable'
+        or states('sensor.battery_battery_1_temperature_2') != 'unavailable' }}
 
      
   # Provides the combined status both batteries. If either battery is offline of faulty
