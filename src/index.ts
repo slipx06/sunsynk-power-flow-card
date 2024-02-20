@@ -165,7 +165,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         //Load
         const state_essential_power = this.getEntity('essential_power');
-        const state_aux_power = this.getEntity('aux_power_166');
+        const state_aux_power = this.getEntity('aux_power_166', {state: '0'});
         const state_nonessential_power = this.getEntity('nonessential_power');
         const state_non_essential_load1 = this.getEntity('non_essential_load1');
         const state_non_essential_load2 = this.getEntity('non_essential_load2');
@@ -908,10 +908,10 @@ export class SunsynkPowerFlowCard extends LitElement {
             ? 0 
             : priority === 'off' || !priority
                 ? battery_power > 0 
-                    ? (total_pv / essential) * 100
-                    : ((total_pv -  Math.abs(battery_power)) / essential) * 100
-                : (total_pv / essential) * 100;
-        const batteryPercentage_raw = battery_power <= 0 ? 0 : (Math.abs(battery_power) / essential) * 100;
+                    ? (total_pv / (three_phase ? essential + Math.max(aux_power, 0) : essential)) * 100
+                    : ((total_pv -  Math.abs(battery_power)) / (three_phase ? essential + Math.max(aux_power, 0) : essential)) * 100
+                : (total_pv / (three_phase ? essential + Math.max(aux_power, 0) : essential)) * 100;
+        const batteryPercentage_raw = battery_power <= 0 ? 0 : (Math.abs(battery_power) / (three_phase ? essential + Math.max(aux_power, 0) : essential)) * 100;
 
         // Normalize percentages
         const totalPercentage = pvPercentage_raw + batteryPercentage_raw;
