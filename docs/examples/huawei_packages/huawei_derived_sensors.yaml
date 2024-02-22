@@ -761,13 +761,13 @@ template:
         {% set inverters_output = states('sensor.inverters_active_power')|int(default=0) %}
         {% set battery = states('sensor.batteries_charge_discharge_power')|int(default=0) %}
         {% if inverters_output > 0 %}                      
-          {% if grid_power > 0 %}                  
+          {% if grid_power < 0 %}                  
             {% if battery > 0 %} {{ inverters_output - grid_power }}             
             {% else %} {{ inverters_output + battery - grid_power | abs }}
             {% endif %}       
           {% else %}          
             {% if battery > 0 %} {{ inverters_output }}       
-            {% else %} {{ inverters_output + battery | abs }} 
+            {% else %} {{ inverters_input + battery | abs }} 
             {% endif %}       
           {% endif %}         
         {% else %} 0                                                             
