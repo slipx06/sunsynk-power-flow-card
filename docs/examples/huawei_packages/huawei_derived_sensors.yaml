@@ -702,6 +702,167 @@ template:
            and (states('sensor.power_meter_active_power') | is_number) }}
         {% endif %}
 
+
+########### Start: Power Flows - Derive power flows between PV, Batteries, Grid and House ###########
+
+  # Calculates the Power (W) being exported from the Battery(s) to the Grid.
+  - sensor:
+    - name: Batteries - Power to Grid                                                           
+      unique_id: batteries_power_to_grid
+      unit_of_measurement: W
+      icon: mdi:home-export-outline
+      device_class: power
+      state_class: measurement                                                        
+      state: >                                                                        
+        {% set inverters_output = states('sensor.inverters_active_power')|int(default=0) %}         
+        {% set battery = states('sensor.batteries_charge_discharge_power')|int(default=0) %}
+        {% set grid_power = states('sensor.power_meter_active_power')|int(default=0) %}     
+
+        {% if grid_power > 0 and battery < 0 and inverters_output > grid_power %}                                  
+          {% if grid_power - inverters_output - battery >= 0 %} {{ grid_power - inverters_output - battery }}                       
+          {% else %}  0                                                               
+          {% endif %}                                                                 
+        {% else %} 0                                                                  
+        {% endif %}    
+      availability: >-
+        {{ (states('sensor.inverters_active_power') not in [ 'unknown', 'none', 'unavailable' ])
+        or (states('sensor.batteries_charge_discharge_power') not in [ 'unknown', 'none', 'unavailable' ])
+        or (states('sensor.power_meter_active_power') not in [ 'unknown', 'none', 'unavailable' ]) }}
+
+
+  # Calculates the Power (W) being consumed from the Battery(s) to the House.
+  - sensor:    
+    - name: Batteries - Power to House
+      unique_id: batteries_power_to_house
+      device_class: power                                                             
+      state_class: measurement                                                        
+      unit_of_measurement: W                                                          
+      state: >-                                             
+        {% set battery = states('sensor.batteries_charge_discharge_power')|int(default=0) %}
+        {% set to_grid = states('sensor.batteries_to_grid')|int(default=0) %}
+
+        {% if battery < 0 %} {{ to_grid - battery | int }} 
+        {% else %} 0                                                          
+        {% endif %}
+      availability: >-
+        {{ (states('sensor.batteries_charge_discharge_power') not in [ 'unknown', 'none', 'unavailable' ])
+        or (states('sensor.batteries_to_grid') not in [ 'unknown', 'none', 'unavailable' ]) }}
+
+
+  # Calculates the Power (W) being produced by the Solar Inverter(s) and consumed by the House.
+  - sensor:    
+    - name: Inverters - Solar Power to House
+      unique_id: inverters_solar_power_to_house
+      device_class: power
+      state_class: measurement
+      unit_of_measurement: W
+      state: >
+        {% set grid_power = states('sensor.power_meter_active_power')|int(default=0) %}
+        {% set inverters_output = states('sensor.inverters_active_power')|int(default=0) %}
+        {% set battery = states('sensor.batteries_charge_discharge_power')|int(default=0) %}
+        {% if inverters_output > 0 %}                      
+          {% if grid_power > 0 %}                  
+            {% if battery > 0 %} {{ inverters_output - grid_power }}             
+            {% else %} {{ inverters_output + battery - grid_power | abs }}
+            {% endif %}       
+          {% else %}          
+            {% if battery > 0 %} {{ inverters_output }}       
+            {% else %} {{ inverters_output + battery | abs }} 
+            {% endif %}       
+          {% endif %}         
+        {% else %} 0                                                             
+        {% endif %}
+      availability: >-
+        {{ (states('sensor.inverters_active_power') not in [ 'unknown', 'none', 'unavailable' ])
+        or (states('sensor.inverters_active_power') not in [ 'unknown', 'none', 'unavailable' ])
+        or (states('sensor.batteries_charge_discharge_power') not in [ 'unknown', 'none', 'unavailable' ]) }}
+
+
+  # Calculates the Power (W) being produced by the Solar Inverter(s) and used to charge the Battery(s).
+  - sensor:    
+    - name: Inverters - Solar Power to Batteries
+      unique_id: inverters_solar_power_to_batteries
+      device_class: power
+      state_class: measurement
+      unit_of_measurement: W
+      state: >
+        {% set inverter_input = states('sensor.inverters_input_power')|int(default=0) %}
+        {% set battery = states('sensor.batteries_charge_discharge_power')|int(default=0) %}
+        {% set inverters_output = states('sensor.inverters_active_power')|int(default=0) %}
+                
+        {% if battery > 0 %}
+          {% if inverters_output < 0 %} {{ inverter_input }}
+          {% else %}  {{ battery }}
+          {% endif %}
+        {% else %} 0
+        {% endif %}
+      availability: >
+        {{ (states('sensor.inverters_input_power') not in [ 'unavailable', 'none', 'unknown' ] )
+          and (states('sensor.batteries_charge_discharge_power') not in [ 'unavailable', 'none', 'unknown' ]) 
+          and (states('sensor.inverters_active_power') not in [ 'unavailable', 'none', 'unknown' ]) }}
+
+
+
+  # Calculates the Power (W) being produced by the Solar Inverter(s) and Exported to the Power Grid.
+  - sensor:    
+    - name: Inverters - Solar Power to Grid
+      unique_id: inverters_solar_power_to_grid
+      device_class: power                                                        
+      state_class: measurement                                                   
+      unit_of_measurement: W                                                     
+      state: >
+        {% set grid_power = states('sensor.power_meter_active_power')|int(default=0) %}     
+        {% set inverters_output = states('sensor.inverters_active_power')|int(default=0) %}
+        
+        {% if inverters_output > 0 and grid_power > 0 %} {{ grid_power }}                                      
+        {% else %} 0                                                                  
+        {% endif %}         
+      availability: >
+        {{ (states('sensor.power_meter_active_power') not in [ 'unavailable', 'none', 'unknown' ] )
+          and (states('sensor.inverters_active_power') not in [ 'unavailable', 'none', 'unknown' ]) }}
+
+
+  # Calculates the Power (W) being Imported from the GRID to CHARGE the Batteries.
+  - sensor:    
+    - name: Power Meter - Grid to Batteries
+      unique_id: power_meter_grid_to_batteries
+      device_class: power                                                        
+      state_class: measurement                                                   
+      unit_of_measurement: W                                                     
+      state: >
+        {% set inverter_power = states('sensor.inverters_active_power') |int(default=0) %}
+        {% set batteries_cdp = states('sensor.batteries_charge_discharge_power') | int(default=0) %}
+        {% if inverter_power < 0 and batteries_cdp > 0 %}
+            {{ (-1 * inverter_power) | int }}
+        {% else %}
+            {{ (0) }}
+        {% endif %}
+      availability_template: >-
+        {{ ( states('sensor.inverters_active_power') not in [ 'unavailable', 'none', 'unknown' ] )
+        and (states('sensor.batteries_charge_discharge_power') not in [ 'unavailable', 'none', 'unknown' ]) }}
+
+
+  # Calculates the Power (W) being Imported from the GRID and consumed by the house.
+  - sensor:    
+    - name: Power Meter - Grid to House
+      unique_id: power_meter_grid_to_house
+      device_class: power                                                        
+      state_class: measurement                                                   
+      unit_of_measurement: W                                                     
+      state: >
+        {% set inverter_power = states('sensor.inverters_active_power')|int(default=0) %}
+        {% set grid_power = states('sensor.power_meter_active_power')|int(default=0) %}
+        {% if grid_power < 0 %}
+          {% if inverter_power < 0 %} {{ inverter_power - grid_power | int }}
+          {% else %} {{ 0 - grid_power | int }}
+          {% endif %}
+        {% else %} 0
+        {% endif %}
+      availability: >
+        {{ (states('sensor.inverters_active_power') not in [ 'unavailable', 'none', 'unknown' ] )
+                and (states('sensor.power_meter_active_power') not in [ 'unavailable', 'none', 'unknown' ]) }}
+
+
 ########### Start: Helpers - Riemann Sum to conver Power (W) to Energy (kWh) ###########
 
   # Riemann Sum sensor to take "Inverters - Input Power with efficiency loss" and convert it into an ENERGY sensor.
