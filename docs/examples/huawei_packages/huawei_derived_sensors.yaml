@@ -786,12 +786,12 @@ template:
       state_class: measurement
       unit_of_measurement: W
       state: >
-        {% set inverter_input = states('sensor.inverters_input_power')|int(default=0) %}
+        {% set inverters_input = states('sensor.inverters_input_power')|int(default=0) %}
         {% set battery = states('sensor.batteries_charge_discharge_power')|int(default=0) %}
         {% set inverters_output = states('sensor.inverters_active_power')|int(default=0) %}
                 
         {% if battery > 0 %}
-          {% if inverters_output < 0 %} {{ inverter_input }}
+          {% if inverters_output < 0 %} {{ inverters_input }}
           {% else %}  {{ battery }}
           {% endif %}
         {% else %} 0
@@ -830,10 +830,10 @@ template:
       state_class: measurement                                                   
       unit_of_measurement: W                                                     
       state: >
-        {% set inverter_power = states('sensor.inverters_active_power') |int(default=0) %}
+        {% set inverters_power = states('sensor.inverters_active_power') |int(default=0) %}
         {% set batteries_cdp = states('sensor.batteries_charge_discharge_power') | int(default=0) %}
-        {% if inverter_power < 0 and batteries_cdp > 0 %}
-            {{ (-1 * inverter_power) | int }}
+        {% if inverters_power < 0 and batteries_cdp > 0 %}
+            {{ (-1 * inverters_power) | int }}
         {% else %}
             {{ (0) }}
         {% endif %}
@@ -850,10 +850,10 @@ template:
       state_class: measurement                                                   
       unit_of_measurement: W                                                     
       state: >
-        {% set inverter_power = states('sensor.inverters_active_power')|int(default=0) %}
+        {% set inverters_power = states('sensor.inverters_active_power')|int(default=0) %}
         {% set grid_power = states('sensor.power_meter_active_power')|int(default=0) %}
         {% if grid_power < 0 %}
-          {% if inverter_power < 0 %} {{ inverter_power - grid_power | int }}
+          {% if inverters_power < 0 %} {{ inverters_power - grid_power | int }}
           {% else %} {{ 0 - grid_power | int }}
           {% endif %}
         {% else %} 0
@@ -869,7 +869,7 @@ template:
 sensor:
   - platform: integration
     name: "Inverter - Input Power - Energy"
-    unique_id: inverter_input_power_energy
+    unique_id: inverters_input_power_energy
     source: sensor.inverters_input_power_with_efficiency_loss
     round: 3
     unit_prefix: k
