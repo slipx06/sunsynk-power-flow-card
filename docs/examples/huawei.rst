@@ -48,7 +48,6 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings.
     shutdown_soc: 15
     invert_power: true
     colour: pink
-    charge_colour: yellow
     show_daily: true
     animation_speed: 5
     max_power: 5000
@@ -124,21 +123,21 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings.
   entities:
     use_timer_248: null
     priority_load_243: null
-    day_battery_charge_70: sensor.battery_day_charge
-    day_battery_discharge_71: sensor.battery_day_discharge
+    day_battery_charge_70: sensor.batteries_day_charge
+    day_battery_discharge_71: sensor.batteries_day_discharge
     day_load_energy_84: sensor.house_consumption_energy_daily
     day_grid_import_76: sensor.hs_grid_imported_daily
     day_grid_export_77: sensor.hs_grid_exported_daily
-    day_pv_energy_108: sensor.inverter_daily_yield
+    day_pv_energy_108: sensor.inverters_daily_yield
     day_aux_energy: sensor.sunsynk_power_flow_card_aux_devices_energy_daily
     inverter_voltage_154: sensor.power_meter_voltage
     load_frequency_192: sensor.power_meter_frequency
     grid_power_169: sensor.house_consumption_power
     inverter_current_164: sensor.inverter_phase_a_current
-    inverter_power_175: sensor.inverter_active_power
-    inverter_status_59: sensor.inverter_inverter_state
+    inverter_power_175: sensor.inverters_active_power
+    inverter_status_59: sensor.inverters_state
     radiator_temp_91: null
-    dc_transformer_temp_90: sensor.inverter_internal_temperature
+    dc_transformer_temp_90: sensor.inverters_internal_temperature
     pv1_power_186: sensor.inverter_pv_1_power
     pv2_power_187: sensor.inverter_pv_2_power
     environment_temp: sensor.<your_location>_temp
@@ -147,12 +146,12 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings.
     pv1_current_110: sensor.inverter_pv_1_current
     pv2_voltage_111: sensor.inverter_pv_2_voltage
     pv2_current_112: sensor.inverter_pv_2_current
-    battery_voltage_183: sensor.battery_bus_voltage
-    battery_soc_184: sensor.battery_state_of_capacity
-    battery_power_190: sensor.battery_charge_discharge_power
-    battery_current_191: sensor.battery_bus_current
-    battery_temp_182: sensor.battery_1_temperature
-    battery_status: sensor.battery_status
+    battery_voltage_183: sensor.batteries_bus_voltage
+    battery_soc_184: sensor.batteries_state_of_capacity
+    battery_power_190: sensor.batteries_charge_discharge_power
+    battery_current_191: sensor.batteries_bus_current
+    battery_temp_182: sensor.batteries_temperature
+    battery_status: sensor.batteries_status
     essential_power: sensor.house_consumption_power_less_known
     essential_load1: sensor.all_lights_active_power
     essential_load2: sensor.all_gpo_active_power_less_known
@@ -163,7 +162,7 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings.
     non_essential_load2: sensor.ev_charger_active_power
     grid_ct_power_172: sensor.power_meter_active_power
     grid_ct_power_total: sensor.power_meter_active_power
-    grid_connected_status_194: sensor.inverter_off_grid_status
+    grid_connected_status_194: sensor.inverters_off_grid_status
     aux_power_166: sensor.sunsynk_power_flow_aux_devices_active_power
     aux_connected_status: binary_sensor.sunsynk_aux_connected_status
     energy_cost_buy: sensor.electricity_price
@@ -205,7 +204,6 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
     shutdown_soc: 15
     invert_power: true
     colour: pink
-    charge_colour: yellow
     show_daily: true
     animation_speed: 5
     max_power: 5000
@@ -282,8 +280,8 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
   entities:
     use_timer_248: null
     priority_load_243: null
-    day_battery_charge_70: sensor.battery_day_charge
-    day_battery_discharge_71: sensor.battery_day_discharge
+    day_battery_charge_70: sensor.batteries_day_charge
+    day_battery_discharge_71: sensor.batteries_day_discharge
     day_load_energy_84: sensor.house_consumption_energy_daily
     day_grid_import_76: sensor.hs_grid_imported_daily
     day_grid_export_77: sensor.hs_grid_exported_daily
@@ -293,9 +291,9 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
     load_frequency_192: sensor.power_meter_frequency
     inverter_current_164: sensor.inverter_phase_a_current
     inverter_power_175: sensor.inverters_active_power
-    inverter_status_59: sensor.inverter_inverter_state
+    inverter_status_59: sensor.inverters_state
     radiator_temp_91: null
-    dc_transformer_temp_90: sensor.inverter_internal_temperature
+    dc_transformer_temp_90: sensor.inverters_internal_temperature
     pv1_power_186: sensor.inverter_pv_1_power
     pv2_power_187: sensor.inverter_pv_2_power
     pv3_power_188: sensor.inverter_pv_1_power_2
@@ -310,13 +308,13 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
     pv3_current_114: sensor.inverter_pv_1_current_2
     pv4_voltage_115: sensor.inverter_pv_2_voltage_2
     pv4_current_116: sensor.inverter_pv_2_current_2
-    battery_voltage_183: sensor.battery_bus_voltage
-    battery_soc_184: sensor.battery_state_of_capacity
-    battery_power_190: sensor.battery_charge_discharge_power
-    battery_current_191: sensor.battery_bus_current
-    battery_temp_182: sensor.battery_1_temperature
-    battery_status: sensor.battery_status
-    essential_power: sensor.house_consumption_power_less_known
+    battery_voltage_183: sensor.batteries_bus_voltage
+    battery_soc_184: sensor.batteries_state_of_capacity
+    battery_power_190: sensor.batteries_charge_discharge_power
+    battery_current_191: sensor.batteries_bus_current
+    battery_temp_182: sensor.batteries_temperature
+    battery_status: sensor.batteries_status
+    essential_power: sensor.house_consumption_power_less_aux_non_essential
     essential_load1: sensor.all_lights_active_power
     essential_load2: sensor.gpo_all_active_power_less_known
     essential_load1_extra: null
@@ -327,7 +325,7 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
     grid_power_169: sensor.house_consumption_power
     grid_ct_power_172: sensor.power_meter_active_power
     grid_ct_power_total: sensor.power_meter_active_power
-    grid_connected_status_194: sensor.inverter_off_grid_status
+    grid_connected_status_194: sensor.inverters_off_grid_status
     aux_power_166: sensor.sunsynk_power_flow_aux_devices_active_power
     aux_connected_status: binary_sensor.sunsynk_aux_connected_status
     energy_cost_buy: sensor.electricity_price
@@ -371,7 +369,6 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings
     shutdown_soc: 15
     invert_power: true
     colour: pink
-    charge_colour: yellow
     show_daily: true
     animation_speed: 5
     max_power: 5000
@@ -447,12 +444,12 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings
   entities:
     use_timer_248: null
     priority_load_243: null
-    day_battery_charge_70: sensor.battery_day_charge
-    day_battery_discharge_71: sensor.battery_day_discharge
+    day_battery_charge_70: sensor.batteries_day_charge
+    day_battery_discharge_71: sensor.batteries_day_discharge
     day_load_energy_84: sensor.house_consumption_energy_daily
     day_grid_import_76: sensor.hs_grid_imported_daily
     day_grid_export_77: sensor.hs_grid_exported_daily
-    day_pv_energy_108: sensor.inverter_daily_yield
+    day_pv_energy_108: sensor.inverters_daily_yield
     day_aux_energy: sensor.sunsynk_power_flow_card_aux_devices_energy_daily
     inverter_voltage_154: sensor.power_meter_phase_a_voltage
     inverter_voltage_L2: sensor.power_meter_phase_b_voltage
@@ -462,10 +459,10 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings
     inverter_current_164: sensor.inverter_phase_a_current
     inverter_current_L2: sensor.inverter_phase_b_current
     inverter_current_L3: sensor.inverter_phase_c_current
-    inverter_power_175: sensor.inverter_active_power
-    inverter_status_59: sensor.inverter_inverter_state
+    inverter_power_175: sensor.inverters_active_power
+    inverter_status_59: sensor.inverters_state
     radiator_temp_91: null
-    dc_transformer_temp_90: sensor.inverter_internal_temperature
+    dc_transformer_temp_90: sensor.inverters_internal_temperature
     pv1_power_186: sensor.inverter_pv_1_power
     pv2_power_187: sensor.inverter_pv_2_power
     environment_temp: sensor.<your_location>_temp
@@ -474,13 +471,13 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings
     pv1_current_110: sensor.inverter_pv_1_current
     pv2_voltage_111: sensor.inverter_pv_2_voltage
     pv2_current_112: sensor.inverter_pv_2_current
-    battery_voltage_183: sensor.battery_bus_voltage
-    battery_soc_184: sensor.battery_state_of_capacity
-    battery_power_190: sensor.battery_charge_discharge_power
-    battery_current_191: sensor.battery_bus_current
-    battery_temp_182: sensor.battery_1_temperature
-    battery_status: sensor.battery_status
-    essential_power: sensor.house_consumption_power_less_known
+    battery_voltage_183: sensor.batteries_bus_voltage
+    battery_soc_184: sensor.batteries_state_of_capacity
+    battery_power_190: sensor.batteries_charge_discharge_power
+    battery_current_191: sensor.batteries_bus_current
+    battery_temp_182: sensor.batteries_temperature
+    battery_status: sensor.batteries_status
+    essential_power: sensor.house_consumption_power_less_aux_non_essential
     essential_load1: sensor.all_lights_active_power
     essential_load2: sensor.all_gpo_active_power_less_known
     essential_load1_extra: null
@@ -495,7 +492,7 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings
     grid_ct_power_L2: sensor.power_meter_phase_b_active_power
     grid_ct_power_L3: sensor.power_meter_phase_c_active_power
     grid_ct_power_total: sensor.power_meter_active_power
-    grid_connected_status_194: sensor.inverter_off_grid_status
+    grid_connected_status_194: sensor.inverters_off_grid_status
     aux_power_166: sensor.sunsynk_power_flow_aux_devices_active_power
     aux_connected_status: binary_sensor.sunsynk_aux_connected_status
     energy_cost_buy: sensor.electricity_price
@@ -542,7 +539,6 @@ Notes to self: Need to update to refelct using 2 x battery and combined sensors 
     shutdown_soc: 15
     invert_power: true
     colour: pink
-    charge_colour: yellow
     show_daily: true
     animation_speed: 5
     max_power: 10000
@@ -620,8 +616,8 @@ Notes to self: Need to update to refelct using 2 x battery and combined sensors 
   entities:
     use_timer_248: null
     priority_load_243: null
-    day_battery_charge_70: sensor.battery_day_charge                                 *** Update
-    day_battery_discharge_71: sensor.battery_day_discharge                           *** Update
+    day_battery_charge_70: sensor.batteries_day_charge
+    day_battery_discharge_71: sensor.batteries_day_discharge
     day_load_energy_84: sensor.house_consumption_energy_daily
     day_grid_import_76: sensor.hs_grid_imported_daily
     day_grid_export_77: sensor.hs_grid_exported_daily
@@ -635,10 +631,10 @@ Notes to self: Need to update to refelct using 2 x battery and combined sensors 
     inverter_current_164: sensor.inverter_phase_a_current
     inverter_current_L2: sensor.inverter_phase_b_current
     inverter_current_L3: sensor.inverter_phase_c_current
-    inverter_power_175: sensor.inverter_active_power
-    inverter_status_59: sensor.inverter_inverter_state
+    inverter_power_175: sensor.inverters_active_power
+    inverter_status_59: sensor.inverters_state
     radiator_temp_91: null
-    dc_transformer_temp_90: sensor.inverter_internal_temperature
+    dc_transformer_temp_90: sensor.inverters_internal_temperature
     pv1_power_186: sensor.inverter_pv_1_power
     pv2_power_187: sensor.inverter_pv_2_power
     pv3_power_188: sensor.inverter_pv_1_power_2
@@ -649,13 +645,13 @@ Notes to self: Need to update to refelct using 2 x battery and combined sensors 
     pv1_current_110: sensor.inverter_pv_1_current
     pv2_voltage_111: sensor.inverter_pv_2_voltage
     pv2_current_112: sensor.inverter_pv_2_current
-    battery_voltage_183: sensor.battery_bus_voltage                               *** Update
-    battery_soc_184: sensor.battery_state_of_capacity                            *** Update
-    battery_power_190: sensor.battery_charge_discharge_power                      *** Update
-    battery_current_191: sensor.battery_bus_current                              *** Update
-    battery_temp_182: sensor.battery_1_temperature                              *** Update
-    battery_status: sensor.battery_status
-    essential_power: sensor.house_consumption_power_less_known
+    battery_voltage_183: sensor.batteries_bus_voltage
+    battery_soc_184: sensor.batteries_state_of_capacity
+    battery_power_190: sensor.batteries_charge_discharge_power
+    battery_current_191: sensor.batteries_bus_current
+    battery_temp_182: sensor.batteries_temperature
+    battery_status: sensor.batteries_status
+    essential_power: sensor.house_consumption_power_less_aux_non_essential
     essential_load1: sensor.all_lights_active_power
     essential_load2: sensor.all_gpo_active_power_less_known
     essential_load1_extra: null
@@ -670,7 +666,7 @@ Notes to self: Need to update to refelct using 2 x battery and combined sensors 
     grid_ct_power_L2: sensor.power_meter_phase_b_active_power
     grid_ct_power_L3: sensor.power_meter_phase_c_active_power
     grid_ct_power_total: sensor.power_meter_active_power
-    grid_connected_status_194: sensor.inverter_off_grid_status
+    grid_connected_status_194: sensor.inverters_off_grid_status
     aux_power_166: sensor.sunsynk_power_flow_aux_devices_active_power
     aux_connected_status: binary_sensor.sunsynk_aux_connected_status
     energy_cost_buy: sensor.electricity_price
@@ -715,7 +711,6 @@ Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
     shutdown_soc: 15
     invert_power: true
     colour: pink
-    charge_colour: yellow
     show_daily: true
     animation_speed: 5
     max_power: 5000
@@ -793,8 +788,8 @@ Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
   entities:
     use_timer_248: null
     priority_load_243: null
-    day_battery_charge_70: sensor.battery_day_charge
-    day_battery_discharge_71: sensor.battery_day_discharge
+    day_battery_charge_70: sensor.batteries_day_charge
+    day_battery_discharge_71: sensor.batteries_day_discharge
     day_load_energy_84: sensor.house_consumption_energy_daily
     day_grid_import_76: sensor.hs_grid_imported_daily
     day_grid_export_77: sensor.hs_grid_exported_daily
@@ -809,9 +804,9 @@ Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
     inverter_current_L2: sensor.inverter_phase_b_current
     inverter_current_L3: sensor.inverter_phase_c_current
     inverter_power_175: sensor.inverters_active_power
-    inverter_status_59: sensor.inverter_inverter_state
+    inverter_status_59: sensor.inverters_state
     radiator_temp_91: null
-    dc_transformer_temp_90: sensor.inverter_internal_temperature
+    dc_transformer_temp_90: sensor.inverters_internal_temperature
     pv1_power_186: sensor.inverter_pv_1_power
     pv2_power_187: sensor.inverter_pv_2_power
     pv3_power_188: sensor.inverter_pv_1_power_2
@@ -826,13 +821,13 @@ Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
     pv3_current_114: sensor.inverter_pv_1_current_2
     pv4_voltage_115: sensor.inverter_pv_2_voltage_2
     pv4_current_116: sensor.inverter_pv_2_current_2
-    battery_voltage_183: sensor.battery_bus_voltage
-    battery_soc_184: sensor.battery_state_of_capacity
-    battery_power_190: sensor.battery_charge_discharge_power
-    battery_current_191: sensor.battery_bus_current
-    battery_temp_182: sensor.battery_1_temperature
-    battery_status: sensor.battery_status
-    essential_power: sensor.house_consumption_power_less_known
+    battery_voltage_183: sensor.batteries_bus_voltage
+    battery_soc_184: sensor.batteries_state_of_capacity
+    battery_power_190: sensor.batteries_charge_discharge_power
+    battery_current_191: sensor.batteries_bus_current
+    battery_temp_182: sensor.batteries_temperature
+    battery_status: sensor.batteries_status
+    essential_power: sensor.house_consumption_power_less_aux_non_essential
     essential_load1: sensor.all_lights_active_power
     essential_load2: sensor.all_gpo_active_power_less_known
     essential_load1_extra: null
@@ -847,7 +842,7 @@ Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
     grid_ct_power_L2: sensor.power_meter_phase_b_active_power
     grid_ct_power_L3: sensor.power_meter_phase_c_active_power
     grid_ct_power_total: sensor.power_meter_active_power
-    grid_connected_status_194: sensor.inverter_off_grid_status
+    grid_connected_status_194: sensor.inverters_off_grid_status
     aux_power_166: sensor.sunsynk_power_flow_aux_devices_active_power
     aux_connected_status: binary_sensor.sunsynk_aux_connected_status
     energy_cost_buy: sensor.electricity_price
