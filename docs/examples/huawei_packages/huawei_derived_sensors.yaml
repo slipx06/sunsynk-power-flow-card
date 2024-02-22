@@ -767,7 +767,7 @@ template:
             {% endif %}       
           {% else %}          
             {% if battery > 0 %} {{ inverters_output }}       
-            {% else %} {{ inverters_input + battery | abs }} 
+            {% else %} {{ inverters_input - battery | abs }} 
             {% endif %}       
           {% endif %}         
         {% else %} 0                                                             
