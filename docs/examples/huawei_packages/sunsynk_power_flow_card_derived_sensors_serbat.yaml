@@ -28,8 +28,8 @@ template:
   # Sensor to show the House Active Power Consumption less the sunsynk_power_flow  aux_active_power and non_essential_active_power sensors.
   # Used by card entry: day_load_energy_84
   - sensor:
-    - name: "House Consumption - Power - Less Known"
-      unique_id: house_consumption_power_less_known
+    - name: "House Consumption - Power - Less AUX Non-Essnetial"
+      unique_id: house_consumption_power_less_aux_non_essential
       unit_of_measurement: "W"
       device_class: "power"
       state_class: measurement
@@ -112,10 +112,10 @@ energy_meter:
 
   # Used to convert the above Riemann sum sensor into an ENERGY sensor that RESETS to ZERO DAILY. 
   # Used card entry:  
-  house_consumption_energy_meter_less_known:
-    unique_id: house_consumption_energy_meter_less_known
-    name: "House Consumption - Energy Meter - Less Known"
-    source: sensor.house_consumption_energy_less_known
+  house_consumption_energy_meter_less_aux_non_essential:
+    unique_id: house_consumption_energy_meter_less_aux_non_essential
+    name: "House Consumption - Energy Meter - Less AUX Non-Essnetial"
+    source: sensor.house_consumption_energy_less_aux_non_essential
 #    source_type: from_grid
     cycle: daily
 #    price_entity: &electricity-price 
@@ -167,9 +167,9 @@ energy_meter:
   # Used card entry:  essential_power
 sensor:
   - platform: integration
-    name: "House Consumption - Energy - Less Known"
-    unique_id: house_consumption_energy_less_known
-    source: sensor.house_consumption_power_less_known
+    name: "House Consumption - Energy - Less AUX Non-Essential"
+    unique_id: house_consumption_energy_less_aux_non_essential
+    source: sensor.house_consumption_power_less_aux_non_essential
     round: 3
     unit_prefix: k
     unit_time: h
