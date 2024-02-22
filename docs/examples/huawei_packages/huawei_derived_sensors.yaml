@@ -837,7 +837,7 @@ template:
         {% else %}
             {{ (0) }}
         {% endif %}
-      availability_template: >-
+      availability: >-
         {{ ( states('sensor.inverters_active_power') not in [ 'unavailable', 'none', 'unknown' ] )
         and (states('sensor.batteries_charge_discharge_power') not in [ 'unavailable', 'none', 'unknown' ]) }}
 
