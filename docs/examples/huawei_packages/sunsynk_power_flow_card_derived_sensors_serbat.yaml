@@ -28,7 +28,7 @@ template:
   # Sensor to show the House Active Power Consumption less the sunsynk_power_flow  aux_active_power and non_essential_active_power sensors.
   # Used by card entry: day_load_energy_84
   - sensor:
-    - name: "House Consumption - Power - Less AUX Non-Essnetial"
+    - name: "House Consumption - Power - Less AUX Non-Essential"
       unique_id: house_consumption_power_less_aux_non_essential
       unit_of_measurement: "W"
       device_class: "power"
@@ -114,7 +114,7 @@ energy_meter:
   # Used card entry:  
   house_consumption_energy_meter_less_aux_non_essential:
     unique_id: house_consumption_energy_meter_less_aux_non_essential
-    name: "House Consumption - Energy Meter - Less AUX Non-Essnetial"
+    name: "House Consumption - Energy Meter - Less AUX Non-Essential"
     source: sensor.house_consumption_energy_less_aux_non_essential
 #    source_type: from_grid
     cycle: daily
