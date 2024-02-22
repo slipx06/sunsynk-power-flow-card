@@ -49,7 +49,7 @@ template:
 energy_meter:
 
   # Used to convert the above Riemann sum sensor into an ENERGY sensor that RESETS to ZERO DAILY. 
-  house_consumption_less_known_energy:
+  house_consumption_energy_meter_less_aux_non_essential:
     unique_id: house_consumption_energy_meter_less_aux_non_essential
     name: "House Consumption - Energy Meter - Less AUX Non-Essential"
     source: sensor.house_consumption_energy_less_aux_non_essential
