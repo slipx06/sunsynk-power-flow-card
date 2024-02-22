@@ -6,11 +6,11 @@ template:
 #   Derived sensors that are used upon the card
 #
 
-  # Sensor to show the Active Power for all the GPO's in the house, less the Network Rack and Fan, Servers and Study UPS sensors.
+  # Sensor to show the Active Power for all the GPO's in the house, less the Network Rack and Fan, Servers and Study UPS sensors (or other sensors you've factored in already).
   # Used card entry: essential_load2
   - sensor:
-    - name: "All GPO - Active Power Less Known"
-      unique_id: all_gpo_active_power_less_known
+    - name: "All GPO - Active Power Less Known Devices"
+      unique_id: all_gpo_active_power_less_known_devices
       unit_of_measurement: "W"
       device_class: "power"
       state_class: measurement
@@ -28,8 +28,8 @@ template:
   # Sensor to show the House Active Power Consumption less the sunsynk_power_flow  aux_active_power and non_essential_active_power sensors.
   # Used by card entry: essential_power
   - sensor:
-    - name: "House Consumption - Power - Less Known"
-      unique_id: house_consumption_power_less_known
+    - name: "House Consumption - Power - Less AUX Non-Essential"
+      unique_id: house_consumption_power_less_aux_non_essential
       unit_of_measurement: "W"
       device_class: "power"
       state_class: measurement
@@ -50,11 +50,13 @@ energy_meter:
 
   # Used to convert the above Riemann sum sensor into an ENERGY sensor that RESETS to ZERO DAILY. 
   house_consumption_less_known_energy:
-    unique_id: house_consumption_energy_meter_less_known
-    name: "House Consumption - Energy Meter - Less Known"
-    source: sensor.house_consumption_energy_less_known
+    unique_id: house_consumption_energy_meter_less_aux_non_essential
+    name: "House Consumption - Energy Meter - Less AUX Non-Essential"
+    source: sensor.house_consumption_energy_less_aux_non_essential
     cycle: daily
 
+  # Optional: Used to create and energy_meter with total kWh and cost sensor, to track big energy users. 
+  #           Alternatives or additional could be to use for items such as EV Charger. 
   hvac_energy_imported_daily:
     unique_id: hvac_energy_imported_daily
     name: HVAC Energy Imported - Daily
@@ -86,9 +88,9 @@ energy_meter:
   # this sensor is then used by the above energy_meter sensors.
 sensor:
   - platform: integration
-    name: "House Consumption - Energy - Less Known"
-    unique_id: house_consumption_energy_less_known
-    source: sensor.house_consumption_power_less_known
+    name: "House Consumption - Energy - Less AUX Non-Essential"
+    unique_id: house_consumption_energy_less_aux_non_essential
+    source: sensor.house_consumption_power_less_aux_non_essential
     round: 3
     unit_prefix: k
     unit_time: h
