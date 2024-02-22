@@ -102,7 +102,7 @@ entities:
   priority_load_243: null
   day_battery_charge_70: sensor.batteries_day_charge
   day_battery_discharge_71: sensor.batteries_day_discharge
-  day_load_energy_84: sensor.house_consumption_power_less_known
+  day_load_energy_84: sensor.house_consumption_energy_daily
   day_grid_import_76: sensor.hs_grid_imported_daily_total_kwh
   day_grid_export_77: sensor.hs_grid_exported_daily
   day_pv_energy_108: sensor.inverters_total_daily_yield
