@@ -140,7 +140,7 @@ entities:
   battery_current_191: sensor.batteries_bus_current
   battery_temp_182: sensor.batteries_temperature
   battery_status: sensor.batteries_status
-  essential_power: sensor.house_consumption_power_less_known
+  essential_power: sensor.house_consumption_power_less_aux_non_essential
   essential_load1: sensor.all_lights_active_power
   essential_load2: sensor.all_gpo_active_power_less_known
   essential_load1_extra: null
