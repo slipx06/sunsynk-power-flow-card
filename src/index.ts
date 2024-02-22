@@ -165,7 +165,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         //Load
         const state_essential_power = this.getEntity('essential_power');
-        const state_aux_power = this.getEntity('aux_power_166');
+        const state_aux_power = this.getEntity('aux_power_166', {state: '0'});
         const state_nonessential_power = this.getEntity('nonessential_power');
         const state_non_essential_load1 = this.getEntity('non_essential_load1');
         const state_non_essential_load2 = this.getEntity('non_essential_load2');
@@ -908,10 +908,10 @@ export class SunsynkPowerFlowCard extends LitElement {
             ? 0 
             : priority === 'off' || !priority
                 ? battery_power > 0 
-                    ? (total_pv / essential) * 100
-                    : ((total_pv -  Math.abs(battery_power)) / essential) * 100
-                : (total_pv / essential) * 100;
-        const batteryPercentage_raw = battery_power <= 0 ? 0 : (Math.abs(battery_power) / essential) * 100;
+                    ? (total_pv / (three_phase ? essential + Math.max(aux_power, 0) : essential)) * 100
+                    : ((total_pv -  Math.abs(battery_power)) / (three_phase ? essential + Math.max(aux_power, 0) : essential)) * 100
+                : (total_pv / (three_phase ? essential + Math.max(aux_power, 0) : essential)) * 100;
+        const batteryPercentage_raw = battery_power <= 0 ? 0 : (Math.abs(battery_power) / (three_phase ? essential + Math.max(aux_power, 0) : essential)) * 100;
 
         // Normalize percentages
         const totalPercentage = pvPercentage_raw + batteryPercentage_raw;
@@ -2534,21 +2534,45 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="grid_total_power" x="420" y="281.5"
                                               display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
                                               class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">
-                                            ${config.grid.auto_scale ? `${this.convertValue(total_grid_power, round) || 0}` : `${total_grid_power || 0} W`}
+                                            ${config.grid.auto_scale 
+                                                ? `${config.grid.show_absolute
+                                                       ? `${Math.abs(parseFloat(this.convertValue(total_grid_power, round)))} ${this.convertValue(total_grid_power, round).split(' ')[1]}`
+                                                       : this.convertValue(total_grid_power, round) || 0}`
+                                                : `${config.grid.show_absolute 
+                                                       ? `${Math.abs(total_grid_power)} W`  
+                                                       : `${total_grid_power || 0} W`
+                                                }`
+                                            }
                                         </text>
                                         </a>`
                                     : svg`
                                         <text id="grid_total_power" x="420" y="281.5"
                                               display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
                                               class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">
-                                            ${config.grid.auto_scale ? `${this.convertValue(total_grid_power, round) || 0}` : `${total_grid_power || 0} W`}
+                                            ${config.grid.auto_scale 
+                                                ? `${config.grid.show_absolute
+                                                       ? `${Math.abs(parseFloat(this.convertValue(total_grid_power, round)))} ${this.convertValue(total_grid_power, round).split(' ')[1]}`
+                                                       : this.convertValue(total_grid_power, round) || 0}`
+                                                : `${config.grid.show_absolute 
+                                                       ? `${Math.abs(total_grid_power)} W`  
+                                                       : `${total_grid_power || 0} W`
+                                                }`
+                                            }
                                         </text>`
                                 : svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_ct_power_172)}>
                                         <text id="grid_total_power" x="420" y="281.5"
                                               display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
                                               class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">
-                                            ${config.grid.auto_scale ? `${this.convertValue(total_grid_power, round) || 0}` : `${total_grid_power || 0} W`}
+                                            ${config.grid.auto_scale 
+                                                ? `${config.grid.show_absolute
+                                                       ? `${Math.abs(parseFloat(this.convertValue(total_grid_power, round)))} ${this.convertValue(total_grid_power, round).split(' ')[1]}`
+                                                       : this.convertValue(total_grid_power, round) || 0}`
+                                                : `${config.grid.show_absolute 
+                                                       ? `${Math.abs(total_grid_power)} W`  
+                                                       : `${total_grid_power || 0} W`
+                                                }`
+                                            }
                                         </text>
                                     </a>`
                             }
@@ -3102,9 +3126,14 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       y="${config.inverter.three_phase ? '216' : '209'}"
                                       display="${!config.show_grid || config.entities.grid_power_169 === 'none' ? 'none' : ''}"
                                       class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">
-                                    ${config.grid.auto_scale
-                                        ? `${this.convertValue(grid_power_round, round) || 0}`
-                                        : `${grid_power_round} W`
+                                    ${config.grid.auto_scale 
+                                        ? `${config.grid.show_absolute
+                                                ? `${Math.abs(parseFloat(this.convertValue(grid_power_round, round)))} ${this.convertValue(grid_power_round, round).split(' ')[1]}`
+                                                : this.convertValue(grid_power_round, round) || 0}`
+                                        : `${config.grid.show_absolute 
+                                                ? `${Math.abs(grid_power_round)} W`  
+                                                : `${grid_power_round || 0} W`
+                                        }`
                                     }
                                 </text>
                             </a>
@@ -4115,21 +4144,45 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <text id="total_grid_power" x="135" y="219.2"
                                               display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
                                               class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">
-                                            ${config.grid.auto_scale ? `${this.convertValue(total_grid_power, round) || 0}` : `${total_grid_power || 0} W`}
+                                            ${config.grid.auto_scale 
+                                                ? `${config.grid.show_absolute
+                                                       ? `${Math.abs(parseFloat(this.convertValue(total_grid_power, round)))} ${this.convertValue(total_grid_power, round).split(' ')[1]}`
+                                                       : this.convertValue(total_grid_power, round) || 0}`
+                                                : `${config.grid.show_absolute 
+                                                       ? `${Math.abs(total_grid_power)} W`  
+                                                       : `${total_grid_power || 0} W`
+                                                }`
+                                            }
                                         </text>
                                     </a>`
                                     : svg`
                                         <text id="grid_total_power" x="135" y="219.2"
                                               display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
                                               class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">
-                                            ${config.grid.auto_scale ? `${this.convertValue(total_grid_power, round) || 0}` : `${total_grid_power || 0} W`}
+                                              ${config.grid.auto_scale 
+                                                ? `${config.grid.show_absolute
+                                                       ? `${Math.abs(parseFloat(this.convertValue(total_grid_power, round)))} ${this.convertValue(total_grid_power, round).split(' ')[1]}`
+                                                       : this.convertValue(total_grid_power, round) || 0}`
+                                                : `${config.grid.show_absolute 
+                                                       ? `${Math.abs(total_grid_power)} W`  
+                                                       : `${total_grid_power || 0} W`
+                                                }`
+                                              }
                                         </text>`
                                 : svg`
                                     <a href="#" @click=${(e) => this.handlePopup(e, config.entities.grid_ct_power_172)}>
                                         <text id="grid_total_power" x="135" y="219.2"
                                               display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
                                               class="${font !== true ? 'st14' : 'st4'} st8" fill="${grid_colour}">
-                                            ${config.grid.auto_scale ? `${this.convertValue(total_grid_power, round) || 0}` : `${total_grid_power || 0} W`}
+                                            ${config.grid.auto_scale 
+                                                ? `${config.grid.show_absolute
+                                                       ? `${Math.abs(parseFloat(this.convertValue(total_grid_power, round)))} ${this.convertValue(total_grid_power, round).split(' ')[1]}`
+                                                       : this.convertValue(total_grid_power, round) || 0}`
+                                                : `${config.grid.show_absolute 
+                                                       ? `${Math.abs(total_grid_power)} W`  
+                                                       : `${total_grid_power || 0} W`
+                                                }`
+                                            }
                                         </text>
                                     </a>`
                             }

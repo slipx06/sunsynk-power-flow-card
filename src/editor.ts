@@ -212,6 +212,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                     {name: 'export_colour', selector: {color_rgb: {}}},
                                     {name: 'grid_off_colour', selector: {color_rgb: {}}},
                                     {name: 'grid_name', selector: {text: {}}},
+                                    {name: 'show_absolute', selector: {boolean: {}}},
                                     {name: 'energy_cost_decimals', selector: {number: {mode: 'box', min: 0, max: 3,}}},
                                     {name: 'show_nonessential', selector: {boolean: {}}},
                                     {name: 'additional_loads', selector: {number: {mode: 'box', min: 0, max: 3,}}},

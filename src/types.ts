@@ -141,6 +141,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         max_power: number;
         auto_scale: boolean;
         energy_cost_decimals: number;
+        show_absolute: boolean;
     }
     entities: CardConfigEntities
 }
