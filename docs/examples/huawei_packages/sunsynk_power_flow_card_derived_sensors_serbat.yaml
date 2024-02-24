@@ -1,3 +1,4 @@
+
 template:
 
 #############################
@@ -52,50 +53,46 @@ template:
 
 template:
   # First Floor - Active Power
-  # Used card entry: N/A.  
+  # Used card entry: N/A
   – sensor:
-    – name: "Floor Comune - Active Power"
+    - name: "Floor Comune - Active Power"
       unique_id: floor_comune_active_power
       device_class: power
       state_class: measurement
       unit_of_measurement: W
-      icon: mdi:
       state: >-
         {{ states('sensor.0x000474000085385c_power')|float(0)}}
 
   # Second Floor - Active Power
   # Used card entry: aux_load1  
   – sensor:
-    – name: "Floor Gianna - Active Power"
+    - name: "Floor Gianna - Active Power"
       unique_id: floor_gianna_active_power
       device_class: power
       state_class: measurement
       unit_of_measurement: "W"
-      icon: mdi:
       state: >-
         {{ states('sensor.0x0004740000827524_power')|float(0)}}
 
   # Third Floor - Active Power
   # Used card entry: aux_load2  
   – sensor:
-    – name: "Floor Patty - Active Power"
+    - name: "Floor Patty - Active Power"
       unique_id: floor_patty_active_power
       device_class: power
       state_class: measurement
       unit_of_measurement: "W"
-      icon: mdi:
       state: >-
         {{ states('sensor.0x0004740000926d8b_power')|float(0)}}
 
   # Heat Pump (PDC) - Active Power
   # Used card entry: non_essential_load1  
   – sensor:
-    – name: "PDC - Active Power"
+    - name: "PDC - Active Power"
       unique_id: pdc_active_power
       device_class: power
       state_class: measurement
       unit_of_measurement: "W"
-      icon: mdi:
       state: >-
         {{ (states('sensor.0x0004740000a15eb2_power') | float)
          + (states('sensor.0x0004740000a15ec7_power') | float) 
