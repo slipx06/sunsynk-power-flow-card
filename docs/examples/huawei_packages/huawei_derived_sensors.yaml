@@ -713,7 +713,7 @@ template:
       icon: mdi:home-export-outline
       device_class: power
       state_class: measurement                                                        
-      state: >                                                                        
+      state: >-
         {% set inverters_output = states('sensor.inverters_active_power')|int(default=0) %}         
         {% set battery = states('sensor.batteries_charge_discharge_power')|int(default=0) %}
         {% set grid_power = states('sensor.power_meter_active_power')|int(default=0) %}     
@@ -737,7 +737,7 @@ template:
       device_class: power                                                             
       state_class: measurement                                                        
       unit_of_measurement: W                                                          
-      state: >-                                             
+      state: >-
         {% set battery = states('sensor.batteries_charge_discharge_power')|int(default=0) %}
         {% set to_grid = states('sensor.batteries_to_grid')|int(default=0) %}
 
@@ -749,6 +749,27 @@ template:
         or (states('sensor.batteries_to_grid') not in [ 'unknown', 'none', 'unavailable' ]) }}
 
 
+  # Calculates the Power (W) being consumed from the Battery(s) to the EV Charger.
+  - sensor:    
+    - name: Batteries - Power to EV Charger
+      unique_id: batteries_power_to_ev_charger
+      device_class: power                                                             
+      state_class: measurement                                                        
+      unit_of_measurement: W                                                          
+      state: >-
+        {% set battery = states('sensor.batteries_charge_discharge_power')|int(default=0) %}
+        {% set ev_charger = states('sensor.ev_charger_active_power')|int(default=0) %}
+        {% set batteries_to_house = states('sensor.batteries_to_house')|int(default=0) %}
+
+        {% if battery < 0 %} {{ batteries_to_house +  ev_charger | int }}  
+        {% else %} 0                                                          
+        {% endif %}
+      availability: >-
+        {{ (states('sensor.batteries_charge_discharge_power') not in [ 'unknown', 'none', 'unavailable' ])
+        or (states('sensor.ev_charger_active_power') not in [ 'unknown', 'none', 'unavailable' ])
+        or (states('sensor.batteries_to_house') not in [ 'unknown', 'none', 'unavailable' ]) }}
+
+
   # Calculates the Power (W) being produced by the Solar Inverter(s) and consumed by the House.
   - sensor:    
     - name: Inverters - Solar Power to House
@@ -756,7 +777,7 @@ template:
       device_class: power
       state_class: measurement
       unit_of_measurement: W
-      state: >
+      state: >-
         {% set grid_power = states('sensor.power_meter_active_power')|int(default=0) %}
         {% set inverters_output = states('sensor.inverters_active_power')|int(default=0) %}
         {% set battery = states('sensor.batteries_charge_discharge_power')|int(default=0) %}
@@ -785,7 +806,7 @@ template:
       device_class: power
       state_class: measurement
       unit_of_measurement: W
-      state: >
+      state: >-
         {% set inverters_input = states('sensor.inverters_input_power')|int(default=0) %}
         {% set battery = states('sensor.batteries_charge_discharge_power')|int(default=0) %}
         {% set inverters_output = states('sensor.inverters_active_power')|int(default=0) %}
@@ -796,10 +817,10 @@ template:
           {% endif %}
         {% else %} 0
         {% endif %}
-      availability: >
-        {{ (states('sensor.inverters_input_power') not in [ 'unavailable', 'none', 'unknown' ] )
-          and (states('sensor.batteries_charge_discharge_power') not in [ 'unavailable', 'none', 'unknown' ]) 
-          and (states('sensor.inverters_active_power') not in [ 'unavailable', 'none', 'unknown' ]) }}
+      availability: >-
+        {{ (states('sensor.power_meter_active_power') not in [ 'unavailable', 'none', 'unknown' ] )
+          and (states('sensor.inverters_active_power') not in [ 'unavailable', 'none', 'unknown' ]) 
+          and (states('sensor.ev_charger_active_power') not in [ 'unavailable', 'none', 'unknown' ]) }}
 
 
 
@@ -810,14 +831,14 @@ template:
       device_class: power                                                        
       state_class: measurement                                                   
       unit_of_measurement: W                                                     
-      state: >
+      state: >-
         {% set grid_power = states('sensor.power_meter_active_power')|int(default=0) %}     
         {% set inverters_output = states('sensor.inverters_active_power')|int(default=0) %}
         
         {% if inverters_output > 0 and grid_power > 0 %} {{ grid_power }}                                      
         {% else %} 0                                                                  
         {% endif %}         
-      availability: >
+      availability: >-
         {{ (states('sensor.power_meter_active_power') not in [ 'unavailable', 'none', 'unknown' ] )
           and (states('sensor.inverters_active_power') not in [ 'unavailable', 'none', 'unknown' ]) }}
 
@@ -829,7 +850,7 @@ template:
       device_class: power                                                        
       state_class: measurement                                                   
       unit_of_measurement: W                                                     
-      state: >
+      state: >-
         {% set grid_power = states('sensor.power_meter_active_power')|int(default=0) %}     
         {% set inverters_output = states('sensor.inverters_active_power')|int(default=0) %}
         {% set ev_charger = states('sensor.ev_charger_active_power')|int(default=0) %}
@@ -837,7 +858,7 @@ template:
         {% if inverters_output > 0 and grid_power > 0 %} {{ ev_charger }}
         {% else %} 0                                                                  
         {% endif %} 
-      availability: >
+      availability: >-
         {{ (states('sensor.power_meter_active_power') not in [ 'unavailable', 'none', 'unknown' ] )
           and (states('sensor.inverters_active_power') not in [ 'unavailable', 'none', 'unknown' ]) 
           and (states('sensor.ev_charger_active_power') not in [ 'unavailable', 'none', 'unknown' ]) }}
@@ -850,7 +871,7 @@ template:
       device_class: power                                                        
       state_class: measurement                                                   
       unit_of_measurement: W                                                     
-      state: >
+      state: >-
         {% set inverters_power = states('sensor.inverters_active_power') |int(default=0) %}
         {% set batteries_cdp = states('sensor.batteries_charge_discharge_power') | int(default=0) %}
         {% if inverters_power < 0 and batteries_cdp > 0 %}
@@ -870,7 +891,7 @@ template:
       device_class: power                                                        
       state_class: measurement                                                   
       unit_of_measurement: W                                                     
-      state: >
+      state: >-
         {% set inverters_power = states('sensor.inverters_active_power')|int(default=0) %}
         {% set grid_power = states('sensor.power_meter_active_power')|int(default=0) %}
         {% if grid_power < 0 %}
@@ -879,7 +900,7 @@ template:
           {% endif %}
         {% else %} 0
         {% endif %}
-      availability: >
+      availability: >-
         {{ (states('sensor.inverters_active_power') not in [ 'unavailable', 'none', 'unknown' ] )
                 and (states('sensor.power_meter_active_power') not in [ 'unavailable', 'none', 'unknown' ]) }}
 
@@ -891,7 +912,7 @@ template:
       device_class: power                                                        
       state_class: measurement                                                   
       unit_of_measurement: W                                                     
-      state: >
+      state: >-
         {% set grid_power = states('sensor.power_meter_active_power')|int(default=0) %}     
         {% set inverters_output = states('sensor.inverters_active_power')|int(default=0) %}
         {% set ev_charger = states('sensor.ev_charger_active_power')|int(default=0) %}
@@ -899,7 +920,7 @@ template:
         {% if inverters_output > 0 and grid_power < 0 %} {{ ev_charger }}                                 
         {% else %} 0                                                                  
         {% endif %}         
-      availability: >
+      availability: >-
         {{ (states('sensor.power_meter_active_power') not in [ 'unavailable', 'none', 'unknown' ] )
           and (states('sensor.inverters_active_power') not in [ 'unavailable', 'none', 'unknown' ]) 
           and (states('sensor.ev_charger_active_power') not in [ 'unavailable', 'none', 'unknown' ]) }}
