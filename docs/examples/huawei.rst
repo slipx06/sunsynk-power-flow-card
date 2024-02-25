@@ -63,8 +63,8 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings.
     mppts: 2
     animation_speed: 8
     max_power: 13200
-    pv1_name: Inv1PV1
-    pv2_name: Inv1PV2
+    pv1_name: Inv1.S1
+    pv2_name: Inv2.S1
     display_mode: 2
     auto_scale: true
   load:
@@ -219,10 +219,10 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
     mppts: 4
     animation_speed: 8
     max_power: 13200
-    pv1_name: Inv1PV1
-    pv2_name: Inv1PV2
-    pv3_name: Inv2PV1
-    pv4_name: Inv2PV2
+    pv1_name: Inv1.S1
+    pv2_name: Inv2.S1
+    pv3_name: Inv1.S2
+    pv4_name: Inv2.S2
     display_mode: 2
   load:
     colour: magenta
@@ -384,8 +384,8 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings
     mppts: 2
     animation_speed: 8
     max_power: 6600
-    pv1_name: Inv1PV1
-    pv2_name: Inv1PV2
+    pv1_name: Inv1.S1
+    pv2_name: Inv2.S1
     display_mode: 2
     auto_scale: true
   load:
@@ -554,10 +554,10 @@ Notes to self: Need to update to refelct using 2 x battery and combined sensors 
     mppts: 2
     animation_speed: 8
     max_power: 13200
-    pv1_name: Inv1PV1
-    pv2_name: Inv1PV2
-    pv3_name: Inv2PV1
-    pv4_name: Inv2PV2
+    pv1_name: Inv1.S1
+    pv2_name: Inv2.S1
+    pv3_name: Inv1.S2
+    pv4_name: Inv2.S2
     display_mode: 2
     auto_scale: true
   load:
@@ -726,10 +726,10 @@ Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
     mppts: 4
     animation_speed: 8
     max_power: 13200
-    pv1_name: Inv1PV1
-    pv2_name: Inv1PV2
-    pv3_name: Inv2PV1
-    pv4_name: Inv2PV2
+    pv1_name: Inv1.S1
+    pv2_name: Inv2.S1
+    pv3_name: Inv1.S2
+    pv4_name: Inv2.S2
     display_mode: 2
     auto_scale: true
   load:
