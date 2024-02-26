@@ -2,20 +2,22 @@
  Huawei Inverters & LUNA ESS Batteries
 #######################################
 
-Data sources for the Sunsynk card for users of Huawei Solar (or iStore in Australia) is provided by the use of the [WLCRS "Huawei Solar" Integration](https://github.com/wlcrs/huawei_solar/wiki). 
-This integration as well as the [Energy Meter integration](https://github.com/zeronounours/HA-custom-component-energy-meter), must be installed prior to installing the Sunsynk card
+.. note::
+
+   THIS EXAMPLE IS CURRENTLY IN DRAFT MODE. Additional yamls are still pending for creating example eletricity tariffs, that leverage the Energy Meter integration - https://github.com/zeronounours/HA-custom-component-energy-meter.
+
+To use the Sunsynk card with Huawei Solar (or iStore in Australia) you need to copy the huawei_derived_sensors.yaml and sunsynk_power_flow_card_derived_sensors.yaml files to your /homeassistant/packages directory. Upon restarting Home Assistant this will create all the required derived sensors, based upon the baseline sensors from the WLCRS integration, needed to populate the Sunsynk card. In addition to this, you will need to find an electricity_costs_xxx.yaml file that matches your electricity providers tariff plan, or is similiar and you can customise the 'Electrity - Price' and 'Electricity - FIT' sections to reflect your rate plan costs and usage period(s), all these files are available from: https://github.com/slipx06/sunsynk-power-flow-card/tree/master/docs/examples/huawei_packages.
+
+The above sensor files also contain sensor group, for the Non-Essential and AUX devices sections of the Sunsynk card. You will need to update these groups to contain the sensors for items that you want to monitor with these groups. i.e. in AUX if you have a standby generator this can be placed into the 'Sunsynk Power Flow Card - AUX Devices - Active Power' group or alternatively critical devices that consume a large amount of your daily energy that you want to monitor, currently they are populated with IT Servers and IT Network device groups. The same is also required for the 'Sunsynk Power Flow Card - Non Essential - Active Power' group, that by default contains example sensors for the high energy consuming but non essential 'HVAC' and 'EV Charger' devices. Both these AUX and Non-Essential groups are used to provide the combined Active Power (watts) readings for these groups in the card, whilst also being used to the deduct their loads from the Active Power (watts) sensor that reflects the House load. The Energy Meter in the 'electricity_costs' files also leverages these sensors to track the daily kWh usage for these groups, that is then used within the card also.
+
+With these sensors active, you can then following the installation instructions for the Sunsynk card, however when you add the card to Home Assistant, change to the 'Show Code Editor' view and paste the example code below (that most closely matches your Huawei/iStore setup) into the editor, replacing all the default code shown. Finally, validate the example code copied from below, updating to suite your setup (i.e. If you have 
+
 
 .. note::
 
-   THIS EXAMPLE IS CURRENTLY IN DRAFT MODE.
+   Data sources for the Sunsynk card is provided by the use of the WLCRS "Huawei Solar" integration - https://github.com/wlcrs/huawei_solar/wiki, as well as the Energy Meter integration https://github.com/zeronounours/HA-custom-component-energy-meter, must be installed prior to installing the Sunsynk card.
 
-An additional yamls are still pending for creating example eletricity tariffs, that leverage the [energy_meter integration](https://github.com/zeronounours/HA-custom-component-energy-meter).
-With this installed, using HACS, 
-
-.. note::
-    
-   Solar 'max_power' is based upon 6.6kW or 9kW of panels per inverter, please update to reflect actual panels total capacity.
-
+______________________________________________________________
 
 ***********************************************************************************************
 Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings (6.6kW)
