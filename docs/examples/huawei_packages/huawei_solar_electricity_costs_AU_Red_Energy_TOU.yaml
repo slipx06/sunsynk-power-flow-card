@@ -6,8 +6,9 @@
 template:
   - sensor:
 
-#  Current_Price_RedEnergy_TOU provides a backup method to allow selecting the 'Use an entity with current rate' in Energy Dashboard.
-#  If you set the prices here, remember to ALSO set them in the 'electricity_import_rate_???' and daily supply charge sensors.
+#  Electricity_Price provides a method to allow selecting the 'Use an entity with current rate' in Energy Dashboard.
+#
+#  This tariff plan is based upon a Time of Use (ToU) plan with different charges at the following times:
 #
 #  Peak      : $0.41745 p/kWh. Monday to Friday between 7am - 9am and 5pm - 8pm.
 #  Shoulder  : $0.35695 p/kWh. Monday to Friday between 9am - 5pm and 8pm - 10pm.
