@@ -819,6 +819,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let loadLineWidth = !config.load.max_power ? 1 : this.dynamicLineWidth(Math.abs(essential), (config.load.max_power || Math.abs(essential)), max_linewidth);
         let auxLineWidth = !config.load.max_power ? 1 : this.dynamicLineWidth(Math.abs(aux_power), (config.load.max_power || Math.abs(aux_power)), max_linewidth);
         let gridLineWidth = !config.grid.max_power ? 1 : this.dynamicLineWidth(Math.abs(total_grid_power), (config.grid.max_power || Math.abs(total_grid_power)), max_linewidth);
+        let grid169LineWidth = !config.grid.max_power ? 1 : this.dynamicLineWidth(Math.abs(grid_power_round), (config.grid.max_power || Math.abs(grid_power_round)), max_linewidth);
         let nonessLineWidth = !config.grid.max_power ? 1 : this.dynamicLineWidth(Math.abs(nonessential), (config.grid.max_power || Math.abs(nonessential)), max_linewidth);
         let solarLineWidth = !config.solar.max_power ? 1 : this.dynamicLineWidth(totalsolar, (config.solar.max_power || totalsolar), max_linewidth);
 
@@ -1645,8 +1646,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <path id="aux-line2" d="M 200 162 L 200 57 Q 200 47 210 47 L 237 47" fill="none"
                                   class="${!show_aux ? 'st12' : ''}" stroke="${aux_colour}" stroke-width="1"
                                   stroke-miterlimit="10" pointer-events="stroke"/>
-                            <path d="M 215.15 187 L 224.58 187 Q 234 187 234 187.5 L 234 188" fill="none"
-                                  stroke="${grid_colour}" stroke-width="1" stroke-miterlimit="10"
+                            <path d="M215 187 234 187" fill="none"
+                                  stroke="${grid_colour}" stroke-width="${grid169LineWidth}" stroke-miterlimit="10"
                                   pointer-events="stroke" display="${!config.show_grid ? 'none' : ''}"/>
                             <path d="${config.inverter.three_phase ? 'M 180.15 223 L 180.15 235' : 'M 180.15 212 L 180.15 235'}"
                                   fill="none" stroke="${inverter_colour}" stroke-width="1" stroke-miterlimit="10"
