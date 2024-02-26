@@ -473,7 +473,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         essential =
             essential_power === 'none' || !essential_power
-                ? three_phase === true && config.entities.load_power_L1 && config.entities.load_power_L2
+                ? three_phase === true 
                     ? Number(load_power_L1) + Number(load_power_L2) + Number(load_power_L3)
                     : inverter_power_round + grid_power_round - aux_power
                 : (state_essential_power.attributes?.unit_of_measurement || '').toLowerCase() === 'kw'
