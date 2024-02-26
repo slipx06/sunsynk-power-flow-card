@@ -1,0 +1,100 @@
+template:
+
+#############################
+#   
+#   Sunsynk Power Flow Card - https://github.com/slipx06/sunsynk-power-flow-card
+#   Derived sensors that are used upon the card
+#
+
+  # Sensor to show the Active Power for all the GPO's in the house, less the Network Rack and Fan, Servers and Study UPS sensors (or other sensors you've factored in already).
+  # Used card entry: essential_load2
+  - sensor:
+    - name: "All GPO - Active Power Less Known Devices"
+      unique_id: all_gpo_active_power_less_known_devices
+      unit_of_measurement: "W"
+      device_class: "power"
+      state_class: measurement
+      state: >-
+        {% set gpo_total_active_power = states('sensor.all_gpo_active_power')|float(0) %}
+        {% set all_it_active_power = states('sensor.it_hardware_active_power')|float(0) %}
+        {% set whitegoods = states('sensor.dryer_energy_power')|float(0) %}
+        {{ (gpo_total_active_power - ( all_it_active_power + whitegoods ))|float(0)|round(0) }}
+      availability: >-
+        {{ (states('sensor.all_gpo_active_power')|is_number)
+            and (states('sensor.it_hardware_active_power')|is_number) 
+              and (states('sensor.dryer_energy_power')|is_number) }}
+
+
+  # Sensor to show the House Active Power Consumption less the sunsynk_power_flow  aux_active_power and non_essential_active_power sensors.
+  # Used by card entry: essential_power
+  - sensor:
+    - name: "House Consumption - Power - Less AUX Non-Essential"
+      unique_id: house_consumption_power_less_aux_non_essential
+      unit_of_measurement: "W"
+      device_class: "power"
+      state_class: measurement
+      state: >-
+        {% set house_consumption_active_power = states('sensor.house_consumption_power')|float(0) %}
+        {% set aux_active_power = states('sensor.sunsynk_power_flow_aux_devices_active_power')|float(0) %}
+        {% set non_essential_active_power = states('sensor.sunsynk_power_flow_non_essential_active_power')|float(0) %}
+        {{ (house_consumption_active_power - ( aux_active_power + non_essential_active_power))|float(0)|round(0) }}
+      availability: >-
+        {{ (states('sensor.house_consumption_power')|is_number)
+            and (states('sensor.sunsynk_power_flow_aux_devices_active_power')|is_number) 
+              and (states('sensor.sunsynk_power_flow_non_essential_active_power')|is_number) }}
+
+
+################################
+
+energy_meter:
+
+  # Used to convert the above Riemann sum sensor into an ENERGY sensor that RESETS to ZERO DAILY. 
+  house_consumption_energy_meter_less_aux_non_essential:
+    unique_id: house_consumption_energy_meter_less_aux_non_essential
+    name: "House Consumption - Energy Meter - Less AUX Non-Essential"
+    source: sensor.house_consumption_energy_less_aux_non_essential
+    cycle: daily
+
+  # Optional: Used to create and energy_meter with total kWh and cost sensor, to track big energy users. 
+  #           Alternatives or additional could be to use for items such as EV Charger. 
+  hvac_energy_imported_daily:
+    unique_id: hvac_energy_imported_daily
+    name: HVAC Energy Imported - Daily
+    source: sensor.hvac_energy
+    source_type: from_grid
+    cycle: daily
+    price_entity: &electricity-price sensor.electricity_price
+
+  hvac_energy_imported_monthly:
+    unique_id: hvac_energy_imported_monthly
+    name: HVAC Energy Imported - Monthly
+    source: sensor.hvac_energy
+    source_type: from_grid
+    cycle: monthly
+    price_entity: *electricity-price
+
+  hvac_energy_imported_yearly:
+    unique_id: hvac_energy_imported_yearly
+    name: HVAC Energy Imported - Yearly
+    source: sensor.hvac_energy
+    source_type: from_grid
+    cycle: yearly
+    price_entity: *electricity-price
+
+
+########### Start: Helpers - Riemann Sum to conver Power (W) to Energy (kWh) ###########
+
+  # Riemann Sum sensor to take "House Consumption Less Known - Power" and convert it into ENERGY sensor, 
+  # this sensor is then used by the above energy_meter sensors.
+sensor:
+  - platform: integration
+    name: "House Consumption - Energy - Less AUX Non-Essential"
+    unique_id: house_consumption_energy_less_aux_non_essential
+    source: sensor.house_consumption_power_less_aux_non_essential
+    round: 3
+    unit_prefix: k
+    unit_time: h
+    method: left
+
+
+######################### End of File #########################

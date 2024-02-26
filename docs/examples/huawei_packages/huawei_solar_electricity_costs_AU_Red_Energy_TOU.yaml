@@ -1,0 +1,288 @@
+# Based upon Australian energy retailer 'Red Energy' and their Time of Use Tariff Plan.
+# v1.0 - Updated 1 July 2023 for new Red Energy Rates
+# v1.1 - Updated 1 October 2023 for new Red Energy Rates
+# v2.0 - Updated 4 January 2024 to replace static FIT rate with a sensor that allows for use with variable FIT providers
+
+template:
+  - sensor:
+
+#  Electricity_Price provides a method to allow selecting the 'Use an entity with current rate' in Energy Dashboard.
+#
+#  This tariff plan is based upon a Time of Use (ToU) plan with different charges at the following times:
+#
+#  Peak      : $0.41745 p/kWh. Monday to Friday between 7am - 9am and 5pm - 8pm.
+#  Shoulder  : $0.35695 p/kWh. Monday to Friday between 9am - 5pm and 8pm - 10pm.
+#  Off-Peak  : $0.26928 p/kWh. Monday to Friday between 10pm and 7am. Saturday and Sunday - All Day.
+#
+#  Note: If you energy provider plan has different times, you must update them here AND also in the Automation (that updates the Selector) at the bottom.
+#
+
+    - name: "Electricity - Price" 
+      unique_id: electricity_price
+      unit_of_measurement: "$/kWh"
+      device_class: monetary
+      state:  "
+        {%set Peak = 0.41745 %}
+        {%set WeekdayShoulder = 0.35695 %}
+        {%set OffPeak = 0.26928 %}
+        {%set H = as_timestamp(now())|timestamp_custom ('%-H')|float(0) %} {##Hour (24-hour clock) as a decimal number. 0, 1, 2, ... 23##}
+        {%set w = as_timestamp(now())|timestamp_custom ('%w')|float(0) %} {##HWeekday as a decimal number, where 0 is Sunday and 6 is Saturday.	0, 1, …, 6##}	 
+        {##0 for weekday, 1 for weekend##}
+        {% if (w == 0) or  (w == 6) %} {% set weekday = 0 %}
+        {% else %} {% set weekday = 1 %}
+        {% endif %}
+        {% set charge = 0 %}
+        {##peak##}
+        {% if (weekday == 1) and (H >= 7) and (H < 9) %} {{Peak}}
+        {% elif (weekday == 1) and (H >= 17) and (H < 20) %} {{Peak}}
+        {##weekday shoulder##}
+        {% elif (weekday == 1) and (H >= 9) and (H < 17) %} {{WeekdayShoulder}}
+        {% elif (weekday == 1) and (H >= 20) and (H < 22) %} {{WeekdayShoulder}}
+        {##off peak##}
+        {% else %} {{OffPeak}}
+        {% endif %}
+        "
+
+#########################
+#
+# ALTERNATIVE VERSION TO ABOVE SENSOR VERSION
+#
+
+#    - name: "Electricity - Price" 
+#      unique_id: electricity_price
+#      unit_of_measurement: "$/kWh"
+#      device_class: monetary
+#      state:  "
+#        value_template: >
+#          {% set tariff = { "Peak": 0.42790, "Shoulder": 0.36498, "OffPeak": 0.27698 } %}
+#          {% set time = { "month": (now().strftime('%m') | int), "hour": (now().strftime('%H') | int), "weekday": (now().weekday() | int ) } %}
+#          {%if (time.hour > 21) or (time.hour < 7) %}
+#              {{ tariff.OffPeak }}
+#          {%elif ((time.month > 10) or (time.month < 4)) and (time.weekday < 5) and ((time.hour > 13) and (time.hour < 20)) %}
+#              {{ tariff.Peak }}
+#          {%elif ((time.month > 5) and (time.month < 9)) and (time.weekday < 5) and ((time.hour > 16) and (time.hour < 21)) %}
+#              {{ tariff.Peak }}
+#          {%else%}
+#              {{ tariff.Shoulder }}
+#         {%endif%}
+#         "
+#
+
+
+#########################
+#
+#  Current Feed in Tariff (FIT) / Export rate, rate 1 & 2 allows setting a second rate if variable FIT rates (i.e. $0.15 for first 10kWh, then $0.07 thereafter)
+#
+    - name: "Electricity - FIT"
+      unique_id: electricity_fit
+      unit_of_measurement: "$/kWh"
+      device_class: monetary
+      icon: mdi:cash-plus
+      state: >
+        {## Enter compensation per kWh rates below ##}
+        {% set rate1 = 0.07 %}
+        {% set rate2 = 0.07 %}
+        {% set fit_exported_today = states('sensor.hs_grid_exported_daily') | float %}
+        {% if fit_exported_today <= 10 %} {{rate1}}
+        {% else %} {{rate2}}
+        {% endif %}
+
+
+####################################
+# IMPORT UTILITY METERS
+# See: https://github.com/zeronounours/HA-custom-component-energy-meter
+
+energy_meter:
+
+  hs_grid_imported_daily:
+    unique_id: hs_grid_imported_daily
+    name: HS Grid - Imported Daily
+    source: sensor.power_meter_consumption
+    source_type: from_grid
+    cycle: daily
+    price_entity: &electricity-price sensor.electricity_price
+    tariffs:
+      - peak
+      - shoulder
+      - offpeak
+
+  hs_grid_imported_monthly:
+    unique_id: hs_grid_imported_monthly
+    name: HS Grid - Imported Monthly
+    source: sensor.power_meter_consumption
+    source_type: from_grid
+    cycle: monthly
+    price_entity: *electricity-price
+    tariffs:
+      - peak
+      - shoulder
+      - offpeak
+
+  hs_grid_imported_yearly:
+    unique_id: hs_grid_imported_yearly
+    name: HS Grid - Imported Yearly
+    source: sensor.power_meter_consumption
+    source_type: from_grid
+    cycle: yearly
+    price_entity: *electricity-price
+    tariffs:
+      - peak
+      - shoulder
+      - offpeak
+
+
+#########################
+# EXPORT UTILITY METERS
+# See: https://github.com/zeronounours/HA-custom-component-energy-meter
+
+  hs_grid_exported_daily:
+    unique_id: hs_grid_exported_daily
+    name: HS Grid - Exported Daily
+    source: sensor.power_meter_exported
+    source_type: to_grid
+    cycle: daily
+    price_entity: &fit-rate sensor.electricity_fit
+
+  hs_grid_exported_monthly:
+    unique_id: hs_grid_exported_monthly
+    name: HS Grid - Exported Monthly
+    source: sensor.power_meter_exported
+    source_type: to_grid
+    cycle: monthly
+    price_entity: *fit-rate
+
+  hs_grid_exported_yearly:
+    unique_id: hs_grid_exported_yearly
+    name: HS Grid - Exported Yearly
+    source: sensor.power_meter_exported
+    source_type: to_grid
+    cycle: yearly
+    price_entity: *fit-rate
+
+
+#########################
+#
+# GROUP - TO SUM UP THE DAILY / MONTHLY / YEARLY IMPORT KWH and $ SENSORS
+#         TO GIVE A TOTAL OF EACH
+#
+
+sensor:
+
+# DAILY
+  - platform: group
+    name: HS Grid - Imported Daily - Total kWh
+    unique_id: hs_grid_imported_daily_total_kwh
+    unit_of_measurement: "kWh"
+    device_class: energy
+    type: sum
+    entities:
+      - sensor.hs_grid_imported_daily_peak
+      - sensor.hs_grid_imported_daily_shoulder
+      - sensor.hs_grid_imported_daily_offpeak
+
+  - platform: group
+    name: HS Grid - Imported Daily - Total Cost
+    unique_id: hs_grid_imported_daily_total_cost
+    unit_of_measurement: '$'
+    device_class: monetary
+    type: sum
+    entities:
+      - sensor.hs_grid_imported_daily_cost_peak
+      - sensor.hs_grid_imported_daily_cost_shoulder
+      - sensor.hs_grid_imported_daily_cost_offpeak
+
+# MONTHLY
+  - platform: group
+    name: HS Grid - Imported Monthly - Total kWh
+    unique_id: hs_grid_imported_monthly_total_kwh
+    unit_of_measurement: "kWh"
+    device_class: energy
+    type: sum
+    entities:
+      - sensor.hs_grid_imported_monthly_peak
+      - sensor.hs_grid_imported_monthly_shoulder
+      - sensor.hs_grid_imported_monthly_offpeak
+
+  - platform: group
+    name: HS Grid - Imported Monthly - Total Cost
+    unique_id: hs_grid_imported_monthly_total_cost
+    unit_of_measurement: '$'
+    device_class: monetary
+    type: sum
+    entities:
+      - sensor.hs_grid_imported_monthly_cost_peak
+      - sensor.hs_grid_imported_monthly_cost_shoulder
+      - sensor.hs_grid_imported_monthly_cost_offpeak
+
+# YEARLY
+  - platform: group
+    name: HS Grid - Imported Yearly - Total kWh
+    unique_id: hs_grid_imported_yearly_total_kwh
+    unit_of_measurement: "kWh"
+    device_class: energy
+    type: sum
+    entities:
+      - sensor.hs_grid_imported_yearly_peak
+      - sensor.hs_grid_imported_yearly_shoulder
+      - sensor.hs_grid_imported_yearly_offpeak
+
+  - platform: group
+    name: HS Grid - Imported Yearly - Total Cost
+    unique_id: hs_grid_imported_yearly_total_cost
+    unit_of_measurement: '$'
+    device_class: monetary
+    type: sum
+    entities:
+      - sensor.hs_grid_imported_yearly_cost_peak
+      - sensor.hs_grid_imported_yearly_cost_shoulder
+      - sensor.hs_grid_imported_yearly_cost_offpeak
+
+
+#######################
+#
+# Checks the time and based upon TOU rate times, updates Selector for the 'hs_grid_imported_daily/monthly/yearly' entities to use Peak / Shoulder / OffPeak tariff.
+# Given the WLCRS pulls data from Huawei Inverters using Modbus and this is at 30 second intervals, the triggers are set for the tariff changes time + 30 seconds.
+#
+
+automation:
+### adjust the time triggers below to match when your standard electricity tariff changes (peak, shoulder, offpeak). Adjust the template in the action block as required to match your plan.
+  - alias: Set Electricity Tariff
+    description: 'Set Electricity Tariff (Huawei Solar) depending upon the day of week and time'
+    trigger:
+      - platform: time
+        at: '07:00:30'
+      - platform: time
+        at: '09:00:30'
+      - platform: time
+        at: '17:00:30'
+      - platform: time
+        at: '20:00:30'
+      - platform: time
+        at: '22:00:30'
+      - platform: homeassistant
+        event: start
+    condition: []
+    action:
+      - service: select.select_option
+        data:
+          option: >-
+            {% set t = now() %}
+            {%- if (( t.hour >= 7 and t.hour < 9 ) or ( t.hour >= 17 and t.hour < 20 )) and
+            is_state('binary_sensor.workday_sensor', 'on') %}
+              peak
+            {%- elif (( t.hour >= 9 and t.hour < 17 ) or ( t.hour >= 20 and t.hour < 22 )) and 
+            is_state('binary_sensor.workday_sensor', 'on') %}
+              shoulder
+            {%- else -%}
+              offpeak
+            {%- endif -%}
+        target:
+          entity_id:
+#  Selectors used by utility_meter / energy_meter
+            - select.hs_grid_imported_daily
+            - select.hs_grid_imported_monthly
+            - select.hs_grid_imported_yearly
+    mode: single
+
+#######################
+
