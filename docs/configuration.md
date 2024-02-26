@@ -64,7 +64,7 @@ The `invert_power` attribute can be used to reverse direction if needed by your 
 | show_absolute:   | Optional     | `false` | set to `true` to display power and current as absolute values                                                                                                                   
 | auto_scale:      | Optional     | `true` | If set to `true` the card will use the entities `unit_of_measurement` attribute to perform the correct scaling (i,e, power values greater than 999W will be displayed as kW e.g. 1.23kW) and display the correct unit. The number of decimal places can be changed using the `decimal_places` card attribute apart from the daily energy values which are rounded to 1 decimal place                                                            |
 | hide_soc:        | Optional     | `false` | If set to `true` the current program capacity (soc), or for Goodwe inverters the shutdown soc and offgrid shutdown soc that is shown to the left of the current battery SOC will be hidden.      |
-| show_remaining_energy:        | Optional     | `true` | Set to `true` to display the remaining battery energy in kWh based on the current SOC. Only visable on the `lite` and `full` cards and when `battery_status:` is not set     |
+| show_remaining_energy:        | Optional     | `true` | Set to `true` to display the remaining battery energy in kWh based on the current SOC. Only visable on the `lite` and `full` cards     |
 
 ### Solar
 

@@ -324,21 +324,6 @@ export class SunsynkPowerFlowCard extends LitElement {
         const no_grid_colour = this.colourConvert(config.grid?.no_grid_colour || grid_import_colour);
         
 
-        let grid_colour:string;
-        switch (true) {
-            case total_grid_power < 0:
-                grid_colour = grid_export_colour;
-                break;
-            case total_grid_power === 0:
-                grid_colour = no_grid_colour;
-                break;
-            default:
-                grid_colour = grid_import_colour;
-                break;
-        }
-
-        const grid_off_colour = this.colourConvert(config.grid?.grid_off_colour || grid_colour);
-
         let noness_dual_load = config.grid?.additional_loads;
         if (!validnonLoadValues.includes(noness_dual_load)) {
             noness_dual_load = 0;
@@ -684,6 +669,24 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         let isFloating =
             -2 <= parseInt(state_battery_current.state) && parseInt(state_battery_current.state) <= 2 && parseInt(state_battery_soc.state) >= 99;
+
+        let grid_colour:string;
+        switch (true) {
+            case total_grid_power < 0 && !isFloating:
+                grid_colour = grid_export_colour;
+                break;
+            case total_grid_power === 0:
+                grid_colour = no_grid_colour;
+                break;
+            case total_grid_power > 0 && !isFloating:
+                grid_colour = grid_import_colour;
+                break;
+            default:
+                grid_colour = grid_import_colour;
+                break;
+        }
+
+        const grid_off_colour = this.colourConvert(config.grid?.grid_off_colour || grid_colour);
 
         //Set Inverter Status Message and dot
         let inverterStateColour = '';
@@ -1239,10 +1242,10 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </text>
                             <text x="167" y="306" class="st3 left-align" fill="${inverter_colour}">${inverterStateMsg}
                             </text>
-                            <text x="80" y="378" class="st3 left-align" display="${!config.show_battery ? 'none' : ''}"
+                            <text x="${!config.battery.show_remaining_energy ? '80' : '15'}" y="378" class="st3 left-align" display="${!config.show_battery ? 'none' : ''}"
                                   fill="${bat_colour}">${batteryStateMsg}
                             </text>
-                            <text x="101" y="378" class="st3" display="${!config.show_battery || !config.battery.show_remaining_energy || config.entities?.battery_status ? 'none' : ''}"
+                            <text x="101" y="378" class="st3" display="${!config.show_battery || !config.battery.show_remaining_energy ? 'none' : ''}"
                                   fill="${bat_colour}">${this.toNum(((battery_energy * (parseFloat(state_battery_soc.state) / 100) /1000)), 2)} kWh
                             </text>
                             <text x="411" y="157" class="st3 st8"
@@ -1428,7 +1431,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </text>
 
                             <circle id="standby" cx="160" cy="304" r="3.5" fill="${inverterStateColour}"/>
-                            <circle id="bat" cx="73" cy="377" r="3"
+                            <circle id="bat" cx="${!config.battery.show_remaining_energy ? '73' : '8'}" cy="377" r="3"
                                     display="${config.entities?.battery_status === 'none' || !config.entities?.battery_status || !config.show_battery ? 'none' : ''}"
                                     fill="${batteryStateColour}"/>
 
@@ -3459,11 +3462,11 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   fill="${grid_colour}">
                                 ${config.load.auto_scale ? `${this.convertValue(grid_power_L3, round) || 0}` : `${grid_power_L3 || 0} W`}
                             </text>
-                            <text x="169" y="320" class="st3 left-align"
+                            <text x="169" y="${!config.battery.show_remaining_energy ? '320' : '311'}" class="st3 left-align"
                                   display="${!config.show_battery || compact ? 'none' : ''}" fill="${bat_colour}">
                                 ${batteryStateMsg}
                             </text>
-                            <text x="193" y="323" class="st3" display="${!config.show_battery || !config.battery.show_remaining_energy || config.entities?.battery_status || compact ? 'none' : ''}"
+                            <text x="${!config.entities?.battery_status ? '193' : '169'}" y="323" class="${!config.entities?.battery_status ? 'st3' : 'st3 left-align'}" display="${!config.show_battery || !config.battery.show_remaining_energy  || compact ? 'none' : ''}"
                                   fill="${bat_colour}">${this.toNum(((battery_energy * (parseFloat(state_battery_soc.state) / 100) /1000)), 2)} kWh
                             </text>
                             <text id="battery_soc_184" x="368.5" y="351" fill=${bat_colour}
@@ -3478,7 +3481,14 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </text>
 
                             <circle id="standby" cx="220" cy="260" r="3.5" fill="${inverterStateColour}"/>
-                            <circle id="bat" cx="${compact ? '238.5' : '162'}" cy="${compact ? '326' : '319'}" r="3.5"
+                            <circle id="bat" cx="${compact ? '238.5' : '162'}" 
+                                    cy="${compact 
+                                            ? '326' 
+                                            : !config.battery.show_remaining_energy
+                                                ? '319'
+                                                : '310'
+                                        }"
+                                    r="3.5"
                                     display="${config.entities?.battery_status === 'none' || !config.entities?.battery_status || !config.show_battery ? 'none' : ''}"
                                     fill="${batteryStateColour}"/>
 
