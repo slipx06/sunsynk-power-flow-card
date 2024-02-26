@@ -1,5 +1,5 @@
 #######################################
- Huawei Inverters & LUNA ESS Batteries
+ Huawei Inverter
 #######################################
 
 .. note::
