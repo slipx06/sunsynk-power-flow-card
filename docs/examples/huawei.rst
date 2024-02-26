@@ -102,9 +102,10 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings 
     grid_name: Your-Grid-Name
     colour: '#FF2400'
     export_colour: lime
+    no_grid_colour: '#a40013'
+    grid_off_colour: '#e7d59f'
     show_daily_buy: true
     show_daily_sell: true
-    no_grid_colour: '#a40013'
     show_nonessential: true
     invert_grid: true
     nonessential_name: Non Essential
@@ -261,9 +262,10 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
     grid_name: Your-Grid-Name
     colour: '#FF2400'
     export_colour: lime
+    no_grid_colour: '#a40013'
+    grid_off_colour: '#e7d59f'
     show_daily_buy: true
     show_daily_sell: true
-    no_grid_colour: '#a40013'
     show_nonessential: true
     invert_grid: true
     nonessential_name: Non Essential
@@ -426,9 +428,10 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings 
     grid_name: Your-Grid-Name
     colour: '#FF2400'
     export_colour: lime
+    no_grid_colour: '#a40013'
+    grid_off_colour: '#e7d59f'
     show_daily_buy: true
     show_daily_sell: true
-    no_grid_colour: '#a40013'
     show_nonessential: true
     invert_grid: true
     nonessential_name: Non Essential
@@ -594,9 +597,10 @@ Example 4 - 1 x M1 3phase inverters with 2 x 15kWh LUNA ESS batteries - 2 PV str
     grid_name: Your-Grid-Name
     colour: '#FF2400'
     export_colour: lime
+    no_grid_colour: '#a40013'
+    grid_off_colour: '#e7d59f'
     show_daily_buy: true
     show_daily_sell: true
-    no_grid_colour: '#a40013'
     show_nonessential: true
     invert_grid: true
     nonessential_name: Non Essential
@@ -766,9 +770,10 @@ Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
     grid_name: Your-Grid-Name
     colour: '#FF2400'
     export_colour: lime
+    no_grid_colour: '#a40013'
+    grid_off_colour: '#e7d59f'
     show_daily_buy: true
     show_daily_sell: true
-    no_grid_colour: '#a40013'
     show_nonessential: true
     invert_grid: true
     nonessential_name: Non Essential
