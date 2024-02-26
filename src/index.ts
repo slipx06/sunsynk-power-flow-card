@@ -323,6 +323,20 @@ export class SunsynkPowerFlowCard extends LitElement {
         const grid_export_colour = this.colourConvert(config.grid?.export_colour || grid_import_colour);
         const no_grid_colour = this.colourConvert(config.grid?.no_grid_colour || grid_import_colour);
         
+        let grid_colour:string;
+        switch (true) {
+            case total_grid_power < 0:
+                grid_colour = grid_export_colour;
+                break;
+            case total_grid_power === 0:
+                grid_colour = no_grid_colour;
+                break;
+            default:
+                grid_colour = grid_import_colour;
+                break;
+        }
+
+        const grid_off_colour = this.colourConvert(config.grid?.grid_off_colour || grid_colour);
 
         let noness_dual_load = config.grid?.additional_loads;
         if (!validnonLoadValues.includes(noness_dual_load)) {
@@ -377,14 +391,6 @@ export class SunsynkPowerFlowCard extends LitElement {
         let battery_power = (state_battery_power.attributes?.unit_of_measurement || '').toLowerCase() === 'kw'
             ? this.toNum((state_battery_power.state * 1000), 0, config.battery?.invert_power)
             : this.toNum(state_battery_power.state, 0, config.battery?.invert_power);
-
-        // Determine battery colours
-        let bat_colour: string;
-        if (battery_power < 0) {
-            bat_colour = battery_charge_colour;
-        } else {
-            bat_colour = battery_colour;
-        }
 
         const card_height = (config.card_height ? this.hass.states[config.card_height] : null) || {state: ''};
         let height =
@@ -670,23 +676,13 @@ export class SunsynkPowerFlowCard extends LitElement {
         let isFloating =
             -2 <= parseInt(state_battery_current.state) && parseInt(state_battery_current.state) <= 2 && parseInt(state_battery_soc.state) >= 99;
 
-        let grid_colour:string;
-        switch (true) {
-            case total_grid_power < 0 && !isFloating:
-                grid_colour = grid_export_colour;
-                break;
-            case total_grid_power === 0:
-                grid_colour = no_grid_colour;
-                break;
-            case total_grid_power > 0 && !isFloating:
-                grid_colour = grid_import_colour;
-                break;
-            default:
-                grid_colour = grid_import_colour;
-                break;
+        // Determine battery colours
+        let bat_colour: string;
+        if (battery_power < 0 && !isFloating) {
+            bat_colour = battery_charge_colour;
+        } else {
+            bat_colour = battery_colour;
         }
-
-        const grid_off_colour = this.colourConvert(config.grid?.grid_off_colour || grid_colour);
 
         //Set Inverter Status Message and dot
         let inverterStateColour = '';
