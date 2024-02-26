@@ -1,24 +1,24 @@
-################
-Huawei Inverter 
-################
+#######################################
+ Huawei Inverters & LUNA ESS Batteries
+#######################################
 
-Integration via WLCRS "Huawei Solar". See https://github.com/wlcrs/huawei_solar/wiki
+Data sources for the Sunsynk card for users of Huawei Solar (or iStore in Australia) is provided by the use of the [WLCRS "Huawei Solar" Integration](https://github.com/wlcrs/huawei_solar/wiki). 
+This integration as well as the [Energy Meter integration](https://github.com/zeronounours/HA-custom-component-energy-meter), must be installed prior to installing the Sunsynk card
 
 .. note::
 
    THIS EXAMPLE IS CURRENTLY IN DRAFT MODE.
 
-Additional yaml (or links to them) is still pending for all the derived sensors that are required
-to be created, from the baseline sensors that the WLCRS integration provides. Also the energy_meter
-integration (installable via HACS) is required to be installed
+An additional yamls are still pending for creating example eletricity tariffs, that leverage the [energy_meter integration](https://github.com/zeronounours/HA-custom-component-energy-meter).
+With this installed, using HACS, 
 
 .. note::
     
-   Solar 'max_power' is based upon 6.6kW of panels per inverter, please update to reflect actual panels total capacity.
+   Solar 'max_power' is based upon 6.6kW or 9kW of panels per inverter, please update to reflect actual panels total capacity.
 
 
 ***********************************************************************************************
-Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings.
+Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings (6.6kW)
 ***********************************************************************************************
 
 .. code-block:: yaml
@@ -47,7 +47,7 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings.
     energy: 14850
     shutdown_soc: 15
     invert_power: true
-    colour: pink
+    colour: '#FF6984'
     show_daily: true
     animation_speed: 5
     max_power: 5000
@@ -58,11 +58,11 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings.
     dynamic_colour: true
     linear_gradient: true
   solar:
-    colour: '#5fb6ad'
+    colour: '#F7BC00'
     show_daily: true
     mppts: 2
     animation_speed: 8
-    max_power: 13200
+    max_power: 6600
     pv1_name: Inv1.S1
     pv2_name: Inv2.S1
     display_mode: 2
@@ -76,7 +76,7 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings.
     show_absolute_aux: false
     aux_name: Generator
     aux_type: gen
-    aux_colour: green
+    aux_colour: lime
     aux_off_colour: brown
     aux_loads: 2
     aux_load1_name: IT - Servers
@@ -100,8 +100,8 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings.
     dynamic_colour: true
   grid:
     grid_name: Your-Grid-Name
-    colour: red
-    export_colour: '#5490c2'
+    colour: '#FF2400'
+    export_colour: lime
     show_daily_buy: true
     show_daily_sell: true
     no_grid_colour: '#a40013'
@@ -173,9 +173,11 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings.
     aux_load1_extra: sensor.env_network_rack_bme280_temperature
     aux_load2_extra: sensor.env_server_rack_bme280_temperature
     grid_voltage: sensor.power_meter_voltage
-  
+
+
+
 **************************************************************************************************
-Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings (2 per inverter)
+Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings (13.2kW)
 **************************************************************************************************
 
 .. code-block:: yaml
@@ -203,7 +205,7 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
     energy: 14850
     shutdown_soc: 15
     invert_power: true
-    colour: pink
+    colour: '#FF6984'
     show_daily: true
     animation_speed: 5
     max_power: 5000
@@ -214,7 +216,7 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
     dynamic_colour: true
     linear_gradient: true
   solar:
-    colour: '#5fb6ad'
+    colour: '#F7BC00'
     show_daily: true
     mppts: 4
     animation_speed: 8
@@ -233,7 +235,7 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
     show_absolute_aux: false
     aux_name: Generator
     aux_type: gen
-    aux_colour: green
+    aux_colour: lime
     aux_off_colour: brown
     aux_loads: 2
     aux_load1_name: IT - Servers
@@ -257,8 +259,8 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
     dynamic_colour: true
   grid:
     grid_name: Your-Grid-Name
-    colour: red
-    export_colour: '#5490c2'
+    colour: '#FF2400'
+    export_colour: lime
     show_daily_buy: true
     show_daily_sell: true
     no_grid_colour: '#a40013'
@@ -337,9 +339,10 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
     aux_load2_extra: sensor.env_server_rack_bme280_temperature
     grid_voltage: sensor.power_meter_voltage
 
+
     
 ************************************************************************************************
-Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings
+Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings (10kW)
 ************************************************************************************************
 
 .. code-block:: yaml
@@ -368,7 +371,7 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings
     energy: 14850
     shutdown_soc: 15
     invert_power: true
-    colour: pink
+    colour: '#FF6984'
     show_daily: true
     animation_speed: 5
     max_power: 5000
@@ -379,11 +382,11 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings
     dynamic_colour: true
     linear_gradient: true
   solar:
-    colour: '#5fb6ad'
+    colour: '#F7BC00'
     show_daily: true
     mppts: 2
     animation_speed: 8
-    max_power: 6600
+    max_power: 10000
     pv1_name: Inv1.S1
     pv2_name: Inv2.S1
     display_mode: 2
@@ -397,7 +400,7 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings
     show_absolute_aux: false
     aux_name: Generator
     aux_type: gen
-    aux_colour: green
+    aux_colour: lime
     aux_off_colour: brown
     aux_loads: 2
     aux_load1_name: IT - Servers
@@ -421,8 +424,8 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings
     dynamic_colour: true
   grid:
     grid_name: Your-Grid-Name
-    colour: red
-    export_colour: '#5490c2'
+    colour: '#FF2400'
+    export_colour: lime
     show_daily_buy: true
     show_daily_sell: true
     no_grid_colour: '#a40013'
@@ -507,9 +510,7 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings
 
 
 ***************************************************************************************************
-Example 4 - 1 x M1 3phase inverters with 2 x 15kWh LUNA ESS batteries - 2 PV strings (2 per inverter)
-
-Notes to self: Need to update to refelct using 2 x battery and combined sensors for that
+Example 4 - 1 x M1 3phase inverters with 2 x 15kWh LUNA ESS batteries - 2 PV strings (10kW)
 ***************************************************************************************************
 
 .. code-block:: yaml
@@ -538,7 +539,7 @@ Notes to self: Need to update to refelct using 2 x battery and combined sensors 
     energy: 29700
     shutdown_soc: 15
     invert_power: true
-    colour: pink
+    colour: '#FF6984'
     show_daily: true
     animation_speed: 5
     max_power: 10000
@@ -549,15 +550,13 @@ Notes to self: Need to update to refelct using 2 x battery and combined sensors 
     dynamic_colour: true
     linear_gradient: true
   solar:
-    colour: '#5fb6ad'
+    colour: '#F7BC00'
     show_daily: true
     mppts: 2
     animation_speed: 8
-    max_power: 13200
+    max_power: 10000
     pv1_name: Inv1.S1
     pv2_name: Inv2.S1
-    pv3_name: Inv1.S2
-    pv4_name: Inv2.S2
     display_mode: 2
     auto_scale: true
   load:
@@ -569,7 +568,7 @@ Notes to self: Need to update to refelct using 2 x battery and combined sensors 
     show_absolute_aux: false
     aux_name: Generator
     aux_type: gen
-    aux_colour: green
+    aux_colour: lime
     aux_off_colour: brown
     aux_loads: 2
     aux_load1_name: IT - Servers
@@ -593,8 +592,8 @@ Notes to self: Need to update to refelct using 2 x battery and combined sensors 
     dynamic_colour: true
   grid:
     grid_name: Your-Grid-Name
-    colour: red
-    export_colour: '#5490c2'
+    colour: '#FF2400'
+    export_colour: lime
     show_daily_buy: true
     show_daily_sell: true
     no_grid_colour: '#a40013'
@@ -681,7 +680,7 @@ Notes to self: Need to update to refelct using 2 x battery and combined sensors 
 
 
 ***************************************************************************************************
-Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings (2 per inverter)
+Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings (20kW)
 ***************************************************************************************************
 
 .. code-block:: yaml
@@ -710,7 +709,7 @@ Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
     energy: 14850
     shutdown_soc: 15
     invert_power: true
-    colour: pink
+    colour: '#FF6984'
     show_daily: true
     animation_speed: 5
     max_power: 5000
@@ -721,11 +720,11 @@ Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
     dynamic_colour: true
     linear_gradient: true
   solar:
-    colour: '#5fb6ad'
+    colour: '#F7BC00'
     show_daily: true
     mppts: 4
     animation_speed: 8
-    max_power: 13200
+    max_power: 20000
     pv1_name: Inv1.S1
     pv2_name: Inv2.S1
     pv3_name: Inv1.S2
@@ -741,7 +740,7 @@ Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
     show_absolute_aux: false
     aux_name: Generator
     aux_type: gen
-    aux_colour: green
+    aux_colour: lime
     aux_off_colour: brown
     aux_loads: 2
     aux_load1_name: IT - Servers
@@ -765,8 +764,8 @@ Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
     dynamic_colour: true
   grid:
     grid_name: Your-Grid-Name
-    colour: red
-    export_colour: '#5490c2'
+    colour: '#FF2400'
+    export_colour: lime
     show_daily_buy: true
     show_daily_sell: true
     no_grid_colour: '#a40013'
