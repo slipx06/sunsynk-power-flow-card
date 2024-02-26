@@ -15,27 +15,22 @@ The main site for the SunSynk card is located at: [wiki](https://github.com/slip
 Refer to [https://slipx06.github.io/sunsynk-power-flow-card/index.html](https://slipx06.github.io/sunsynk-power-flow-card/index.html)
 
 
-## Screenshots - To be Updated for Huawei
+## Screenshots
 *Compact Version*
 
-![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/b1e437a8-d1f7-4d6a-a549-1cc908950002)
-![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/49c499c5-9d2b-43e7-8f5d-5b9da5e07fb9)
+![Huawei_Charge](https://github.com/Roving-Ronin/sunsynk-power-flow-card/assets/108674933/1e4f3b07-472f-4102-9b18-fc6bdf4e42f7)
 
 
+*Lite Version*
 
-
-*Lite Version* - To be Updated for Huawei
-
-![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/d25c621c-2607-445f-b3a3-865930387a05)
-![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/5a9078ee-7375-4f1c-affa-6fe291d62f8a)
-![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/73d6fae3-3e6b-4891-acc2-deb29156cd2d)
-![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/54ae290d-aa5c-428e-8a00-2a75e11c2de8)
+![Huawei_Charge](https://github.com/Roving-Ronin/sunsynk-power-flow-card/assets/108674933/f2aa6a73-e562-44ea-ae43-c2b76adf2b66)
 
 
 *Full Version* - To be Updated for Huawei
 
-![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/99e0e0ad-3481-48d3-8bb4-b2f801278bf0)
-![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/02936920-5551-4ddb-9c35-c314defe7ca9)
+![Huawei_Charge](https://github.com/Roving-Ronin/sunsynk-power-flow-card/assets/108674933/866b2646-cbb3-4145-94fd-0ebaa45cf85b)
+![Huawei_Float](https://github.com/Roving-Ronin/sunsynk-power-flow-card/assets/108674933/2b9b4e97-64d3-41ff-a5a5-235e4d1197be)
+
 
 
 
