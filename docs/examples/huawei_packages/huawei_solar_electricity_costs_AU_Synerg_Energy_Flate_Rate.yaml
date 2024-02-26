@@ -9,13 +9,17 @@ template:
 #  Grid Import 24x7   : $0.30812 p/kWh.
 #  Grid Export (FIT)  : $0.07 p/kWh.
 #
+# This sensor says if the power_meter_active_power is <=0 (Importing from Grid) then the sensor reports the RATE1 price
+# Alternatively if the power_meter_active_power >0 (Exporting to Grid) then the sensor reports the RATE2 price, that is set to ZERO.
+# This allows the electricity_price sensor to then be used as a source to calculate things like 'How much did the HVAC cost' that reflects
+# the HVAC using power that can change between paid for grid power, and free power from your solar plant.
 #
     - name: "Electricity - Price" 
       unique_id: electricity_price
       unit_of_measurement: "$/kWh"
       device_class: monetary
       state: >
-        {## Enter compensation per kWh rates below ##}
+        {## Enter cost per kWh rates below. Rate 1 ##}
         {% set rate1 = 0.30812 %}
         {% set rate2 = 0.0 %}
         {% set power_meter_active_power = states('sensor.power_meter_active_power') | float %}
