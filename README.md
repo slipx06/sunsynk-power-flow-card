@@ -1,34 +1,21 @@
-# Sunsynk-Power-Flow-Card
+# Fork of Sunsynk-Power-Flow-Card for users of Huawei and iStore (Australia)
 
-An animated Home Assistant card to emulate the power flow that's shown on the Sunsynk Inverter screen. You can use this for most Inverters (Sunsynk, Deye, Solis, Lux, FoxESS and Goodwe) as long as you have the required sensor data. See the [wiki](https://github.com/slipx06/sunsynk-power-flow-card/wiki) for integration methods and examples.
+## Purpose
+Providing support for Huawei iStore (Australia) inverter and battery users (using WLCRS Integration for HA) using the Sunsynk Power Flow Card.
+Any issues re the example derived sensor files, and electricity cost yaml files can be raised upon this repository, where updates shall be made prior to their them being merged into the main Sunsynk site. 
 
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=slipx06&repository=sunsynk-power-flow-card&category=plugin)
- ![GitHub release (latest by date)](https://img.shields.io/github/v/release/slipx06/sunsynk-power-flow-card?style=for-the-badge) <a href="https://www.buymeacoffee.com/slipx" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="28" width="120"></a>
+As such all [examples files](https://github.com/Roving-Ronin/sunsynk-power-flow-card/tree/master/docs/examples/huawei_packages) to be used for Huawei / iStore with Sunsynk, at this are to be considered pre-release (beta) versions, whilst the ones on the Sunsynk site are release versions.
+
+
+The main site for the SunSynk card is located at: [wiki](https://github.com/slipx06/sunsynk-power-flow-card/wiki) for other integration methods and (release) examples.
+
 
 ## Documentation
 
 Refer to [https://slipx06.github.io/sunsynk-power-flow-card/index.html](https://slipx06.github.io/sunsynk-power-flow-card/index.html)
 
-## Features
 
-* Option to switch between three card styles: `compact`, `lite` or `full`.
-* Animated power flow based on positive/negative/zero sensor values with configurable dynamic speed. (Supports inverted battery, AUX and grid power).
-* Dynamic battery image based on SOC.
-* Grid connected status.
-* Configurable battery size and shutdown SOC to calculate and display remaining battery runtime based on current battery usage and system time slot setting i.e. SOC, Grid Charge. Can be toggled off.
-* Daily Totals that can be toggled on or off.
-* Hide all solar data if not installed or specify number of mppts in use. Set custom MPPT labels.
-* "Use Timer" setting and "Energy Pattern" setting (Priority Load or Priority Battery) shown as dynamic icons, with the ability to hide if not required. If setup as switches can be toggled by clicking on the card.
-* Panel mode for bigger card.
-* AUX and Non-essential can be hidden from the full card or assigned configurable labels.
-* Customisable - Change colours and images.
-* Most entities can be clicked to show more-info dialog.
-* Optional data points include self sufficiency and ratio percentages, battery temperature, AC and DC temperature.
-* Display additional non-essential, essential and AUX loads.
-* Display energy cost per kWh and solar sell status.
-* Select your inverter model for custom inverter status and battery status messages i.e. Sunsynk, Lux, Goodwe, Solis.
-
-## Screenshots
+## Screenshots - To be Updated for Huawei
 *Compact Version*
 
 ![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/b1e437a8-d1f7-4d6a-a549-1cc908950002)
@@ -37,7 +24,7 @@ Refer to [https://slipx06.github.io/sunsynk-power-flow-card/index.html](https://
 
 
 
-*Lite Version*
+*Lite Version* - To be Updated for Huawei
 
 ![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/d25c621c-2607-445f-b3a3-865930387a05)
 ![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/5a9078ee-7375-4f1c-affa-6fe291d62f8a)
@@ -45,7 +32,7 @@ Refer to [https://slipx06.github.io/sunsynk-power-flow-card/index.html](https://
 ![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/54ae290d-aa5c-428e-8a00-2a75e11c2de8)
 
 
-*Full Version*
+*Full Version* - To be Updated for Huawei
 
 ![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/99e0e0ad-3481-48d3-8bb4-b2f801278bf0)
 ![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/02936920-5551-4ddb-9c35-c314defe7ca9)
@@ -65,13 +52,3 @@ The card can be installed via HACS (recommended) or manually.
 2. Search & Install sunsynk-power-flow-card or click the button below.
 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=slipx06&repository=sunsynk-power-flow-card&category=plugin)
-
-### Manual Installation
-
-1. Create a new directory under `www` and name it `sunsynk-power-flow-card` e.g `www/sunsynk-power-flow-card/`.
-2. Copy the `sunsynk-power-flow-card.js` into the directory.
-3. Add the resource to your Dashboard. You can append the filename with a `?ver=x` and increment x each time you download a new version to force a reload and avoid using a cached version. It is also a good idea to clear your browser cache.
-
-![image](https://user-images.githubusercontent.com/7227275/235441241-93ab0c7d-341d-428f-8ca8-60ec932dde2d.png)
-
-
