@@ -1,4 +1,4 @@
-# Based upon Australian Energy Retails 'Red Energy' and their Time of Use Tariff Plan.
+# Based upon Australian energy retailer 'Red Energy' and their Time of Use Tariff Plan.
 # v1.0 - Updated 1 July 2023 for new Red Energy Rates
 # v1.1 - Updated 1 October 2023 for new Red Energy Rates
 # v2.0 - Updated 4 January 2024 to replace static FIT rate with a sensor that allows for use with variable FIT providers
