@@ -26,7 +26,7 @@ Refer to [https://slipx06.github.io/sunsynk-power-flow-card/index.html](https://
 ![Huawei_Charge](https://github.com/Roving-Ronin/sunsynk-power-flow-card/assets/108674933/f2aa6a73-e562-44ea-ae43-c2b76adf2b66)
 
 
-*Full Version* - To be Updated for Huawei
+*Full Version*
 
 ![Huawei_Charge](https://github.com/Roving-Ronin/sunsynk-power-flow-card/assets/108674933/866b2646-cbb3-4145-94fd-0ebaa45cf85b)
 ![Huawei_Float](https://github.com/Roving-Ronin/sunsynk-power-flow-card/assets/108674933/2b9b4e97-64d3-41ff-a5a5-235e4d1197be)
