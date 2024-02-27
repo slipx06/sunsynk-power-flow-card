@@ -14,15 +14,11 @@ Whilst it would be simplest to create the additional 'sensor groups' using yaml 
 
 ..  csv-table:: Manually Created Sensor Groups
     :header: "Group Name", "Entity ID", "Unit of Measurement"," "Purpose
-    :widths: 50, 40, 5, 20
+    :widths: 30, 40, 5, 45
 
     "Sunsynk Card - AUX - Energy Daily", "sunsynk_card_aux_energy_daily", "kWh", "Required for the day_aux_energy entity, that shows the AUX Daily kWh consumed. Group should be populated with the daily energy sensors of all the devices monitored in AUX1 and AUX2"
     "Sunsynk Card - AUX - Active Power", "sunsynk_card_aux_active_power", "W", "Required for the aux_power_166 entity, that shows the total Active Power for AUX1 and AUX2. Group should be populated with the Active Power sensors of all the devices monitored in AUX1 and AUX2"
     "Sunsynk Card - Non Essential - Active Power", "sunsynk_card_non_essential_active_power", "W", "Required for the essential_power entity, that shows the tota Active Power for Non-Essential. Group should be populated with the Active Power sensors of all the non-essntial devices monitored, such as HVAC, EV Charger or Hot Power Pumps."
-
-
-
-The above sensor files also contain sensor groups, for the Non-Essential and AUX devices sections of the Sunsynk card. You will need to update these groups to contain the sensors for items that you want to monitor with these groups. i.e. in AUX if you have a standby generator this can be placed into the 'Sunsynk Card - AUX - Active Power' group or alternatively critical devices that consume a large amount of your daily energy that you want to monitor, currently they are populated with IT Servers and IT Network device groups. The same is also required for the 'Sunsynk Card - Non Essential - Active Power' group, that by default contains example sensors for the high energy consuming but non essential 'HVAC' and 'EV Charger' devices. Both these AUX and Non-Essential groups are used to provide the combined Active Power (watts) readings for these groups in the card, whilst also being used to the deduct their loads from the Active Power (watts) sensor that reflects the House load. The Energy Meter in the 'electricity_costs' files also leverages these sensors to track the daily kWh usage for these groups, that is then used within the card also.
 
 With these sensors active, you can then following the installation instructions for the Sunsynk card, however when you add the card to Home Assistant, change to the 'Show Code Editor' view and paste the example code below (that most closely matches your Huawei/iStore setup) into the editor, replacing all the default code shown. Finally, validate the example code copied from below, updating to suite your setup.
 
