@@ -27,20 +27,20 @@ template:
   # Sensor to show the Active Power for all the GPO's in the house, less the Network Rack and Fan, Servers and Study UPS sensors (or other sensors you've factored in already).
   # Used card entry: essential_load2
   - sensor:
-    - name: "All GPO - Active Power Less Known Devices"
-      unique_id: all_gpo_active_power_less_known_devices
+    - name: "GPO ALL - Active Power Less Known"
+      unique_id: gpo_all_active_power_less_known
       unit_of_measurement: "W"
       device_class: "power"
       state_class: measurement
       state: >-
-        {% set gpo_total_active_power = states('sensor.all_gpo_active_power')|float(0) %}
+        {% set gpo_total_active_power = states('sensor.gpo_total')|float(0) %}
         {% set all_it_active_power = states('sensor.it_hardware_active_power')|float(0) %}
-        {% set whitegoods = states('sensor.dryer_energy_power')|float(0) %}
+        {% set whitegoods = states('sensor.gpo_clothes_dryer_power')|float(0) %}
         {{ (gpo_total_active_power - ( all_it_active_power + whitegoods ))|float(0)|round(0) }}
       availability: >-
-        {{ (states('sensor.all_gpo_active_power')|is_number)
+        {{ (states('sensor.gpo_total')|is_number)
             and (states('sensor.it_hardware_active_power')|is_number) 
-              and (states('sensor.dryer_energy_power')|is_number) }}
+              and (states('sensor.gpo_clothes_dryer_power')|is_number) }}
 
 
 ################################
