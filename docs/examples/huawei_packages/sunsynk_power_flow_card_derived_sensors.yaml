@@ -89,8 +89,8 @@ energy_meter:
 #    name: HVAC Energy Imported - Yearly
 #    source: sensor.hvac_energy
 #    source_type: from_grid
- #   cycle: yearly
- #   price_entity: *electricity-price
+#    cycle: yearly
+#    price_entity: *electricity-price
 
 
 ########### Start: Helpers - Riemann Sum to conver Power (W) to Energy (kWh) ###########
