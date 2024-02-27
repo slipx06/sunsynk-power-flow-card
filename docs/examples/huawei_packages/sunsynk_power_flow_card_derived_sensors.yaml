@@ -34,14 +34,13 @@ template:
       device_class: "power"
       state_class: measurement
       state: >-
-        {% set house_consumption_active_power = states('sensor.house_consumption_power')|float(0) %}
-        {% set aux_active_power = states('sensor.sunsynk_power_flow_aux_devices_active_power')|float(0) %}
-        {% set non_essential_active_power = states('sensor.sunsynk_power_flow_non_essential_active_power')|float(0) %}
-        {{ (house_consumption_active_power - ( aux_active_power + non_essential_active_power))|float(0)|round(0) }}
+        {{ (states('sensor.house_consumption_power')|float -
+            states('sensor.sunsynk_power_flow_aux_devices_active_power')|float -
+            states('sensor.sunsynk_power_flow_non_essential_active_power')|float) }}
       availability: >-
         {{ (states('sensor.house_consumption_power')|is_number)
-            and (states('sensor.sunsynk_power_flow_aux_devices_active_power')|is_number) 
-              and (states('sensor.sunsynk_power_flow_non_essential_active_power')|is_number) }}
+              and (states('sensor.sunsynk_power_flow_aux_devices_active_power')|is_number) 
+                and (states('sensor.sunsynk_power_flow_non_essential_active_power')|is_number) }}
 
 
 ################################
