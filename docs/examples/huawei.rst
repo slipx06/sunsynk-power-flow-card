@@ -156,8 +156,8 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings 
     battery_temp_182: sensor.batteries_temperature
     battery_status: sensor.batteries_status
     essential_power: sensor.house_consumption_power_less_known
-    essential_load1: sensor.all_lights_active_power
-    essential_load2: sensor.all_gpo_active_power_less_known
+    essential_load1: sensor.lights_all_active_power
+    essential_load2: sensor.gpo_all_active_power_less_known
     essential_load1_extra: null
     essential_load2_extra: null
     nonessential_power: sensor.sunsynk_power_flow_non_essential_active_power
@@ -321,7 +321,7 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
     battery_temp_182: sensor.batteries_temperature
     battery_status: sensor.batteries_status
     essential_power: sensor.house_consumption_power_less_aux_non_essential
-    essential_load1: sensor.all_lights_active_power
+    essential_load1: sensor.lights_all_active_power
     essential_load2: sensor.gpo_all_active_power_less_known
     essential_load1_extra: null
     essential_load2_extra: null
@@ -486,8 +486,8 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings 
     battery_temp_182: sensor.batteries_temperature
     battery_status: sensor.batteries_status
     essential_power: sensor.house_consumption_power_less_aux_non_essential
-    essential_load1: sensor.all_lights_active_power
-    essential_load2: sensor.all_gpo_active_power_less_known
+    essential_load1: sensor.lights_all_active_power
+    essential_load2: sensor.gpo_all_active_power_less_known
     essential_load1_extra: null
     essential_load2_extra: null
     load_power_L1: sensor.shelly3em_phase_a_gpo_power
@@ -657,8 +657,8 @@ Example 4 - 1 x M1 3phase inverters with 2 x 15kWh LUNA ESS batteries - 2 PV str
     battery_temp_182: sensor.batteries_temperature
     battery_status: sensor.batteries_status
     essential_power: sensor.house_consumption_power_less_aux_non_essential
-    essential_load1: sensor.all_lights_active_power
-    essential_load2: sensor.all_gpo_active_power_less_known
+    essential_load1: sensor.lights_all_active_power
+    essential_load2: sensor.gpo_all_active_power_less_known
     essential_load1_extra: null
     essential_load2_extra: null
     load_power_L1: sensor.shelly3em_phase_a_gpo_power
@@ -713,7 +713,7 @@ Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
     three_phase: true
   battery:
     energy: 14850
-    shutdown_soc: 15
+    shutdown_soc: sensor.battery_end_of_discharge_soc
     invert_power: true
     colour: '#FF6984'
     show_daily: true
@@ -834,8 +834,8 @@ Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
     battery_temp_182: sensor.batteries_temperature
     battery_status: sensor.batteries_status
     essential_power: sensor.house_consumption_power_less_aux_non_essential
-    essential_load1: sensor.all_lights_active_power
-    essential_load2: sensor.all_gpo_active_power_less_known
+    essential_load1: sensor.lights_all_active_power
+    essential_load2: sensor.gpo_all_active_power_less_known
     essential_load1_extra: null
     essential_load2_extra: null
     load_power_L1: sensor.shelly3em_phase_a_gpo_power
