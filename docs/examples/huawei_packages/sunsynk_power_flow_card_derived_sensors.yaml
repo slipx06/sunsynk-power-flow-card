@@ -16,11 +16,11 @@ template:
       state_class: measurement
       state: >-
         {{ (states('sensor.house_consumption_power')|float -
-            states('sensor.sunsynk_power_flow_aux_devices_active_power')|float -
+            states('sensor.sunsynk_power_flow_aux_active_power')|float -
             states('sensor.sunsynk_power_flow_non_essential_active_power')|float) | round(2) }}
       availability: >-
         {{ (states('sensor.house_consumption_power')|is_number)
-              and (states('sensor.sunsynk_power_flow_aux_devices_active_power')|is_number) 
+              and (states('sensor.sunsynk_power_flow_aux_active_power')|is_number) 
                 and (states('sensor.sunsynk_power_flow_non_essential_active_power')|is_number) | round(2) }}
 
                 
