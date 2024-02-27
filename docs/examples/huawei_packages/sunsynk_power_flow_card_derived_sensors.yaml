@@ -43,6 +43,17 @@ template:
               and (states('sensor.gpo_clothes_dryer_power')|is_number) }}
 
 
+  # Queries the group sensor.sunsynk_power_flow_aux_active_power and if the ouput of that sensor is >0 (showing power being used) 
+  # then outputs 'on', else 'off'
+  # Used card entry: aux_connected_status
+  - binary_sensor:
+    - name: "Sunsynk Power Flow - AUX - Connected Status"
+      unique_id: sunsynk_power_flow_aux_connected_status
+      device_class: power
+      state: >-
+        {{ 'on' if states('sensor.sunsynk_power_flow_aux_active_power') | float(default=0) > 0 else 'off' }}
+        
+
 ################################
 
 energy_meter:
