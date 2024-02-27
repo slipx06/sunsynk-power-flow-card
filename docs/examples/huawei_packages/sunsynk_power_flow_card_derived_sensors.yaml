@@ -68,29 +68,29 @@ energy_meter:
 
   # Optional: Used to create and energy_meter with total kWh and cost sensor, to track big energy users. 
   #           Alternatives or additional could be to use for items such as EV Charger. 
-  hvac_energy_imported_daily:
-    unique_id: hvac_energy_imported_daily
-    name: HVAC Energy Imported - Daily
-    source: sensor.hvac_energy
-    source_type: from_grid
-    cycle: daily
-    price_entity: &electricity-price sensor.electricity_price
+#  hvac_energy_imported_daily:
+#    unique_id: hvac_energy_imported_daily
+#    name: HVAC Energy Imported - Daily
+#    source: sensor.hvac_energy
+#    source_type: from_grid
+#    cycle: daily
+#    price_entity: &electricity-price sensor.electricity_price
 
-  hvac_energy_imported_monthly:
-    unique_id: hvac_energy_imported_monthly
-    name: HVAC Energy Imported - Monthly
-    source: sensor.hvac_energy
-    source_type: from_grid
-    cycle: monthly
-    price_entity: *electricity-price
+#  hvac_energy_imported_monthly:
+#    unique_id: hvac_energy_imported_monthly
+#    name: HVAC Energy Imported - Monthly
+#    source: sensor.hvac_energy
+#    source_type: from_grid
+#    cycle: monthly
+#    price_entity: *electricity-price
 
-  hvac_energy_imported_yearly:
-    unique_id: hvac_energy_imported_yearly
-    name: HVAC Energy Imported - Yearly
-    source: sensor.hvac_energy
-    source_type: from_grid
-    cycle: yearly
-    price_entity: *electricity-price
+#  hvac_energy_imported_yearly:
+#    unique_id: hvac_energy_imported_yearly
+#    name: HVAC Energy Imported - Yearly
+#    source: sensor.hvac_energy
+#    source_type: from_grid
+ #   cycle: yearly
+ #   price_entity: *electricity-price
 
 
 ########### Start: Helpers - Riemann Sum to conver Power (W) to Energy (kWh) ###########
