@@ -6,7 +6,8 @@ template:
 #   Derived sensors that are used upon the card
 #
 
-  # Sensor to show the House Active Power Consumption less the sunsynk_power_flow  aux_active_power and non_essential_active_power sensors.
+  # Sensor to show the House Active Power Consumption less the sunsynk_card_aux_active_power and non_essential_active_power sensors.
+  # Max 0 has been added, as delays in other sensors updating can mean this sensor suddenly returns a negative output for a short time.
   # Used by card entry: essential_power
   - sensor:
     - name: "House Consumption - Power - Less AUX Non-Essential"
@@ -15,13 +16,13 @@ template:
       device_class: "power"
       state_class: measurement
       state: >-
-        {{ (states('sensor.house_consumption_power')|float -
-            states('sensor.sunsynk_power_flow_aux_active_power')|float -
-            states('sensor.sunsynk_power_flow_non_essential_active_power')|float) | round(2) }}
+        {{ max(0, (states('sensor.house_consumption_power')|float -
+            states('sensor.sunsynk_card_aux_active_power')|float -
+            states('sensor.sunsynk_card_non_essential_active_power')|float) | round(2)) }}
       availability: >-
         {{ (states('sensor.house_consumption_power')|is_number)
-              and (states('sensor.sunsynk_power_flow_aux_active_power')|is_number) 
-                and (states('sensor.sunsynk_power_flow_non_essential_active_power')|is_number) | round(2) }}
+              and (states('sensor.sunsynk_card_aux_active_power')|is_number) 
+                and (states('sensor.sunsynk_card_non_essential_active_power')|is_number) }}
 
                 
   # Sensor to show the Active Power for all the GPO's in the house, less the Network Rack and Fan, Servers and Study UPS sensors (or other sensors you've factored in already).
@@ -43,15 +44,15 @@ template:
               and (states('sensor.gpo_clothes_dryer_power')|is_number) }}
 
 
-  # Queries the group sensor.sunsynk_power_flow_aux_active_power and if the ouput of that sensor is >0 (showing power being used) 
+  # Queries the group sensor.sunsynk_card_aux_active_power and if the ouput of that sensor is >0 (showing power being used) 
   # then outputs 'on', else 'off'
   # Used card entry: aux_connected_status
   - binary_sensor:
-    - name: "Sunsynk Power Flow - AUX - Connected Status"
-      unique_id: sunsynk_power_flow_aux_connected_status
+    - name: "Sunsynk Card - AUX - Connected Status"
+      unique_id: sunsynk_card_aux_connected_status
       device_class: power
       state: >-
-        {{ 'on' if states('sensor.sunsynk_power_flow_aux_active_power') | float(default=0) > 0 else 'off' }}
+        {{ 'on' if states('sensor.sunsynk_card_aux_active_power') | float(default=0) > 0 else 'off' }}
         
 
 ################################
