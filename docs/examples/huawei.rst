@@ -695,7 +695,6 @@ Example 4 - 1 x M1 3phase inverters with 2 x 15kWh LUNA ESS batteries - 2 PV str
     grid_voltage: sensor.power_meter_voltage
 
 
-
 ***************************************************************************************************
 Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings (20kW)
 ***************************************************************************************************
@@ -870,3 +869,5 @@ entities:
   aux_load1_extra: sensor.env_network_rack_bme280_temperature
   aux_load2_extra: sensor.garage_controller_bme280_temperature
   grid_voltage: sensor.power_meter_voltage
+
+***************************************************************************************************
