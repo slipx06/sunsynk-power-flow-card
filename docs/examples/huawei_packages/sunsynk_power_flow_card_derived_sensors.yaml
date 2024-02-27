@@ -6,26 +6,8 @@ template:
 #   Derived sensors that are used upon the card
 #
 
-  # Sensor to show the Active Power for all the GPO's in the house, less the Network Rack and Fan, Servers and Study UPS sensors (or other sensors you've factored in already).
-  # Used card entry: essential_load2
-  - sensor:
-    - name: "All GPO - Active Power Less Known Devices"
-      unique_id: all_gpo_active_power_less_known_devices
-      unit_of_measurement: "W"
-      device_class: "power"
-      state_class: measurement
-      state: >-
-        {% set gpo_total_active_power = states('sensor.all_gpo_active_power')|float(0) %}
-        {% set all_it_active_power = states('sensor.it_hardware_active_power')|float(0) %}
-        {% set whitegoods = states('sensor.dryer_energy_power')|float(0) %}
-        {{ (gpo_total_active_power - ( all_it_active_power + whitegoods ))|float(0)|round(0) }}
-      availability: >-
-        {{ (states('sensor.all_gpo_active_power')|is_number)
-            and (states('sensor.it_hardware_active_power')|is_number) 
-              and (states('sensor.dryer_energy_power')|is_number) }}
-
-
-  # Sensor to show the House Active Power Consumption less the sunsynk_power_flow  aux_active_power and non_essential_active_power sensors.
+  # Sensor to show the House Active Power Consumption less the sunsynk_card_aux_active_power and non_essential_active_power sensors.
+  # Max 0 has been added, as delays in other sensors updating can mean this sensor suddenly returns a negative output for a short time.
   # Used by card entry: essential_power
   - sensor:
     - name: "House Consumption - Power - Less AUX Non-Essential"
@@ -34,15 +16,44 @@ template:
       device_class: "power"
       state_class: measurement
       state: >-
-        {% set house_consumption_active_power = states('sensor.house_consumption_power')|float(0) %}
-        {% set aux_active_power = states('sensor.sunsynk_power_flow_aux_devices_active_power')|float(0) %}
-        {% set non_essential_active_power = states('sensor.sunsynk_power_flow_non_essential_active_power')|float(0) %}
-        {{ (house_consumption_active_power - ( aux_active_power + non_essential_active_power))|float(0)|round(0) }}
+        {{ max(0, (states('sensor.house_consumption_power')|float -
+            states('sensor.sunsynk_card_aux_active_power')|float -
+            states('sensor.sunsynk_card_non_essential_active_power')|float) | round(2)) }}
       availability: >-
         {{ (states('sensor.house_consumption_power')|is_number)
-            and (states('sensor.sunsynk_power_flow_aux_devices_active_power')|is_number) 
-              and (states('sensor.sunsynk_power_flow_non_essential_active_power')|is_number) }}
+              and (states('sensor.sunsynk_card_aux_active_power')|is_number) 
+                and (states('sensor.sunsynk_card_non_essential_active_power')|is_number) }}
 
+                
+  # Sensor to show the Active Power for all the GPO's in the house, less the Network Rack and Fan, Servers and Study UPS sensors (or other sensors you've factored in already).
+  # Used card entry: essential_load2
+  - sensor:
+    - name: "GPO ALL - Active Power Less Known"
+      unique_id: gpo_all_active_power_less_known
+      unit_of_measurement: "W"
+      device_class: "power"
+      state_class: measurement
+      state: >-
+        {% set gpo_total_active_power = states('sensor.gpo_total')|float(0) %}
+        {% set all_it_active_power = states('sensor.it_hardware_active_power')|float(0) %}
+        {% set whitegoods = states('sensor.gpo_clothes_dryer_power')|float(0) %}
+        {{ (gpo_total_active_power - ( all_it_active_power + whitegoods ))|float(0)|round(0) }}
+      availability: >-
+        {{ (states('sensor.gpo_total')|is_number)
+            and (states('sensor.it_hardware_active_power')|is_number) 
+              and (states('sensor.gpo_clothes_dryer_power')|is_number) }}
+
+
+  # Queries the group sensor.sunsynk_card_aux_active_power and if the ouput of that sensor is >0 (showing power being used) 
+  # then outputs 'on', else 'off'
+  # Used card entry: aux_connected_status
+  - binary_sensor:
+    - name: "Sunsynk Card - AUX - Connected Status"
+      unique_id: sunsynk_card_aux_connected_status
+      device_class: power
+      state: >-
+        {{ 'on' if states('sensor.sunsynk_card_aux_active_power') | float(default=0) > 0 else 'off' }}
+        
 
 ################################
 
@@ -57,29 +68,29 @@ energy_meter:
 
   # Optional: Used to create and energy_meter with total kWh and cost sensor, to track big energy users. 
   #           Alternatives or additional could be to use for items such as EV Charger. 
-  hvac_energy_imported_daily:
-    unique_id: hvac_energy_imported_daily
-    name: HVAC Energy Imported - Daily
-    source: sensor.hvac_energy
-    source_type: from_grid
-    cycle: daily
-    price_entity: &electricity-price sensor.electricity_price
+#  hvac_energy_imported_daily:
+#    unique_id: hvac_energy_imported_daily
+#    name: HVAC Energy Imported - Daily
+#    source: sensor.hvac_energy
+#    source_type: from_grid
+#    cycle: daily
+#    price_entity: &electricity-price sensor.electricity_price
 
-  hvac_energy_imported_monthly:
-    unique_id: hvac_energy_imported_monthly
-    name: HVAC Energy Imported - Monthly
-    source: sensor.hvac_energy
-    source_type: from_grid
-    cycle: monthly
-    price_entity: *electricity-price
+#  hvac_energy_imported_monthly:
+#    unique_id: hvac_energy_imported_monthly
+#    name: HVAC Energy Imported - Monthly
+#    source: sensor.hvac_energy
+#    source_type: from_grid
+#    cycle: monthly
+#    price_entity: *electricity-price
 
-  hvac_energy_imported_yearly:
-    unique_id: hvac_energy_imported_yearly
-    name: HVAC Energy Imported - Yearly
-    source: sensor.hvac_energy
-    source_type: from_grid
-    cycle: yearly
-    price_entity: *electricity-price
+#  hvac_energy_imported_yearly:
+#    unique_id: hvac_energy_imported_yearly
+#    name: HVAC Energy Imported - Yearly
+#    source: sensor.hvac_energy
+#    source_type: from_grid
+#    cycle: yearly
+#    price_entity: *electricity-price
 
 
 ########### Start: Helpers - Riemann Sum to conver Power (W) to Energy (kWh) ###########
