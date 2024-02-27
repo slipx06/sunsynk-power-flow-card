@@ -6,6 +6,24 @@ template:
 #   Derived sensors that are used upon the card
 #
 
+  # Sensor to show the House Active Power Consumption less the sunsynk_power_flow  aux_active_power and non_essential_active_power sensors.
+  # Used by card entry: essential_power
+  - sensor:
+    - name: "House Consumption - Power - Less AUX Non-Essential"
+      unique_id: house_consumption_power_less_aux_non_essential
+      unit_of_measurement: "W"
+      device_class: "power"
+      state_class: measurement
+      state: >-
+        {{ (states('sensor.house_consumption_power')|float -
+            states('sensor.sunsynk_power_flow_aux_devices_active_power')|float -
+            states('sensor.sunsynk_power_flow_non_essential_active_power')|float) | round(2) }}
+      availability: >-
+        {{ (states('sensor.house_consumption_power')|is_number)
+              and (states('sensor.sunsynk_power_flow_aux_devices_active_power')|is_number) 
+                and (states('sensor.sunsynk_power_flow_non_essential_active_power')|is_number) | round(2) }}
+
+                
   # Sensor to show the Active Power for all the GPO's in the house, less the Network Rack and Fan, Servers and Study UPS sensors (or other sensors you've factored in already).
   # Used card entry: essential_load2
   - sensor:
@@ -23,24 +41,6 @@ template:
         {{ (states('sensor.all_gpo_active_power')|is_number)
             and (states('sensor.it_hardware_active_power')|is_number) 
               and (states('sensor.dryer_energy_power')|is_number) }}
-
-
-  # Sensor to show the House Active Power Consumption less the sunsynk_power_flow  aux_active_power and non_essential_active_power sensors.
-  # Used by card entry: essential_power
-  - sensor:
-    - name: "House Consumption - Power - Less AUX Non-Essential"
-      unique_id: house_consumption_power_less_aux_non_essential
-      unit_of_measurement: "W"
-      device_class: "power"
-      state_class: measurement
-      state: >-
-        {{ (states('sensor.house_consumption_power')|float -
-            states('sensor.sunsynk_power_flow_aux_devices_active_power')|float -
-            states('sensor.sunsynk_power_flow_non_essential_active_power')|float) }}
-      availability: >-
-        {{ (states('sensor.house_consumption_power')|is_number)
-              and (states('sensor.sunsynk_power_flow_aux_devices_active_power')|is_number) 
-                and (states('sensor.sunsynk_power_flow_non_essential_active_power')|is_number) | round(2) }}
 
 
 ################################
