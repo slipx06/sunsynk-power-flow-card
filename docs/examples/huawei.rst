@@ -114,7 +114,7 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings 
   grid:
     grid_name: Your-Grid-Name
     colour: '#FF2400'
-    export_colour: lime
+    export_colour: green
     no_grid_colour: '#a40013'
     grid_off_colour: '#e7d59f'
     show_daily_buy: true
@@ -274,7 +274,7 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
   grid:
     grid_name: Your-Grid-Name
     colour: '#FF2400'
-    export_colour: lime
+    export_colour: green
     no_grid_colour: '#a40013'
     grid_off_colour: '#e7d59f'
     show_daily_buy: true
@@ -440,7 +440,7 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings 
   grid:
     grid_name: Your-Grid-Name
     colour: '#FF2400'
-    export_colour: lime
+    export_colour: green
     no_grid_colour: '#a40013'
     grid_off_colour: '#e7d59f'
     show_daily_buy: true
@@ -609,7 +609,7 @@ Example 4 - 1 x M1 3phase inverters with 2 x 15kWh LUNA ESS batteries - 2 PV str
   grid:
     grid_name: Your-Grid-Name
     colour: '#FF2400'
-    export_colour: lime
+    export_colour: green
     no_grid_colour: '#a40013'
     grid_off_colour: '#e7d59f'
     show_daily_buy: true
@@ -781,7 +781,7 @@ Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
   grid:
     grid_name: Your-Grid-Name
     colour: '#FF2400'
-    export_colour: lime
+    export_colour: green
     no_grid_colour: '#a40013'
     grid_off_colour: '#e7d59f'
     show_daily_buy: true
