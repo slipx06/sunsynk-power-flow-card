@@ -91,6 +91,7 @@
       "show_aux": "Exibir Aux",
       "dynamic_line_width": "Largura da linha dinâmica",
       "max_line_width": "Largura máxima da linha",
+      "min_line_width": "Min Line Width",
       "solar": "Solar",
       "mppts": "MPPTs",
       "show_daily": "Exibir Diário",

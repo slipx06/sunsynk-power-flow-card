@@ -14,6 +14,7 @@ export default {
     decimal_places: 2,
     dynamic_line_width: true,
     max_line_width: 4,
+    min_line_width: 1,
     inverter: {
         modern: true,
         colour: 'grey',
