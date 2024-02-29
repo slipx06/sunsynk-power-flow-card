@@ -17,6 +17,7 @@ import {
     foxessBase64Img,
     froniusBase64Img,
     goodweBase64Img,
+    growattBase64Img,
     huaweiBase64Img,
     inverterStatusGroups,
     luxBase64Img,
@@ -473,7 +474,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         essential =
             essential_power === 'none' || !essential_power
-                ? three_phase === true 
+                ? three_phase === true && config.entities.load_power_L1 && config.entities.load_power_L2
                     ? Number(load_power_L1) + Number(load_power_L2) + Number(load_power_L3)
                     : inverter_power_round + grid_power_round - aux_power
                 : (state_essential_power.attributes?.unit_of_measurement || '').toLowerCase() === 'kw'
@@ -719,6 +720,9 @@ export class SunsynkPowerFlowCard extends LitElement {
                 case InverterModel.Fronius:
                     inverterImg = froniusBase64Img;
                     break;
+                case InverterModel.Growatt:
+                    inverterImg = growattBase64Img;
+                    break;
                 case InverterModel.SolarEdge:
                     inverterImg = solaredgeBase64Img;
                     break;
@@ -787,8 +791,6 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         //Autarky in Percent = Home Production / Home Consumption
         //Ratio in Percent = Home Consumption / Home Production
-        //let production_e = parseFloat(state_day_pv_energy.state) + parseFloat(state_day_battery_discharge.state);
-        //let consumption_e = parseFloat(state_day_load_energy.state) + parseFloat(state_day_battery_charge.state);
         let production_e =
             this.toNum(state_day_pv_energy.state) + this.toNum(state_day_battery_discharge.state);
         let consumption_e =
