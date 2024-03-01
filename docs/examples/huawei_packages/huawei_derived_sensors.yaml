@@ -686,7 +686,7 @@ template:
         {% set inverters_power = states('sensor.inverters_active_power') | float(default=0) %}
         {% set power_meter_power = states('sensor.power_meter_active_power') | float(default=0) %}
 
-        {{ inverters_power - power_meter_power }}
+        {{ max(0, (inverters_power - power_meter_power)) }}
 
       availability: >-
         {{  states('sensor.inverters_active_power') | is_number
