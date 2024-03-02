@@ -17,6 +17,7 @@ import {
     foxessBase64Img,
     froniusBase64Img,
     goodweBase64Img,
+    growattBase64Img,
     huaweiBase64Img,
     inverterStatusGroups,
     luxBase64Img,
@@ -473,7 +474,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         essential =
             essential_power === 'none' || !essential_power
-                ? three_phase === true 
+                ? three_phase === true && config.entities.load_power_L1 && config.entities.load_power_L2
                     ? Number(load_power_L1) + Number(load_power_L2) + Number(load_power_L3)
                     : inverter_power_round + grid_power_round - aux_power
                 : (state_essential_power.attributes?.unit_of_measurement || '').toLowerCase() === 'kw'
@@ -719,6 +720,9 @@ export class SunsynkPowerFlowCard extends LitElement {
                 case InverterModel.Fronius:
                     inverterImg = froniusBase64Img;
                     break;
+                case InverterModel.Growatt:
+                    inverterImg = growattBase64Img;
+                    break;
                 case InverterModel.SolarEdge:
                     inverterImg = solaredgeBase64Img;
                     break;
@@ -787,8 +791,6 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         //Autarky in Percent = Home Production / Home Consumption
         //Ratio in Percent = Home Consumption / Home Production
-        //let production_e = parseFloat(state_day_pv_energy.state) + parseFloat(state_day_battery_discharge.state);
-        //let consumption_e = parseFloat(state_day_load_energy.state) + parseFloat(state_day_battery_charge.state);
         let production_e =
             this.toNum(state_day_pv_energy.state) + this.toNum(state_day_battery_discharge.state);
         let consumption_e =
@@ -809,18 +811,20 @@ export class SunsynkPowerFlowCard extends LitElement {
         let Ratiop = production_p != 0 ? Math.min(Math.round((consumption_p * 100) / production_p), 100) : 0;
 
         let max_linewidth = (this.toNum(config.max_line_width) < 1 ? 1 : config.max_line_width) - 1;
+        let min_linewidth = this.toNum(config.min_line_width) || 1;
+
         //Calculate line width depending on power usage
-        let pv1LineWidth = !config.solar.max_power ? 1 : this.dynamicLineWidth(pv1_power_watts, (config.solar.max_power || pv1_power_watts), max_linewidth );
-        let pv2LineWidth = !config.solar.max_power ? 1 : this.dynamicLineWidth(pv2_power_watts, (config.solar.max_power || pv2_power_watts), max_linewidth);
-        let pv3LineWidth = !config.solar.max_power ? 1 : this.dynamicLineWidth(pv3_power_watts, (config.solar.max_power || pv3_power_watts), max_linewidth);
-        let pv4LineWidth = !config.solar.max_power ? 1 : this.dynamicLineWidth(pv4_power_watts, (config.solar.max_power || pv4_power_watts), max_linewidth);
-        let batLineWidth = !config.battery.max_power ? 1 : this.dynamicLineWidth(Math.abs(battery_power), (config.battery.max_power || Math.abs(battery_power)), max_linewidth);
-        let loadLineWidth = !config.load.max_power ? 1 : this.dynamicLineWidth(Math.abs(essential), (config.load.max_power || Math.abs(essential)), max_linewidth);
-        let auxLineWidth = !config.load.max_power ? 1 : this.dynamicLineWidth(Math.abs(aux_power), (config.load.max_power || Math.abs(aux_power)), max_linewidth);
-        let gridLineWidth = !config.grid.max_power ? 1 : this.dynamicLineWidth(Math.abs(total_grid_power), (config.grid.max_power || Math.abs(total_grid_power)), max_linewidth);
-        let grid169LineWidth = !config.grid.max_power ? 1 : this.dynamicLineWidth(Math.abs(grid_power_round), (config.grid.max_power || Math.abs(grid_power_round)), max_linewidth);
-        let nonessLineWidth = !config.grid.max_power ? 1 : this.dynamicLineWidth(Math.abs(nonessential), (config.grid.max_power || Math.abs(nonessential)), max_linewidth);
-        let solarLineWidth = !config.solar.max_power ? 1 : this.dynamicLineWidth(totalsolar, (config.solar.max_power || totalsolar), max_linewidth);
+        let pv1LineWidth = !config.solar.max_power ? min_linewidth : this.dynamicLineWidth(pv1_power_watts, (config.solar.max_power || pv1_power_watts), max_linewidth, min_linewidth );
+        let pv2LineWidth = !config.solar.max_power ? min_linewidth : this.dynamicLineWidth(pv2_power_watts, (config.solar.max_power || pv2_power_watts), max_linewidth, min_linewidth);
+        let pv3LineWidth = !config.solar.max_power ? min_linewidth : this.dynamicLineWidth(pv3_power_watts, (config.solar.max_power || pv3_power_watts), max_linewidth, min_linewidth);
+        let pv4LineWidth = !config.solar.max_power ? min_linewidth : this.dynamicLineWidth(pv4_power_watts, (config.solar.max_power || pv4_power_watts), max_linewidth, min_linewidth);
+        let batLineWidth = !config.battery.max_power ? min_linewidth : this.dynamicLineWidth(Math.abs(battery_power), (config.battery.max_power || Math.abs(battery_power)), max_linewidth, min_linewidth);
+        let loadLineWidth = !config.load.max_power ? min_linewidth : this.dynamicLineWidth(Math.abs(essential), (config.load.max_power || Math.abs(essential)), max_linewidth, min_linewidth);
+        let auxLineWidth = !config.load.max_power ? min_linewidth : this.dynamicLineWidth(Math.abs(aux_power), (config.load.max_power || Math.abs(aux_power)), max_linewidth, min_linewidth);
+        let gridLineWidth = !config.grid.max_power ? min_linewidth : this.dynamicLineWidth(Math.abs(total_grid_power), (config.grid.max_power || Math.abs(total_grid_power)), max_linewidth, min_linewidth);
+        let grid169LineWidth = !config.grid.max_power ? min_linewidth : this.dynamicLineWidth(Math.abs(grid_power_round), (config.grid.max_power || Math.abs(grid_power_round)), max_linewidth, min_linewidth);
+        let nonessLineWidth = !config.grid.max_power ? min_linewidth : this.dynamicLineWidth(Math.abs(nonessential), (config.grid.max_power || Math.abs(nonessential)), max_linewidth, min_linewidth);
+        let solarLineWidth = !config.solar.max_power ? min_linewidth : this.dynamicLineWidth(totalsolar, (config.solar.max_power || totalsolar), max_linewidth, min_linewidth);
 
         //Calculate power use animation speeds depending on Inverter size
         if (config && config.solar && config.solar.animation_speed) {
@@ -1447,7 +1451,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       class="${!config.show_solar ? 'st12' : ''}" fill="none"
                                       stroke="${solar_colour}" stroke-width="${pv1LineWidth}" stroke-miterlimit="10"
                                       pointer-events="stroke"/>
-                                <circle id="pv1-dot" cx="0" cy="0" r="${2 + pv1LineWidth}"
+                                <circle id="pv1-dot" cx="0" cy="0" r="${Math.min(2 + pv1LineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         class="${!config.show_solar ? 'st12' : ''}"
                                         fill="${Math.round(pv1_power_watts) <= 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['pv1']}s" repeatCount="indefinite"
@@ -1462,7 +1466,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
                                       fill="none" stroke="${solar_colour}" stroke-width="${pv2LineWidth}" stroke-miterlimit="10"
                                       pointer-events="stroke"/>
-                                <circle id="pv2-dot" cx="0" cy="0" r="${2 + pv2LineWidth}"
+                                <circle id="pv2-dot" cx="0" cy="0" r="${Math.min(2 + pv2LineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
                                         fill="${Math.round(pv2_power_watts) <= 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['pv2']}s" repeatCount="indefinite"
@@ -1477,7 +1481,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       class="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'st12' : ''}"
                                       fill="none" stroke="${solar_colour}" stroke-width="${pv3LineWidth}" stroke-miterlimit="10"
                                       pointer-events="stroke"/>
-                                <circle id="pv3-dot" cx="0" cy="0" r="${2 + pv3LineWidth}"
+                                <circle id="pv3-dot" cx="0" cy="0" r="${Math.min(2 + pv3LineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         class="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'st12' : ''}"
                                         fill="${Math.round(pv3_power_watts) <= 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['pv3']}s" repeatCount="indefinite"
@@ -1492,7 +1496,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       class="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"
                                       fill="none" stroke="${solar_colour}" stroke-width="${pv4LineWidth}" stroke-miterlimit="10"
                                       pointer-events="stroke"/>
-                                <circle id="pv4-dot" cx="0" cy="0" r="${2 + pv4LineWidth}"
+                                <circle id="pv4-dot" cx="0" cy="0" r="${Math.min(2 + pv4LineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         class="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"
                                         fill="${Math.round(pv4_power_watts) <= 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['pv4']}s" repeatCount="indefinite"
@@ -1507,7 +1511,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
                                       fill="none" stroke="${solar_colour}" stroke-width="${solarLineWidth}" stroke-miterlimit="10"
                                       pointer-events="stroke"/>
-                                <circle id="so-dot" cx="0" cy="0" r="${2 + solarLineWidth}"
+                                <circle id="so-dot" cx="0" cy="0" r="${Math.min(2 + solarLineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
                                         fill="${totalsolar === 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['solar']}s" repeatCount="indefinite"
@@ -1522,7 +1526,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       class="${!config.show_battery ? 'st12' : ''}" fill="none"
                                       stroke="${bat_colour}" stroke-width="${batLineWidth}" stroke-miterlimit="10"
                                       pointer-events="stroke"/>
-                                <circle id="power-dot-charge" cx="0" cy="0" r="${2 + batLineWidth}"
+                                <circle id="power-dot-charge" cx="0" cy="0" r="${Math.min(2 + batLineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         class="${!config.show_battery ? 'st12' : ''}"
                                         fill="${battery_power < 0 || battery_power === 0 ? 'transparent' : `${bat_colour}`}">
                                     <animateMotion dur="${this.durationCur['battery']}s" repeatCount="indefinite"
@@ -1530,7 +1534,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <mpath xlink:href="#bat-line"/>
                                     </animateMotion>
                                 </circle>
-                                <circle id="power-dot-discharge" cx="0" cy="0" r="${2 + batLineWidth}"
+                                <circle id="power-dot-discharge" cx="0" cy="0" r="${Math.min(2 + batLineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         class="${!config.show_battery ? 'st12' : ''}"
                                         fill="${battery_power > 0 || battery_power === 0 ? 'transparent' : `${bat_colour}`}">
                                     <animateMotion dur="${this.durationCur['battery']}s" repeatCount="indefinite"
@@ -1543,7 +1547,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 <path id="grid-line" d="M 304 188 L 411 188 Q 421 188 421 198 L421 265" fill="none"
                                       stroke="${grid_colour}" stroke-width="${gridLineWidth}" stroke-miterlimit="10"
                                       pointer-events="stroke" display="${!config.show_grid ? 'none' : ''}"/>
-                                <circle id="grid-dot" cx="0" cy="0" r="${2 + gridLineWidth}"
+                                <circle id="grid-dot" cx="0" cy="0" r="${Math.min(2 + gridLineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         fill="${total_grid_power < 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
                                         display="${!config.show_grid ? 'none' : ''}">
                                     <animateMotion dur="${this.durationCur['grid']}s" repeatCount="indefinite"
@@ -1552,7 +1556,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <mpath xlink:href="#grid-line"/>
                                     </animateMotion>
                                 </circle>
-                                <circle id="grid-dot" cx="0" cy="0" r="${2 + gridLineWidth}"
+                                <circle id="grid-dot" cx="0" cy="0" r="${Math.min(2 + gridLineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         fill="${total_grid_power > 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
                                         display="${!config.show_grid ? 'none' : ''}">
                                     <animateMotion dur="${this.durationCur['grid']}s" repeatCount="indefinite"
@@ -1567,7 +1571,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       d="${config.inverter.three_phase ? 'M 421 295 L 421 337' : 'M 421 295 L 421 310.5'}"
                                       fill="none" stroke="${grid_colour}" stroke-width="${gridLineWidth}" stroke-miterlimit="10"
                                       pointer-events="stroke" display="${!config.show_grid ? 'none' : ''}"/>
-                                <circle id="grid-dot" cx="0" cy="0" r="${2 + gridLineWidth}"
+                                <circle id="grid-dot" cx="0" cy="0" r="${Math.min(2 + gridLineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         fill="${total_grid_power < 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
                                         display="${!config.show_grid ? 'none' : ''}">
                                     <animateMotion dur="${this.durationCur['grid'] / 1.5}s" repeatCount="indefinite"
@@ -1575,7 +1579,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <mpath xlink:href="#grid-line1"/>
                                     </animateMotion>
                                 </circle>
-                                <circle id="grid-dot" cx="0" cy="0" r="${2 + gridLineWidth}"
+                                <circle id="grid-dot" cx="0" cy="0" r="${Math.min(2 + gridLineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         fill="${total_grid_power > 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
                                         display="${!config.show_grid ? 'none' : ''}">
                                     <animateMotion dur="${this.durationCur['grid'] / 1.5}s" repeatCount="indefinite"
@@ -1589,7 +1593,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       stroke-width="${nonessLineWidth}" stroke-miterlimit="10"
                                       display="${!config.show_grid ? 'none' : ''}"
                                       class="${!grid_show_noness ? 'st12' : ''}" pointer-events="stroke"/>
-                                <circle id="ne-dot1" cx="0" cy="0" r="${2 + nonessLineWidth}"
+                                <circle id="ne-dot1" cx="0" cy="0" r="${Math.min(2 + nonessLineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         class="${!grid_show_noness ? 'st12' : ''}"
                                         fill="${nonessential <= 0 ? 'transparent' : `${grid_colour}`}"
                                         display="${!config.show_grid ? 'none' : ''}">
@@ -1606,7 +1610,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       stroke-width="${nonessLineWidth}" stroke-miterlimit="10"
                                       display="${!config.show_grid ? 'none' : ''}"
                                       class="${!grid_show_noness ? 'st12' : ''}" pointer-events="stroke"/>
-                                <circle id="ne-dot" cx="0" cy="0" r="${2 + nonessLineWidth}"
+                                <circle id="ne-dot" cx="0" cy="0" r="${Math.min(2 + nonessLineWidth + Math.max(min_linewidth - 2, 0),5)}"
                                         class="${!grid_show_noness ? 'st12' : ''}"
                                         fill="${nonessential <= 0 ? 'transparent' : `${grid_colour}`}"
                                         display="${!config.show_grid ? 'none' : ''}">
@@ -1622,7 +1626,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 <path id="aux-line" d="M 307 47 L 371.5 47" fill="none"
                                       class="${!show_aux ? 'st12' : ''}" stroke="${aux_colour}" stroke-width="${auxLineWidth}"
                                       stroke-miterlimit="10" pointer-events="stroke"/>
-                                <circle id="aux-dot" cx="0" cy="0" r="${2 + auxLineWidth}"
+                                <circle id="aux-dot" cx="0" cy="0" r="${Math.min(2 + auxLineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         class="${!show_aux || aux_power === 0 ? 'st12' : ''}"
                                         fill="${aux_power < 0 ? 'transparent' : `${aux_colour}`}">
                                     <animateMotion dur="${this.durationCur['aux']}s" repeatCount="indefinite"
@@ -1631,7 +1635,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <mpath xlink:href="#aux-line"/>
                                     </animateMotion>
                                 </circle>
-                                <circle id="aux-dot" cx="0" cy="0" r="${2 + auxLineWidth}"
+                                <circle id="aux-dot" cx="0" cy="0" r="${Math.min(2 + auxLineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         class="${!show_aux || aux_power === 0 ? 'st12' : ''}"
                                         fill="${aux_power > 0 ? 'transparent' : `${aux_colour}`}">
                                     <animateMotion dur="${this.durationCur['aux']}s" repeatCount="indefinite"
@@ -1643,7 +1647,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </svg>
 
                             <path id="aux-line2" d="M 200 162 L 200 57 Q 200 47 210 47 L 237 47" fill="none"
-                                  class="${!show_aux ? 'st12' : ''}" stroke="${aux_colour}" stroke-width="1"
+                                  class="${!show_aux ? 'st12' : ''}" stroke="${aux_colour}" stroke-width="${auxLineWidth}"
                                   stroke-miterlimit="10" pointer-events="stroke"/>
                             <path d="M215 187 234 187" fill="none"
                                   stroke="${grid_colour}" stroke-width="${grid169LineWidth}" stroke-miterlimit="10"
@@ -1655,7 +1659,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   stroke-width="${loadLineWidth}" stroke-miterlimit="10" pointer-events="stroke"/>
 
                             <svg id="load-flow">
-                                <circle id="es-dot" cx="0" cy="0" r="${2 + loadLineWidth}"
+                                <circle id="es-dot" cx="0" cy="0" r="${Math.min(2 + loadLineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         fill="${essential === 0 ? 'transparent' : `${load_colour}`}">
                                     <animateMotion dur="${this.durationCur['load']}s" repeatCount="indefinite"
                                                    keyPoints="0;1"
@@ -3494,7 +3498,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       class="${!config.show_solar ? 'st12' : ''}" fill="none"
                                       stroke="${solar_colour}" stroke-width="${pv1LineWidth}" stroke-miterlimit="10"
                                       pointer-events="stroke"/>
-                                <circle id="pv1-dot" cx="0" cy="0" r="${2 + pv1LineWidth}"
+                                <circle id="pv1-dot" cx="0" cy="0" r="${Math.min(2 + pv1LineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         class="${!config.show_solar ? 'st12' : ''}"
                                         fill="${Math.round(pv1_power_watts) <= 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['pv1']}s" repeatCount="indefinite"
@@ -3509,7 +3513,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
                                       fill="none" stroke="${solar_colour}" stroke-width="${pv2LineWidth}" stroke-miterlimit="10"
                                       pointer-events="stroke"/>
-                                <circle id="pv2-dot" cx="0" cy="0" r="${2 + pv2LineWidth}"
+                                <circle id="pv2-dot" cx="0" cy="0" r="${Math.min(2 + pv2LineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
                                         fill="${Math.round(pv2_power_watts) <= 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['pv2']}s" repeatCount="indefinite"
@@ -3524,7 +3528,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       class="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'st12' : ''}"
                                       fill="none" stroke="${solar_colour}" stroke-width="${pv3LineWidth}" stroke-miterlimit="10"
                                       pointer-events="stroke"/>
-                                <circle id="pv3-dot" cx="0" cy="0" r="${2 + pv3LineWidth}"
+                                <circle id="pv3-dot" cx="0" cy="0" r="${Math.min(2 + pv3LineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         class="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'st12' : ''}"
                                         fill="${Math.round(pv3_power_watts) <= 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['pv3']}s" repeatCount="indefinite"
@@ -3539,7 +3543,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       class="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"
                                       fill="none" stroke="${solar_colour}" stroke-width="${pv4LineWidth}" stroke-miterlimit="10"
                                       pointer-events="stroke"/>
-                                <circle id="pv4-dot" cx="0" cy="0" r="${2 + pv4LineWidth}"
+                                <circle id="pv4-dot" cx="0" cy="0" r="${Math.min(2 + pv4LineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         class="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"
                                         fill="${Math.round(pv4_power_watts) <= 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['pv4']}s" repeatCount="indefinite"
@@ -3555,7 +3559,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       class="${!config.show_battery ? 'st12' : ''}" fill="none"
                                       stroke="${bat_colour}" stroke-width="${batLineWidth}" stroke-miterlimit="10"
                                       pointer-events="stroke"/>
-                                <circle id="power-dot-charge" cx="0" cy="0" r="${2 + batLineWidth}"
+                                <circle id="power-dot-charge" cx="0" cy="0" r="${Math.min(2 + batLineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         class="${!config.show_battery ? 'st12' : ''}"
                                         fill="${battery_power < 0 || battery_power === 0 ? 'transparent' : `${bat_colour}`}">
                                     <animateMotion dur="${this.durationCur['battery']}s" repeatCount="indefinite"
@@ -3563,7 +3567,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <mpath xlink:href="#bat-line"/>
                                     </animateMotion>
                                 </circle>
-                                <circle id="power-dot-discharge" cx="0" cy="0" r="${2 + batLineWidth}"
+                                <circle id="power-dot-discharge" cx="0" cy="0" r="${Math.min(2 + batLineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         class="${!config.show_battery ? 'st12' : ''}"
                                         fill="${battery_power > 0 || battery_power === 0 ? 'transparent' : `${bat_colour}`}">
                                     <animateMotion dur="${this.durationCur['battery']}s" repeatCount="indefinite"
@@ -3577,7 +3581,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
                                       fill="none" stroke="${solar_colour}" stroke-width="${solarLineWidth}" stroke-miterlimit="10"
                                       pointer-events="stroke"/>
-                                <circle id="so-dot" cx="0" cy="0" r="${2 + solarLineWidth}"
+                                <circle id="so-dot" cx="0" cy="0" r="${Math.min(2 + solarLineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
                                         fill="${totalsolar === 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['solar']}s" repeatCount="indefinite"
@@ -3591,7 +3595,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 <path id="grid-line" d="M 173 218 L 214 218" fill="none" stroke="${grid_colour}"
                                       stroke-width="${gridLineWidth}" stroke-miterlimit="10" pointer-events="stroke"
                                       display="${!config.show_grid ? 'none' : ''}"/>
-                                <circle id="grid-dot" cx="0" cy="0" r="${2 + gridLineWidth}"
+                                <circle id="grid-dot" cx="0" cy="0" r="${Math.min(2 + gridLineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         fill="${total_grid_power < 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
                                         display="${!config.show_grid ? 'none' : ''}">
                                     <animateMotion dur="${this.durationCur['grid']}s" repeatCount="indefinite"
@@ -3600,7 +3604,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <mpath xlink:href="#grid-line"/>
                                     </animateMotion>
                                 </circle>
-                                <circle id="grid-dot" cx="0" cy="0" r="${2 + gridLineWidth}"
+                                <circle id="grid-dot" cx="0" cy="0" r="${Math.min(2 + gridLineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         fill="${total_grid_power > 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
                                         display="${!config.show_grid ? 'none' : ''}">
                                     <animateMotion dur="${this.durationCur['grid']}s" repeatCount="indefinite"
@@ -3614,7 +3618,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                 <path id="grid-line1" d="M 103 218 L 64.5 218" fill="none" stroke="${grid_colour}"
                                       stroke-width="${gridLineWidth}" stroke-miterlimit="10" pointer-events="stroke"
                                       display="${!config.show_grid ? 'none' : ''}"/>
-                                <circle id="grid-dot1" cx="0" cy="0" r="${2 + gridLineWidth}"
+                                <circle id="grid-dot1" cx="0" cy="0" r="${Math.min(2 + gridLineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         fill="${total_grid_power < 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
                                         display="${!config.show_grid ? 'none' : ''}">
                                     <animateMotion dur="${this.durationCur['grid']}s" repeatCount="indefinite"
@@ -3623,7 +3627,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                         <mpath xlink:href="#grid-line1"/>
                                     </animateMotion>
                                 </circle>
-                                <circle id="grid-dot1" cx="0" cy="0" r="${2 + gridLineWidth}"
+                                <circle id="grid-dot1" cx="0" cy="0" r="${Math.min(2 + gridLineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         fill="${total_grid_power > 0 || total_grid_power === 0 ? 'transparent' : `${grid_colour}`}"
                                         display="${!config.show_grid ? 'none' : ''}">
                                     <animateMotion dur="${this.durationCur['grid']}s" repeatCount="indefinite"
@@ -3636,7 +3640,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <svg id="load-flow">
                                 <path id="es-line" d="M 304 218.5 L 264.7 218.5" fill="none" stroke="${load_colour}"
                                       stroke-width="${loadLineWidth}" stroke-miterlimit="10" pointer-events="stroke"/>
-                                <circle id="es-dot" cx="0" cy="0" r="${2 + loadLineWidth}"
+                                <circle id="es-dot" cx="0" cy="0" r="${Math.min(2 + loadLineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         fill="${essential === 0 ? 'transparent' : `${load_colour}`}">
                                     <animateMotion dur="${this.durationCur['load']}s" repeatCount="indefinite"
                                                    keyPoints="1;0"
@@ -3648,7 +3652,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <svg id="load-flow1">
                                 <path id="es-line1" d="M 374 218.5 L 402.38 218.5" fill="none" stroke="${load_colour}"
                                       stroke-width="${loadLineWidth}" stroke-miterlimit="10" pointer-events="stroke"/>
-                                <circle id="es-dot" cx="0" cy="0" r="${2 + loadLineWidth}"
+                                <circle id="es-dot" cx="0" cy="0" r="${Math.min(2 + loadLineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         fill="${essential === 0 ? 'transparent' : `${load_colour}`}">
                                     <animateMotion dur="${this.durationCur['load']}s" repeatCount="indefinite"
                                                    keyPoints="0;1"
@@ -4758,13 +4762,13 @@ export class SunsynkPowerFlowCard extends LitElement {
         return colour && Array.isArray(colour) ? `rgb(${colour})` : colour;
     }
 
-     dynamicLineWidth(power: number, maxpower: number, width: number) {
+     dynamicLineWidth(power: number, maxpower: number, width: number, defaultLineWidth: number = 1) {
          let lineWidth: number;  
          // Check if dynamic_line_width is disabled in the config
          if (!this._config.dynamic_line_width) {
-             lineWidth = 1;
+             lineWidth = Math.min(defaultLineWidth, 8);
          } else {     
-             lineWidth = 1 + Math.min(power / maxpower, 1) * width;
+             lineWidth = Math.min((defaultLineWidth + Math.min(power / maxpower, 1) * width), 8);
          }
     
          return lineWidth;

@@ -196,6 +196,9 @@ Full Configuration (All Options)
   show_battery: true
   show_grid: true
   decimal_places: 2
+  dynamic_line_width: true
+  min_line_width: 1
+  max_line_width: 4
   inverter:
     modern: true
     colour: grey
@@ -213,6 +216,8 @@ Full Configuration (All Options)
     show_absolute: false
     auto_scale: true
     hide_soc: false
+    dynamic_colour: true
+    linear_gradient: true
   solar:
     colour: orange
     show_daily: true

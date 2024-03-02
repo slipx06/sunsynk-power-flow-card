@@ -17,7 +17,8 @@ export enum InverterModel {
     Solax = 'solax',
     Victron = 'victron',
     Fronius = 'fronius',
-    SolarEdge = 'solaredge'
+    SolarEdge = 'solaredge',
+    Growatt = 'growatt'
 }
 
 export enum CardStyle {
@@ -45,6 +46,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
     decimal_places?: number;
     dynamic_line_width?: boolean;
     max_line_width: number;
+    min_line_width: number;
     inverter: {
         modern: boolean;
         colour: string;
