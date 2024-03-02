@@ -4,8 +4,7 @@
 
 .. note::
 
-   Please report all feedback or Issues to the Discussion (Support Sections) of: https://github.com/Roving-Ronin/sunsynk-power-flow-card
-   If anyone is able to assist with formatting this page, adding screenshots etc, please also let me know (RST newbie).
+   Please report all feedback or Issues to the Discussion (Support Sections) of: https://github.com/Roving-Ronin/sunsynk-power-flow-card.
 
 To use the Sunsynk card with Huawei Solar (or iStore in Australia) you need to copy the huawei_derived_sensors.yaml and sunsynk_card_derived_sensors.yaml files to your /homeassistant/packages directory. Upon restarting Home Assistant this will create all the required derived sensors, based upon the baseline sensors from the WLCRS integration, needed to populate the Sunsynk card. In addition to this, you will need to find an electricity_costs_xxx.yaml file that matches your electricity providers tariff plan, or is similiar and you can customise the 'Electrity - Price', 'Electricity - FIT' and 'Energy Meter' sections to reflect your rate plan costs and usage period(s), all these files are available from: https://github.com/slipx06/sunsynk-power-flow-card/tree/master/docs/examples/huawei_packages.
 
