@@ -4,7 +4,8 @@
 
 .. note::
 
-   THIS EXAMPLE IS CURRENTLY IN DRAFT MODE. Please report all feedback or issues to the Discussion (Support Sections) of: https://github.com/Roving-Ronin/sunsynk-power-flow-card/discussions
+   Please report all feedback or Issues to the Discussion (Support Sections) of: https://github.com/Roving-Ronin/sunsynk-power-flow-card
+   If anyone is able to assist with formatting this page, adding screenshots etc, please also let me know (RST newbie).
 
 To use the Sunsynk card with Huawei Solar (or iStore in Australia) you need to copy the huawei_derived_sensors.yaml and sunsynk_card_derived_sensors.yaml files to your /homeassistant/packages directory. Upon restarting Home Assistant this will create all the required derived sensors, based upon the baseline sensors from the WLCRS integration, needed to populate the Sunsynk card. In addition to this, you will need to find an electricity_costs_xxx.yaml file that matches your electricity providers tariff plan, or is similiar and you can customise the 'Electrity - Price', 'Electricity - FIT' and 'Energy Meter' sections to reflect your rate plan costs and usage period(s), all these files are available from: https://github.com/slipx06/sunsynk-power-flow-card/tree/master/docs/examples/huawei_packages.
 
@@ -12,7 +13,7 @@ To use the Sunsynk card with Huawei Solar (or iStore in Australia) you need to c
 
 Whilst it would be simplest to create the additional 'sensor groups' using yaml files, this has the disadvantage that if later on you want to add or remove devices individual sensors to/from these groups, you are unable to do so by editing them within Home Assistant GUI. Given the flexibility manually creating these sensors groups via the GUI provides, you will need to create the following groups (below) manually. This is done by going to Settings --> Devices & Services --> Helpers, clicking the 'Create Helper' button. From the choice of group types then select 'Sensor Group' and set the 'Type' to SUM. Follow the instructions below for the names to enter for the groups and the member/entities to add into each group.
 
-..  csv-table:: Manually Created Sensor Groups
+..  csv-table:: REQUIRED MANUALLY CREATED SENSOR GROUPS:
     :header: "Group Name", "Entity ID", "Unit of Measurement"," "Purpose
     :widths: 30, 40, 5, 45
 
@@ -20,8 +21,68 @@ Whilst it would be simplest to create the additional 'sensor groups' using yaml 
     "Sunsynk Card - AUX - Active Power", "sunsynk_card_aux_active_power", "W", "Required for the aux_power_166 entity, that shows the total Active Power for AUX1 and AUX2. Group should be populated with the Active Power sensors of all the devices monitored in AUX1 and AUX2"
     "Sunsynk Card - Non Essential - Active Power", "sunsynk_card_non_essential_active_power", "W", "Required for the essential_power entity, that shows the tota Active Power for Non-Essential. Group should be populated with the Active Power sensors of all the non-essntial devices monitored, such as HVAC, EV Charger or Hot Power Pumps."
 
+________________________
+
+To work with the Sunsynk card and the additional derived sensors, some sensors that are disabled by default by the WLCRS integration, must be manually enabled. Listed below the the various devices and the list of sensors for each, that are required to be enabled (at a minimum).
+
+
+..  csv-table:: POWER METER:
+    :header: "Single Phase Installation", "Three phase Installation"
+    
+    "Active Power", "Active Power"
+    "Consumption", "Consumption"
+    "Current", "Current"
+    "Exported", "Exported"
+    "Frequency", "Frequency"
+    "-", "Phase A - Active Power"
+    "-", "Phase A - Current"
+    "Voltage", "Phase A - Voltage"
+    "-", "Phase B - Active Power"
+    "-", "Phase B - Current"
+    "-", "Phase B - Voltage"    
+    "-", "Phase C - Active Power"
+    "-", "Phase C - Current"
+    "-", "Phase C - Voltage"
+    "Power Factor", "Power Factor"
+
+..  csv-table:: INVERTER(S):
+    :header: "Single Phase Installation", "Three Phase Installation"
+    
+    "Active Power", "Active Power"
+    "Daily Yield", "Daily Yield"
+    "Day Active Peak Power", "Day Active Peak Power"
+    "Efficiency", "Efficiency"
+    "Input Power", "Input Power"
+    "Internal Temperature", "Internal Temperature"
+    "Phase A Current", "Phase A Current"
+    "-", "Phase B Current"
+    "-", "Phase C Current"
+    "PV 1 Current", "PV 1 Current"
+    "PV 1 Voltage", "PV 1 Voltage"
+    "PV 2 Current", "PV 2 Current"
+    "PV 2 Voltage", "PV 2 Voltage"
+    "Total Yield", "Total Yield"
+
+..  csv-table:: LUNA ESS BATTERY(S):
+    :header: "Sensor", "Comment"
+    
+    "Bus Current", "-"
+    "Bus Voltage", "-"
+    "Capacity Control Periods", "Not used currently, future function envisioned"
+    "Charge/Discharge Power", "-"
+    "Day Charge", "-"
+    "Day Discharge", "-"
+    "Fixed Charging Periods", "-"
+    "State of Capacity", "-"
+    "Battery 1 Temperature", "-"
+    "Battery 2 Temperature", "Optional"
+    "Time of Use Periods", "Not used currently, future function envisioned"
+    "Total Charge", "-"
+    "Total Discharge", "-"
+
 With these sensors active, you can then following the installation instructions for the Sunsynk card, however when you add the card to Home Assistant, change to the 'Show Code Editor' view and paste the example code below (that most closely matches your Huawei/iStore setup) into the editor, replacing all the default code shown. Finally, validate the example code copied from below, updating to suite your setup.
 
+________________________
 
 .. note::
 
