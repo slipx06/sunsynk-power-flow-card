@@ -15,6 +15,7 @@
    examples/foxess
    examples/solax
    examples/huawei
+   examples/victron
 
 .. toctree::
    :caption: Contribute
