@@ -795,20 +795,20 @@ export class SunsynkPowerFlowCard extends LitElement {
             this.toNum(state_day_pv_energy.state) + this.toNum(state_day_battery_discharge.state);
         let consumption_e =
             this.toNum(state_day_load_energy.state) + this.toNum(state_day_battery_charge.state);
-        let Autarky = consumption_e != 0 ? Math.min(Math.round((production_e * 100) / consumption_e), 100) : 0;
-        let Ratio = production_e != 0 ? Math.min(Math.round((consumption_e * 100) / production_e), 100) : 0;
+        let Autarky = consumption_e != 0 ? Math.max(Math.min(Math.round((production_e * 100) / consumption_e), 100), 0) : 0;
+        let Ratio = production_e != 0 ? Math.max(Math.min(Math.round((consumption_e * 100) / production_e), 100), 0) : 0;
 
         let production_p =
             totalsolar +
-            parseInt(`${battery_power > 0 ? battery_power : 0}`) +
-            parseInt(`${aux_power < 0 ? aux_power * -1 : 0}`);
+            this.toNum(`${battery_power > 0 ? battery_power : 0}`) +
+            this.toNum(`${aux_power < 0 ? aux_power * -1 : 0}`);
         let consumption_p =
             essential +
             nonessential +
-            parseInt(`${aux_power > 0 ? aux_power : 0}`) +
-            parseInt(`${battery_power < 0 ? battery_power * -1 : 0}`);
-        let Autarkyp = consumption_p != 0 ? Math.min(Math.round((production_p * 100) / consumption_p), 100) : 0;
-        let Ratiop = production_p != 0 ? Math.min(Math.round((consumption_p * 100) / production_p), 100) : 0;
+            this.toNum(`${aux_power > 0 ? aux_power : 0}`) +
+            this.toNum(`${battery_power < 0 ? battery_power * -1 : 0}`);
+        let Autarkyp = consumption_p != 0 ? Math.max(Math.min(Math.round((production_p * 100) / consumption_p), 100), 0) : 0;
+        let Ratiop = production_p != 0 ? Math.max(Math.min(Math.round((consumption_p * 100) / production_p), 100), 0) : 0;
 
         let max_linewidth = (this.toNum(config.max_line_width) < 1 ? 1 : config.max_line_width) - 1;
         let min_linewidth = this.toNum(config.min_line_width) || 1;
