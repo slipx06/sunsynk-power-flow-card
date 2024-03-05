@@ -304,20 +304,22 @@ export class SunsynkPowerFlowCard extends LitElement {
                 ? this.toNum((state_grid_power.state * 1000), 0)
                 : this.toNum(state_grid_power.state, 0)
             : 0;
+        
+        let {invert_load} = config.load;
         let load_power_L1 = config.entities?.load_power_L1
             ? (state_load_power_L1.attributes?.unit_of_measurement || '').toLowerCase() === 'kw'
-                ? this.toNum((state_load_power_L1.state * 1000), 0)
-                : this.toNum(state_load_power_L1.state, 0)
+                ? this.toNum((state_load_power_L1.state * 1000), 0, invert_load)
+                : this.toNum(state_load_power_L1.state, 0, invert_load)
             : '';
         let load_power_L2 = config.entities?.load_power_L2
             ? (state_load_power_L2.attributes?.unit_of_measurement || '').toLowerCase() === 'kw'
-                ? this.toNum((state_load_power_L2.state * 1000), 0)
-                : this.toNum(state_load_power_L2.state, 0)
+                ? this.toNum((state_load_power_L2.state * 1000), 0, invert_load)
+                : this.toNum(state_load_power_L2.state, 0, invert_load)
             : '';
         let load_power_L3 = config.entities?.load_power_L3
             ? (state_load_power_L3.attributes?.unit_of_measurement || '').toLowerCase() === 'kw'
-                ? this.toNum((state_load_power_L3.state * 1000), 0)
-                : this.toNum(state_load_power_L3.state, 0)
+                ? this.toNum((state_load_power_L3.state * 1000), 0, invert_load)
+                : this.toNum(state_load_power_L3.state, 0, invert_load)
             : '';
 
         const grid_import_colour = this.colourConvert(config.grid?.colour);
@@ -478,8 +480,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                     ? Number(load_power_L1) + Number(load_power_L2) + Number(load_power_L3)
                     : inverter_power_round + grid_power_round - aux_power
                 : (state_essential_power.attributes?.unit_of_measurement || '').toLowerCase() === 'kw'
-                    ? this.toNum((state_essential_power.state * 1000), 0)
-                    : this.toNum(state_essential_power.state, 0);
+                    ? this.toNum((state_essential_power.state * 1000), 0, invert_load)
+                    : this.toNum(state_essential_power.state, 0, invert_load);
 
         //Timer entities
         const prog1 = {

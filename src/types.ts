@@ -94,6 +94,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         dynamic_icon: boolean;
         show_daily: boolean;
         invert_aux: boolean;
+        invert_load: boolean;
         show_absolute_aux: boolean,
         animation_speed: number;
         max_power: number;

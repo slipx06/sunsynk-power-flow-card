@@ -56,6 +56,8 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                 schema: [
                                     {name: "large_font", selector: {boolean: {}}},
                                     {name: "panel_mode", selector: {boolean: {}}},
+                                    {name: 'card_height', selector: {text: {}}},
+                                    {name: 'card_width', selector: {text: {}}},
                                     {name: "show_solar", selector: {boolean: {}}},
                                     {name: "show_battery", selector: {boolean: {}}},
                                     {name: "show_grid", selector: {boolean: {}}},
@@ -160,6 +162,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                     {name: 'colour', selector: {color_rgb: {}}},
                                     {name: 'dynamic_colour', selector: {boolean: {}}},
                                     {name: 'dynamic_icon', selector: {boolean: {}}},
+                                    {name: 'invert_load', selector: {boolean: {}}},
                                     {name: 'essential_name', selector: {text: {}}},
                                     {name: 'additional_loads', selector: {number: {mode: 'box', min: 0, max: 4,}}},
                                     {name: 'load1_name', selector: {text: {}}},
