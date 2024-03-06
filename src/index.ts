@@ -3468,7 +3468,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                   display="${!config.show_battery || compact ? 'none' : ''}" fill="${bat_colour}">
                                 ${batteryStateMsg}
                             </text>
-                            <text x="${!config.entities?.battery_status ? '193' : compact ? '270' : '169'}" y="${compact ? '338' : '323'}" class="${!config.entities?.battery_status ? 'st3' : 'st3 left-align'}" display="${!config.show_battery || !config.battery.show_remaining_energy  ? 'none' : ''}"
+                            <text x="${compact ? '270' : !config.entities?.battery_status ? '193' : '169'}" y="${compact ? '338' : '323'}" class="${!config.entities?.battery_status && !compact ? 'st3' : 'st3 left-align'}" display="${!config.show_battery || !config.battery.show_remaining_energy  ? 'none' : ''}"
                                   fill="${bat_colour}">${this.toNum(((battery_energy * (parseFloat(state_battery_soc.state) / 100) /1000)), 2)} kWh
                             </text>
                             <text id="battery_soc_184" x="368.5" y="351" fill=${bat_colour}
