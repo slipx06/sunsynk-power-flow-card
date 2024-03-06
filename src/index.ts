@@ -304,20 +304,22 @@ export class SunsynkPowerFlowCard extends LitElement {
                 ? this.toNum((state_grid_power.state * 1000), 0)
                 : this.toNum(state_grid_power.state, 0)
             : 0;
+        
+        let {invert_load} = config.load;
         let load_power_L1 = config.entities?.load_power_L1
             ? (state_load_power_L1.attributes?.unit_of_measurement || '').toLowerCase() === 'kw'
-                ? this.toNum((state_load_power_L1.state * 1000), 0)
-                : this.toNum(state_load_power_L1.state, 0)
+                ? this.toNum((state_load_power_L1.state * 1000), 0, invert_load)
+                : this.toNum(state_load_power_L1.state, 0, invert_load)
             : '';
         let load_power_L2 = config.entities?.load_power_L2
             ? (state_load_power_L2.attributes?.unit_of_measurement || '').toLowerCase() === 'kw'
-                ? this.toNum((state_load_power_L2.state * 1000), 0)
-                : this.toNum(state_load_power_L2.state, 0)
+                ? this.toNum((state_load_power_L2.state * 1000), 0, invert_load)
+                : this.toNum(state_load_power_L2.state, 0, invert_load)
             : '';
         let load_power_L3 = config.entities?.load_power_L3
             ? (state_load_power_L3.attributes?.unit_of_measurement || '').toLowerCase() === 'kw'
-                ? this.toNum((state_load_power_L3.state * 1000), 0)
-                : this.toNum(state_load_power_L3.state, 0)
+                ? this.toNum((state_load_power_L3.state * 1000), 0, invert_load)
+                : this.toNum(state_load_power_L3.state, 0, invert_load)
             : '';
 
         const grid_import_colour = this.colourConvert(config.grid?.colour);
@@ -478,8 +480,8 @@ export class SunsynkPowerFlowCard extends LitElement {
                     ? Number(load_power_L1) + Number(load_power_L2) + Number(load_power_L3)
                     : inverter_power_round + grid_power_round - aux_power
                 : (state_essential_power.attributes?.unit_of_measurement || '').toLowerCase() === 'kw'
-                    ? this.toNum((state_essential_power.state * 1000), 0)
-                    : this.toNum(state_essential_power.state, 0);
+                    ? this.toNum((state_essential_power.state * 1000), 0, invert_load)
+                    : this.toNum(state_essential_power.state, 0, invert_load);
 
         //Timer entities
         const prog1 = {
@@ -795,20 +797,20 @@ export class SunsynkPowerFlowCard extends LitElement {
             this.toNum(state_day_pv_energy.state) + this.toNum(state_day_battery_discharge.state);
         let consumption_e =
             this.toNum(state_day_load_energy.state) + this.toNum(state_day_battery_charge.state);
-        let Autarky = consumption_e != 0 ? Math.min(Math.round((production_e * 100) / consumption_e), 100) : 0;
-        let Ratio = production_e != 0 ? Math.min(Math.round((consumption_e * 100) / production_e), 100) : 0;
+        let Autarky = consumption_e != 0 ? Math.max(Math.min(Math.round((production_e * 100) / consumption_e), 100), 0) : 0;
+        let Ratio = production_e != 0 ? Math.max(Math.min(Math.round((consumption_e * 100) / production_e), 100), 0) : 0;
 
         let production_p =
             totalsolar +
-            parseInt(`${battery_power > 0 ? battery_power : 0}`) +
-            parseInt(`${aux_power < 0 ? aux_power * -1 : 0}`);
+            this.toNum(`${battery_power > 0 ? battery_power : 0}`) +
+            this.toNum(`${aux_power < 0 ? aux_power * -1 : 0}`);
         let consumption_p =
             essential +
             nonessential +
-            parseInt(`${aux_power > 0 ? aux_power : 0}`) +
-            parseInt(`${battery_power < 0 ? battery_power * -1 : 0}`);
-        let Autarkyp = consumption_p != 0 ? Math.min(Math.round((production_p * 100) / consumption_p), 100) : 0;
-        let Ratiop = production_p != 0 ? Math.min(Math.round((consumption_p * 100) / production_p), 100) : 0;
+            this.toNum(`${aux_power > 0 ? aux_power : 0}`) +
+            this.toNum(`${battery_power < 0 ? battery_power * -1 : 0}`);
+        let Autarkyp = consumption_p != 0 ? Math.max(Math.min(Math.round((production_p * 100) / consumption_p), 100), 0) : 0;
+        let Ratiop = production_p != 0 ? Math.max(Math.min(Math.round((consumption_p * 100) / production_p), 100), 0) : 0;
 
         let max_linewidth = (this.toNum(config.max_line_width) < 1 ? 1 : config.max_line_width) - 1;
         let min_linewidth = this.toNum(config.min_line_width) || 1;
