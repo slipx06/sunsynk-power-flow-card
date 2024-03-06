@@ -434,7 +434,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             : this.toNum(state_pv4_power.state || '0');
 
         let totalsolar = pv1_power_watts + pv2_power_watts + pv3_power_watts + pv4_power_watts;
-        let total_pv = config.entities?.pv_total ? parseInt(state_pv_total.state) : totalsolar;
+        let total_pv = config.entities?.pv_total ? this.toNum(state_pv_total.state, 0) : totalsolar;
 
         let solar_colour =
             !config.solar.dynamic_colour
@@ -801,7 +801,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let Ratio = production_e != 0 ? Math.max(Math.min(Math.round((consumption_e * 100) / production_e), 100), 0) : 0;
 
         let production_p =
-            totalsolar +
+            total_pv +
             this.toNum(`${battery_power > 0 ? battery_power : 0}`) +
             this.toNum(`${aux_power < 0 ? aux_power * -1 : 0}`);
         let consumption_p =
@@ -826,13 +826,13 @@ export class SunsynkPowerFlowCard extends LitElement {
         let gridLineWidth = !config.grid.max_power ? min_linewidth : this.dynamicLineWidth(Math.abs(total_grid_power), (config.grid.max_power || Math.abs(total_grid_power)), max_linewidth, min_linewidth);
         let grid169LineWidth = !config.grid.max_power ? min_linewidth : this.dynamicLineWidth(Math.abs(grid_power_round), (config.grid.max_power || Math.abs(grid_power_round)), max_linewidth, min_linewidth);
         let nonessLineWidth = !config.grid.max_power ? min_linewidth : this.dynamicLineWidth(Math.abs(nonessential), (config.grid.max_power || Math.abs(nonessential)), max_linewidth, min_linewidth);
-        let solarLineWidth = !config.solar.max_power ? min_linewidth : this.dynamicLineWidth(totalsolar, (config.solar.max_power || totalsolar), max_linewidth, min_linewidth);
+        let solarLineWidth = !config.solar.max_power ? min_linewidth : this.dynamicLineWidth(total_pv, (config.solar.max_power || total_pv), max_linewidth, min_linewidth);
 
         //Calculate power use animation speeds depending on Inverter size
         if (config && config.solar && config.solar.animation_speed) {
             const speed =
                 config.solar.animation_speed -
-                (config.solar.animation_speed - 1) * (totalsolar / (config.solar.max_power || totalsolar));
+                (config.solar.animation_speed - 1) * (total_pv / (config.solar.max_power || total_pv));
             this.changeAnimationSpeed(`solar`, speed);        
         }
 
@@ -1515,7 +1515,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       pointer-events="stroke"/>
                                 <circle id="so-dot" cx="0" cy="0" r="${Math.min(2 + solarLineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
-                                        fill="${totalsolar === 0 ? 'transparent' : `${solar_colour}`}">
+                                        fill="${total_pv === 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['solar']}s" repeatCount="indefinite"
                                                    keyPoints="1;0"
                                                    keyTimes="0;1" calcMode="linear">
@@ -3585,7 +3585,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       pointer-events="stroke"/>
                                 <circle id="so-dot" cx="0" cy="0" r="${Math.min(2 + solarLineWidth + Math.max(min_linewidth - 2, 0), 8)}"
                                         class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
-                                        fill="${totalsolar === 0 ? 'transparent' : `${solar_colour}`}">
+                                        fill="${total_pv === 0 ? 'transparent' : `${solar_colour}`}">
                                     <animateMotion dur="${this.durationCur['solar']}s" repeatCount="indefinite"
                                                    keyPoints="1;0"
                                                    keyTimes="0;1" calcMode="linear">
