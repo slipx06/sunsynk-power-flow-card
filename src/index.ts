@@ -21,6 +21,7 @@ import {
     huaweiBase64Img,
     inverterStatusGroups,
     luxBase64Img,
+    sofarBase64Img,
     solaredgeBase64Img,
     solaxBase64Img,
     solisBase64Img,
@@ -597,6 +598,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             switch (inverterModel) {
                 case InverterModel.GoodweGridMode:
                 case InverterModel.Goodwe:
+                case InverterModel.Huawei:
                     if (battery_power > 0) {
                         if (
                             (grid_status === 'on' || grid_status === '1' || grid_status.toLowerCase() === 'on-grid') &&
@@ -728,6 +730,9 @@ export class SunsynkPowerFlowCard extends LitElement {
                 case InverterModel.SolarEdge:
                     inverterImg = solaredgeBase64Img;
                     break;
+                case InverterModel.Sofar:
+                    inverterImg = sofarBase64Img;
+                    break;
                 default:
                     inverterImg = sunsynkBase64Img;
                     break;
@@ -804,11 +809,24 @@ export class SunsynkPowerFlowCard extends LitElement {
             total_pv +
             this.toNum(`${battery_power > 0 ? battery_power : 0}`) +
             this.toNum(`${aux_power < 0 ? aux_power * -1 : 0}`);
+        //console.log(`Production Data`);
+        //console.log(`P_Solar Power:${total_pv}`);
+        //console.log(`P_Battery Power:${this.toNum(`${battery_power > 0 ? battery_power : 0}`)}`);
+        //console.log(`P_Aux Power:${this.toNum(`${aux_power < 0 ? aux_power * -1 : 0}`)}`);   
+        //console.log(`Production Total:${production_p}`);      
+        
         let consumption_p =
             essential +
             nonessential +
             this.toNum(`${aux_power > 0 ? aux_power : 0}`) +
             this.toNum(`${battery_power < 0 ? battery_power * -1 : 0}`);
+        //console.log(`Consumption Data`);
+        //console.log(`C_Essential Power:${essential}`);
+        //console.log(`C_NonEssential Power:${nonessential}`);
+        //console.log(`C_Battery Power:${this.toNum(`${battery_power < 0 ? battery_power * -1 : 0}`)}`);
+        //console.log(`C_Aux Power:${this.toNum(`${aux_power > 0 ? aux_power : 0}`)}`);
+        //console.log(`C_Consumption Total:${consumption_p}`);
+
         let Autarkyp = consumption_p != 0 ? Math.max(Math.min(Math.round((production_p * 100) / consumption_p), 100), 0) : 0;
         let Ratiop = production_p != 0 ? Math.max(Math.min(Math.round((consumption_p * 100) / production_p), 100), 0) : 0;
 
@@ -1423,12 +1441,12 @@ export class SunsynkPowerFlowCard extends LitElement {
                             </text>
                             <text id="battery_soc_184" x="210" y="327" fill=${bat_colour}
                                   class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st14 left-align'}"
-                                  display="${(config.inverter.model === 'goodwe' || config.inverter.model === 'goodwe_gridmode') && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
+                                  display="${[InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(inverterModel) && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
                                 ${shutdown} %
                             </text>
                             <text id="battery_soc_184" x="210" y="340" fill=${bat_colour}
                                   class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st14 left-align'}"
-                                  display="${(config.inverter.model === 'goodwe' || config.inverter.model === 'goodwe_gridmode') && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
+                                  display="${[InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(inverterModel) && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
                                 ${shutdownoffgrid} %
                             </text>
 
@@ -3070,8 +3088,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${inverter_prog.show === false
                                       || config.entities.battery_soc_184 === 'none'
                                       || !config.show_battery
-                                      || config.inverter.model === 'goodwe'
-                                      || config.inverter.model === 'goodwe_gridmode'
+                                      || [InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(inverterModel)
                                       || config.battery.hide_soc ? 'none' : ''}">
                                     | ${inverter_prog.capacity || 0} %
                                 </text>
@@ -3079,7 +3096,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
                                 <text id="battery_soc_184" x="196.5" y="333" fill=${bat_colour}
                                       class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st13 st8 left-align'}"
-                                      display="${(config.inverter.model === 'goodwe' || config.inverter.model === 'goodwe_gridmode') && config.battery?.shutdown_soc && !config.battery?.shutdown_soc_offgrid
+                                      display="${[InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(inverterModel) && config.battery?.shutdown_soc && !config.battery?.shutdown_soc_offgrid
                                               ? '' : 'none'}">
                                     | ${shutdown || 0} %
                                 </text>
@@ -3087,7 +3104,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
                                 <text id="battery_soc_184" x="196.5" y="333" fill=${bat_colour}
                                       class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st13 st8 left-align'}"
-                                      display="${(config.inverter.model === 'goodwe' || config.inverter.model === 'goodwe_gridmode') && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
+                                      display="${[InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(inverterModel) && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
                                     |
                                 </text>
                             </a>
@@ -3471,14 +3488,14 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <text x="${compact ? '270' : !config.entities?.battery_status ? '193' : '169'}" y="${compact ? '338' : '323'}" class="${!config.entities?.battery_status && !compact ? 'st3' : 'st3 left-align'}" display="${!config.show_battery || !config.battery.show_remaining_energy  ? 'none' : ''}"
                                   fill="${bat_colour}">${this.toNum(((battery_energy * (parseFloat(state_battery_soc.state) / 100) /1000)), 2)} kWh
                             </text>
-                            <text id="battery_soc_184" x="368.5" y="351" fill=${bat_colour}
+                            <text id="battery_soc_184" x="${compact ? '348.5' : '368.5'}" y="351" fill=${bat_colour}
                                   class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st14 left-align'}"
-                                  display="${(config.inverter.model === 'goodwe' || config.inverter.model === 'goodwe_gridmode') && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
+                                  display="${[InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(inverterModel) && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
                                 ${shutdown} %
                             </text>
-                            <text id="battery_soc_184" x="368.5" y="364" fill=${bat_colour}
+                            <text id="battery_soc_184" x="${compact ? '348.5' : '368.5'}" y="364" fill=${bat_colour}
                                   class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st14 left-align'}"
-                                  display="${(config.inverter.model === 'goodwe' || config.inverter.model === 'goodwe_gridmode') && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
+                                  display="${[InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(inverterModel) && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
                                 ${shutdownoffgrid} %
                             </text>
 
@@ -4097,8 +4114,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                                       display="${inverter_prog.show === false
                                       || config.entities.battery_soc_184 === 'none'
                                       || !config.show_battery
-                                      || config.inverter.model === 'goodwe'
-                                      || config.inverter.model === 'goodwe_gridmode'
+                                      || [InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(inverterModel)
                                       || config.battery.hide_soc ? 'none' : ''}">
                                     | ${inverter_prog.capacity || 0} %
                                 </text>
@@ -4106,7 +4122,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
                                 <text id="battery_soc_184" x="${compact ? '335' : '355'}" y="358" fill=${bat_colour}
                                       class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st13 st8 left-align'}"
-                                      display="${(config.inverter.model === 'goodwe' || config.inverter.model === 'goodwe_gridmode') && config.battery?.shutdown_soc && !config.battery?.shutdown_soc_offgrid
+                                      display="${[InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(inverterModel) && config.battery?.shutdown_soc && !config.battery?.shutdown_soc_offgrid
                                               ? '' : 'none'}">
                                     | ${shutdown || 0} %
                                 </text>
@@ -4114,7 +4130,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             <a href="#" @click=${(e) => this.handlePopup(e, config.entities.battery_soc_184)}>
                                 <text id="battery_soc_184" x="${compact ? '335' : '355'}" y="358" fill=${bat_colour}
                                       class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st13 st8 left-align'}"
-                                      display="${(config.inverter.model === 'goodwe' || config.inverter.model === 'goodwe_gridmode') && config.battery.shutdown_soc_offgrid ? '' : 'none'}">
+                                      display="${[InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(inverterModel) && config.battery.shutdown_soc_offgrid ? '' : 'none'}">
                                     |
                                 </text>
                             </a>
