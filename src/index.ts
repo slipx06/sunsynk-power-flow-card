@@ -20,6 +20,7 @@ import {Utils} from './helpers/utils';
 import {fullCard} from './cards/full-card';
 import {compactCard} from './cards/compact-card';
 import {createInverterInstance} from './inverters/inverter-factory';
+import {globalData} from './helpers/globals';
 
 console.groupCollapsed(
     `%c ⚡ SUNSYNK-POWER-FLOW-CARD %c ${localize('common.version')}: ${CARD_VERSION} `,
@@ -113,6 +114,7 @@ export class SunsynkPowerFlowCard extends LitElement {
     }
 
     render() {
+        globalData.hass = this.hass;
         const config = this._config;
         //Energy
         const state_day_battery_discharge = this.getEntity('day_battery_discharge_71');
@@ -734,7 +736,6 @@ export class SunsynkPowerFlowCard extends LitElement {
                         break;
                     }
                 }
-
             if (!found) {
                 if (config.entities?.battery_status === 'none' || !config.entities?.battery_status) {
                     batteryStateColour = 'transparent';
