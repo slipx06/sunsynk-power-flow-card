@@ -1,8 +1,8 @@
-import {InverterSettingsDto, InverterStatus} from './dto/inverter-settings.dto';
-import {InverterModel} from '../types';
-import {localize} from '../localize/localize';
+import {InverterSettingsDto, InverterStatus} from '../dto/inverter-settings.dto';
+import {InverterModel} from '../../types';
+import {localize} from '../../localize/localize';
 
-export class Huawei implements InverterSettingsDto {
+export class Huawei extends InverterSettingsDto {
     brand = InverterModel.Huawei;
     batteryStatusGroups: InverterStatus = {
         offline: {states: ['0', 'offline'], color: 'yellow', message: localize('common.offline')},

@@ -96,18 +96,20 @@ export class Utils {
     }
 
     static handlePopup(e, entityId) {
-        e.stopPropagation();
-        this._handleClick(this, {action: 'more-info'}, entityId);
+        this._handleClick(e, {action: 'more-info'}, entityId);
     }
 
-    static _handleClick(node, actionConfig, entityId) {
+    private static _handleClick(event, actionConfig, entityId) {
+        if(!entityId || !event)
+            return;
+        event.stopPropagation();
         let e;
         // eslint-disable-next-line default-case
         switch (actionConfig.action) {
             case 'more-info': {
                 e = new Event('hass-more-info', {composed: true});
                 e.detail = {entityId};
-                node.dispatchEvent(e);
+                event.target.dispatchEvent(e);
                 break;
             }
         }

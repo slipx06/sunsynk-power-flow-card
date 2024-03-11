@@ -1,8 +1,8 @@
-import {InverterSettingsDto, InverterStatus} from './dto/inverter-settings.dto';
-import {InverterModel} from '../types';
-import {localize} from '../localize/localize';
+import {InverterSettingsDto, InverterStatus} from '../dto/inverter-settings.dto';
+import {InverterModel} from '../../types';
+import {localize} from '../../localize/localize';
 
-export class Solax implements InverterSettingsDto {
+export class Solax extends InverterSettingsDto {
     brand = InverterModel.Solax;
     statusGroups: InverterStatus = {
         normal: {states: ['normal mode'], color: 'green', message: localize('common.normal')},

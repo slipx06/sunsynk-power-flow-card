@@ -1,8 +1,8 @@
-import {InverterSettingsDto} from './dto/inverter-settings.dto';
-import {InverterModel} from '../types';
-import {localize} from '../localize/localize';
+import {InverterSettingsDto} from '../dto/inverter-settings.dto';
+import {InverterModel} from '../../types';
+import {localize} from '../../localize/localize';
 
-export class Sofar implements InverterSettingsDto {
+export class Sofar extends  InverterSettingsDto {
     brand = InverterModel.Sofar;
     statusGroups = {
         standby: {states: ['0', 'standby', 'stand-by'], color: 'blue', message: localize('common.standby')},

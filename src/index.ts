@@ -19,8 +19,8 @@ import {HassEntity} from 'home-assistant-js-websocket/dist/types';
 import {Utils} from './helpers/utils';
 import {fullCard} from './cards/full-card';
 import {compactCard} from './cards/compact-card';
-import {createInverterInstance} from './inverters/inverter-factory';
 import {globalData} from './helpers/globals';
+import {InverterFactory} from './inverters/inverter-factory';
 
 console.groupCollapsed(
     `%c ⚡ SUNSYNK-POWER-FLOW-CARD %c ${localize('common.version')}: ${CARD_VERSION} `,
@@ -402,7 +402,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         }
 
         let inverterImg = '';
-        const inverterSettings = createInverterInstance(inverterModel);
+        const inverterSettings = InverterFactory.getInstance(inverterModel);
         if (!inverter_modern) {
             inverterImg = inverterSettings.image;
         }
