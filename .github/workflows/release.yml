@@ -53,7 +53,7 @@ jobs:
 
       - name: 🛎️ Create release
         if: steps.check-version.outputs.is_higher == 'true'
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: dist/sunsynk-power-flow-card.js
           tag_name: v${{ steps.get-version.outputs.version }}
