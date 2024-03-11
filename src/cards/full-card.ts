@@ -553,7 +553,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </svg>
 
                     <svg id="ne-flow">
-                        <path id="ne-line" d="M 339 265 L 339 188" fill="none" stroke="${data.grid_colour}"
+                        <path id="ne-line" d="M 304 188 329 188 Q 339 188 339 198 L 339 265" fill="none" stroke="${data.grid_colour}"
                               stroke-width="${data.nonessLineWidth}" stroke-miterlimit="10"
                               display="${!config.show_grid ? 'none' : ''}"
                               class="${!data.grid_show_noness ? 'st12' : ''}" pointer-events="stroke"/>
