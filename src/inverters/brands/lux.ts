@@ -2,6 +2,32 @@ import {InverterSettingsDto, InverterStatus} from '../dto/inverter-settings.dto'
 import {InverterModel} from '../../types';
 import {localize} from '../../localize/localize';
 
+/* Lux Status Codes
+*
+* Some codes may be missing, these are the ones we are aware of
+* If you know any codes not in this list please let us know
+*
+* 0 = Standby
+* 1 = Error
+* 2 = Inverting
+* 4 = Solar > Load - Surplus > Grid
+* 5 = Float
+* 7 = Charger Off
+* 8 = Supporting
+* 9 = Selling
+* 10 = Pass through
+* 11 = Offsetting
+* 12 = Solar > Battery Charging
+* 16 = Battery Discharging > LOAD - Surplus > Grid
+* 17 = Temperature over range
+* 20 = Solar + Battery Discharging > LOAD - Surplus > Grid
+* 32 = AC Battery Charging
+* 40 = Solar + Grid > Battery Charging
+* 64 = No Grid : Battery > EPS
+* 136 = No Grid : Solar > EPS - Surplus > Battery Charging
+* 192 = No Grid : Solar + Battery Discharging > EPS
+*/
+
 export class Lux extends InverterSettingsDto {
     brand = InverterModel.Lux;
     statusGroups: InverterStatus = {
