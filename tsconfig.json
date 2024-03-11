@@ -1,13 +1,9 @@
 {
     "compilerOptions": {
-        "target": "es2017",
-        "module": "esnext",
+        "target": "ES2021",
+        "module": "ESNext",
         "moduleResolution": "node",
-        "lib": [
-            "es2017",
-            "dom",
-            "dom.iterable"
-        ],
+        "lib": ["ES2021", "DOM", "DOM.Iterable", "WebWorker"],
         "noEmit": true,
         "noUnusedParameters": true,
         "noImplicitReturns": false,
@@ -18,8 +14,11 @@
         "resolveJsonModule": true,
         "experimentalDecorators": true,
         "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "isolatedModules": true
     },
     "include": [
-        "src/*"
+        "src/*",
+        "src/**/*"
     ]
 }
