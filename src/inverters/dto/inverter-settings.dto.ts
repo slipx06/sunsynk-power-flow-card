@@ -1,10 +1,14 @@
 import {InverterModel} from '../../types';
 
-export interface InverterSettingsDto {
-    brand: InverterModel,
-    statusGroups: InverterStatus,
-    batteryStatusGroups?: InverterStatus,
-    image: string
+export class InverterSettingsDto {
+    brand!: InverterModel;
+    model?: string; // not currently used, but could be used to support multiple models per brand, where simple rules changes.
+    statusGroups!: InverterStatus;
+    batteryStatusGroups?: InverterStatus;
+    image!: string
+
+    constructor() {
+    }
 }
 
 export type InverterStatus = {

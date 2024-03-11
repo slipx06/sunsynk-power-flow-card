@@ -1,8 +1,8 @@
-import {InverterSettingsDto, InverterStatus} from './dto/inverter-settings.dto';
-import {InverterModel} from '../types';
-import {localize} from '../localize/localize';
+import {InverterSettingsDto, InverterStatus} from '../dto/inverter-settings.dto';
+import {InverterModel} from '../../types';
+import {localize} from '../../localize/localize';
 
-export class SolarEdge implements InverterSettingsDto {
+export class SolarEdge extends InverterSettingsDto {
     brand = InverterModel.SolarEdge;
     statusGroups: InverterStatus = {
         standby: {states: ['0', 'standby', 'stand-by'], color: 'blue', message: localize('common.standby')},

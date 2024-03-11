@@ -1,8 +1,8 @@
-import {InverterSettingsDto, InverterStatus} from './dto/inverter-settings.dto';
-import {InverterModel} from '../types';
-import {localize} from '../localize/localize';
+import {InverterSettingsDto, InverterStatus} from '../dto/inverter-settings.dto';
+import {InverterModel} from '../../types';
+import {localize} from '../../localize/localize';
 
-export class Lux implements InverterSettingsDto {
+export class Lux extends InverterSettingsDto {
     brand = InverterModel.Lux;
     statusGroups: InverterStatus = {
         standby: {states: ['0'], color: 'blue', message: localize('common.standby')},

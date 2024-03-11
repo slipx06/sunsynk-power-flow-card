@@ -1,46 +1,56 @@
 import {InverterModel} from '../types';
-import {Solis} from './solis';
+import {Solis} from './brands/solis';
 import {InverterSettingsDto} from './dto/inverter-settings.dto';
-import {Lux} from './lux';
-import {Goodwe} from './goodwe';
-import {GoodweGrid} from './goodwe-grid';
-import {FoxESS} from './fox-ess';
-import {Huawei} from './huawei';
-import {Fronius} from './fronius';
-import {Victron} from './victron';
-import {Solax} from './solax';
-import {Growatt} from './growatt';
-import {Sofar} from './sofar';
-import {Sunsynk} from './sunsynk';
+import {Lux} from './brands/lux';
+import {Goodwe} from './brands/goodwe';
+import {GoodweGrid} from './brands/goodwe-grid';
+import {FoxESS} from './brands/fox-ess';
+import {Huawei} from './brands/huawei';
+import {Fronius} from './brands/fronius';
+import {Victron} from './brands/victron';
+import {Solax} from './brands/solax';
+import {Growatt} from './brands/growatt';
+import {Sofar} from './brands/sofar';
+import {Sunsynk} from './brands/sunsynk';
 
-export function createInverterInstance(brand: InverterModel): InverterSettingsDto {
-    switch (brand) {
-        case InverterModel.Solis:
-            return new Solis();
-        case InverterModel.Lux:
-            return new Lux();
-        case InverterModel.Goodwe:
-            return new Goodwe()
-        case InverterModel.GoodweGridMode:
-            return new GoodweGrid()
-        case InverterModel.FoxESS:
-            return new FoxESS()
-        case InverterModel.Huawei:
-            return new Huawei();
-        case InverterModel.Fronius:
-            return new Fronius();
-        case InverterModel.Victron:
-            return new Victron()
-        case InverterModel.Solax:
-            return new Solax()
-        case InverterModel.Growatt:
-            return new Growatt()
-        case InverterModel.Sofar:
-            return new Sofar()
-        case InverterModel.Sunsynk:
-            return new Sunsynk()
-        case InverterModel.SolarEdge:
-        default:
-            return new Sunsynk()
+export class InverterFactory {
+    static instance: InverterSettingsDto;
+
+    public static getInstance(brand: InverterModel): InverterSettingsDto {
+        if (!this.instance || this.instance.brand !== brand) {
+            this.instance = this.createInstance(brand);
+        }
+        return this.instance;
+    }
+
+    private static createInstance(brand: InverterModel): InverterSettingsDto {
+        switch (brand) {
+            case InverterModel.Solis:
+                return new Solis();
+            case InverterModel.Lux:
+                return new Lux();
+            case InverterModel.Goodwe:
+                return new Goodwe()
+            case InverterModel.GoodweGridMode:
+                return new GoodweGrid()
+            case InverterModel.FoxESS:
+                return new FoxESS()
+            case InverterModel.Huawei:
+                return new Huawei();
+            case InverterModel.Fronius:
+                return new Fronius();
+            case InverterModel.Victron:
+                return new Victron()
+            case InverterModel.Solax:
+                return new Solax()
+            case InverterModel.Growatt:
+                return new Growatt()
+            case InverterModel.Sofar:
+                return new Sofar()
+            case InverterModel.SolarEdge:
+            case InverterModel.Sunsynk:
+            default:
+                return new Sunsynk()
+        }
     }
 }
