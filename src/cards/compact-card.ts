@@ -1,7 +1,7 @@
 import {html, svg} from 'lit';
 import {localize} from '../localize/localize';
 import {Utils} from '../helpers/utils';
-import {DataDto, InverterModel, sunsynkPowerFlowCardConfig} from '../types';
+import {AutarkyType, DataDto, InverterModel, sunsynkPowerFlowCardConfig} from '../types';
 
 export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string, data: DataDto) => {
     return html`
@@ -158,26 +158,26 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                           display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}"
                           fill="${data.solar_colour}">${config.solar.pv4_name}
                     </text>
-                    <text id="autarkye_value" x="127" y="260" display="${data.useautarky === "no" ? 'none' : ''}"
-                          class="${data.useautarky === 'energy' ? 'st4 st8 left-align' : 'st12'}"
+                    <text id="autarkye_value" x="127" y="260" display="${data.useautarky === AutarkyType.No ? 'none' : ''}"
+                          class="${data.useautarky === AutarkyType.Energy ? 'st4 st8 left-align' : 'st12'}"
                           fill="${data.inverter_colour}">${data.Autarky}%
                     </text>
-                    <text id="ratioe_value" x="173" y="260" display="${data.useautarky === "no" ? 'none' : ''}"
-                          class="${data.useautarky === 'energy' ? 'st4 st8 left-align' : 'st12'}"
+                    <text id="ratioe_value" x="173" y="260" display="${data.useautarky === AutarkyType.No ? 'none' : ''}"
+                          class="${data.useautarky === AutarkyType.Energy ? 'st4 st8 left-align' : 'st12'}"
                           fill="${data.inverter_colour}">${data.Ratio}%
                     </text>
-                    <text id="autarkyp_value" x="127" y="260" display="${data.useautarky === "no" ? 'none' : ''}"
-                          class="${data.useautarky === 'power' ? 'st4 st8 left-align' : 'st12'}"
+                    <text id="autarkyp_value" x="127" y="260" display="${data.useautarky === AutarkyType.No ? 'none' : ''}"
+                          class="${data.useautarky === AutarkyType.Power ? 'st4 st8 left-align' : 'st12'}"
                           fill="${data.inverter_colour}">${data.Autarkyp}%
                     </text>
-                    <text id="ratiop_value" x="173" y="260" display="${data.useautarky === "no" ? 'none' : ''}"
-                          class="${data.useautarky === 'power' ? 'st4 st8 left-align' : 'st12'}"
+                    <text id="ratiop_value" x="173" y="260" display="${data.useautarky === AutarkyType.No ? 'none' : ''}"
+                          class="${data.useautarky === AutarkyType.Power ? 'st4 st8 left-align' : 'st12'}"
                           fill="${data.inverter_colour}">${data.Ratiop}%
                     </text>
-                    <text id="autarky" x="127" y="273" display="${data.useautarky === "no" ? 'none' : ''}"
+                    <text id="autarky" x="127" y="273" display="${data.useautarky === AutarkyType.No ? 'none' : ''}"
                           class="st3 left-align" fill="${data.inverter_colour}">${localize('common.autarky')}
                     </text>
-                    <text id="ratio" x="173" y="273" display="${data.useautarky === "no" ? 'none' : ''}"
+                    <text id="ratio" x="173" y="273" display="${data.useautarky === AutarkyType.No ? 'none' : ''}"
                           class="st3 left-align" fill="${data.inverter_colour}">${localize('common.ratio')}
                     </text>
                     <text id="es-load1" x="441" y="108" class="st3"

@@ -273,28 +273,28 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </text>
                     <text id="autarkye_value" x="212" y="283"
                           display="${data.useautarky === AutarkyType.No ? 'none' : ''}"
-                          class="${data.useautarky === 'energy' ? 'st4 st8 left-align' : 'st12'}"
+                          class="${data.useautarky === AutarkyType.Energy ? 'st4 st8 left-align' : 'st12'}"
                           fill="${data.inverter_colour}">${data.Autarky}%
                     </text>
                     <text id="ratioe_value" x="256" y="283"
                           display="${data.useautarky === AutarkyType.No ? 'none' : ''}"
-                          class="${data.useautarky === 'energy' ? 'st4 st8 left-align' : 'st12'}"
+                          class="${data.useautarky === AutarkyType.Energy ? 'st4 st8 left-align' : 'st12'}"
                           fill="${data.inverter_colour}">${data.Ratio}%
                     </text>
                     <text id="autarkyp_value" x="212" y="283"
                           display="${data.useautarky === AutarkyType.No ? 'none' : ''}"
-                          class="${data.useautarky === 'power' ? 'st4 st8 left-align' : 'st12'}"
+                          class="${data.useautarky === AutarkyType.Power ? 'st4 st8 left-align' : 'st12'}"
                           fill="${data.inverter_colour}">${data.Autarkyp}%
                     </text>
                     <text id="ratiop_value" x="256" y="283"
                           display="${data.useautarky === AutarkyType.No ? 'none' : ''}"
-                          class="${data.useautarky === 'power' ? 'st4 st8 left-align' : 'st12'}"
+                          class="${data.useautarky === AutarkyType.Power ? 'st4 st8 left-align' : 'st12'}"
                           fill="${data.inverter_colour}">${data.Ratiop}%
                     </text>
-                    <text id="autarky" x="212" y="295" display="${data.useautarky === 'no' ? 'none' : ''}"
+                    <text id="autarky" x="212" y="295" display="${data.useautarky === AutarkyType.No ? 'none' : ''}"
                           class="st3 left-align" fill="${data.inverter_colour}">${localize('common.autarky')}
                     </text>
-                    <text id="ratio" x="256" y="295" display="${data.useautarky === 'no' ? 'none' : ''}"
+                    <text id="ratio" x="256" y="295" display="${data.useautarky === AutarkyType.No ? 'none' : ''}"
                           class="st3 left-align" fill="${data.inverter_colour}">${localize('common.ratio')}
                     </text>
                     <text id="aux_load1" x="411" y="${data.additional_aux_load === 1 ? 53 : 14}" class="st3 st8"
@@ -1270,25 +1270,25 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
 
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.use_timer_248)}>
                         <svg xmlns="http://www.w3.org/2000/svg" id="timer" x="210"
-                             y="${data.useautarky != 'no' ? "232" : "249"}" width="18" height="18"
+                             y="${data.useautarky != AutarkyType.No ? "232" : "249"}" width="18" height="18"
                              viewBox="0 0 24 24">
-                            <path display="${data.state_use_timer.state == 'on' && data.usetimer !== 'no' ? '' : 'none'}"
+                            <path display="${data.state_use_timer.state == 'on' && data.usetimer !== AutarkyType.No ? '' : 'none'}"
                                   fill="${data.inverter_colour}"
                                   d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0 0 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9a8.994 8.994 0 0 0 7.03-14.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7s7 3.13 7 7s-3.13 7-7 7z"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="timer_off" x="210"
-                             y="${data.useautarky != 'no' ? "232" : "249"}" width="18" height="18"
+                             y="${data.useautarky != AutarkyType.No ? "232" : "249"}" width="18" height="18"
                              viewBox="0 0 24 24">
                             <path display="${data.state_use_timer.state == 'off' && data.usetimer !== 'no' ? '' : 'none'}"
                                   fill="${data.inverter_colour}"
                                   d="m19.95 17.15l-1.5-1.5q.275-.675.413-1.337T19 13q0-2.9-2.05-4.95T12 6q-.6 0-1.275.125t-1.4.4l-1.5-1.5q.95-.5 2.012-.763T12 4q1.5 0 2.938.5t2.712 1.45l1.4-1.4l1.4 1.4l-1.4 1.4q.95 1.275 1.45 2.713T21 13q0 1.05-.263 2.087t-.787 2.063ZM13 10.2V8h-2v.2l2 2Zm6.8 12.4l-2.4-2.4q-1.2.875-2.588 1.338T12 22q-1.85 0-3.488-.713T5.65 19.35q-1.225-1.225-1.938-2.863T3 13q0-1.5.463-2.888T4.8 7.6L1.4 4.2l1.4-1.4l18.4 18.4l-1.4 1.4ZM12 20q1.05 0 2.05-.325t1.875-.925L6.2 9.025q-.6.875-.9 1.875T5 13q0 2.9 2.05 4.95T12 20ZM9 3V1h6v2H9Zm2.075 10.875Zm2.825-2.8Z"/>
                         </svg>
-                        <text id="timer_text_on" x="228.5" y="${data.useautarky != 'no' ? "243" : "260"}"
+                        <text id="timer_text_on" x="228.5" y="${data.useautarky != AutarkyType.No ? "243" : "260"}"
                               class="st3 left-align"
                               display="${data.state_use_timer.state == 'on' && data.usetimer !== 'no' ? '' : 'none'}"
                               fill="${data.inverter_colour}">${localize('common.timer_on')}
                         </text>
-                        <text id="timer_text_off" x="228.5" y="${data.useautarky != 'no' ? "243" : "260"}"
+                        <text id="timer_text_off" x="228.5" y="${data.useautarky != AutarkyType.No ? "243" : "260"}"
                               class="st3 left-align"
                               display="${data.state_use_timer.state == 'off' && data.usetimer !== 'no' ? '' : 'none'}"
                               fill="${data.inverter_colour}">${localize('common.timer_off')}
@@ -1323,12 +1323,12 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                   fill="${data.inverter_colour}"
                                   d="m15 13l-4 4v-3H2v-2h9V9l4 4M5 20v-4h2v2h10v-7.81l-5-4.5L7.21 10H4.22L12 3l10 9h-3v8H5Z"/>
                         </svg>
-                        <text id="priority_text_load" x="228.5" y="${data.useautarky != 'no' ? "262" : "280"}"
+                        <text id="priority_text_load" x="228.5" y="${data.useautarky != AutarkyType.No ? "262" : "280"}"
                               class="st3 left-align"
                               display="${data.priority === 'on' && (data.priority !== 'no' || !data.priority) ? '' : 'none'}"
                               fill="${data.inverter_colour}">${localize('common.priority_load')}
                         </text>
-                        <text id="priority_text_batt" x="228.5" y="${data.useautarky != 'no' ? "262" : "280"}"
+                        <text id="priority_text_batt" x="228.5" y="${data.useautarky != AutarkyType.No ? "262" : "280"}"
                               class="st3 left-align"
                               display="${data.priority === 'off' && (data.priority !== 'no' || !data.priority) ? '' : 'none'}"
                               fill="${data.inverter_colour}">${localize('common.priority_batt')}
@@ -1341,7 +1341,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
 
                     <a href="#" @click=${(e) => Utils.handlePopup(e, data.inverter_prog.entityID)}>
                         <svg xmlns="http://www.w3.org/2000/svg" id="prog_grid_on" x="265"
-                             y="${data.useautarky != 'no' ? "232" : "249"}" width="20" height="18"
+                             y="${data.useautarky != AutarkyType.No ? "232" : "249"}" width="20" height="18"
                              viewBox="0 0 24 24">
                             <path display="${data.inverter_prog.show === false || config.entities.use_timer_248 === 'none' ? 'none' : ''}"
                                   class="${data.inverter_prog.charge === 'none' ? 'st12' : ''}"
@@ -1349,7 +1349,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                   d="M11.5 19h1v-1.85l3.5-3.5V9H8v4.65l3.5 3.5V19Zm-2 2v-3L6 14.5V9q0-.825.588-1.413T8 7h1L8 8V3h2v4h4V3h2v5l-1-1h1q.825 0 1.413.588T18 9v5.5L14.5 18v3h-5Zm2.5-7Z"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="prog_grid_off" x="265"
-                             y="${data.useautarky != 'no' ? "232" : "249"}" width="20" height="18"
+                             y="${data.useautarky != AutarkyType.No ? "232" : "249"}" width="20" height="18"
                              viewBox="0 0 24 24">
                             <path display="${data.inverter_prog.show === false || config.entities.use_timer_248 === 'none' ? 'none' : ''}"
                                   class="${data.inverter_prog.charge === 'none' ? '' : 'st12'}"
