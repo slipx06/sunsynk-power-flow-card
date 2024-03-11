@@ -19,7 +19,7 @@ export const styles: CSSResultGroup = css`
     padding: 0px;
     }
 
-    text { text-anchor: middle; alignment-baseline: middle; }
+    text { text-anchor: middle; dominant-baseline: middle; }
 
     .left-align {text-anchor: start;}
     .right-align {text-anchor: end;}
