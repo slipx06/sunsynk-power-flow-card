@@ -785,12 +785,15 @@ export class SunsynkPowerFlowCard extends LitElement {
         let max_linewidth = (Utils.toNum(config.max_line_width) < 1 ? 1 : config.max_line_width) - 1;
         let min_linewidth = Utils.toNum(config.min_line_width) || 1;
 
+        const BatteryMaxPower = this.hass.states[config.battery.max_power] || {state: config.battery.max_power ?? ''};
+        let BattMaxPower = Utils.toNum(BatteryMaxPower.state);
+
         //Calculate line width depending on power usage
         let pv1LineWidth = !config.solar.max_power ? min_linewidth : this.dynamicLineWidth(pv1_power_watts, (config.solar.max_power || pv1_power_watts), max_linewidth, min_linewidth);
         let pv2LineWidth = !config.solar.max_power ? min_linewidth : this.dynamicLineWidth(pv2_power_watts, (config.solar.max_power || pv2_power_watts), max_linewidth, min_linewidth);
         let pv3LineWidth = !config.solar.max_power ? min_linewidth : this.dynamicLineWidth(pv3_power_watts, (config.solar.max_power || pv3_power_watts), max_linewidth, min_linewidth);
         let pv4LineWidth = !config.solar.max_power ? min_linewidth : this.dynamicLineWidth(pv4_power_watts, (config.solar.max_power || pv4_power_watts), max_linewidth, min_linewidth);
-        let batLineWidth = !config.battery.max_power ? min_linewidth : this.dynamicLineWidth(Math.abs(battery_power), (config.battery.max_power || Math.abs(battery_power)), max_linewidth, min_linewidth);
+        let batLineWidth = !config.battery.max_power ? min_linewidth : this.dynamicLineWidth(Math.abs(battery_power), (BattMaxPower || Math.abs(battery_power)), max_linewidth, min_linewidth);
         let loadLineWidth = !config.load.max_power ? min_linewidth : this.dynamicLineWidth(Math.abs(essential), (config.load.max_power || Math.abs(essential)), max_linewidth, min_linewidth);
         let auxLineWidth = !config.load.max_power ? min_linewidth : this.dynamicLineWidth(Math.abs(aux_power), (config.load.max_power || Math.abs(aux_power)), max_linewidth, min_linewidth);
         let gridLineWidth = !config.grid.max_power ? min_linewidth : this.dynamicLineWidth(Math.abs(total_grid_power), (config.grid.max_power || Math.abs(total_grid_power)), max_linewidth, min_linewidth);
