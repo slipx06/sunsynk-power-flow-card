@@ -11,45 +11,45 @@ import * as it from './languages/it.json';
 import * as ca from './languages/ca.json';
 import * as sk from './languages/sk.json';
 import * as pt_br from './languages/pt-br.json';
-import { globalData } from '../helpers/globals';
+import {globalData} from '../helpers/globals';
 
 const languages: any = {
-	da: da,
-	de: de,
-	en: en,
-	es: es,
-	et: et,
-	fr: fr,
-	nl: nl,
-	ru: ru,
-	cs: cs,
-	it: it,
-	ca: ca,
-	sk: sk,
-	pt_BR: pt_br,
+    da: da,
+    de: de,
+    en: en,
+    es: es,
+    et: et,
+    fr: fr,
+    nl: nl,
+    ru: ru,
+    cs: cs,
+    it: it,
+    ca: ca,
+    sk: sk,
+    pt_BR: pt_br,
 };
 
 export function localize(string: string, search = '', replace = '') {
-	const langFromLocalStorage = (localStorage.getItem('selectedLanguage') || 'en')
-		.replace(/['"]+/g, '')
-		.replace('-', '_');
-	//console.log(`${langFromLocalStorage} local language`);
-	const lang = `${globalData.hass?.locale?.language || globalData.hass?.language || langFromLocalStorage}`;
+    const langFromLocalStorage = (localStorage.getItem('selectedLanguage') || 'en')
+        .replace(/['"]+/g, '')
+        .replace('-', '_');
 
-	let translated: string;
+    const lang = `${globalData.hass?.selectedLanguage || globalData.hass?.locale?.language || globalData.hass?.language || langFromLocalStorage}`;
 
-	try {
-		translated = string.split('.').reduce((o, i) => o[i], languages[lang]);
-	} catch (e) {
-		translated = string.split('.').reduce((o, i) => o[i], languages['en']);
-	}
+    let translated: string;
 
-	if (translated === undefined) {
-		translated = string.split('.').reduce((o, i) => o[i], languages['en']);
-	}
+    try {
+        translated = string.split('.').reduce((o, i) => o[i], languages[lang]);
+    } catch (e) {
+        translated = string.split('.').reduce((o, i) => o[i], languages['en']);
+    }
 
-	if (search !== '' && replace !== '') {
-		translated = translated.replace(search, replace);
-	}
-	return translated;
+    if (translated === undefined) {
+        translated = string.split('.').reduce((o, i) => o[i], languages['en']);
+    }
+
+    if (search !== '' && replace !== '') {
+        translated = translated.replace(search, replace);
+    }
+    return translated;
 }
