@@ -32,36 +32,39 @@ export interface CustomEntity extends HassEntity {
      * @param invert
      */
     toPower(invert?: boolean): number;
-
-    /**
-     * returns the state, and default to 0
-     */
-    stateDefaultZero(): number;
 }
 
 export namespace CustomEntity {
-    export function stateDefaultZero(entity: CustomEntity): any {
-        return entity.state || '0'
-    }
-    export function toNum(entity: CustomEntity, decimals?: number, invert?: boolean): number {
-        return Utils.toNum(entity.state, decimals, invert);
+    export function toNum(entity: { state:any }, decimals?: number, invert?: boolean): number {
+        return Utils.toNum(entity?.state, decimals, invert);
     }
 
-    export function isValid(entity: CustomEntity) {
-        return entity.state !== null && entity.state !== undefined;
+    export function isValid(entity: { state:any }) {
+        return entity?.state !== null && entity.state !== undefined;
     }
 
-    export function notEmpty(entity: CustomEntity) {
-        return entity.state !== ''
+    export function notEmpty(entity: { state:any }) {
+        return entity?.state !== ''
     }
 
-    export function isNaN(entity: CustomEntity) {
-        return Number.isNaN(entity.state)
+    export function isNaN(entity: { state:any }) {
+        return Number.isNaN(entity?.state)
     }
 
-    export function toPower(entity: CustomEntity, invert?: boolean): number {
+    export function toPower(entity: { state:any, attributes:any }, invert?: boolean): number {
         return (entity.attributes?.unit_of_measurement || '').toLowerCase() === 'kw'
-            ? Utils.toNum((entity.stateDefaultZero() * 1000), 0, invert)
-            : entity.toNum(0, invert)
+            ? Utils.toNum(((entity?.state || '0') * 1000), 0, invert)
+            : Utils.toNum((entity?.state || '0'), 0, invert)
+    }
+    // Function to convert HassEntity to CustomEntity
+    export function convertToCustomEntity(entity: any): CustomEntity {
+        return {
+            ...entity,
+            toNum: (decimals?: number, invert?: boolean) => CustomEntity.toNum(entity, decimals, invert),
+            isValid: () => CustomEntity?.isValid(entity) || false,
+            notEmpty: () => CustomEntity?.notEmpty(entity) || false,
+            isNaN: () => CustomEntity?.isNaN(entity) || true,
+            toPower: (invert?: boolean) => CustomEntity?.toPower(entity, invert) || 0
+        }
     }
 }

@@ -22,6 +22,8 @@ import {globalData} from './helpers/globals';
 import {InverterFactory} from './inverters/inverter-factory';
 import {BatteryIconManager} from './helpers/battery-icon-manager';
 import {CustomEntity} from './inverters/dto/custom-entity';
+import convertToCustomEntity = CustomEntity.convertToCustomEntity;
+import {HassEntity} from 'home-assistant-js-websocket/dist/types';
 
 console.groupCollapsed(
     `%c ⚡ SUNSYNK-POWER-FLOW-CARD %c ${localize('common.version')}: ${CARD_VERSION} `,
@@ -1102,7 +1104,9 @@ export class SunsynkPowerFlowCard extends LitElement {
         entityString = this._config.entities[entity] ?? this._config.battery[entity]
             ?? this._config.inverter[entity] ?? this._config.grid[entity] ?? this._config.solar[entity] ?? this._config.load[entity];
         const state = entityString ? this.hass.states[entityString] : undefined;
-        return <CustomEntity>(state !== undefined ? state : defaultValue ? defaultValue : {state: undefined});
+        return (state !== undefined ? convertToCustomEntity(state)
+            : defaultValue ? convertToCustomEntity(defaultValue)
+                : convertToCustomEntity({state: undefined})) as CustomEntity;
     }
 
     changeAnimationSpeed(el: string, speedRaw: number) {
