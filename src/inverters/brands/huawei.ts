@@ -1,7 +1,6 @@
 import {InverterSettingsDto, InverterStatus} from '../dto/inverter-settings.dto';
 import {InverterModel} from '../../types';
 import {localize} from '../../localize/localize';
-import {Utils} from '../../helpers/utils';
 
 export class Huawei extends InverterSettingsDto {
     brand = InverterModel.Huawei;
