@@ -154,7 +154,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         //Load
         const state_essential_power = this.getEntity('essential_power');
-        const state_aux_power = this.getEntity('aux_power_166', {state: '0'});
+        const state_aux_power = this.getEntity('aux_power_166');
         const state_nonessential_power = this.getEntity('nonessential_power');
         const state_non_essential_load1 = this.getEntity('non_essential_load1');
         const state_non_essential_load2 = this.getEntity('non_essential_load2');
@@ -193,14 +193,14 @@ export class SunsynkPowerFlowCard extends LitElement {
         const state_prepaid_units = this.getEntity('prepaid_units', {state: '0'});
 
         //Solar
-        const state_pv1_voltage = this.getEntity('pv1_voltage_109', {state: '0'});
-        const state_pv1_current = this.getEntity('pv1_current_110', {state: '0'});
-        const state_pv2_voltage = this.getEntity('pv2_voltage_111', {state: '0'});
-        const state_pv2_current = this.getEntity('pv2_current_112', {state: '0'});
-        const state_pv3_voltage = this.getEntity('pv3_voltage_113', {state: '0'});
-        const state_pv3_current = this.getEntity('pv3_current_114', {state: '0'});
-        const state_pv4_voltage = this.getEntity('pv4_voltage_115', {state: '0'});
-        const state_pv4_current = this.getEntity('pv4_current_116', {state: '0'});
+        const state_pv1_voltage = this.getEntity('pv1_voltage_109');
+        const state_pv1_current = this.getEntity('pv1_current_110');
+        const state_pv2_voltage = this.getEntity('pv2_voltage_111');
+        const state_pv2_current = this.getEntity('pv2_current_112');
+        const state_pv3_voltage = this.getEntity('pv3_voltage_113');
+        const state_pv3_current = this.getEntity('pv3_current_114');
+        const state_pv4_voltage = this.getEntity('pv4_voltage_115');
+        const state_pv4_current = this.getEntity('pv4_current_116');
         const state_pv1_power = this.getEntity('pv1_power_186');
         const state_pv2_power = this.getEntity('pv2_power_187');
         const state_pv3_power = this.getEntity('pv3_power_188');
