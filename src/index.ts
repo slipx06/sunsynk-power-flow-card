@@ -190,7 +190,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             attributes: {unit_of_measurement: ''},
         });
         const state_grid_voltage = this.getEntity('grid_voltage', null);
-        const state_prepaid_units = this.getEntity('prepaid_units', {state: '0'});
+        const state_prepaid_units = this.getEntity('prepaid_units');
 
         //Solar
         const state_pv1_voltage = this.getEntity('pv1_voltage_109');
@@ -267,7 +267,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let inverter_current_L3 = config.entities?.inverter_current_L3
             ? state_inverter_current_L3.toNum(1)
             : '';
-        let battery_voltage = config.entities?.battery_voltage_183 ? Utils.toNum(state_battery_voltage.state, 1) : 0;
+        let battery_voltage = config.entities?.battery_voltage_183 ? state_battery_voltage.toNum(1) : 0;
         let inverter_power_round = config.entities?.inverter_power_175
             ? state_inverter_power.toPower()
             : 0;
@@ -366,8 +366,8 @@ export class SunsynkPowerFlowCard extends LitElement {
         let energy_cost_decimals = config.grid?.energy_cost_decimals === 0 ? 0 : config.grid?.energy_cost_decimals || 2;
         let energy_cost =
             total_grid_power >= 0
-                ? Utils.toNum(state_energy_cost_buy.state, energy_cost_decimals)
-                : Utils.toNum(state_energy_cost_sell.state, energy_cost_decimals);
+                ? state_energy_cost_buy.toNum(energy_cost_decimals)
+                : state_energy_cost_sell.toNum(energy_cost_decimals);
 
         let inverterModel = InverterModel.Sunsynk;
 
@@ -440,39 +440,39 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         //Timer entities
         const prog1 = {
-            time: this.hass.states[config.entities.prog1_time] || {state: ''},
-            capacity: this.hass.states[config.entities.prog1_capacity] || {state: ''},
-            charge: this.hass.states[config.entities.prog1_charge] || {state: ''},
+            time: this.getEntity('prog1_time', {state: config.entities.prog1_time ?? ''}),
+            capacity: this.getEntity('prog1_capacity', {state: config.entities.prog1_capacity ?? ''}),
+            charge: this.getEntity('prog1_charge', {state: config.entities.prog1_charge ?? ''}),
         };
         const prog2 = {
-            time: this.hass.states[config.entities.prog2_time] || {state: ''},
-            capacity: this.hass.states[config.entities.prog2_capacity] || {state: ''},
-            charge: this.hass.states[config.entities.prog2_charge] || {state: ''},
+            time: this.getEntity('prog2_time', {state: config.entities.prog2_time ?? ''}),
+            capacity: this.getEntity('prog2_capacity', {state: config.entities.prog2_capacity ?? ''}),
+            charge: this.getEntity('prog2_charge', {state: config.entities.prog2_charge ?? ''}),
         };
         const prog3 = {
-            time: this.hass.states[config.entities.prog3_time] || {state: ''},
-            capacity: this.hass.states[config.entities.prog3_capacity] || {state: ''},
-            charge: this.hass.states[config.entities.prog3_charge] || {state: ''},
+            time: this.getEntity('prog3_time', {state: config.entities.prog3_time ?? ''}),
+            capacity: this.getEntity('prog3_capacity', {state: config.entities.prog3_capacity ?? ''}),
+            charge: this.getEntity('prog3_charge', {state: config.entities.prog3_charge ?? ''}),
         };
         const prog4 = {
-            time: this.hass.states[config.entities.prog4_time] || {state: ''},
-            capacity: this.hass.states[config.entities.prog4_capacity] || {state: ''},
-            charge: this.hass.states[config.entities.prog4_charge] || {state: ''},
+            time: this.getEntity('prog4_time', {state: config.entities.prog4_time ?? ''}),
+            capacity: this.getEntity('prog4_capacity', {state: config.entities.prog4_capacity ?? ''}),
+            charge: this.getEntity('prog4_charge', {state: config.entities.prog4_charge ?? ''}),
         };
         const prog5 = {
-            time: this.hass.states[config.entities.prog5_time] || {state: ''},
-            capacity: this.hass.states[config.entities.prog5_capacity] || {state: ''},
-            charge: this.hass.states[config.entities.prog5_charge] || {state: ''},
+            time: this.getEntity('prog5_time', {state: config.entities.prog5_time ?? ''}),
+            capacity: this.getEntity('prog5_capacity', {state: config.entities.prog5_capacity ?? ''}),
+            charge: this.getEntity('prog5_charge', {state: config.entities.prog5_charge ?? ''}),
         };
         const prog6 = {
-            time: this.hass.states[config.entities.prog6_time] || {state: ''},
-            capacity: this.hass.states[config.entities.prog6_capacity] || {state: ''},
-            charge: this.hass.states[config.entities.prog6_charge] || {state: ''},
+            time: this.getEntity('prog6_time', {state: config.entities.prog6_time ?? ''}),
+            capacity: this.getEntity('prog6_capacity', {state: config.entities.prog6_capacity ?? ''}),
+            charge: this.getEntity('prog6_charge', {state: config.entities.prog6_charge ?? ''}),
         };
 
 
-        let shutdownoffgrid = Utils.toNum(state_shutdown_soc_offgrid.state);
-        let shutdown = Utils.toNum(state_shutdown_soc.state);
+        let shutdownoffgrid = state_shutdown_soc_offgrid.toNum();
+        let shutdown = state_shutdown_soc.state.toNum();
 
         let inverter_prog: InverterSettings = {
             capacity: shutdown,
@@ -562,7 +562,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                             state_shutdown_soc_offgrid.notEmpty() &&
                             !inverter_prog.show
                         ) {
-                            battery_capacity = state_shutdown_soc_offgrid.toNum();
+                            battery_capacity = shutdownoffgrid;
                         } else {
                             battery_capacity = shutdown;
                         }
@@ -619,7 +619,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         }
 
         let isFloating =
-            -2 <= parseInt(state_battery_current.state) && parseInt(state_battery_current.state) <= 2 && parseInt(state_battery_soc.state) >= 99;
+            -2 <= state_battery_current.toNum(0) && state_battery_current.toNum(0) <= 2 && state_battery_soc.toNum(0) >= 99;
 
         // Determine battery colours
         let bat_colour: string;
