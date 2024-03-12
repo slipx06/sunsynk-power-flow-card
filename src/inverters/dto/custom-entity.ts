@@ -34,37 +34,16 @@ export interface CustomEntity extends HassEntity {
     toPower(invert?: boolean): number;
 }
 
-export namespace CustomEntity {
-    export function toNum(entity: { state:any }, decimals?: number, invert?: boolean): number {
-        return Utils.toNum(entity?.state, decimals, invert);
-    }
-
-    export function isValid(entity: { state:any }) {
-        return entity?.state !== null && entity.state !== undefined;
-    }
-
-    export function notEmpty(entity: { state:any }) {
-        return entity?.state !== ''
-    }
-
-    export function isNaN(entity: { state:any }) {
-        return Number.isNaN(entity?.state)
-    }
-
-    export function toPower(entity: { state:any, attributes:any }, invert?: boolean): number {
-        return (entity.attributes?.unit_of_measurement || '').toLowerCase() === 'kw'
+// Function to convert HassEntity to CustomEntity
+export function convertToCustomEntity(entity: any): CustomEntity {
+    return {
+        ...entity,
+        toNum: (decimals?: number, invert?: boolean) => Utils.toNum(entity?.state, decimals, invert),
+        isValid: () => entity?.state !== null && entity.state !== undefined || false,
+        notEmpty: () => entity?.state !== '' || false,
+        isNaN: () => Number.isNaN(entity?.state) || true,
+        toPower: (invert?: boolean) => (entity.attributes?.unit_of_measurement || '').toLowerCase() === 'kw'
             ? Utils.toNum(((entity?.state || '0') * 1000), 0, invert)
-            : Utils.toNum((entity?.state || '0'), 0, invert)
-    }
-    // Function to convert HassEntity to CustomEntity
-    export function convertToCustomEntity(entity: any): CustomEntity {
-        return {
-            ...entity,
-            toNum: (decimals?: number, invert?: boolean) => CustomEntity.toNum(entity, decimals, invert),
-            isValid: () => CustomEntity?.isValid(entity) || false,
-            notEmpty: () => CustomEntity?.notEmpty(entity) || false,
-            isNaN: () => CustomEntity?.isNaN(entity) || true,
-            toPower: (invert?: boolean) => CustomEntity?.toPower(entity, invert) || 0
-        }
+            : Utils.toNum((entity?.state || '0'), 0, invert) || 0
     }
 }

@@ -21,9 +21,7 @@ import {compactCard} from './cards/compact-card';
 import {globalData} from './helpers/globals';
 import {InverterFactory} from './inverters/inverter-factory';
 import {BatteryIconManager} from './helpers/battery-icon-manager';
-import {CustomEntity} from './inverters/dto/custom-entity';
-import convertToCustomEntity = CustomEntity.convertToCustomEntity;
-import {HassEntity} from 'home-assistant-js-websocket/dist/types';
+import {convertToCustomEntity, CustomEntity} from './inverters/dto/custom-entity';
 
 console.groupCollapsed(
     `%c ⚡ SUNSYNK-POWER-FLOW-CARD %c ${localize('common.version')}: ${CARD_VERSION} `,
