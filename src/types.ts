@@ -36,6 +36,7 @@ export enum AutarkyType {
 
 export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
     type: string;
+    dynamicConfig: boolean;
     cardstyle: CardStyle;
     panel_mode?: boolean;
     large_font?: boolean;
@@ -58,8 +59,8 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
     }
     battery: {
         energy: number;
-        shutdown_soc: number;
-        shutdown_soc_offgrid: number;
+        shutdown_soc: any;
+        shutdown_soc_offgrid: any;
         hide_soc: boolean;
         invert_power: boolean;
         colour: string;
