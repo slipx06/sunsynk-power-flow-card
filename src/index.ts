@@ -2,14 +2,7 @@ import {CSSResultGroup, LitElement} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
 import {HomeAssistant} from 'custom-card-helpers';
 import {styles} from './style';
-import {
-    CardConfigEntities,
-    CardStyle,
-    DataDto,
-    InverterModel,
-    InverterSettings,
-    sunsynkPowerFlowCardConfig,
-} from './types';
+import {CardStyle, DataDto, InverterModel, InverterSettings, sunsynkPowerFlowCardConfig,} from './types';
 import defaultConfig from './defaults';
 import {CARD_VERSION, valid3phase, validaux, validLoadValues, validnonLoadValues,} from './const';
 import {localize} from './localize/localize';
@@ -210,8 +203,8 @@ export class SunsynkPowerFlowCard extends LitElement {
         const state_pv_total = this.getEntity('pv_total');
         const state_total_pv_generation = this.getEntity('total_pv_generation');
 
-        const state_shutdown_soc = this.getEntity('shutdown_soc', {state: config.battery.shutdown_soc ?? ''});
-        const state_shutdown_soc_offgrid = this.getEntity('shutdown_soc_offgrid', {state: config.battery.shutdown_soc_offgrid ?? ''});
+        const state_shutdown_soc = this.getEntity('battery.shutdown_soc', {state: config.battery.shutdown_soc ?? ''});
+        const state_shutdown_soc_offgrid = this.getEntity('battery.shutdown_soc_offgrid', {state: config.battery.shutdown_soc_offgrid ?? ''});
 
         //Set defaults
         let {invert_aux} = config.load;
@@ -581,7 +574,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let formattedResultTime = '';
         let duration = '';
 
-        const battenergy = this.getEntity('energy', {state: config.battery.energy ?? ''});
+        const battenergy = this.getEntity('battery.energy', {state: config.battery.energy ?? ''});
         let battery_energy = battenergy.toNum(0);
         if (battery_voltage && state_battery_rated_capacity) {
             battery_energy = Utils.toNum(battery_voltage * state_battery_rated_capacity, 0)
@@ -730,7 +723,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let max_linewidth = (Utils.toNum(config.max_line_width) < 1 ? 1 : config.max_line_width) - 1;
         let min_linewidth = Utils.toNum(config.min_line_width) || 1;
 
-        const BatteryMaxPower = this.getEntity('max_power', {state: config.battery.max_power ?? ''});
+        const BatteryMaxPower = this.getEntity('battery.max_power', {state: config.battery.max_power ?? ''});
         let BattMaxPower = BatteryMaxPower.toNum();
 
         //Calculate line width depending on power usage
@@ -1094,13 +1087,23 @@ export class SunsynkPowerFlowCard extends LitElement {
      * @param entity
      * @param defaultValue
      */
-    getEntity(entity: keyof CardConfigEntities | keyof sunsynkPowerFlowCardConfig,
+    getEntity(entity: keyof sunsynkPowerFlowCardConfig,
               defaultValue: Partial<CustomEntity> | null = {
                   state: '0', attributes: {unit_of_measurement: ''},
               }): CustomEntity {
+
         let entityString;
-        entityString = this._config.entities[entity] ?? this._config.battery[entity]
-            ?? this._config.inverter[entity] ?? this._config.grid[entity] ?? this._config.solar[entity] ?? this._config.load[entity];
+
+        const props = String(entity).split(".");
+        const ent = props.length > 0 ? props[0] : null;
+        const prop = props.length > 1 ? props[1] : null;
+
+        if (ent && prop) {
+            entityString = this._config[ent][prop]
+        } else if (ent) {
+            entityString = this._config.entities[ent]
+        }
+
         const state = entityString ? this.hass.states[entityString] : undefined;
         return (state !== undefined ? convertToCustomEntity(state)
             : defaultValue ? convertToCustomEntity(defaultValue)
