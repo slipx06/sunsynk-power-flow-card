@@ -57,7 +57,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         three_phase: boolean;
     }
     battery: {
-        energy: number;
+        energy: any;
         shutdown_soc: any;
         shutdown_soc_offgrid: any;
         hide_soc: boolean;
@@ -66,7 +66,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         charge_colour: string;
         show_daily: boolean;
         animation_speed: number;
-        max_power: number;
+        max_power: any;
         full_capacity: number;
         empty_capacity: number;
         show_absolute: boolean;
