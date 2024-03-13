@@ -203,8 +203,8 @@ export class SunsynkPowerFlowCard extends LitElement {
         const state_pv_total = this.getEntity('pv_total');
         const state_total_pv_generation = this.getEntity('total_pv_generation');
 
-        const state_shutdown_soc = this.getEntity('battery.shutdown_soc', {state: config.battery.shutdown_soc ?? ''});
-        const state_shutdown_soc_offgrid = this.getEntity('battery.shutdown_soc_offgrid', {state: config.battery.shutdown_soc_offgrid ?? ''});
+        const state_shutdown_soc = this.getEntity('battery.shutdown_soc', {state: config.battery.shutdown_soc?.toString() ?? ''});
+        const state_shutdown_soc_offgrid = this.getEntity('battery.shutdown_soc_offgrid', {state: config.battery.shutdown_soc_offgrid?.toString() ?? ''});
 
         //Set defaults
         let {invert_aux} = config.load;
