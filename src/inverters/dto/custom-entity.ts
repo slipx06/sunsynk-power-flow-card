@@ -6,7 +6,7 @@ import {Utils} from '../../helpers/utils';
  * - this entity aids in reducing common boiler plate code. the end goal is that we can just use the state object instead of multiple vars
  */
 export interface CustomEntity extends HassEntity {
-    state: any,
+    state: string,
 
     /**
      * Extension of Utils.toNum, returns the state in a number

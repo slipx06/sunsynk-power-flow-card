@@ -143,7 +143,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         const state_battery_temp = this.getEntity('battery_temp_182', {state: ''});
         const state_battery_status = this.getEntity('battery_status', {state: ''});
         const state_battery_current_direction = this.getEntity('battery_current_direction', null);
-        const state_battery_rated_capacity = this.getEntity('battery_rated_capacity', null)?.state;
+        const state_battery_rated_capacity = this.getEntity('battery_rated_capacity', null);
 
         //Load
         const state_essential_power = this.getEntity('essential_power');
@@ -221,8 +221,8 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         let total_grid_power = config.inverter.three_phase ? grid_power_total : grid_power;
 
-        let grid_voltage = !isNaN(state_grid_voltage?.state) ? Utils.toNum(state_grid_voltage.state) : null;
-        let battery_current_direction = !isNaN(state_battery_current_direction?.state) ? parseInt(state_battery_current_direction.state) : null;
+        let grid_voltage = !state_grid_voltage.isNaN() ? Utils.toNum(state_grid_voltage.state) : null;
+        let battery_current_direction = !state_battery_current_direction.isNaN() ? parseInt(state_battery_current_direction.state) : null;
         let inverter_modern = config.inverter?.modern;
 
         let load_colour = this.colourConvert(config.load?.colour);
@@ -465,7 +465,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 
 
         let shutdownoffgrid = state_shutdown_soc_offgrid.toNum();
-        let shutdown = state_shutdown_soc.state.toNum();
+        let shutdown = state_shutdown_soc.toNum();
 
         let inverter_prog: InverterSettings = {
             capacity: shutdown,
@@ -574,10 +574,10 @@ export class SunsynkPowerFlowCard extends LitElement {
         let formattedResultTime = '';
         let duration = '';
 
-        const battenergy = this.getEntity('battery.energy', {state: config.battery.energy ?? ''});
+        const battenergy = this.getEntity('battery.energy', {state: config.battery.energy.toString() ?? ''});
         let battery_energy = battenergy.toNum(0);
         if (battery_voltage && state_battery_rated_capacity) {
-            battery_energy = Utils.toNum(battery_voltage * state_battery_rated_capacity, 0)
+            battery_energy = Utils.toNum(battery_voltage * state_battery_rated_capacity.toNum(), 0)
         }
 
         if (config.show_battery || battery_energy !== 0) {
@@ -723,7 +723,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let max_linewidth = (Utils.toNum(config.max_line_width) < 1 ? 1 : config.max_line_width) - 1;
         let min_linewidth = Utils.toNum(config.min_line_width) || 1;
 
-        const BatteryMaxPower = this.getEntity('battery.max_power', {state: config.battery.max_power ?? ''});
+        const BatteryMaxPower = this.getEntity('battery.max_power', {state: config.battery.max_power.toString() ?? ''});
         let BattMaxPower = BatteryMaxPower.toNum();
 
         //Calculate line width depending on power usage
