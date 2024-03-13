@@ -270,13 +270,13 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         let {invert_load} = config.load;
         let load_power_L1 = config.entities?.load_power_L1
-            ? state_load_power_L1.toPower()
+            ? state_load_power_L1.toPower(invert_load)
             : '';
         let load_power_L2 = config.entities?.load_power_L2
-            ? state_load_power_L2.toPower()
+            ? state_load_power_L2.toPower(invert_load)
             : '';
         let load_power_L3 = config.entities?.load_power_L3
-            ? state_load_power_L3.toPower()
+            ? state_load_power_L3.toPower(invert_load)
             : '';
 
         const grid_import_colour = this.colourConvert(config.grid?.colour);
@@ -348,7 +348,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let usetimer = config.entities.use_timer_248 === false || !config.entities.use_timer_248 ? false : state_use_timer.state;
         let priority =
             config.entities.priority_load_243 === false || !config.entities.priority_load_243 ? false : state_priority_load.state;
-        let battery_power = state_battery_power.toPower();
+        let battery_power = state_battery_power.toPower(config.battery?.invert_power);
 
         const card_height = (config.card_height ? this.hass.states[config.card_height] : null) || {state: ''};
         let height =
