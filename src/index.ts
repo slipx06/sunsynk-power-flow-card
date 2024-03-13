@@ -574,7 +574,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let formattedResultTime = '';
         let duration = '';
 
-        const battenergy = this.getEntity('battery.energy', {state: config.battery.energy.toString() ?? ''});
+        const battenergy = this.getEntity('battery.energy', {state: config.battery.energy?.toString() ?? ''});
         let battery_energy = battenergy.toNum(0);
         if (battery_voltage && state_battery_rated_capacity.notEmpty()) {
             battery_energy = Utils.toNum(battery_voltage * state_battery_rated_capacity.toNum(0), 0)
@@ -723,7 +723,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let max_linewidth = (Utils.toNum(config.max_line_width) < 1 ? 1 : config.max_line_width) - 1;
         let min_linewidth = Utils.toNum(config.min_line_width) || 1;
 
-        const BatteryMaxPower = this.getEntity('battery.max_power', {state: config.battery.max_power.toString() ?? ''});
+        const BatteryMaxPower = this.getEntity('battery.max_power', {state: config.battery.max_power?.toString() ?? ''});
         let BattMaxPower = BatteryMaxPower.toNum();
 
         //Calculate line width depending on power usage
