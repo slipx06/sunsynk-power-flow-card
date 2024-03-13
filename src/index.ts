@@ -465,7 +465,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 
 
         let shutdownoffgrid = state_shutdown_soc_offgrid.toNum();
-        let shutdown = state_shutdown_soc.state.toNum();
+        let shutdown = state_shutdown_soc.toNum();
 
         let inverter_prog: InverterSettings = {
             capacity: shutdown,
