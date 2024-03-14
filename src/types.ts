@@ -6,6 +6,7 @@ declare global {
     }
 }
 
+
 export enum InverterModel {
     Sunsynk = 'sunsynk',
     Lux = 'lux',
@@ -19,7 +20,8 @@ export enum InverterModel {
     Fronius = 'fronius',
     SolarEdge = 'solaredge',
     Growatt = 'growatt',
-    Sofar = 'sofar'
+    Sofar = 'sofar',
+    CESBatteryBox = 'ces-battery-box'
 }
 
 export enum CardStyle {

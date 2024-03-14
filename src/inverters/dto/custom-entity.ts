@@ -1,5 +1,6 @@
 import {HassEntity} from 'home-assistant-js-websocket/dist/types';
 import {Utils} from '../../helpers/utils';
+import {globalData} from '../../helpers/globals';
 
 /**
  * CustomEntity interface represents a custom entity in Home Assistant.
@@ -14,6 +15,8 @@ export interface CustomEntity extends HassEntity {
      * @param invert
      */
     toNum(decimals?: number, invert?: boolean): number;
+
+    toString(): string;
 
     /**
      * Checks that the state is not null or undefined
@@ -44,6 +47,7 @@ export function convertToCustomEntity(entity: any): CustomEntity {
         isNaN: () => Number.isNaN(entity?.state) || true,
         toPower: (invert?: boolean) => (entity.attributes?.unit_of_measurement || '').toLowerCase() === 'kw'
             ? Utils.toNum(((entity?.state || '0') * 1000), 0, invert)
-            : Utils.toNum((entity?.state || '0'), 0, invert) || 0
+            : Utils.toNum((entity?.state || '0'), 0, invert) || 0,
+        toString: () => entity?.state?.toString() || ''
     }
 }

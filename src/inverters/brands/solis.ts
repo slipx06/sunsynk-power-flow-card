@@ -9,7 +9,7 @@ import {localize} from '../../localize/localize';
 
 export class Solis extends InverterSettingsDto {
     brand = InverterModel.Solis;
-    statusGroups: InverterStatus = {
+    statusGroups = {
         normal: {
             states: ['0', '3'],
             color: 'green',
