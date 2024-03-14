@@ -633,21 +633,21 @@ export class SunsynkPowerFlowCard extends LitElement {
          * Status can be returned as decimals "3.0", so this is just to change it to an int
          */
         if (inverterModel == InverterModel.Solis) {
-            const state = state_inverter_status.state as any;
-            inverterState = !Number.isNaN(state) ? Number(state).toFixed(0) : state;
+            inverterState = !state_inverter_status.isNaN() ? state_inverter_status.toNum(0) : state_inverter_status.toString();
         }
 
         let typeStatusGroups = inverterSettings.statusGroups;
-        for (const groupKey of Object.keys(typeStatusGroups)) {
-            const info = typeStatusGroups[groupKey];
-            const {states, color, message} = info;
-            if (states.includes(inverterState.toLowerCase())) {
-                inverterStateColour = color;
-                inverterStateMsg = message;
-                found = true;
-                break;
+        if (typeStatusGroups)
+            for (const groupKey of Object.keys(typeStatusGroups)) {
+                const info = typeStatusGroups[groupKey];
+                const {states, color, message} = info;
+                if (states.includes(inverterState.toLowerCase())) {
+                    inverterStateColour = color;
+                    inverterStateMsg = message;
+                    found = true;
+                    break;
+                }
             }
-        }
 
         if (!found) {
             if (config.entities?.inverter_status_59 === 'none' || !config.entities?.inverter_status_59) {
