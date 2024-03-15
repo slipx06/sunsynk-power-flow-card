@@ -246,7 +246,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                           class="${!config.entities?.battery_status && !data.compactMode ? 'st3' : 'st3 left-align'}"
                           display="${!config.show_battery || !config.battery.show_remaining_energy ? 'none' : ''}"
                           fill="${data.batteryColour}">
-                        ${Utils.toNum(((data.batteryEnergy * (parseFloat(data.state_battery_soc.state) / 100) / 1000)), 2)}
+                        ${Utils.toNum(((data.batteryEnergy * (parseFloat(data.stateBatterySoc.state) / 100) / 1000)), 2)}
                         kWh
                     </text>
                     <text id="battery_soc_184" x="${data.compactMode ? '348.5' : '368.5'}" y="351" fill=${data.batteryColour}
@@ -681,22 +681,22 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.use_timer_248)}>
                         <svg xmlns="http://www.w3.org/2000/svg" id="timer" x="267.7" y="243.3" width="18"
                              height="18" viewBox="0 0 24 24">
-                            <path display="${data.state_use_timer.state == 'on' && data.enableTimer !== false ? '' : 'none'}"
+                            <path display="${data.stateUseTimer.state == 'on' && data.enableTimer !== false ? '' : 'none'}"
                                   fill="${data.inverterColour}"
                                   d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0 0 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9a8.994 8.994 0 0 0 7.03-14.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7s7 3.13 7 7s-3.13 7-7 7z"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="timer_off" x="267.7" y="243.3" width="18"
                              height="18" viewBox="0 0 24 24">
-                            <path display="${data.state_use_timer.state == 'off' && data.enableTimer !== false ? '' : 'none'}"
+                            <path display="${data.stateUseTimer.state == 'off' && data.enableTimer !== false ? '' : 'none'}"
                                   fill="${data.inverterColour}"
                                   d="m19.95 17.15l-1.5-1.5q.275-.675.413-1.337T19 13q0-2.9-2.05-4.95T12 6q-.6 0-1.275.125t-1.4.4l-1.5-1.5q.95-.5 2.012-.763T12 4q1.5 0 2.938.5t2.712 1.45l1.4-1.4l1.4 1.4l-1.4 1.4q.95 1.275 1.45 2.713T21 13q0 1.05-.263 2.087t-.787 2.063ZM13 10.2V8h-2v.2l2 2Zm6.8 12.4l-2.4-2.4q-1.2.875-2.588 1.338T12 22q-1.85 0-3.488-.713T5.65 19.35q-1.225-1.225-1.938-2.863T3 13q0-1.5.463-2.888T4.8 7.6L1.4 4.2l1.4-1.4l18.4 18.4l-1.4 1.4ZM12 20q1.05 0 2.05-.325t1.875-.925L6.2 9.025q-.6.875-.9 1.875T5 13q0 2.9 2.05 4.95T12 20ZM9 3V1h6v2H9Zm2.075 10.875Zm2.825-2.8Z"/>
                         </svg>
                         <text id="timer_text_off" x="287" y="254.7" class="st3 left-align"
-                              display="${data.state_use_timer.state == 'off' && data.enableTimer !== false ? '' : 'none'}"
+                              display="${data.stateUseTimer.state == 'off' && data.enableTimer !== false ? '' : 'none'}"
                               fill="${data.inverterColour}">${localize('common.timer_off')}
                         </text>
                         <text id="timer_text_on" x="287" y="254.7" class="st3 left-align"
-                              display="${data.state_use_timer.state == 'on' && data.enableTimer !== false ? '' : 'none'}"
+                              display="${data.stateUseTimer.state == 'on' && data.enableTimer !== false ? '' : 'none'}"
                               fill="${data.inverterColour}">${localize('common.timer_on')}
                         </text>
                     </a>
@@ -725,13 +725,13 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.solar_sell_247)}>
                         <svg xmlns="http://www.w3.org/2000/svg" id="solar_sell_on" x="245" y="150" width="18"
                              height="18" viewBox="0 0 30 30">
-                            <path display="${!config.entities.solar_sell_247 || data.state_solar_sell.state === 'off' || data.state_solar_sell.state === '0' || !config.show_solar || !['1', 'on'].includes(data.state_solar_sell.state) ? 'none' : ''}"
+                            <path display="${!config.entities.solar_sell_247 || data.stateSolarSell.state === 'off' || data.stateSolarSell.state === '0' || !config.show_solar || !['1', 'on'].includes(data.stateSolarSell.state) ? 'none' : ''}"
                                   fill="${data.solarColour}"
                                   d="m5.18 5.45l-1.78-.9L4.66 2h8.47l1.27 2.55l-1.78.89L11.9 4h-6l-.72 1.45M15.5 8H11l-.8-3H7.6l-.79 3H2.28L1 10.55l1.79.89L3.5 10h10.78l.72 1.45l1.79-.89L15.5 8m-.83 14H12.6l-.24-.9l-3.46-5.2l-3.47 5.2l-.23.9H3.13L6 11h2.09l-.36 1.35L8.9 14.1l1.16-1.75L9.71 11h2.07l2.89 11M8.3 15l-.9-1.35l-1.18 4.48L8.3 15m3.28 3.12l-1.18-4.48L9.5 15l2.08 3.12M23 16l-4-4v3h-4v2h4v3l4-4Z"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="solar_sell_off" x="245" y="150" width="18"
                              height="18" viewBox="0 0 30 30">
-                            <path display="${!config.entities.solar_sell_247 || data.state_solar_sell.state === 'on' || data.state_solar_sell.state === '1' || !config.show_solar || !['0', 'off'].includes(data.state_solar_sell.state) ? 'none' : ''}"
+                            <path display="${!config.entities.solar_sell_247 || data.stateSolarSell.state === 'on' || data.stateSolarSell.state === '1' || !config.show_solar || !['0', 'off'].includes(data.stateSolarSell.state) ? 'none' : ''}"
                                   fill="${data.solarColour}"
                                   d="M 26 16 L 22 12 L 22 15 L 18 15 L 18 17 L 22 17 L 22 20 L 26 16 Z M 22.1 21.5 L 2.4 1.7 L 1.1 3 L 6.1 8 L 5.4 8 L 4.1 10.5 L 5.9 11.4 L 6.6 10 L 8.1 10 L 9.1 11 L 6.2 22 L 8.3 22 L 8.5 21.1 L 12 15.9 L 15.5 21.1 L 15.7 22 L 17.8 22 L 17 18.8 L 20.9 22.7 L 22.1 21.5 M 9.3 18.1 L 10.5 13.6 L 11.4 14.9 L 9.3 18.1 M 14.7 18.1 L 12.6 15 L 12.8 14.7 L 14.1 16 L 14.7 18.1 M 14.2 11 L 14.9 11 L 15.1 11.9 L 14.2 11 M 14.1 8 L 18.6 8 L 19.9 10.6 L 18.1 11.5 L 17.4 10 L 13.2 10 L 10.2 7 L 10.7 5 L 13.3 5 L 14.1 8 M 8.4 5.2 L 6.9 3.7 L 7.8 2 L 16.3 2 L 17.6 4.5 L 15.8 5.4 L 15 4 L 9 4 L 8.4 5.2 Z"/>
                         </svg>
@@ -740,18 +740,18 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                            class="${!data.genericInverterImage ? '' : 'st12'}"
                            href="${inverterImg}"
                            preserveAspectRatio="none"/>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, data.inverter_prog.entityID)}>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, data.inverterProg.entityID)}>
                         <svg xmlns="http://www.w3.org/2000/svg" id="prog_grid_on" x="323" y="243" width="20"
                              height="18" viewBox="0 0 24 24">
-                            <path display="${data.inverter_prog.show === false || config.entities.use_timer_248 === 'none' ? 'none' : ''}"
-                                  class="${data.inverter_prog.charge === 'none' ? 'st12' : ''}"
+                            <path display="${data.inverterProg.show === false || config.entities.use_timer_248 === 'none' ? 'none' : ''}"
+                                  class="${data.inverterProg.charge === 'none' ? 'st12' : ''}"
                                   fill="${data.inverterColour}"
                                   d="M11.5 19h1v-1.85l3.5-3.5V9H8v4.65l3.5 3.5V19Zm-2 2v-3L6 14.5V9q0-.825.588-1.413T8 7h1L8 8V3h2v4h4V3h2v5l-1-1h1q.825 0 1.413.588T18 9v5.5L14.5 18v3h-5Zm2.5-7Z"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="prog_grid_off" x="323" y="243" width="20"
                              height="18" viewBox="0 0 24 24">
-                            <path display="${data.inverter_prog.show === false || config.entities.use_timer_248 === 'none' ? 'none' : ''}"
-                                  class="${data.inverter_prog.charge === 'none' ? '' : 'st12'}"
+                            <path display="${data.inverterProg.show === false || config.entities.use_timer_248 === 'none' ? 'none' : ''}"
+                                  class="${data.inverterProg.charge === 'none' ? '' : 'st12'}"
                                   fill="${data.inverterColour}"
                                   d="M10 3H8v1.88l2 2zm6 6v3.88l1.8 1.8l.2-.2V9c0-1.1-.9-2-2-2V3h-2v4h-3.88l2 2H16zM4.12 3.84L2.71 5.25L6 8.54v5.96L9.5 18v3h5v-3l.48-.48l4.47 4.47l1.41-1.41L4.12 3.84zm8.38 13.33V19h-1v-1.83L8 13.65v-3.11l5.57 5.57l-1.07 1.06z"/>
                         </svg>
@@ -884,18 +884,18 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         <text id="battery_soc_184" x="${data.compactMode ? '270' : '290'}" y="358"
                               display="${config.entities.battery_soc_184 === 'none' || !config.show_battery ? 'none' : ''}"
                               fill=${data.batteryColour} class="st13 st8 left-align">
-                            ${parseInt(data.state_battery_soc.state)} %
+                            ${parseInt(data.stateBatterySoc.state)} %
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
                         <text id="battery_soc_184" x="${data.compactMode ? '335' : '355'}" y="358" fill=${data.batteryColour}
                               class="st13 st8 left-align"
-                              display="${data.inverter_prog.show === false
+                              display="${data.inverterProg.show === false
                               || config.entities.battery_soc_184 === 'none'
                               || !config.show_battery
                               || [InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel)
                               || config.battery.hide_soc ? 'none' : ''}">
-                            | ${data.inverter_prog.capacity || 0} %
+                            | ${data.inverterProg.capacity || 0} %
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
@@ -933,7 +933,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         <text id="battery_current_191" x="193" y="365.3"
                               display="${!config.entities.battery_current_191 || config.entities.battery_current_191 === 'none' || !config.show_battery || data.compactMode ? 'none' : ''}"
                               fill=${data.batteryColour} class="${data.largeFont !== true ? 'st14' : 'st4'} st8">
-                            ${config.battery.show_absolute ? Math.abs(Utils.toNum(data.state_battery_current.state, 1)) : Utils.toNum(data.state_battery_current.state, 1)}
+                            ${config.battery.show_absolute ? Math.abs(Utils.toNum(data.stateBatteryCurrent.state, 1)) : Utils.toNum(data.stateBatteryCurrent.state, 1)}
                             A
                         </text>
                     </a>
@@ -941,7 +941,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         <text id="battery_current_191" x="281" y="312"
                               display="${!config.entities.battery_current_191 || config.entities.battery_current_191 === 'none' || !config.show_battery || !data.compactMode ? 'none' : ''}"
                               fill=${data.batteryColour} class="${data.compactMode ? 'st3 left-align' : 'st12'}">
-                            ${config.battery.show_absolute ? Math.abs(Utils.toNum(data.state_battery_current.state, 1)) : Utils.toNum(data.state_battery_current.state, 1)}
+                            ${config.battery.show_absolute ? Math.abs(Utils.toNum(data.stateBatteryCurrent.state, 1)) : Utils.toNum(data.stateBatteryCurrent.state, 1)}
                             A
                         </text>
                     </a>
@@ -998,50 +998,50 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         <text id="pv1_voltage" x="${config.solar.mppts === 1 ? '244.7' : '194'}" y="106"
                               class="st3 left-align"
                               display="${!config.show_solar || !config.entities.pv1_voltage_109 || config.entities.pv1_voltage_109 === 'none' ? 'none' : ''}"
-                              fill="${data.solarColour}">${Utils.toNum(data.state_pv1_voltage.state, 1)} V
+                              fill="${data.solarColour}">${Utils.toNum(data.statePV1Voltage.state, 1)} V
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv1_current_110)}>
                         <text id="pv1_current" x="${config.solar.mppts === 1 ? '244.7' : '194'}" y="94"
                               class="st3 left-align"
                               display="${!config.show_solar || !config.entities.pv1_current_110 || config.entities.pv1_current_110 === 'none' ? 'none' : ''}"
-                              fill="${data.solarColour}">${Utils.toNum(data.state_pv1_current.state, 1)} A
+                              fill="${data.solarColour}">${Utils.toNum(data.statePV1Current.state, 1)} A
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv2_voltage_111)}>
                         <text id="data.pv2_voltage" x="296" y="106" class="st3 left-align"
                               display="${!config.show_solar || !config.entities.pv2_voltage_111 || config.entities.pv2_voltage_111 === 'none' || config.solar.mppts === 1 ? 'none' : ''}"
-                              fill="${data.solarColour}">${Utils.toNum(data.state_pv2_voltage.state, 1)} V
+                              fill="${data.solarColour}">${Utils.toNum(data.statePV2Voltage.state, 1)} V
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv2_current_112)}>
                         <text id="data.pv2_current" x="296" y="94" class="st3 left-align"
                               display="${!config.show_solar || !config.entities.pv2_current_112 || config.entities.pv2_current_112 === 'none' || config.solar.mppts === 1 ? 'none' : ''}"
-                              fill="${data.solarColour}">${Utils.toNum(data.state_pv2_current.state, 1)} A
+                              fill="${data.solarColour}">${Utils.toNum(data.statePV2Current.state, 1)} A
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv3_voltage_113)}>
                         <text id="pv3_voltage" x="120" y="106" class="st3 left-align"
                               display="${!config.show_solar || !config.entities.pv3_voltage_113 || config.entities.pv3_voltage_113 === 'none' || [1, 2].includes(config.solar.mppts) ? 'none' : ''}"
-                              fill="${data.solarColour}">${Utils.toNum(data.state_pv3_voltage.state, 1)} V
+                              fill="${data.solarColour}">${Utils.toNum(data.statePV3Voltage.state, 1)} V
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv3_current_114)}>
                         <text id="pv3_current" x="120" y="94" class="st3 left-align"
                               display="${!config.show_solar || !config.entities.pv3_current_114 || config.entities.pv3_current_114 === 'none' || [1, 2].includes(config.solar.mppts) ? 'none' : ''}"
-                              fill="${data.solarColour}">${Utils.toNum(data.state_pv3_current.state, 1)} A
+                              fill="${data.solarColour}">${Utils.toNum(data.statePV3Current.state, 1)} A
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv4_voltage_115)}>
                         <text id="pv4_voltage" x="372" y="106" class="st3 left-align"
                               display="${!config.show_solar || !config.entities.pv4_voltage_115 || config.entities.pv4_voltage_115 === 'none' || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}"
-                              fill="${data.solarColour}">${Utils.toNum(data.state_pv4_voltage.state, 1)} V
+                              fill="${data.solarColour}">${Utils.toNum(data.statePV4Voltage.state, 1)} V
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv4_current_116)}>
                         <text id="pv4_current" x="372" y="94" class="st3 left-align"
                               display="${!config.show_solar || !config.entities.pv4_current_116 || config.entities.pv4_current_116 === 'none' || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}"
-                              fill="${data.solarColour}">${Utils.toNum(data.state_pv4_current.state, 1)} A
+                              fill="${data.solarColour}">${Utils.toNum(data.statePV4Current.state, 1)} A
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_temp_182)}>
@@ -1049,42 +1049,42 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                               y="${data.compactMode ? '332' : '324.5'}"
                               class="${config.entities?.battery_temp_182 ? 'st3 left-align' : 'st12'}"
                               fill="${data.batteryColour}" display="${!config.show_battery ? 'none' : ''}">
-                            ${Utils.toNum(data.state_battery_temp.state, 1)}°
+                            ${Utils.toNum(data.stateBatteryTemp.state, 1)}°
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.radiator_temp_91)}>
                         <text id="ac_temp" x="173" y="168.2" class="st3 left-align" fill="${data.inverterColour}"
                               display="${config.entities?.radiator_temp_91 ? '' : 'none'}">AC:
-                            ${Utils.toNum(data.state_radiator_temp.state, 1)}°
+                            ${Utils.toNum(data.stateRadiatorTemp.state, 1)}°
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.dc_transformer_temp_90)}>
                         <text id="dc_temp" x="173" y="180.4" class="st3 left-align" fill="${data.inverterColour}"
                               display="${config.entities?.dc_transformer_temp_90 ? '' : 'none'}">DC:
-                            ${Utils.toNum(data.state_dc_transformer_temp.state, 1)}°
+                            ${Utils.toNum(data.stateDCTransformerTemp.state, 1)}°
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.environment_temp)}>
                         <text id="environ_temp" x="154" y="45"
                               class="${config.entities?.environment_temp ? 'st3 left-align' : 'st12'}"
                               fill="${data.solarColour}" display="${!config.show_solar ? 'none' : ''}">
-                            ${Utils.toNum(data.state_environment_temp.state, 1)}°
+                            ${Utils.toNum(data.stateEnvironmentTemp.state, 1)}°
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1_extra)}>
                         <text id="ess_load1_extra" x="465" y="157"
                               display="${config.entities?.essential_load1_extra && [1, 2].includes(data.additionalLoad) ? '' : 'none'}"
                               class="st3 .right-align" fill="${data.loadColour}">
-                            ${Utils.toNum(data.state_essential_load1_extra.state, 1)}
-                            ${data.state_essential_load1_extra.attributes?.unit_of_measurement}
+                            ${Utils.toNum(data.stateEssentialLoad1Extra.state, 1)}
+                            ${data.stateEssentialLoad1Extra.attributes?.unit_of_measurement}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load2_extra)}>
                         <text id="ess_load2_extra" x="465" y="282"
                               display="${config.entities?.essential_load2_extra && data.additionalLoad === 2 ? '' : 'none'}"
                               class="st3 .right-align" fill="${data.loadColour}">
-                            ${Utils.toNum(data.state_essential_load2_extra.state, 1)}
-                            ${data.state_essential_load2_extra.attributes?.unit_of_measurement}
+                            ${Utils.toNum(data.stateEssentialLoad2Extra.state, 1)}
+                            ${data.stateEssentialLoad2Extra.attributes?.unit_of_measurement}
                         </text>
                     </a>
                     ${data.totalGridPower >= 0
@@ -1093,7 +1093,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                         <text id="energy_cost" x="105" y="195" class="${!config.show_grid ? 'st12' : 'st3 left-align'}" 
                                               fill="${data.gridColour}" 
                                               display="${config.entities?.energy_cost_buy ? '' : 'none'}" >
-                                            ${data.energyCost} ${data.state_energy_cost_buy.attributes?.unit_of_measurement}
+                                            ${data.energyCost} ${data.stateEnergyCostBuy.attributes?.unit_of_measurement}
                                         </text>
                                     </a>`
                             : svg`
@@ -1101,7 +1101,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                         <text id="energy_cost" x="105" y="195"  class="${!config.show_grid ? 'st12' : 'st3 left-align'}" 
                                               fill="${data.gridColour}" 
                                               display="${config.entities?.energy_cost_sell ? '' : 'none'}" >
-                                            ${data.energyCost} ${data.state_energy_cost_sell.attributes?.unit_of_measurement}
+                                            ${data.energyCost} ${data.stateEnergyCostSell.attributes?.unit_of_measurement}
                                         </text>
                                     </a>`}
                     ${config.entities?.pv_total
@@ -1112,7 +1112,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                               fill="${data.solarColour}">
                                             ${config.solar.auto_scale
                                     ? config.entities?.pv_total
-                                            ? Utils.convertValueNew(data.totalPV, data.state_pv_total.attributes?.unit_of_measurement, data.decimalPlaces)
+                                            ? Utils.convertValueNew(data.totalPV, data.statePVTotal.attributes?.unit_of_measurement, data.decimalPlaces)
                                             : Utils.convertValue(data.totalPV, data.decimalPlaces) || 0
                                     : `${Utils.toNum(data.totalPV || 0, 0)} W`
                             }
@@ -1124,7 +1124,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                           fill="${data.solarColour}">
                                         ${config.solar.auto_scale
                                     ? config.entities?.pv_total
-                                            ? Utils.convertValueNew(data.totalPV, data.state_pv_total.attributes?.unit_of_measurement, data.decimalPlaces)
+                                            ? Utils.convertValueNew(data.totalPV, data.statePVTotal.attributes?.unit_of_measurement, data.decimalPlaces)
                                             : Utils.convertValue(data.totalPV, data.decimalPlaces) || 0
                                     : `${Utils.toNum(data.totalPV || 0, 0)} W`
                             }
@@ -1137,8 +1137,8 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                               display="${!config.show_solar ? 'none' : ''}" 
                                               fill="${data.solarColour}">
                                             ${config.solar.auto_scale
-                                    ? Utils.convertValueNew(data.state_pv1_power.state, data.state_pv1_power.attributes?.unit_of_measurement, data.decimalPlaces)
-                                    : `${Utils.toNum(data.state_pv1_power.state, 0)} W`
+                                    ? Utils.convertValueNew(data.statePV1Power.state, data.statePV1Power.attributes?.unit_of_measurement, data.decimalPlaces)
+                                    : `${Utils.toNum(data.statePV1Power.state, 0)} W`
                             }
                                         </text>
                                     </a>`
@@ -1148,8 +1148,8 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                           display="${!config.show_solar || config.entities.pv1_power_186 === 'none' ? 'none' : ''}" 
                                           fill="${data.solarColour}">
                                         ${config.solar.auto_scale
-                                    ? Utils.convertValueNew(data.state_pv1_power.state, data.state_pv1_power.attributes?.unit_of_measurement, data.decimalPlaces)
-                                    : `${Utils.toNum(data.state_pv1_power.state, 0)} W`
+                                    ? Utils.convertValueNew(data.statePV1Power.state, data.statePV1Power.attributes?.unit_of_measurement, data.decimalPlaces)
+                                    : `${Utils.toNum(data.statePV1Power.state, 0)} W`
                             }
                                     </text>`
                     }
@@ -1160,8 +1160,8 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                               display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}" 
                                               fill="${data.solarColour}">
                                             ${config.solar.auto_scale
-                                    ? Utils.convertValueNew(data.state_pv2_power.state, data.state_pv2_power.attributes?.unit_of_measurement, data.decimalPlaces)
-                                    : `${Utils.toNum(data.state_pv2_power.state, 0)} W`
+                                    ? Utils.convertValueNew(data.statePV2Power.state, data.statePV2Power.attributes?.unit_of_measurement, data.decimalPlaces)
+                                    : `${Utils.toNum(data.statePV2Power.state, 0)} W`
                             }
                                         </text>
                                     </a>`
@@ -1170,8 +1170,8 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                           display="${!config.show_solar || config.entities.pv2_power_187 === 'none' || config.solar.mppts === 1 ? 'none' : ''}" 
                                           fill="${data.solarColour}">
                                         ${config.solar.auto_scale
-                                    ? Utils.convertValueNew(data.state_pv2_power.state, data.state_pv2_power.attributes?.unit_of_measurement, data.decimalPlaces)
-                                    : `${Utils.toNum(data.state_pv2_power.state, 0)} W`
+                                    ? Utils.convertValueNew(data.statePV2Power.state, data.statePV2Power.attributes?.unit_of_measurement, data.decimalPlaces)
+                                    : `${Utils.toNum(data.statePV2Power.state, 0)} W`
                             }
                                     </text>`
                     }
@@ -1182,8 +1182,8 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                               display="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'none' : ''}" 
                                               fill="${data.solarColour}">
                                             ${config.solar.auto_scale
-                                    ? Utils.convertValueNew(data.state_pv3_power.state, data.state_pv3_power.attributes?.unit_of_measurement, data.decimalPlaces)
-                                    : `${Utils.toNum(data.state_pv3_power.state, 0)} W`
+                                    ? Utils.convertValueNew(data.statePV3Power.state, data.statePV3Power.attributes?.unit_of_measurement, data.decimalPlaces)
+                                    : `${Utils.toNum(data.statePV3Power.state, 0)} W`
                             }
                                         </text>
                                     </a>`
@@ -1192,8 +1192,8 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                           display="${!config.show_solar || config.entities.pv3_power_188 === 'none' || [1, 2].includes(config.solar.mppts) ? 'none' : ''}" 
                                           fill="${data.solarColour}">
                                         ${config.solar.auto_scale
-                                    ? Utils.convertValueNew(data.state_pv3_power.state, data.state_pv3_power.attributes?.unit_of_measurement, data.decimalPlaces)
-                                    : `${Utils.toNum(data.state_pv3_power.state, 0)} W`
+                                    ? Utils.convertValueNew(data.statePV3Power.state, data.statePV3Power.attributes?.unit_of_measurement, data.decimalPlaces)
+                                    : `${Utils.toNum(data.statePV3Power.state, 0)} W`
                             }
                                     </text>`
                     }
@@ -1204,8 +1204,8 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                               display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}" 
                                               fill="${data.solarColour}">
                                             ${config.solar.auto_scale
-                                    ? Utils.convertValueNew(data.state_pv4_power.state, data.state_pv4_power.attributes?.unit_of_measurement, data.decimalPlaces)
-                                    : `${Utils.toNum(data.state_pv4_power.state, 0)} W`
+                                    ? Utils.convertValueNew(data.statePV4Power.state, data.statePV4Power.attributes?.unit_of_measurement, data.decimalPlaces)
+                                    : `${Utils.toNum(data.statePV4Power.state, 0)} W`
                             }
                                         </text>
                                     </a>`
@@ -1214,8 +1214,8 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                           display="${!config.show_solar || config.entities.pv4_power_189 === 'none' || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}" 
                                           fill="${data.solarColour}">
                                         ${config.solar.auto_scale
-                                    ? Utils.convertValueNew(data.state_pv4_power.state, data.state_pv4_power.attributes?.unit_of_measurement, data.decimalPlaces)
-                                    : `${Utils.toNum(data.state_pv4_power.state, 0)} W`
+                                    ? Utils.convertValueNew(data.statePV4Power.state, data.statePV4Power.attributes?.unit_of_measurement, data.decimalPlaces)
+                                    : `${Utils.toNum(data.statePV4Power.state, 0)} W`
                             }
                                     </text>`
                     }
@@ -1240,10 +1240,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                               class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
                                               fill="${data.loadColour}">
                                             ${config.load.auto_scale
-                                    ? Utils.convertValueNew(data.state_essential_load1.state, data.state_essential_load1.attributes?.unit_of_measurement, data.decimalPlaces)
-                                    : `${Utils.toNum(data.state_essential_load1.state, 0) || 0} ${
-                                            data.state_essential_load1.attributes?.unit_of_measurement !== undefined
-                                                    ? data.state_essential_load1.attributes?.unit_of_measurement
+                                    ? Utils.convertValueNew(data.stateEssentialLoad1.state, data.stateEssentialLoad1.attributes?.unit_of_measurement, data.decimalPlaces)
+                                    : `${Utils.toNum(data.stateEssentialLoad1.state, 0) || 0} ${
+                                            data.stateEssentialLoad1.attributes?.unit_of_measurement !== undefined
+                                                    ? data.stateEssentialLoad1.attributes?.unit_of_measurement
                                                     : ''
                                     }`
                             }
@@ -1253,10 +1253,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                     <text id="ess_load1" x="440" y="133" display="${[1, 2].includes(data.additionalLoad) ? '' : 'none'}" 
                                           class="${data.largeFont !== true ? 'st14' : 'st4'} st8" fill="${data.loadColour}">
                                         ${config.load.auto_scale
-                                    ? Utils.convertValueNew(data.state_essential_load1.state, data.state_essential_load1.attributes?.unit_of_measurement, data.decimalPlaces)
-                                    : `${Utils.toNum(data.state_essential_load1.state, 0) || 0} ${
-                                            data.state_essential_load1.attributes?.unit_of_measurement !== undefined
-                                                    ? data.state_essential_load1.attributes?.unit_of_measurement
+                                    ? Utils.convertValueNew(data.stateEssentialLoad1.state, data.stateEssentialLoad1.attributes?.unit_of_measurement, data.decimalPlaces)
+                                    : `${Utils.toNum(data.stateEssentialLoad1.state, 0) || 0} ${
+                                            data.stateEssentialLoad1.attributes?.unit_of_measurement !== undefined
+                                                    ? data.stateEssentialLoad1.attributes?.unit_of_measurement
                                                     : ''
                                     }`
                             }
@@ -1269,10 +1269,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                               class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
                                               fill="${data.loadColour}">
                                             ${config.load.auto_scale
-                                    ? Utils.convertValueNew(data.state_essential_load2.state, data.state_essential_load2.attributes?.unit_of_measurement, data.decimalPlaces)
-                                    : `${Utils.toNum(data.state_essential_load2.state, 0) || 0} ${
-                                            data.state_essential_load2.attributes?.unit_of_measurement !== undefined
-                                                    ? data.state_essential_load2.attributes?.unit_of_measurement
+                                    ? Utils.convertValueNew(data.stateEssentialLoad2.state, data.stateEssentialLoad2.attributes?.unit_of_measurement, data.decimalPlaces)
+                                    : `${Utils.toNum(data.stateEssentialLoad2.state, 0) || 0} ${
+                                            data.stateEssentialLoad2.attributes?.unit_of_measurement !== undefined
+                                                    ? data.stateEssentialLoad2.attributes?.unit_of_measurement
                                                     : ''
                                     }`
                             }
@@ -1282,10 +1282,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                     <text id="ess_load2" x="440" y="306.5" display="${data.additionalLoad === 2 ? '' : 'none'}" 
                                           class="${data.largeFont !== true ? 'st14' : 'st4'} st8" fill="${data.loadColour}">
                                         ${config.load.auto_scale
-                                    ? Utils.convertValueNew(data.state_essential_load2.state, data.state_essential_load2.attributes?.unit_of_measurement, data.decimalPlaces)
-                                    : `${Utils.toNum(data.state_essential_load2.state, 0) || 0} ${
-                                            data.state_essential_load2.attributes?.unit_of_measurement !== undefined
-                                                    ? data.state_essential_load2.attributes?.unit_of_measurement
+                                    ? Utils.convertValueNew(data.stateEssentialLoad2.state, data.stateEssentialLoad2.attributes?.unit_of_measurement, data.decimalPlaces)
+                                    : `${Utils.toNum(data.stateEssentialLoad2.state, 0) || 0} ${
+                                            data.stateEssentialLoad2.attributes?.unit_of_measurement !== undefined
+                                                    ? data.stateEssentialLoad2.attributes?.unit_of_measurement
                                                     : ''
                                     }`
                             }
@@ -1298,10 +1298,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                               class="st3" 
                                               fill="${data.loadColour}">
                                             ${config.load.auto_scale
-                                    ? Utils.convertValueNew(data.state_essential_load1.state, data.state_essential_load1.attributes?.unit_of_measurement, data.decimalPlaces)
-                                    : `${Utils.toNum(data.state_essential_load1.state, 0) || 0} ${
-                                            data.state_essential_load1.attributes?.unit_of_measurement !== undefined
-                                                    ? data.state_essential_load1.attributes?.unit_of_measurement
+                                    ? Utils.convertValueNew(data.stateEssentialLoad1.state, data.stateEssentialLoad1.attributes?.unit_of_measurement, data.decimalPlaces)
+                                    : `${Utils.toNum(data.stateEssentialLoad1.state, 0) || 0} ${
+                                            data.stateEssentialLoad1.attributes?.unit_of_measurement !== undefined
+                                                    ? data.stateEssentialLoad1.attributes?.unit_of_measurement
                                                     : ''
                                     }`
                             }
@@ -1311,10 +1311,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                     <text id="ess_load4" x="423" y="138" display="${data.additionalLoad === 4 ? '' : 'none'}" 
                                           class="st3" fill="${data.loadColour}">
                                         ${config.load.auto_scale
-                                    ? Utils.convertValueNew(data.state_essential_load1.state, data.state_essential_load1.attributes?.unit_of_measurement, data.decimalPlaces)
-                                    : `${Utils.toNum(data.state_essential_load1.state, 0) || 0} ${
-                                            data.state_essential_load1.attributes?.unit_of_measurement !== undefined
-                                                    ? data.state_essential_load1.attributes?.unit_of_measurement
+                                    ? Utils.convertValueNew(data.stateEssentialLoad1.state, data.stateEssentialLoad1.attributes?.unit_of_measurement, data.decimalPlaces)
+                                    : `${Utils.toNum(data.stateEssentialLoad1.state, 0) || 0} ${
+                                            data.stateEssentialLoad1.attributes?.unit_of_measurement !== undefined
+                                                    ? data.stateEssentialLoad1.attributes?.unit_of_measurement
                                                     : ''
                                     }`
                             }
@@ -1327,10 +1327,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                               class="st3" 
                                               fill="${data.loadColour}">
                                             ${config.load.auto_scale
-                                    ? Utils.convertValueNew(data.state_essential_load2.state, data.state_essential_load2.attributes?.unit_of_measurement, data.decimalPlaces)
-                                    : `${Utils.toNum(data.state_essential_load2.state, 0) || 0} ${
-                                            data.state_essential_load2.attributes?.unit_of_measurement !== undefined
-                                                    ? data.state_essential_load2.attributes?.unit_of_measurement
+                                    ? Utils.convertValueNew(data.stateEssentialLoad2.state, data.stateEssentialLoad2.attributes?.unit_of_measurement, data.decimalPlaces)
+                                    : `${Utils.toNum(data.stateEssentialLoad2.state, 0) || 0} ${
+                                            data.stateEssentialLoad2.attributes?.unit_of_measurement !== undefined
+                                                    ? data.stateEssentialLoad2.attributes?.unit_of_measurement
                                                     : ''
                                     }`
                             }
@@ -1340,10 +1340,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                     <text id="ess_load4" x="459" y="138" display="${data.additionalLoad === 4 ? '' : 'none'}" 
                                           class="st3" fill="${data.loadColour}">
                                         ${config.load.auto_scale
-                                    ? Utils.convertValueNew(data.state_essential_load2.state, data.state_essential_load2.attributes?.unit_of_measurement, data.decimalPlaces)
-                                    : `${Utils.toNum(data.state_essential_load2.state, 0) || 0} ${
-                                            data.state_essential_load2.attributes?.unit_of_measurement !== undefined
-                                                    ? data.state_essential_load2.attributes?.unit_of_measurement
+                                    ? Utils.convertValueNew(data.stateEssentialLoad2.state, data.stateEssentialLoad2.attributes?.unit_of_measurement, data.decimalPlaces)
+                                    : `${Utils.toNum(data.stateEssentialLoad2.state, 0) || 0} ${
+                                            data.stateEssentialLoad2.attributes?.unit_of_measurement !== undefined
+                                                    ? data.stateEssentialLoad2.attributes?.unit_of_measurement
                                                     : ''
                                     }`
                             }
@@ -1356,10 +1356,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                               class="st3" 
                                               fill="${data.loadColour}">
                                             ${config.load.auto_scale
-                                    ? Utils.convertValueNew(data.state_essential_load3.state, data.state_essential_load3.attributes?.unit_of_measurement, data.decimalPlaces)
-                                    : `${Utils.toNum(data.state_essential_load3.state, 0) || 0} ${
-                                            data.state_essential_load3.attributes?.unit_of_measurement !== undefined
-                                                    ? data.state_essential_load3.attributes?.unit_of_measurement
+                                    ? Utils.convertValueNew(data.stateEssentialLoad3.state, data.stateEssentialLoad3.attributes?.unit_of_measurement, data.decimalPlaces)
+                                    : `${Utils.toNum(data.stateEssentialLoad3.state, 0) || 0} ${
+                                            data.stateEssentialLoad3.attributes?.unit_of_measurement !== undefined
+                                                    ? data.stateEssentialLoad3.attributes?.unit_of_measurement
                                                     : ''
                                     }`
                             }
@@ -1369,10 +1369,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                     <text id="ess_load4" x="423" y="301" display="${data.additionalLoad === 4 ? '' : 'none'}" class="st3" 
                                           fill="${data.loadColour}">
                                         ${config.load.auto_scale
-                                    ? Utils.convertValueNew(data.state_essential_load4.state, data.state_essential_load4.attributes?.unit_of_measurement, data.decimalPlaces)
-                                    : `${Utils.toNum(data.state_essential_load3.state, 0) || 0} ${
-                                            data.state_essential_load3.attributes?.unit_of_measurement !== undefined
-                                                    ? data.state_essential_load3.attributes?.unit_of_measurement
+                                    ? Utils.convertValueNew(data.stateEssentialLoad4.state, data.stateEssentialLoad4.attributes?.unit_of_measurement, data.decimalPlaces)
+                                    : `${Utils.toNum(data.stateEssentialLoad3.state, 0) || 0} ${
+                                            data.stateEssentialLoad3.attributes?.unit_of_measurement !== undefined
+                                                    ? data.stateEssentialLoad3.attributes?.unit_of_measurement
                                                     : ''
                                     }`
                             }
@@ -1385,10 +1385,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                               class="st3" 
                                               fill="${data.loadColour}">
                                             ${config.load.auto_scale
-                                    ? Utils.convertValueNew(data.state_essential_load4.state, data.state_essential_load4.attributes?.unit_of_measurement, data.decimalPlaces)
-                                    : `${Utils.toNum(data.state_essential_load4.state, 0) || 0} ${
-                                            data.state_essential_load4.attributes?.unit_of_measurement !== undefined
-                                                    ? data.state_essential_load4.attributes?.unit_of_measurement
+                                    ? Utils.convertValueNew(data.stateEssentialLoad4.state, data.stateEssentialLoad4.attributes?.unit_of_measurement, data.decimalPlaces)
+                                    : `${Utils.toNum(data.stateEssentialLoad4.state, 0) || 0} ${
+                                            data.stateEssentialLoad4.attributes?.unit_of_measurement !== undefined
+                                                    ? data.stateEssentialLoad4.attributes?.unit_of_measurement
                                                     : ''
                                     }`
                             }
@@ -1398,10 +1398,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                     <text id="ess_load4" x="459" y="301" display="${data.additionalLoad === 4 ? '' : 'none'}" 
                                           class="st3" fill="${data.loadColour}">
                                         ${config.load.auto_scale
-                                    ? Utils.convertValueNew(data.state_essential_load4.state, data.state_essential_load4.attributes?.unit_of_measurement, data.decimalPlaces)
-                                    : `${Utils.toNum(data.state_essential_load4.state, 0) || 0} ${
-                                            data.state_essential_load4.attributes?.unit_of_measurement !== undefined
-                                                    ? data.state_essential_load4.attributes?.unit_of_measurement
+                                    ? Utils.convertValueNew(data.stateEssentialLoad4.state, data.stateEssentialLoad4.attributes?.unit_of_measurement, data.decimalPlaces)
+                                    : `${Utils.toNum(data.stateEssentialLoad4.state, 0) || 0} ${
+                                            data.stateEssentialLoad4.attributes?.unit_of_measurement !== undefined
+                                                    ? data.stateEssentialLoad4.attributes?.unit_of_measurement
                                                     : ''
                                     }`
                             }
@@ -1411,7 +1411,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         <text id="prepaid" x="31.5" y="253"
                               class="${config.entities?.prepaid_units ? 'st3' : 'st12'}"
                               fill="${data.gridColour}" display="${!config.show_grid ? 'none' : ''}">
-                            ${Utils.toNum(data.state_prepaid_units.state, 1)}
+                            ${Utils.toNum(data.statePrepaidUnits.state, 1)}
                         </text>
                     </a>
                 </svg>
