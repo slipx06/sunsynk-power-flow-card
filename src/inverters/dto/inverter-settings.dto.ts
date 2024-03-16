@@ -10,22 +10,22 @@ export class InverterSettingsDto {
     constructor() {
     }
 
-    getBatteryCapacity(battery_power: number, grid_status: string, shutdown: number, inverter_prog, state_battery_soc) {
-        let battery_capacity = 0;
-        if (battery_power > 0) {
-            if (grid_status === 'off' || grid_status === '0' || grid_status.toLowerCase() === 'off-grid' || !inverter_prog.show || parseInt(state_battery_soc.state) <= inverter_prog.capacity) {
-                battery_capacity = shutdown;
+    getBatteryCapacity(batteryPower: number, gridStatus: string, shutdown: number, inverterProg, stateBatterySOC) {
+        let batteryCapacity = 0;
+        if (batteryPower > 0) {
+            if (gridStatus === 'off' || gridStatus === '0' || gridStatus.toLowerCase() === 'off-grid' || !inverterProg.show || parseInt(stateBatterySOC.state) <= inverterProg.capacity) {
+                batteryCapacity = shutdown;
             } else {
-                battery_capacity = inverter_prog.capacity;
+                batteryCapacity = inverterProg.capacity;
             }
-        } else if (battery_power < 0) {
-            if (grid_status === 'off' || grid_status === '0' || grid_status.toLowerCase() === 'off-grid' || !inverter_prog.show || parseInt(state_battery_soc.state) >= inverter_prog.capacity) {
-                battery_capacity = 100;
-            } else if (parseInt(state_battery_soc.state) < inverter_prog.capacity) {
-                battery_capacity = inverter_prog.capacity;
+        } else if (batteryPower < 0) {
+            if (gridStatus === 'off' || gridStatus === '0' || gridStatus.toLowerCase() === 'off-grid' || !inverterProg.show || parseInt(stateBatterySOC.state) >= inverterProg.capacity) {
+                batteryCapacity = 100;
+            } else if (parseInt(stateBatterySOC.state) < inverterProg.capacity) {
+                batteryCapacity = inverterProg.capacity;
             }
         }
-        return battery_capacity;
+        return batteryCapacity;
     }
 }
 
