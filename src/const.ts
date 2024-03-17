@@ -32,6 +32,7 @@ export const enum SensorDeviceClass {
 export const enum UnitOfPower {
     WATT = "W",
     KILO_WATT = "kW",
+    MEGA_WATT = "MW",
     BTU_PER_HOUR = "BTU/h",
 }
 
@@ -53,14 +54,16 @@ export const enum UnitOfElectricPotential {
     VOLT = "V"
 }
 
+type UnitOfEnergyOrPower = UnitOfEnergy | UnitOfPower;
+
 type ConversionRule = {
     threshold: number;
     divisor: number;
-    targetUnit: UnitOfEnergy;
+    targetUnit: UnitOfEnergyOrPower;
     decimal?: number;
 };
 
-export const unitOfEnergyConversionRules: Record<UnitOfEnergy, ConversionRule[]> = {
+export const unitOfEnergyConversionRules: Record<UnitOfEnergyOrPower, ConversionRule[]> = {
     [UnitOfEnergy.WATT_HOUR]: [{threshold: 1e6, divisor: 1e6, targetUnit: UnitOfEnergy.MEGA_WATT_HOUR}, {
         threshold: 1e3,
         divisor: 1e3,
@@ -76,4 +79,18 @@ export const unitOfEnergyConversionRules: Record<UnitOfEnergy, ConversionRule[]>
     [UnitOfEnergy.MEGA_WATT_HOUR]: [],
     [UnitOfEnergy.GIGA_JOULE]: [{threshold: 1e3, divisor: 1e3, targetUnit: UnitOfEnergy.MEGA_JOULE}],
     [UnitOfEnergy.MEGA_JOULE]: [],
+    [UnitOfPower.WATT]: [{threshold: 1e6, divisor: 1e6, targetUnit: UnitOfPower.MEGA_WATT}, {
+        threshold: 1e3,
+        divisor: 1e3,
+        targetUnit: UnitOfPower.KILO_WATT,
+        decimal: 1
+    }],
+    [UnitOfPower.KILO_WATT]: [{
+        threshold: 1e3,
+        divisor: 1e3,
+        targetUnit: UnitOfPower.MEGA_WATT,
+        decimal: 2
+    }],
+    [UnitOfPower.MEGA_WATT]: [],
+    [UnitOfPower.BTU_PER_HOUR]: [],
 };
