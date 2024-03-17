@@ -1,4 +1,4 @@
-import {UnitOfEnergy, unitOfEnergyConversionRules} from '../const';
+import {UnitOfEnergy, UnitOfPower, UnitOfEnergyOrPower, unitOfEnergyConversionRules} from '../const';
 
 export class Utils {
     static toNum(val: string | number, decimals: number = -1, invert: boolean = false): number {
@@ -24,13 +24,17 @@ export class Utils {
         }
     }
 
-    static convertValueNew(value: string | number, unit: UnitOfEnergy | string = UnitOfEnergy.WATT_HOUR, decimal: number = 2) {
+    static convertValueNew(value: string | number, unit: UnitOfEnergyOrPower | string = '', decimal: number = 2) {
         decimal = isNaN(decimal) ? 2 : decimal;
         const numberValue = Number(value);
         if (isNaN(numberValue)) return 0;
 
         const rules = unitOfEnergyConversionRules[unit];
         if (!rules) return `${Math.round(numberValue)} ${unit}`;
+
+        if (unit === UnitOfPower.WATT && Math.abs(numberValue) < 1000) {
+            return `${Math.round(numberValue)} ${unit}`;
+        };
 
         for (const rule of rules) {
             if (Math.abs(numberValue) >= rule.threshold) {

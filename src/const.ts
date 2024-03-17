@@ -54,7 +54,7 @@ export const enum UnitOfElectricPotential {
     VOLT = "V"
 }
 
-type UnitOfEnergyOrPower = UnitOfEnergy | UnitOfPower;
+export type UnitOfEnergyOrPower = UnitOfEnergy | UnitOfPower;
 
 type ConversionRule = {
     threshold: number;
