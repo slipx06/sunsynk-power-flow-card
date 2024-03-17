@@ -60,7 +60,7 @@ export function convertToCustomEntity(entity: any): CustomEntity {
             : Utils.toNum((entity?.state || '0'), 0, invert) || 0,
         toPowerString: (scale?: boolean, decimals?: number, invert?: boolean) =>
             scale ?
-                Utils.convertValueNew(entity?.state, entity?.attributes?.unit_of_measurement, decimals || 1) :
+                Utils.convertValueNew(entity?.state, entity?.attributes?.unit_of_measurement, decimals || 0) :
                 `${Utils.toNum(entity?.state, decimals, invert)} ${entity?.attributes?.unit_of_measurement}`,
         toString: () => entity?.state?.toString() || '',
         getUOM: () => entity?.attributes?.unit_of_measurement || ''

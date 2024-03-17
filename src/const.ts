@@ -83,13 +83,11 @@ export const unitOfEnergyConversionRules: Record<UnitOfEnergyOrPower, Conversion
         threshold: 1e3,
         divisor: 1e3,
         targetUnit: UnitOfPower.KILO_WATT,
-        decimal: 1
     }],
     [UnitOfPower.KILO_WATT]: [{
         threshold: 1e3,
         divisor: 1e3,
         targetUnit: UnitOfPower.MEGA_WATT,
-        decimal: 2
     }],
     [UnitOfPower.MEGA_WATT]: [],
     [UnitOfPower.BTU_PER_HOUR]: [],
