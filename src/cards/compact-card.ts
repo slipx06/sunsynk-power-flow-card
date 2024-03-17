@@ -2,7 +2,7 @@ import {html, svg} from 'lit';
 import {localize} from '../localize/localize';
 import {Utils} from '../helpers/utils';
 import {AutarkyType, DataDto, InverterModel, sunsynkPowerFlowCardConfig} from '../types';
-import {UnitOfElectricalCurrent, UnitOfElectricPotential, UnitOfPower} from '../const';
+import {UnitOfElectricalCurrent, UnitOfElectricPotential, UnitOfEnergy, UnitOfPower} from '../const';
 
 export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string, data: DataDto) => {
     return html`
@@ -255,7 +255,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                           display="${!config.show_battery || !config.battery.show_remaining_energy ? 'none' : ''}"
                           fill="${data.batteryColour}">
                         ${Utils.toNum((data.batteryEnergy * (data.stateBatterySoc.toNum(2) / 100) / 1000), 2)}
-                        kWh
+                        ${UnitOfEnergy.KILO_WATT_HOUR}
                     </text>
                     <text id="battery_soc_184" x="${data.compactMode ? '348.5' : '368.5'}" y="351"
                           fill=${data.batteryColour}
