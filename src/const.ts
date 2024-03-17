@@ -28,3 +28,67 @@ export const enum SensorDeviceClass {
     TEMPERATURE = "temperature",
     VOLTAGE = "voltage"
 }
+
+export const enum UnitOfPower {
+    WATT = "W",
+    KILO_WATT = "kW",
+    MEGA_WATT = "MW",
+    BTU_PER_HOUR = "BTU/h",
+}
+
+export const enum UnitOfEnergy {
+    GIGA_JOULE = "GJ",
+    KILO_WATT_HOUR = "kWh",
+    MEGA_JOULE = "MJ",
+    MEGA_WATT_HOUR = "MWh",
+    WATT_HOUR = "Wh",
+}
+
+export const enum UnitOfElectricalCurrent {
+    MILLIAMPERE = "mA",
+    AMPERE = "A"
+}
+
+export const enum UnitOfElectricPotential {
+    MILLIVOLT = "mV",
+    VOLT = "V"
+}
+
+export type UnitOfEnergyOrPower = UnitOfEnergy | UnitOfPower;
+
+type ConversionRule = {
+    threshold: number;
+    divisor: number;
+    targetUnit: UnitOfEnergyOrPower;
+    decimal?: number;
+};
+
+export const unitOfEnergyConversionRules: Record<UnitOfEnergyOrPower, ConversionRule[]> = {
+    [UnitOfEnergy.WATT_HOUR]: [{threshold: 1e6, divisor: 1e6, targetUnit: UnitOfEnergy.MEGA_WATT_HOUR}, {
+        threshold: 1e3,
+        divisor: 1e3,
+        targetUnit: UnitOfEnergy.KILO_WATT_HOUR,
+        decimal: 1
+    }],
+    [UnitOfEnergy.KILO_WATT_HOUR]: [{
+        threshold: 1e3,
+        divisor: 1e3,
+        targetUnit: UnitOfEnergy.MEGA_WATT_HOUR,
+        decimal: 2
+    }],
+    [UnitOfEnergy.MEGA_WATT_HOUR]: [],
+    [UnitOfEnergy.GIGA_JOULE]: [{threshold: 1e3, divisor: 1e3, targetUnit: UnitOfEnergy.MEGA_JOULE}],
+    [UnitOfEnergy.MEGA_JOULE]: [],
+    [UnitOfPower.WATT]: [{threshold: 1e6, divisor: 1e6, targetUnit: UnitOfPower.MEGA_WATT}, {
+        threshold: 1e3,
+        divisor: 1e3,
+        targetUnit: UnitOfPower.KILO_WATT,
+    }],
+    [UnitOfPower.KILO_WATT]: [{
+        threshold: 1e3,
+        divisor: 1e3,
+        targetUnit: UnitOfPower.MEGA_WATT,
+    }],
+    [UnitOfPower.MEGA_WATT]: [],
+    [UnitOfPower.BTU_PER_HOUR]: [],
+};
