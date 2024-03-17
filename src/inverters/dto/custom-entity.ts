@@ -61,7 +61,7 @@ export function convertToCustomEntity(entity: any): CustomEntity {
         toPowerString: (scale?: boolean, decimals?: number, invert?: boolean) =>
             scale ?
                 Utils.convertValueNew(entity?.state, entity?.attributes?.unit_of_measurement, decimals || 1) :
-                `${Utils.toNum(entity?.state, decimals, invert)} ${UnitOfEnergy.KILO_WATT_HOUR}`,
+                `${Utils.toNum(entity?.state, decimals, invert)} ${entity?.attributes?.unit_of_measurement}`,
         toString: () => entity?.state?.toString() || '',
         getUOM: () => entity?.attributes?.unit_of_measurement || ''
     }
