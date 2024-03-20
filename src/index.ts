@@ -4,7 +4,7 @@ import {HomeAssistant} from 'custom-card-helpers';
 import {styles} from './style';
 import {CardStyle, DataDto, InverterModel, InverterSettings, sunsynkPowerFlowCardConfig,} from './types';
 import defaultConfig from './defaults';
-import {CARD_VERSION, valid3phase, validaux, validLoadValues, validnonLoadValues,} from './const';
+import {CARD_VERSION, valid3phase, validaux, validLoadValues, validnonLoadValues, validGridConnected, validGridDisconnected} from './const';
 import {localize} from './localize/localize';
 import merge from 'lodash.merge';
 import {SunSynkCardEditor} from './editor';
@@ -234,6 +234,10 @@ export class SunsynkPowerFlowCard extends LitElement {
         let loadShowDaily = config.load?.show_daily;
         let showNonessential = config.grid?.show_nonessential;
         let gridStatus = config.entities?.grid_connected_status_194 ? stateGridConnectedStatus.state : 'on';
+        if (!validGridConnected.includes(gridStatus.toLowerCase()) && !validGridDisconnected.includes(gridStatus.toLowerCase())) {
+            gridStatus = 'on';
+        }
+
         let auxStatus = config.entities?.aux_connected_status ? stateAuxConnectedStatus.state : 'on';
         let loadFrequency = config.entities?.load_frequency_192 ? stateLoadFrequency.toNum(2) : 0;
         let inverterVoltage = config.entities?.inverter_voltage_154
