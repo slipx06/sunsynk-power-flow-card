@@ -860,7 +860,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             : priorityLoad === 'on'
                 ? (totalPV - essentialPower) >= Math.abs(batteryPower)
                     ? 0
-                    : (totalGridPower - Math.max((essentialPower - totalPV), 0) / Math.abs(batteryPower)) * 100
+                    : ((totalGridPower - (Math.max((essentialPower - totalPV), 0))) / Math.abs(batteryPower)) * 100
                 : totalPV >= Math.abs(batteryPower)
                     ? 0
                     : ((Math.abs(batteryPower) - totalPV) / Math.abs(batteryPower)) * 100;
