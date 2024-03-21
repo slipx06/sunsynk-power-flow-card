@@ -1661,7 +1661,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         <text id="noness2_value" x="357" y="321" class="st3" 
                               display="${!config.show_grid || !data.showNonessential || [0, 1].includes(data.nonessentialLoads) || !data.stateNonessentialLoad2.isValid() ? 'none' : ''}" 
                               fill="${data.gridColour}">
-                            ${data.stateNonessentialLoad1.toPowerString(config.grid.auto_scale, data.decimalPlaces)}
+                            ${data.stateNonessentialLoad2.toPowerString(config.grid.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load3)}>
