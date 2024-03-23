@@ -221,8 +221,8 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         let totalGridPower = config.inverter.three_phase ? gridPowerTotal : gridPower;
 
-        let gridVoltage = !stateGridVoltage.isNaN() ? Utils.toNum(stateGridVoltage.state) : null;
-        let batteryCurrentDirection = !stateBatteryCurrentDirection.isNaN() ? parseInt(stateBatteryCurrentDirection.state) : null;
+        let gridVoltage = !stateGridVoltage.isNaN() ? stateGridVoltage.toNum(0) : null;
+        let batteryCurrentDirection = !stateBatteryCurrentDirection.isNaN() ? stateBatteryCurrentDirection.toNum(0) : null;
         let genericInverterImage = config.inverter?.modern;
 
         let loadColour = this.colourConvert(config.load?.colour);
@@ -535,7 +535,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             gridStatus = gridVoltage > 50 ? 'on' : 'off';
         }
 
-        if (batteryCurrentDirection != null && !Number.isNaN(batteryCurrentDirection)) {
+        if (batteryCurrentDirection != null) {
             if (inverterModel == InverterModel.Solis && batteryCurrentDirection === 0) {
                 batteryPower = -batteryPower;
             }

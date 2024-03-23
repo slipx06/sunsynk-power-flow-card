@@ -17,7 +17,9 @@ export class Utils {
 
     static convertValue(value, decimal = 2) {
         decimal = Number.isNaN(decimal) ? 2 : decimal;
-        if (Math.abs(value) > 999) {
+        if (Math.abs(value) >= 1000000) {
+            return `${(value / 1000000).toFixed(decimal)} MW`;
+        } else if (Math.abs(value) >= 1000) {
             return `${(value / 1000).toFixed(decimal)} kW`;
         } else {
             return `${Math.round(value)} W`;

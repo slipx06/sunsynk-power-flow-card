@@ -55,9 +55,16 @@ export function convertToCustomEntity(entity: any): CustomEntity {
         isValid: () => entity?.state !== null && entity.state !== undefined && entity.state !== 'unknown' || false,
         notEmpty: () => entity?.state !== '' || false,
         isNaN: () => Number.isNaN(entity?.state) || true,
-        toPower: (invert?: boolean) => (entity.attributes?.unit_of_measurement || '').toLowerCase() === 'kw'
-            ? Utils.toNum(((entity?.state || '0') * 1000), 0, invert)
-            : Utils.toNum((entity?.state || '0'), 0, invert) || 0,
+        toPower: (invert?: boolean) => {
+            const unit = (entity.attributes?.unit_of_measurement || '').toLowerCase();
+            if (unit === 'kw') {
+                return Utils.toNum(((entity?.state || '0') * 1000), 0, invert);
+            } else if (unit === 'mw') {
+                return Utils.toNum(((entity?.state || '0') * 1000000), 0, invert);
+            } else {
+                return Utils.toNum((entity?.state || '0'), 0, invert) || 0;
+            }
+        },
         toPowerString: (scale?: boolean, decimals?: number, invert?: boolean) =>
             scale ?
                 Utils.convertValueNew(entity?.state, entity?.attributes?.unit_of_measurement, decimals || 0) :

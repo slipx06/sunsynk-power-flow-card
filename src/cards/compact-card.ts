@@ -1135,28 +1135,36 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                               class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
                               display="${!config.show_solar || !data.statePV1Power.isValid() ? 'none' : ''}" 
                               fill="${data.solarColour}">
-                            ${data.statePV1Power?.toPowerString(config.solar.auto_scale, data.decimalPlaces)}
+                              ${config.solar.auto_scale 
+                                   ? Utils.convertValue(data.pv1PowerWatts, data.decimalPlaces) || 0 
+                                   : `${Utils.toNum(data.pv1PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv2_power_187)}>
                         <text id="pv2_power_187" x="289.5" y="71" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
                               display="${!config.show_solar || config.solar.mppts === 1 || !data.statePV2Power.isValid() ? 'none' : ''}" 
                               fill="${data.solarColour}">
-                            ${data.statePV2Power?.toPowerString(config.solar.auto_scale, data.decimalPlaces)}
+                              ${config.solar.auto_scale 
+                                   ? Utils.convertValue(data.pv2PowerWatts, data.decimalPlaces) || 0 
+                                   : `${Utils.toNum(data.pv2PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv3_power_188)}>
                         <text id="pv3_power_188" x="113" y="71" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
                               display="${!config.show_solar || [1, 2].includes(config.solar.mppts) || !data.statePV3Power.isValid() ? 'none' : ''}" 
                               fill="${data.solarColour}">
-                            ${data.statePV3Power?.toPowerString(config.solar.auto_scale, data.decimalPlaces)}
+                              ${config.solar.auto_scale 
+                                   ? Utils.convertValue(data.pv3PowerWatts, data.decimalPlaces) || 0 
+                                   : `${Utils.toNum(data.pv3PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv4_power_189)}>
                         <text id="pv4_power_189" x="366" y="71" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
                               display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) || !data.statePV4Power.isValid() ? 'none' : ''}" 
                               fill="${data.solarColour}">
-                            ${data.statePV4Power?.toPowerString(config.solar.auto_scale, data.decimalPlaces)}
+                              ${config.solar.auto_scale 
+                                   ? Utils.convertValue(data.pv4PowerWatts, data.decimalPlaces) || 0 
+                                   : `${Utils.toNum(data.pv4PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
                         </text>
                     </a>
                     ${config.entities?.essential_power && config.entities.essential_power !== 'none'
