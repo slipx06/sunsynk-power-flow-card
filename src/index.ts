@@ -637,7 +637,7 @@ export class SunsynkPowerFlowCard extends LitElement {
          * Status can be returned as decimals "3.0", so this is just to change it to an int
          */
         if (inverterModel == InverterModel.Solis) {
-            inverterState = !stateInverterStatus.isNaN() ? stateInverterStatus.toNum(0) : stateInverterStatus.toString();
+            inverterState = !stateInverterStatus.isNaN() ? stateInverterStatus.toNum(0).toString() : stateInverterStatus.toString();
         }
 
         let typeStatusGroups = inverterSettings.statusGroups;

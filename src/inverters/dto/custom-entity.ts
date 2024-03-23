@@ -53,8 +53,8 @@ export function convertToCustomEntity(entity: any): CustomEntity {
         ...entity,
         toNum: (decimals?: number, invert?: boolean) => Utils.toNum(entity?.state, decimals, invert),
         isValid: () => entity?.state !== null && entity.state !== undefined && entity.state !== 'unknown' || false,
-        notEmpty: () => entity?.state !== '' || false,
-        isNaN: () => Number.isNaN(entity?.state) || true,
+        notEmpty: () => entity?.state !== '' ?? false,
+        isNaN: () => Number.isNaN(entity?.state) ?? true,
         toPower: (invert?: boolean) => {
             const unit = (entity.attributes?.unit_of_measurement || '').toLowerCase();
             if (unit === 'kw') {
