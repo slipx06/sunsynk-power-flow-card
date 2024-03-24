@@ -38,12 +38,20 @@ export class Utils {
             return `${Math.round(numberValue)} ${unit}`;
         };
 
+        if (unit === UnitOfPower.KILO_WATT && Math.abs(numberValue) < 1) {
+            return `${Math.round(numberValue * 1000)} W`;
+        };
+
+        if (unit === UnitOfPower.MEGA_WATT && Math.abs(numberValue) < 1) {
+            return `${(numberValue * 1000).toFixed(decimal)} kW`;
+        };
+
         for (const rule of rules) {
             if (Math.abs(numberValue) >= rule.threshold) {
                 const convertedValue = (numberValue / rule.divisor).toFixed(rule.decimal || decimal);
                 return `${convertedValue} ${rule.targetUnit}`;
             }
-        }
+        };
 
         return `${numberValue.toFixed(decimal)} ${unit}`;
     }
