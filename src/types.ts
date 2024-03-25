@@ -22,6 +22,7 @@ export enum InverterModel {
     SolarEdge = 'solaredge',
     Growatt = 'growatt',
     Sofar = 'sofar',
+    Deye = 'deye',
     CESBatteryBox = 'ces-battery-box'
 }
 
