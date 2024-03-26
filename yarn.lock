@@ -813,12 +813,12 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.22.5"
 
-"@babel/plugin-transform-template-literals@^7.23.3":
-  version "7.23.3"
-  resolved "https://registry.npmjs.org/@babel/plugin-transform-template-literals/-/plugin-transform-template-literals-7.23.3.tgz"
-  integrity sha512-Flok06AYNp7GV2oJPZZcP9vZdszev6vPBkHLwxwSpaIqx75wn6mUd3UFWsSsA0l8nXAKkyCmL/sR02m8RYGeHg==
+"@babel/plugin-transform-template-literals@^7.23.3", "@babel/plugin-transform-template-literals@^7.24.1":
+  version "7.24.1"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-template-literals/-/plugin-transform-template-literals-7.24.1.tgz#15e2166873a30d8617e3e2ccadb86643d327aab7"
+  integrity sha512-WRkhROsNzriarqECASCNu/nojeXCDTE/F2HmRgOzi7NGvyfYGq1NEjKBK3ckLfRgGc6/lPAqP0vDOSw3YtG34g==
   dependencies:
-    "@babel/helper-plugin-utils" "^7.22.5"
+    "@babel/helper-plugin-utils" "^7.24.0"
 
 "@babel/plugin-transform-typeof-symbol@^7.23.3":
   version "7.23.3"
