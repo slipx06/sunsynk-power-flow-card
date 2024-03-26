@@ -14,6 +14,8 @@ import {Sofar} from './brands/sofar';
 import {Sunsynk} from './brands/sunsynk';
 import {CesBatteryBox} from './brands/ces-battery-box';
 import {SolarEdge} from './brands/solar-edge';
+import {Deye} from './brands/deye';
+
 
 export class InverterFactory {
     static instance: InverterSettingsDto;
@@ -53,6 +55,8 @@ export class InverterFactory {
                 return new CesBatteryBox();
             case InverterModel.SolarEdge:
                 return new SolarEdge();
+            case InverterModel.Deye:
+                    return new Deye();
             case InverterModel.Sunsynk:
             default:
                 return new Sunsynk()
