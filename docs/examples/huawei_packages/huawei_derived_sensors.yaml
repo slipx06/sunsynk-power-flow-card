@@ -769,6 +769,7 @@ template:
       unit_of_measurement: W
       state: >-
         {% set grid_power = states('sensor.power_meter_active_power')|int(default=0) %}
+        {% set inverters_input = states('sensor.inverters_input_power')|int(default=0) %}
         {% set inverters_output = states('sensor.inverters_active_power')|int(default=0) %}
         {% set battery = states('sensor.batteries_charge_discharge_power')|int(default=0) %}
         {% if inverters_output > 0 %}                      
@@ -784,7 +785,8 @@ template:
         {% else %} 0                                                             
         {% endif %}
       availability: >-
-        {{ (states('sensor.inverters_active_power') not in [ 'unknown', 'none', 'unavailable' ])
+        {{ (states('sensor.power_meter_active_power') not in [ 'unknown', 'none', 'unavailable' ])
+        or (states('sensor.inverters_input_power') not in [ 'unknown', 'none', 'unavailable' ])
         or (states('sensor.inverters_active_power') not in [ 'unknown', 'none', 'unavailable' ])
         or (states('sensor.batteries_charge_discharge_power') not in [ 'unknown', 'none', 'unavailable' ]) }}
 
