@@ -9,6 +9,7 @@ declare global {
 
 
 export enum InverterModel {
+    Azzurro = 'azzurro',
     Sunsynk = 'sunsynk',
     Lux = 'lux',
     GoodweGridMode = 'goodwe_gridmode',

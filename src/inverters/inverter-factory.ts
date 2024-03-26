@@ -15,6 +15,7 @@ import {Sunsynk} from './brands/sunsynk';
 import {CesBatteryBox} from './brands/ces-battery-box';
 import {SolarEdge} from './brands/solar-edge';
 import {Deye} from './brands/deye';
+import {Azzurro} from './brands/azzurro';
 
 
 export class InverterFactory {
@@ -29,6 +30,8 @@ export class InverterFactory {
 
     private static createInstance(brand: InverterModel): InverterSettingsDto {
         switch (brand) {
+            case InverterModel.Azzurro:
+                return new Azzurro();
             case InverterModel.Solis:
                 return new Solis();
             case InverterModel.Lux:
