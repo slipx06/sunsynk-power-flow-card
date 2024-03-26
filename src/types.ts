@@ -10,21 +10,21 @@ declare global {
 
 export enum InverterModel {
     Azzurro = 'azzurro',
-    Sunsynk = 'sunsynk',
-    Lux = 'lux',
-    GoodweGridMode = 'goodwe_gridmode',
-    Goodwe = 'goodwe',
-    Solis = 'solis',
-    Huawei = 'huawei',
-    FoxESS = 'foxess',
-    Solax = 'solax',
-    Victron = 'victron',
-    Fronius = 'fronius',
-    SolarEdge = 'solaredge',
-    Growatt = 'growatt',
-    Sofar = 'sofar',
+    CESBatteryBox = 'ces-battery-box',
     Deye = 'deye',
-    CESBatteryBox = 'ces-battery-box'
+    FoxESS = 'foxess',
+    Fronius = 'fronius',
+    Goodwe = 'goodwe',
+    GoodweGridMode = 'goodwe_gridmode',
+    Growatt = 'growatt',
+    Huawei = 'huawei',
+    Lux = 'lux',
+    Solax = 'solax',
+    SolarEdge = 'solaredge',
+    Sofar = 'sofar',
+    Solis = 'solis',
+    Sunsynk = 'sunsynk',
+    Victron = 'victron',
 }
 
 export enum CardStyle {
