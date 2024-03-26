@@ -9,6 +9,24 @@ export class InverterSettingsDto {
 
     constructor() {
     }
+
+    getBatteryCapacity(batteryPower: number, gridStatus: string, shutdown: number, inverterProg, stateBatterySOC) {
+        let batteryCapacity = 0;
+        if (batteryPower > 0) {
+            if (gridStatus === 'off' || gridStatus === '0' || gridStatus.toLowerCase() === 'off-grid' || !inverterProg.show || parseInt(stateBatterySOC.state) <= inverterProg.capacity) {
+                batteryCapacity = shutdown;
+            } else {
+                batteryCapacity = inverterProg.capacity;
+            }
+        } else if (batteryPower < 0) {
+            if (gridStatus === 'off' || gridStatus === '0' || gridStatus.toLowerCase() === 'off-grid' || !inverterProg.show || parseInt(stateBatterySOC.state) >= inverterProg.capacity) {
+                batteryCapacity = 100;
+            } else if (parseInt(stateBatterySOC.state) < inverterProg.capacity) {
+                batteryCapacity = inverterProg.capacity;
+            }
+        }
+        return batteryCapacity;
+    }
 }
 
 export type InverterStatus = {
