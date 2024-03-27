@@ -3,6 +3,7 @@ import {localize} from '../localize/localize';
 import {Utils} from '../helpers/utils';
 import {AutarkyType, DataDto, InverterModel, sunsynkPowerFlowCardConfig} from '../types';
 import {UnitOfElectricalCurrent, UnitOfElectricPotential, UnitOfEnergy, UnitOfPower, validGridConnected, validGridDisconnected} from '../const';
+import {icons} from '../helpers/icons';
 
 export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string, data: DataDto) => {
     return html`
@@ -484,49 +485,49 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                          height="36" viewBox="0 0 32 32"
                          opacity="${data.iconEssentialLoad1 === 'oven' && [1, 2].includes(data.additionalLoad) ? '1' : '0'}">
                         <path display="${data.additionalLoad === 0 ? 'none' : ''}" fill="${data.loadColour}"
-                              d="M3 7.5A4.5 4.5 0 0 1 7.5 3h17A4.5 4.5 0 0 1 29 7.5v17a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17Zm24 0A2.5 2.5 0 0 0 24.5 5h-17A2.5 2.5 0 0 0 5 7.5V11h22V7.5Zm0 17V13H5v11.5A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5Zm-17-15a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Zm6 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3ZM23.5 8a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0ZM9 23v-6h14v6H9Zm-.5-8A1.5 1.5 0 0 0 7 16.5v7A1.5 1.5 0 0 0 8.5 25h15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5h-15Z"/>
+                              d="${icons.oven}"/>
                     </svg>
                     <svg xmlns="http://www.w3.org/2000/svg" id="ess_oven_bottom" x="368" y="287" width="36"
                          height="36" viewBox="0 0 32 32"
                          opacity="${data.iconEssentialLoad2 === 'oven' && data.additionalLoad === 2 ? '1' : '0'}">
                         <path display="${data.additionalLoad === 0 ? 'none' : ''}" fill="${data.loadColour}"
-                              d="M3 7.5A4.5 4.5 0 0 1 7.5 3h17A4.5 4.5 0 0 1 29 7.5v17a4.5 4.5 0 0 1-4.5 4.5h-17A4.5 4.5 0 0 1 3 24.5v-17Zm24 0A2.5 2.5 0 0 0 24.5 5h-17A2.5 2.5 0 0 0 5 7.5V11h22V7.5Zm0 17V13H5v11.5A2.5 2.5 0 0 0 7.5 27h17a2.5 2.5 0 0 0 2.5-2.5Zm-17-15a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3Zm6 0a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3ZM23.5 8a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0ZM9 23v-6h14v6H9Zm-.5-8A1.5 1.5 0 0 0 7 16.5v7A1.5 1.5 0 0 0 8.5 25h15a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5h-15Z"/>
+                              d="${icons.oven}"/>
                     </svg>
                     <svg xmlns="http://www.w3.org/2000/svg" id="ess_pump_top" x="368" y="113" width="36"
                          height="36" viewBox="0 0 24 24"
                          opacity="${data.iconEssentialLoad1 === 'pump' && [1, 2].includes(data.additionalLoad) ? '1' : '0'}">
                         <path display="${data.additionalLoad === 0 ? 'none' : ''}" fill="${data.loadColour}"
-                              d="M3 17h4.1q-.425-.425-.787-.925T5.675 15H3v2Zm9 0q2.075 0 3.538-1.463T17 12q0-2.075-1.463-3.538T12 7Q9.925 7 8.462 8.463T7 12q0 2.075 1.463 3.538T12 17Zm6.325-8H21V7h-4.1q.425.425.788.925T18.325 9ZM1 20v-8h2v1h2.075q-.05-.25-.063-.488T5 12q0-2.925 2.038-4.963T12 5h9V4h2v8h-2v-1h-2.075q.05.25.063.488T19 12q0 2.925-2.038 4.963T12 19H3v1H1Zm2-3v-2v2Zm18-8V7v2Zm-9 3Zm0 3q-.825 0-1.413-.588T10 13q0-.575.238-1.137t.912-1.613L12 9l.85 1.25q.675 1.05.913 1.613T14 13q0 .825-.588 1.413T12 15Z"/>
+                              d="${icons.pump}"/>
                     </svg>
                     <svg xmlns="http://www.w3.org/2000/svg" id="ess_pump_bottom" x="368" y="287" width="36"
                          height="36" viewBox="0 0 24 24"
                          opacity="${data.iconEssentialLoad2 === 'pump' && data.additionalLoad === 2 ? '1' : '0'}">
                         <path display="${data.additionalLoad === 0 ? 'none' : ''}" fill="${data.loadColour}"
-                              d="M3 17h4.1q-.425-.425-.787-.925T5.675 15H3v2Zm9 0q2.075 0 3.538-1.463T17 12q0-2.075-1.463-3.538T12 7Q9.925 7 8.462 8.463T7 12q0 2.075 1.463 3.538T12 17Zm6.325-8H21V7h-4.1q.425.425.788.925T18.325 9ZM1 20v-8h2v1h2.075q-.05-.25-.063-.488T5 12q0-2.925 2.038-4.963T12 5h9V4h2v8h-2v-1h-2.075q.05.25.063.488T19 12q0 2.925-2.038 4.963T12 19H3v1H1Zm2-3v-2v2Zm18-8V7v2Zm-9 3Zm0 3q-.825 0-1.413-.588T10 13q0-.575.238-1.137t.912-1.613L12 9l.85 1.25q.675 1.05.913 1.613T14 13q0 .825-.588 1.413T12 15Z"/>
+                              d="${icons.pump}"/>
                     </svg>
                     <svg xmlns="http://www.w3.org/2000/svg" id="ess_ac_top" x="374" y="116" width="30"
                          height="30" viewBox="0 0 24 24"
                          opacity="${data.iconEssentialLoad1 === 'aircon' && [1, 2].includes(data.additionalLoad) ? '1' : '0'}">
                         <path display="${data.additionalLoad === 0 ? 'none' : ''}" fill="${data.loadColour}"
-                              d="M6.59.66c2.34-1.81 4.88.4 5.45 3.84c.43 0 .85.12 1.23.34c.52-.6.98-1.42.8-2.34c-.42-2.15 1.99-3.89 4.28-.92c1.81 2.34-.4 4.88-3.85 5.45c0 .43-.11.86-.34 1.24c.6.51 1.42.97 2.34.79c2.13-.42 3.88 1.98.91 4.28c-2.34 1.81-4.88-.4-5.45-3.84c-.43 0-.85-.13-1.22-.35c-.52.6-.99 1.43-.81 2.35c.42 2.14-1.99 3.89-4.28.92c-1.82-2.35.4-4.89 3.85-5.45c0-.43.13-.85.35-1.23c-.6-.51-1.42-.98-2.35-.8c-2.13.42-3.88-1.98-.91-4.28M5 16h2a2 2 0 0 1 2 2v6H7v-2H5v2H3v-6a2 2 0 0 1 2-2m0 2v2h2v-2H5m7.93-2H15l-2.93 8H10l2.93-8M18 16h3v2h-3v4h3v2h-3a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z"/>
+                              d="${icons.aircon}"/>
                     </svg>
                     <svg xmlns="http://www.w3.org/2000/svg" id="ess_ac_bottom" x="374" y="289" width="30"
                          height="30" viewBox="0 0 24 24"
                          opacity="${data.iconEssentialLoad2 === 'aircon' && data.additionalLoad === 2 ? '1' : '0'}">
                         <path display="${data.additionalLoad === 0 ? 'none' : ''}" fill="${data.loadColour}"
-                              d="M6.59.66c2.34-1.81 4.88.4 5.45 3.84c.43 0 .85.12 1.23.34c.52-.6.98-1.42.8-2.34c-.42-2.15 1.99-3.89 4.28-.92c1.81 2.34-.4 4.88-3.85 5.45c0 .43-.11.86-.34 1.24c.6.51 1.42.97 2.34.79c2.13-.42 3.88 1.98.91 4.28c-2.34 1.81-4.88-.4-5.45-3.84c-.43 0-.85-.13-1.22-.35c-.52.6-.99 1.43-.81 2.35c.42 2.14-1.99 3.89-4.28.92c-1.82-2.35.4-4.89 3.85-5.45c0-.43.13-.85.35-1.23c-.6-.51-1.42-.98-2.35-.8c-2.13.42-3.88-1.98-.91-4.28M5 16h2a2 2 0 0 1 2 2v6H7v-2H5v2H3v-6a2 2 0 0 1 2-2m0 2v2h2v-2H5m7.93-2H15l-2.93 8H10l2.93-8M18 16h3v2h-3v4h3v2h-3a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2Z"/>
+                              d="${icons.aircon}"/>
                     </svg>
                     <svg xmlns="http://www.w3.org/2000/svg" id="ess_boiler_top" x="371" y="113" width="36"
                          height="36" viewBox="0 0 24 24"
                          opacity="${data.iconEssentialLoad1 === 'boiler' && [1, 2].includes(data.additionalLoad) ? '1' : '0'}">
                         <path display="${data.additionalLoad === 0 ? 'none' : ''}" fill="${data.loadColour}"
-                              d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/>
+                              d="${icons.boiler}"/>
                     </svg>
                     <svg xmlns="http://www.w3.org/2000/svg" id="ess_boiler_bottom" x="371" y="287" width="36"
                          height="36" viewBox="0 0 24 24"
                          opacity="${data.iconEssentialLoad2 === 'boiler' && data.additionalLoad === 2 ? '1' : '0'}">
                         <path display="${data.additionalLoad === 0 ? 'none' : ''}" fill="${data.loadColour}"
-                              d="M9.3 10.775q0 .475.163.925t.462.825q.05-.3.2-.588t.375-.487L12 10l1.475 1.475q.225.2.375.475t.2.575q.275-.375.487-.8t.213-.9q0-.475-.15-.913t-.45-.812q-.275.125-.563.2T13 9.375q-.75 0-1.375-.425t-.95-1.125q-.3.3-.55.637t-.438.713Q9.5 9.55 9.4 9.95t-.1.825ZM12 12.1l-.425.425q-.1.1-.138.2t-.037.225q0 .25.175.4t.425.15q.25 0 .425-.15t.175-.4q0-.125-.037-.225t-.138-.2L12 12.1ZM12 5v1.9q0 .425.3.713t.725.287q.275 0 .5-.162t.4-.388l.175-.25q1.025.575 1.588 1.563t.562 2.162q0 1.75-1.25 2.963T12 15q-1.75 0-2.975-1.225T7.8 10.8q0-1.925 1.225-3.425T12 5ZM6 22q-.825 0-1.413-.588T4 20V6q0-1.65 1.175-2.825T8 2h8q1.65 0 2.825 1.175T20 6v14q0 .825-.588 1.413T18 22H6Zm0-4v2h12v-2q-.75 0-1.2.5T15 19q-1.35 0-1.763-.5T12 18q-.825 0-1.238.5T9 19q-1.35 0-1.763-.5T6 18Zm3-1q.825 0 1.238-.5T12 16q1.35 0 1.8.5t1.2.5q.75 0 1.2-.5T18 16V6q0-.825-.588-1.413T16 4H8q-.825 0-1.413.588T6 6v10q1.35 0 1.763.5T9 17Z"/>
+                              d="${icons.boiler}"/>
                     </svg>
 
                     <g display="${[0, 4].includes(data.additionalLoad) ? 'none' : ''}">
@@ -592,7 +593,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     <svg xmlns="http://www.w3.org/2000/svg" id="sun" x="154" y="10" width="40" height="40"
                          viewBox="0 0 24 24">
                         <path class="${!config.show_solar ? 'st12' : ''}" fill="${data.solarColour}"
-                              d="M11.45 2v3.55L15 3.77L11.45 2m-1 6L8 10.46l3.75 1.25L10.45 8M2 11.45L3.77 15l1.78-3.55H2M10 2H2v8c.57.17 1.17.25 1.77.25c3.58.01 6.49-2.9 6.5-6.5c-.01-.59-.1-1.18-.27-1.75m7 20v-6h-3l5-9v6h3l-5 9Z"/>
+                              d="${icons.sun}"/>
                     </svg>
                     <svg xmlns="http://www.w3.org/2000/svg" id="bat" x="${data.compactMode ? '212.5' : '232.5'}"
                          y="325.5" width="78.75"
@@ -641,20 +642,20 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
                                   fill="${data.gridColour}"
                                   display="${!config.show_grid || data.totalGridPower < 0 ? 'none' : ''}"
-                                  d="m8.28 5.45l-1.78-.9L7.76 2h8.47l1.27 2.55l-1.78.89L15 4H9l-.72 1.45M18.62 8h-4.53l-.79-3h-2.6l-.79 3H5.38L4.1 10.55l1.79.89l.73-1.44h10.76l.72 1.45l1.79-.89L18.62 8m-.85 14H15.7l-.24-.9L12 15.9l-3.47 5.2l-.23.9H6.23l2.89-11h2.07l-.36 1.35L12 14.1l1.16-1.75l-.35-1.35h2.07l2.89 11m-6.37-7l-.9-1.35l-1.18 4.48L11.4 15m3.28 3.12l-1.18-4.48l-.9 1.36l2.08 3.12Z"/>
+                                  d="${icons.gridOn}"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="transmission_off" x="-0.5" y="187.5"
                              width="64.5" height="64.5" viewBox="0 0 24 24">
                             <path class="${validGridConnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
                                   fill="${data.gridOffColour}" display="${!config.show_grid ? 'none' : ''}"
-                                  d="M22.1 21.5L2.4 1.7L1.1 3l5 5h-.7l-1.3 2.5l1.8.9l.7-1.4h1.5l1 1l-2.9 11h2.1l.2-.9l3.5-5.2l3.5 5.2l.2.9h2.1l-.8-3.2l3.9 3.9l1.2-1.2M9.3 18.1l1.2-4.5l.9 1.3l-2.1 3.2m5.4 0L12.6 15l.2-.3l1.3 1.3l.6 2.1m-.5-7.1h.7l.2.9l-.9-.9m-.1-3h4.5l1.3 2.6l-1.8.9l-.7-1.5h-4.2l-3-3l.5-2h2.6l.8 3M8.4 5.2L6.9 3.7L7.8 2h8.5l1.3 2.5l-1.8.9L15 4H9l-.6 1.2Z"/>
+                                  d="${icons.gridOff}"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="grid_export" x="-0.5" y="187.5"
                              width="64.5" height="64.5" viewBox="0 0 24 24">
                             <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
                                   fill="${data.gridColour}"
                                   display="${!config.show_grid || data.totalGridPower >= 0 ? 'none' : ''}"
-                                  d="m5.39 5.45-1.78-.9L4.87 2h8.47l1.27 2.55-1.78.89L12.11 4h-6zM15.73 8H11.2l-.79-3h-2.6L7 8H2.5l-1.29 2.55 1.79.89.73-1.44H14.5l.71 1.45 1.79-.89zm-.85 14h-2.07l-.24-.9-3.46-5.2-3.47 5.2-.23.9H3.34l2.89-11h2.07l-.36 1.35 1.17 1.75 1.16-1.75-.35-1.35H12zm-6.38-7-.89-1.35-1.18 4.48zm3.29 3.12-1.18-4.48-.9 1.36zM15 16l4-4v3H23v2h-4v3z"/>
+                                  d="${icons.gridExport}"/>
                         </svg>
                     </a>
                     <svg xmlns="http://www.w3.org/2000/svg" id="essen" x="${data.essIconSize === 1 ? "405" : "402"}"
@@ -685,7 +686,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                          opacity="${!data.genericInverterImage ? 0 : 1}">
                         <g transform="translate(0.000000,91.000000) scale(0.100000,-0.100000)"
                            fill="${data.inverterColour}" stroke="none">
-                            <path d="M35 887 l-27 -23 0 -404 0 -404 27 -23 c26 -23 28 -23 329 -23 284 0 305 1 327 19 l24 19 0 412 0 412 -24 19 c-22 18 -43 19 -327 19 -301 0 -303 0 -329 -23z m585 -157 l0 -80 -255 0 -255 0 0 80 0 80 255 0 255 0 0 -80z m-242 -229 c44 -34 40 -46 -14 -46 -60 0 -97 -38 -93 -94 5 -64 -23 -80 -35 -20 -9 44 24 113 63 134 35 18 34 15 21 50 -11 29 -14 30 58 -24z m110 -129 c4 -51 -19 -97 -59 -117 -27 -14 -30 -20 -23 -48 l6 -31 -51 43 c-29 24 -49 46 -46 49 3 4 23 5 44 3 58 -4 95 32 97 95 3 60 1 57 17 52 6 -3 13 -23 15 -46z"/>
+                            <path d="${icons.inverter}"/>
                         </g>
                     </svg>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.use_timer_248)}>
@@ -693,13 +694,13 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                              height="18" viewBox="0 0 24 24">
                             <path display="${data.stateUseTimer.state == 'on' && data.enableTimer !== false ? '' : 'none'}"
                                   fill="${data.inverterColour}"
-                                  d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0 0 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9a8.994 8.994 0 0 0 7.03-14.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7s7 3.13 7 7s-3.13 7-7 7z"/>
+                                  d="${icons.timerOn}"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="timer_off" x="267.7" y="243.3" width="18"
                              height="18" viewBox="0 0 24 24">
                             <path display="${data.stateUseTimer.state == 'off' && data.enableTimer !== false ? '' : 'none'}"
                                   fill="${data.inverterColour}"
-                                  d="m19.95 17.15l-1.5-1.5q.275-.675.413-1.337T19 13q0-2.9-2.05-4.95T12 6q-.6 0-1.275.125t-1.4.4l-1.5-1.5q.95-.5 2.012-.763T12 4q1.5 0 2.938.5t2.712 1.45l1.4-1.4l1.4 1.4l-1.4 1.4q.95 1.275 1.45 2.713T21 13q0 1.05-.263 2.087t-.787 2.063ZM13 10.2V8h-2v.2l2 2Zm6.8 12.4l-2.4-2.4q-1.2.875-2.588 1.338T12 22q-1.85 0-3.488-.713T5.65 19.35q-1.225-1.225-1.938-2.863T3 13q0-1.5.463-2.888T4.8 7.6L1.4 4.2l1.4-1.4l18.4 18.4l-1.4 1.4ZM12 20q1.05 0 2.05-.325t1.875-.925L6.2 9.025q-.6.875-.9 1.875T5 13q0 2.9 2.05 4.95T12 20ZM9 3V1h6v2H9Zm2.075 10.875Zm2.825-2.8Z"/>
+                                  d="${icons.timerOff}"/>
                         </svg>
                         <text id="timer_text_off" x="287" y="254.7" class="st3 left-align"
                               display="${data.stateUseTimer.state == 'off' && data.enableTimer !== false ? '' : 'none'}"
@@ -715,13 +716,13 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                              height="18" viewBox="0 0 24 24">
                             <path display="${data.priorityLoad === 'off' && (data.priorityLoad !== 'no' || !data.priorityLoad) ? '' : 'none'}"
                                   fill="${data.inverterColour}"
-                                  d="M15.95 21.175L13.1 18.35l1.425-1.4l1.425 1.4l3.525-3.525l1.425 1.4l-4.95 4.95ZM8 22q-.425 0-.713-.288T7 21V5q0-.425.288-.713T8 4h2V2h4v2h2q.425 0 .713.288T17 5v7q-.525 0-1.025.088T15 12.35V6H9v14h2.35q.2.575.488 1.075t.687.925H8Zm1-2h2.35H11h.35H9Z"/>
+                                  d="${icons.priorityLoadOff}"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="pload" x="267.7" y="262.5" width="18"
                              height="18" viewBox="0 0 24 24">
                             <path display="${data.priorityLoad === 'on' && (data.priorityLoad !== 'no' || !data.priorityLoad) ? '' : 'none'}"
                                   fill="${data.inverterColour}"
-                                  d="m15 13l-4 4v-3H2v-2h9V9l4 4M5 20v-4h2v2h10v-7.81l-5-4.5L7.21 10H4.22L12 3l10 9h-3v8H5Z"/>
+                                  d="${icons.priorityLoadOn}"/>
                         </svg>
                         <text id="priority_text_batt" x="287" y="273" class="st3 left-align"
                               display="${data.priorityLoad === 'off' && (data.priorityLoad !== 'no' || !data.priorityLoad) ? '' : 'none'}"
@@ -737,13 +738,13 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                              height="18" viewBox="0 0 30 30">
                             <path display="${!config.entities.solar_sell_247 || data.stateSolarSell.state === 'off' || data.stateSolarSell.state === '0' || !config.show_solar || !['1', 'on'].includes(data.stateSolarSell.state) ? 'none' : ''}"
                                   fill="${data.solarColour}"
-                                  d="m5.18 5.45l-1.78-.9L4.66 2h8.47l1.27 2.55l-1.78.89L11.9 4h-6l-.72 1.45M15.5 8H11l-.8-3H7.6l-.79 3H2.28L1 10.55l1.79.89L3.5 10h10.78l.72 1.45l1.79-.89L15.5 8m-.83 14H12.6l-.24-.9l-3.46-5.2l-3.47 5.2l-.23.9H3.13L6 11h2.09l-.36 1.35L8.9 14.1l1.16-1.75L9.71 11h2.07l2.89 11M8.3 15l-.9-1.35l-1.18 4.48L8.3 15m3.28 3.12l-1.18-4.48L9.5 15l2.08 3.12M23 16l-4-4v3h-4v2h4v3l4-4Z"/>
+                                  d="${icons.solarSellOn}"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="solar_sell_off" x="245" y="150" width="18"
                              height="18" viewBox="0 0 30 30">
                             <path display="${!config.entities.solar_sell_247 || data.stateSolarSell.state === 'on' || data.stateSolarSell.state === '1' || !config.show_solar || !['0', 'off'].includes(data.stateSolarSell.state) ? 'none' : ''}"
                                   fill="${data.solarColour}"
-                                  d="M 26 16 L 22 12 L 22 15 L 18 15 L 18 17 L 22 17 L 22 20 L 26 16 Z M 22.1 21.5 L 2.4 1.7 L 1.1 3 L 6.1 8 L 5.4 8 L 4.1 10.5 L 5.9 11.4 L 6.6 10 L 8.1 10 L 9.1 11 L 6.2 22 L 8.3 22 L 8.5 21.1 L 12 15.9 L 15.5 21.1 L 15.7 22 L 17.8 22 L 17 18.8 L 20.9 22.7 L 22.1 21.5 M 9.3 18.1 L 10.5 13.6 L 11.4 14.9 L 9.3 18.1 M 14.7 18.1 L 12.6 15 L 12.8 14.7 L 14.1 16 L 14.7 18.1 M 14.2 11 L 14.9 11 L 15.1 11.9 L 14.2 11 M 14.1 8 L 18.6 8 L 19.9 10.6 L 18.1 11.5 L 17.4 10 L 13.2 10 L 10.2 7 L 10.7 5 L 13.3 5 L 14.1 8 M 8.4 5.2 L 6.9 3.7 L 7.8 2 L 16.3 2 L 17.6 4.5 L 15.8 5.4 L 15 4 L 9 4 L 8.4 5.2 Z"/>
+                                  d="${icons.solarSellOff}"/>
                         </svg>
                     </a>
                     <image x="212" y="180" width="54" height="72"
@@ -756,14 +757,14 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             <path display="${data.inverterProg.show === false || config.entities.use_timer_248 === 'none' ? 'none' : ''}"
                                   class="${data.inverterProg.charge === 'none' ? 'st12' : ''}"
                                   fill="${data.inverterColour}"
-                                  d="M11.5 19h1v-1.85l3.5-3.5V9H8v4.65l3.5 3.5V19Zm-2 2v-3L6 14.5V9q0-.825.588-1.413T8 7h1L8 8V3h2v4h4V3h2v5l-1-1h1q.825 0 1.413.588T18 9v5.5L14.5 18v3h-5Zm2.5-7Z"/>
+                                  d="${icons.progGridOn}"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="prog_grid_off" x="323" y="243" width="20"
                              height="18" viewBox="0 0 24 24">
                             <path display="${data.inverterProg.show === false || config.entities.use_timer_248 === 'none' ? 'none' : ''}"
                                   class="${data.inverterProg.charge === 'none' ? '' : 'st12'}"
                                   fill="${data.inverterColour}"
-                                  d="M10 3H8v1.88l2 2zm6 6v3.88l1.8 1.8l.2-.2V9c0-1.1-.9-2-2-2V3h-2v4h-3.88l2 2H16zM4.12 3.84L2.71 5.25L6 8.54v5.96L9.5 18v3h5v-3l.48-.48l4.47 4.47l1.41-1.41L4.12 3.84zm8.38 13.33V19h-1v-1.83L8 13.65v-3.11l5.57 5.57l-1.07 1.06z"/>
+                                  d="${icons.progGridOff}"/>
                         </svg>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_battery_charge_70)}>
