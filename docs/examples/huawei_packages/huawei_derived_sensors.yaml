@@ -749,7 +749,7 @@ template:
       state: >-
         {% set battery = states('sensor.batteries_charge_discharge_power')|int(default=0) %}
         {% set ev_charger = states('sensor.ev_charger_active_power')|int(default=0) %}
-        {% set batteries_to_house = states('sensor.batteries_to_house')|int(default=0) %}
+        {% set batteries_to_house = states('sensor.batteries_power_to_house')|int(default=0) %}
 
         {% if battery < 0 %} {{ batteries_to_house +  ev_charger | int }}  
         {% else %} 0                                                          
@@ -757,7 +757,7 @@ template:
       availability: >-
         {{ (states('sensor.batteries_charge_discharge_power') not in [ 'unknown', 'none', 'unavailable' ])
         or (states('sensor.ev_charger_active_power') not in [ 'unknown', 'none', 'unavailable' ])
-        or (states('sensor.batteries_to_house') not in [ 'unknown', 'none', 'unavailable' ]) }}
+        or (states('sensor.batteries_power_to_house') not in [ 'unknown', 'none', 'unavailable' ]) }}
 
 
   # Calculates the Power (W) being produced by the Solar Inverter(s) and consumed by the House.
