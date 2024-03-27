@@ -903,15 +903,15 @@ template:
       state: >-
         {% set grid_power = states('sensor.power_meter_active_power')|int(default=0) %}     
         {% set inverters_output = states('sensor.inverters_active_power')|int(default=0) %}
-        {% set ev_charger = states('sensor.ev_charger_active_power')|int(default=0) %}
+        {% set ev_charger = states('sensor.pro3em_em2_active_power')|int(default=0) %}
         
-        {% if inverters_output > 0 and grid_power < 0 %} {{ ev_charger }}                                 
+        {% if inverters_output <= 0 and grid_power <= 0 %} {{ ev_charger }}
         {% else %} 0                                                                  
         {% endif %}         
       availability: >-
         {{ (states('sensor.power_meter_active_power') not in [ 'unavailable', 'none', 'unknown' ] )
           and (states('sensor.inverters_active_power') not in [ 'unavailable', 'none', 'unknown' ]) 
-          and (states('sensor.ev_charger_active_power') not in [ 'unavailable', 'none', 'unknown' ]) }}
+          and (states('sensor.pro3em_em2_active_power') not in [ 'unavailable', 'none', 'unknown' ]) }}
 
 
 
