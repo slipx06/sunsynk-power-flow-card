@@ -751,7 +751,7 @@ template:
         {% set ev_charger = states('sensor.ev_charger_active_power')|int(default=0) %}
         {% set batteries_to_house = states('sensor.batteries_power_to_house')|int(default=0) %}
 
-        {% if battery < 0 %} {{ batteries_to_house +  ev_charger | int }}  
+        {% if battery < 0 %} {{ ev_charger | int }}  
         {% else %} 0                                                          
         {% endif %}
       availability: >-
