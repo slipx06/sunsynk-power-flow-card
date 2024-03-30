@@ -779,6 +779,7 @@ template:
             {% endif %}       
             {% else %} 0
           {% endif %}         
+        {% else %} 0  
         {% endif %}
       availability: >-
         {{ (states('sensor.power_meter_active_power') not in [ 'unknown', 'none', 'unavailable' ])
