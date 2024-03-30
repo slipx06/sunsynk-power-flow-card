@@ -1,1 +1,107 @@
+# Based upon Western Australian energy retailer 'Synergy Energy' and their Flat Rate Tariff Plan.
+# v1.0 - Updated 31 March 2024 for Synergy Energy Rates with Flat Rate for Usage, but 3-9pm Peak Export and 'other times' export rate.
 
+template:
+  - sensor:
+
+#  If you set the prices here, remember to ALSO set them in the 'electricity_import_rate_???' and daily supply charge sensors.
+#
+#  Grid Import 24x7   : $0.30812 p/kWh.
+#  Grid Export (FIT)  : $0.07 p/kWh.
+#
+# This sensor says if the power_meter_active_power is <=0 (Importing from Grid) then the sensor reports the RATE1 price
+# Alternatively if the power_meter_active_power >0 (Exporting to Grid) then the sensor reports the RATE2 price, that is set to ZERO.
+# This allows the electricity_price sensor to then be used as a source to calculate things like 'How much did the HVAC cost' that reflects
+# the HVAC using power that can change between paid for grid power, and free power from your solar plant.
+#
+    - name: "Electricity - Price" 
+      unique_id: electricity_price
+      unit_of_measurement: "$/kWh"
+      device_class: monetary
+      state: >
+        {## Enter cost per kWh rates below. Rate 1 ##}
+        {% set rate1 = 0.30812 %}
+        {% set rate2 = 0.0 %}
+        {% set power_meter_active_power = states('sensor.power_meter_active_power') | float %}
+        {% if power_meter_active_power <= 0 %} {{rate1}}
+        {% else %} {{rate2}}
+        {% endif %}
+
+#  Current FIT rate, rate 1 & 2 allows setting a second rate if variable FIT rates (i.e. $0.15 for first 10kWh, then $0.07 thereafter)
+
+    - name: "Electricity - FIT"
+      unique_id: electricity_fit
+      unit_of_measurement: "$/kWh"
+      device_class: monetary
+      icon: mdi:cash-plus
+      state:
+        {%set Peak_Export = 0.10 %}
+        {%set Base_Export = 0.0225 %}
+        {%set H = as_timestamp(now())|timestamp_custom ('%-H')|float(0) %} {##Hour (24-hour clock) as a decimal number. 0, 1, 2, ... 23##}
+        {##Peak FIT 3-9pm##}
+        {% if (H >= 15) and (H < 21) %} {{Peak_Export}}
+        {##Base FIT all other timesk##}
+        {% else %} {{Base_Export}}
+        {% endif %}
+
+
+####################################
+# IMPORT UTILITY METERS
+# See: https://github.com/zeronounours/HA-custom-component-energy-meter
+
+energy_meter:
+
+  hs_grid_imported_daily:
+    unique_id: hs_grid_imported_daily
+    name: HS Grid - Imported Daily
+    source: sensor.power_meter_consumption
+    source_type: from_grid
+    cycle: daily
+    price_entity: &electricity-price sensor.electricity_price
+
+  hs_grid_imported_monthly:
+    unique_id: hs_grid_imported_monthly
+    name: HS Grid - Imported Monthly
+    source: sensor.power_meter_consumption
+    source_type: from_grid
+    cycle: monthly
+    price_entity: *electricity-price
+
+  hs_grid_imported_yearly:
+    unique_id: hs_grid_imported_yearly
+    name: HS Grid - Imported Yearly
+    source: sensor.power_meter_consumption
+    source_type: from_grid
+    cycle: yearly
+    price_entity: *electricity-price
+
+
+#########################
+# EXPORT UTILITY METERS
+# See: https://github.com/zeronounours/HA-custom-component-energy-meter
+
+  hs_grid_exported_daily:
+    unique_id: hs_grid_exported_daily
+    name: HS Grid - Exported Daily
+    source: sensor.power_meter_exported
+    source_type: to_grid
+    cycle: daily
+    price_entity: &electricity_fit sensor.electricity_fit
+
+  hs_grid_exported_monthly:
+    unique_id: hs_grid_exported_monthly
+    name: HS Grid - Exported Monthly
+    source: sensor.power_meter_exported
+    source_type: to_grid
+    cycle: monthly
+    price_entity: *electricity_fit
+
+  hs_grid_exported_yearly:
+    unique_id: hs_grid_exported_yearly
+    name: HS Grid - Exported Yearly
+    source: sensor.power_meter_exported
+    source_type: to_grid
+    cycle: yearly
+    price_entity: *electricity_fit
+
+#######################
