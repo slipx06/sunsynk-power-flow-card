@@ -1523,7 +1523,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load1_extra)}>
                         <text id="non_ess_load1_value_extra" x="320" y="305"
-                              display="${config.entities?.non_essential_load1_extra && [1, 2].includes(data.nonessentialLoads) && data.stateNonEssentialLoad1Extra.isValid() ? '' : 'none'}"
+                              display="${config.entities?.non_essential_load1_extra && [1, 2].includes(data.nonessentialLoads) && data.stateNonEssentialLoad1Extra.isValid() && config.show_grid ? '' : 'none'}"
                               class="st3 .right-align" fill="${data.gridColour}">
                             ${data.stateNonEssentialLoad1Extra.toNum(1)}
                             ${data.stateNonEssentialLoad1Extra?.getUOM()}
@@ -1531,7 +1531,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load2_extra)}>
                         <text id="non_ess_load2_value_extra" x="359" y="305"
-                              display="${config.entities?.non_essential_load2_extra && data.nonessentialLoads === 2 &&  data.stateNonEssentialLoad2Extra.isValid() ? '' : 'none'}"
+                              display="${config.entities?.non_essential_load2_extra && data.nonessentialLoads === 2 &&  data.stateNonEssentialLoad2Extra.isValid() && config.show_grid ? '' : 'none'}"
                               class="st3 .left-align" fill="${data.gridColour}">
                             ${data.stateNonEssentialLoad2Extra.toNum(1)}
                             ${data.stateNonEssentialLoad2Extra?.getUOM()}
