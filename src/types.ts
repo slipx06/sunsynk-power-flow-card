@@ -202,6 +202,8 @@ export interface CardConfigEntities {
     non_essential_load1: string,
     non_essential_load2: string,
     non_essential_load3: string,
+    non_essential_load1_extra: string,
+    non_essential_load2_extra: string,
     essential_load1: string
     energy_cost_buy: string,
     solar_sell_247: string,
@@ -389,6 +391,8 @@ export interface DataDto {
     stateEssentialLoad4: CustomEntity,
     stateEssentialLoad1Extra: CustomEntity,
     stateEssentialLoad2Extra: CustomEntity,
+    stateNonEssentialLoad1Extra: CustomEntity,
+    stateNonEssentialLoad2Extra: CustomEntity,
     statePV4Current: CustomEntity,
     statePV1Current: CustomEntity,
     statePV2Current: CustomEntity,

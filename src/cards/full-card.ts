@@ -571,7 +571,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </circle>
                     </svg>
                     <svg id="aux-flow">
-                        <path id="aux-line" d="M 307 47 L 371.5 47" fill="none"
+                        <path id="aux-line" d="M 307 47 L 371 47" fill="none"
                               class="${!data.showAux ? 'st12' : ''}" stroke="${data.auxColour}"
                               stroke-width="${data.auxLineWidth}"
                               stroke-miterlimit="10" pointer-events="stroke"/>
@@ -596,20 +596,62 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             </animateMotion>
                         </circle>
                     </svg>
+                    <svg id="aux1-flow">
+                        <path id="aux-line2" d="M 180 162 L 180 57 Q 180 47 190 47 L 237 47" fill="none"
+                              class="${!data.showAux ? 'st12' : ''}" stroke="${data.auxColour}"
+                              stroke-width="${data.auxLineWidth}"
+                              stroke-miterlimit="10" pointer-events="stroke"/>
+                        <circle id="aux-dot" cx="0" cy="0"
+                                r="${Math.min(2 + data.auxLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
+                                class="${!data.showAux || data.auxPower === 0 ? 'st12' : ''}"
+                                fill="${data.auxPower < 0 ? 'transparent' : `${data.auxColour}`}">
+                            <animateMotion dur="${data.durationCur['aux']}s" repeatCount="indefinite"
+                                           keyPoints="0;1"
+                                           keyTimes="0;1" calcMode="linear">
+                                <mpath xlink:href="#aux-line2"/>
+                            </animateMotion>
+                        </circle>
+                        <circle id="aux-dot" cx="0" cy="0"
+                                r="${Math.min(2 + data.auxLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
+                                class="${!data.showAux || data.auxPower === 0 ? 'st12' : ''}"
+                                fill="${data.auxPower > 0 ? 'transparent' : `${data.auxColour}`}">
+                            <animateMotion dur="${data.durationCur['aux']}s" repeatCount="indefinite"
+                                           keyPoints="1;0"
+                                           keyTimes="0;1" calcMode="linear">
+                                <mpath xlink:href="#aux-line2"/>
+                            </animateMotion>
+                        </circle>
+                    </svg>
+                    <svg id="grid2-flow">
+                        <path id="grid2-line" d="M215 187 234 187" fill="none"
+                              stroke="${data.gridColour}" stroke-width="${data.grid169LineWidth}" stroke-miterlimit="10"
+                              pointer-events="stroke" display="${!config.show_grid ? 'none' : ''}"/>
+                        <circle id="grid-dot" cx="0" cy="0"
+                                r="${Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
+                                fill="${data.autoScaledGridPower < 0 || data.autoScaledGridPower === 0 ? 'transparent' : `${data.gridColour}`}"
+                                display="${!config.show_grid ? 'none' : ''}">
+                            <animateMotion dur="${data.durationCur['grid']}s" repeatCount="indefinite"
+                                           keyPoints="1;0"
+                                           keyTimes="0;1" calcMode="linear">
+                                <mpath xlink:href="#grid2-line"/>
+                            </animateMotion>
+                        </circle>
+                        <circle id="grid-dot" cx="0" cy="0"
+                                r="${Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
+                                fill="${data.autoScaledGridPower > 0 || data.autoScaledGridPower === 0 ? 'transparent' : `${data.gridColour}`}"
+                                display="${!config.show_grid ? 'none' : ''}">
+                            <animateMotion dur="${data.durationCur['grid']}s" repeatCount="indefinite"
+                                           keyPoints="0;1"
+                                           keyTimes="0;1" calcMode="linear">
+                                <mpath xlink:href="#grid2-line"/>
+                            </animateMotion>
+                        </circle>
+                    </svg>
 
-                    <path id="aux-line2" d="M 200 162 L 200 57 Q 200 47 210 47 L 237 47" fill="none"
-                          class="${!data.showAux ? 'st12' : ''}" stroke="${data.auxColour}"
-                          stroke-width="${data.auxLineWidth}"
-                          stroke-miterlimit="10" pointer-events="stroke"/>
-                    <path d="M215 187 234 187" fill="none"
-                          stroke="${data.gridColour}" stroke-width="${data.grid169LineWidth}" stroke-miterlimit="10"
-                          pointer-events="stroke" display="${!config.show_grid ? 'none' : ''}"/>
-                    <path d="${config.inverter.three_phase ? 'M 180.15 223 L 180.15 235' : 'M 180.15 212 L 180.15 235'}"
-                          fill="none" stroke="${data.inverterColour}" stroke-width="1" stroke-miterlimit="10"
+                    <path d="${config.inverter.three_phase ? 'M 180 223 L 180 235' : 'M 180 212 L 180 235'}"
+                          fill="none" stroke="${data.inverterColour}" stroke-width="${data.minLineWidth}" stroke-miterlimit="10"
                           pointer-events="stroke"/>
-                    <path id="es-line2" d="M 306 118 L 374 118" fill="none" stroke="${data.loadColour}"
-                          stroke-width="${data.loadLineWidth}" stroke-miterlimit="10" pointer-events="stroke"/>
-
+                    
                     <svg id="load-flow">
                         <circle id="es-dot" cx="0" cy="0"
                                 r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
@@ -620,7 +662,20 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 <mpath xlink:href="#es-line2"/>
                             </animateMotion>
                         </circle>
-                        <path id="es-line" d="M 235 118 L 212 118 Q 200 118 200 128 L 200 162" fill="none"
+                        <path id="es-line2" d="M 306 118 L 371 118" fill="none" stroke="${data.loadColour}"
+                          stroke-width="${data.loadLineWidth}" stroke-miterlimit="10" pointer-events="stroke"/>
+                    </svg>
+                    <svg id="load1-flow">
+                        <circle id="es-dot" cx="0" cy="0"
+                                r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
+                                fill="${data.essentialPower === 0 ? 'transparent' : `${data.loadColour}`}">
+                            <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
+                                           keyPoints="1;0"
+                                           keyTimes="0;1" calcMode="linear">
+                                <mpath xlink:href="#es-line"/>
+                            </animateMotion>
+                        </circle>
+                        <path id="es-line" d="M 236 118 L 190 118 Q 180 118 180 128 L 180 162" fill="none"
                               stroke="${data.loadColour}" stroke-width="${data.loadLineWidth}" stroke-miterlimit="10"
                               pointer-events="stroke"/>
                     </svg>
@@ -1278,7 +1333,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         <svg xmlns="http://www.w3.org/2000/svg" id="timer" x="210"
                              y="${data.enableAutarky != AutarkyType.No ? "232" : "249"}" width="18" height="18"
                              viewBox="0 0 24 24">
-                            <path display="${data.stateUseTimer.state == 'on' && data.enableTimer !== AutarkyType.No ? '' : 'none'}"
+                            <path display="${data.stateUseTimer.state == 'on' && data.enableTimer !== 'no' ? '' : 'none'}"
                                   fill="${data.inverterColour}"
                                   d="${icons.timerOn}"/>
                         </svg>
@@ -1351,16 +1406,16 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         <svg xmlns="http://www.w3.org/2000/svg" id="prog_grid_on" x="265"
                              y="${data.enableAutarky != AutarkyType.No ? "232" : "249"}" width="20" height="18"
                              viewBox="0 0 24 24">
-                            <path display="${data.inverterProg.show === false || config.entities.use_timer_248 === 'none' ? 'none' : ''}"
-                                  class="${data.inverterProg.charge === 'none' ? 'st12' : ''}"
+                            <path display="${data.inverterProg.show === false || data.enableTimer === 'no' ? 'none' : ''}"
+                                  class="${data.inverterProg.charge === 'none' || (data.stateUseTimer.state != 'off' && data.stateUseTimer.state != 'on') ? 'st12' : ''}"
                                   fill="${data.inverterColour}"
                                   d="${icons.progGridOn}"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="prog_grid_off" x="265"
                              y="${data.enableAutarky != AutarkyType.No ? "232" : "249"}" width="20" height="18"
                              viewBox="0 0 24 24">
-                            <path display="${data.inverterProg.show === false || config.entities.use_timer_248 === 'none' ? 'none' : ''}"
-                                  class="${data.inverterProg.charge === 'none' ? '' : 'st12'}"
+                            <path display="${data.inverterProg.show === false || data.enableTimer === 'no' ? 'none' : ''}"
+                                  class="${data.inverterProg.charge === 'none' && (data.stateUseTimer.state === 'off' || data.stateUseTimer.state === 'on') ? '' : 'st12'}"
                                   fill="${data.inverterColour}"
                                   d="${icons.progGridOff}"/>
                         </svg>
@@ -1464,6 +1519,22 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                               class="st3 .left-align" fill="${data.loadColour}">
                             ${data.stateEssentialLoad2Extra.toNum(1)}
                             ${data.stateEssentialLoad2Extra?.getUOM()}
+                        </text>
+                    </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load1_extra)}>
+                        <text id="non_ess_load1_value_extra" x="320" y="305"
+                              display="${config.entities?.non_essential_load1_extra && [1, 2].includes(data.nonessentialLoads) && data.stateNonEssentialLoad1Extra.isValid() ? '' : 'none'}"
+                              class="st3 .right-align" fill="${data.gridColour}">
+                            ${data.stateNonEssentialLoad1Extra.toNum(1)}
+                            ${data.stateNonEssentialLoad1Extra?.getUOM()}
+                        </text>
+                    </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load2_extra)}>
+                        <text id="non_ess_load2_value_extra" x="359" y="305"
+                              display="${config.entities?.non_essential_load2_extra && data.nonessentialLoads === 2 &&  data.stateNonEssentialLoad2Extra.isValid() ? '' : 'none'}"
+                              class="st3 .left-align" fill="${data.gridColour}">
+                            ${data.stateNonEssentialLoad2Extra.toNum(1)}
+                            ${data.stateNonEssentialLoad2Extra?.getUOM()}
                         </text>
                     </a>
                     ${config.inverter.three_phase
@@ -1929,7 +2000,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.radiator_temp_91)}>
-                        <text id="ac_temp" x="${config.solar?.mppts === 4 ? '110' : '158'}"
+                        <text id="ac_temp" x="${config.solar?.mppts === 4 ? '110' : '134'}"
                               y="${config.solar?.mppts === 4 ? '237' : '153'}" class="st3 left-align"
                               fill="${data.inverterColour}"
                               display="${config.entities?.radiator_temp_91 && data.stateRadiatorTemp.isValid() ? '' : 'none'}">AC:

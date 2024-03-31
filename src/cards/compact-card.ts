@@ -23,9 +23,9 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                 ${config.title ? html`<h1
                         style="text-align: center; color: ${config.title_colour || 'inherit'}; data.largeFont-size: ${config.title_size || '32px'};">
                     ${config.title}</h1>` : ''}
-                <svg viewBox="-0.5 ${!config.show_solar ? (data.additionalLoad !== 0 || !config.show_battery ? 80 : 145.33) : -0.5} 483 ${!config.show_solar ? (config.show_battery ? (data.additionalLoad !== 0 ? 350 : 270.67) : 270.67) : (!config.show_battery ? (data.additionalLoad === 2 ? 350 : 300) : 406)}"
+                <svg viewBox="-0.5 ${!config.show_solar ? (data.additionalLoad !== 0 || !config.show_battery ? 80 : 145.33) : -0.5} 483 ${!config.show_solar ? (config.show_battery ? (data.additionalLoad !== 0 ? 350 : 270.67) : 270.67) : (!config.show_battery ? ([2, 3, 4].includes(data.additionalLoad) ? 350 : 300) : 406)}"
                      preserveAspectRatio="xMidYMid meet"
-                     height="${data.panelMode === false ? `${!config.show_solar && !config.show_battery ? '270px' : !config.show_solar ? (data.additionalLoad !== 0 ? '330px' : '246px') : config.show_solar && !config.show_battery ? (data.additionalLoad === 2 ? '350px' : '300px') : `${data.cardHeight}`}` : `${!config.show_solar ? '75%' : '100%'}`}"
+                     height="${data.panelMode === false ? `${!config.show_solar && !config.show_battery ? '270px' : !config.show_solar ? (data.additionalLoad !== 0 ? '330px' : '246px') : config.show_solar && !config.show_battery ? ([2, 3, 4].includes(data.additionalLoad) ? '350px' : '300px') : `${data.cardHeight}`}` : `${!config.show_solar ? '75%' : '100%'}`}"
                      width="${data.panelMode === true ? `${data.cardWidth}` : '100%'}"
                      xmlns:xlink="http://www.w3.org/1999/xlink">
                     <rect x="304" y="203.5" width="70" height="30" rx="4.5" ry="4.5" fill="none"
@@ -62,10 +62,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                           class="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"/>
                     <rect id="es-load1" x="406" y="116.5" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                           stroke="${data.loadColour}" pointer-events="all"
-                          display="${data.additionalLoad === 1 ? '' : 'none'}"/>
-                    <rect id="es-load1" x="406" y="116.5" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                          stroke="${data.loadColour}" pointer-events="all"
-                          display="${data.additionalLoad === 2 ? '' : 'none'}"/>
+                          display="${[1, 2, 3].includes(data.additionalLoad) ? '' : 'none'}"/>
                     <rect id="es-load2" x="406" y="290" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                           stroke="${data.loadColour}" pointer-events="all"
                           display="${data.additionalLoad === 2 ? '' : 'none'}"/>
@@ -77,10 +74,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                           display="${data.additionalLoad === 4 ? '' : 'none'}"/>
                     <rect id="es-load4" x="405" y="290" width="35" height="20" rx="4.5" ry="4.5" fill="none"
                           stroke="${data.loadColour}" pointer-events="all"
-                          display="${data.additionalLoad === 4 ? '' : 'none'}"/>
+                          display="${[3, 4].includes(data.additionalLoad) ? '' : 'none'}"/>
                     <rect id="es-load4" x="441" y="290" width="35" height="20" rx="4.5" ry="4.5" fill="none"
                           stroke="${data.loadColour}" pointer-events="all"
-                          display="${data.additionalLoad === 4 ? '' : 'none'}"/>
+                          display="${[3, 4].includes(data.additionalLoad) ? '' : 'none'}"/>
 
                     <text id="duration" x="${data.compactMode ? '270' : '290'}" y="377.5"
                           class="${data.largeFont !== true ? 'st14' : 'st4'} left-align"
@@ -115,8 +112,8 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                           fill="${data.batteryShowDaily !== true || !config.show_battery ? 'transparent' : `${data.batteryColour}`}">
                         ${localize('common.daily_discharge')}
                     </text>
-                    <text id="daily_load" x="${[2, 4].includes(data.additionalLoad) ? '365' : '412'}"
-                          y="${[2, 4].includes(data.additionalLoad) ? '189' : '282.1'}"
+                    <text id="daily_load" x="${[2, 3, 4].includes(data.additionalLoad) ? '365' : '412'}"
+                          y="${[2, 3, 4].includes(data.additionalLoad) ? '189' : '282.1'}"
                           class="st3 left-align"
                           fill="${!data.loadShowDaily ? 'transparent' : `${data.loadColour}`}">
                         ${localize('common.daily_load')}
@@ -189,22 +186,30 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                           class="st3 left-align" fill="${data.inverterColour}">${localize('common.ratio')}
                     </text>
                     <text id="es-load1" x="441" y="108" class="st3"
-                          display="${[1, 2].includes(data.additionalLoad) ? '' : 'none'}"
+                          display="${[1, 2, 3].includes(data.additionalLoad) ? '' : 'none'}"
                           fill="${data.loadColour}">${config.load?.load1_name ? `${config.load.load1_name}` : ''}
                     </text>
                     <text id="es-load2" x="441" y="330.5" class="st3"
                           display="${data.additionalLoad === 2 ? '' : 'none'}" fill="${data.loadColour}">
                         ${config.load?.load2_name ? `${config.load.load2_name}` : ''}
                     </text>
-                    <text id="es-load4" x="423" y="156" class="st3 st8"
+                    <text id="es-load1" x="423" y="156" class="st3 st8"
                           display="${data.additionalLoad === 4 ? '' : 'none'}" fill="${data.loadColour}">
                         ${config.load?.load1_name ? `${config.load.load1_name}` : ''}
                     </text>
-                    <text id="es-load4" x="459" y="156" class="st3 st8"
+                    <text id="es-load2" x="459" y="156" class="st3 st8"
                           display="${data.additionalLoad === 4 ? '' : 'none'}" fill="${data.loadColour}">
                         ${config.load?.load2_name ? `${config.load.load2_name}` : ''}
                     </text>
-                    <text id="es-load4" x="423" y="320" class="st3 st8"
+                    <text id="es-load2" x="423" y="320" class="st3 st8"
+                          display="${data.additionalLoad === 3 ? '' : 'none'}" fill="${data.loadColour}">
+                        ${config.load?.load2_name ? `${config.load.load2_name}` : ''}
+                    </text>
+                    <text id="es-load3" x="459" y="320" class="st3 st8"
+                          display="${data.additionalLoad === 3 ? '' : 'none'}" fill="${data.loadColour}">
+                        ${config.load?.load3_name ? `${config.load.load3_name}` : ''}
+                    </text>
+                    <text id="es-load3" x="423" y="320" class="st3 st8"
                           display="${data.additionalLoad === 4 ? '' : 'none'}" fill="${data.loadColour}">
                         ${config.load?.load3_name ? `${config.load.load3_name}` : ''}
                     </text>
@@ -473,11 +478,11 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                           fill="none" stroke="${data.loadColour}" stroke-width="1" stroke-miterlimit="10"
                           pointer-events="stroke"/>
                     <path id="es-load1" d="M 441 180 L 441 147"
-                          class="${[2, 4].includes(data.additionalLoad) ? '' : 'st12'}" fill="none"
+                          class="${[2, 3, 4].includes(data.additionalLoad) ? '' : 'st12'}" fill="none"
                           stroke="${data.loadColour}" stroke-width="1" stroke-miterlimit="10"
                           pointer-events="stroke"/>
                     <path id="es-load2" d="M 441 290 L 441 257"
-                          class="${[2, 4].includes(data.additionalLoad) ? '' : 'st12'}" fill="none"
+                          class="${[2, 3, 4].includes(data.additionalLoad) ? '' : 'st12'}" fill="none"
                           stroke="${data.loadColour}" stroke-width="1" stroke-miterlimit="10"
                           pointer-events="stroke"/>
 
@@ -540,7 +545,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         </foreignObject>
                     </g>
 
-                    <g display="${[0, 1, 4].includes(data.additionalLoad) ? 'none' : ''}">
+                    <g display="${[0, 1, 3, 4].includes(data.additionalLoad) ? 'none' : ''}">
                         <foreignObject x="371" y="288" width="36" height="36" style="position:fixed; ">
                             <body xmlns="http://www.w3.org/1999/xhtml">
                             <div style="position: fixed; ">
@@ -585,6 +590,26 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             <body xmlns="http://www.w3.org/1999/xhtml">
                             <div style="position: fixed; ">
                                 <ha-icon icon="${data.iconEssentialLoad4}" class="essload_small-icon"></ha-icon>
+                            </div>
+                            </body>
+                        </foreignObject>
+                    </g>
+
+                    <g display="${data.additionalLoad === 3 ? '' : 'none'}">
+                        <foreignObject x="412" y="264" width="30" height="30" style="position: fixed; ">
+                            <body xmlns="http://www.w3.org/1999/xhtml">
+                            <div style="position: fixed; ">
+                                <ha-icon icon="${data.iconEssentialLoad2}" class="essload_small-icon"></ha-icon>
+                            </div>
+                            </body>
+                        </foreignObject>
+                    </g>
+
+                    <g display="${data.additionalLoad === 3 ? '' : 'none'}">
+                        <foreignObject x="449" y="264" width="30" height="30" style="position: fixed; ">
+                            <body xmlns="http://www.w3.org/1999/xhtml">
+                            <div style="position: fixed; ">
+                                <ha-icon icon="${data.iconEssentialLoad3}" class="essload_small-icon"></ha-icon>
                             </div>
                             </body>
                         </foreignObject>
@@ -692,22 +717,22 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.use_timer_248)}>
                         <svg xmlns="http://www.w3.org/2000/svg" id="timer" x="267.7" y="243.3" width="18"
                              height="18" viewBox="0 0 24 24">
-                            <path display="${data.stateUseTimer.state == 'on' && data.enableTimer !== false ? '' : 'none'}"
+                            <path display="${data.stateUseTimer.state == 'on' && data.enableTimer !== 'no' ? '' : 'none'}"
                                   fill="${data.inverterColour}"
                                   d="${icons.timerOn}"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="timer_off" x="267.7" y="243.3" width="18"
                              height="18" viewBox="0 0 24 24">
-                            <path display="${data.stateUseTimer.state == 'off' && data.enableTimer !== false ? '' : 'none'}"
+                            <path display="${data.stateUseTimer.state == 'off' && data.enableTimer !== 'no' ? '' : 'none'}"
                                   fill="${data.inverterColour}"
                                   d="${icons.timerOff}"/>
                         </svg>
                         <text id="timer_text_off" x="287" y="254.7" class="st3 left-align"
-                              display="${data.stateUseTimer.state == 'off' && data.enableTimer !== false ? '' : 'none'}"
+                              display="${data.stateUseTimer.state == 'off' && data.enableTimer !== 'no' ? '' : 'none'}"
                               fill="${data.inverterColour}">${localize('common.timer_off')}
                         </text>
                         <text id="timer_text_on" x="287" y="254.7" class="st3 left-align"
-                              display="${data.stateUseTimer.state == 'on' && data.enableTimer !== false ? '' : 'none'}"
+                              display="${data.stateUseTimer.state == 'on' && data.enableTimer !== 'no' ? '' : 'none'}"
                               fill="${data.inverterColour}">${localize('common.timer_on')}
                         </text>
                     </a>
@@ -754,15 +779,15 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     <a href="#" @click=${(e) => Utils.handlePopup(e, data.inverterProg.entityID)}>
                         <svg xmlns="http://www.w3.org/2000/svg" id="prog_grid_on" x="323" y="243" width="20"
                              height="18" viewBox="0 0 24 24">
-                            <path display="${data.inverterProg.show === false || config.entities.use_timer_248 === 'none' ? 'none' : ''}"
-                                  class="${data.inverterProg.charge === 'none' ? 'st12' : ''}"
+                            <path display="${data.inverterProg.show === false || data.enableTimer === 'no' ? 'none' : ''}"
+                                  class="${data.inverterProg.charge === 'none' || (data.stateUseTimer.state != 'off' && data.stateUseTimer.state != 'on') ? 'st12' : ''}"
                                   fill="${data.inverterColour}"
                                   d="${icons.progGridOn}"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="prog_grid_off" x="323" y="243" width="20"
                              height="18" viewBox="0 0 24 24">
-                            <path display="${data.inverterProg.show === false || config.entities.use_timer_248 === 'none' ? 'none' : ''}"
-                                  class="${data.inverterProg.charge === 'none' ? '' : 'st12'}"
+                             <path display="${data.inverterProg.show === false || data.enableTimer === 'no' ? 'none' : ''}"
+                                  class="${data.inverterProg.charge === 'none' && (data.stateUseTimer.state === 'off' || data.stateUseTimer.state === 'on') ? '' : 'st12'}"
                                   fill="${data.inverterColour}"
                                   d="${icons.progGridOff}"/>
                         </svg>
@@ -806,8 +831,8 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_load_energy_84)}>
                         <text id="daily_load_value"
-                              x="${[2, 4].includes(data.additionalLoad) ? '365' : '412'}"
-                              y="${[2, 4].includes(data.additionalLoad) ? '175' : '267.9'}"
+                              x="${[2, 3, 4].includes(data.additionalLoad) ? '365' : '412'}"
+                              y="${[2, 3, 4].includes(data.additionalLoad) ? '175' : '267.9'}"
                               class="st10 left-align" display="${!data.loadShowDaily || !data.stateDayLoadEnergy.isValid() ? 'none' : ''}"
                               fill="${data.loadColour}">
                             ${data.stateDayLoadEnergy?.toPowerString(true, 1)}
@@ -1073,7 +1098,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1_extra)}>
                         <text id="ess_load1_extra" x="465" y="157"
-                              display="${(config.entities?.essential_load1_extra && [1, 2].includes(data.additionalLoad)) && data.stateEssentialLoad1Extra.isValid() ? '' : 'none'}"
+                              display="${(config.entities?.essential_load1_extra && [1, 2, 3].includes(data.additionalLoad)) && data.stateEssentialLoad1Extra.isValid() ? '' : 'none'}"
                               class="st3 .right-align" fill="${data.loadColour}">
                             ${data.stateEssentialLoad1Extra.toNum(1)}
                             ${data.stateEssentialLoad1Extra.getUOM()}
@@ -1183,7 +1208,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                     </text>`
                     }
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1)}>
-                        <text id="ess_load1" x="440" y="133" display="${[1, 2].includes(data.additionalLoad) && data.stateEssentialLoad1.isValid() ? '' : 'none'}" 
+                        <text id="ess_load1" x="440" y="133" display="${[1, 2, 3].includes(data.additionalLoad) && data.stateEssentialLoad1.isValid() ? '' : 'none'}" 
                               class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
                               fill="${data.loadColour}">
                             ${data.stateEssentialLoad1?.toPowerString(config.load.auto_scale, data.decimalPlaces)}
@@ -1222,6 +1247,20 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                               class="st3" 
                               fill="${data.loadColour}">
                             ${data.stateEssentialLoad4?.toPowerString(config.load.auto_scale, data.decimalPlaces)}
+                        </text>
+                    </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load2)}>
+                        <text id="ess_load4" x="423" y="301" display="${data.additionalLoad === 3 && data.stateEssentialLoad2.isValid() ? '' : 'none'}" 
+                              class="st3" 
+                              fill="${data.loadColour}">
+                            ${data.stateEssentialLoad2?.toPowerString(config.load.auto_scale, data.decimalPlaces)}
+                        </text>
+                    </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load3)}>
+                        <text id="ess_load4" x="459" y="301" display="${data.additionalLoad === 3 && data.stateEssentialLoad3.isValid() ? '' : 'none'}" 
+                              class="st3" 
+                              fill="${data.loadColour}">
+                            ${data.stateEssentialLoad3?.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.prepaid_units)}>

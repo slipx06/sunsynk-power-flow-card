@@ -111,7 +111,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                 name: "solar",
                                 type: "grid",
                                 schema: [
-                                    {name: 'mppts', selector: {number: {min: 0, max: 4,}}},
+                                    {name: 'mppts', selector: {number: {min: 1, max: 4,}}},
                                     {name: 'show_daily', selector: {boolean: {}}},
                                     {name: 'pv1_name', selector: {text: {}}},
                                     {name: 'pv2_name', selector: {text: {}}},
