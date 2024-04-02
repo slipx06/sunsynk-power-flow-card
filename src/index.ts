@@ -229,7 +229,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         let loadColour = this.colourConvert(config.load?.colour);
         let auxColour = this.colourConvert(config.load?.aux_colour || loadColour);
-        let auxOffColour = this.colourConvert(config.load?.aux_off_colour || loadColour);
+        let auxOffColour = this.colourConvert(config.load?.aux_off_colour || auxColour);
 
         config.title_colour = this.colourConvert(config.title_colour);
 
