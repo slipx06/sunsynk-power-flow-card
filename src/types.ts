@@ -19,6 +19,7 @@ export enum InverterModel {
     Growatt = 'growatt',
     Huawei = 'huawei',
     Lux = 'lux',
+    PowMr = 'powmr',
     Solax = 'solax',
     SolarEdge = 'solaredge',
     Sofar = 'sofar',
