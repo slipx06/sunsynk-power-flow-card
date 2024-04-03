@@ -126,8 +126,8 @@ export class SunsynkPowerFlowCard extends LitElement {
         const stateInverterCurrent = this.getEntity('inverter_current_164');
         const stateInverterStatus = this.getEntity('inverter_status_59', {state: ''});
         const stateInverterPower = this.getEntity('inverter_power_175');
-        const statePriorityLoad = this.getEntity('priority_load_243', {state: 'undefined'});
-        const stateUseTimer = this.getEntity('use_timer_248', {state: 'undefined'});
+        const statePriorityLoad = this.getEntity('priority_load_243', {state: config.entities.priority_load_243?.toString() ?? 'false'});
+        const stateUseTimer = this.getEntity('use_timer_248', {state: config.entities.use_timer_248?.toString() ?? 'false'});
         const stateDCTransformerTemp = this.getEntity('dc_transformer_temp_90', {state: ''});
         const stateRadiatorTemp = this.getEntity('radiator_temp_91', {state: ''});
         const stateInverterVoltageL2 = this.getEntity('inverter_voltage_L2', {state: ''});
@@ -155,6 +155,8 @@ export class SunsynkPowerFlowCard extends LitElement {
         const stateNonessentialLoad1 = this.getEntity('non_essential_load1');
         const stateNonessentialLoad2 = this.getEntity('non_essential_load2');
         const stateNonessentialLoad3 = this.getEntity('non_essential_load3');
+        const stateNonEssentialLoad1Extra = this.getEntity('non_essential_load1_extra');
+        const stateNonEssentialLoad2Extra = this.getEntity('non_essential_load2_extra');
         const stateEssentialLoad1 = this.getEntity('essential_load1');
         const stateEssentialLoad2 = this.getEntity('essential_load2');
         const stateEssentialLoad3 = this.getEntity('essential_load3');
@@ -227,7 +229,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         let loadColour = this.colourConvert(config.load?.colour);
         let auxColour = this.colourConvert(config.load?.aux_colour || loadColour);
-        let auxOffColour = this.colourConvert(config.load?.aux_off_colour || loadColour);
+        let auxOffColour = this.colourConvert(config.load?.aux_off_colour || auxColour);
 
         config.title_colour = this.colourConvert(config.title_colour);
 
@@ -323,7 +325,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let showDailyAux = config.load?.show_daily_aux;
 
         let additionalLoad = config.load?.additional_loads;
-        if (!validLoadValues.includes(additionalLoad) || (this.isFullCard && additionalLoad === 4)) {
+        if (!validLoadValues.includes(additionalLoad) || (this.isFullCard && additionalLoad === 4) || (this.isFullCard && additionalLoad === 3)) {
             additionalLoad = 0;
         }
 
@@ -349,9 +351,8 @@ export class SunsynkPowerFlowCard extends LitElement {
         let panelMode = config.panel_mode;
         let inverterColour = this.colourConvert(config.inverter?.colour);
         let enableAutarky = config.inverter?.autarky;
-        let enableTimer = config.entities.use_timer_248 === false || !config.entities.use_timer_248 ? false : stateUseTimer.state;
-        let priorityLoad =
-            config.entities.priority_load_243 === false || !config.entities.priority_load_243 ? false : statePriorityLoad.state;
+        let enableTimer = !config.entities.use_timer_248 ? false : stateUseTimer.state;
+        let priorityLoad = !config.entities.priority_load_243 ? false : statePriorityLoad.state;
         let batteryPower = stateBatteryPower.toPower(config.battery?.invert_power);
 
         const card_height = (config.card_height ? this.hass.states[config.card_height] : null) || {state: ''};
@@ -476,58 +477,58 @@ export class SunsynkPowerFlowCard extends LitElement {
             entityID: '',
         };
 
-        if (enableTimer === false || stateUseTimer.state === 'off') {
-            inverterProg.show = false;
-        } else if (
-            !config.entities.prog1_time ||
-            !config.entities.prog2_time ||
-            !config.entities.prog3_time ||
-            !config.entities.prog4_time ||
-            !config.entities.prog5_time ||
-            !config.entities.prog6_time
-        ) {
-            inverterProg.show = false;
-        } else {
-            inverterProg.show = true;
 
-            const timer_now = new Date(); // Create a new Date object representing the current time
-
-            const progTimes: Date[] = [];
-
-            [prog1, prog2, prog3, prog4, prog5, prog6].forEach((prog, index) => {
-                const [hours, minutes] = prog.time.state.split(':').map(function (item) {
-                    return parseInt(item, 10);
+        switch (true) {
+            case stateUseTimer.state === 'off':
+            case !enableTimer:
+            case !config.entities.prog1_time:
+            case !config.entities.prog2_time:
+            case !config.entities.prog3_time:
+            case !config.entities.prog4_time:
+            case !config.entities.prog5_time:
+            case !config.entities.prog6_time:
+                inverterProg.show = false;
+                break;
+            default:
+                inverterProg.show = true;
+        
+                const timer_now = new Date(); // Create a new Date object representing the current time
+        
+                const progTimes: Date[] = [];
+        
+                [prog1, prog2, prog3, prog4, prog5, prog6].forEach((prog, index) => {
+                    const [hours, minutes] = prog.time.state.split(':').map(item => parseInt(item, 10));
+                    progTimes[index] = new Date(timer_now.getTime());
+                    progTimes[index].setHours(hours);
+                    progTimes[index].setMinutes(minutes);
                 });
-                progTimes[index] = new Date(timer_now.getTime());
-                progTimes[index].setHours(hours);
-                progTimes[index].setMinutes(minutes);
-            });
-
-            const [prog_time1, prog_time2, prog_time3, prog_time4, prog_time5, prog_time6] = progTimes;
-
-            if (timer_now >= prog_time6 || timer_now < prog_time1) {
-                assignInverterProgValues(prog6, config.entities.prog6_charge);
-            } else if (timer_now >= prog_time1 && timer_now < prog_time2) {
-                assignInverterProgValues(prog1, config.entities.prog1_charge);
-            } else if (timer_now >= prog_time2 && timer_now < prog_time3) {
-                assignInverterProgValues(prog2, config.entities.prog2_charge);
-            } else if (timer_now >= prog_time3 && timer_now < prog_time4) {
-                assignInverterProgValues(prog3, config.entities.prog3_charge);
-            } else if (timer_now >= prog_time4 && timer_now < prog_time5) {
-                assignInverterProgValues(prog4, config.entities.prog4_charge);
-            } else if (timer_now >= prog_time5 && timer_now < prog_time6) {
-                assignInverterProgValues(prog5, config.entities.prog5_charge);
-            }
-
-            function assignInverterProgValues(prog, entityID) {
-                if (prog.charge.state === 'No Grid or Gen' || prog.charge.state === '0' || prog.charge.state === 'off') {
-                    inverterProg.charge = 'none';
-                } else {
-                    inverterProg.charge = 'both';
+        
+                const [prog_time1, prog_time2, prog_time3, prog_time4, prog_time5, prog_time6] = progTimes;
+        
+                if (timer_now >= prog_time6 || timer_now < prog_time1) {
+                    assignInverterProgValues(prog6, config.entities.prog6_charge);
+                } else if (timer_now >= prog_time1 && timer_now < prog_time2) {
+                    assignInverterProgValues(prog1, config.entities.prog1_charge);
+                } else if (timer_now >= prog_time2 && timer_now < prog_time3) {
+                    assignInverterProgValues(prog2, config.entities.prog2_charge);
+                } else if (timer_now >= prog_time3 && timer_now < prog_time4) {
+                    assignInverterProgValues(prog3, config.entities.prog3_charge);
+                } else if (timer_now >= prog_time4 && timer_now < prog_time5) {
+                    assignInverterProgValues(prog4, config.entities.prog4_charge);
+                } else if (timer_now >= prog_time5 && timer_now < prog_time6) {
+                    assignInverterProgValues(prog5, config.entities.prog5_charge);
                 }
-                inverterProg.capacity = parseInt(prog.capacity.state);
-                inverterProg.entityID = entityID;
-            }
+        
+                function assignInverterProgValues(prog, entityID) {
+                     if (prog.charge.state === 'No Grid or Gen' || prog.charge.state === '0' || prog.charge.state === 'off') {
+                         inverterProg.charge = 'none';
+                     } else {
+                         inverterProg.charge = 'both';
+                     }
+                     inverterProg.capacity = parseInt(prog.capacity.state);
+                     inverterProg.entityID = entityID;
+                 }
+                break;
         }
 
         if (gridVoltage != null && !Number.isNaN(gridVoltage) && inverterModel == InverterModel.Solis) {
@@ -796,6 +797,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                 config.load.animation_speed -
                 (config.load.animation_speed - 1) * (Math.abs(essentialPower) / (config.load.max_power || Math.abs(essentialPower)));
             this.changeAnimationSpeed(`load`, speed);
+            this.changeAnimationSpeed(`load1`, speed);
         }
 
         if (config && config.load && config.load.animation_speed) {
@@ -803,6 +805,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                 config.load.animation_speed -
                 (config.load.animation_speed - 1) * (Math.abs(auxPower) / (config.load.max_power || Math.abs(auxPower)));
             this.changeAnimationSpeed(`aux`, speed);
+            this.changeAnimationSpeed(`aux1`, speed);
         }
 
         if (config && config.grid && config.grid.animation_speed) {
@@ -812,6 +815,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                 (Math.abs(totalGridPower) / (config.grid.max_power || Math.abs(totalGridPower)));
             this.changeAnimationSpeed(`grid1`, speed);
             this.changeAnimationSpeed(`grid`, speed);
+            this.changeAnimationSpeed(`grid2`, speed);
         }
 
         if (config && config.grid && config.grid.animation_speed) {
@@ -957,6 +961,8 @@ export class SunsynkPowerFlowCard extends LitElement {
             decimalPlaces,
             stateEssentialLoad1Extra,
             stateEssentialLoad2Extra,
+            stateNonEssentialLoad1Extra,
+            stateNonEssentialLoad2Extra,
             loadFrequency,
             statePV4Current,
             gridShowDailyBuy,

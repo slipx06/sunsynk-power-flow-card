@@ -111,7 +111,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                 name: "solar",
                                 type: "grid",
                                 schema: [
-                                    {name: 'mppts', selector: {number: {min: 0, max: 4,}}},
+                                    {name: 'mppts', selector: {number: {min: 1, max: 4,}}},
                                     {name: 'show_daily', selector: {boolean: {}}},
                                     {name: 'pv1_name', selector: {text: {}}},
                                     {name: 'pv2_name', selector: {text: {}}},
@@ -367,6 +367,8 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                             {name: "non_essential_load1", selector: {entity: {device_class: SensorDeviceClass.POWER}}},
                                             {name: "non_essential_load2", selector: {entity: {device_class: SensorDeviceClass.POWER}}},
                                             {name: "non_essential_load3", selector: {entity: {device_class: SensorDeviceClass.POWER}}},
+                                            {name: "non_essential_load1_extra", selector: {entity: {}}},
+                                            {name: "non_essential_load2_extra", selector: {entity: {}}},
                                             {name: "grid_connected_status_194", selector: {entity: {}}},
                                             {name: "energy_cost_buy", selector: {entity: {}}},
                                             {name: "energy_cost_sell", selector: {entity: {}}},

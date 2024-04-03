@@ -7,6 +7,7 @@ import {GoodweGrid} from './brands/goodwe-grid';
 import {FoxESS} from './brands/fox-ess';
 import {Huawei} from './brands/huawei';
 import {Fronius} from './brands/fronius';
+import {PowMr} from './brands/powmr';
 import {Victron} from './brands/victron';
 import {Solax} from './brands/solax';
 import {Growatt} from './brands/growatt';
@@ -16,6 +17,7 @@ import {CesBatteryBox} from './brands/ces-battery-box';
 import {SolarEdge} from './brands/solar-edge';
 import {Deye} from './brands/deye';
 import {Azzurro} from './brands/azzurro';
+
 
 
 export class InverterFactory {
@@ -59,7 +61,9 @@ export class InverterFactory {
             case InverterModel.SolarEdge:
                 return new SolarEdge();
             case InverterModel.Deye:
-                    return new Deye();
+                return new Deye();
+            case InverterModel.PowMr:
+                return new PowMr();
             case InverterModel.Sunsynk:
             default:
                 return new Sunsynk()
