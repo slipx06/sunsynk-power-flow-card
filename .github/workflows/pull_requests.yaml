@@ -5,7 +5,7 @@ name: Pull Requests
 on:
   pull_request:
     branches:
-      - master
+      - main
   workflow_dispatch:
 jobs:
   checkVersion:
