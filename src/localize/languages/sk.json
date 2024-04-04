@@ -119,6 +119,7 @@
       "aux_load2_name": "Load 2 Name",
       "aux_load1_icon": "Load 1 Icon",
       "aux_load2_icon": "Load 2 Icon",
+      "aux_dynamic_colour": "Aux Dynamic Colour",
       "show_daily_buy": "Show Daily Buy",
       "show_daily_sell": "Show Daily Sell",
       "no_grid_colour": "No Grid Colour",

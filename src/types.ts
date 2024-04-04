@@ -98,6 +98,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
     load: {
         colour: string;
         dynamic_colour: boolean;
+        aux_dynamic_colour: boolean;
         dynamic_icon: boolean;
         show_daily: boolean;
         invert_aux: boolean;
@@ -273,7 +274,6 @@ export interface DataDto {
     isFloating,
     inverterColour,
     solarColour,
-    auxColour,
     auxOffColour,
     batteryEnergy,
     largeFont,
@@ -374,6 +374,9 @@ export interface DataDto {
     iconAuxLoad2,
     autoScaledInverterPower,
     autoScaledGridPower,
+    auxDynamicColour,
+    auxDynamicColourLoad1,
+    auxDynamicColourLoad2,
     stateDayLoadEnergy: CustomEntity,
     stateDayBatteryDischarge: CustomEntity,
     stateDayGridImport: CustomEntity,

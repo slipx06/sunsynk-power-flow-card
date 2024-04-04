@@ -188,6 +188,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                         {name: 'aux_type', selector: {icon: {}}},
                                         {name: 'invert_aux', selector: {boolean: {}}},
                                         {name: 'show_absolute_aux', selector: {boolean: {}}},
+                                        {name: 'aux_dynamic_colour', selector: {boolean: {}}},
                                         {name: 'aux_colour', selector: {color_rgb: {}}},
                                         {name: 'aux_off_colour', selector: {color_rgb: {}}},
                                         {name: 'aux_loads', selector: {number: {mode: 'box', min: 0, max: 2,}}},

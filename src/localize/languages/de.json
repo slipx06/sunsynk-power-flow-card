@@ -135,6 +135,7 @@
       "invert_load": "Invert Values",
       "shutdown_soc": "Shutdown SOC",
       "energy": "Energy",
+      "aux_dynamic_colour": "Aux Dynamic Colour",
       "auto_scale": "Auto Scale",
       "three_phase": "Three Phase",
       "dynamic_colour": "Dynamic Colour",

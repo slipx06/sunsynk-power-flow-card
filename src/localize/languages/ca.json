@@ -138,6 +138,7 @@
       "auto_scale": "Auto Scale",
       "three_phase": "Three Phase",
       "dynamic_colour": "Dynamic Colour",
+      "aux_dynamic_colour": "Aux Dynamic Colour",
       "dynamic_icon": "Dynamic Icon",
       "invert_power": "Invert Power",
       "show_absolute": "Show Absolute",

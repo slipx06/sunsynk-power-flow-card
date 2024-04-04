@@ -129,6 +129,7 @@
       "charge_colour": "Charge Colour",
       "linear_gradient": "Linear Gradient",
       "aux_colour": "Colour",
+      "aux_dynamic_colour": "Aux Dynamic Colour",
       "aux_off_colour": "Off Colour",
       "panel_mode": "Panel Mode",
       "invert_grid": "Invert Values",

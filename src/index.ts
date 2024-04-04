@@ -228,8 +228,11 @@ export class SunsynkPowerFlowCard extends LitElement {
         let genericInverterImage = config.inverter?.modern;
 
         let loadColour = this.colourConvert(config.load?.colour);
-        let auxColour = this.colourConvert(config.load?.aux_colour || loadColour);
-        let auxOffColour = this.colourConvert(config.load?.aux_off_colour || auxColour);
+        //let auxColour = this.colourConvert(config.load?.aux_colour || loadColour);        
+        let auxDynamicColour = this.calculateAuxLoadColour(stateAuxPower, 0) || loadColour;
+        let auxOffColour = this.colourConvert(config.load?.aux_off_colour || auxDynamicColour);
+        let auxDynamicColourLoad1 = this.calculateAuxLoadColour(stateAuxLoad1, 0) || loadColour;
+        let auxDynamicColourLoad2 = this.calculateAuxLoadColour(stateAuxLoad2, 0) || loadColour;
 
         config.title_colour = this.colourConvert(config.title_colour);
 
@@ -927,7 +930,6 @@ export class SunsynkPowerFlowCard extends LitElement {
             isFloating,
             inverterColour,
             solarColour,
-            auxColour,
             auxOffColour,
             batteryEnergy,
             largeFont,
@@ -1074,7 +1076,10 @@ export class SunsynkPowerFlowCard extends LitElement {
             stateNonessentialLoad2,
             stateNonessentialLoad3,
             autoScaledInverterPower,
-            autoScaledGridPower
+            autoScaledGridPower,
+            auxDynamicColour,
+            auxDynamicColourLoad1,
+            auxDynamicColourLoad2
         };
 
         if (this.isFullCard) {
@@ -1151,6 +1156,14 @@ export class SunsynkPowerFlowCard extends LitElement {
         }
 
         return lineWidth;
+    }
+
+    calculateAuxLoadColour(state, threshold) {
+        return !this._config.load.aux_dynamic_colour
+            ? this.colourConvert(this._config.load?.aux_colour)
+            : Math.abs(state.toNum(0)) > threshold
+                ? this.colourConvert(this._config.load?.aux_colour)
+                : 'grey';
     }
 
     setConfig(config) {

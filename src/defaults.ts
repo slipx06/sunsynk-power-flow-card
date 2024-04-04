@@ -56,6 +56,7 @@ export default {
         colour: '#5fb6ad',
         dynamic_colour: true,
         dynamic_icon: true,
+        aux_dynamic_colour: true,
         show_daily: false,
         show_aux: false,
         show_daily_aux: false,

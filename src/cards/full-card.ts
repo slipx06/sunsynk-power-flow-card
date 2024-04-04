@@ -20,12 +20,17 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                 }
 
                 .aux-icon {
-                    color: ${data.auxColour} !important;
+                    color: ${data.auxDynamicColour} !important;
                     --mdc-icon-size: 70px;
                 }
 
-                .aux-small-icon {
-                    color: ${data.auxColour} !important;
+                .aux-small-icon-1 {
+                    color: ${data.auxDynamicColourLoad1} !important;
+                    --mdc-icon-size: 24px;
+                }
+
+                .aux-small-icon-2 {
+                    color: ${data.auxDynamicColourLoad2} !important;
                     --mdc-icon-size: 24px;
                 }
 
@@ -66,7 +71,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                           stroke="${data.gridColour}" pointer-events="all"
                           display="${!config.show_grid ? 'none' : ''}"/>
                     <rect x="237" y="32" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                          stroke="${data.auxColour}" pointer-events="all"
+                          stroke="${data.auxDynamicColour}" pointer-events="all"
                           class="${!data.showAux ? 'st12' : ''}"/>
                     <rect x="236" y="103" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                           stroke="${data.loadColour}" pointer-events="all"/>
@@ -121,11 +126,11 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                           fill="none" stroke="${data.loadColour}" pointer-events="all"
                           display="${data.additionalLoad === 2 ? '' : 'none'}"/>
                     <rect id="aux-load1" x="374" y="20" width="70" height="25" rx="4.5" ry="4.5" fill="none"
-                          stroke="${data.auxColour}" pointer-events="all"
+                          stroke="${data.auxDynamicColourLoad1}" pointer-events="all"
                           display="${!data.showAux ? 'none' : ''}"
                           class="${[1, 2].includes(data.additionalAuxLoad) ? '' : 'st12'}"/>
                     <rect id="aux-load2" x="374" y="50" width="70" height="25" rx="4.5" ry="4.5" fill="none"
-                          stroke="${data.auxColour}" pointer-events="all"
+                          stroke="${data.auxDynamicColourLoad2}" pointer-events="all"
                           display="${!data.showAux ? 'none' : ''}"
                           class="${data.additionalAuxLoad === 2 ? '' : 'st12'}"/>
                     <text id="duration" x="132" y="352" class="${data.largeFont !== true ? 'st14' : 'st4'} left-align"
@@ -249,7 +254,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </text>
                     <text id="aux_one" x="411" y="82" class="st3 st8"
                           display="${!data.showAux || [1, 2].includes(data.additionalAuxLoad) ? 'none' : ''}"
-                          fill="${data.auxStatus === 'on' || data.auxStatus === '1' ? `${data.auxColour}` : `${data.auxOffColour}`}">
+                          fill="${data.auxStatus === 'on' || data.auxStatus === '1' ? `${data.auxDynamicColour}` : `${data.auxOffColour}`}">
                         ${config.load.aux_name}
                     </text>
                     <text id="noness" x="340" y="377" class="st3 st8"
@@ -301,21 +306,27 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </text>
                     <text id="aux_load1" x="411" y="${data.additionalAuxLoad === 1 ? 53 : 14}" class="st3 st8"
                           display="${!data.showAux || data.additionalAuxLoad === 0 ? 'none' : ''}"
-                          fill="${data.auxColour}">${config.load.aux_load1_name}
+                          fill="${data.auxDynamicColourLoad1}">${config.load.aux_load1_name}
                     </text>
                     <text id="aux_load2" x="411" y="83" class="st3 st8"
                           display="${!data.showAux || [0, 1].includes(data.additionalAuxLoad) ? 'none' : ''}"
-                          fill="${data.auxColour}">${config.load.aux_load2_name}
+                          fill="${data.auxDynamicColourLoad2}">${config.load.aux_load2_name}
+                    </text>
+                    <text id="aux_load1_extra" x="411" y="8" class="st3 st8"
+                          display="${!data.showAux || [1, 2].includes(data.additionalAuxLoad) || !config.entities.aux_load1_extra ? 'none' : ''}"
+                          fill="${data.auxStatus === 'on' || data.auxStatus === '1' ? `${data.auxDynamicColour}` : `${data.auxOffColour}`}">
+                        ${data.stateAuxLoad1Extra.toNum(1)}
+                        ${data.stateAuxLoad1Extra?.getUOM()}
                     </text>
                     <text id="aux_load1_extra" x="360" y="14" class="st3 st8"
-                          display="${!data.showAux || data.additionalAuxLoad === 0 || !config.entities.aux_load1_extra ? 'none' : ''}"
-                          fill="${data.auxColour}">
+                          display="${data.showAux && data.additionalAuxLoad === 1 && config.entities.aux_load1_extra ? '' : 'none'}"
+                          fill="${data.auxDynamicColourLoad1}">
                         ${data.stateAuxLoad1Extra.toNum(1)}
                         ${data.stateAuxLoad1Extra?.getUOM()}
                     </text>
                     <text id="aux_load2_extra" x="360" y="83" class="st3 st8"
                           display="${!data.showAux || [0, 1].includes(data.additionalAuxLoad) || !config.entities.aux_load2_extra ? 'none' : ''}"
-                          fill="${data.auxColour}">
+                          fill="${data.auxDynamicColourLoad2}">
                         ${data.stateAuxLoad2Extra.toNum(1)}
                         ${data.stateAuxLoad2Extra?.getUOM()}
                     </text>
@@ -323,7 +334,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                           x="${[1, 2].includes(data.additionalAuxLoad) ? '238' : '306'}" y="24"
                           class="st3 left-align"
                           display="${!data.showAux || data.showDailyAux !== true ? 'none' : ''}"
-                          fill="${data.auxColour}">${localize('common.daily_aux')}
+                          fill="${data.auxDynamicColour}">${localize('common.daily_aux')}
                     </text>
                     <text id="load-power-3P" x="237" y="142"
                           display="${config.inverter.three_phase && config.entities?.load_power_L1 ? '' : 'none'}"
@@ -572,13 +583,13 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </svg>
                     <svg id="aux-flow">
                         <path id="aux-line" d="M 307 47 L 371 47" fill="none"
-                              class="${!data.showAux ? 'st12' : ''}" stroke="${data.auxColour}"
+                              class="${!data.showAux ? 'st12' : ''}" stroke="${data.auxDynamicColour}"
                               stroke-width="${data.auxLineWidth}"
                               stroke-miterlimit="10" pointer-events="stroke"/>
                         <circle id="aux-dot" cx="0" cy="0"
                                 r="${Math.min(2 + data.auxLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
                                 class="${!data.showAux || data.auxPower === 0 ? 'st12' : ''}"
-                                fill="${data.auxPower < 0 ? 'transparent' : `${data.auxColour}`}">
+                                fill="${data.auxPower < 0 ? 'transparent' : `${data.auxDynamicColour}`}">
                             <animateMotion dur="${data.durationCur['aux']}s" repeatCount="indefinite"
                                            keyPoints="0;1"
                                            keyTimes="0;1" calcMode="linear">
@@ -588,7 +599,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         <circle id="aux-dot" cx="0" cy="0"
                                 r="${Math.min(2 + data.auxLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
                                 class="${!data.showAux || data.auxPower === 0 ? 'st12' : ''}"
-                                fill="${data.auxPower > 0 ? 'transparent' : `${data.auxColour}`}">
+                                fill="${data.auxPower > 0 ? 'transparent' : `${data.auxDynamicColour}`}">
                             <animateMotion dur="${data.durationCur['aux']}s" repeatCount="indefinite"
                                            keyPoints="1;0"
                                            keyTimes="0;1" calcMode="linear">
@@ -598,13 +609,13 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </svg>
                     <svg id="aux1-flow">
                         <path id="aux-line2" d="M 180 162 L 180 57 Q 180 47 190 47 L 237 47" fill="none"
-                              class="${!data.showAux ? 'st12' : ''}" stroke="${data.auxColour}"
+                              class="${!data.showAux ? 'st12' : ''}" stroke="${data.auxDynamicColour}"
                               stroke-width="${data.auxLineWidth}"
                               stroke-miterlimit="10" pointer-events="stroke"/>
                         <circle id="aux-dot" cx="0" cy="0"
                                 r="${Math.min(2 + data.auxLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
                                 class="${!data.showAux || data.auxPower === 0 ? 'st12' : ''}"
-                                fill="${data.auxPower < 0 ? 'transparent' : `${data.auxColour}`}">
+                                fill="${data.auxPower < 0 ? 'transparent' : `${data.auxDynamicColour}`}">
                             <animateMotion dur="${data.durationCur['aux']}s" repeatCount="indefinite"
                                            keyPoints="0;1"
                                            keyTimes="0;1" calcMode="linear">
@@ -614,7 +625,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         <circle id="aux-dot" cx="0" cy="0"
                                 r="${Math.min(2 + data.auxLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
                                 class="${!data.showAux || data.auxPower === 0 ? 'st12' : ''}"
-                                fill="${data.auxPower > 0 ? 'transparent' : `${data.auxColour}`}">
+                                fill="${data.auxPower > 0 ? 'transparent' : `${data.auxDynamicColour}`}">
                             <animateMotion dur="${data.durationCur['aux']}s" repeatCount="indefinite"
                                            keyPoints="1;0"
                                            keyTimes="0;1" calcMode="linear">
@@ -1036,14 +1047,14 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                              height="83" viewBox="0 0 24 24">
                             <path class="${data.auxType === 'default' ? '' : 'st12'}"
                                   display="${!data.showAux || [1, 2].includes(data.additionalAuxLoad) ? 'none' : ''}"
-                                  fill="${data.auxStatus === 'on' || data.auxStatus === '1' ? `${data.auxColour}` : `${data.auxOffColour}`}"
+                                  fill="${data.auxStatus === 'on' || data.auxStatus === '1' ? `${data.auxDynamicColour}` : `${data.auxOffColour}`}"
                                   d="${icons.aux}"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="aux_generator" x="374" y="5" width="74"
                              height="74" viewBox="0 0 24 24">
                             <path class="${data.auxType === 'gen' ? '' : 'st12'}"
                                   display="${!data.showAux || [1, 2].includes(data.additionalAuxLoad) ? 'none' : ''}"
-                                  fill="${data.auxStatus === 'on' || data.auxStatus === '1' ? `${data.auxColour}` : `${data.auxOffColour}`}"
+                                  fill="${data.auxStatus === 'on' || data.auxStatus === '1' ? `${data.auxDynamicColour}` : `${data.auxOffColour}`}"
                                   d="${icons.generator}"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="aux_inverter" x="388" y="8" width="44"
@@ -1051,42 +1062,42 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             <g transform="translate(0.000000,91.000000) scale(0.100000,-0.100000)"
                                class="${data.auxType === 'inverter' ? '' : 'st12'}"
                                display="${!data.showAux || [1, 2].includes(data.additionalAuxLoad) ? 'none' : ''}"
-                               fill="${data.auxStatus === 'on' || data.auxStatus === '1' ? `${data.auxColour}` : `${data.auxOffColour}`}"
+                               fill="${data.auxStatus === 'on' || data.auxStatus === '1' ? `${data.auxDynamicColour}` : `${data.auxOffColour}`}"
                                stroke="none">
                                 <path d="${icons.inverter}"/>
                             </g>
                         </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" id="aux_oven" x="375" y="5" width="70"
+                        <svg xmlns="http://www.w3.org/2000/svg" id="aux_oven" x="375" y="8" width="70"
                              height="70" viewBox="0 0 32 32">
                             <path class="${data.auxType === 'oven' ? '' : 'st12'}"
                                   display="${!data.showAux || [1, 2].includes(data.additionalAuxLoad) ? 'none' : ''}"
-                                  fill="${data.auxStatus === 'on' || data.auxStatus === '1' ? `${data.auxColour}` : `${data.auxOffColour}`}"
+                                  fill="${data.auxStatus === 'on' || data.auxStatus === '1' ? `${data.auxDynamicColour}` : `${data.auxOffColour}`}"
                                   d="${icons.oven}"/>
                         </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" id="aux_boiler" x="375" y="5" width="70"
+                        <svg xmlns="http://www.w3.org/2000/svg" id="aux_boiler" x="375" y="8" width="70"
                              height="70" viewBox="0 0 24 24">
                             <path class="${data.auxType === 'boiler' ? '' : 'st12'}"
                                   display="${!data.showAux || [1, 2].includes(data.additionalAuxLoad) ? 'none' : ''}"
-                                  fill="${data.auxStatus === 'on' || data.auxStatus === '1' ? `${data.auxColour}` : `${data.auxOffColour}`}"
+                                  fill="${data.auxStatus === 'on' || data.auxStatus === '1' ? `${data.auxDynamicColour}` : `${data.auxOffColour}`}"
                                   d="${icons.boiler}"/>
                         </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" id="aux_ac" x="380" y="10" width="60"
+                        <svg xmlns="http://www.w3.org/2000/svg" id="aux_ac" x="380" y="12" width="60"
                              height="60" viewBox="0 0 24 24">
                             <path class="${data.auxType === 'aircon' ? '' : 'st12'}"
                                   display="${!data.showAux || [1, 2].includes(data.additionalAuxLoad) ? 'none' : ''}"
-                                  fill="${data.auxStatus === 'on' || data.auxStatus === '1' ? `${data.auxColour}` : `${data.auxOffColour}`}"
+                                  fill="${data.auxStatus === 'on' || data.auxStatus === '1' ? `${data.auxDynamicColour}` : `${data.auxOffColour}`}"
                                   d="${icons.aircon}"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="aux_pump" x="380" y="15" width="60"
                              height="70" viewBox="0 0 24 24">
                             <path class="${data.auxType === 'pump' ? '' : 'st12'}"
                                   display="${!data.showAux || [1, 2].includes(data.additionalAuxLoad) ? 'none' : ''}"
-                                  fill="${data.auxStatus === 'on' || data.auxStatus === '1' ? `${data.auxColour}` : `${data.auxOffColour}`}"
+                                  fill="${data.auxStatus === 'on' || data.auxStatus === '1' ? `${data.auxDynamicColour}` : `${data.auxOffColour}`}"
                                   d="${icons.pump}"/>
                         </svg>
 
                         <g display="${!data.showAux || [1, 2].includes(data.additionalAuxLoad) ? 'none' : ''}">
-                            <foreignObject x="375" y="5" width="85" height="85" style="position: fixed; ">
+                            <foreignObject x="375" y="8" width="70" height="70" style="position: fixed; ">
                                 <body xmlns="http://www.w3.org/1999/xhtml">
                                 <div style="position: fixed; ">
                                     <ha-icon icon="${data.auxType}"
@@ -1101,7 +1112,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         <foreignObject x="345" y="18" width="40" height="40" style="position: fixed; ">
                             <body xmlns="http://www.w3.org/1999/xhtml">
                             <div style="position: fixed; ">
-                                <ha-icon icon="${data.iconAuxLoad1}" class="aux-small-icon"></ha-icon>
+                                <ha-icon icon="${data.iconAuxLoad1}" class="aux-small-icon-1"></ha-icon>
                             </div>
                             </body>
                         </foreignObject>
@@ -1111,7 +1122,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         <foreignObject x="345" y="52" width="40" height="40" style="position: fixed; ">
                             <body xmlns="http://www.w3.org/1999/xhtml">
                             <div style="position: fixed; ">
-                                <ha-icon icon="${data.iconAuxLoad2}" class="aux-small-icon"></ha-icon>
+                                <ha-icon icon="${data.iconAuxLoad2}" class="aux-small-icon-2"></ha-icon>
                             </div>
                             </body>
                         </foreignObject>
@@ -1493,7 +1504,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                               x="${[1, 2].includes(data.additionalAuxLoad) ? '238' : '306'}"
                               y="12" class="st10 left-align"
                               display="${!data.showAux || data.showDailyAux !== true || !data.stateDayAuxEnergy.isValid() ? 'none' : ''}"
-                              fill="${data.auxColour}">
+                              fill="${data.auxDynamicColour}">
                             ${data.stateDayAuxEnergy.toPowerString(true, 1)}
                         </text>
                     </a>
@@ -1648,7 +1659,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.aux_power_166)}>
                                         <text id="aux_power_166" x="270" y="48" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
                                               display="${!data.showAux ? 'none' : ''}" 
-                                              fill="${data.auxColour}">
+                                              fill="${data.auxDynamicColour}">
                                             ${config.load.auto_scale
                                     ? `${config.load.show_absolute_aux
                                             ? `${Math.abs(parseFloat(Utils.convertValue(data.auxPower, data.decimalPlaces)))} ${Utils.convertValue(data.auxPower, data.decimalPlaces).split(' ')[1]}`
@@ -1662,7 +1673,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             : svg`
                                     <text id="aux_power_166" x="270" y="48" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
                                           display="${!data.showAux ? 'none' : ''}" 
-                                          fill="${data.auxColour}">
+                                          fill="${data.auxDynamicColour}">
                                         ${config.load.auto_scale
                                     ? `${config.load.show_absolute_aux
                                             ? `${Math.abs(parseFloat(Utils.convertValue(data.auxPower, data.decimalPlaces)))} ${Utils.convertValue(data.auxPower, data.decimalPlaces).split(' ')[1]}`
@@ -1712,14 +1723,14 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.aux_load1)}>
                         <text id="aux_load1_value" x="411" y="34" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
                               display="${!data.showAux || data.additionalAuxLoad === 0 || !data.stateAuxLoad1.isValid() ? 'none' : ''}" 
-                              fill="${data.auxColour}">
+                              fill="${data.auxDynamicColourLoad1}">
                             ${data.stateAuxLoad1.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.aux_load2)}>
                         <text id="aux_load2_value" x="411" y="64" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
                               display="${!data.showAux || [0, 1].includes(data.additionalAuxLoad) || !data.stateAuxLoad2.isValid() ? 'none' : ''}" 
-                              fill="${data.auxColour}">
+                              fill="${data.auxDynamicColourLoad2}">
                             ${data.stateAuxLoad2.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
