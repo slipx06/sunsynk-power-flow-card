@@ -37,7 +37,7 @@ template:
         {% set gpo_total_active_power = states('sensor.gpo_total')|float(0) %}
         {% set all_it_active_power = states('sensor.it_hardware_active_power')|float(0) %}
         {% set whitegoods = states('sensor.gpo_clothes_dryer_power')|float(0) %}
-        {{ (gpo_total_active_power - ( all_it_active_power + whitegoods ))|float(0)|round(0) }}
+        {{ max(0, (gpo_total_active_power - ( all_it_active_power + whitegoods ))|float(0)|round(0)) }}
       availability: >-
         {{ (states('sensor.gpo_total')|is_number)
             and (states('sensor.it_hardware_active_power')|is_number) 
