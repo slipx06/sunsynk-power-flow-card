@@ -17,6 +17,7 @@ import {CesBatteryBox} from './brands/ces-battery-box';
 import {SolarEdge} from './brands/solar-edge';
 import {Deye} from './brands/deye';
 import {Azzurro} from './brands/azzurro';
+import {MPPSolar} from './brands/mpp-solar';
 
 
 
@@ -64,6 +65,8 @@ export class InverterFactory {
                 return new Deye();
             case InverterModel.PowMr:
                 return new PowMr();
+            case InverterModel.MPPSolar:
+                return new MPPSolar();
             case InverterModel.Sunsynk:
             default:
                 return new Sunsynk()
