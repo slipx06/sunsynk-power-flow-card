@@ -4,7 +4,7 @@ import {HomeAssistant} from 'custom-card-helpers';
 import {styles} from './style';
 import {CardStyle, DataDto, InverterModel, InverterSettings, sunsynkPowerFlowCardConfig,} from './types';
 import defaultConfig from './defaults';
-import {CARD_VERSION, valid3phase, validaux, validLoadValues, validnonLoadValues, validGridConnected, validGridDisconnected} from './const';
+import {CARD_VERSION, valid3phase, validaux, validLoadValues, validnonLoadValues, validGridConnected, validGridDisconnected, validauxLoads} from './const';
 import {localize} from './localize/localize';
 import merge from 'lodash.merge';
 import {SunSynkCardEditor} from './editor';
@@ -333,7 +333,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         }
 
         let additionalAuxLoad = config.load?.aux_loads;
-        if (!validLoadValues.includes(additionalAuxLoad)) {
+        if (!validauxLoads.includes(additionalAuxLoad)) {
             additionalAuxLoad = 0;
         }
 

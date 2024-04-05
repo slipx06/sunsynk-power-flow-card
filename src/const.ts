@@ -6,6 +6,7 @@ export const validLoadValues = [0, 1, 2, 3, 4]
 export const validnonLoadValues = [0, 1, 2, 3]
 export const valid3phase = [true, false]
 export const validaux = [true, false]
+export const validauxLoads = [0, 1, 2]
 export const validGridDisconnected = ['off', '0', 'off-grid', 'off grid', 'offgrid']
 export const validGridConnected = ['on', '1', 'on-grid', 'on grid', 'ongrid']
 

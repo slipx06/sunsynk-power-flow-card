@@ -319,7 +319,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         ${data.stateAuxLoad1Extra?.getUOM()}
                     </text>
                     <text id="aux_load1_extra" x="360" y="14" class="st3 st8"
-                          display="${data.showAux && data.additionalAuxLoad === 1 && config.entities.aux_load1_extra ? '' : 'none'}"
+                          display="${data.showAux && [1, 2].includes(data.additionalAuxLoad) && config.entities.aux_load1_extra ? '' : 'none'}"
                           fill="${data.auxDynamicColourLoad1}">
                         ${data.stateAuxLoad1Extra.toNum(1)}
                         ${data.stateAuxLoad1Extra?.getUOM()}
