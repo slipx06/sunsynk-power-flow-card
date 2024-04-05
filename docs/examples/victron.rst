@@ -9,7 +9,7 @@ Victron Inverters
 Example 1 - Victron <MODEL> with Battery / Solar / No Grid
 ******************************************************************************************
 
-Integration via https://github.com/nathanmarlor/foxess_modbus
+Integration via https://github.com/sfstar/hass-victron
 
 .. code-block:: yaml
   :linenos:
