@@ -374,6 +374,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                             {name: "energy_cost_buy", selector: {entity: {}}},
                                             {name: "energy_cost_sell", selector: {entity: {}}},
                                             {name: "prepaid_units", selector: {entity: {}}},
+                                            {name: "max_sell_power", selector: {entity: {device_class: SensorDeviceClass.POWER}}},
                                         ]
                                     }]
                                 }]
