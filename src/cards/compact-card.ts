@@ -680,7 +680,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
                                   fill="${data.gridColour}"
                                   display="${!config.show_grid || data.totalGridPower >= 0 ? 'none' : ''}"
-                                  d="${icons.gridExport}"/>
+                                  d="${icons.gridExportCompact}"/>
                         </svg>
                     </a>
                     <svg xmlns="http://www.w3.org/2000/svg" id="essen" x="${data.essIconSize === 1 ? "405" : "402"}"
