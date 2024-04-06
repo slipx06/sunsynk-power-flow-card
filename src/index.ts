@@ -189,6 +189,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         });
         const stateGridVoltage = this.getEntity('grid_voltage', null);
         const statePrepaidUnits = this.getEntity('prepaid_units');
+        const stateMaxSellPower = this.getEntity('max_sell_power');
 
         //Solar
         const statePV1Voltage = this.getEntity('pv1_voltage_109');
@@ -1079,7 +1080,8 @@ export class SunsynkPowerFlowCard extends LitElement {
             autoScaledGridPower,
             auxDynamicColour,
             auxDynamicColourLoad1,
-            auxDynamicColourLoad2
+            auxDynamicColourLoad2,
+            stateMaxSellPower
         };
 
         if (this.isFullCard) {

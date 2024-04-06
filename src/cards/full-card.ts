@@ -240,14 +240,22 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                           fill="${data.batteryShowDaily !== true || !config.show_battery ? 'transparent' : `${data.batteryColour}`}">
                         ${localize('common.daily_discharge')}
                     </text>
-                    <text id="daily_grid_buy" x="${!data.showNonessential ? '311' : '347'}"
-                          y="${!data.showNonessential ? '368' : '253'}" class="st3 left-align"
+                    <text id="daily_grid_buy" 
+                          x="${!data.showNonessential ? '311' : '347'}"                
+                          y="${!data.showNonessential
+                                   ? '368' 
+                                   : config.entities?.max_sell_power ? '256' : '253'}"                           
+                          class="st3 left-align"
                           fill="${data.gridShowDailyBuy !== true ? 'transparent' : `${data.gridColour}`}"
                           display="${!config.show_grid ? 'none' : ''}">
                         ${localize('common.daily_grid_buy')}
                     </text>
-                    <text id="daily_grid_sell" x="${!data.showNonessential ? '311' : '347'}"
-                          y="${!data.showNonessential ? '337' : '222'}" class="st3 left-align"
+                    <text id="daily_grid_sell" 
+                          x="${!data.showNonessential ? '311' : '347'}"
+                          y="${!data.showNonessential 
+                                   ? '337' 
+                                   : config.entities?.max_sell_power ? '225' : '222'}" 
+                          class="st3 left-align"
                           fill="${data.gridShowDailySell !== true ? 'transparent' : `${data.gridColour}`}"
                           display="${!config.show_grid ? 'none' : ''}">
                         ${localize('common.daily_grid_sell')}
@@ -1484,20 +1492,36 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_grid_import_76)}>
-                        <text id="daily_grid_buy_value" x="${!data.showNonessential ? '311' : '347'}"
-                              y="${!data.showNonessential ? '354' : '239'}" class="st10 left-align"
+                        <text id="daily_grid_buy_value" 
+                              x="${!data.showNonessential ? '311' : '347'}"                   
+                              y="${!data.showNonessential
+                                   ? '354' 
+                                   : config.entities?.max_sell_power ? '242' : '239'}"   
+                              class="st10 left-align"
                               display="${!config.show_grid || data.gridShowDailyBuy !== true || !data.stateDayGridImport.isValid() ? 'none' : ''}"
                               fill="${data.gridColour}">
                             ${data.stateDayGridImport.toPowerString(true, 1)}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_grid_export_77)}>
-                        <text id="daily_grid_sell_value" x="${!data.showNonessential ? '311' : '347'}"
-                              y="${!data.showNonessential ? '323' : '209'}" class="st10 left-align"
+                        <text id="daily_grid_sell_value" 
+                              x="${!data.showNonessential ? '311' : '347'}"
+                              y="${!data.showNonessential 
+                                   ? '323' 
+                                   : config.entities?.max_sell_power ? '212' : '209'}" 
+                              class="st10 left-align"
                               display="${!config.show_grid || data.gridShowDailySell !== true || !data.stateDayGridExport.isValid() ? 'none' : ''}"
                               fill="${data.gridColour}">
                             ${data.stateDayGridExport.toPowerString(true, 1)}
                         </text>
+                    </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.max_sell_power)}>
+                        <text id="max_sell_power" x="${!data.showNonessential ? '311' : '347'}"
+                            y="${!data.showNonessential ? '309' : '198'}" class="st3 left-align"
+                            fill="${data.gridColour}"
+                            display="${!config.show_grid || !data.stateMaxSellPower.isValid || !config.entities?.max_sell_power ? 'none' : ''}">
+                            ${localize('common.limit')}: ${data.stateMaxSellPower.toPowerString(config.grid.auto_scale, data.decimalPlaces)}
+                    </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_aux_energy)}>
                         <text id="aux_daily_value"

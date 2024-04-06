@@ -852,6 +852,13 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             ${data.stateDayGridExport?.toPowerString(true, 1)}
                         </text>
                     </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.max_sell_power)}>
+                        <text id="max_sell_power" x="5" y="150" class="st3 left-align"
+                            fill="${data.gridColour}"
+                            display="${!config.show_grid || !data.stateMaxSellPower.isValid || !config.entities?.max_sell_power ? 'none' : ''}">
+                            ${localize('common.limit')}: ${data.stateMaxSellPower.toPowerString(config.grid.auto_scale, data.decimalPlaces)}
+                    </text>
+                    </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.inverter_voltage_154)}>
                         <text id="inverter_voltage_154" x="270.2" y="168.2"
                               display="${config.entities.inverter_voltage_154 === 'none' || !config.entities.inverter_voltage_154 ? 'none' : ''}"
