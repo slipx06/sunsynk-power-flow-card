@@ -52,7 +52,8 @@
         "offline": "Offline",
         "running": "Running",
         "sleepmode": "Sleep Mode",
-        "grid_name": "Grid"
+        "grid_name": "Grid",
+        "limit": "Limit"
 
     },
     "errors": {

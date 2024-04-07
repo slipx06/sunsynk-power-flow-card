@@ -4,7 +4,7 @@ import {HomeAssistant} from 'custom-card-helpers';
 import {styles} from './style';
 import {CardStyle, DataDto, InverterModel, InverterSettings, sunsynkPowerFlowCardConfig,} from './types';
 import defaultConfig from './defaults';
-import {CARD_VERSION, valid3phase, validaux, validLoadValues, validnonLoadValues, validGridConnected, validGridDisconnected} from './const';
+import {CARD_VERSION, valid3phase, validaux, validLoadValues, validnonLoadValues, validGridConnected, validGridDisconnected, validauxLoads} from './const';
 import {localize} from './localize/localize';
 import merge from 'lodash.merge';
 import {SunSynkCardEditor} from './editor';
@@ -189,6 +189,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         });
         const stateGridVoltage = this.getEntity('grid_voltage', null);
         const statePrepaidUnits = this.getEntity('prepaid_units');
+        const stateMaxSellPower = this.getEntity('max_sell_power');
 
         //Solar
         const statePV1Voltage = this.getEntity('pv1_voltage_109');
@@ -333,7 +334,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         }
 
         let additionalAuxLoad = config.load?.aux_loads;
-        if (!validLoadValues.includes(additionalAuxLoad)) {
+        if (!validauxLoads.includes(additionalAuxLoad)) {
             additionalAuxLoad = 0;
         }
 
@@ -1079,7 +1080,8 @@ export class SunsynkPowerFlowCard extends LitElement {
             autoScaledGridPower,
             auxDynamicColour,
             auxDynamicColourLoad1,
-            auxDynamicColourLoad2
+            auxDynamicColourLoad2,
+            stateMaxSellPower
         };
 
         if (this.isFullCard) {

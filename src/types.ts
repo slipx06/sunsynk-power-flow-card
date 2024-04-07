@@ -19,6 +19,7 @@ export enum InverterModel {
     Growatt = 'growatt',
     Huawei = 'huawei',
     Lux = 'lux',
+    MPPSolar = 'mppsolar',
     PowMr = 'powmr',
     Solax = 'solax',
     SolarEdge = 'solaredge',
@@ -253,6 +254,7 @@ export interface CardConfigEntities {
     prog4_charge: string,
     prog5_charge: string,
     prog6_charge: string,
+    max_sell_power: string,
 }
 
 export interface InverterSettings {
@@ -423,5 +425,6 @@ export interface DataDto {
     stateAuxLoad2: CustomEntity,
     stateNonessentialLoad1: CustomEntity,
     stateNonessentialLoad2: CustomEntity,
-    stateNonessentialLoad3: CustomEntity
+    stateNonessentialLoad3: CustomEntity,
+    stateMaxSellPower: CustomEntity
 }

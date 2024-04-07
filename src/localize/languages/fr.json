@@ -52,7 +52,8 @@
         "offline": "Offline",
         "running": "Running",
         "sleepmode": "Sleep Mode",
-        "grid_name": "Réseau"
+        "grid_name": "Réseau",
+        "limit": "Limit"
         
 
 

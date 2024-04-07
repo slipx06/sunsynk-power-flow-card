@@ -52,7 +52,8 @@
         "offline": "Offline",
         "running": "Rodando",
         "sleepmode": "Dormindo",
-        "grid_name": "Rede"
+        "grid_name": "Rede",
+        "limit": "Limit"
     },
     "errors": {
         "battery": {
