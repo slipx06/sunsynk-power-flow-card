@@ -53,7 +53,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                 ${config.title ? html`<h1
                         style="text-align: center; color: ${config.title_colour || 'inherit'}; font-size: ${config.title_size || '32px'};">
                     ${config.title}</h1>` : ''}
-                <svg viewBox="-0.5 -0.5 457 383" preserveAspectRatio="xMidYMid meet"
+                <svg viewBox="0 -2 457 387" preserveAspectRatio="xMidYMid meet"
                      height="${data.panelMode !== true ? `${data.cardHeight}` : '100%'}"
                      width="${data.panelMode === true ? `${data.cardWidth}` : '100%'}"
                      xmlns:xlink="http://www.w3.org/1999/xlink">
