@@ -716,7 +716,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         let consumptionPower =
             essentialPower +
-            nonessentialPower +
+            Math.max(nonessentialPower, 0) +
             Utils.toNum(`${auxPower > 0 ? auxPower : 0}`) +
             Utils.toNum(`${batteryPower < 0 ? batteryPower * -1 : 0}`);
         //console.log(`Consumption Data`);

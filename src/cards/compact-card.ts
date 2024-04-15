@@ -232,24 +232,6 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                           class="st3 left-align" fill="${data.loadColour}">
                         ${config.load.auto_scale ? `${Utils.convertValue(data.loadPowerL3, data.decimalPlaces) || 0}` : `${data.loadPowerL3 || 0} ${UnitOfPower.WATT}`}
                     </text>
-                    <text id="grid-power-L1" x="80" y="241"
-                          display="${config.inverter.three_phase ? '' : 'none'}"
-                          class="${!config.show_grid ? 'st12' : 'st3 left-align'}"
-                          fill="${data.gridColour}">
-                        ${config.load.auto_scale ? `${Utils.convertValue(data.gridPower, data.decimalPlaces) || 0}` : `${data.gridPower || 0} ${UnitOfPower.WATT}`}
-                    </text>
-                    <text id="grid-power-L2" x="80" y="254"
-                          display="${config.inverter.three_phase && config.entities?.grid_ct_power_L2 ? '' : 'none'}"
-                          class="${!config.show_grid ? 'st12' : 'st3 left-align'}"
-                          fill="${data.gridColour}">
-                        ${config.load.auto_scale ? `${Utils.convertValue(data.gridPowerL2, data.decimalPlaces) || 0}` : `${data.gridPowerL2 || 0} ${UnitOfPower.WATT}`}
-                    </text>
-                    <text id="grid-power-L3" x="80" y="267"
-                          display="${config.inverter.three_phase && config.entities?.grid_ct_power_L3 ? '' : 'none'}"
-                          class="${!config.show_grid ? 'st12' : 'st3 left-align'}"
-                          fill="${data.gridColour}">
-                        ${config.load.auto_scale ? `${Utils.convertValue(data.gridPowerL3, data.decimalPlaces) || 0}` : `${data.gridPowerL3 || 0} ${UnitOfPower.WATT}`}
-                    </text>
                     <text x="169" y="${!config.battery.show_remaining_energy ? '320' : '311'}" class="st3 left-align"
                           display="${!config.show_battery || data.compactMode ? 'none' : ''}"
                           fill="${data.batteryColour}">
@@ -1275,6 +1257,30 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                               class="${config.entities?.prepaid_units ? 'st3' : 'st12'}"
                               fill="${data.gridColour}" display="${!config.show_grid || !data.statePrepaidUnits.isValid() ? 'none' : ''}">
                             ${data.statePrepaidUnits.toNum(1)}
+                        </text>
+                    </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_ct_power_172)}>
+                        <text id="grid-power-L1" x="80" y="241"
+                              display="${config.inverter.three_phase ? '' : 'none'}"
+                              class="${!config.show_grid ? 'st12' : 'st3 left-align'}"
+                              fill="${data.gridColour}">
+                            ${config.load.auto_scale ? `${Utils.convertValue(data.gridPower, data.decimalPlaces) || 0}` : `${data.gridPower || 0} ${UnitOfPower.WATT}`}
+                        </text>
+                    </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_ct_power_L2)}>
+                        <text id="grid-power-L2" x="80" y="254"
+                              display="${config.inverter.three_phase && config.entities?.grid_ct_power_L2 ? '' : 'none'}"
+                              class="${!config.show_grid ? 'st12' : 'st3 left-align'}"
+                              fill="${data.gridColour}">
+                            ${config.load.auto_scale ? `${Utils.convertValue(data.gridPowerL2, data.decimalPlaces) || 0}` : `${data.gridPowerL2 || 0} ${UnitOfPower.WATT}`}
+                        </text>
+                    </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_ct_power_L3)}>
+                        <text id="grid-power-L3" x="80" y="267"
+                              display="${config.inverter.three_phase && config.entities?.grid_ct_power_L3 ? '' : 'none'}"
+                              class="${!config.show_grid ? 'st12' : 'st3 left-align'}"
+                              fill="${data.gridColour}">
+                            ${config.load.auto_scale ? `${Utils.convertValue(data.gridPowerL3, data.decimalPlaces) || 0}` : `${data.gridPowerL3 || 0} ${UnitOfPower.WATT}`}
                         </text>
                     </a>
                 </svg>

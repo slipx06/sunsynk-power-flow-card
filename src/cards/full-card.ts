@@ -320,24 +320,6 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                           display="${!data.showAux || [0, 1].includes(data.additionalAuxLoad) ? 'none' : ''}"
                           fill="${data.auxDynamicColourLoad2}">${config.load.aux_load2_name}
                     </text>
-                    <text id="aux_load1_extra" x="411" y="8" class="st3 st8"
-                          display="${!data.showAux || [1, 2].includes(data.additionalAuxLoad) || !config.entities.aux_load1_extra ? 'none' : ''}"
-                          fill="${data.auxStatus === 'on' || data.auxStatus === '1' ? `${data.auxDynamicColour}` : `${data.auxOffColour}`}">
-                        ${data.stateAuxLoad1Extra.toNum(1)}
-                        ${data.stateAuxLoad1Extra?.getUOM()}
-                    </text>
-                    <text id="aux_load1_extra" x="360" y="14" class="st3 st8"
-                          display="${data.showAux && [1, 2].includes(data.additionalAuxLoad) && config.entities.aux_load1_extra ? '' : 'none'}"
-                          fill="${data.auxDynamicColourLoad1}">
-                        ${data.stateAuxLoad1Extra.toNum(1)}
-                        ${data.stateAuxLoad1Extra?.getUOM()}
-                    </text>
-                    <text id="aux_load2_extra" x="360" y="83" class="st3 st8"
-                          display="${!data.showAux || [0, 1].includes(data.additionalAuxLoad) || !config.entities.aux_load2_extra ? 'none' : ''}"
-                          fill="${data.auxDynamicColourLoad2}">
-                        ${data.stateAuxLoad2Extra.toNum(1)}
-                        ${data.stateAuxLoad2Extra?.getUOM()}
-                    </text>
                     <text id="aux_daily_text"
                           x="${[1, 2].includes(data.additionalAuxLoad) ? '238' : '306'}" y="24"
                           class="st3 left-align"
@@ -351,24 +333,6 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         ${config.inverter.three_phase && config.entities?.load_power_L2 ? '| ' + data.loadPowerL2 : ''}
                         ${config.inverter.three_phase && config.entities?.load_power_L3 ? '| ' + data.loadPowerL3 : ''}
                         ${UnitOfPower.WATT}
-                    </text>
-                    <text id="grid-power-L1" x="428" y="305"
-                          display="${config.inverter.three_phase ? '' : 'none'}"
-                          class="${!config.show_grid ? 'st12' : 'st3 left-align'}"
-                          fill="${data.gridColour}">
-                        ${config.load.auto_scale ? `${Utils.convertValue(data.gridPower, data.decimalPlaces) || 0}` : `${data.gridPower || 0} ${UnitOfPower.WATT}`}
-                    </text>
-                    <text id="grid-power-L2" x="428" y="318"
-                          display="${config.inverter.three_phase && config.entities?.grid_ct_power_L2 ? '' : 'none'}"
-                          class="${!config.show_grid ? 'st12' : 'st3 left-align'}"
-                          fill="${data.gridColour}">
-                        ${config.load.auto_scale ? `${Utils.convertValue(data.gridPowerL2, data.decimalPlaces) || 0}` : `${data.gridPowerL2 || 0} ${UnitOfPower.WATT}`}
-                    </text>
-                    <text id="grid-power-L3" x="428" y="331"
-                          display="${config.inverter.three_phase && config.entities?.grid_ct_power_L3 ? '' : 'none'}"
-                          class="${!config.show_grid ? 'st12' : 'st3 left-align'}"
-                          fill="${data.gridColour}">
-                        ${config.load.auto_scale ? `${Utils.convertValue(data.gridPowerL3, data.decimalPlaces) || 0}` : `${data.gridPowerL3 || 0} ${UnitOfPower.WATT}`}
                     </text>
                     <text id="battery_soc_184" x="210" y="327" fill=${data.batteryColour}
                           class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st14 left-align'}"
@@ -1541,6 +1505,14 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1_extra)}>
+                        <text id="ess_load1_value_extra" x="360" y="136"
+                              display="${config.entities?.essential_load1_extra && data.additionalLoad === 1 && data.showAux && data.stateEssentialLoad1Extra.isValid() ? '' : 'none'}"
+                              class="st3 st8" fill="${data.loadColour}">
+                            ${data.stateEssentialLoad1Extra.toNum(1)}
+                            ${data.stateEssentialLoad1Extra?.getUOM()}
+                        </text>
+                    </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1_extra)}>
                         <text id="ess_load2_value_extra" x="392" y="70"
                               display="${config.entities?.essential_load1_extra && data.additionalLoad === 2 && !data.showAux && data.stateEssentialLoad1Extra.isValid() ? '' : 'none'}"
                               class="st3 .right-align" fill="${data.loadColour}">
@@ -2060,6 +2032,54 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                               class="${config.entities?.prepaid_units ? 'st3 left-align' : 'st12'}"
                               fill="${data.gridColour}" display="${!config.show_grid || !data.statePrepaidUnits.isValid() ? 'none' : ''}">
                             ${data.statePrepaidUnits.toNum(1)}
+                        </text>
+                    </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.aux_load1_extra)}>
+                        <text id="aux_load1_extra" x="411" y="8" class="st3 st8"
+                              display="${!data.showAux || [1, 2].includes(data.additionalAuxLoad) || !config.entities.aux_load1_extra ? 'none' : ''}"
+                              fill="${data.auxStatus === 'on' || data.auxStatus === '1' ? `${data.auxDynamicColour}` : `${data.auxOffColour}`}">
+                            ${data.stateAuxLoad1Extra.toNum(1)}
+                            ${data.stateAuxLoad1Extra?.getUOM()}
+                        </text>
+                    </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.aux_load1_extra)}>                    
+                        <text id="aux_load1_extra" x="360" y="14" class="st3 st8"
+                              display="${data.showAux && [1, 2].includes(data.additionalAuxLoad) && config.entities.aux_load1_extra ? '' : 'none'}"
+                              fill="${data.auxDynamicColourLoad1}">
+                            ${data.stateAuxLoad1Extra.toNum(1)}
+                            ${data.stateAuxLoad1Extra?.getUOM()}
+                        </text>
+                    </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.aux_load2_extra)}>
+                        <text id="aux_load2_extra" x="360" y="83" class="st3 st8"
+                              display="${!data.showAux || [0, 1].includes(data.additionalAuxLoad) || !config.entities.aux_load2_extra ? 'none' : ''}"
+                              fill="${data.auxDynamicColourLoad2}">
+                            ${data.stateAuxLoad2Extra.toNum(1)}
+                            ${data.stateAuxLoad2Extra?.getUOM()}
+                        </text>
+                    </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_ct_power_172)}>
+                        <text id="grid-power-L1" x="428" y="305"
+                            display="${config.inverter.three_phase ? '' : 'none'}"
+                            class="${!config.show_grid ? 'st12' : 'st3 left-align'}"
+                            fill="${data.gridColour}">
+                            ${config.load.auto_scale ? `${Utils.convertValue(data.gridPower, data.decimalPlaces) || 0}` : `${data.gridPower || 0} ${UnitOfPower.WATT}`}
+                        </text>
+                    </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_ct_power_L2)}>
+                        <text id="grid-power-L2" x="428" y="318"
+                            display="${config.inverter.three_phase && config.entities?.grid_ct_power_L2 ? '' : 'none'}"
+                            class="${!config.show_grid ? 'st12' : 'st3 left-align'}"
+                            fill="${data.gridColour}">
+                            ${config.load.auto_scale ? `${Utils.convertValue(data.gridPowerL2, data.decimalPlaces) || 0}` : `${data.gridPowerL2 || 0} ${UnitOfPower.WATT}`}
+                        </text>
+                    </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_ct_power_L3)}>
+                        <text id="grid-power-L3" x="428" y="331"
+                            display="${config.inverter.three_phase && config.entities?.grid_ct_power_L3 ? '' : 'none'}"
+                            class="${!config.show_grid ? 'st12' : 'st3 left-align'}"
+                            fill="${data.gridColour}">
+                            ${config.load.auto_scale ? `${Utils.convertValue(data.gridPowerL3, data.decimalPlaces) || 0}` : `${data.gridPowerL3 || 0} ${UnitOfPower.WATT}`}
                         </text>
                     </a>
                 </svg>
