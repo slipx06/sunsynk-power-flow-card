@@ -9,12 +9,13 @@
    :titlesonly:
 
    examples/sunsynk
-   examples/lux
-   examples/solis
-   examples/goodwe
    examples/foxess
-   examples/solax
+   examples/goodwe
    examples/huawei
+   examples/lux
+   examples/powmr
+   examples/solax
+   examples/solis
    examples/victron
 
 .. toctree::
