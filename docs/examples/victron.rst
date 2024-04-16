@@ -14,9 +14,6 @@ Integration via https://github.com/sfstar/hass-victron
 .. code-block:: yaml
   :linenos:
 
-.. code-block:: yaml
-  :linenos:
-
   type: custom:sunsynk-power-flow-card
   cardstyle: full
   panel_mode: false
