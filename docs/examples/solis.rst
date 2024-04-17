@@ -35,7 +35,7 @@ Example 1 - Integration via https://github.com/wills106/homeassistant-solax-modb
       show_daily_sell: true
       show_nonessential: false
     entities:
-      grid_power_167: sensor.solis_inverter_meter_active_power
+      grid_power_169: sensor.solis_inverter_meter_active_power
       essential_power: sensor.solis_inverter_house_load
       essential_load1: sensor.pc_socket_power
       essential_load2: sensor.smart_socket_3_power
