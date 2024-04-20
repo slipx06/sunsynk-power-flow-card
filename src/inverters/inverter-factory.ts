@@ -18,6 +18,7 @@ import {SolarEdge} from './brands/solar-edge';
 import {Deye} from './brands/deye';
 import {Azzurro} from './brands/azzurro';
 import {MPPSolar} from './brands/mpp-solar';
+import {SMASolar} from './brands/sma-solar';
 
 
 
@@ -67,6 +68,8 @@ export class InverterFactory {
                 return new PowMr();
             case InverterModel.MPPSolar:
                 return new MPPSolar();
+            case InverterModel.SMASolar:
+                return new SMASolar();
             case InverterModel.Sunsynk:
             default:
                 return new Sunsynk()

@@ -83,6 +83,7 @@
       "title_colour": "Title Colour",
       "title_size": "Title Size (px)",
       "decimal_places": "Decimal Places",
+      "decimal_places_energy": "Decimal Places (Daily Energy)",
       "card_height": "Card Height (px)",
       "card_width": "Card Width (px)",
       "model": "Model",

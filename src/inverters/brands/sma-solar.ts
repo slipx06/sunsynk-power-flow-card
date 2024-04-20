@@ -2,8 +2,8 @@ import {InverterSettingsDto} from '../dto/inverter-settings.dto';
 import {InverterModel} from '../../types';
 import {localize} from '../../localize/localize';
 
-export class SMA extends InverterSettingsDto {
-    brand = InverterModel.SMA;
+export class SMASolar extends InverterSettingsDto {
+    brand = InverterModel.SMASolar;
     statusGroups = {
         standby: {states: ['0', 'standby', 'stand-by'], color: 'blue', message: localize('common.standby')},
         selftest: {states: ['1', 'selftest', 'self-checking'], color: 'yellow', message: localize('common.selftest')},

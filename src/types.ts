@@ -21,6 +21,7 @@ export enum InverterModel {
     Lux = 'lux',
     MPPSolar = 'mppsolar',
     PowMr = 'powmr',
+    SMASolar = 'smasolar',
     Solax = 'solax',
     SolarEdge = 'solaredge',
     Sofar = 'sofar',
@@ -52,6 +53,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
     card_height?: string;
     card_width?: string;
     decimal_places?: number;
+    decimal_places_energy?: number;
     dynamic_line_width?: boolean;
     max_line_width: number;
     min_line_width: number;
@@ -297,7 +299,8 @@ export interface DataDto {
     gridPower,
     gridPowerL2,
     gridPowerL3,
-    decimalPlaces, 
+    decimalPlaces,
+    decimalPlacesEnergy, 
     loadFrequency,
     gridShowDailyBuy,
     gridShowDailySell,

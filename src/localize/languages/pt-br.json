@@ -83,6 +83,7 @@
       "card_height": "Card Height (px)",
       "card_width": "Card Width (px)",
       "decimal_places": "Casas decimais",
+      "decimal_places_energy": "Decimal Places (Daily Energy)",
       "model": "Modelo",
       "autarky": "Autoconsumo",
       "cardstyle": "Estilo do Cartão",

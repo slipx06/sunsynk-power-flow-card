@@ -779,28 +779,28 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                               class="st10 left-align"
                               display="${data.batteryShowDaily !== true || !config.show_battery || !data.stateDayBatteryCharge.isValid() ? 'none' : ''}"
                               fill="${data.batteryColour}">
-                            ${data.stateDayBatteryCharge?.toPowerString(true, 1)}
+                            ${data.stateDayBatteryCharge?.toPowerString(true, data.decimalPlacesEnergy)}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_pv_energy_108)}>
                         <text id="daily_solar_value" x="200" y="26" class="st10 left-align"
                               display="${config.solar.display_mode === 1 && data.stateDayPVEnergy.isValid() ? '' : 'none'}"
                               fill="${!data.solarShowDaily || !config.show_solar ? 'transparent' : `${data.solarColour}`}">
-                            ${data.stateDayPVEnergy?.toPowerString(true, 1)}
+                            ${data.stateDayPVEnergy?.toPowerString(true, data.decimalPlacesEnergy)}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_pv_energy_108)}>
                         <text id="remaining_solar_value" x="200" y="26" class="st10 left-align"
                               display="${config.solar.display_mode === 2 && data.stateDayPVEnergy.isValid() ? '' : 'none'}"
                               fill="${!data.solarShowDaily || !config.show_solar ? 'transparent' : `${data.solarColour}`}">
-                            ${data.stateDayPVEnergy?.toPowerString(true, 1) + ' / ' + data.remainingSolar}
+                            ${data.stateDayPVEnergy?.toPowerString(true, data.decimalPlacesEnergy) + ' / ' + data.remainingSolar}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_pv_energy_108)}>
                         <text id="total_solar_value" x="200" y="26" class="st10 left-align"
                               display="${config.solar.display_mode === 3 && data.stateDayPVEnergy.isValid() ? '' : 'none'}"
                               fill="${!data.solarShowDaily || !config.show_solar ? 'transparent' : `${data.solarColour}`}">
-                            ${data.stateDayPVEnergy?.toPowerString(true, 1) + ' / ' + data.totalSolarGeneration}
+                            ${data.stateDayPVEnergy?.toPowerString(true, data.decimalPlacesEnergy) + ' / ' + data.totalSolarGeneration}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_battery_discharge_71)}>
@@ -808,7 +808,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                               class="st10 left-align"
                               display="${data.batteryShowDaily !== true || !config.show_battery || !data.stateDayBatteryDischarge.isValid() ? 'none' : ''}"
                               fill="${data.batteryColour}">
-                            ${data.stateDayBatteryDischarge?.toPowerString(true, 1)}
+                            ${data.stateDayBatteryDischarge?.toPowerString(true, data.decimalPlacesEnergy)}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_load_energy_84)}>
@@ -817,21 +817,21 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                               y="${[2, 3, 4].includes(data.additionalLoad) ? '175' : '267.9'}"
                               class="st10 left-align" display="${!data.loadShowDaily || !data.stateDayLoadEnergy.isValid() ? 'none' : ''}"
                               fill="${data.loadColour}">
-                            ${data.stateDayLoadEnergy?.toPowerString(true, 1)}
+                            ${data.stateDayLoadEnergy?.toPowerString(true, data.decimalPlacesEnergy)}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_grid_import_76)}>
                         <text id="daily_grid_buy_value" x="5" y="267.9" class="st10 left-align"
                               display="${!config.show_grid || data.gridShowDailyBuy !== true || !data.stateDayGridImport.isValid() ? 'none' : ''}"
                               fill="${data.gridColour}">
-                            ${data.stateDayGridImport?.toPowerString(true, 1)}
+                            ${data.stateDayGridImport?.toPowerString(true, data.decimalPlacesEnergy)}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_grid_export_77)}>
                         <text id="daily_grid_sell_value" x="5" y="165" class="st10 left-align"
                               display="${!config.show_grid || data.gridShowDailySell !== true || !data.stateDayGridExport.isValid() ? 'none' : ''}"
                               fill="${data.gridColour}">
-                            ${data.stateDayGridExport?.toPowerString(true, 1)}
+                            ${data.stateDayGridExport?.toPowerString(true, data.decimalPlacesEnergy)}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.max_sell_power)}>

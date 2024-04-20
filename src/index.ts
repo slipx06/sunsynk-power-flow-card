@@ -352,6 +352,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         const iconNonessentialLoad3 = this.getEntity('grid.load3_icon', {state: config.grid?.load3_icon?.toString() ?? ''}).state;
         
         let decimalPlaces = config.decimal_places;
+        let decimalPlacesEnergy = config.decimal_places_energy;
         let remainingSolar = config.entities.remaining_solar ? Utils.convertValueNew(stateRemainingSolar.state, stateRemainingSolar.attributes?.unit_of_measurement, decimalPlaces) : false;
         let totalSolarGeneration = config.entities.total_pv_generation ? Utils.convertValueNew(stateTotalPVGeneration.state, stateTotalPVGeneration.attributes?.unit_of_measurement, 2) : false;
         let largeFont = config.large_font;
@@ -960,6 +961,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             gridPowerL2,
             gridPowerL3,
             decimalPlaces,
+            decimalPlacesEnergy,
             stateEssentialLoad1Extra,
             stateEssentialLoad2Extra,
             stateNonEssentialLoad1Extra,

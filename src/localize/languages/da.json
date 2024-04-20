@@ -85,6 +85,7 @@
       "card_height": "Card Højde (px)",
       "card_width": "Card Bredde (px)",
       "decimal_places": "Antal viste Decimaler",
+      "decimal_places_energy": "Decimal Places (Daily Energy)",
       "model": "Model",
       "autarky": "Autarky",
       "cardstyle": "Kortstil",
