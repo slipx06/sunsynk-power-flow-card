@@ -44,7 +44,7 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@types/lodash.merge": "^4.6.9",
     "@typescript-eslint/eslint-plugin": "^7.7.0",
-    "@typescript-eslint/parser": "^7.6.0",
+    "@typescript-eslint/parser": "^7.7.1",
     "babel-preset-minify": "^0.5.2",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
