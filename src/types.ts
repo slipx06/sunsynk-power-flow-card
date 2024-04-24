@@ -12,6 +12,7 @@ export enum InverterModel {
     Azzurro = 'azzurro',
     CESBatteryBox = 'ces-battery-box',
     Deye = 'deye',
+    E3dc = 'e3dc',
     FoxESS = 'foxess',
     Fronius = 'fronius',
     Goodwe = 'goodwe',
