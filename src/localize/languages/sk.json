@@ -54,7 +54,6 @@
         "sleepmode": "Sleep Mode",
         "grid_name": "Grid",
         "limit": "Limit"
-
     },
     "errors": {
         "battery": {
