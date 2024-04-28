@@ -225,12 +225,17 @@ Full Configuration (All Options)
     animation_speed: 9
     max_power: 8000
     pv1_name: North
+    pv1_max_power: 2750
     pv2_name: North
+    pv2_max_power: 2750
     pv3_name: East
+    pv3_max_power: 2750
     pv4_name: West
+    pv4_max_power: 2750
     auto_scale: true
     display_mode: 1
     dynamic_colour: true
+    efficiency: 3
   load:
     colour: '#5fb6ad'
     show_daily: true

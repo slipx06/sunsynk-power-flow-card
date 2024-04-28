@@ -312,6 +312,11 @@ export class SunsynkPowerFlowCard extends LitElement {
             nonessentialLoads = 0;
         }
 
+        let pvEfficiencyMode = config.solar?.efficiency;
+        if (!validnonLoadValues.includes(pvEfficiencyMode)) {
+            pvEfficiencyMode = 0;
+        }
+
         let gridShowDailyBuy = config.grid?.show_daily_buy;
         let gridShowDailySell = config.grid?.show_daily_sell;
 
@@ -913,6 +918,12 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         const {batteryIcon, batteryCharge, stopColour, battery0} = BatteryIconManager.convert(stateBatterySoc)
 
+        //Calculate pv efficiency
+        const totalPVEfficiency = (!config.solar.max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((totalPV / config.solar.max_power) * 100, 100) ,0); 
+        const PV1Efficiency = (!config.solar.pv1_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv1PowerWatts / config.solar.pv1_max_power) * 100, 100) ,0);
+        const PV2Efficiency = (!config.solar.pv2_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv2PowerWatts / config.solar.pv2_max_power) * 100, 100) ,0);
+        const PV3Efficiency = (!config.solar.pv3_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv3PowerWatts / config.solar.pv3_max_power) * 100, 100) ,0);
+        const PV4Efficiency = (!config.solar.pv4_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv4PowerWatts / config.solar.pv4_max_power) * 100, 100) ,0);
         /**
          * The current structure of this data object is intentional, but it is considered temporary.
          * There is a need to evaluate the data being passed, as there might be duplication.
@@ -1081,7 +1092,12 @@ export class SunsynkPowerFlowCard extends LitElement {
             auxDynamicColour,
             auxDynamicColourLoad1,
             auxDynamicColourLoad2,
-            stateMaxSellPower
+            stateMaxSellPower,
+            totalPVEfficiency,
+            PV1Efficiency,
+            PV2Efficiency,
+            PV3Efficiency,
+            PV4Efficiency
         };
 
         if (this.isFullCard) {

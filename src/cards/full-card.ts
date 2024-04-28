@@ -57,10 +57,25 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                      height="${data.panelMode !== true ? `${data.cardHeight}` : '100%'}"
                      width="${data.panelMode === true ? `${data.cardWidth}` : '100%'}"
                      xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <rect x="51" y="162" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                          stroke="${data.solarColour}" pointer-events="all"
-                          display="${config.solar.mppts === 1 ? 'none' : ''}"
-                          class="${!config.show_solar ? 'st12' : ''}"/>
+                     <svg xmlns="http://www.w3.org/2000/svg" id="pvtotal" x="51" y="162" width="70" height="30"
+                         viewBox="0 0 70 30" overflow="visible">
+                        <rect width="70" height="30" rx="4.5" ry="4.5" fill="none"
+                            stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#SlG)' : data.solarColour}" pointer-events="all"
+                            display="${config.solar.mppts === 1 ? 'none' : ''}"
+                            class="${!config.show_solar ? 'st12' : ''}"/>
+                            <defs>
+                            <linearGradient id="SlG" x1="0%" x2="0%" y1="100%" y2="0%">
+                                <stop offset="0%"
+                                      stop-color="${data.totalPVEfficiency === 0 ? 'grey' : data.solarColour}"/>
+                                <stop offset="${data.totalPVEfficiency}%"
+                                      stop-color="${data.totalPVEfficiency === 0 ? 'grey' : data.solarColour}"/>
+                                <stop offset="${data.totalPVEfficiency}%"
+                                      stop-color="${data.totalPVEfficiency < 100 ? 'grey' : data.solarColour}"/>
+                                <stop offset="100%"
+                                      stop-color="${data.totalPVEfficiency < 100 ? 'grey' : data.solarColour}"/>
+                            </linearGradient>
+                          </defs>
+                    </svg>
                     <rect x="6" y="300.75" width="70" height="70" rx="10.5" ry="10.5" fill="none"
                           stroke="${data.batteryColour}" pointer-events="all"
                           display="${!config.show_battery ? 'none' : ''}"/>
@@ -78,18 +93,78 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     <rect x="145.15" y="162" width="70"
                           height="${config.inverter.three_phase ? 60 : 50}" rx="7.5" ry="7.5"
                           fill="none" stroke="${data.inverterColour}" pointer-events="all"/>
-                    <rect id="pv1" x="0" y="40" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                          stroke="${data.solarColour}" pointer-events="all"
+                    <svg xmlns="http://www.w3.org/2000/svg" id="pv1" x="0" y="40" 
+                         width="70" height="30" viewBox="0 0 70 30" overflow="visible">
+                          <rect id="pv1" width="70" height="30" rx="4.5" ry="4.5" fill="none"
+                          stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#PV1LG)' : data.solarColour}" pointer-events="all"
                           class="${!config.show_solar ? 'st12' : ''}"/>
-                    <rect id="pv2" x="101" y="40" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                          stroke="${data.solarColour}" pointer-events="all"
+                          <defs>
+                            <linearGradient id="PV1LG" x1="0%" x2="0%" y1="100%" y2="0%">
+                                <stop offset="0%"
+                                      stop-color="${data.PV1Efficiency === 0 ? 'grey' : data.solarColour}"/>
+                                <stop offset="${data.PV1Efficiency}%"
+                                      stop-color="${data.PV1Efficiency === 0 ? 'grey' : data.solarColour}"/>
+                                <stop offset="${data.PV1Efficiency}%"
+                                      stop-color="${data.PV1Efficiency < 100 ? 'grey' : data.solarColour}"/>
+                                <stop offset="100%"
+                                      stop-color="${data.PV1Efficiency < 100 ? 'grey' : data.solarColour}"/>
+                            </linearGradient>
+                          </defs>
+                    </svg>                     
+                    <svg xmlns="http://www.w3.org/2000/svg" id="pv2" x="101" y="40" width="70" height="30"
+                         viewBox="0 0 70 30" overflow="visible">                    
+                          <rect id="pv2" width="70" height="30" rx="4.5" ry="4.5" fill="none"
+                          stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#PV2LG)' : data.solarColour}" pointer-events="all"
                           class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"/>
-                    <rect id="pv3" x="0" y="100" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                          stroke="${data.solarColour}" pointer-events="all"
+                          <defs>
+                            <linearGradient id="PV2LG" x1="0%" x2="0%" y1="100%" y2="0%">
+                                <stop offset="0%"
+                                      stop-color="${data.PV2Efficiency === 0 ? 'grey' : data.solarColour}"/>
+                                <stop offset="${data.PV2Efficiency}%"
+                                      stop-color="${data.PV2Efficiency === 0 ? 'grey' : data.solarColour}"/>
+                                <stop offset="${data.PV2Efficiency}%"
+                                      stop-color="${data.PV2Efficiency < 100 ? 'grey' : data.solarColour}"/>
+                                <stop offset="100%"
+                                      stop-color="${data.PV2Efficiency < 100 ? 'grey' : data.solarColour}"/>
+                            </linearGradient>
+                          </defs>
+                    </svg>                   
+                    <svg xmlns="http://www.w3.org/2000/svg" id="pv3" x="0" y="100" width="70" height="30"
+                         viewBox="0 0 70 30" overflow="visible">                    
+                          <rect id="pv3" width="70" height="30" rx="4.5" ry="4.5" fill="none"
+                          stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#PV3LG)' : data.solarColour}" pointer-events="all"
                           class="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'st12' : ''}"/>
-                    <rect id="pv4" x="101" y="100" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                          stroke="${data.solarColour}" pointer-events="all"
+                          <defs>
+                            <linearGradient id="PV3LG" x1="0%" x2="0%" y1="100%" y2="0%">
+                                <stop offset="0%"
+                                      stop-color="${data.PV3Efficiency === 0 ? 'grey' : data.solarColour}"/>
+                                <stop offset="${data.PV3Efficiency}%"
+                                      stop-color="${data.PV3Efficiency === 0 ? 'grey' : data.solarColour}"/>
+                                <stop offset="${data.PV3Efficiency}%"
+                                      stop-color="${data.PV3Efficiency < 100 ? 'grey' : data.solarColour}"/>
+                                <stop offset="100%"
+                                      stop-color="${data.PV3Efficiency < 100 ? 'grey' : data.solarColour}"/>
+                            </linearGradient>
+                          </defs>
+                    </svg>                    
+                    <svg xmlns="http://www.w3.org/2000/svg" id="pv4" x="101" y="100" width="70" height="30"
+                         viewBox="0 0 70 30" overflow="visible">                    
+                          <rect id="pv4" width="70" height="30" rx="4.5" ry="4.5" fill="none"
+                          stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#PV4LG)' : data.solarColour}" pointer-events="all"
                           class="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"/>
+                          <defs>
+                            <linearGradient id="PV4LG" x1="0%" x2="0%" y1="100%" y2="0%">
+                                <stop offset="0%"
+                                      stop-color="${data.PV4Efficiency === 0 ? 'grey' : data.solarColour}"/>
+                                <stop offset="${data.PV4Efficiency}%"
+                                      stop-color="${data.PV4Efficiency === 0 ? 'grey' : data.solarColour}"/>
+                                <stop offset="${data.PV4Efficiency}%"
+                                      stop-color="${data.PV4Efficiency < 100 ? 'grey' : data.solarColour}"/>
+                                <stop offset="100%"
+                                      stop-color="${data.PV4Efficiency < 100 ? 'grey' : data.solarColour}"/>
+                            </linearGradient>
+                          </defs>
+                    </svg>                    
                     <rect id="nonesstotal" x="304" y="265" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                           stroke="${data.gridColour}" pointer-events="all"
                           class="${!data.showNonessential ? 'st12' : ''}"
@@ -158,17 +233,37 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                           display="${!config.show_solar ? 'none' : ''}" fill="${data.solarColour}">
                         ${config.solar.pv1_name}
                     </text>
+                    <text x="0" y="90" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 left-align' : 'st12'}"
+                    display="${!config.show_solar || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}" fill="${data.solarColour}">
+                        ${data.PV1Efficiency}%
+                    </text>
                     <text x="99" y="78.5" class="st3 st8 left-align"
                           display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}"
                           fill="${data.solarColour}">${config.solar.pv2_name}
+                    </text>
+                    <text x="99" y="90" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 left-align' : 'st12'}"
+                          display="${!config.show_solar || config.solar.mppts === 1 || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
+                          fill="${data.solarColour}">${data.PV2Efficiency}%
                     </text>
                     <text x="0" y="139" class="st3 st8 left-align"
                           display="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'none' : ''}"
                           fill="${data.solarColour}">${config.solar.pv3_name}
                     </text>
+                    <text x="0" y="150" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 left-align' : 'st12'}"
+                          display="${!config.show_solar || [1, 2].includes(config.solar.mppts) || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
+                          fill="${data.solarColour}">${data.PV3Efficiency}%
+                    </text>
                     <text x="99" y="139" class="st3 st8 left-align"
                           display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}"
                           fill="${data.solarColour}">${config.solar.pv4_name}
+                    </text>
+                    <text x="99" y="150" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 left-align' : 'st12'}"
+                          display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
+                          fill="${data.solarColour}">${data.PV4Efficiency}%
+                    </text>
+                    <text x="51" y="202" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 left-align' : 'st12'}"
+                          display="${!config.show_solar || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
+                          fill="${data.solarColour}">${data.totalPVEfficiency}%
                     </text>
                     <text x="421" y="377" class="st3 st8" fill="${data.gridColour}"
                           display="${!config.show_grid ? 'none' : ''}">${config.grid.grid_name}
@@ -334,15 +429,15 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         ${config.inverter.three_phase && config.entities?.load_power_L3 ? '| ' + data.loadPowerL3 : ''}
                         ${UnitOfPower.WATT}
                     </text>
-                    <text id="battery_soc_184" x="210" y="327" fill=${data.batteryColour}
+                    <text id="battery_soc_184" x="205" y="327" fill=${data.batteryColour}
                           class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st14 left-align'}"
                           display="${[InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel) && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
-                        ${data.batteryShutdown} %
+                        ${data.batteryShutdown}%
                     </text>
-                    <text id="battery_soc_184" x="210" y="340" fill=${data.batteryColour}
+                    <text id="battery_soc_184" x="205" y="340" fill=${data.batteryColour}
                           class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st14 left-align'}"
                           display="${[InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel) && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
-                        ${data.shutdownOffGrid} %
+                        ${data.shutdownOffGrid}%
                     </text>
 
                     <circle id="standby" cx="160" cy="304" r="3.5" fill="${data.inverterStateColour}"/>
@@ -1596,7 +1691,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     ${config.entities?.pv_total
                             ? svg`
                                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv_total)}>
-                                        <text id="pvtotal_power" x="19%" y="46.5%" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
+                                        <text id="pvtotal_power" x="87" y="178" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
                                               display="${!config.show_solar || config.solar.mppts === 1 || !data.statePVTotal.isValid() ? 'none' : ''}" 
                                               fill="${data.solarColour}">
                                             ${config.solar.auto_scale
@@ -1862,30 +1957,30 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         <text id="battery_soc_184" x="132.5" y="333"
                               display="${config.entities.battery_soc_184 === 'none' || !config.show_battery || !data.stateBatterySoc.isValid() ? 'none' : ''}"
                               fill=${data.batteryColour} class="st13 st8 left-align">
-                            ${data.stateBatterySoc.toNum(0)} %
+                            ${data.stateBatterySoc.toNum(0)}%
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
-                        <text id="battery_soc_184" x="196.5" y="333" fill=${data.batteryColour}
+                        <text id="battery_soc_184" x="191.5" y="333" fill=${data.batteryColour}
                               class="st13 st8 left-align"
                               display="${data.inverterProg.show === false
                               || config.entities.battery_soc_184 === 'none'
                               || !config.show_battery
                               || [InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel)
                               || config.battery.hide_soc ? 'none' : ''}">
-                            | ${data.inverterProg.capacity || 0} %
+                            | ${data.inverterProg.capacity || 0}%
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
-                        <text id="battery_soc_184" x="196.5" y="333" fill=${data.batteryColour}
+                        <text id="battery_soc_184" x="191.5" y="333" fill=${data.batteryColour}
                               class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st13 st8 left-align'}"
                               display="${[InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel) && config.battery?.shutdown_soc && !config.battery?.shutdown_soc_offgrid
                                       ? '' : 'none'}">
-                            | ${data.batteryShutdown || 0} %
+                            | ${data.batteryShutdown || 0}%
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
-                        <text id="battery_soc_184" x="196.5" y="333" fill=${data.batteryColour}
+                        <text id="battery_soc_184" x="191.5" y="333" fill=${data.batteryColour}
                               class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st13 st8 left-align'}"
                               display="${[InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel) && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
                             |

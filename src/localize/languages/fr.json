@@ -54,9 +54,6 @@
         "sleepmode": "Sleep Mode",
         "grid_name": "Réseau",
         "limit": "Limit"
-        
-
-
     },
     "errors": {
         "battery": {
@@ -110,6 +107,7 @@
       "pv3_name": "PV3 Name",
       "pv4_name": "PV4 Name",
       "display_mode": "Display Mode",
+      "efficiency": "Efficiency Mode",
       "battery": "Battery",
       "load1_name": "Load 1 Name",
       "load2_name": "Load 2 Name",

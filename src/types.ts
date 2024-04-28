@@ -92,12 +92,17 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         animation_speed: number;
         max_power: number;
         pv1_name: string;
+        pv1_max_power: number,
         pv2_name: string;
+        pv2_max_power: number,
         pv3_name: string;
+        pv3_max_power: number,
         pv4_name: string;
+        pv4_max_power: number,
         auto_scale: boolean;
         display_mode: number;
         dynamic_colour: boolean;
+        efficiency: number;
     }
     load: {
         colour: string;
@@ -430,5 +435,10 @@ export interface DataDto {
     stateNonessentialLoad1: CustomEntity,
     stateNonessentialLoad2: CustomEntity,
     stateNonessentialLoad3: CustomEntity,
-    stateMaxSellPower: CustomEntity
+    stateMaxSellPower: CustomEntity,
+    totalPVEfficiency,
+    PV1Efficiency,
+    PV2Efficiency,
+    PV3Efficiency,
+    PV4Efficiency
 }
