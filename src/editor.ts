@@ -124,6 +124,10 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                     {name: 'dynamic_colour', selector: {boolean: {}}},
                                     {name: 'animation_speed', selector: {number: {}}},
                                     {name: 'max_power', selector: {number: {}}},
+                                    {name: 'pv1_max_power', selector: {number: {}}},
+                                    {name: 'pv2_max_power', selector: {number: {}}},
+                                    {name: 'pv3_max_power', selector: {number: {}}},
+                                    {name: 'pv4_max_power', selector: {number: {}}},
                                     {name: 'efficiency', selector: {number: {mode: 'box', min: 0, max: 3,}}},
                                 ]
                             }]
