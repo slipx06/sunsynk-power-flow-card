@@ -80,7 +80,7 @@ These attributes are only needed if `show_solar` is set to `true`
 | dynamic_colour:  | Optional     | `true`  | The solar elements on the card will be greyed out if total solar power < 10W. 
 | mppts:           | **Required** | `2`     | Specify the number of MPPT's in use `1`, `2`, `3` or `4` 
 | animation_speed: | Optional     | `9`     | Set slowest animation speed in seconds, depending on Power produced 
-| max_power:       | Optional     | `8000`  | Maximum power draw to calculate animation speed 
+| max_power:       | Optional     | `8000`  | Maximum power draw to calculate animation speed. This value is also used to calculate the solar efficiency for the total PV power and should equal the total size of your PV array.
 | pv1_name:        | Optional     | `PV1`   | Set the disaply name for MPPT1
 | pv1_max_power:   | Optional     |         | Maximum power of MPPT1 based on the number and size of panels. Used to calculate solar efficiency of the string (W)
 | pv2_name:        | Optional     | `PV2`   | Set the disaply name for MPPT2
