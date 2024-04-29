@@ -107,6 +107,7 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings 
   show_grid: true
   show_battery: true
   decimal_places: 2
+  decimal_places_energy: 2
   dynamic_line_width: true
   inverter:
     modern: false
@@ -139,6 +140,10 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings 
     pv2_name: Inv2.S1
     display_mode: 2
     auto_scale: true
+    dynamic_colour: true
+    pv1_max_power: 3300
+    pv2_max_power: 3300
+    efficiency: 3
   load:
     colour: magenta
     show_daily: true
@@ -267,6 +272,7 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
   show_grid: true
   show_battery: true
   decimal_places: 2
+  decimal_places_energy: 2
   inverter:
     modern: false
     colour: grey
@@ -299,6 +305,13 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
     pv3_name: Inv1.S2
     pv4_name: Inv2.S2
     display_mode: 2
+    auto_scale: true
+    dynamic_colour: true
+    pv1_max_power: 3300
+    pv2_max_power: 3300
+    pv3_max_power: 3300
+    pv4_max_power: 3300
+    efficiency: 3
   load:
     colour: magenta
     show_daily: true
@@ -433,6 +446,7 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings 
   show_grid: true
   show_battery: true
   decimal_places: 2
+  decimal_places_energy: 2
   dynamic_line_width: true
   inverter:
     modern: false
@@ -465,6 +479,10 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings 
     pv2_name: Inv2.S1
     display_mode: 2
     auto_scale: true
+    dynamic_colour: true
+    pv1_max_power: 5000
+    pv2_max_power: 5000
+    efficiency: 3
   load:
     colour: magenta
     show_daily: true
@@ -602,6 +620,7 @@ Example 4 - 1 x M1 3phase inverters with 2 x 15kWh LUNA ESS batteries - 2 PV str
   show_grid: true
   show_battery: true
   decimal_places: 2
+  decimal_places_energy: 2
   dynamic_line_width: true
   inverter:
     modern: false
@@ -634,6 +653,10 @@ Example 4 - 1 x M1 3phase inverters with 2 x 15kWh LUNA ESS batteries - 2 PV str
     pv2_name: Inv2.S1
     display_mode: 2
     auto_scale: true
+    dynamic_colour: true
+    pv1_max_power: 5000
+    pv2_max_power: 5000
+    efficiency: 3
   load:
     colour: magenta
     show_daily: true
@@ -772,6 +795,7 @@ Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
   show_grid: true
   show_battery: true
   decimal_places: 2
+  decimal_places_energy: 2
   dynamic_line_width: true
   inverter:
     modern: false
@@ -806,6 +830,12 @@ Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
     pv4_name: Inv2.S2
     display_mode: 2
     auto_scale: true
+    dynamic_colour: true
+    pv1_max_power: 5000
+    pv2_max_power: 5000
+    pv3_max_power: 5000
+    pv4_max_power: 5000
+    efficiency: 3
   load:
     colour: magenta
     show_daily: true
