@@ -3,6 +3,7 @@
 ##################
 
 .. note::
+   There will be a major update of the 'derived' sensors available with the release of the WLCRS Huawei Integration v1.4.0 that is currently in Alpha testing. A number of derived sensors will be released by factory/Huawei sensors instead.
 
    Please report all feedback or Issues to the Discussion (Support Sections) of: https://github.com/Roving-Ronin/sunsynk-power-flow-card.
 
