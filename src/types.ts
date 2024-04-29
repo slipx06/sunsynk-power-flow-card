@@ -12,6 +12,7 @@ export enum InverterModel {
     Azzurro = 'azzurro',
     CESBatteryBox = 'ces-battery-box',
     Deye = 'deye',
+    E3dc = 'e3dc',
     FoxESS = 'foxess',
     Fronius = 'fronius',
     Goodwe = 'goodwe',
@@ -21,6 +22,7 @@ export enum InverterModel {
     Lux = 'lux',
     MPPSolar = 'mppsolar',
     PowMr = 'powmr',
+    SMASolar = 'smasolar',
     Solax = 'solax',
     SolarEdge = 'solaredge',
     Sofar = 'sofar',
@@ -52,6 +54,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
     card_height?: string;
     card_width?: string;
     decimal_places?: number;
+    decimal_places_energy?: number;
     dynamic_line_width?: boolean;
     max_line_width: number;
     min_line_width: number;
@@ -89,12 +92,17 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         animation_speed: number;
         max_power: number;
         pv1_name: string;
+        pv1_max_power: number,
         pv2_name: string;
+        pv2_max_power: number,
         pv3_name: string;
+        pv3_max_power: number,
         pv4_name: string;
+        pv4_max_power: number,
         auto_scale: boolean;
         display_mode: number;
         dynamic_colour: boolean;
+        efficiency: number;
     }
     load: {
         colour: string;
@@ -297,7 +305,8 @@ export interface DataDto {
     gridPower,
     gridPowerL2,
     gridPowerL3,
-    decimalPlaces, 
+    decimalPlaces,
+    decimalPlacesEnergy, 
     loadFrequency,
     gridShowDailyBuy,
     gridShowDailySell,
@@ -426,5 +435,10 @@ export interface DataDto {
     stateNonessentialLoad1: CustomEntity,
     stateNonessentialLoad2: CustomEntity,
     stateNonessentialLoad3: CustomEntity,
-    stateMaxSellPower: CustomEntity
+    stateMaxSellPower: CustomEntity,
+    totalPVEfficiency,
+    PV1Efficiency,
+    PV2Efficiency,
+    PV3Efficiency,
+    PV4Efficiency
 }

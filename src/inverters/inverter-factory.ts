@@ -18,6 +18,8 @@ import {SolarEdge} from './brands/solar-edge';
 import {Deye} from './brands/deye';
 import {Azzurro} from './brands/azzurro';
 import {MPPSolar} from './brands/mpp-solar';
+import {SMASolar} from './brands/sma-solar';
+import {E3dc} from './brands/e3dc';
 
 
 
@@ -43,6 +45,8 @@ export class InverterFactory {
                 return new Goodwe()
             case InverterModel.GoodweGridMode:
                 return new GoodweGrid()
+            case InverterModel.E3dc:
+                return new E3dc()
             case InverterModel.FoxESS:
                 return new FoxESS()
             case InverterModel.Huawei:
@@ -67,6 +71,8 @@ export class InverterFactory {
                 return new PowMr();
             case InverterModel.MPPSolar:
                 return new MPPSolar();
+            case InverterModel.SMASolar:
+                return new SMASolar();
             case InverterModel.Sunsynk:
             default:
                 return new Sunsynk()

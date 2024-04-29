@@ -1,4 +1,4 @@
-import {InverterSettingsDto, InverterStatus} from '../dto/inverter-settings.dto';
+import {InverterSettingsDto} from '../dto/inverter-settings.dto';
 import {InverterModel} from '../../types';
 import {localize} from '../../localize/localize';
 
@@ -21,7 +21,7 @@ export class Solis extends InverterSettingsDto {
             message: localize('common.standby'),
         },
         alarm: {
-            states: ['4140', '4100', '4112', '4113', '4114', '4115', '4116', '4120', '4122', '4123', '4124', '4125', '4127', '4128', '4129', '4130', '4132', '4133', '4134', '4135', '4136', '4137', '4138', '4144', '4145', '4146', '4147', '4148', '4150', '4151', '4152'],
+            states: ['4140', '4100', '4112', '4113', '4114', '4115', '4116', '4120', '4122', '4123', '4124', '4125', '4127', '4128', '4129', '4130', '4132', '4133', '4134', '4135', '4136', '4137', '4138', '4144', '4145', '4146', '4147', '4148', '4150', '4151', '4152', '8123'],
             color: 'red',
             message: localize('common.alarm'),
         },

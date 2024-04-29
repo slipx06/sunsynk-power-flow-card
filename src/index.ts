@@ -112,102 +112,102 @@ export class SunsynkPowerFlowCard extends LitElement {
         globalData.hass = this.hass;
         const config = this._config;
         //Energy
-        const stateDayBatteryDischarge = this.getEntity('day_battery_discharge_71');
-        const stateDayBatteryCharge = this.getEntity('day_battery_charge_70');
-        const stateDayLoadEnergy = this.getEntity('day_load_energy_84');
-        const stateDayGridImport = this.getEntity('day_grid_import_76');
-        const stateDayPVEnergy = this.getEntity('day_pv_energy_108');
-        const stateDayGridExport = this.getEntity('day_grid_export_77');
-        const stateDayAuxEnergy = this.getEntity('day_aux_energy');
+        const stateDayBatteryDischarge = this.getEntity('entities.day_battery_discharge_71');
+        const stateDayBatteryCharge = this.getEntity('entities.day_battery_charge_70');
+        const stateDayLoadEnergy = this.getEntity('entities.day_load_energy_84');
+        const stateDayGridImport = this.getEntity('entities.day_grid_import_76');
+        const stateDayPVEnergy = this.getEntity('entities.day_pv_energy_108');
+        const stateDayGridExport = this.getEntity('entities.day_grid_export_77');
+        const stateDayAuxEnergy = this.getEntity('entities.day_aux_energy');
 
         //Inverter
-        const stateInverterVoltage = this.getEntity('inverter_voltage_154');
-        const stateLoadFrequency = this.getEntity('load_frequency_192');
-        const stateInverterCurrent = this.getEntity('inverter_current_164');
-        const stateInverterStatus = this.getEntity('inverter_status_59', {state: ''});
-        const stateInverterPower = this.getEntity('inverter_power_175');
-        const statePriorityLoad = this.getEntity('priority_load_243', {state: config.entities.priority_load_243?.toString() ?? 'false'});
-        const stateUseTimer = this.getEntity('use_timer_248', {state: config.entities.use_timer_248?.toString() ?? 'false'});
-        const stateDCTransformerTemp = this.getEntity('dc_transformer_temp_90', {state: ''});
-        const stateRadiatorTemp = this.getEntity('radiator_temp_91', {state: ''});
-        const stateInverterVoltageL2 = this.getEntity('inverter_voltage_L2', {state: ''});
-        const stateInverterVoltageL3 = this.getEntity('inverter_voltage_L3', {state: ''});
-        const stateInverterCurrentL2 = this.getEntity('inverter_current_L2', {state: ''});
-        const stateInverterCurrentL3 = this.getEntity('inverter_current_L3', {state: ''});
-        const stateEnvironmentTemp = this.getEntity('environment_temp', {state: ''});
+        const stateInverterVoltage = this.getEntity('entities.inverter_voltage_154');
+        const stateLoadFrequency = this.getEntity('entities.load_frequency_192');
+        const stateInverterCurrent = this.getEntity('entities.inverter_current_164');
+        const stateInverterStatus = this.getEntity('entities.inverter_status_59', {state: ''});
+        const stateInverterPower = this.getEntity('entities.inverter_power_175');
+        const statePriorityLoad = this.getEntity('entities.priority_load_243', {state: config.entities.priority_load_243?.toString() ?? 'false'});
+        const stateUseTimer = this.getEntity('entities.use_timer_248', {state: config.entities.use_timer_248?.toString() ?? 'false'});
+        const stateDCTransformerTemp = this.getEntity('entities.dc_transformer_temp_90', {state: ''});
+        const stateRadiatorTemp = this.getEntity('entities.radiator_temp_91', {state: ''});
+        const stateInverterVoltageL2 = this.getEntity('entities.inverter_voltage_L2', {state: ''});
+        const stateInverterVoltageL3 = this.getEntity('entities.inverter_voltage_L3', {state: ''});
+        const stateInverterCurrentL2 = this.getEntity('entities.inverter_current_L2', {state: ''});
+        const stateInverterCurrentL3 = this.getEntity('entities.inverter_current_L3', {state: ''});
+        const stateEnvironmentTemp = this.getEntity('entities.environment_temp', {state: ''});
 
         //Battery
-        const stateBatteryVoltage = this.getEntity('battery_voltage_183');
-        const stateBatterySoc = this.getEntity('battery_soc_184');
-        const stateBatteryPower = this.getEntity('battery_power_190');
-        const stateBatteryCurrent = this.getEntity('battery_current_191');
-        const stateBatteryTemp = this.getEntity('battery_temp_182', {state: ''});
-        const stateBatteryStatus = this.getEntity('battery_status', {state: ''});
-        const stateBatteryCurrentDirection = this.getEntity('battery_current_direction', {state: ''});
-        const stateBatteryRatedCapacity = this.getEntity('battery_rated_capacity', {state: ''});
+        const stateBatteryVoltage = this.getEntity('entities.battery_voltage_183');
+        const stateBatterySoc = this.getEntity('entities.battery_soc_184');
+        const stateBatteryPower = this.getEntity('entities.battery_power_190');
+        const stateBatteryCurrent = this.getEntity('entities.battery_current_191');
+        const stateBatteryTemp = this.getEntity('entities.battery_temp_182', {state: ''});
+        const stateBatteryStatus = this.getEntity('entities.battery_status', {state: ''});
+        const stateBatteryCurrentDirection = this.getEntity('entities.battery_current_direction', {state: ''});
+        const stateBatteryRatedCapacity = this.getEntity('entities.battery_rated_capacity', {state: ''});
         const stateShutdownSOC = this.getEntity('battery.shutdown_soc', {state: config.battery.shutdown_soc?.toString() ?? ''});
         const stateShutdownSOCOffGrid = this.getEntity('battery.shutdown_soc_offgrid', {state: config.battery.shutdown_soc_offgrid?.toString() ?? ''});
 
         //Load
-        const stateEssentialPower = this.getEntity('essential_power');
-        const stateAuxPower = this.getEntity('aux_power_166');
-        const stateNonessentialPower = this.getEntity('nonessential_power');
-        const stateNonessentialLoad1 = this.getEntity('non_essential_load1');
-        const stateNonessentialLoad2 = this.getEntity('non_essential_load2');
-        const stateNonessentialLoad3 = this.getEntity('non_essential_load3');
-        const stateNonEssentialLoad1Extra = this.getEntity('non_essential_load1_extra');
-        const stateNonEssentialLoad2Extra = this.getEntity('non_essential_load2_extra');
-        const stateEssentialLoad1 = this.getEntity('essential_load1');
-        const stateEssentialLoad2 = this.getEntity('essential_load2');
-        const stateEssentialLoad3 = this.getEntity('essential_load3');
-        const stateEssentialLoad4 = this.getEntity('essential_load4');
-        const stateAuxConnectedStatus = this.getEntity('aux_connected_status', {state: 'on'});
-        const stateAuxLoad1 = this.getEntity('aux_load1');
-        const stateAuxLoad2 = this.getEntity('aux_load2');
-        const stateEssentialLoad1Extra = this.getEntity('essential_load1_extra');
-        const stateEssentialLoad2Extra = this.getEntity('essential_load2_extra');
-        const stateLoadPowerL1 = this.getEntity('load_power_L1');
-        const stateLoadPowerL2 = this.getEntity('load_power_L2');
-        const stateLoadPowerL3 = this.getEntity('load_power_L3');
-        const stateAuxLoad1Extra = this.getEntity('aux_load1_extra');
-        const stateAuxLoad2Extra = this.getEntity('aux_load2_extra');
+        const stateEssentialPower = this.getEntity('entities.essential_power');
+        const stateAuxPower = this.getEntity('entities.aux_power_166');
+        const stateNonessentialPower = this.getEntity('entities.nonessential_power');
+        const stateNonessentialLoad1 = this.getEntity('entities.non_essential_load1');
+        const stateNonessentialLoad2 = this.getEntity('entities.non_essential_load2');
+        const stateNonessentialLoad3 = this.getEntity('entities.non_essential_load3');
+        const stateNonEssentialLoad1Extra = this.getEntity('entities.non_essential_load1_extra');
+        const stateNonEssentialLoad2Extra = this.getEntity('entities.non_essential_load2_extra');
+        const stateEssentialLoad1 = this.getEntity('entities.essential_load1');
+        const stateEssentialLoad2 = this.getEntity('entities.essential_load2');
+        const stateEssentialLoad3 = this.getEntity('entities.essential_load3');
+        const stateEssentialLoad4 = this.getEntity('entities.essential_load4');
+        const stateAuxConnectedStatus = this.getEntity('entities.aux_connected_status', {state: 'on'});
+        const stateAuxLoad1 = this.getEntity('entities.aux_load1');
+        const stateAuxLoad2 = this.getEntity('entities.aux_load2');
+        const stateEssentialLoad1Extra = this.getEntity('entities.essential_load1_extra');
+        const stateEssentialLoad2Extra = this.getEntity('entities.essential_load2_extra');
+        const stateLoadPowerL1 = this.getEntity('entities.load_power_L1');
+        const stateLoadPowerL2 = this.getEntity('entities.load_power_L2');
+        const stateLoadPowerL3 = this.getEntity('entities.load_power_L3');
+        const stateAuxLoad1Extra = this.getEntity('entities.aux_load1_extra');
+        const stateAuxLoad2Extra = this.getEntity('entities.aux_load2_extra');
 
         //Grid
-        const stateGridCTPower = this.getEntity('grid_ct_power_172');
-        const stateGridCTPowerL2 = this.getEntity('grid_ct_power_L2');
-        const stateGridCTPowerL3 = this.getEntity('grid_ct_power_L3');
-        const stateGridCTPowerTotal = this.getEntity('grid_ct_power_total');
-        const stateGridConnectedStatus = this.getEntity('grid_connected_status_194', {state: 'on'});
-        const stateGridPower = this.getEntity('grid_power_169');
-        const stateEnergyCostBuy = this.getEntity('energy_cost_buy', {
+        const stateGridCTPower = this.getEntity('entities.grid_ct_power_172');
+        const stateGridCTPowerL2 = this.getEntity('entities.grid_ct_power_L2');
+        const stateGridCTPowerL3 = this.getEntity('entities.grid_ct_power_L3');
+        const stateGridCTPowerTotal = this.getEntity('entities.grid_ct_power_total');
+        const stateGridConnectedStatus = this.getEntity('entities.grid_connected_status_194', {state: 'on'});
+        const stateGridPower = this.getEntity('entities.grid_power_169');
+        const stateEnergyCostBuy = this.getEntity('entities.energy_cost_buy', {
             state: '',
             attributes: {unit_of_measurement: ''},
         });
-        const stateEnergyCostSell = this.getEntity('energy_cost_sell', {
+        const stateEnergyCostSell = this.getEntity('entities.energy_cost_sell', {
             state: '',
             attributes: {unit_of_measurement: ''},
         });
-        const stateGridVoltage = this.getEntity('grid_voltage', null);
-        const statePrepaidUnits = this.getEntity('prepaid_units');
-        const stateMaxSellPower = this.getEntity('max_sell_power');
+        const stateGridVoltage = this.getEntity('entities.grid_voltage', null);
+        const statePrepaidUnits = this.getEntity('entities.prepaid_units');
+        const stateMaxSellPower = this.getEntity('entities.max_sell_power');
 
         //Solar
-        const statePV1Voltage = this.getEntity('pv1_voltage_109');
-        const statePV1Current = this.getEntity('pv1_current_110');
-        const statePV2Voltage = this.getEntity('pv2_voltage_111');
-        const statePV2Current = this.getEntity('pv2_current_112');
-        const statePV3Voltage = this.getEntity('pv3_voltage_113');
-        const statePV3Current = this.getEntity('pv3_current_114');
-        const statePV4Voltage = this.getEntity('pv4_voltage_115');
-        const statePV4Current = this.getEntity('pv4_current_116');
-        const statePV1Power = this.getEntity('pv1_power_186');
-        const statePV2Power = this.getEntity('pv2_power_187');
-        const statePV3Power = this.getEntity('pv3_power_188');
-        const statePV4Power = this.getEntity('pv4_power_189');
-        const stateRemainingSolar = this.getEntity('remaining_solar');
-        const stateSolarSell = this.getEntity('solar_sell_247', {state: 'undefined'});
-        const statePVTotal = this.getEntity('pv_total');
-        const stateTotalPVGeneration = this.getEntity('total_pv_generation');
+        const statePV1Voltage = this.getEntity('entities.pv1_voltage_109');
+        const statePV1Current = this.getEntity('entities.pv1_current_110');
+        const statePV2Voltage = this.getEntity('entities.pv2_voltage_111');
+        const statePV2Current = this.getEntity('entities.pv2_current_112');
+        const statePV3Voltage = this.getEntity('entities.pv3_voltage_113');
+        const statePV3Current = this.getEntity('entities.pv3_current_114');
+        const statePV4Voltage = this.getEntity('entities.pv4_voltage_115');
+        const statePV4Current = this.getEntity('entities.pv4_current_116');
+        const statePV1Power = this.getEntity('entities.pv1_power_186');
+        const statePV2Power = this.getEntity('entities.pv2_power_187');
+        const statePV3Power = this.getEntity('entities.pv3_power_188');
+        const statePV4Power = this.getEntity('entities.pv4_power_189');
+        const stateRemainingSolar = this.getEntity('entities.remaining_solar');
+        const stateSolarSell = this.getEntity('entities.solar_sell_247', {state: 'undefined'});
+        const statePVTotal = this.getEntity('entities.pv_total');
+        const stateTotalPVGeneration = this.getEntity('entities.total_pv_generation');
 
         //Set defaults
         let {invert_aux} = config.load;
@@ -228,8 +228,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let batteryCurrentDirection = !stateBatteryCurrentDirection.isNaN() ? stateBatteryCurrentDirection.toNum(0) : null;
         let genericInverterImage = config.inverter?.modern;
 
-        let loadColour = this.colourConvert(config.load?.colour);
-        //let auxColour = this.colourConvert(config.load?.aux_colour || loadColour);        
+        let loadColour = this.colourConvert(config.load?.colour);        
         let auxDynamicColour = this.calculateAuxLoadColour(stateAuxPower, 0) || loadColour;
         let auxOffColour = this.colourConvert(config.load?.aux_off_colour || auxDynamicColour);
         let auxDynamicColourLoad1 = this.calculateAuxLoadColour(stateAuxLoad1, 0) || loadColour;
@@ -313,6 +312,11 @@ export class SunsynkPowerFlowCard extends LitElement {
             nonessentialLoads = 0;
         }
 
+        let pvEfficiencyMode = config.solar?.efficiency;
+        if (!validnonLoadValues.includes(pvEfficiencyMode)) {
+            pvEfficiencyMode = 0;
+        }
+
         let gridShowDailyBuy = config.grid?.show_daily_buy;
         let gridShowDailySell = config.grid?.show_daily_sell;
 
@@ -339,17 +343,22 @@ export class SunsynkPowerFlowCard extends LitElement {
         }
 
         let auxType = config.load?.aux_type; //valid options are gen,inverter, default, gen, boiler, pump, aircon
-        let iconAuxLoad1 = config.load?.aux_load1_icon;
-        let iconAuxLoad2 = config.load?.aux_load2_icon;
-        let nonessentialIcon = config.grid?.nonessential_icon; //valid options are default, oven, boiler, pump, aircon
-        let iconNonessentialLoad1 = config.grid?.load1_icon; //valid options are default, oven, boiler, pump
-        let iconNonessentialLoad2 = config.grid?.load2_icon; //valid options are default, oven, boiler, pump
-        let iconNonessentialLoad3 = config.grid?.load3_icon; //mdi icon
-        let iconEssentialLoad1 = config.load?.load1_icon; //valid options are boiler, aircon, pump
-        let iconEssentialLoad2 = config.load?.load2_icon; //valid options are boiler, aircon, pump
-        let iconEssentialLoad3 = config.load?.load3_icon;
-        let iconEssentialLoad4 = config.load?.load4_icon;
-        let remainingSolar = config.entities.remaining_solar ? Utils.convertValueNew(stateRemainingSolar.state, stateRemainingSolar.attributes?.unit_of_measurement, 1) : false;
+        
+        //Icons
+        const iconEssentialLoad1 = this.getEntity('load.load1_icon', {state: config.load?.load1_icon?.toString() ?? ''}).state;
+        const iconEssentialLoad2 = this.getEntity('load.load2_icon', {state: config.load?.load2_icon?.toString() ?? ''}).state;
+        const iconEssentialLoad3 = this.getEntity('load.load3_icon', {state: config.load?.load3_icon?.toString() ?? ''}).state;
+        const iconEssentialLoad4 = this.getEntity('load.load4_icon', {state: config.load?.load4_icon?.toString() ?? ''}).state;
+        const iconAuxLoad1 = this.getEntity('load.aux_load1_icon', {state: config.load?.aux_load1_icon?.toString() ?? ''}).state;
+        const iconAuxLoad2 = this.getEntity('load.aux_load2_icon', {state: config.load?.aux_load2_icon?.toString() ?? ''}).state;
+        const nonessentialIcon = this.getEntity('grid.nonessential_icon', {state: config.grid?.nonessential_icon?.toString() ?? ''}).state;
+        const iconNonessentialLoad1 = this.getEntity('grid.load1_icon', {state: config.grid?.load1_icon?.toString() ?? ''}).state;
+        const iconNonessentialLoad2 = this.getEntity('grid.load2_icon', {state: config.grid?.load2_icon?.toString() ?? ''}).state;
+        const iconNonessentialLoad3 = this.getEntity('grid.load3_icon', {state: config.grid?.load3_icon?.toString() ?? ''}).state;
+        
+        let decimalPlaces = config.decimal_places;
+        let decimalPlacesEnergy = config.decimal_places_energy;
+        let remainingSolar = config.entities.remaining_solar ? Utils.convertValueNew(stateRemainingSolar.state, stateRemainingSolar.attributes?.unit_of_measurement, decimalPlaces) : false;
         let totalSolarGeneration = config.entities.total_pv_generation ? Utils.convertValueNew(stateTotalPVGeneration.state, stateTotalPVGeneration.attributes?.unit_of_measurement, 2) : false;
         let largeFont = config.large_font;
         let panelMode = config.panel_mode;
@@ -359,12 +368,9 @@ export class SunsynkPowerFlowCard extends LitElement {
         let priorityLoad = !config.entities.priority_load_243 ? false : statePriorityLoad.state;
         let batteryPower = stateBatteryPower.toPower(config.battery?.invert_power);
 
-        const card_height = (config.card_height ? this.hass.states[config.card_height] : null) || {state: ''};
-        let cardHeight =
-            card_height.state === 'unavailable' || card_height.state === 'unknown' || card_height.state === ''
-                ? config.card_height
-                : card_height.state;
-        let cardWidth = config.card_width;
+        const cardHeight = this.getEntity('card_height', {state: config.card_height?.toString() ?? ''}).state;
+        const cardWidth = this.getEntity('card_width', {state: config.card_width?.toString() ?? ''}).state;
+
         let energy_cost_decimals = config.grid?.energy_cost_decimals === 0 ? 0 : config.grid?.energy_cost_decimals || 2;
         let energyCost =
             totalGridPower >= 0
@@ -442,34 +448,34 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         //Timer entities
         const prog1 = {
-            time: this.getEntity('prog1_time', {state: config.entities.prog1_time ?? ''}),
-            capacity: this.getEntity('prog1_capacity', {state: config.entities.prog1_capacity ?? ''}),
-            charge: this.getEntity('prog1_charge', {state: config.entities.prog1_charge ?? ''}),
+            time: this.getEntity('entities.prog1_time', {state: config.entities.prog1_time ?? ''}),
+            capacity: this.getEntity('entities.prog1_capacity', {state: config.entities.prog1_capacity ?? ''}),
+            charge: this.getEntity('entities.prog1_charge', {state: config.entities.prog1_charge ?? ''}),
         };
         const prog2 = {
-            time: this.getEntity('prog2_time', {state: config.entities.prog2_time ?? ''}),
-            capacity: this.getEntity('prog2_capacity', {state: config.entities.prog2_capacity ?? ''}),
-            charge: this.getEntity('prog2_charge', {state: config.entities.prog2_charge ?? ''}),
+            time: this.getEntity('entities.prog2_time', {state: config.entities.prog2_time ?? ''}),
+            capacity: this.getEntity('entities.prog2_capacity', {state: config.entities.prog2_capacity ?? ''}),
+            charge: this.getEntity('entities.prog2_charge', {state: config.entities.prog2_charge ?? ''}),
         };
         const prog3 = {
-            time: this.getEntity('prog3_time', {state: config.entities.prog3_time ?? ''}),
-            capacity: this.getEntity('prog3_capacity', {state: config.entities.prog3_capacity ?? ''}),
-            charge: this.getEntity('prog3_charge', {state: config.entities.prog3_charge ?? ''}),
+            time: this.getEntity('entities.prog3_time', {state: config.entities.prog3_time ?? ''}),
+            capacity: this.getEntity('entities.prog3_capacity', {state: config.entities.prog3_capacity ?? ''}),
+            charge: this.getEntity('entities.prog3_charge', {state: config.entities.prog3_charge ?? ''}),
         };
         const prog4 = {
-            time: this.getEntity('prog4_time', {state: config.entities.prog4_time ?? ''}),
-            capacity: this.getEntity('prog4_capacity', {state: config.entities.prog4_capacity ?? ''}),
-            charge: this.getEntity('prog4_charge', {state: config.entities.prog4_charge ?? ''}),
+            time: this.getEntity('entities.prog4_time', {state: config.entities.prog4_time ?? ''}),
+            capacity: this.getEntity('entities.prog4_capacity', {state: config.entities.prog4_capacity ?? ''}),
+            charge: this.getEntity('entities.prog4_charge', {state: config.entities.prog4_charge ?? ''}),
         };
         const prog5 = {
-            time: this.getEntity('prog5_time', {state: config.entities.prog5_time ?? ''}),
-            capacity: this.getEntity('prog5_capacity', {state: config.entities.prog5_capacity ?? ''}),
-            charge: this.getEntity('prog5_charge', {state: config.entities.prog5_charge ?? ''}),
+            time: this.getEntity('entities.prog5_time', {state: config.entities.prog5_time ?? ''}),
+            capacity: this.getEntity('entities.prog5_capacity', {state: config.entities.prog5_capacity ?? ''}),
+            charge: this.getEntity('entities.prog5_charge', {state: config.entities.prog5_charge ?? ''}),
         };
         const prog6 = {
-            time: this.getEntity('prog6_time', {state: config.entities.prog6_time ?? ''}),
-            capacity: this.getEntity('prog6_capacity', {state: config.entities.prog6_capacity ?? ''}),
-            charge: this.getEntity('prog6_charge', {state: config.entities.prog6_charge ?? ''}),
+            time: this.getEntity('entities.prog6_time', {state: config.entities.prog6_time ?? ''}),
+            capacity: this.getEntity('entities.prog6_capacity', {state: config.entities.prog6_capacity ?? ''}),
+            charge: this.getEntity('entities.prog6_charge', {state: config.entities.prog6_charge ?? ''}),
         };
 
 
@@ -830,8 +836,6 @@ export class SunsynkPowerFlowCard extends LitElement {
             this.changeAnimationSpeed(`ne`, speed);
         }
 
-        let decimalPlaces = config.decimal_places;
-
         //Calculate dynamic colour for load icon based on the contribution of the power source (battery, grid, solar) supplying the load
         const pvPercentageRaw = totalPV === 0
             ? 0
@@ -914,6 +918,12 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         const {batteryIcon, batteryCharge, stopColour, battery0} = BatteryIconManager.convert(stateBatterySoc)
 
+        //Calculate pv efficiency
+        const totalPVEfficiency = (!config.solar.max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((totalPV / config.solar.max_power) * 100, 100) ,0); 
+        const PV1Efficiency = (!config.solar.pv1_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv1PowerWatts / config.solar.pv1_max_power) * 100, 100) ,0);
+        const PV2Efficiency = (!config.solar.pv2_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv2PowerWatts / config.solar.pv2_max_power) * 100, 100) ,0);
+        const PV3Efficiency = (!config.solar.pv3_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv3PowerWatts / config.solar.pv3_max_power) * 100, 100) ,0);
+        const PV4Efficiency = (!config.solar.pv4_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv4PowerWatts / config.solar.pv4_max_power) * 100, 100) ,0);
         /**
          * The current structure of this data object is intentional, but it is considered temporary.
          * There is a need to evaluate the data being passed, as there might be duplication.
@@ -962,6 +972,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             gridPowerL2,
             gridPowerL3,
             decimalPlaces,
+            decimalPlacesEnergy,
             stateEssentialLoad1Extra,
             stateEssentialLoad2Extra,
             stateNonEssentialLoad1Extra,
@@ -1081,7 +1092,12 @@ export class SunsynkPowerFlowCard extends LitElement {
             auxDynamicColour,
             auxDynamicColourLoad1,
             auxDynamicColourLoad2,
-            stateMaxSellPower
+            stateMaxSellPower,
+            totalPVEfficiency,
+            PV1Efficiency,
+            PV2Efficiency,
+            PV3Efficiency,
+            PV4Efficiency
         };
 
         if (this.isFullCard) {
@@ -1110,7 +1126,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         if (props.length > 1) {
             entityString = this._config[props[0]][props[1]]
         } else if (props.length > 0) {
-            entityString = this._config.entities[props[0]]
+            entityString = this._config[props[0]]
         }
 
         const state = entityString ? this.hass.states[entityString] : undefined;

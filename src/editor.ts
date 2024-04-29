@@ -62,6 +62,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                     {name: "show_battery", selector: {boolean: {}}},
                                     {name: "show_grid", selector: {boolean: {}}},
                                     {name: "decimal_places", selector: {number: {}}},
+                                    {name: "decimal_places_energy", selector: {number: {}}},
                                     {name: "dynamic_line_width", selector: {boolean: {}}},
                                     {name: "max_line_width", selector: {number: {}}},
                                     {name: "min_line_width", selector: {number: {}}},
@@ -123,6 +124,11 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                     {name: 'dynamic_colour', selector: {boolean: {}}},
                                     {name: 'animation_speed', selector: {number: {}}},
                                     {name: 'max_power', selector: {number: {}}},
+                                    {name: 'pv1_max_power', selector: {number: {}}},
+                                    {name: 'pv2_max_power', selector: {number: {}}},
+                                    {name: 'pv3_max_power', selector: {number: {}}},
+                                    {name: 'pv4_max_power', selector: {number: {}}},
+                                    {name: 'efficiency', selector: {number: {mode: 'box', min: 0, max: 3,}}},
                                 ]
                             }]
                         }, {
