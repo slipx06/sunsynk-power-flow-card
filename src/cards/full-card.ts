@@ -799,6 +799,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                       stop-color="red"/>
                                 <stop offset="100%"
                                       stop-color="${data.stopColour}"/>
+                                <animate attributeName="${config.battery.animate ? 'y2' : 'none'}" dur="6s" values="100%; 0%" repeatCount="indefinite" />
                             </linearGradient>
                         </defs>
                         <path class="${!config.show_battery ? 'st12' : ''}"
@@ -1577,7 +1578,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.max_sell_power)}>
                         <text id="max_sell_power" x="${!data.showNonessential ? '311' : '347'}"
                             y="${!data.showNonessential ? '309' : '198'}" class="st3 left-align"
-                            fill="${data.gridColour}"
+                            fill="${['off', '0'].includes(data.stateSolarSell.state) ? 'grey' : data.gridColour}"
                             display="${!config.show_grid || !data.stateMaxSellPower.isValid || !config.entities?.max_sell_power ? 'none' : ''}">
                             ${localize('common.limit')}: ${data.stateMaxSellPower.toPowerString(config.grid.auto_scale, data.decimalPlaces)}
                     </text>

@@ -133,6 +133,7 @@
       "colour": "Colour",
       "charge_colour": "Charge Colour",
       "linear_gradient": "Linear Gradient",
+      "animate": "Animate Linear Gradient",
       "aux_colour": "Colour",
       "aux_off_colour": "Off Colour",
       "panel_mode": "Panel Mode",

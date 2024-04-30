@@ -133,6 +133,7 @@
       "colour": "Farve",
       "charge_colour": "Ladnings Farve",
       "linear_gradient": "Lineær Gradient",
+      "animate": "Animate Linear Gradient",
       "aux_colour": "Farve",
       "aux_dynamic_colour": "Aux Dynamisk Farve",
       "aux_off_colour": "Off Farve",

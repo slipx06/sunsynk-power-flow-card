@@ -218,35 +218,35 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                           fill="${!data.solarShowDaily || !config.show_solar ? 'transparent' : `${data.solarColour}`}">
                         ${localize('common.total_solar_generation')}
                     </text>
-                    <text x="${config.solar.mppts === 1 ? '212.7' : '162'}" y="94" class="st3 st8"
+                    <text x="${config.solar.mppts === 1 ? '230' : '179'}" y="94" class="st3 st8 right-align"
                           display="${!config.show_solar ? 'none' : ''}" fill="${data.solarColour}">
                         ${config.solar.pv1_name}
                     </text>
-                    <text x="${config.solar.mppts === 1 ? '212.7' : '162'}" y="106" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8' : 'st12'}"
+                    <text x="${config.solar.mppts === 1 ? '230' : '179'}" y="106" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 right-align' : 'st12'}"
                           display="${!config.show_solar || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}" fill="${data.solarColour}">
                         ${data.PV1Efficiency}%
                     </text>
-                    <text x="264" y="94" class="st3 st8"
+                    <text x="281" y="94" class="st3 st8 right-align"
                           display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}"
                           fill="${data.solarColour}">${config.solar.pv2_name}
                     </text>
-                    <text x="264" y="106" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8' : 'st12'}"
+                    <text x="281" y="106" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 right-align' : 'st12'}"
                           display="${!config.show_solar || config.solar.mppts === 1 || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
                           fill="${data.solarColour}">${data.PV2Efficiency}%
                     </text>
-                    <text x="88" y="94" class="st3 st8"
+                    <text x="105" y="94" class="st3 st8 right-align"
                           display="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'none' : ''}"
                           fill="${data.solarColour}">${config.solar.pv3_name}
                     </text>
-                    <text x="88" y="106" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8' : 'st12'}"
+                    <text x="105" y="106" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 right-align' : 'st12'}"
                           display="${!config.show_solar || [1, 2].includes(config.solar.mppts) || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
                           fill="${data.solarColour}">${data.PV3Efficiency}%
                     </text>
-                    <text x="340" y="94" class="st3 st8"
+                    <text x="357" y="94" class="st3 st8 right-align"
                           display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}"
                           fill="${data.solarColour}">${config.solar.pv4_name}
                     </text>
-                    <text x="340" y="106" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8' : 'st12'}"
+                    <text x="357" y="106" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 right-align' : 'st12'}"
                           display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
                           fill="${data.solarColour}">${data.PV4Efficiency}%
                     </text>
@@ -731,6 +731,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                       stop-color="red"/>
                                 <stop offset="100%"
                                       stop-color="${data.stopColour}"/>
+                                <animate attributeName="${config.battery.animate ? 'y2' : 'none'}" dur="6s" values="100%; 0%" repeatCount="indefinite" />
                             </linearGradient>
                         </defs>
                         <path class="${!config.show_battery ? 'st12' : ''}"
@@ -931,7 +932,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.max_sell_power)}>
                         <text id="max_sell_power" x="5" y="150" class="st3 left-align"
-                            fill="${data.gridColour}"
+                            fill="${['off', '0'].includes(data.stateSolarSell.state) ? 'grey' : data.gridColour}"
                             display="${!config.show_grid || !data.stateMaxSellPower.isValid || !config.entities?.max_sell_power ? 'none' : ''}">
                             ${localize('common.limit')}: ${data.stateMaxSellPower.toPowerString(config.grid.auto_scale, data.decimalPlaces)}
                     </text>
@@ -1097,14 +1098,14 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         <text id="pv1_voltage" x="${config.solar.mppts === 1 ? '244.7' : '194'}" y="106"
                               class="st3 left-align"
                               display="${!config.show_solar || !config.entities.pv1_voltage_109 || config.entities.pv1_voltage_109 === 'none' || !data.statePV1Voltage.isValid() ? 'none' : ''}"
-                              fill="${data.solarColour}">${data.statePV1Voltage.toNum(1)} V
+                              fill="${data.solarColour}">${data.statePV1Voltage.toNum(1)} ${UnitOfElectricPotential.VOLT}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv1_current_110)}>
                         <text id="pv1_current" x="${config.solar.mppts === 1 ? '244.7' : '194'}" y="94"
                               class="st3 left-align"
                               display="${!config.show_solar || !config.entities.pv1_current_110 || config.entities.pv1_current_110 === 'none' || !data.statePV1Current.isValid() ? 'none' : ''}"
-                              fill="${data.solarColour}">${data.statePV1Current.toNum(1)} A
+                              fill="${data.solarColour}">${data.statePV1Current.toNum(1)} ${UnitOfElectricalCurrent.AMPERE}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv2_voltage_111)}>

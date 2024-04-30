@@ -218,6 +218,7 @@ Full Configuration (All Options)
     hide_soc: false
     dynamic_colour: true
     linear_gradient: true
+    animate: true
   solar:
     colour: orange
     show_daily: true

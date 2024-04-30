@@ -133,6 +133,8 @@
       "grid_name": "Nome Grid",
       "colour": "Cor",
       "charge_colour": "Cor Charge",
+      "linear_gradient": "Linear Gradient",
+      "animate": "Animate Linear Gradient",
       "aux_colour": "Cor",
       "aux_off_colour": "Cor Off",
       "panel_mode": "Modo do Painel",
