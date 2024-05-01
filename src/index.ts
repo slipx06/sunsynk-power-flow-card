@@ -333,7 +333,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let showDailyAux = config.load?.show_daily_aux;
 
         let additionalLoad = config.load?.additional_loads;
-        if (!validLoadValues.includes(additionalLoad) || (this.isFullCard && additionalLoad === 4) || (this.isFullCard && additionalLoad === 3)) {
+        if (!validLoadValues.includes(additionalLoad) || (this.isFullCard && [3, 4].includes(additionalLoad) && showAux) || (this.isFullCard && [3].includes(additionalLoad))) {
             additionalLoad = 0;
         }
 

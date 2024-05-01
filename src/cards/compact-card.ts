@@ -288,27 +288,27 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                           display="${data.additionalLoad === 2 ? '' : 'none'}" fill="${data.loadColour}">
                         ${config.load?.load2_name ? `${config.load.load2_name}` : ''}
                     </text>
-                    <text id="es-load1" x="423" y="156" class="st3 st8"
+                    <text id="es-load1" x="433" y="156" class="st3 st8 right-align"
                           display="${data.additionalLoad === 4 ? '' : 'none'}" fill="${data.loadColour}">
                         ${config.load?.load1_name ? `${config.load.load1_name}` : ''}
                     </text>
-                    <text id="es-load2" x="459" y="156" class="st3 st8"
+                    <text id="es-load2" x="448" y="156" class="st3 st8 left-align"
                           display="${data.additionalLoad === 4 ? '' : 'none'}" fill="${data.loadColour}">
                         ${config.load?.load2_name ? `${config.load.load2_name}` : ''}
                     </text>
-                    <text id="es-load2" x="423" y="320" class="st3 st8"
+                    <text id="es-load2" x="433" y="320" class="st3 st8 right-align"
                           display="${data.additionalLoad === 3 ? '' : 'none'}" fill="${data.loadColour}">
                         ${config.load?.load2_name ? `${config.load.load2_name}` : ''}
                     </text>
-                    <text id="es-load3" x="459" y="320" class="st3 st8"
+                    <text id="es-load3" x="448" y="320" class="st3 st8 left-align"
                           display="${data.additionalLoad === 3 ? '' : 'none'}" fill="${data.loadColour}">
                         ${config.load?.load3_name ? `${config.load.load3_name}` : ''}
                     </text>
-                    <text id="es-load3" x="423" y="320" class="st3 st8"
+                    <text id="es-load3" x="433" y="320" class="st3 st8 right-align"
                           display="${data.additionalLoad === 4 ? '' : 'none'}" fill="${data.loadColour}">
                         ${config.load?.load3_name ? `${config.load.load3_name}` : ''}
                     </text>
-                    <text id="es-load4" x="459" y="320" class="st3 st8"
+                    <text id="es-load4" x="448" y="320" class="st3 st8 left-align"
                           display="${data.additionalLoad === 4 ? '' : 'none'}" fill="${data.loadColour}">
                         ${config.load?.load4_name ? `${config.load.load4_name}` : ''}
                     </text>
@@ -1182,17 +1182,17 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1_extra)}>
-                        <text id="ess_load1_extra" x="465" y="157"
+                        <text id="ess_load1_extra" x="448" y="157"
                               display="${(config.entities?.essential_load1_extra && [1, 2, 3].includes(data.additionalLoad)) && data.stateEssentialLoad1Extra.isValid() ? '' : 'none'}"
-                              class="st3 .right-align" fill="${data.loadColour}">
+                              class="st3 left-align" fill="${data.loadColour}">
                             ${data.stateEssentialLoad1Extra.toNum(1)}
                             ${data.stateEssentialLoad1Extra.getUOM()}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load2_extra)}>
-                        <text id="ess_load2_extra" x="465" y="282"
+                        <text id="ess_load2_extra" x="448" y="282"
                               display="${(config.entities?.essential_load2_extra && data.additionalLoad === 2) && data.stateEssentialLoad2Extra.isValid() ? '' : 'none'}"
-                              class="st3 .right-align" fill="${data.loadColour}">
+                              class="st3 left-align" fill="${data.loadColour}">
                             ${data.stateEssentialLoad2Extra.toNum(1)}
                             ${data.stateEssentialLoad2Extra.getUOM()}
                         </text>
