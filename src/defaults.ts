@@ -38,6 +38,7 @@ export default {
         auto_scale: true,
         dynamic_colour: true,
         linear_gradient: true,
+        animate: true,
     },
     solar: {
         colour: 'orange',
