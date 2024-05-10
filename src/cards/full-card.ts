@@ -1,9 +1,9 @@
-import {html, svg} from 'lit';
-import {localize} from '../localize/localize';
-import {AutarkyType, DataDto, InverterModel, sunsynkPowerFlowCardConfig} from '../types';
-import {Utils} from '../helpers/utils';
-import {UnitOfElectricalCurrent, UnitOfElectricPotential, UnitOfEnergy, UnitOfPower, validGridConnected, validGridDisconnected} from '../const';
-import {icons} from '../helpers/icons';
+import { html, svg } from 'lit';
+import { localize } from '../localize/localize';
+import { AutarkyType, DataDto, InverterModel, sunsynkPowerFlowCardConfig } from '../types';
+import { Utils } from '../helpers/utils';
+import { UnitOfElectricalCurrent, UnitOfElectricPotential, UnitOfEnergy, UnitOfPower, validGridConnected, validGridDisconnected } from '../const';
+import { icons } from '../helpers/icons';
 
 export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string, data: DataDto) => {
     return html`
@@ -93,7 +93,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     <rect x="145.15" y="162" width="70"
                           height="${config.inverter.three_phase ? 60 : 50}" rx="7.5" ry="7.5"
                           fill="none" stroke="${data.inverterColour}" pointer-events="all"/>
-                    <svg xmlns="http://www.w3.org/2000/svg" id="pv1" x="0" y="40" 
+                    <svg xmlns="http://www.w3.org/2000/svg" id="pv1" x="0" y="40"
                          width="70" height="30" viewBox="0 0 70 30" overflow="visible">
                           <rect id="pv1" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                           stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#PV1LG)' : data.solarColour}" pointer-events="all"
@@ -110,9 +110,9 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                       stop-color="${data.PV1Efficiency < 100 ? 'grey' : data.solarColour}"/>
                             </linearGradient>
                           </defs>
-                    </svg>                     
+                    </svg>
                     <svg xmlns="http://www.w3.org/2000/svg" id="pv2" x="101" y="40" width="70" height="30"
-                         viewBox="0 0 70 30" overflow="visible">                    
+                         viewBox="0 0 70 30" overflow="visible">
                           <rect id="pv2" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                           stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#PV2LG)' : data.solarColour}" pointer-events="all"
                           class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"/>
@@ -128,9 +128,9 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                       stop-color="${data.PV2Efficiency < 100 ? 'grey' : data.solarColour}"/>
                             </linearGradient>
                           </defs>
-                    </svg>                   
+                    </svg>
                     <svg xmlns="http://www.w3.org/2000/svg" id="pv3" x="0" y="100" width="70" height="30"
-                         viewBox="0 0 70 30" overflow="visible">                    
+                         viewBox="0 0 70 30" overflow="visible">
                           <rect id="pv3" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                           stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#PV3LG)' : data.solarColour}" pointer-events="all"
                           class="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'st12' : ''}"/>
@@ -146,9 +146,9 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                       stop-color="${data.PV3Efficiency < 100 ? 'grey' : data.solarColour}"/>
                             </linearGradient>
                           </defs>
-                    </svg>                    
+                    </svg>
                     <svg xmlns="http://www.w3.org/2000/svg" id="pv4" x="101" y="100" width="70" height="30"
-                         viewBox="0 0 70 30" overflow="visible">                    
+                         viewBox="0 0 70 30" overflow="visible">
                           <rect id="pv4" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                           stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#PV4LG)' : data.solarColour}" pointer-events="all"
                           class="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"/>
@@ -164,7 +164,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                       stop-color="${data.PV4Efficiency < 100 ? 'grey' : data.solarColour}"/>
                             </linearGradient>
                           </defs>
-                    </svg>                    
+                    </svg>
                     <rect id="nonesstotal" x="304" y="265" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                           stroke="${data.gridColour}" pointer-events="all"
                           class="${!data.showNonessential ? 'st12' : ''}"
@@ -296,7 +296,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                           fill="${data.loadColour}">${config.load.essential_name}
                     </text>
                     <text id="ess_load" x="411" y="130" class="st3 st8"
-                          display="${([1,2].includes(data.additionalLoad) && data.showAux) || (!data.showAux && [4].includes(data.additionalLoad)) ? '' : 'none'}"
+                          display="${([1, 2].includes(data.additionalLoad) && data.showAux) || (!data.showAux && [4].includes(data.additionalLoad)) ? '' : 'none'}"
                           fill="${data.loadColour}">${config.load.essential_name}
                     </text>
                     <text id="ess-load1" x="416" y="${!data.showAux ? 70 : 181}" class="st3 left-align"
@@ -356,21 +356,21 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                           fill="${data.batteryShowDaily !== true || !config.show_battery ? 'transparent' : `${data.batteryColour}`}">
                         ${localize('common.daily_discharge')}
                     </text>
-                    <text id="daily_grid_buy" 
-                          x="${!data.showNonessential ? '311' : '347'}"                
+                    <text id="daily_grid_buy"
+                          x="${!data.showNonessential ? '311' : '347'}"
                           y="${!data.showNonessential
-                                   ? '368' 
-                                   : config.entities?.max_sell_power ? '256' : '253'}"                           
+            ? '368'
+            : config.entities?.max_sell_power ? '256' : '253'}"
                           class="st3 left-align"
                           fill="${data.gridShowDailyBuy !== true ? 'transparent' : `${data.gridColour}`}"
                           display="${!config.show_grid ? 'none' : ''}">
                         ${localize('common.daily_grid_buy')}
                     </text>
-                    <text id="daily_grid_sell" 
+                    <text id="daily_grid_sell"
                           x="${!data.showNonessential ? '311' : '347'}"
-                          y="${!data.showNonessential 
-                                   ? '337' 
-                                   : config.entities?.max_sell_power ? '225' : '222'}" 
+                          y="${!data.showNonessential
+            ? '337'
+            : config.entities?.max_sell_power ? '225' : '222'}"
                           class="st3 left-align"
                           fill="${data.gridShowDailySell !== true ? 'transparent' : `${data.gridColour}`}"
                           display="${!config.show_grid ? 'none' : ''}">
@@ -754,7 +754,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     <path d="${config.inverter.three_phase ? 'M 180 223 L 180 235' : 'M 180 212 L 180 235'}"
                           fill="none" stroke="${data.inverterColour}" stroke-width="${data.minLineWidth}" stroke-miterlimit="10"
                           pointer-events="stroke"/>
-                    
+
                     <svg id="load-flow">
                         <circle id="es-dot" cx="0" cy="0"
                                 r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
@@ -1071,17 +1071,17 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         <defs>
                             <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
                                 <stop offset="0%"
-                                      stop-color="${Number(data.batteryPercentage) > 0 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? data.solarColour : data.gridColour)}"/>
+                                      stop-color="${Number(data.batteryPercentage) > 0 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? data.solarColour : data.gridColour) : data.gridColour)}"/>
                                 <stop offset="${data.batteryPercentage < 2 ? 0 : data.batteryPercentage}%"
-                                      stop-color="${Number(data.batteryPercentage) > 0 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? data.solarColour : data.gridColour)}"/>
+                                      stop-color="${Number(data.batteryPercentage) > 0 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? data.solarColour : data.gridColour) : data.gridColour)}"/>
                                 <stop offset="${data.batteryPercentage < 2 ? 0 : data.batteryPercentage}%"
-                                      stop-color="${Number(data.pvPercentage) > 0 ? data.solarColour : data.gridColour}"/>
-                                <stop offset="${(Number(data.batteryPercentage < 2 ? 0 : data.batteryPercentage) + Number(data.pvPercentage < 2 ? 0 : data.pvPercentage))}%"
-                                      stop-color="${Number(data.pvPercentage) > 0 ? `${data.solarColour}` : `${data.gridColour}`}"/>
-                                <stop offset="${(Number(data.batteryPercentage < 2 ? 0 : data.batteryPercentage) + Number(data.pvPercentage < 2 ? 0 : data.pvPercentage))}%"
-                                      stop-color="${Number(data.batteryPercentage) === 100 ? data.batteryColour : (Number(data.pvPercentage) === 100 ? data.solarColour : data.gridColour)}"/>
+                                      stop-color="${Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? data.solarColour : data.gridColour) : data.gridColour}"/>
+                                <stop offset="${(Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? 100 : 100 - (Number(data.batteryPercentage < 2 ? 0 : data.batteryPercentage) + Number(data.pvPercentage < 2 ? 0 : data.pvPercentage)))}%"
+                                      stop-color="${Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? data.solarColour : data.gridColour) : data.gridColour}"/>
+                                <stop offset="${(Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? 100 : 100 - (Number(data.batteryPercentage < 2 ? 0 : data.batteryPercentage) + Number(data.pvPercentage < 2 ? 0 : data.pvPercentage)))}%"
+                                      stop-color="${Number(data.batteryPercentage) === 100 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? data.solarColour : data.gridColour)}"/>
                                 <stop offset="100%"
-                                      stop-color="${Number(data.batteryPercentage) === 100 ? data.batteryColour : (Number(data.pvPercentage) === 100 ? data.solarColour : data.gridColour)}"/>
+                                      stop-color="${Number(data.batteryPercentage) === 100 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? data.solarColour : data.gridColour)}"/>
                             </linearGradient>
                         </defs>
                         <path display="${[1, 2].includes(data.additionalLoad) && !data.showAux ? '' : 'none'}"
@@ -1093,17 +1093,17 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         <defs>
                             <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
                                 <stop offset="0%"
-                                      stop-color="${Number(data.batteryPercentage) > 0 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? data.solarColour : data.gridColour)}"/>
+                                      stop-color="${Number(data.batteryPercentage) > 0 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? data.solarColour : data.gridColour) : data.gridColour)}"/>
                                 <stop offset="${data.batteryPercentage < 2 ? 0 : data.batteryPercentage}%"
-                                      stop-color="${Number(data.batteryPercentage) > 0 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? data.solarColour : data.gridColour)}"/>
+                                      stop-color="${Number(data.batteryPercentage) > 0 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? data.solarColour : data.gridColour) : data.gridColour)}"/>
                                 <stop offset="${data.batteryPercentage < 2 ? 0 : data.batteryPercentage}%"
-                                      stop-color="${Number(data.pvPercentage) > 0 ? data.solarColour : data.gridColour}"/>
-                                <stop offset="${(Number(data.batteryPercentage < 2 ? 0 : data.batteryPercentage) + Number(data.pvPercentage < 2 ? 0 : data.pvPercentage))}%"
-                                      stop-color="${Number(data.pvPercentage) > 0 ? `${data.solarColour}` : `${data.gridColour}`}"/>
-                                <stop offset="${(Number(data.batteryPercentage < 2 ? 0 : data.batteryPercentage) + Number(data.pvPercentage < 2 ? 0 : data.pvPercentage))}%"
-                                      stop-color="${Number(data.batteryPercentage) === 100 ? data.batteryColour : (Number(data.pvPercentage) === 100 ? data.solarColour : data.gridColour)}"/>
+                                      stop-color="${Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? data.solarColour : data.gridColour) : data.gridColour}"/>
+                                <stop offset="${(Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? 100 : 100 - (Number(data.batteryPercentage < 2 ? 0 : data.batteryPercentage) + Number(data.pvPercentage < 2 ? 0 : data.pvPercentage)))}%"
+                                      stop-color="${Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? data.solarColour : data.gridColour) : data.gridColour}"/>
+                                <stop offset="${(Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? 100 : 100 - (Number(data.batteryPercentage < 2 ? 0 : data.batteryPercentage) + Number(data.pvPercentage < 2 ? 0 : data.pvPercentage)))}%"
+                                      stop-color="${Number(data.batteryPercentage) === 100 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? data.solarColour : data.gridColour)}"/>
                                 <stop offset="100%"
-                                      stop-color="${Number(data.batteryPercentage) === 100 ? data.batteryColour : (Number(data.pvPercentage) === 100 ? data.solarColour : data.gridColour)}"/>
+                                      stop-color="${Number(data.batteryPercentage) === 100 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? data.solarColour : data.gridColour)}"/>
                             </linearGradient>
                         </defs>
                         <path display="${([1, 2].includes(data.additionalLoad) && data.showAux) ? '' : 'none'}"
@@ -1115,17 +1115,17 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         <defs>
                             <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
                                 <stop offset="0%"
-                                      stop-color="${Number(data.batteryPercentage) > 0 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? data.solarColour : data.gridColour)}"/>
+                                      stop-color="${Number(data.batteryPercentage) > 0 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? data.solarColour : data.gridColour) : data.gridColour)}"/>
                                 <stop offset="${data.batteryPercentage < 2 ? 0 : data.batteryPercentage}%"
-                                      stop-color="${Number(data.batteryPercentage) > 0 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? data.solarColour : data.gridColour)}"/>
+                                      stop-color="${Number(data.batteryPercentage) > 0 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? data.solarColour : data.gridColour) : data.gridColour)}"/>
                                 <stop offset="${data.batteryPercentage < 2 ? 0 : data.batteryPercentage}%"
-                                      stop-color="${Number(data.pvPercentage) > 0 ? data.solarColour : data.gridColour}"/>
-                                <stop offset="${(Number(data.batteryPercentage < 2 ? 0 : data.batteryPercentage) + Number(data.pvPercentage < 2 ? 0 : data.pvPercentage))}%"
-                                      stop-color="${Number(data.pvPercentage) > 0 ? `${data.solarColour}` : `${data.gridColour}`}"/>
-                                <stop offset="${(Number(data.batteryPercentage < 2 ? 0 : data.batteryPercentage) + Number(data.pvPercentage < 2 ? 0 : data.pvPercentage))}%"
-                                      stop-color="${Number(data.batteryPercentage) === 100 ? data.batteryColour : (Number(data.pvPercentage) === 100 ? data.solarColour : data.gridColour)}"/>
+                                      stop-color="${Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? data.solarColour : data.gridColour) : data.gridColour}"/>
+                                <stop offset="${(Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? 100 : 100 - (Number(data.batteryPercentage < 2 ? 0 : data.batteryPercentage) + Number(data.pvPercentage < 2 ? 0 : data.pvPercentage)))}%"
+                                      stop-color="${Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? data.solarColour : data.gridColour) : data.gridColour}"/>
+                                <stop offset="${(Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? 100 : 100 - (Number(data.batteryPercentage < 2 ? 0 : data.batteryPercentage) + Number(data.pvPercentage < 2 ? 0 : data.pvPercentage)))}%"
+                                      stop-color="${Number(data.batteryPercentage) === 100 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? data.solarColour : data.gridColour)}"/>
                                 <stop offset="100%"
-                                      stop-color="${Number(data.batteryPercentage) === 100 ? data.batteryColour : (Number(data.pvPercentage) === 100 ? data.solarColour : data.gridColour)}"/>
+                                      stop-color="${Number(data.batteryPercentage) === 100 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? data.solarColour : data.gridColour)}"/>
                             </linearGradient>
                         </defs>
                         <path display="${[4].includes(data.additionalLoad) && !data.showAux ? '' : 'none'}"
@@ -1138,17 +1138,17 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         <defs>
                             <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
                                 <stop offset="0%"
-                                      stop-color="${Number(data.batteryPercentage) > 0 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? data.solarColour : data.gridColour)}"/>
+                                      stop-color="${Number(data.batteryPercentage) > 0 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? data.solarColour : data.gridColour) : data.gridColour)}"/>
                                 <stop offset="${data.batteryPercentage < 2 ? 0 : data.batteryPercentage}%"
-                                      stop-color="${Number(data.batteryPercentage) > 0 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? data.solarColour : data.gridColour)}"/>
+                                      stop-color="${Number(data.batteryPercentage) > 0 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? data.solarColour : data.gridColour) : data.gridColour)}"/>
                                 <stop offset="${data.batteryPercentage < 2 ? 0 : data.batteryPercentage}%"
-                                      stop-color="${Number(data.pvPercentage) > 0 ? data.solarColour : data.gridColour}"/>
-                                <stop offset="${(Number(data.batteryPercentage < 2 ? 0 : data.batteryPercentage) + Number(data.pvPercentage < 2 ? 0 : data.pvPercentage))}%"
-                                      stop-color="${Number(data.pvPercentage) > 0 ? `${data.solarColour}` : `${data.gridColour}`}"/>
-                                <stop offset="${(Number(data.batteryPercentage < 2 ? 0 : data.batteryPercentage) + Number(data.pvPercentage < 2 ? 0 : data.pvPercentage))}%"
-                                      stop-color="${Number(data.batteryPercentage) === 100 ? data.batteryColour : (Number(data.pvPercentage) === 100 ? data.solarColour : data.gridColour)}"/>
+                                      stop-color="${Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? data.solarColour : data.gridColour) : data.gridColour}"/>
+                                <stop offset="${(Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? 100 : 100 - (Number(data.batteryPercentage < 2 ? 0 : data.batteryPercentage) + Number(data.pvPercentage < 2 ? 0 : data.pvPercentage)))}%"
+                                      stop-color="${Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? data.solarColour : data.gridColour) : data.gridColour}"/>
+                                <stop offset="${(Number(data.pvPercentage) + Number(data.batteryPercentage) >= 100 ? 100 : 100 - (Number(data.batteryPercentage < 2 ? 0 : data.batteryPercentage) + Number(data.pvPercentage < 2 ? 0 : data.pvPercentage)))}%"
+                                      stop-color="${Number(data.batteryPercentage) === 100 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? data.solarColour : data.gridColour)}"/>
                                 <stop offset="100%"
-                                      stop-color="${Number(data.batteryPercentage) === 100 ? data.batteryColour : (Number(data.pvPercentage) === 100 ? data.solarColour : data.gridColour)}"/>
+                                      stop-color="${Number(data.batteryPercentage) === 100 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? data.solarColour : data.gridColour)}"/>
                             </linearGradient>
                         </defs>
                         <path display="${[1, 2, 3, 4].includes(data.additionalLoad) ? 'none' : ''}"
@@ -1261,7 +1261,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     <svg xmlns="http://www.w3.org/2000/svg" id="ess_boiler_left_top" x="382" y="5" width="24"
                          height="24" viewBox="0 0 24 24"
                          opacity="${data.iconEssentialLoad1 === 'boiler' && [2, 4].includes(data.additionalLoad) && !data.showAux ? '1' : '0'}">
-                        <path display="${[2, 4].includes(data.additionalLoad)  ? '' : 'none'}"
+                        <path display="${[2, 4].includes(data.additionalLoad) ? '' : 'none'}"
                               fill="${data.loadColour}"
                               d="${icons.boiler}"/>
                     </svg>
@@ -1615,17 +1615,17 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_battery_discharge_71)}>
                         <text id="daily_bat_discharge_value" x="4.5" y="271" class="st10 left-align"
-                              display="${data.batteryShowDaily !== true || !config.show_battery || !data.stateDayBatteryDischarge.isValid()? 'none' : ''}"
+                              display="${data.batteryShowDaily !== true || !config.show_battery || !data.stateDayBatteryDischarge.isValid() ? 'none' : ''}"
                               fill="${data.batteryColour}">
                             ${data.stateDayBatteryDischarge.toPowerString(true, data.decimalPlacesEnergy)}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_grid_import_76)}>
-                        <text id="daily_grid_buy_value" 
-                              x="${!data.showNonessential ? '311' : '347'}"                   
+                        <text id="daily_grid_buy_value"
+                              x="${!data.showNonessential ? '311' : '347'}"
                               y="${!data.showNonessential
-                                   ? '354' 
-                                   : config.entities?.max_sell_power ? '242' : '239'}"   
+            ? '354'
+            : config.entities?.max_sell_power ? '242' : '239'}"
                               class="st10 left-align"
                               display="${!config.show_grid || data.gridShowDailyBuy !== true || !data.stateDayGridImport.isValid() ? 'none' : ''}"
                               fill="${data.gridColour}">
@@ -1633,11 +1633,11 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_grid_export_77)}>
-                        <text id="daily_grid_sell_value" 
+                        <text id="daily_grid_sell_value"
                               x="${!data.showNonessential ? '311' : '347'}"
-                              y="${!data.showNonessential 
-                                   ? '323' 
-                                   : config.entities?.max_sell_power ? '212' : '209'}" 
+                              y="${!data.showNonessential
+            ? '323'
+            : config.entities?.max_sell_power ? '212' : '209'}"
                               class="st10 left-align"
                               display="${!config.show_grid || data.gridShowDailySell !== true || !data.stateDayGridExport.isValid() ? 'none' : ''}"
                               fill="${data.gridColour}">
@@ -1703,279 +1703,279 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load2_extra)}>
                         <text id="non_ess_load2_value_extra" x="359" y="305"
-                              display="${config.entities?.non_essential_load2_extra && data.nonessentialLoads === 2 &&  data.stateNonEssentialLoad2Extra.isValid() && config.show_grid ? '' : 'none'}"
+                              display="${config.entities?.non_essential_load2_extra && data.nonessentialLoads === 2 && data.stateNonEssentialLoad2Extra.isValid() && config.show_grid ? '' : 'none'}"
                               class="st3 left-align" fill="${data.gridColour}">
                             ${data.stateNonEssentialLoad2Extra.toNum(1)}
                             ${data.stateNonEssentialLoad2Extra?.getUOM()}
                         </text>
                     </a>
                     ${config.inverter.three_phase
-                            ? config.entities?.grid_ct_power_total
-                                    ? svg`
+            ? config.entities?.grid_ct_power_total
+                ? svg`
                                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_ct_power_total)}>
                                         <text id="grid_total_power" x="420" y="281.5"
                                               display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
                                               class="${data.largeFont !== true ? 'st14' : 'st4'} st8" fill="${data.gridColour}">
                                             ${config.grid.auto_scale
-                                            ? `${config.grid.show_absolute
-                                                    ? `${Math.abs(parseFloat(Utils.convertValue(data.totalGridPower, data.decimalPlaces)))} ${Utils.convertValue(data.totalGridPower, data.decimalPlaces).split(' ')[1]}`
-                                                    : Utils.convertValue(data.totalGridPower, data.decimalPlaces) || 0}`
-                                            : `${config.grid.show_absolute
-                                                    ? `${Math.abs(data.totalGridPower)} ${UnitOfPower.WATT}`
-                                                    : `${data.totalGridPower || 0} ${UnitOfPower.WATT}`
-                                            }`
-                                    }
+                        ? `${config.grid.show_absolute
+                            ? `${Math.abs(parseFloat(Utils.convertValue(data.totalGridPower, data.decimalPlaces)))} ${Utils.convertValue(data.totalGridPower, data.decimalPlaces).split(' ')[1]}`
+                            : Utils.convertValue(data.totalGridPower, data.decimalPlaces) || 0}`
+                        : `${config.grid.show_absolute
+                            ? `${Math.abs(data.totalGridPower)} ${UnitOfPower.WATT}`
+                            : `${data.totalGridPower || 0} ${UnitOfPower.WATT}`
+                        }`
+                    }
                                         </text>
                                         </a>`
-                                    : svg`
+                : svg`
                                         <text id="grid_total_power" x="420" y="281.5"
                                               display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
                                               class="${data.largeFont !== true ? 'st14' : 'st4'} st8" fill="${data.gridColour}">
                                             ${config.grid.auto_scale
-                                            ? `${config.grid.show_absolute
-                                                    ? `${Math.abs(parseFloat(Utils.convertValue(data.totalGridPower, data.decimalPlaces)))} ${Utils.convertValue(data.totalGridPower, data.decimalPlaces).split(' ')[1]}`
-                                                    : Utils.convertValue(data.totalGridPower, data.decimalPlaces) || 0}`
-                                            : `${config.grid.show_absolute
-                                                    ? `${Math.abs(data.totalGridPower)} ${UnitOfPower.WATT}`
-                                                    : `${data.totalGridPower || 0} ${UnitOfPower.WATT}`
-                                            }`
-                                    }
+                        ? `${config.grid.show_absolute
+                            ? `${Math.abs(parseFloat(Utils.convertValue(data.totalGridPower, data.decimalPlaces)))} ${Utils.convertValue(data.totalGridPower, data.decimalPlaces).split(' ')[1]}`
+                            : Utils.convertValue(data.totalGridPower, data.decimalPlaces) || 0}`
+                        : `${config.grid.show_absolute
+                            ? `${Math.abs(data.totalGridPower)} ${UnitOfPower.WATT}`
+                            : `${data.totalGridPower || 0} ${UnitOfPower.WATT}`
+                        }`
+                    }
                                         </text>`
-                            : svg`
+            : svg`
                                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_ct_power_172)}>
                                         <text id="grid_total_power" x="420" y="281.5"
                                               display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
                                               class="${data.largeFont !== true ? 'st14' : 'st4'} st8" fill="${data.gridColour}">
                                             ${config.grid.auto_scale
-                                    ? `${config.grid.show_absolute
-                                            ? `${Math.abs(parseFloat(Utils.convertValue(data.totalGridPower, data.decimalPlaces)))} ${Utils.convertValue(data.totalGridPower, data.decimalPlaces).split(' ')[1]}`
-                                            : Utils.convertValue(data.totalGridPower, data.decimalPlaces) || 0}`
-                                    : `${config.grid.show_absolute
-                                            ? `${Math.abs(data.totalGridPower)} ${UnitOfPower.WATT}`
-                                            : `${data.totalGridPower || 0} ${UnitOfPower.WATT}`
-                                    }`
-                            }
+                    ? `${config.grid.show_absolute
+                        ? `${Math.abs(parseFloat(Utils.convertValue(data.totalGridPower, data.decimalPlaces)))} ${Utils.convertValue(data.totalGridPower, data.decimalPlaces).split(' ')[1]}`
+                        : Utils.convertValue(data.totalGridPower, data.decimalPlaces) || 0}`
+                    : `${config.grid.show_absolute
+                        ? `${Math.abs(data.totalGridPower)} ${UnitOfPower.WATT}`
+                        : `${data.totalGridPower || 0} ${UnitOfPower.WATT}`
+                    }`
+                }
                                         </text>
                                     </a>`
-                    }
+        }
                     ${config.entities?.pv_total
-                            ? svg`
+            ? svg`
                                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv_total)}>
-                                        <text id="pvtotal_power" x="87" y="178" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                                              display="${!config.show_solar || config.solar.mppts === 1 || !data.statePVTotal.isValid() ? 'none' : ''}" 
+                                        <text id="pvtotal_power" x="87" y="178" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
+                                              display="${!config.show_solar || config.solar.mppts === 1 || !data.statePVTotal.isValid() ? 'none' : ''}"
                                               fill="${data.solarColour}">
                                             ${config.solar.auto_scale
-                                    ? config.entities?.pv_total
-                                            ? Utils.convertValueNew(data.totalPV, data.statePVTotal?.getUOM(), data.decimalPlaces)
-                                            : Utils.convertValue(data.totalPV, data.decimalPlaces) || 0
-                                    : `${Utils.toNum(data.totalPV || 0, 0)} ${UnitOfPower.WATT}`
-                            }
+                    ? config.entities?.pv_total
+                        ? Utils.convertValueNew(data.totalPV, data.statePVTotal?.getUOM(), data.decimalPlaces)
+                        : Utils.convertValue(data.totalPV, data.decimalPlaces) || 0
+                    : `${Utils.toNum(data.totalPV || 0, 0)} ${UnitOfPower.WATT}`
+                }
                                         </text>
                                     </a>`
-                            : svg`
-                                    <text id="pvtotal_power" x="87" y="178" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                                          display="${!config.show_solar || config.solar.mppts === 1 || !data.statePVTotal.isValid() ? 'none' : ''}" 
+            : svg`
+                                    <text id="pvtotal_power" x="87" y="178" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
+                                          display="${!config.show_solar || config.solar.mppts === 1 || !data.statePVTotal.isValid() ? 'none' : ''}"
                                           fill="${data.solarColour}">
                                         ${config.solar.auto_scale
-                                    ? config.entities?.pv_total
-                                            ? Utils.convertValueNew(data.totalPV, data.statePVTotal?.getUOM(), data.decimalPlaces)
-                                            : Utils.convertValue(data.totalPV, data.decimalPlaces) || 0
-                                    : `${Utils.toNum(data.totalPV || 0, 0)} ${UnitOfPower.WATT}`
-                            }
+                    ? config.entities?.pv_total
+                        ? Utils.convertValueNew(data.totalPV, data.statePVTotal?.getUOM(), data.decimalPlaces)
+                        : Utils.convertValue(data.totalPV, data.decimalPlaces) || 0
+                    : `${Utils.toNum(data.totalPV || 0, 0)} ${UnitOfPower.WATT}`
+                }
                                     </text>`
-                    }
+        }
                     ${config.entities?.essential_power && config.entities.essential_power !== 'none'
-                            ? svg`
+            ? svg`
                                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_power)}>
-                                        <text id="ess_power" x="270" y="119" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
+                                        <text id="ess_power" x="270" y="119" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
                                               fill="${data.loadColour}">
                                             ${config.load.auto_scale ? `${Utils.convertValue(data.essentialPower, data.decimalPlaces) || 0}` : `${data.essentialPower || 0} ${UnitOfPower.WATT}`}
                                         </text>
                                     </a>`
-                            : svg`
-                                    <text id="ess_power" x="270" y="119" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
+            : svg`
+                                    <text id="ess_power" x="270" y="119" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
                                           fill="${data.loadColour}">
                                         ${config.load.auto_scale ? `${Utils.convertValue(data.essentialPower, data.decimalPlaces) || 0}` : `${data.essentialPower || 0} ${UnitOfPower.WATT}`}
                                     </text>`
-                    }
+        }
                     ${config.entities?.nonessential_power
-                            ? svg`
+            ? svg`
                                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.nonessential_power)}>
-                                        <text id="non_ess_power" x="338" y="281.5" display="${!config.show_grid || !data.showNonessential ? 'none' : ''}" 
-                                              class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
+                                        <text id="non_ess_power" x="338" y="281.5" display="${!config.show_grid || !data.showNonessential ? 'none' : ''}"
+                                              class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
                                               fill="${data.gridColour}">
                                             ${config.grid.auto_scale ? `${Utils.convertValue(data.nonessentialPower, data.decimalPlaces) || 0}` : `${data.nonessentialPower || 0} ${UnitOfPower.WATT}`}
                                         </text>
                                     </a>`
-                            : svg`
+            : svg`
                                     <text id="non_ess_power" x="338" y="281.5"
-                                          display="${!config.show_grid || !data.showNonessential ? 'none' : ''}" 
-                                          class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
+                                          display="${!config.show_grid || !data.showNonessential ? 'none' : ''}"
+                                          class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
                                           fill="${data.gridColour}">
                                         ${config.grid.auto_scale ? `${Utils.convertValue(data.nonessentialPower, data.decimalPlaces) || 0}` : `${data.nonessentialPower || 0} ${UnitOfPower.WATT}`}
                                     </text>`
-                    }
+        }
                     ${config.entities?.aux_power_166
-                            ? svg`
+            ? svg`
                                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.aux_power_166)}>
-                                        <text id="aux_power_166" x="270" y="48" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                                              display="${!data.showAux ? 'none' : ''}" 
+                                        <text id="aux_power_166" x="270" y="48" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
+                                              display="${!data.showAux ? 'none' : ''}"
                                               fill="${data.auxDynamicColour}">
                                             ${config.load.auto_scale
-                                    ? `${config.load.show_absolute_aux
-                                            ? `${Math.abs(parseFloat(Utils.convertValue(data.auxPower, data.decimalPlaces)))} ${Utils.convertValue(data.auxPower, data.decimalPlaces).split(' ')[1]}`
-                                            : Utils.convertValue(data.auxPower, data.decimalPlaces) || '0'}`
-                                    : `${config.load.show_absolute_aux
-                                            ? `${Math.abs(data.auxPower)}`
-                                            : data.auxPower || 0} ${UnitOfPower.WATT}`
-                            }
+                    ? `${config.load.show_absolute_aux
+                        ? `${Math.abs(parseFloat(Utils.convertValue(data.auxPower, data.decimalPlaces)))} ${Utils.convertValue(data.auxPower, data.decimalPlaces).split(' ')[1]}`
+                        : Utils.convertValue(data.auxPower, data.decimalPlaces) || '0'}`
+                    : `${config.load.show_absolute_aux
+                        ? `${Math.abs(data.auxPower)}`
+                        : data.auxPower || 0} ${UnitOfPower.WATT}`
+                }
                                         </text>
                                     </a>`
-                            : svg`
-                                    <text id="aux_power_166" x="270" y="48" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                                          display="${!data.showAux ? 'none' : ''}" 
+            : svg`
+                                    <text id="aux_power_166" x="270" y="48" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
+                                          display="${!data.showAux ? 'none' : ''}"
                                           fill="${data.auxDynamicColour}">
                                         ${config.load.auto_scale
-                                    ? `${config.load.show_absolute_aux
-                                            ? `${Math.abs(parseFloat(Utils.convertValue(data.auxPower, data.decimalPlaces)))} ${Utils.convertValue(data.auxPower, data.decimalPlaces).split(' ')[1]}`
-                                            : Utils.convertValue(data.auxPower, data.decimalPlaces) || '0'}`
-                                    : `${config.load.show_absolute_aux
-                                            ? `${Math.abs(data.auxPower)}`
-                                            : data.auxPower || 0} ${UnitOfPower.WATT}`
-                            }
+                    ? `${config.load.show_absolute_aux
+                        ? `${Math.abs(parseFloat(Utils.convertValue(data.auxPower, data.decimalPlaces)))} ${Utils.convertValue(data.auxPower, data.decimalPlaces).split(' ')[1]}`
+                        : Utils.convertValue(data.auxPower, data.decimalPlaces) || '0'}`
+                    : `${config.load.show_absolute_aux
+                        ? `${Math.abs(data.auxPower)}`
+                        : data.auxPower || 0} ${UnitOfPower.WATT}`
+                }
                                         </text>`
-                    }
+        }
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv1_power_186)}>
-                        <text id="pv1_power_186" x="36.5" y="56.5" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                              display="${!config.show_solar || !data.statePV1Power.isValid() ? 'none' : ''}" 
+                        <text id="pv1_power_186" x="36.5" y="56.5" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
+                              display="${!config.show_solar || !data.statePV1Power.isValid() ? 'none' : ''}"
                               fill="${data.solarColour}" >
-                              ${config.solar.auto_scale 
-                                   ? Utils.convertValue(data.pv1PowerWatts, data.decimalPlaces) || 0 
-                                   : `${Utils.toNum(data.pv1PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
+                              ${config.solar.auto_scale
+            ? Utils.convertValue(data.pv1PowerWatts, data.decimalPlaces) || 0
+            : `${Utils.toNum(data.pv1PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv2_power_187)}>
-                        <text id="pv2_power_187" x="137" y="56.5" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                              display="${!config.show_solar || config.solar.mppts === 1 || !data.statePV2Power.isValid() ? 'none' : ''}" 
+                        <text id="pv2_power_187" x="137" y="56.5" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
+                              display="${!config.show_solar || config.solar.mppts === 1 || !data.statePV2Power.isValid() ? 'none' : ''}"
                               fill="${data.solarColour}">
-                              ${config.solar.auto_scale 
-                                   ? Utils.convertValue(data.pv2PowerWatts, data.decimalPlaces) || 0 
-                                   : `${Utils.toNum(data.pv2PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
+                              ${config.solar.auto_scale
+            ? Utils.convertValue(data.pv2PowerWatts, data.decimalPlaces) || 0
+            : `${Utils.toNum(data.pv2PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv3_power_188)}>
-                        <text id="pv3_power_188" x="36.5" y="117" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                              display="${!config.show_solar || [1, 2].includes(config.solar.mppts) || !data.statePV3Power.isValid() ? 'none' : ''}" 
+                        <text id="pv3_power_188" x="36.5" y="117" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
+                              display="${!config.show_solar || [1, 2].includes(config.solar.mppts) || !data.statePV3Power.isValid() ? 'none' : ''}"
                               fill="${data.solarColour}">
-                              ${config.solar.auto_scale 
-                                   ? Utils.convertValue(data.pv3PowerWatts, data.decimalPlaces) || 0 
-                                   : `${Utils.toNum(data.pv3PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
+                              ${config.solar.auto_scale
+            ? Utils.convertValue(data.pv3PowerWatts, data.decimalPlaces) || 0
+            : `${Utils.toNum(data.pv3PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv4_power_189)}>
-                        <text id="pv4_power_189" x="137" y="117" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                              display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) || !data.statePV3Power.isValid() ? 'none' : ''}" 
+                        <text id="pv4_power_189" x="137" y="117" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
+                              display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) || !data.statePV3Power.isValid() ? 'none' : ''}"
                               fill="${data.solarColour}">
-                              ${config.solar.auto_scale 
-                                   ? Utils.convertValue(data.pv4PowerWatts, data.decimalPlaces) || 0 
-                                   : `${Utils.toNum(data.pv4PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
+                              ${config.solar.auto_scale
+            ? Utils.convertValue(data.pv4PowerWatts, data.decimalPlaces) || 0
+            : `${Utils.toNum(data.pv4PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.aux_load1)}>
-                        <text id="aux_load1_value" x="411" y="34" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                              display="${!data.showAux || data.additionalAuxLoad === 0 || !data.stateAuxLoad1.isValid() ? 'none' : ''}" 
+                        <text id="aux_load1_value" x="411" y="34" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
+                              display="${!data.showAux || data.additionalAuxLoad === 0 || !data.stateAuxLoad1.isValid() ? 'none' : ''}"
                               fill="${data.auxDynamicColourLoad1}">
                             ${data.stateAuxLoad1.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.aux_load2)}>
-                        <text id="aux_load2_value" x="411" y="64" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                              display="${!data.showAux || [0, 1].includes(data.additionalAuxLoad) || !data.stateAuxLoad2.isValid() ? 'none' : ''}" 
+                        <text id="aux_load2_value" x="411" y="64" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
+                              display="${!data.showAux || [0, 1].includes(data.additionalAuxLoad) || !data.stateAuxLoad2.isValid() ? 'none' : ''}"
                               fill="${data.auxDynamicColourLoad2}">
                             ${data.stateAuxLoad2.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load1)}>
-                        <text id="noness1_value" x="340" y="321" class="st3" 
-                              display="${!config.show_grid || !data.showNonessential || [0, 2, 3].includes(data.nonessentialLoads) || !data.stateNonessentialLoad1.isValid() ? 'none' : ''}" 
+                        <text id="noness1_value" x="340" y="321" class="st3"
+                              display="${!config.show_grid || !data.showNonessential || [0, 2, 3].includes(data.nonessentialLoads) || !data.stateNonessentialLoad1.isValid() ? 'none' : ''}"
                               fill="${data.gridColour}">
                             ${data.stateNonessentialLoad1.toPowerString(config.grid.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load1)}>
-                        <text id="noness2_value" x="320" y="321" class="st3" 
-                              display="${!config.show_grid || !data.showNonessential || [0, 1].includes(data.nonessentialLoads) || !data.stateNonessentialLoad1.isValid() ? 'none' : ''}" 
+                        <text id="noness2_value" x="320" y="321" class="st3"
+                              display="${!config.show_grid || !data.showNonessential || [0, 1].includes(data.nonessentialLoads) || !data.stateNonessentialLoad1.isValid() ? 'none' : ''}"
                               fill="${data.gridColour}">
                             ${data.stateNonessentialLoad1.toPowerString(config.grid.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load2)}>
-                        <text id="noness2_value" x="357" y="321" class="st3" 
-                              display="${!config.show_grid || !data.showNonessential || [0, 1].includes(data.nonessentialLoads) || !data.stateNonessentialLoad2.isValid() ? 'none' : ''}" 
+                        <text id="noness2_value" x="357" y="321" class="st3"
+                              display="${!config.show_grid || !data.showNonessential || [0, 1].includes(data.nonessentialLoads) || !data.stateNonessentialLoad2.isValid() ? 'none' : ''}"
                               fill="${data.gridColour}">
                             ${data.stateNonessentialLoad2.toPowerString(config.grid.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load3)}>
-                        <text id="noness3_value" x="283" y="321" class="${config.battery.hide_soc ? 'st3' : 'st12'}" 
-                              display="${!config.show_grid || !data.showNonessential || [0, 1, 2].includes(data.nonessentialLoads) || !data.stateNonessentialLoad3.isValid() ? 'none' : ''}" 
+                        <text id="noness3_value" x="283" y="321" class="${config.battery.hide_soc ? 'st3' : 'st12'}"
+                              display="${!config.show_grid || !data.showNonessential || [0, 1, 2].includes(data.nonessentialLoads) || !data.stateNonessentialLoad3.isValid() ? 'none' : ''}"
                               fill="${data.gridColour}">
                             ${data.stateNonessentialLoad3.toPowerString(config.grid.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1)}>
-                        <text id="ess_load1_value" x="409" y="${!data.showAux ? '47' : '158'}" 
-                              display="${data.additionalLoad === 1 && data.stateEssentialLoad1.isValid() ? '' : 'none'}" 
-                              class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
+                        <text id="ess_load1_value" x="409" y="${!data.showAux ? '47' : '158'}"
+                              display="${data.additionalLoad === 1 && data.stateEssentialLoad1.isValid() ? '' : 'none'}"
+                              class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
                               fill="${data.loadColour}">
                             ${data.stateEssentialLoad1.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1)}>
-                        <text id="ess_load2_value" x="${!data.showAux ? '394' : '391'}" y="${!data.showAux ? '41' : '160'}" 
-                              display="${[2, 4].includes(data.additionalLoad) && data.stateEssentialLoad2.isValid() ? '' : 'none'}" class="st3" 
+                        <text id="ess_load2_value" x="${!data.showAux ? '394' : '391'}" y="${!data.showAux ? '41' : '160'}"
+                              display="${[2, 4].includes(data.additionalLoad) && data.stateEssentialLoad2.isValid() ? '' : 'none'}" class="st3"
                               fill="${data.loadColour}">
                             ${data.stateEssentialLoad1.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load2)}>
-                        <text id="ess_load2_value" x="${!data.showAux ? '430' : '427'}" y="${!data.showAux ? '41' : '160'}" 
-                              display="${[2, 4].includes(data.additionalLoad) && data.stateEssentialLoad2.isValid() ? '' : 'none'}" class="st3" 
+                        <text id="ess_load2_value" x="${!data.showAux ? '430' : '427'}" y="${!data.showAux ? '41' : '160'}"
+                              display="${[2, 4].includes(data.additionalLoad) && data.stateEssentialLoad2.isValid() ? '' : 'none'}" class="st3"
                               fill="${data.loadColour}">
                             ${data.stateEssentialLoad2.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load3)}>
-                        <text id="ess_load4_value" x="392" y="160" 
-                              display="${[4].includes(data.additionalLoad) && data.stateEssentialLoad3.isValid() ? '' : 'none'}" class="st3" 
+                        <text id="ess_load4_value" x="392" y="160"
+                              display="${[4].includes(data.additionalLoad) && data.stateEssentialLoad3.isValid() ? '' : 'none'}" class="st3"
                               fill="${data.loadColour}">
                             ${data.stateEssentialLoad3.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load4)}>
-                        <text id="ess_load4_value" x="430" y="160" 
-                              display="${[4].includes(data.additionalLoad) && data.stateEssentialLoad4.isValid() ? '' : 'none'}" class="st3" 
+                        <text id="ess_load4_value" x="430" y="160"
+                              display="${[4].includes(data.additionalLoad) && data.stateEssentialLoad4.isValid() ? '' : 'none'}" class="st3"
                               fill="${data.loadColour}">
                             ${data.stateEssentialLoad4.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
                     ${data.totalGridPower >= 0
-                            ? svg`
+            ? svg`
                                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.energy_cost_buy)}>
-                                        <text id="energy_cost" x="414" y="305" class="${!config.show_grid ? 'st12' : 'st3 right-align'}" 
-                                              fill="${data.gridColour}" 
+                                        <text id="energy_cost" x="414" y="305" class="${!config.show_grid ? 'st12' : 'st3 right-align'}"
+                                              fill="${data.gridColour}"
                                               display="${config.entities?.energy_cost_buy && data.stateEnergyCostBuy.isValid() ? '' : 'none'}" >
                                             ${data.energyCost} ${data.stateEnergyCostBuy?.getUOM()}</text>
                                     </a>`
-                            : svg`
+            : svg`
                                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.energy_cost_sell)}>
-                                        <text id="energy_cost" x="414" y="305"  class="${!config.show_grid ? 'st12' : 'st3 right-align'}" 
-                                              fill="${data.gridColour}" 
+                                        <text id="energy_cost" x="414" y="305"  class="${!config.show_grid ? 'st12' : 'st3 right-align'}"
+                                              fill="${data.gridColour}"
                                               display="${config.entities?.energy_cost_sell && data.stateEnergyCostSell.isValid() ? '' : 'none'}" >
                                             ${data.energyCost} ${data.stateEnergyCostSell?.getUOM()}
                                         </text>
                                     </a>`
-                    }
+        }
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.inverter_voltage_154)}>
                         <text id="inverter_voltage_154" x="270"
                               y="${config.inverter.three_phase ? '164' : '170.4'}"
@@ -2048,10 +2048,10 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         <text id="battery_soc_184" x="191.5" y="333" fill=${data.batteryColour}
                               class="st13 st8 left-align"
                               display="${data.inverterProg.show === false
-                              || config.entities.battery_soc_184 === 'none'
-                              || !config.show_battery
-                              || [InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel)
-                              || config.battery.hide_soc ? 'none' : ''}">
+            || config.entities.battery_soc_184 === 'none'
+            || !config.show_battery
+            || [InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel)
+            || config.battery.hide_soc ? 'none' : ''}">
                             | ${data.inverterProg.capacity || 0}%
                         </text>
                     </a>
@@ -2059,7 +2059,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         <text id="battery_soc_184" x="191.5" y="333" fill=${data.batteryColour}
                               class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st13 st8 left-align'}"
                               display="${[InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel) && config.battery?.shutdown_soc && !config.battery?.shutdown_soc_offgrid
-                                      ? '' : 'none'}">
+            ? '' : 'none'}">
                             | ${data.batteryShutdown || 0}%
                         </text>
                     </a>
@@ -2075,14 +2075,14 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                               display="${config.entities.battery_power_190 === 'none' || !config.show_battery ? 'none' : ''}"
                               fill=${data.batteryColour} class="${data.largeFont !== true ? 'st14' : 'st4'} st8">
                             ${config.battery.auto_scale
-                                    ? `${config.battery.show_absolute
-                                            ? `${Math.abs(parseFloat(Utils.convertValue(data.batteryPower, data.decimalPlaces)))} ${Utils.convertValue(data.batteryPower, data.decimalPlaces).split(' ')[1]}`
-                                            : Utils.convertValue(data.batteryPower, data.decimalPlaces) || '0'}`
-                                    : `${config.battery.show_absolute
-                                            ? `${Math.abs(data.batteryPower)} ${UnitOfPower.WATT}`
-                                            : `${data.batteryPower || 0} ${UnitOfPower.WATT}`
-                                    }`
-                            }
+            ? `${config.battery.show_absolute
+                ? `${Math.abs(parseFloat(Utils.convertValue(data.batteryPower, data.decimalPlaces)))} ${Utils.convertValue(data.batteryPower, data.decimalPlaces).split(' ')[1]}`
+                : Utils.convertValue(data.batteryPower, data.decimalPlaces) || '0'}`
+            : `${config.battery.show_absolute
+                ? `${Math.abs(data.batteryPower)} ${UnitOfPower.WATT}`
+                : `${data.batteryPower || 0} ${UnitOfPower.WATT}`
+            }`
+        }
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_current_191)}>
@@ -2090,9 +2090,9 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                               display="${config.entities.battery_current_191 === 'none' || !config.show_battery || !data.stateBatteryCurrent.isValid() ? 'none' : ''}"
                               fill=${data.batteryColour} class="${data.largeFont !== true ? 'st14' : 'st4'} st8">
                             ${config.battery.show_absolute
-                                    ? Math.abs(Utils.toNum(data.stateBatteryCurrent.state, 1))
-                                    : Utils.toNum(data.stateBatteryCurrent.state, 1)
-                            }
+            ? Math.abs(Utils.toNum(data.stateBatteryCurrent.state, 1))
+            : Utils.toNum(data.stateBatteryCurrent.state, 1)
+        }
                             ${UnitOfElectricalCurrent.AMPERE}
                         </text>
                     </a>
@@ -2102,8 +2102,8 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                               display="${config.entities.inverter_power_175 === 'none' ? 'none' : ''}"
                               class="${data.largeFont !== true ? 'st14' : 'st4'} st8" fill="${data.inverterColour}">
                             ${config.inverter.auto_scale
-                                    ? `${Utils.convertValue(data.autoScaledInverterPower, data.decimalPlaces) || 0}`
-                                    : `${data.autoScaledInverterPower} ${UnitOfPower.WATT}`}
+            ? `${Utils.convertValue(data.autoScaledInverterPower, data.decimalPlaces) || 0}`
+            : `${data.autoScaledInverterPower} ${UnitOfPower.WATT}`}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_power_169)}>
@@ -2112,19 +2112,19 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                               display="${!config.show_grid || config.entities.grid_power_169 === 'none' ? 'none' : ''}"
                               class="${data.largeFont !== true ? 'st14' : 'st4'} st8" fill="${data.gridColour}">
                             ${config.grid.auto_scale
-                                    ? `${config.grid.show_absolute
-                                            ? `${Math.abs(parseFloat(Utils.convertValue(data.autoScaledGridPower, data.decimalPlaces)))} ${Utils.convertValue(data.autoScaledGridPower, data.decimalPlaces).split(' ')[1]}`
-                                            : Utils.convertValue(data.autoScaledGridPower, data.decimalPlaces) || 0}`
-                                    : `${config.grid.show_absolute
-                                            ? `${Math.abs(data.autoScaledGridPower)} ${UnitOfPower.WATT}`
-                                            : `${data.autoScaledGridPower || 0} ${UnitOfPower.WATT}`
-                                    }`
-                            }
+            ? `${config.grid.show_absolute
+                ? `${Math.abs(parseFloat(Utils.convertValue(data.autoScaledGridPower, data.decimalPlaces)))} ${Utils.convertValue(data.autoScaledGridPower, data.decimalPlaces).split(' ')[1]}`
+                : Utils.convertValue(data.autoScaledGridPower, data.decimalPlaces) || 0}`
+            : `${config.grid.show_absolute
+                ? `${Math.abs(data.autoScaledGridPower)} ${UnitOfPower.WATT}`
+                : `${data.autoScaledGridPower || 0} ${UnitOfPower.WATT}`
+            }`
+        }
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv1_voltage_109)}>
                         <text id="pv1_voltage" x="41" y="78.5" class="st3 left-align"
-                              display="${!config.show_solar || !config.entities.pv1_voltage_109 || config.entities.pv1_voltage_109  === 'none' || !data.statePV1Voltage.isValid() ? 'none' : ''}"
+                              display="${!config.show_solar || !config.entities.pv1_voltage_109 || config.entities.pv1_voltage_109 === 'none' || !data.statePV1Voltage.isValid() ? 'none' : ''}"
                               fill="${data.solarColour}">${data.statePV1Voltage.toNum(1)}
                             ${UnitOfElectricPotential.VOLT}
                         </text>
@@ -2221,7 +2221,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.stateAuxLoad1Extra?.getUOM()}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.aux_load1_extra)}>                    
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.aux_load1_extra)}>
                         <text id="aux_load1_extra" x="360" y="14" class="st3 st8"
                               display="${data.showAux && [1, 2].includes(data.additionalAuxLoad) && config.entities.aux_load1_extra ? '' : 'none'}"
                               fill="${data.auxDynamicColourLoad1}">
