@@ -53,7 +53,7 @@ export default {
         auto_scale: true,
         display_mode: 1,
         dynamic_colour: true,
-        efficiency: 0,
+        efficiency: 3,
     },
     load: {
         colour: '#5fb6ad',
