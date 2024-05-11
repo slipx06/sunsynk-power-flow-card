@@ -1,9 +1,9 @@
-import { html, svg } from 'lit';
-import { localize } from '../localize/localize';
-import { AutarkyType, DataDto, InverterModel, sunsynkPowerFlowCardConfig } from '../types';
-import { Utils } from '../helpers/utils';
-import { UnitOfElectricalCurrent, UnitOfElectricPotential, UnitOfEnergy, UnitOfPower, validGridConnected, validGridDisconnected } from '../const';
-import { icons } from '../helpers/icons';
+import {html, svg} from 'lit';
+import {localize} from '../localize/localize';
+import {AutarkyType, DataDto, InverterModel, sunsynkPowerFlowCardConfig} from '../types';
+import {Utils} from '../helpers/utils';
+import {UnitOfElectricalCurrent, UnitOfElectricPotential, UnitOfEnergy, UnitOfPower, validGridConnected, validGridDisconnected} from '../const';
+import {icons} from '../helpers/icons';
 
 export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string, data: DataDto) => {
     return html`
@@ -296,7 +296,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                           fill="${data.loadColour}">${config.load.essential_name}
                     </text>
                     <text id="ess_load" x="411" y="130" class="st3 st8"
-                          display="${([1, 2].includes(data.additionalLoad) && data.showAux) || (!data.showAux && [4].includes(data.additionalLoad)) ? '' : 'none'}"
+                          display="${([1,2].includes(data.additionalLoad) && data.showAux) || (!data.showAux && [4].includes(data.additionalLoad)) ? '' : 'none'}"
                           fill="${data.loadColour}">${config.load.essential_name}
                     </text>
                     <text id="ess-load1" x="416" y="${!data.showAux ? 70 : 181}" class="st3 left-align"
@@ -359,8 +359,8 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     <text id="daily_grid_buy"
                           x="${!data.showNonessential ? '311' : '347'}"
                           y="${!data.showNonessential
-            ? '368'
-            : config.entities?.max_sell_power ? '256' : '253'}"
+                                   ? '368' 
+                                   : config.entities?.max_sell_power ? '256' : '253'}"                           
                           class="st3 left-align"
                           fill="${data.gridShowDailyBuy !== true ? 'transparent' : `${data.gridColour}`}"
                           display="${!config.show_grid ? 'none' : ''}">
@@ -368,9 +368,9 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </text>
                     <text id="daily_grid_sell"
                           x="${!data.showNonessential ? '311' : '347'}"
-                          y="${!data.showNonessential
-            ? '337'
-            : config.entities?.max_sell_power ? '225' : '222'}"
+                          y="${!data.showNonessential 
+                                   ? '337' 
+                                   : config.entities?.max_sell_power ? '225' : '222'}" 
                           class="st3 left-align"
                           fill="${data.gridShowDailySell !== true ? 'transparent' : `${data.gridColour}`}"
                           display="${!config.show_grid ? 'none' : ''}">
@@ -1624,8 +1624,8 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         <text id="daily_grid_buy_value"
                               x="${!data.showNonessential ? '311' : '347'}"
                               y="${!data.showNonessential
-            ? '354'
-            : config.entities?.max_sell_power ? '242' : '239'}"
+                                   ? '354' 
+                                   : config.entities?.max_sell_power ? '242' : '239'}"   
                               class="st10 left-align"
                               display="${!config.show_grid || data.gridShowDailyBuy !== true || !data.stateDayGridImport.isValid() ? 'none' : ''}"
                               fill="${data.gridColour}">
@@ -1635,9 +1635,9 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_grid_export_77)}>
                         <text id="daily_grid_sell_value"
                               x="${!data.showNonessential ? '311' : '347'}"
-                              y="${!data.showNonessential
-            ? '323'
-            : config.entities?.max_sell_power ? '212' : '209'}"
+                              y="${!data.showNonessential 
+                                   ? '323' 
+                                   : config.entities?.max_sell_power ? '212' : '209'}" 
                               class="st10 left-align"
                               display="${!config.show_grid || data.gridShowDailySell !== true || !data.stateDayGridExport.isValid() ? 'none' : ''}"
                               fill="${data.gridColour}">
@@ -1710,96 +1710,96 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </text>
                     </a>
                     ${config.inverter.three_phase
-            ? config.entities?.grid_ct_power_total
-                ? svg`
+                            ? config.entities?.grid_ct_power_total
+                                    ? svg`
                                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_ct_power_total)}>
                                         <text id="grid_total_power" x="420" y="281.5"
                                               display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
                                               class="${data.largeFont !== true ? 'st14' : 'st4'} st8" fill="${data.gridColour}">
                                             ${config.grid.auto_scale
-                        ? `${config.grid.show_absolute
-                            ? `${Math.abs(parseFloat(Utils.convertValue(data.totalGridPower, data.decimalPlaces)))} ${Utils.convertValue(data.totalGridPower, data.decimalPlaces).split(' ')[1]}`
-                            : Utils.convertValue(data.totalGridPower, data.decimalPlaces) || 0}`
-                        : `${config.grid.show_absolute
-                            ? `${Math.abs(data.totalGridPower)} ${UnitOfPower.WATT}`
-                            : `${data.totalGridPower || 0} ${UnitOfPower.WATT}`
-                        }`
-                    }
+                                            ? `${config.grid.show_absolute
+                                                    ? `${Math.abs(parseFloat(Utils.convertValue(data.totalGridPower, data.decimalPlaces)))} ${Utils.convertValue(data.totalGridPower, data.decimalPlaces).split(' ')[1]}`
+                                                    : Utils.convertValue(data.totalGridPower, data.decimalPlaces) || 0}`
+                                            : `${config.grid.show_absolute
+                                                    ? `${Math.abs(data.totalGridPower)} ${UnitOfPower.WATT}`
+                                                    : `${data.totalGridPower || 0} ${UnitOfPower.WATT}`
+                                            }`
+                                    }
                                         </text>
                                         </a>`
-                : svg`
+                                    : svg`
                                         <text id="grid_total_power" x="420" y="281.5"
                                               display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
                                               class="${data.largeFont !== true ? 'st14' : 'st4'} st8" fill="${data.gridColour}">
                                             ${config.grid.auto_scale
-                        ? `${config.grid.show_absolute
-                            ? `${Math.abs(parseFloat(Utils.convertValue(data.totalGridPower, data.decimalPlaces)))} ${Utils.convertValue(data.totalGridPower, data.decimalPlaces).split(' ')[1]}`
-                            : Utils.convertValue(data.totalGridPower, data.decimalPlaces) || 0}`
-                        : `${config.grid.show_absolute
-                            ? `${Math.abs(data.totalGridPower)} ${UnitOfPower.WATT}`
-                            : `${data.totalGridPower || 0} ${UnitOfPower.WATT}`
-                        }`
-                    }
+                                            ? `${config.grid.show_absolute
+                                                    ? `${Math.abs(parseFloat(Utils.convertValue(data.totalGridPower, data.decimalPlaces)))} ${Utils.convertValue(data.totalGridPower, data.decimalPlaces).split(' ')[1]}`
+                                                    : Utils.convertValue(data.totalGridPower, data.decimalPlaces) || 0}`
+                                            : `${config.grid.show_absolute
+                                                    ? `${Math.abs(data.totalGridPower)} ${UnitOfPower.WATT}`
+                                                    : `${data.totalGridPower || 0} ${UnitOfPower.WATT}`
+                                            }`
+                                    }
                                         </text>`
-            : svg`
+                            : svg`
                                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_ct_power_172)}>
                                         <text id="grid_total_power" x="420" y="281.5"
                                               display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
                                               class="${data.largeFont !== true ? 'st14' : 'st4'} st8" fill="${data.gridColour}">
                                             ${config.grid.auto_scale
-                    ? `${config.grid.show_absolute
-                        ? `${Math.abs(parseFloat(Utils.convertValue(data.totalGridPower, data.decimalPlaces)))} ${Utils.convertValue(data.totalGridPower, data.decimalPlaces).split(' ')[1]}`
-                        : Utils.convertValue(data.totalGridPower, data.decimalPlaces) || 0}`
-                    : `${config.grid.show_absolute
-                        ? `${Math.abs(data.totalGridPower)} ${UnitOfPower.WATT}`
-                        : `${data.totalGridPower || 0} ${UnitOfPower.WATT}`
-                    }`
-                }
+                                    ? `${config.grid.show_absolute
+                                            ? `${Math.abs(parseFloat(Utils.convertValue(data.totalGridPower, data.decimalPlaces)))} ${Utils.convertValue(data.totalGridPower, data.decimalPlaces).split(' ')[1]}`
+                                            : Utils.convertValue(data.totalGridPower, data.decimalPlaces) || 0}`
+                                    : `${config.grid.show_absolute
+                                            ? `${Math.abs(data.totalGridPower)} ${UnitOfPower.WATT}`
+                                            : `${data.totalGridPower || 0} ${UnitOfPower.WATT}`
+                                    }`
+                            }
                                         </text>
                                     </a>`
-        }
+                    }
                     ${config.entities?.pv_total
-            ? svg`
+                            ? svg`
                                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv_total)}>
                                         <text id="pvtotal_power" x="87" y="178" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
                                               display="${!config.show_solar || config.solar.mppts === 1 || !data.statePVTotal.isValid() ? 'none' : ''}"
                                               fill="${data.solarColour}">
                                             ${config.solar.auto_scale
-                    ? config.entities?.pv_total
-                        ? Utils.convertValueNew(data.totalPV, data.statePVTotal?.getUOM(), data.decimalPlaces)
-                        : Utils.convertValue(data.totalPV, data.decimalPlaces) || 0
-                    : `${Utils.toNum(data.totalPV || 0, 0)} ${UnitOfPower.WATT}`
-                }
+                                    ? config.entities?.pv_total
+                                            ? Utils.convertValueNew(data.totalPV, data.statePVTotal?.getUOM(), data.decimalPlaces)
+                                            : Utils.convertValue(data.totalPV, data.decimalPlaces) || 0
+                                    : `${Utils.toNum(data.totalPV || 0, 0)} ${UnitOfPower.WATT}`
+                            }
                                         </text>
                                     </a>`
-            : svg`
-                                    <text id="pvtotal_power" x="87" y="178" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
-                                          display="${!config.show_solar || config.solar.mppts === 1 || !data.statePVTotal.isValid() ? 'none' : ''}"
+                            : svg`
+                                    <text id="pvtotal_power" x="87" y="178" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
+                                          display="${!config.show_solar || config.solar.mppts === 1 || !data.statePVTotal.isValid() ? 'none' : ''}" 
                                           fill="${data.solarColour}">
                                         ${config.solar.auto_scale
-                    ? config.entities?.pv_total
-                        ? Utils.convertValueNew(data.totalPV, data.statePVTotal?.getUOM(), data.decimalPlaces)
-                        : Utils.convertValue(data.totalPV, data.decimalPlaces) || 0
-                    : `${Utils.toNum(data.totalPV || 0, 0)} ${UnitOfPower.WATT}`
-                }
+                                    ? config.entities?.pv_total
+                                            ? Utils.convertValueNew(data.totalPV, data.statePVTotal?.getUOM(), data.decimalPlaces)
+                                            : Utils.convertValue(data.totalPV, data.decimalPlaces) || 0
+                                    : `${Utils.toNum(data.totalPV || 0, 0)} ${UnitOfPower.WATT}`
+                            }
                                     </text>`
-        }
+                    }
                     ${config.entities?.essential_power && config.entities.essential_power !== 'none'
-            ? svg`
+                            ? svg`
                                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_power)}>
                                         <text id="ess_power" x="270" y="119" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
                                               fill="${data.loadColour}">
                                             ${config.load.auto_scale ? `${Utils.convertValue(data.essentialPower, data.decimalPlaces) || 0}` : `${data.essentialPower || 0} ${UnitOfPower.WATT}`}
                                         </text>
                                     </a>`
-            : svg`
-                                    <text id="ess_power" x="270" y="119" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
+                            : svg`
+                                    <text id="ess_power" x="270" y="119" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
                                           fill="${data.loadColour}">
                                         ${config.load.auto_scale ? `${Utils.convertValue(data.essentialPower, data.decimalPlaces) || 0}` : `${data.essentialPower || 0} ${UnitOfPower.WATT}`}
                                     </text>`
-        }
+                    }
                     ${config.entities?.nonessential_power
-            ? svg`
+                            ? svg`
                                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.nonessential_power)}>
                                         <text id="non_ess_power" x="338" y="281.5" display="${!config.show_grid || !data.showNonessential ? 'none' : ''}"
                                               class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
@@ -1807,78 +1807,78 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                             ${config.grid.auto_scale ? `${Utils.convertValue(data.nonessentialPower, data.decimalPlaces) || 0}` : `${data.nonessentialPower || 0} ${UnitOfPower.WATT}`}
                                         </text>
                                     </a>`
-            : svg`
+                            : svg`
                                     <text id="non_ess_power" x="338" y="281.5"
                                           display="${!config.show_grid || !data.showNonessential ? 'none' : ''}"
                                           class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
                                           fill="${data.gridColour}">
                                         ${config.grid.auto_scale ? `${Utils.convertValue(data.nonessentialPower, data.decimalPlaces) || 0}` : `${data.nonessentialPower || 0} ${UnitOfPower.WATT}`}
                                     </text>`
-        }
+                    }
                     ${config.entities?.aux_power_166
-            ? svg`
+                            ? svg`
                                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.aux_power_166)}>
                                         <text id="aux_power_166" x="270" y="48" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
                                               display="${!data.showAux ? 'none' : ''}"
                                               fill="${data.auxDynamicColour}">
                                             ${config.load.auto_scale
-                    ? `${config.load.show_absolute_aux
-                        ? `${Math.abs(parseFloat(Utils.convertValue(data.auxPower, data.decimalPlaces)))} ${Utils.convertValue(data.auxPower, data.decimalPlaces).split(' ')[1]}`
-                        : Utils.convertValue(data.auxPower, data.decimalPlaces) || '0'}`
-                    : `${config.load.show_absolute_aux
-                        ? `${Math.abs(data.auxPower)}`
-                        : data.auxPower || 0} ${UnitOfPower.WATT}`
-                }
+                                    ? `${config.load.show_absolute_aux
+                                            ? `${Math.abs(parseFloat(Utils.convertValue(data.auxPower, data.decimalPlaces)))} ${Utils.convertValue(data.auxPower, data.decimalPlaces).split(' ')[1]}`
+                                            : Utils.convertValue(data.auxPower, data.decimalPlaces) || '0'}`
+                                    : `${config.load.show_absolute_aux
+                                            ? `${Math.abs(data.auxPower)}`
+                                            : data.auxPower || 0} ${UnitOfPower.WATT}`
+                            }
                                         </text>
                                     </a>`
-            : svg`
-                                    <text id="aux_power_166" x="270" y="48" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
-                                          display="${!data.showAux ? 'none' : ''}"
+                            : svg`
+                                    <text id="aux_power_166" x="270" y="48" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
+                                          display="${!data.showAux ? 'none' : ''}" 
                                           fill="${data.auxDynamicColour}">
                                         ${config.load.auto_scale
-                    ? `${config.load.show_absolute_aux
-                        ? `${Math.abs(parseFloat(Utils.convertValue(data.auxPower, data.decimalPlaces)))} ${Utils.convertValue(data.auxPower, data.decimalPlaces).split(' ')[1]}`
-                        : Utils.convertValue(data.auxPower, data.decimalPlaces) || '0'}`
-                    : `${config.load.show_absolute_aux
-                        ? `${Math.abs(data.auxPower)}`
-                        : data.auxPower || 0} ${UnitOfPower.WATT}`
-                }
+                                    ? `${config.load.show_absolute_aux
+                                            ? `${Math.abs(parseFloat(Utils.convertValue(data.auxPower, data.decimalPlaces)))} ${Utils.convertValue(data.auxPower, data.decimalPlaces).split(' ')[1]}`
+                                            : Utils.convertValue(data.auxPower, data.decimalPlaces) || '0'}`
+                                    : `${config.load.show_absolute_aux
+                                            ? `${Math.abs(data.auxPower)}`
+                                            : data.auxPower || 0} ${UnitOfPower.WATT}`
+                            }
                                         </text>`
-        }
+                    }
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv1_power_186)}>
                         <text id="pv1_power_186" x="36.5" y="56.5" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
                               display="${!config.show_solar || !data.statePV1Power.isValid() ? 'none' : ''}"
                               fill="${data.solarColour}" >
-                              ${config.solar.auto_scale
-            ? Utils.convertValue(data.pv1PowerWatts, data.decimalPlaces) || 0
-            : `${Utils.toNum(data.pv1PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
+                              ${config.solar.auto_scale 
+                                   ? Utils.convertValue(data.pv1PowerWatts, data.decimalPlaces) || 0 
+                                   : `${Utils.toNum(data.pv1PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv2_power_187)}>
                         <text id="pv2_power_187" x="137" y="56.5" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
                               display="${!config.show_solar || config.solar.mppts === 1 || !data.statePV2Power.isValid() ? 'none' : ''}"
                               fill="${data.solarColour}">
-                              ${config.solar.auto_scale
-            ? Utils.convertValue(data.pv2PowerWatts, data.decimalPlaces) || 0
-            : `${Utils.toNum(data.pv2PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
+                              ${config.solar.auto_scale 
+                                   ? Utils.convertValue(data.pv2PowerWatts, data.decimalPlaces) || 0 
+                                   : `${Utils.toNum(data.pv2PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv3_power_188)}>
                         <text id="pv3_power_188" x="36.5" y="117" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
                               display="${!config.show_solar || [1, 2].includes(config.solar.mppts) || !data.statePV3Power.isValid() ? 'none' : ''}"
                               fill="${data.solarColour}">
-                              ${config.solar.auto_scale
-            ? Utils.convertValue(data.pv3PowerWatts, data.decimalPlaces) || 0
-            : `${Utils.toNum(data.pv3PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
+                              ${config.solar.auto_scale 
+                                   ? Utils.convertValue(data.pv3PowerWatts, data.decimalPlaces) || 0 
+                                   : `${Utils.toNum(data.pv3PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv4_power_189)}>
                         <text id="pv4_power_189" x="137" y="117" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
                               display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) || !data.statePV3Power.isValid() ? 'none' : ''}"
                               fill="${data.solarColour}">
-                              ${config.solar.auto_scale
-            ? Utils.convertValue(data.pv4PowerWatts, data.decimalPlaces) || 0
-            : `${Utils.toNum(data.pv4PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
+                              ${config.solar.auto_scale 
+                                   ? Utils.convertValue(data.pv4PowerWatts, data.decimalPlaces) || 0 
+                                   : `${Utils.toNum(data.pv4PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.aux_load1)}>
@@ -1960,14 +1960,14 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </text>
                     </a>
                     ${data.totalGridPower >= 0
-            ? svg`
+                            ? svg`
                                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.energy_cost_buy)}>
                                         <text id="energy_cost" x="414" y="305" class="${!config.show_grid ? 'st12' : 'st3 right-align'}"
                                               fill="${data.gridColour}"
                                               display="${config.entities?.energy_cost_buy && data.stateEnergyCostBuy.isValid() ? '' : 'none'}" >
                                             ${data.energyCost} ${data.stateEnergyCostBuy?.getUOM()}</text>
                                     </a>`
-            : svg`
+                            : svg`
                                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.energy_cost_sell)}>
                                         <text id="energy_cost" x="414" y="305"  class="${!config.show_grid ? 'st12' : 'st3 right-align'}"
                                               fill="${data.gridColour}"
@@ -1975,7 +1975,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                             ${data.energyCost} ${data.stateEnergyCostSell?.getUOM()}
                                         </text>
                                     </a>`
-        }
+                    }
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.inverter_voltage_154)}>
                         <text id="inverter_voltage_154" x="270"
                               y="${config.inverter.three_phase ? '164' : '170.4'}"
@@ -2048,10 +2048,10 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         <text id="battery_soc_184" x="191.5" y="333" fill=${data.batteryColour}
                               class="st13 st8 left-align"
                               display="${data.inverterProg.show === false
-            || config.entities.battery_soc_184 === 'none'
-            || !config.show_battery
-            || [InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel)
-            || config.battery.hide_soc ? 'none' : ''}">
+                              || config.entities.battery_soc_184 === 'none'
+                              || !config.show_battery
+                              || [InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel)
+                              || config.battery.hide_soc ? 'none' : ''}">
                             | ${data.inverterProg.capacity || 0}%
                         </text>
                     </a>
@@ -2059,7 +2059,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         <text id="battery_soc_184" x="191.5" y="333" fill=${data.batteryColour}
                               class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st13 st8 left-align'}"
                               display="${[InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel) && config.battery?.shutdown_soc && !config.battery?.shutdown_soc_offgrid
-            ? '' : 'none'}">
+                                      ? '' : 'none'}">
                             | ${data.batteryShutdown || 0}%
                         </text>
                     </a>
@@ -2075,14 +2075,14 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                               display="${config.entities.battery_power_190 === 'none' || !config.show_battery ? 'none' : ''}"
                               fill=${data.batteryColour} class="${data.largeFont !== true ? 'st14' : 'st4'} st8">
                             ${config.battery.auto_scale
-            ? `${config.battery.show_absolute
-                ? `${Math.abs(parseFloat(Utils.convertValue(data.batteryPower, data.decimalPlaces)))} ${Utils.convertValue(data.batteryPower, data.decimalPlaces).split(' ')[1]}`
-                : Utils.convertValue(data.batteryPower, data.decimalPlaces) || '0'}`
-            : `${config.battery.show_absolute
-                ? `${Math.abs(data.batteryPower)} ${UnitOfPower.WATT}`
-                : `${data.batteryPower || 0} ${UnitOfPower.WATT}`
-            }`
-        }
+                                    ? `${config.battery.show_absolute
+                                            ? `${Math.abs(parseFloat(Utils.convertValue(data.batteryPower, data.decimalPlaces)))} ${Utils.convertValue(data.batteryPower, data.decimalPlaces).split(' ')[1]}`
+                                            : Utils.convertValue(data.batteryPower, data.decimalPlaces) || '0'}`
+                                    : `${config.battery.show_absolute
+                                            ? `${Math.abs(data.batteryPower)} ${UnitOfPower.WATT}`
+                                            : `${data.batteryPower || 0} ${UnitOfPower.WATT}`
+                                    }`
+                            }
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_current_191)}>
@@ -2090,9 +2090,9 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                               display="${config.entities.battery_current_191 === 'none' || !config.show_battery || !data.stateBatteryCurrent.isValid() ? 'none' : ''}"
                               fill=${data.batteryColour} class="${data.largeFont !== true ? 'st14' : 'st4'} st8">
                             ${config.battery.show_absolute
-            ? Math.abs(Utils.toNum(data.stateBatteryCurrent.state, 1))
-            : Utils.toNum(data.stateBatteryCurrent.state, 1)
-        }
+                                    ? Math.abs(Utils.toNum(data.stateBatteryCurrent.state, 1))
+                                    : Utils.toNum(data.stateBatteryCurrent.state, 1)
+                            }
                             ${UnitOfElectricalCurrent.AMPERE}
                         </text>
                     </a>
@@ -2102,8 +2102,8 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                               display="${config.entities.inverter_power_175 === 'none' ? 'none' : ''}"
                               class="${data.largeFont !== true ? 'st14' : 'st4'} st8" fill="${data.inverterColour}">
                             ${config.inverter.auto_scale
-            ? `${Utils.convertValue(data.autoScaledInverterPower, data.decimalPlaces) || 0}`
-            : `${data.autoScaledInverterPower} ${UnitOfPower.WATT}`}
+                                    ? `${Utils.convertValue(data.autoScaledInverterPower, data.decimalPlaces) || 0}`
+                                    : `${data.autoScaledInverterPower} ${UnitOfPower.WATT}`}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_power_169)}>
@@ -2112,14 +2112,14 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                               display="${!config.show_grid || config.entities.grid_power_169 === 'none' ? 'none' : ''}"
                               class="${data.largeFont !== true ? 'st14' : 'st4'} st8" fill="${data.gridColour}">
                             ${config.grid.auto_scale
-            ? `${config.grid.show_absolute
-                ? `${Math.abs(parseFloat(Utils.convertValue(data.autoScaledGridPower, data.decimalPlaces)))} ${Utils.convertValue(data.autoScaledGridPower, data.decimalPlaces).split(' ')[1]}`
-                : Utils.convertValue(data.autoScaledGridPower, data.decimalPlaces) || 0}`
-            : `${config.grid.show_absolute
-                ? `${Math.abs(data.autoScaledGridPower)} ${UnitOfPower.WATT}`
-                : `${data.autoScaledGridPower || 0} ${UnitOfPower.WATT}`
-            }`
-        }
+                                    ? `${config.grid.show_absolute
+                                            ? `${Math.abs(parseFloat(Utils.convertValue(data.autoScaledGridPower, data.decimalPlaces)))} ${Utils.convertValue(data.autoScaledGridPower, data.decimalPlaces).split(' ')[1]}`
+                                            : Utils.convertValue(data.autoScaledGridPower, data.decimalPlaces) || 0}`
+                                    : `${config.grid.show_absolute
+                                            ? `${Math.abs(data.autoScaledGridPower)} ${UnitOfPower.WATT}`
+                                            : `${data.autoScaledGridPower || 0} ${UnitOfPower.WATT}`
+                                    }`
+                            }
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv1_voltage_109)}>
