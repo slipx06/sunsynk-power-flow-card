@@ -1798,7 +1798,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                         ${config.load.auto_scale ? `${Utils.convertValue(data.essentialPower, data.decimalPlaces) || 0}` : `${data.essentialPower || 0} ${UnitOfPower.WATT}`}
                                     </text>`
                     }
-                    ${config.entities?.nonessential_power
+                    ${config.entities?.nonessential_power && config.entities.nonessential_power !== 'none'
                             ? svg`
                                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.nonessential_power)}>
                                         <text id="non_ess_power" x="338" y="281.5" display="${!config.show_grid || !data.showNonessential ? 'none' : ''}" 
