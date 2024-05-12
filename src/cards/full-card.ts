@@ -1075,9 +1075,9 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 <stop offset="${data.batteryPercentage < 2 ? 0 : data.batteryPercentage}%"
                                       stop-color="${Number(data.batteryPercentage) > 0 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) === 100 ? data.solarColour : data.gridColour) : data.gridColour)}"/>
                                 <stop offset="${data.batteryPercentage < 2 ? 0 : data.batteryPercentage}%"
-                                      stop-color="${Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) === 100 ? data.solarColour : data.gridColour) : data.gridColour}"/>
+                                      stop-color="${Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) + Number(data.batteryPercentage) === 100 ? data.solarColour : data.gridColour) : data.gridColour}"/>
                                 <stop offset="${(Number(data.pvPercentage) + Number(data.batteryPercentage) === 100 ? 100 : 100 - (Number(data.batteryPercentage < 2 ? 0 : data.batteryPercentage) + Number(data.pvPercentage < 2 ? 0 : data.pvPercentage)))}%"
-                                      stop-color="${Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) === 100 ? data.solarColour : data.gridColour) : data.gridColour}"/>
+                                      stop-color="${Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) + Number(data.batteryPercentage) === 100 ? data.solarColour : data.gridColour) : data.gridColour}"/>
                                 <stop offset="${(Number(data.pvPercentage) + Number(data.batteryPercentage) === 100 ? 100 : 100 - (Number(data.batteryPercentage < 2 ? 0 : data.batteryPercentage) + Number(data.pvPercentage < 2 ? 0 : data.pvPercentage)))}%"
                                       stop-color="${Number(data.batteryPercentage) === 100 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? data.solarColour : data.gridColour)}"/>
                                 <stop offset="100%"
@@ -1097,9 +1097,9 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 <stop offset="${data.batteryPercentage < 2 ? 0 : data.batteryPercentage}%"
                                       stop-color="${Number(data.batteryPercentage) > 0 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) === 100 ? data.solarColour : data.gridColour) : data.gridColour)}"/>
                                 <stop offset="${data.batteryPercentage < 2 ? 0 : data.batteryPercentage}%"
-                                      stop-color="${Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) === 100 ? data.solarColour : data.gridColour) : data.gridColour}"/>
+                                      stop-color="${Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) + Number(data.batteryPercentage) === 100 ? data.solarColour : data.gridColour) : data.gridColour}"/>
                                 <stop offset="${(Number(data.pvPercentage) + Number(data.batteryPercentage) === 100 ? 100 : 100 - (Number(data.batteryPercentage < 2 ? 0 : data.batteryPercentage) + Number(data.pvPercentage < 2 ? 0 : data.pvPercentage)))}%"
-                                      stop-color="${Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) === 100 ? data.solarColour : data.gridColour) : data.gridColour}"/>
+                                      stop-color="${Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) + Number(data.batteryPercentage) === 100 ? data.solarColour : data.gridColour) : data.gridColour}"/>
                                 <stop offset="${(Number(data.pvPercentage) + Number(data.batteryPercentage) === 100 ? 100 : 100 - (Number(data.batteryPercentage < 2 ? 0 : data.batteryPercentage) + Number(data.pvPercentage < 2 ? 0 : data.pvPercentage)))}%"
                                       stop-color="${Number(data.batteryPercentage) === 100 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? data.solarColour : data.gridColour)}"/>
                                 <stop offset="100%"
@@ -1119,9 +1119,9 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 <stop offset="${data.batteryPercentage < 2 ? 0 : data.batteryPercentage}%"
                                       stop-color="${Number(data.batteryPercentage) > 0 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) === 100 ? data.solarColour : data.gridColour) : data.gridColour)}"/>
                                 <stop offset="${data.batteryPercentage < 2 ? 0 : data.batteryPercentage}%"
-                                      stop-color="${Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) === 100 ? data.solarColour : data.gridColour) : data.gridColour}"/>
+                                      stop-color="${Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) + Number(data.batteryPercentage) === 100 ? data.solarColour : data.gridColour) : data.gridColour}"/>
                                 <stop offset="${(Number(data.pvPercentage) + Number(data.batteryPercentage) === 100 ? 100 : 100 - (Number(data.batteryPercentage < 2 ? 0 : data.batteryPercentage) + Number(data.pvPercentage < 2 ? 0 : data.pvPercentage)))}%"
-                                      stop-color="${Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) === 100 ? data.solarColour : data.gridColour) : data.gridColour}"/>
+                                      stop-color="${Number(data.pvPercentage) > 0 ? (Number(data.pvPercentage) + Number(data.batteryPercentage) === 100 ? data.solarColour : data.gridColour) : data.gridColour}"/>
                                 <stop offset="${(Number(data.pvPercentage) + Number(data.batteryPercentage) === 100 ? 100 : 100 - (Number(data.batteryPercentage < 2 ? 0 : data.batteryPercentage) + Number(data.pvPercentage < 2 ? 0 : data.pvPercentage)))}%"
                                       stop-color="${Number(data.batteryPercentage) === 100 ? data.batteryColour : (Number(data.pvPercentage) > 0 ? data.solarColour : data.gridColour)}"/>
                                 <stop offset="100%"
