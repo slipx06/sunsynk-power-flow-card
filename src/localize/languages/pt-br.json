@@ -153,6 +153,7 @@
       "show_absolute_aux": "Exibir absoluto_aux",
       "show_nonessential": "Exibir Desnecessário",
       "aux_name": "Nome Aux",
+      "aux_daily_name": "Daily Aux Name",
       "aux_type": "Icone Aux",
       "aux_loads": "Aux Loads",
       "essential_name": "Nome Essencial",

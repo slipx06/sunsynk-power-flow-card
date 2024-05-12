@@ -117,6 +117,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         animation_speed: number;
         max_power: number;
         aux_name: string;
+        aux_daily_name: string;
         aux_type: string;
         aux_colour: string;
         aux_off_colour: string;

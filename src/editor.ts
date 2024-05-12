@@ -192,6 +192,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                     schema: [
                                         {name: 'show_aux', selector: {boolean: {}}},
                                         {name: 'aux_name', selector: {text: {}}},
+                                        {name: 'aux_daily_name', selector: {text: {}}},
                                         {name: 'aux_type', selector: {icon: {}}},
                                         {name: 'invert_aux', selector: {boolean: {}}},
                                         {name: 'show_absolute_aux', selector: {boolean: {}}},

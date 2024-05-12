@@ -69,6 +69,7 @@ export default {
         animation_speed: 4,
         max_power: 8000,
         aux_name: localize('common.aux_name'),
+        aux_daily_name: localize('common.daily_aux'),
         aux_type: 'default',
         additional_loads: 0,
         aux_loads: 0,

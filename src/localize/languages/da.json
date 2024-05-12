@@ -153,6 +153,7 @@
       "show_absolute_aux": "Vis Absolut",
       "show_nonessential": "Vis ikke Essentiel",
       "aux_name": "Aux Navn",
+      "aux_daily_name": "Daglig Aux Navn",
       "aux_type": "Aux Ikon",
       "aux_loads": "Aux belastning",
       "essential_name": "Essentielt Navn",

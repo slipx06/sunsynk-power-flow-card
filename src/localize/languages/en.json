@@ -153,6 +153,7 @@
     "show_absolute_aux": "Show Absolute",
     "show_nonessential": "Show Non Essential",
     "aux_name": "Aux Name",
+    "aux_daily_name": "Daily Aux Name",
     "aux_type": "Aux Icon",
     "aux_loads": "Aux Loads",
     "essential_name": "Essential Name",

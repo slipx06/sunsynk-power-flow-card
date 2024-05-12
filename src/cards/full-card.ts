@@ -440,7 +440,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                           x="${[1, 2].includes(data.additionalAuxLoad) ? '238' : '306'}" y="24"
                           class="st3 left-align"
                           display="${!data.showAux || data.showDailyAux !== true ? 'none' : ''}"
-                          fill="${data.auxDynamicColour}">${localize('common.daily_aux')}
+                          fill="${data.auxDynamicColour}">${config.load.aux_daily_name}
                     </text>
                     <text id="load-power-3P" x="237" y="142"
                           display="${config.inverter.three_phase && config.entities?.load_power_L1 ? '' : 'none'}"
