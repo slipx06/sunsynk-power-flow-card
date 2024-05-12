@@ -846,20 +846,28 @@ export class SunsynkPowerFlowCard extends LitElement {
                 : (totalPV / (threePhase ? essentialPower + Math.max(auxPower, 0) : essentialPower)) * 100;
         const batteryPercentageRaw = batteryPower <= 0 ? 0 : (Math.abs(batteryPower) / (threePhase ? essentialPower + Math.max(auxPower, 0) : essentialPower)) * 100;
 
+        //console.log(`${pvPercentageRaw} % RAW PV to load, ${batteryPercentageRaw} % RAW Bat to load`); 
+
         // Normalize percentages
         const totalPercentage = pvPercentageRaw + batteryPercentageRaw;
         const normalizedPvPercentage = totalPercentage === 0 ? 0 : (pvPercentageRaw / totalPercentage) * 100;
         const normalizedBatteryPercentage = totalPercentage === 0 ? 0 : (batteryPercentageRaw / totalPercentage) * 100;
+        
+        //console.log(`${normalizedPvPercentage} % normalizedPVPercentage to load, ${normalizedBatteryPercentage} % normalizedBatteryPercentage to load`); 
 
         let pvPercentage = 0;
         let batteryPercentage = 0;
+        let gridPercentage = 0;
         if (totalPercentage > 100) {
             pvPercentage = Utils.toNum(normalizedPvPercentage, 0);
             batteryPercentage = Utils.toNum(normalizedBatteryPercentage, 0);
         } else {
             pvPercentage = Utils.toNum(Math.min(pvPercentageRaw, 100), 0);
             batteryPercentage = Utils.toNum(Math.min(batteryPercentageRaw, 100), 0);
+            gridPercentage = 100 - (pvPercentage + batteryPercentage);
         }
+
+        //console.log(`${pvPercentage} % PVPercentage, ${batteryPercentage} % BatteryPercentage, ${gridPercentage} % GridPercentage`); 
 
         //Calculate dynamic colour for battery icon based on the contribution of the power source (grid, solar) supplying the battery
         const pvPercentageRawBat = (totalPV === 0 || batteryPower >= 0)
@@ -906,7 +914,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                 essIcon = icons.essBat;
                 essIconSize = 0;
                 break;
-            case pvPercentageRaw < 5 && batteryPercentageRaw < 5 && config.load.dynamic_icon:
+            case pvPercentageRaw < 5 && batteryPercentageRaw < 5 && gridPercentage > 0 && config.load.dynamic_icon:
                 essIcon = icons.essGrid;
                 essIconSize = 0;
                 break;
@@ -1097,7 +1105,8 @@ export class SunsynkPowerFlowCard extends LitElement {
             PV1Efficiency,
             PV2Efficiency,
             PV3Efficiency,
-            PV4Efficiency
+            PV4Efficiency,
+            gridPercentage
         };
 
         if (this.isFullCard) {

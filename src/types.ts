@@ -442,5 +442,6 @@ export interface DataDto {
     PV1Efficiency,
     PV2Efficiency,
     PV3Efficiency,
-    PV4Efficiency
+    PV4Efficiency,
+    gridPercentage
 }
