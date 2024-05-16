@@ -805,9 +805,9 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 <stop offset="${(Number(data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat) + Number(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat))}%"
                                       stop-color="${Number(data.gridPercentageBat) > 0 ? `${data.gridColour}` : `${data.batteryColour}`}"/>
                                 <stop offset="${(Number(data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat) + Number(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat))}%"
-                                      stop-color="${Number(data.pvPercentageBat) === 100 ? data.solarColour : (Number(data.gridPercentageBat) === 100 ? data.gridColour : data.batteryColour)}"/>
+                                      stop-color="${data.batteryColour}"/>
                                 <stop offset="100%"
-                                      stop-color="${Number(data.pvPercentageBat) === 100 ? data.solarColour : (Number(data.gridPercentageBat) === 100 ? data.gridColour : data.batteryColour)}"/>
+                                      stop-color="${data.batteryColour}"/>
                             </linearGradient>
                         </defs>
                         <path class="${!config.show_battery ? 'st12' : ''}"
@@ -1079,9 +1079,9 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
                                     stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
                                 <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
-                                    stop-color="${data.pvPercentage > 0 ? data.solarColour : data.solarColour}"/>
+                                    stop-color="${data.solarColour}"/>
                                 <stop offset="100%"
-                                    stop-color="${data.pvPercentage > 0 ? data.solarColour : data.solarColour}"/>
+                                    stop-color="${data.solarColour}"/>
                             </linearGradient>
                         </defs>
                         <path display="${[1, 2].includes(data.additionalLoad) && !data.showAux ? '' : 'none'}"
@@ -1101,9 +1101,9 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
                                     stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
                                 <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
-                                    stop-color="${data.pvPercentage > 0 ? data.solarColour : data.solarColour}"/>
+                                    stop-color="${data.solarColour}"/>
                                 <stop offset="100%"
-                                    stop-color="${data.pvPercentage > 0 ? data.solarColour : data.solarColour}"/>
+                                    stop-color="${data.solarColour}"/>
                             </linearGradient>
                         </defs>
                         <path display="${([1, 2].includes(data.additionalLoad) && data.showAux) ? '' : 'none'}"
@@ -1123,9 +1123,9 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
                                     stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
                                 <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
-                                    stop-color="${data.pvPercentage > 0 ? data.solarColour : data.solarColour}"/>
+                                    stop-color="${data.solarColour}"/>
                                 <stop offset="100%"
-                                    stop-color="${data.pvPercentage > 0 ? data.solarColour : data.solarColour}"/>
+                                    stop-color="${data.solarColour}"/>
                             </linearGradient>
                         </defs>
                         <path display="${[4].includes(data.additionalLoad) && !data.showAux ? '' : 'none'}"
@@ -1146,9 +1146,9 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
                                     stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
                                 <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
-                                    stop-color="${data.pvPercentage > 0 ? data.solarColour : data.solarColour}"/>
+                                    stop-color="${data.solarColour}"/>
                                 <stop offset="100%"
-                                    stop-color="${data.pvPercentage > 0 ? data.solarColour : data.solarColour}"/>
+                                    stop-color="${data.solarColour}"/>
                             </linearGradient>
                         </defs>
                         <path display="${[1, 2, 3, 4].includes(data.additionalLoad) ? 'none' : ''}"

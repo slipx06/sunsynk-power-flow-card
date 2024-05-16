@@ -141,6 +141,7 @@
       "invert_grid": "Inverter Værdier",
       "invert_load": "Inverter Værdier",
       "shutdown_soc": "Nedluknings SOC",
+      "shutdown_soc_offgrid": "Shutdown SOC (Off Grid)",
       "energy": "Energi",
       "auto_scale": "Auto Skalering",
       "three_phase": "Tre Faser",

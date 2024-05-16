@@ -141,6 +141,7 @@
       "invert_grid": "Inverter Valores",
       "invert_load": "Inverter Valores",
       "shutdown_soc": "Desligamento do SOC",
+      "shutdown_soc_offgrid": "Shutdown SOC (Off Grid)",
       "energy": "Energia",
       "auto_scale": "Escala automática",
       "three_phase": "Trifásico",

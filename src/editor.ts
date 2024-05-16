@@ -139,8 +139,11 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                 type: "grid",
                                 schema: [   
                                     {name: 'energy', selector: {number: {min: 0,}}},
-                                    //{name: "energy", selector: {entity: {device_class: SensorDeviceClass.ENERGY}}},
+                                    {name: "energy", selector: {entity: {}}},
                                     {name: 'shutdown_soc', selector: {number: {mode: 'box', min: 0, max: 100,}}},
+                                    {name: 'shutdown_soc', selector: {entity: {}}},
+                                    {name: 'shutdown_soc_offgrid', selector: {number: {mode: 'box', min: 0, max: 100,}}},
+                                    {name: 'shutdown_soc_offgrid', selector: {entity: {}}},
                                     {name: 'show_daily', selector: {boolean: {}}},
                                     {name: 'auto_scale', selector: {boolean: {}}},
                                     {name: 'invert_power', selector: {boolean: {}}},
@@ -154,6 +157,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                     {name: 'show_remaining_energy', selector: {boolean: {}}},
                                     {name: 'animation_speed', selector: {number: {}}},
                                     {name: 'max_power', selector: {number: {}}},
+                                    {name: 'max_power', selector: {entity: {}}},
                                 ]
                             }]
                         },

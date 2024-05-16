@@ -141,6 +141,7 @@
       "invert_grid": "Invert Values",
       "invert_load": "Invert Values",
       "shutdown_soc": "Shutdown SOC",
+      "shutdown_soc_offgrid": "Shutdown SOC (Off Grid)",
       "energy": "Energy",
       "auto_scale": "Auto Scale",
       "three_phase": "Three Phase",
