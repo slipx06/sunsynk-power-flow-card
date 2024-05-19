@@ -738,27 +738,30 @@ export class SunsynkPowerFlowCard extends LitElement {
         let maxLineWidth = (Utils.toNum(config.max_line_width) < 1 ? 1 : config.max_line_width) - 1;
         let minLineWidth = Utils.toNum(config.min_line_width) || 1;
 
-        const BatteryMaxPower = this.getEntity('battery.max_power', {state: config.battery.max_power?.toString() ?? ''});
-        let BattMaxPower = BatteryMaxPower.toNum();
+        const batteryMaxPower = this.getEntity('battery.max_power', {state: config.battery.max_power?.toString() ?? ''});
+        let BattMaxPower = batteryMaxPower.toNum(0);
+        const solarMaxPower = this.getEntity('solar.max_power', {state: config.solar.max_power?.toString() ?? ''});
+        const loadMaxPower = this.getEntity('load.max_power', {state: config.load.max_power?.toString() ?? ''});
+        const gridMaxPower = this.getEntity('grid.max_power', {state: config.grid.max_power?.toString() ?? ''});
 
         //Calculate line width depending on power usage
-        let pv1LineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(pv1PowerWatts, (config.solar.max_power || pv1PowerWatts), maxLineWidth, minLineWidth);
-        let pv2LineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(pv2PowerWatts, (config.solar.max_power || pv2PowerWatts), maxLineWidth, minLineWidth);
-        let pv3LineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(pv3PowerWatts, (config.solar.max_power || pv3PowerWatts), maxLineWidth, minLineWidth);
-        let pv4LineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(pv4PowerWatts, (config.solar.max_power || pv4PowerWatts), maxLineWidth, minLineWidth);
+        let pv1LineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(pv1PowerWatts, (solarMaxPower.toNum() || pv1PowerWatts), maxLineWidth, minLineWidth);
+        let pv2LineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(pv2PowerWatts, (solarMaxPower.toNum() || pv2PowerWatts), maxLineWidth, minLineWidth);
+        let pv3LineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(pv3PowerWatts, (solarMaxPower.toNum() || pv3PowerWatts), maxLineWidth, minLineWidth);
+        let pv4LineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(pv4PowerWatts, (solarMaxPower.toNum() || pv4PowerWatts), maxLineWidth, minLineWidth);
         let batLineWidth = !config.battery.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(batteryPower), (BattMaxPower || Math.abs(batteryPower)), maxLineWidth, minLineWidth);
-        let loadLineWidth = !config.load.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(essentialPower), (config.load.max_power || Math.abs(essentialPower)), maxLineWidth, minLineWidth);
-        let auxLineWidth = !config.load.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(auxPower), (config.load.max_power || Math.abs(auxPower)), maxLineWidth, minLineWidth);
-        let gridLineWidth = !config.grid.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(totalGridPower), (config.grid.max_power || Math.abs(totalGridPower)), maxLineWidth, minLineWidth);
-        let grid169LineWidth = !config.grid.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(autoScaledGridPower), (config.grid.max_power || Math.abs(autoScaledGridPower)), maxLineWidth, minLineWidth);
-        let nonessLineWidth = !config.grid.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(nonessentialPower), (config.grid.max_power || Math.abs(nonessentialPower)), maxLineWidth, minLineWidth);
-        let solarLineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(totalPV, (config.solar.max_power || totalPV), maxLineWidth, minLineWidth);
+        let loadLineWidth = !config.load.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(essentialPower), (loadMaxPower.toNum() || Math.abs(essentialPower)), maxLineWidth, minLineWidth);
+        let auxLineWidth = !config.load.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(auxPower), (loadMaxPower.toNum() || Math.abs(auxPower)), maxLineWidth, minLineWidth);
+        let gridLineWidth = !config.grid.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(totalGridPower), (gridMaxPower.toNum() || Math.abs(totalGridPower)), maxLineWidth, minLineWidth);
+        let grid169LineWidth = !config.grid.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(autoScaledGridPower), (gridMaxPower.toNum() || Math.abs(autoScaledGridPower)), maxLineWidth, minLineWidth);
+        let nonessLineWidth = !config.grid.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(nonessentialPower), (gridMaxPower.toNum() || Math.abs(nonessentialPower)), maxLineWidth, minLineWidth);
+        let solarLineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(totalPV, (solarMaxPower.toNum() || totalPV), maxLineWidth, minLineWidth);
 
         //Calculate power use animation speeds depending on Inverter size
         if (config && config.solar && config.solar.animation_speed) {
             const speed =
                 config.solar.animation_speed -
-                (config.solar.animation_speed - 1) * (totalPV / (config.solar.max_power || totalPV));
+                (config.solar.animation_speed - 1) * (totalPV / (solarMaxPower.toNum() || totalPV));
             this.changeAnimationSpeed(`solar`, speed);
         }
 
@@ -766,7 +769,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             const speed =
                 config.solar.animation_speed -
                 (config.solar.animation_speed - 1) *
-                (pv1PowerWatts / (config.solar.max_power || pv1PowerWatts));
+                (pv1PowerWatts / (solarMaxPower.toNum() || pv1PowerWatts));
             this.changeAnimationSpeed(`pv1`, speed);
         }
 
@@ -774,7 +777,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             const speed =
                 config.solar.animation_speed -
                 (config.solar.animation_speed - 1) *
-                (pv2PowerWatts / (config.solar.max_power || pv2PowerWatts));
+                (pv2PowerWatts / (solarMaxPower.toNum() || pv2PowerWatts));
             this.changeAnimationSpeed(`pv2`, speed);
         }
 
@@ -782,7 +785,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             const speed =
                 config.solar.animation_speed -
                 (config.solar.animation_speed - 1) *
-                (pv3PowerWatts / (config.solar.max_power || pv3PowerWatts));
+                (pv3PowerWatts / (solarMaxPower.toNum() || pv3PowerWatts));
             this.changeAnimationSpeed(`pv3`, speed);
         }
 
@@ -790,7 +793,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             const speed =
                 config.solar.animation_speed -
                 (config.solar.animation_speed - 1) *
-                (pv4PowerWatts / (config.solar.max_power || pv4PowerWatts));
+                (pv4PowerWatts / (solarMaxPower.toNum() || pv4PowerWatts));
             this.changeAnimationSpeed(`pv4`, speed);
         }
 
@@ -798,14 +801,14 @@ export class SunsynkPowerFlowCard extends LitElement {
             const speed =
                 config.battery.animation_speed -
                 (config.battery.animation_speed - 1) *
-                (Math.abs(batteryPower) / (config.battery.max_power || Math.abs(batteryPower)));
+                (Math.abs(batteryPower) / (BattMaxPower || Math.abs(batteryPower)));
             this.changeAnimationSpeed(`battery`, speed);
         }
 
         if (config && config.load && config.load.animation_speed) {
             const speed =
                 config.load.animation_speed -
-                (config.load.animation_speed - 1) * (Math.abs(essentialPower) / (config.load.max_power || Math.abs(essentialPower)));
+                (config.load.animation_speed - 1) * (Math.abs(essentialPower) / (loadMaxPower.toNum() || Math.abs(essentialPower)));
             this.changeAnimationSpeed(`load`, speed);
             this.changeAnimationSpeed(`load1`, speed);
         }
@@ -813,7 +816,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         if (config && config.load && config.load.animation_speed) {
             const speed =
                 config.load.animation_speed -
-                (config.load.animation_speed - 1) * (Math.abs(auxPower) / (config.load.max_power || Math.abs(auxPower)));
+                (config.load.animation_speed - 1) * (Math.abs(auxPower) / (loadMaxPower.toNum() || Math.abs(auxPower)));
             this.changeAnimationSpeed(`aux`, speed);
             this.changeAnimationSpeed(`aux1`, speed);
         }
@@ -822,7 +825,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             const speed =
                 config.grid.animation_speed -
                 (config.grid.animation_speed - 1) *
-                (Math.abs(totalGridPower) / (config.grid.max_power || Math.abs(totalGridPower)));
+                (Math.abs(totalGridPower) / (gridMaxPower.toNum() || Math.abs(totalGridPower)));
             this.changeAnimationSpeed(`grid1`, speed);
             this.changeAnimationSpeed(`grid`, speed);
             this.changeAnimationSpeed(`grid2`, speed);
@@ -832,7 +835,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             const speed =
                 config.grid.animation_speed -
                 (config.grid.animation_speed - 1) *
-                (Math.abs(nonessentialPower) / (config.grid.max_power || Math.abs(nonessentialPower)));
+                (Math.abs(nonessentialPower) / (gridMaxPower.toNum() || Math.abs(nonessentialPower)));
             this.changeAnimationSpeed(`ne`, speed);
         }
 
@@ -927,11 +930,11 @@ export class SunsynkPowerFlowCard extends LitElement {
         const {batteryIcon, batteryCharge, stopColour, battery0} = BatteryIconManager.convert(stateBatterySoc)
 
         //Calculate pv efficiency
-        const totalPVEfficiency = (!config.solar.max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((totalPV / config.solar.max_power) * 100, 100) ,0); 
-        const PV1Efficiency = (!config.solar.pv1_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv1PowerWatts / config.solar.pv1_max_power) * 100, 100) ,0);
-        const PV2Efficiency = (!config.solar.pv2_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv2PowerWatts / config.solar.pv2_max_power) * 100, 100) ,0);
-        const PV3Efficiency = (!config.solar.pv3_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv3PowerWatts / config.solar.pv3_max_power) * 100, 100) ,0);
-        const PV4Efficiency = (!config.solar.pv4_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv4PowerWatts / config.solar.pv4_max_power) * 100, 100) ,0);
+        const totalPVEfficiency = (!config.solar.max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((totalPV / solarMaxPower.toNum()) * 100, 200) ,0); 
+        const PV1Efficiency = (!config.solar.pv1_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv1PowerWatts / config.solar.pv1_max_power) * 100, 200) ,0);
+        const PV2Efficiency = (!config.solar.pv2_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv2PowerWatts / config.solar.pv2_max_power) * 100, 200) ,0);
+        const PV3Efficiency = (!config.solar.pv3_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv3PowerWatts / config.solar.pv3_max_power) * 100, 200) ,0);
+        const PV4Efficiency = (!config.solar.pv4_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv4PowerWatts / config.solar.pv4_max_power) * 100, 200) ,0);
         /**
          * The current structure of this data object is intentional, but it is considered temporary.
          * There is a need to evaluate the data being passed, as there might be duplication.

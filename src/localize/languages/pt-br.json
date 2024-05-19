@@ -179,7 +179,8 @@
         "sol": "Entidades de Solar",
         "inv": "Entidades do Inversor",
         "ld": "Entidade do Load",
-        "gri": "Entidade da Rede"
+        "gri": "Entidade da Rede",
+        "sensor": "Optional Sensors"
       }
     }
 }

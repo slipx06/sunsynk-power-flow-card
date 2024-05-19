@@ -121,10 +121,10 @@
       "load2_icon": "Load 2 Ikon",
       "load3_icon": "Load 3 Ikon",
       "load4_icon": "Load 4 Ikon",
-      "aux_load1_name": "Load 1 Navn",
-      "aux_load2_name": "Load 2 Navn",
-      "aux_load1_icon": "Load 1 Ikon",
-      "aux_load2_icon": "Load 2 Ikon",
+      "aux_load1_name": "Aux Load 1 Navn",
+      "aux_load2_name": "Aux Load 2 Navn",
+      "aux_load1_icon": "Aux Load 1 Ikon",
+      "aux_load2_icon": "Aux Load 2 Ikon",
       "show_daily_buy": "Vis Daglig Køb",
       "show_daily_sell": "Vis Daglig Salg",
       "no_grid_colour": "Ingen Grid Farve",
@@ -179,7 +179,8 @@
         "sol": "Solar Entities",
         "inv": "Inverter Entities",
         "ld": "Belastnings Entities",
-        "gri": "Grid Entities"
+        "gri": "Grid Entities",
+        "sensor": "Optional Sensors"
       }
     }
 }

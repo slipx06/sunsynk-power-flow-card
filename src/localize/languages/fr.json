@@ -121,10 +121,10 @@
       "load2_icon": "Load 2 Icon",
       "load3_icon": "Load 3 Icon",
       "load4_icon": "Load 4 Icon",
-      "aux_load1_name": "Load 1 Name",
-      "aux_load2_name": "Load 2 Name",
-      "aux_load1_icon": "Load 1 Icon",
-      "aux_load2_icon": "Load 2 Icon",
+      "aux_load1_name": "Aux Load 1 Name",
+      "aux_load2_name": "Aux Load 2 Name",
+      "aux_load1_icon": "Aux Load 1 Icon",
+      "aux_load2_icon": "Aux Load 2 Icon",
       "aux_dynamic_colour": "Aux Dynamic Colour",
       "show_daily_buy": "Show Daily Buy",
       "show_daily_sell": "Show Daily Sell",
@@ -179,7 +179,8 @@
         "sol": "Solar Entities",
         "inv": "Inverter Entities",
         "ld": "Load Entities",
-        "gri": "Grid Entities"
+        "gri": "Grid Entities",
+        "sensor": "Optional Sensors"
       }
     }
 }

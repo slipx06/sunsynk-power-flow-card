@@ -67,7 +67,17 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                     {name: "max_line_width", selector: {number: {}}},
                                     {name: "min_line_width", selector: {number: {}}},
                                 ]
-                            }]
+                            },  {
+                                type: "expandable",
+                                title: this._title('sensor'),
+                                schema: [{
+                                    type: "grid",
+                                    schema: [
+                                        {name: 'card_height', selector: {entity: {}}},
+                                        {name: 'card_width', selector: {entity: {}}},
+                                    ]
+                                }]
+                                }]
                         },
                         {
                             type: "expandable",
@@ -123,14 +133,24 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                     {name: 'colour', selector: {color_rgb: {}}},
                                     {name: 'dynamic_colour', selector: {boolean: {}}},
                                     {name: 'animation_speed', selector: {number: {}}},
-                                    {name: 'max_power', selector: {number: {}}},
+                                    {name: 'max_power', selector: {number: {}}}, 
                                     {name: 'pv1_max_power', selector: {number: {}}},
                                     {name: 'pv2_max_power', selector: {number: {}}},
                                     {name: 'pv3_max_power', selector: {number: {}}},
                                     {name: 'pv4_max_power', selector: {number: {}}},
                                     {name: 'efficiency', selector: {number: {mode: 'box', min: 0, max: 3,}}},
                                 ]
-                            }]
+                            },  {
+                                type: "expandable",
+                                title: this._title('sensor'),
+                                schema: [{
+                                    name: "solar",
+                                    type: "grid",
+                                    schema: [
+                                        {name: 'max_power', selector: {entity: {}}},
+                                    ]
+                                }]
+                                }]
                         }, {
                             type: "expandable",
                             title: this._title('battery'),
@@ -139,11 +159,8 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                 type: "grid",
                                 schema: [   
                                     {name: 'energy', selector: {number: {min: 0,}}},
-                                    {name: "energy", selector: {entity: {}}},
-                                    {name: 'shutdown_soc', selector: {number: {mode: 'box', min: 0, max: 100,}}},
-                                    {name: 'shutdown_soc', selector: {entity: {}}},
+                                    {name: 'shutdown_soc', selector: {number: {mode: 'box', min: 0, max: 100,}}}, 
                                     {name: 'shutdown_soc_offgrid', selector: {number: {mode: 'box', min: 0, max: 100,}}},
-                                    {name: 'shutdown_soc_offgrid', selector: {entity: {}}},
                                     {name: 'show_daily', selector: {boolean: {}}},
                                     {name: 'auto_scale', selector: {boolean: {}}},
                                     {name: 'invert_power', selector: {boolean: {}}},
@@ -156,10 +173,22 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                     {name: 'hide_soc', selector: {boolean: {}}},
                                     {name: 'show_remaining_energy', selector: {boolean: {}}},
                                     {name: 'animation_speed', selector: {number: {}}},
-                                    {name: 'max_power', selector: {number: {}}},
-                                    {name: 'max_power', selector: {entity: {}}},
+                                    {name: 'max_power', selector: {number: {}}}, 
                                 ]
-                            }]
+                            },  {
+                                type: "expandable",
+                                title: this._title('sensor'),
+                                schema: [{
+                                    name: "battery",
+                                    type: "grid",
+                                    schema: [
+                                        {name: "energy", selector: {entity: {}}},
+                                        {name: 'shutdown_soc', selector: {entity: {}}},
+                                        {name: 'shutdown_soc_offgrid', selector: {entity: {}}},
+                                        {name: 'max_power', selector: {entity: {}}},
+                                    ]
+                                }]
+                                }]
                         },
                         {
                             type: "expandable",
@@ -211,6 +240,22 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                         {name: 'show_daily_aux', selector: {boolean: {}}},
                                     ]
                                 }]
+                            },  {
+                                type: "expandable",
+                                title: this._title('sensor'),
+                                schema: [{
+                                    name: "load",
+                                    type: "grid",
+                                    schema: [
+                                        {name: 'load1_icon', selector: {entity: {}}},
+                                        {name: 'load2_icon', selector: {entity: {}}},
+                                        {name: 'load3_icon', selector: {entity: {}}},
+                                        {name: 'load4_icon', selector: {entity: {}}},
+                                        {name: 'aux_load1_icon', selector: {entity: {}}},
+                                        {name: 'aux_load2_icon', selector: {entity: {}}},
+                                        {name: 'max_power', selector: {entity: {}}},
+                                    ]
+                                }]
                                 }]
                         },
                            {
@@ -244,7 +289,20 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                     {name: 'animation_speed', selector: {number: {}}},
                                     {name: 'max_power', selector: {number: {}}},
                                 ]
-                            }]
+                            },  {
+                                type: "expandable",
+                                title: this._title('sensor'),
+                                schema: [{
+                                    name: "grid",
+                                    type: "grid",
+                                    schema: [
+                                        {name: 'load1_icon', selector: {entity: {}}},
+                                        {name: 'load2_icon', selector: {entity: {}}},
+                                        {name: 'load3_icon', selector: {entity: {}}},
+                                        {name: 'max_power', selector: {entity: {}}},
+                                    ]
+                                }]
+                                }]
                         },                         {
                             type: "expandable",
                             title: this._title('entities'),
