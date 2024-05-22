@@ -53,7 +53,20 @@
         "running": "Running",
         "sleepmode": "Sleep Mode",
         "grid_name": "Grid",
-        "limit": "Omezení"
+        "limit": "Omezení",
+        "off": "Off",
+        "lowpower": "Low Power",
+        "bulk": "Bulk",
+        "absorption": "Absorption",
+        "float": "Float",
+        "storage": "Storage",
+        "equalize": "Equalize",
+        "passthru": "Passthru",
+        "inverting": "Inverting",
+        "powerassist": "Power Assist",
+        "powersupply": "Power Supply",
+        "sustain": "Sustain",
+        "externalcontrol": "External Control"
     },
     "errors": {
         "battery": {
