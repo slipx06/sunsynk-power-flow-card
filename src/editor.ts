@@ -148,6 +148,10 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                     type: "grid",
                                     schema: [
                                         {name: 'max_power', selector: {entity: {}}},
+                                        {name: 'pv1_max_power', selector: {entity: {}}},
+                                        {name: 'pv2_max_power', selector: {entity: {}}},
+                                        {name: 'pv3_max_power', selector: {entity: {}}},
+                                        {name: 'pv4_max_power', selector: {entity: {}}},
                                     ]
                                 }]
                                 }]

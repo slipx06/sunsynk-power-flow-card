@@ -930,11 +930,16 @@ export class SunsynkPowerFlowCard extends LitElement {
         const {batteryIcon, batteryCharge, stopColour, battery0} = BatteryIconManager.convert(stateBatterySoc)
 
         //Calculate pv efficiency
+        const pv1MaxPower = this.getEntity('solar.pv1_max_power', {state: config.solar.pv1_max_power?.toString() ?? ''});
+        const pv2MaxPower = this.getEntity('solar.pv2_max_power', {state: config.solar.pv2_max_power?.toString() ?? ''});
+        const pv3MaxPower = this.getEntity('solar.pv3_max_power', {state: config.solar.pv3_max_power?.toString() ?? ''});
+        const pv4MaxPower = this.getEntity('solar.pv4_max_power', {state: config.solar.pv4_max_power?.toString() ?? ''});
+
         const totalPVEfficiency = (!config.solar.max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((totalPV / solarMaxPower.toNum()) * 100, 200) ,0); 
-        const PV1Efficiency = (!config.solar.pv1_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv1PowerWatts / config.solar.pv1_max_power) * 100, 200) ,0);
-        const PV2Efficiency = (!config.solar.pv2_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv2PowerWatts / config.solar.pv2_max_power) * 100, 200) ,0);
-        const PV3Efficiency = (!config.solar.pv3_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv3PowerWatts / config.solar.pv3_max_power) * 100, 200) ,0);
-        const PV4Efficiency = (!config.solar.pv4_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv4PowerWatts / config.solar.pv4_max_power) * 100, 200) ,0);
+        const PV1Efficiency = (!config.solar.pv1_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv1PowerWatts / pv1MaxPower.toNum()) * 100, 200) ,0);
+        const PV2Efficiency = (!config.solar.pv2_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv2PowerWatts / pv2MaxPower.toNum()) * 100, 200) ,0);
+        const PV3Efficiency = (!config.solar.pv3_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv3PowerWatts / pv3MaxPower.toNum()) * 100, 200) ,0);
+        const PV4Efficiency = (!config.solar.pv4_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv4PowerWatts / pv4MaxPower.toNum()) * 100, 200) ,0);
         /**
          * The current structure of this data object is intentional, but it is considered temporary.
          * There is a need to evaluate the data being passed, as there might be duplication.

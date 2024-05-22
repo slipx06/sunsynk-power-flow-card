@@ -83,13 +83,13 @@ These attributes are only needed if `show_solar` is set to `true`
 | animation_speed: | Optional     | `9`     | Set slowest animation speed in seconds, depending on Power produced 
 | max_power:       | Optional     | `8000`  | Maximum power draw to calculate animation speed. This value is also used to calculate the solar efficiency for the total PV power and should equal the total size of your PV array. Numeric value or sensor.
 | pv1_name:        | Optional     | `PV1`   | Set the disaply name for MPPT1
-| pv1_max_power:   | Optional     |         | Maximum power of MPPT1 based on the number and size of panels. Used to calculate solar efficiency of the string (W)
+| pv1_max_power:   | Optional     |         | Maximum power of MPPT1 based on the number and size of panels. Used to calculate solar efficiency of the string (W). Numeric value or sensor.
 | pv2_name:        | Optional     | `PV2`   | Set the disaply name for MPPT2
-| pv2_max_power:   | Optional     |         | Maximum power of MPPT2 based on the number and size of panels. Used to calculate solar efficiency of the string (W)
+| pv2_max_power:   | Optional     |         | Maximum power of MPPT2 based on the number and size of panels. Used to calculate solar efficiency of the string (W). Numeric value or sensor.
 | pv3_name:        | Optional     | `PV3`   | Set the disaply name for MPPT3
-| pv3_max_power:   | Optional     |         | Maximum power of MPPT3 based on the number and size of panels. Used to calculate solar efficiency of the string (W) 
+| pv3_max_power:   | Optional     |         | Maximum power of MPPT3 based on the number and size of panels. Used to calculate solar efficiency of the string (W). Numeric value or sensor. 
 | pv4_name:        | Optional     | `PV4`   | Set the disaply name for MPPT4 
-| pv4_max_power:   | Optional     |         | Maximum power of MPPT4 based on the number and size of panels. Used to calculate solar efficiency of the string (W)
+| pv4_max_power:   | Optional     |         | Maximum power of MPPT4 based on the number and size of panels. Used to calculate solar efficiency of the string (W). Numeric value or sensor
 | auto_scale:      | Optional     | `true` | If set to `true` the card will use the entities `unit_of_measurement` attribute to perform the correct scaling (i,e, power values greater than 999W will be displayed as kW e.g. 1.23kW) and display the correct unit. The number of decimal places can be changed using the `decimal_places` card attribute apart from the daily energy values which are set using the `decimal_places_energy` attribute                                                                              
 | efficiency:      | Optional     | `0`     | `0` - Disabled, `1` - Graphic display, `2` - Text display, `3` - Graphic and text display. 
 
