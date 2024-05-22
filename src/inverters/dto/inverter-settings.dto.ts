@@ -54,7 +54,20 @@ export enum InverterStatuses {
     Flash = 'flash',
     Offline = 'offline',
     Running = 'running',
-    SleepMode = 'sleepmode'
+    SleepMode = 'sleepmode',
+    Off = 'off',
+    LowPower = 'lowpower',
+    Bulk = 'bulk',
+    Absorption = 'absorption',
+    Float = 'float',
+    Storage = 'storage',
+    Equalize = 'equalize',
+    Passthru = 'passthru',
+    Inverting = 'inverting',
+    PowerAssist = 'powerassist',
+    PowerSupply = 'powersupply',
+    Sustain = 'sustain',
+    ExternalControl = 'externalcontrol'
 }
 
 export interface InverterStatusConfig {
