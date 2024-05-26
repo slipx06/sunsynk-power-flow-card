@@ -57,9 +57,9 @@ export function convertToCustomEntity(entity: any): CustomEntity {
         isNaN: () => entity?.state === null || Number.isNaN(entity?.state),
         toPower: (invert?: boolean) => {
             const unit = (entity.attributes?.unit_of_measurement || '').toLowerCase();
-            if (unit === 'kw') {
+            if (unit === 'kw' || unit === 'kwh') {
                 return Utils.toNum(((entity?.state || '0') * 1000), 0, invert);
-            } else if (unit === 'mw') {
+            } else if (unit === 'mw' || unit === 'mwh') {
                 return Utils.toNum(((entity?.state || '0') * 1000000), 0, invert);
             } else {
                 return Utils.toNum((entity?.state || '0'), 0, invert) || 0;

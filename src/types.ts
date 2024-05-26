@@ -443,5 +443,7 @@ export interface DataDto {
     PV2Efficiency,
     PV3Efficiency,
     PV4Efficiency,
-    gridPercentage
+    gridPercentage,
+    flowColour,
+    flowBatColour
 }

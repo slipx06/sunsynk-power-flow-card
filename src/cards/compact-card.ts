@@ -437,9 +437,9 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         <path id="bat-line"
                               d="${data.compactMode ? 'M 239 250 L 239 290' : 'M 239 250 L 239 324'}"
                               class="${!config.show_battery ? 'st12' : ''}" fill="none"
-                              stroke="${data.batteryColour}" stroke-width="${data.batLineWidth}" stroke-miterlimit="10"
+                              stroke="${config.battery.dynamic_colour ? data.flowBatColour : data.batteryColour}" stroke-width="${data.batLineWidth}" stroke-miterlimit="10"
                               pointer-events="stroke"/>
-                        <circle id="power-dot-charge" cx="0" cy="0"
+                        <circle id="power-dot-discharge" cx="0" cy="0"
                                 r="${Math.min(2 + data.batLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
                                 class="${!config.show_battery ? 'st12' : ''}"
                                 fill="${data.batteryPower < 0 || data.batteryPower === 0 ? 'transparent' : `${data.batteryColour}`}">
@@ -448,10 +448,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 <mpath xlink:href="#bat-line"/>
                             </animateMotion>
                         </circle>
-                        <circle id="power-dot-discharge" cx="0" cy="0"
+                        <circle id="power-dot-charge" cx="0" cy="0"
                                 r="${Math.min(2 + data.batLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
                                 class="${!config.show_battery ? 'st12' : ''}"
-                                fill="${data.batteryPower > 0 || data.batteryPower === 0 ? 'transparent' : `${data.batteryColour}`}">
+                                fill="${data.batteryPower > 0 || data.batteryPower === 0 ? 'transparent' : `${config.battery.dynamic_colour ? data.flowBatColour : data.batteryColour}`}">
                             <animateMotion dur="${data.durationCur['battery']}s" repeatCount="indefinite"
                                            keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#bat-line"/>
@@ -526,11 +526,11 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         </circle>
                     </svg>
                     <svg id="load-flow">
-                        <path id="es-line" d="M 304 218.5 L 264.7 218.5" fill="none" stroke="${data.loadColour}"
+                        <path id="es-line" d="M 304 218.5 L 264.7 218.5" fill="none" stroke="${config.load.dynamic_colour ? data.flowColour : data.loadColour}"
                               stroke-width="${data.loadLineWidth}" stroke-miterlimit="10" pointer-events="stroke"/>
                         <circle id="es-dot" cx="0" cy="0"
                                 r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                fill="${data.essentialPower === 0 ? 'transparent' : `${data.loadColour}`}">
+                                fill="${data.essentialPower === 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
                             <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
                                            keyPoints="1;0"
                                            keyTimes="0;1" calcMode="linear">
@@ -539,11 +539,11 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         </circle>
                     </svg>
                     <svg id="load-flow1">
-                        <path id="es-line1" d="M 374 218.5 L 402.38 218.5" fill="none" stroke="${data.loadColour}"
+                        <path id="es-line1" d="M 374 218.5 L 402.38 218.5" fill="none" stroke="${config.load.dynamic_colour ? data.flowColour : data.loadColour}"
                               stroke-width="${data.loadLineWidth}" stroke-miterlimit="10" pointer-events="stroke"/>
                         <circle id="es-dot" cx="0" cy="0"
                                 r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                fill="${data.essentialPower === 0 ? 'transparent' : `${data.loadColour}`}">
+                                fill="${data.essentialPower === 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
                             <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
                                            keyPoints="0;1"
                                            keyTimes="0;1" calcMode="linear">

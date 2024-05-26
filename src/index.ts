@@ -590,7 +590,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let batteryDuration = '';
 
         const battenergy = this.getEntity('battery.energy', {state: config.battery.energy?.toString() ?? ''});
-        let batteryEnergy = battenergy.toNum(0);
+        let batteryEnergy = battenergy.toPower(false);
         if (batteryVoltage && stateBatteryRatedCapacity.notEmpty()) {
             batteryEnergy = Utils.toNum(batteryVoltage * stateBatteryRatedCapacity.toNum(0), 0)
         }
@@ -904,26 +904,44 @@ export class SunsynkPowerFlowCard extends LitElement {
             gridPercentageBat = Utils.toNum(Math.min(gridPercentageRawBat, 100), 0);
         }
 
+        let flowBatColour: string;
+        switch (true) {
+            case pvPercentageBat === 100:
+                flowBatColour = solarColour;
+                break;
+            case gridPercentageBat === 100:
+                flowBatColour = gridColour;
+                break;
+            default:
+                flowBatColour = batteryColour;
+                break;
+        }
+
         //console.log(`${pvPercentageBat} % PV to charge battery, ${gridPercentageBat} % Grid to charge battery`);
 
         let essIcon: string;
         let essIconSize: number;
+        let flowColour: string;
         switch (true) {
             case pvPercentageRaw >= 100 && batteryPercentageRaw <= 5 && (totalGridPower - nonessentialPower) < 50 && config.load.dynamic_icon:
                 essIcon = icons.essPv;
                 essIconSize = 1;
+                flowColour = solarColour;
                 break;
             case batteryPercentageRaw >= 100 && pvPercentageRaw <= 5 && (totalGridPower - nonessentialPower) < 50 && config.load.dynamic_icon:
                 essIcon = icons.essBat;
                 essIconSize = 0;
+                flowColour =batteryColour;
                 break;
             case pvPercentageRaw < 5 && batteryPercentageRaw < 5 && gridPercentage > 0 && config.load.dynamic_icon:
                 essIcon = icons.essGrid;
                 essIconSize = 0;
+                flowColour = gridColour;
                 break;
             default:
                 essIcon = icons.ess;
                 essIconSize = 0;
+                flowColour = loadColour;
                 break;
         }
 
@@ -1114,7 +1132,9 @@ export class SunsynkPowerFlowCard extends LitElement {
             PV2Efficiency,
             PV3Efficiency,
             PV4Efficiency,
-            gridPercentage
+            gridPercentage,
+            flowColour,
+            flowBatColour
         };
 
         if (this.isFullCard) {

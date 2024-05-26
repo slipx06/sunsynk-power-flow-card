@@ -323,12 +323,12 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                           display="${[4].includes(data.additionalLoad) ? '' : 'none'}" fill="${data.loadColour}">
                         ${config.load.load4_name}
                     </text>
-                    <text id="daily_load_aux" x="${data.additionalAuxLoad === 2 ? '238' : '306'}" y="93"
+                    <text id="daily_load_aux" x="${data.additionalAuxLoad === 2 ? '238' : '238'}" y="93"
                           class="st3 left-align"
                           fill="${!data.loadShowDaily || !data.showAux ? 'transparent' : `${data.loadColour}`}">
                         ${localize('common.daily_load')}
                     </text>
-                    <text id="daily_load" x="${data.additionalLoad === 0 ? '377' : '306'}"
+                    <text id="daily_load" x="${data.additionalLoad === 0 ? '377' : '238'}"
                           y="${data.additionalLoad === 0 ? 71 : 93}" class="st3 left-align"
                           fill="${!data.loadShowDaily || data.showAux ? 'transparent' : `${data.loadColour}`}">
                         ${localize('common.daily_load')}
@@ -437,7 +437,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                           fill="${data.auxDynamicColourLoad2}">${config.load.aux_load2_name}
                     </text>
                     <text id="aux_daily_text"
-                          x="${[1, 2].includes(data.additionalAuxLoad) ? '238' : '306'}" y="24"
+                          x="${[1, 2].includes(data.additionalAuxLoad) ? '238' : '238'}" y="24"
                           class="st3 left-align"
                           display="${!data.showAux || data.showDailyAux !== true ? 'none' : ''}"
                           fill="${data.auxDynamicColour}">${config.load.aux_daily_name}
@@ -568,9 +568,9 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     <svg id="battery-flow">
                         <path id="bat-line" d="M 155 280 L 91 280 Q 85 280 86 286 L 86 297"
                               class="${!config.show_battery ? 'st12' : ''}" fill="none"
-                              stroke="${data.batteryColour}" stroke-width="${data.batLineWidth}" stroke-miterlimit="10"
+                              stroke="${config.battery.dynamic_colour ? data.flowBatColour : data.batteryColour}" stroke-width="${data.batLineWidth}" stroke-miterlimit="10"
                               pointer-events="stroke"/>
-                        <circle id="power-dot-charge" cx="0" cy="0"
+                        <circle id="power-dot-discharge" cx="0" cy="0"
                                 r="${Math.min(2 + data.batLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
                                 class="${!config.show_battery ? 'st12' : ''}"
                                 fill="${data.batteryPower < 0 || data.batteryPower === 0 ? 'transparent' : `${data.batteryColour}`}">
@@ -579,10 +579,10 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 <mpath xlink:href="#bat-line"/>
                             </animateMotion>
                         </circle>
-                        <circle id="power-dot-discharge" cx="0" cy="0"
+                        <circle id="power-dot-charge" cx="0" cy="0"
                                 r="${Math.min(2 + data.batLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
                                 class="${!config.show_battery ? 'st12' : ''}"
-                                fill="${data.batteryPower > 0 || data.batteryPower === 0 ? 'transparent' : `${data.batteryColour}`}">
+                                fill="${data.batteryPower > 0 || data.batteryPower === 0 ? 'transparent' : `${config.battery.dynamic_colour ? data.flowBatColour : data.batteryColour}`}">
                             <animateMotion dur="${data.durationCur['battery']}s" repeatCount="indefinite"
                                            keyPoints="0;1" keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#bat-line"/>
@@ -758,20 +758,20 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     <svg id="load-flow">
                         <circle id="es-dot" cx="0" cy="0"
                                 r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                fill="${data.essentialPower === 0 ? 'transparent' : `${data.loadColour}`}">
+                                fill="${data.essentialPower === 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
                             <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
                                            keyPoints="0;1"
                                            keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#es-line2"/>
                             </animateMotion>
                         </circle>
-                        <path id="es-line2" d="M 306 118 L 371 118" fill="none" stroke="${data.loadColour}"
+                        <path id="es-line2" d="M 306 118 L 371 118" fill="none" stroke="${config.load.dynamic_colour ? data.flowColour : data.loadColour}"
                           stroke-width="${data.loadLineWidth}" stroke-miterlimit="10" pointer-events="stroke"/>
                     </svg>
                     <svg id="load1-flow">
                         <circle id="es-dot" cx="0" cy="0"
                                 r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                fill="${data.essentialPower === 0 ? 'transparent' : `${data.loadColour}`}">
+                                fill="${data.essentialPower === 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
                             <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
                                            keyPoints="1;0"
                                            keyTimes="0;1" calcMode="linear">
@@ -779,7 +779,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             </animateMotion>
                         </circle>
                         <path id="es-line" d="M 236 118 L 190 118 Q 180 118 180 128 L 180 162" fill="none"
-                              stroke="${data.loadColour}" stroke-width="${data.loadLineWidth}" stroke-miterlimit="10"
+                              stroke="${config.load.dynamic_colour ? data.flowColour : data.loadColour}" stroke-width="${data.loadLineWidth}" stroke-miterlimit="10"
                               pointer-events="stroke"/>
                     </svg>
                     <svg xmlns="http://www.w3.org/2000/svg" x="154.5" y="224.75" width="54"
@@ -1591,7 +1591,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_load_energy_84)}>
-                        <text id="daily_load_value_aux" x="${data.additionalAuxLoad === 2 ? '238' : '306'}" y="80"
+                        <text id="daily_load_value_aux" x="${data.additionalAuxLoad === 2 ? '238' : '238'}" y="80"
                               class="st10 left-align"
                               display="${!data.loadShowDaily || !data.showAux || !data.stateDayLoadEnergy.isValid() ? 'none' : ''}"
                               fill="${data.loadColour}">
@@ -1599,7 +1599,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_load_energy_84)}>
-                        <text id="daily_load_value" x="${data.additionalLoad === 0 ? '377' : '306'}"
+                        <text id="daily_load_value" x="${data.additionalLoad === 0 ? '377' : '238'}"
                               y="${data.additionalLoad === 0 ? '57' : '80'}" class="st10 left-align"
                               display="${!data.loadShowDaily || data.showAux || !data.stateDayLoadEnergy.isValid() ? 'none' : ''}"
                               fill="${data.loadColour}">
@@ -1654,7 +1654,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_aux_energy)}>
                         <text id="aux_daily_value"
-                              x="${[1, 2].includes(data.additionalAuxLoad) ? '238' : '306'}"
+                              x="${[1, 2].includes(data.additionalAuxLoad) ? '238' : '238'}"
                               y="12" class="st10 left-align"
                               display="${!data.showAux || data.showDailyAux !== true || !data.stateDayAuxEnergy.isValid() ? 'none' : ''}"
                               fill="${data.auxDynamicColour}">
@@ -1694,7 +1694,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load1_extra)}>
-                        <text id="non_ess_load1_value_extra" x="320" y="305"
+                        <text id="non_ess_load1_value_extra" x="330" y="305"
                               display="${config.entities?.non_essential_load1_extra && [1, 2].includes(data.nonessentialLoads) && data.stateNonEssentialLoad1Extra.isValid() && config.show_grid ? '' : 'none'}"
                               class="st3 right-align" fill="${data.gridColour}">
                             ${data.stateNonEssentialLoad1Extra.toNum(1)}
@@ -1702,7 +1702,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load2_extra)}>
-                        <text id="non_ess_load2_value_extra" x="359" y="305"
+                        <text id="non_ess_load2_value_extra" x="348" y="305"
                               display="${config.entities?.non_essential_load2_extra && data.nonessentialLoads === 2 &&  data.stateNonEssentialLoad2Extra.isValid() && config.show_grid ? '' : 'none'}"
                               class="st3 left-align" fill="${data.gridColour}">
                             ${data.stateNonEssentialLoad2Extra.toNum(1)}
@@ -1965,14 +1965,25 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                         <text id="energy_cost" x="414" y="305" class="${!config.show_grid ? 'st12' : 'st3 right-align'}" 
                                               fill="${data.gridColour}" 
                                               display="${config.entities?.energy_cost_buy && data.stateEnergyCostBuy.isValid() ? '' : 'none'}" >
-                                            ${data.energyCost} ${data.stateEnergyCostBuy?.getUOM()}</text>
+                                            ${data.energyCost}
+                                        </text>
+                                        <text id="energy_cost" x="414" y="318" class="${!config.show_grid ? 'st12' : 'st3 right-align'}" 
+                                              fill="${data.gridColour}" 
+                                              display="${config.entities?.energy_cost_buy && data.stateEnergyCostBuy.isValid() ? '' : 'none'}" >
+                                            ${data.stateEnergyCostBuy?.getUOM()}
+                                        </text>
                                     </a>`
                             : svg`
                                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.energy_cost_sell)}>
                                         <text id="energy_cost" x="414" y="305"  class="${!config.show_grid ? 'st12' : 'st3 right-align'}" 
                                               fill="${data.gridColour}" 
                                               display="${config.entities?.energy_cost_sell && data.stateEnergyCostSell.isValid() ? '' : 'none'}" >
-                                            ${data.energyCost} ${data.stateEnergyCostSell?.getUOM()}
+                                            ${data.energyCost}}
+                                        </text>
+                                        <text id="energy_cost" x="414" y="318"  class="${!config.show_grid ? 'st12' : 'st3 right-align'}" 
+                                              fill="${data.gridColour}" 
+                                              display="${config.entities?.energy_cost_sell && data.stateEnergyCostSell.isValid() ? '' : 'none'}" >
+                                            ${data.stateEnergyCostSell?.getUOM()}
                                         </text>
                                     </a>`
                     }
