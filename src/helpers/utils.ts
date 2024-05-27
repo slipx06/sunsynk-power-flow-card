@@ -1,4 +1,5 @@
-import {UnitOfEnergy, UnitOfPower, UnitOfEnergyOrPower, unitOfEnergyConversionRules} from '../const';
+import {unitOfEnergyConversionRules, UnitOfEnergyOrPower, UnitOfPower} from '../const';
+import {fireEvent} from 'custom-card-helpers';
 
 export class Utils {
     static toNum(val: string | number, decimals: number = -1, invert: boolean = false): number {
@@ -57,24 +58,8 @@ export class Utils {
     }
 
     static handlePopup(e, entityId) {
-        if(!entityId)
+        if (!entityId)
             return;
-        this._handleClick(e, {action: 'more-info'}, entityId);
-    }
-
-    private static _handleClick(event, actionConfig, entityId) {
-        if (!entityId || !event)
-            return;
-        //event.stopPropagation();
-        let e;
-        // eslint-disable-next-line default-case
-        switch (actionConfig.action) {
-            case 'more-info': {
-                e = new Event('hass-more-info', {composed: true});
-                e.detail = {entityId};
-                event.target.dispatchEvent(e);
-                break;
-            }
-        }
+        return fireEvent(e.target, 'hass-more-info', {entityId})
     }
 }

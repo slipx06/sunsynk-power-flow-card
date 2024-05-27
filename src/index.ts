@@ -1,6 +1,6 @@
 import {CSSResultGroup, LitElement} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
-import {HomeAssistant} from 'custom-card-helpers';
+import {fireEvent, HomeAssistant} from 'custom-card-helpers';
 import {styles} from './style';
 import {CardStyle, DataDto, InverterModel, InverterSettings, sunsynkPowerFlowCardConfig,} from './types';
 import defaultConfig from './defaults';
@@ -51,6 +51,12 @@ export class SunsynkPowerFlowCard extends LitElement {
 
     static getConfigElement() {
         return document.createElement("content-card-editor");
+    }
+
+    handlePopup(e, entityId) {
+        if(!e || !entityId)
+            return;
+        fireEvent(e.target, 'hass-more-info', {entityId})
     }
 
     static getStubConfig() {
@@ -1136,11 +1142,11 @@ export class SunsynkPowerFlowCard extends LitElement {
         };
 
         if (this.isFullCard) {
-            return fullCard(config, inverterImg, data)
+            return fullCard(config, this.handlePopup, inverterImg, data)
         }
 
         if (this.isLiteCard || this.isCompactCard) {
-            return compactCard(config, inverterImg, data)
+            return compactCard(config, this.handlePopup, inverterImg, data)
         }
     }
 

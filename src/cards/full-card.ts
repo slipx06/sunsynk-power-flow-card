@@ -5,7 +5,7 @@ import {Utils} from '../helpers/utils';
 import {UnitOfElectricalCurrent, UnitOfElectricPotential, UnitOfEnergy, UnitOfPower, validGridConnected, validGridDisconnected} from '../const';
 import {icons} from '../helpers/icons';
 
-export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string, data: DataDto) => {
+export const fullCard = (config: sunsynkPowerFlowCardConfig, handlePopup, inverterImg: string, data: DataDto) => {
     return html`
         <ha-card>
             <style>
@@ -837,7 +837,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         <path class="${!config.show_solar ? 'st12' : ''}" fill="${data.solarColour}"
                               d="${icons.sun}"/>
                     </svg>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_connected_status_194)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.grid_connected_status_194)}>
                         <svg xmlns="http://www.w3.org/2000/svg" id="transmission_on"
                              x="${config.inverter.three_phase ? '404' : '389'}"
                              y="${config.inverter.three_phase ? '339' : '308'}"
@@ -1157,7 +1157,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </svg>
 
                     <!-- Aux Icon -->
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.aux_connected_status)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.aux_connected_status)}>
                         <svg xmlns="http://www.w3.org/2000/svg" id="aux_default" x="371" y="5" width="83"
                              height="83" viewBox="0 0 24 24">
                             <path class="${data.auxType === 'default' ? '' : 'st12'}"
@@ -1477,7 +1477,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </foreignObject>
                     </g>
 
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.use_timer_248)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.use_timer_248)}>
                         <svg xmlns="http://www.w3.org/2000/svg" id="timer" x="210"
                              y="${data.enableAutarky != AutarkyType.No ? "232" : "249"}" width="18" height="18"
                              viewBox="0 0 24 24">
@@ -1503,7 +1503,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                               fill="${data.inverterColour}">${localize('common.timer_off')}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.solar_sell_247)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.solar_sell_247)}>
                         <svg xmlns="http://www.w3.org/2000/svg" id="solar_sell_on" x="96" y="197" width="18"
                              height="18" viewBox="0 0 30 30">
                             <path display="${!config.entities.solar_sell_247 || config.entities.solar_sell_247 === 'none' || data.stateSolarSell.state === 'off' || data.stateSolarSell.state === '0' || !config.show_solar || !['1', 'on'].includes(data.stateSolarSell.state) ? 'none' : ''}"
@@ -1517,7 +1517,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                   d="${icons.solarSellOff}"/>
                         </svg>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.priority_load_243)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.priority_load_243)}>
                         <svg xmlns="http://www.w3.org/2000/svg" id="pbat" x="210"
                              y="${data.enableAutarky != 'no' ? "251" : "268"}" width="18" height="18"
                              viewBox="0 0 24 24">
@@ -1550,7 +1550,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                            href="${inverterImg}"
                            preserveAspectRatio="none"/>
 
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, data.inverterProg.entityID)}>
+                    <a href="#" @click=${(e) => handlePopup(e, data.inverterProg.entityID)}>
                         <svg xmlns="http://www.w3.org/2000/svg" id="prog_grid_on" x="265"
                              y="${data.enableAutarky != AutarkyType.No ? "232" : "249"}" width="20" height="18"
                              viewBox="0 0 24 24">
@@ -1568,21 +1568,21 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                   d="${icons.progGridOff}"/>
                         </svg>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_pv_energy_108)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.day_pv_energy_108)}>
                         <text id="daily_solar_value" x="43.5" y="15" class="st10 left-align"
                               display="${config.solar.display_mode === 1 && data.stateDayPVEnergy.isValid() ? '' : 'none'}"
                               fill="${!data.solarShowDaily || !config.show_solar ? 'transparent' : `${data.solarColour}`}">
                             ${data.stateDayPVEnergy.toPowerString(true, data.decimalPlacesEnergy)}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_pv_energy_108)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.day_pv_energy_108)}>
                         <text id="remaining_solar_value" x="43.5" y="15" class="st10 left-align"
                               display="${config.solar.display_mode === 2 && data.stateDayPVEnergy.isValid() ? '' : 'none'}"
                               fill="${!data.solarShowDaily || !config.show_solar ? 'transparent' : `${data.solarColour}`}">
                             ${data.stateDayPVEnergy.toPowerString(true, data.decimalPlacesEnergy)} / ${data.remainingSolar}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_pv_energy_108)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.day_pv_energy_108)}>
                         <text id="total_solar_value" x="43.5" y="15" class="st10 left-align"
                               display="${config.solar.display_mode === 3 && data.stateDayPVEnergy.isValid() ? '' : 'none'}"
                               fill="${!data.solarShowDaily || !config.show_solar ? 'transparent' : `${data.solarColour}`}">
@@ -1590,7 +1590,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.totalSolarGeneration}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_load_energy_84)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.day_load_energy_84)}>
                         <text id="daily_load_value_aux" x="${data.additionalAuxLoad === 2 ? '238' : '238'}" y="80"
                               class="st10 left-align"
                               display="${!data.loadShowDaily || !data.showAux || !data.stateDayLoadEnergy.isValid() ? 'none' : ''}"
@@ -1598,7 +1598,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.stateDayLoadEnergy.toPowerString(true, data.decimalPlacesEnergy)}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_load_energy_84)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.day_load_energy_84)}>
                         <text id="daily_load_value" x="${data.additionalLoad === 0 ? '377' : '238'}"
                               y="${data.additionalLoad === 0 ? '57' : '80'}" class="st10 left-align"
                               display="${!data.loadShowDaily || data.showAux || !data.stateDayLoadEnergy.isValid() ? 'none' : ''}"
@@ -1606,21 +1606,21 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.stateDayLoadEnergy.toPowerString(true, data.decimalPlacesEnergy)}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_battery_charge_70)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.day_battery_charge_70)}>
                         <text id="daily_bat_charge_value" x="4.5" y="237" class="st10 left-align"
                               display="${data.batteryShowDaily !== true || !config.show_battery || !data.stateDayBatteryCharge.isValid() ? 'none' : ''}"
                               fill="${data.batteryColour}">
                             ${data.stateDayBatteryCharge.toPowerString(true, data.decimalPlacesEnergy)}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_battery_discharge_71)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.day_battery_discharge_71)}>
                         <text id="daily_bat_discharge_value" x="4.5" y="271" class="st10 left-align"
                               display="${data.batteryShowDaily !== true || !config.show_battery || !data.stateDayBatteryDischarge.isValid()? 'none' : ''}"
                               fill="${data.batteryColour}">
                             ${data.stateDayBatteryDischarge.toPowerString(true, data.decimalPlacesEnergy)}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_grid_import_76)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.day_grid_import_76)}>
                         <text id="daily_grid_buy_value" 
                               x="${!data.showNonessential ? '311' : '347'}"                   
                               y="${!data.showNonessential
@@ -1632,7 +1632,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.stateDayGridImport.toPowerString(true, data.decimalPlacesEnergy)}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_grid_export_77)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.day_grid_export_77)}>
                         <text id="daily_grid_sell_value" 
                               x="${!data.showNonessential ? '311' : '347'}"
                               y="${!data.showNonessential 
@@ -1644,7 +1644,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.stateDayGridExport.toPowerString(true, data.decimalPlacesEnergy)}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.max_sell_power)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.max_sell_power)}>
                         <text id="max_sell_power" x="${!data.showNonessential ? '311' : '347'}"
                             y="${!data.showNonessential ? '309' : '198'}" class="st3 left-align"
                             fill="${['off', '0'].includes(data.stateSolarSell.state) ? 'grey' : data.gridColour}"
@@ -1652,7 +1652,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${localize('common.limit')}: ${data.stateMaxSellPower.toPowerString(config.grid.auto_scale, data.decimalPlaces)}
                     </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_aux_energy)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.day_aux_energy)}>
                         <text id="aux_daily_value"
                               x="${[1, 2].includes(data.additionalAuxLoad) ? '238' : '238'}"
                               y="12" class="st10 left-align"
@@ -1661,7 +1661,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.stateDayAuxEnergy.toPowerString(true, data.decimalPlacesEnergy)}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1_extra)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.essential_load1_extra)}>
                         <text id="ess_load1_value_extra" x="430" y="23"
                               display="${config.entities?.essential_load1_extra && data.additionalLoad === 1 && !data.showAux && data.stateEssentialLoad1Extra.isValid() ? '' : 'none'}"
                               class="st3 right-align" fill="${data.loadColour}">
@@ -1669,7 +1669,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.stateEssentialLoad1Extra?.getUOM()}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1_extra)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.essential_load1_extra)}>
                         <text id="ess_load1_value_extra" x="360" y="136"
                               display="${config.entities?.essential_load1_extra && data.additionalLoad === 1 && data.showAux && data.stateEssentialLoad1Extra.isValid() ? '' : 'none'}"
                               class="st3 st8" fill="${data.loadColour}">
@@ -1677,7 +1677,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.stateEssentialLoad1Extra?.getUOM()}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1_extra)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.essential_load1_extra)}>
                         <text id="ess_load2_value_extra" x="405" y="70"
                               display="${config.entities?.essential_load1_extra && [2, 4].includes(data.additionalLoad) && !data.showAux && data.stateEssentialLoad1Extra.isValid() ? '' : 'none'}"
                               class="st3 right-align" fill="${data.loadColour}">
@@ -1685,7 +1685,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.stateEssentialLoad1Extra?.getUOM()}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load2_extra)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.essential_load2_extra)}>
                         <text id="ess_load2_value_extra" x="418" y="70"
                               display="${config.entities?.essential_load2_extra && [2, 4].includes(data.additionalLoad) && !data.showAux && data.stateEssentialLoad2Extra.isValid() ? '' : 'none'}"
                               class="st3 left-align" fill="${data.loadColour}">
@@ -1693,7 +1693,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.stateEssentialLoad2Extra?.getUOM()}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load1_extra)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.non_essential_load1_extra)}>
                         <text id="non_ess_load1_value_extra" x="330" y="305"
                               display="${config.entities?.non_essential_load1_extra && [1, 2].includes(data.nonessentialLoads) && data.stateNonEssentialLoad1Extra.isValid() && config.show_grid ? '' : 'none'}"
                               class="st3 right-align" fill="${data.gridColour}">
@@ -1701,7 +1701,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.stateNonEssentialLoad1Extra?.getUOM()}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load2_extra)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.non_essential_load2_extra)}>
                         <text id="non_ess_load2_value_extra" x="348" y="305"
                               display="${config.entities?.non_essential_load2_extra && data.nonessentialLoads === 2 &&  data.stateNonEssentialLoad2Extra.isValid() && config.show_grid ? '' : 'none'}"
                               class="st3 left-align" fill="${data.gridColour}">
@@ -1712,7 +1712,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     ${config.inverter.three_phase
                             ? config.entities?.grid_ct_power_total
                                     ? svg`
-                                        <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_ct_power_total)}>
+                                        <a href="#" @click=${(e) => handlePopup(e, config.entities.grid_ct_power_total)}>
                                         <text id="grid_total_power" x="420" y="281.5"
                                               display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
                                               class="${data.largeFont !== true ? 'st14' : 'st4'} st8" fill="${data.gridColour}">
@@ -1742,7 +1742,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                     }
                                         </text>`
                             : svg`
-                                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_ct_power_172)}>
+                                    <a href="#" @click=${(e) => handlePopup(e, config.entities.grid_ct_power_172)}>
                                         <text id="grid_total_power" x="420" y="281.5"
                                               display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
                                               class="${data.largeFont !== true ? 'st14' : 'st4'} st8" fill="${data.gridColour}">
@@ -1760,7 +1760,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     }
                     ${config.entities?.pv_total
                             ? svg`
-                                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv_total)}>
+                                    <a href="#" @click=${(e) => handlePopup(e, config.entities.pv_total)}>
                                         <text id="pvtotal_power" x="87" y="178" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
                                               display="${!config.show_solar || config.solar.mppts === 1 || !data.statePVTotal.isValid() ? 'none' : ''}" 
                                               fill="${data.solarColour}">
@@ -1786,7 +1786,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     }
                     ${config.entities?.essential_power && config.entities.essential_power !== 'none'
                             ? svg`
-                                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_power)}>
+                                    <a href="#" @click=${(e) => handlePopup(e, config.entities.essential_power)}>
                                         <text id="ess_power" x="270" y="119" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
                                               fill="${data.loadColour}">
                                             ${config.load.auto_scale ? `${Utils.convertValue(data.essentialPower, data.decimalPlaces) || 0}` : `${data.essentialPower || 0} ${UnitOfPower.WATT}`}
@@ -1800,7 +1800,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     }
                     ${config.entities?.nonessential_power && config.entities.nonessential_power !== 'none'
                             ? svg`
-                                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.nonessential_power)}>
+                                    <a href="#" @click=${(e) => handlePopup(e, config.entities.nonessential_power)}>
                                         <text id="non_ess_power" x="338" y="281.5" display="${!config.show_grid || !data.showNonessential ? 'none' : ''}" 
                                               class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
                                               fill="${data.gridColour}">
@@ -1817,7 +1817,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     }
                     ${config.entities?.aux_power_166
                             ? svg`
-                                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.aux_power_166)}>
+                                    <a href="#" @click=${(e) => handlePopup(e, config.entities.aux_power_166)}>
                                         <text id="aux_power_166" x="270" y="48" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
                                               display="${!data.showAux ? 'none' : ''}" 
                                               fill="${data.auxDynamicColour}">
@@ -1845,7 +1845,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             }
                                         </text>`
                     }
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv1_power_186)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.pv1_power_186)}>
                         <text id="pv1_power_186" x="36.5" y="56.5" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
                               display="${!config.show_solar || !data.statePV1Power.isValid() ? 'none' : ''}" 
                               fill="${data.solarColour}" >
@@ -1854,7 +1854,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                    : `${Utils.toNum(data.pv1PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv2_power_187)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.pv2_power_187)}>
                         <text id="pv2_power_187" x="137" y="56.5" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
                               display="${!config.show_solar || config.solar.mppts === 1 || !data.statePV2Power.isValid() ? 'none' : ''}" 
                               fill="${data.solarColour}">
@@ -1863,7 +1863,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                    : `${Utils.toNum(data.pv2PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv3_power_188)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.pv3_power_188)}>
                         <text id="pv3_power_188" x="36.5" y="117" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
                               display="${!config.show_solar || [1, 2].includes(config.solar.mppts) || !data.statePV3Power.isValid() ? 'none' : ''}" 
                               fill="${data.solarColour}">
@@ -1872,7 +1872,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                    : `${Utils.toNum(data.pv3PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv4_power_189)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.pv4_power_189)}>
                         <text id="pv4_power_189" x="137" y="117" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
                               display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) || !data.statePV3Power.isValid() ? 'none' : ''}" 
                               fill="${data.solarColour}">
@@ -1881,49 +1881,49 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                    : `${Utils.toNum(data.pv4PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.aux_load1)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.aux_load1)}>
                         <text id="aux_load1_value" x="411" y="34" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
                               display="${!data.showAux || data.additionalAuxLoad === 0 || !data.stateAuxLoad1.isValid() ? 'none' : ''}" 
                               fill="${data.auxDynamicColourLoad1}">
                             ${data.stateAuxLoad1.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.aux_load2)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.aux_load2)}>
                         <text id="aux_load2_value" x="411" y="64" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
                               display="${!data.showAux || [0, 1].includes(data.additionalAuxLoad) || !data.stateAuxLoad2.isValid() ? 'none' : ''}" 
                               fill="${data.auxDynamicColourLoad2}">
                             ${data.stateAuxLoad2.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load1)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.non_essential_load1)}>
                         <text id="noness1_value" x="340" y="321" class="st3" 
                               display="${!config.show_grid || !data.showNonessential || [0, 2, 3].includes(data.nonessentialLoads) || !data.stateNonessentialLoad1.isValid() ? 'none' : ''}" 
                               fill="${data.gridColour}">
                             ${data.stateNonessentialLoad1.toPowerString(config.grid.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load1)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.non_essential_load1)}>
                         <text id="noness2_value" x="320" y="321" class="st3" 
                               display="${!config.show_grid || !data.showNonessential || [0, 1].includes(data.nonessentialLoads) || !data.stateNonessentialLoad1.isValid() ? 'none' : ''}" 
                               fill="${data.gridColour}">
                             ${data.stateNonessentialLoad1.toPowerString(config.grid.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load2)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.non_essential_load2)}>
                         <text id="noness2_value" x="357" y="321" class="st3" 
                               display="${!config.show_grid || !data.showNonessential || [0, 1].includes(data.nonessentialLoads) || !data.stateNonessentialLoad2.isValid() ? 'none' : ''}" 
                               fill="${data.gridColour}">
                             ${data.stateNonessentialLoad2.toPowerString(config.grid.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load3)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.non_essential_load3)}>
                         <text id="noness3_value" x="283" y="321" class="${config.battery.hide_soc ? 'st3' : 'st12'}" 
                               display="${!config.show_grid || !data.showNonessential || [0, 1, 2].includes(data.nonessentialLoads) || !data.stateNonessentialLoad3.isValid() ? 'none' : ''}" 
                               fill="${data.gridColour}">
                             ${data.stateNonessentialLoad3.toPowerString(config.grid.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.essential_load1)}>
                         <text id="ess_load1_value" x="409" y="${!data.showAux ? '47' : '158'}" 
                               display="${data.additionalLoad === 1 && data.stateEssentialLoad1.isValid() ? '' : 'none'}" 
                               class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
@@ -1931,28 +1931,28 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.stateEssentialLoad1.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.essential_load1)}>
                         <text id="ess_load2_value" x="${!data.showAux ? '394' : '391'}" y="${!data.showAux ? '41' : '160'}" 
                               display="${[2, 4].includes(data.additionalLoad) && data.stateEssentialLoad2.isValid() ? '' : 'none'}" class="st3" 
                               fill="${data.loadColour}">
                             ${data.stateEssentialLoad1.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load2)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.essential_load2)}>
                         <text id="ess_load2_value" x="${!data.showAux ? '430' : '427'}" y="${!data.showAux ? '41' : '160'}" 
                               display="${[2, 4].includes(data.additionalLoad) && data.stateEssentialLoad2.isValid() ? '' : 'none'}" class="st3" 
                               fill="${data.loadColour}">
                             ${data.stateEssentialLoad2.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load3)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.essential_load3)}>
                         <text id="ess_load4_value" x="392" y="160" 
                               display="${[4].includes(data.additionalLoad) && data.stateEssentialLoad3.isValid() ? '' : 'none'}" class="st3" 
                               fill="${data.loadColour}">
                             ${data.stateEssentialLoad3.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load4)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.essential_load4)}>
                         <text id="ess_load4_value" x="430" y="160" 
                               display="${[4].includes(data.additionalLoad) && data.stateEssentialLoad4.isValid() ? '' : 'none'}" class="st3" 
                               fill="${data.loadColour}">
@@ -1961,7 +1961,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </a>
                     ${data.totalGridPower >= 0
                             ? svg`
-                                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.energy_cost_buy)}>
+                                    <a href="#" @click=${(e) => handlePopup(e, config.entities.energy_cost_buy)}>
                                         <text id="energy_cost" x="414" y="305" class="${!config.show_grid ? 'st12' : 'st3 right-align'}" 
                                               fill="${data.gridColour}" 
                                               display="${config.entities?.energy_cost_buy && data.stateEnergyCostBuy.isValid() && !config.entities.non_essential_load2_extra ? '' : 'none'}" >
@@ -1979,7 +1979,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                         </text>
                                     </a>`
                             : svg`
-                                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.energy_cost_sell)}>
+                                    <a href="#" @click=${(e) => handlePopup(e, config.entities.energy_cost_sell)}>
                                         <text id="energy_cost" x="414" y="305"  class="${!config.show_grid ? 'st12' : 'st3 right-align'}" 
                                               fill="${data.gridColour}" 
                                               display="${config.entities?.energy_cost_sell && data.stateEnergyCostSell.isValid() && !config.entities.non_essential_load2_extra ? '' : 'none'}" >
@@ -1997,7 +1997,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                         </text>
                                     </a>`
                     }
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.inverter_voltage_154)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.inverter_voltage_154)}>
                         <text id="inverter_voltage_154" x="270"
                               y="${config.inverter.three_phase ? '164' : '170.4'}"
                               display="${!config.show_grid || config.entities.inverter_voltage_154 === 'none' || !config.entities.inverter_voltage_154 ? 'none' : ''}"
@@ -2005,7 +2005,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.inverterVoltage} ${UnitOfElectricPotential.VOLT}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.inverter_voltage_L2)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.inverter_voltage_L2)}>
                         <text id="inverter_voltage_L2" x="270" y="177"
                               display="${config.inverter.three_phase && config.entities?.inverter_voltage_L2 ? '' : 'none'}"
                               class="${!config.show_grid ? 'st12' : `${data.largeFont !== true ? 'st14 st8' : 'st4 st8'}`}"
@@ -2013,7 +2013,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.inverterVoltageL2} ${UnitOfElectricPotential.VOLT}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.inverter_voltage_L3)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.inverter_voltage_L3)}>
                         <text id="inverter_voltage_L3" x="270" y="190"
                               display="${config.inverter.three_phase && config.entities?.inverter_voltage_L3 ? '' : 'none'}"
                               class="${!config.show_grid ? 'st12' : `${data.largeFont !== true ? 'st14 st8' : 'st4 st8'}`}"
@@ -2021,7 +2021,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.inverterVoltageL3} ${UnitOfElectricPotential.VOLT}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.load_frequency_192)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.load_frequency_192)}>
                         <text id="load_frequency_192" x="270"
                               y="${config.inverter.three_phase ? '203' : '189.5'}"
                               display="${!config.show_grid || config.entities.load_frequency_192 === 'none' || !config.entities.load_frequency_192 ? 'none' : ''}"
@@ -2029,7 +2029,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.loadFrequency} Hz
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.inverter_current_164)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.inverter_current_164)}>
                         <text id="inverter_current_164" x="180.5"
                               y="${config.inverter.three_phase ? '188' : '199'}"
                               display="${config.entities.inverter_current_164 === 'none' || !config.entities.inverter_current_164 ? 'none' : ''}"
@@ -2037,35 +2037,35 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.inverterCurrent} ${UnitOfElectricalCurrent.AMPERE}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.inverter_current_L2)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.inverter_current_L2)}>
                         <text id="inverter_current_L2" x="180.5" y="201"
                               display="${config.inverter.three_phase && config.entities?.inverter_current_L2 ? '' : 'none'}"
                               class="${data.largeFont !== true ? 'st14' : 'st4'} st8" fill="${data.inverterColour}">
                             ${data.inverterCurrentL2} ${UnitOfElectricalCurrent.AMPERE}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.inverter_current_L3)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.inverter_current_L3)}>
                         <text id="inverter_current_L3" x="180.5" y="214"
                               display="${config.inverter.three_phase && config.entities?.inverter_current_L3 ? '' : 'none'}"
                               class="${data.largeFont !== true ? 'st14' : 'st4'} st8" fill="${data.inverterColour}">
                             ${data.inverterCurrentL3} ${UnitOfElectricalCurrent.AMPERE}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_voltage_183)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.battery_voltage_183)}>
                         <text id="battery_voltage_183" x="41" y="317"
                               display="${config.entities.battery_voltage_183 === 'none' || !config.entities.battery_voltage_183 || !config.show_battery ? 'none' : ''}"
                               fill=${data.batteryColour} class="${data.largeFont !== true ? 'st14' : 'st4'} st8">
                             ${data.batteryVoltage} ${UnitOfElectricPotential.VOLT}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.battery_soc_184)}>
                         <text id="battery_soc_184" x="132.5" y="333"
                               display="${config.entities.battery_soc_184 === 'none' || !config.show_battery || !data.stateBatterySoc.isValid() ? 'none' : ''}"
                               fill=${data.batteryColour} class="st13 st8 left-align">
                             ${data.stateBatterySoc.toNum(0)}%
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.battery_soc_184)}>
                         <text id="battery_soc_184" x="191.5" y="333" fill=${data.batteryColour}
                               class="st13 st8 left-align"
                               display="${!data.inverterProg.show
@@ -2075,7 +2075,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             | ${data.inverterProg.capacity || 0}%
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.battery_soc_184)}>
                         <text id="battery_soc_184" x="191.5" y="333" fill=${data.batteryColour}
                               class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st13 st8 left-align'}"
                               display="${!data.inverterProg.show && config.battery?.shutdown_soc && !config.battery?.shutdown_soc_offgrid
@@ -2083,14 +2083,14 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             | ${data.batteryShutdown || 0}%
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.battery_soc_184)}>
                         <text id="battery_soc_184" x="191.5" y="333" fill=${data.batteryColour}
                               class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st13 st8 left-align'}"
                               display="${!data.inverterProg.show && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
                             |
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_power_190)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.battery_power_190)}>
                         <text id="battery_power_190" x="41" y="356"
                               display="${config.entities.battery_power_190 === 'none' || !config.show_battery ? 'none' : ''}"
                               fill=${data.batteryColour} class="${data.largeFont !== true ? 'st14' : 'st4'} st8">
@@ -2105,7 +2105,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             }
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_current_191)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.battery_current_191)}>
                         <text id="battery_current_191" x="41" y="336"
                               display="${config.entities.battery_current_191 === 'none' || !config.show_battery || !data.stateBatteryCurrent.isValid() ? 'none' : ''}"
                               fill=${data.batteryColour} class="${data.largeFont !== true ? 'st14' : 'st4'} st8">
@@ -2116,7 +2116,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${UnitOfElectricalCurrent.AMPERE}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.inverter_power_175)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.inverter_power_175)}>
                         <text id="inverter_power_175" x="180.5"
                               y="${config.inverter.three_phase ? '174' : '178'}"
                               display="${config.entities.inverter_power_175 === 'none' ? 'none' : ''}"
@@ -2126,7 +2126,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                     : `${data.autoScaledInverterPower} ${UnitOfPower.WATT}`}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_power_169)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.grid_power_169)}>
                         <text id="grid_power_169" x="270"
                               y="${config.inverter.three_phase ? '216' : '209'}"
                               display="${!config.show_grid || config.entities.grid_power_169 === 'none' ? 'none' : ''}"
@@ -2142,70 +2142,70 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             }
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv1_voltage_109)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.pv1_voltage_109)}>
                         <text id="pv1_voltage" x="41" y="78.5" class="st3 left-align"
                               display="${!config.show_solar || !config.entities.pv1_voltage_109 || config.entities.pv1_voltage_109  === 'none' || !data.statePV1Voltage.isValid() ? 'none' : ''}"
                               fill="${data.solarColour}">${data.statePV1Voltage.toNum(1)}
                             ${UnitOfElectricPotential.VOLT}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv1_current_110)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.pv1_current_110)}>
                         <text id="pv1_current" x="41" y="90" class="st3 left-align"
                               display="${!config.show_solar || !config.entities.pv1_current_110 || config.entities.pv1_current_110 === 'none' || !data.statePV1Current.isValid() ? 'none' : ''}"
                               fill="${data.solarColour}">${data.statePV1Current.toNum(1)}
                             ${UnitOfElectricalCurrent.AMPERE}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv2_voltage_111)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.pv2_voltage_111)}>
                         <text id="pv2_voltage" x="142" y="78.5" class="st3 left-align"
                               display="${!config.show_solar || !config.entities.pv2_voltage_111 || config.entities.pv2_voltage_111 === 'none' || config.solar.mppts === 1 || !data.statePV2Voltage.isValid() ? 'none' : ''}"
                               fill="${data.solarColour}">${data.statePV2Voltage.toNum(1)}
                             ${UnitOfElectricPotential.VOLT}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv2_current_112)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.pv2_current_112)}>
                         <text id="pv2_current" x="142" y="90" class="st3 left-align"
                               display="${!config.show_solar || !config.entities.pv2_current_112 || config.entities.pv2_current_112 === 'none' || config.solar.mppts === 1 || !data.statePV2Current.isValid() ? 'none' : ''}"
                               fill="${data.solarColour}">${data.statePV2Current.toNum(1)}
                             ${UnitOfElectricalCurrent.AMPERE}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv3_voltage_113)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.pv3_voltage_113)}>
                         <text id="pv3_voltage" x="41" y="139" class="st3 left-align"
                               display="${!config.show_solar || !config.entities.pv3_voltage_113 || config.entities.pv3_voltage_113 === 'none' || [1, 2].includes(config.solar.mppts) || !data.statePV3Voltage.isValid() ? 'none' : ''}"
                               fill="${data.solarColour}">${data.statePV3Voltage.toNum(1)}
                             ${UnitOfElectricPotential.VOLT}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv3_current_114)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.pv3_current_114)}>
                         <text id="pv3_current" x="41" y="150" class="st3 left-align"
                               display="${!config.show_solar || !config.entities.pv3_current_114 || config.entities.pv3_current_114 === 'none' || [1, 2].includes(config.solar.mppts) || !data.statePV3Current.isValid() ? 'none' : ''}"
                               fill="${data.solarColour}">${data.statePV3Current.toNum(1)}
                             ${UnitOfElectricalCurrent.AMPERE}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv4_voltage_115)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.pv4_voltage_115)}>
                         <text id="pv4_voltage" x="142" y="139" class="st3 left-align"
                               display="${!config.show_solar || !config.entities.pv4_voltage_115 || config.entities.pv4_voltage_115 === 'none' || [1, 2, 3].includes(config.solar.mppts) || !data.statePV4Voltage.isValid() ? 'none' : ''}"
                               fill="${data.solarColour}">${data.statePV4Voltage.toNum(1)}
                             ${UnitOfElectricPotential.VOLT}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv4_current_116)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.pv4_current_116)}>
                         <text id="pv4_current" x="142" y="150" class="st3 left-align"
                               display="${!config.show_solar || !config.entities.pv4_current_116 || config.entities.pv4_current_116 === 'none' || [1, 2, 3].includes(config.solar.mppts) || !data.statePV4Current.isValid() ? 'none' : ''}"
                               fill="${data.solarColour}">${data.statePV4Current.toNum(1)}
                             ${UnitOfElectricalCurrent.AMPERE}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_temp_182)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.battery_temp_182)}>
                         <text id="battery_temp_182" x="93.7" y="295"
                               class="${config.entities?.battery_temp_182 ? 'st3 left-align' : 'st12'}"
                               fill="${data.batteryColour}" display="${!config.show_battery || !data.stateBatteryTemp.isValid() ? 'none' : ''}">
                             ${data.stateBatteryTemp.toNum(1)}°
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.radiator_temp_91)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.radiator_temp_91)}>
                         <text id="ac_temp" x="${config.solar?.mppts === 4 ? '110' : '134'}"
                               y="${config.solar?.mppts === 4 ? '237' : '153'}" class="st3 left-align"
                               fill="${data.inverterColour}"
@@ -2213,27 +2213,27 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.stateRadiatorTemp.toNum(1)}°
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.dc_transformer_temp_90)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.dc_transformer_temp_90)}>
                         <text id="dc_temp" x="110" y="266" class="st3 left-align" fill="${data.inverterColour}"
                               display="${config.entities?.dc_transformer_temp_90 && data.stateDCTransformerTemp.isValid() ? '' : 'none'}">DC:
                             ${data.stateDCTransformerTemp.toNum(1)}°
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.environment_temp)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.environment_temp)}>
                         <text id="environ_temp" x="1" y="32"
                               class="${config.entities?.environment_temp ? 'st3 left-align' : 'st12'}"
                               fill="${data.solarColour}" display="${!config.show_solar || !data.stateEnvironmentTemp.isValid() ? 'none' : ''}">
                             ${data.stateEnvironmentTemp.toNum(1)}°
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.prepaid_units)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.prepaid_units)}>
                         <text id="prepaid" x="428" y="258"
                               class="${config.entities?.prepaid_units ? 'st3 left-align' : 'st12'}"
                               fill="${data.gridColour}" display="${!config.show_grid || !data.statePrepaidUnits.isValid() ? 'none' : ''}">
                             ${data.statePrepaidUnits.toNum(1)}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.aux_load1_extra)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.aux_load1_extra)}>
                         <text id="aux_load1_extra" x="411" y="8" class="st3 st8"
                               display="${!data.showAux || [1, 2].includes(data.additionalAuxLoad) || !config.entities.aux_load1_extra ? 'none' : ''}"
                               fill="${data.auxStatus === 'on' || data.auxStatus === '1' ? `${data.auxDynamicColour}` : `${data.auxOffColour}`}">
@@ -2241,7 +2241,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.stateAuxLoad1Extra?.getUOM()}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.aux_load1_extra)}>                    
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.aux_load1_extra)}>                    
                         <text id="aux_load1_extra" x="360" y="14" class="st3 st8"
                               display="${data.showAux && [1, 2].includes(data.additionalAuxLoad) && config.entities.aux_load1_extra ? '' : 'none'}"
                               fill="${data.auxDynamicColourLoad1}">
@@ -2249,7 +2249,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.stateAuxLoad1Extra?.getUOM()}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.aux_load2_extra)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.aux_load2_extra)}>
                         <text id="aux_load2_extra" x="360" y="83" class="st3 st8"
                               display="${!data.showAux || [0, 1].includes(data.additionalAuxLoad) || !config.entities.aux_load2_extra ? 'none' : ''}"
                               fill="${data.auxDynamicColourLoad2}">
@@ -2257,7 +2257,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.stateAuxLoad2Extra?.getUOM()}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_ct_power_172)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.grid_ct_power_172)}>
                         <text id="grid-power-L1" x="428" y="305"
                             display="${config.inverter.three_phase ? '' : 'none'}"
                             class="${!config.show_grid ? 'st12' : 'st3 left-align'}"
@@ -2265,7 +2265,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${config.load.auto_scale ? `${Utils.convertValue(data.gridPower, data.decimalPlaces) || 0}` : `${data.gridPower || 0} ${UnitOfPower.WATT}`}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_ct_power_L2)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.grid_ct_power_L2)}>
                         <text id="grid-power-L2" x="428" y="318"
                             display="${config.inverter.three_phase && config.entities?.grid_ct_power_L2 ? '' : 'none'}"
                             class="${!config.show_grid ? 'st12' : 'st3 left-align'}"
@@ -2273,7 +2273,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${config.load.auto_scale ? `${Utils.convertValue(data.gridPowerL2, data.decimalPlaces) || 0}` : `${data.gridPowerL2 || 0} ${UnitOfPower.WATT}`}
                         </text>
                     </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_ct_power_L3)}>
+                    <a href="#" @click=${(e) => handlePopup(e, config.entities.grid_ct_power_L3)}>
                         <text id="grid-power-L3" x="428" y="331"
                             display="${config.inverter.three_phase && config.entities?.grid_ct_power_L3 ? '' : 'none'}"
                             class="${!config.show_grid ? 'st12' : 'st3 left-align'}"
