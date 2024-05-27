@@ -1978,7 +1978,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                         <text id="energy_cost" x="414" y="305"  class="${!config.show_grid ? 'st12' : 'st3 right-align'}" 
                                               fill="${data.gridColour}" 
                                               display="${config.entities?.energy_cost_sell && data.stateEnergyCostSell.isValid() ? '' : 'none'}" >
-                                            ${data.energyCost}}
+                                            ${data.energyCost}
                                         </text>
                                         <text id="energy_cost" x="414" y="318"  class="${!config.show_grid ? 'st12' : 'st3 right-align'}" 
                                               fill="${data.gridColour}" 
