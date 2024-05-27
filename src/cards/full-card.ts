@@ -452,12 +452,12 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </text>
                     <text id="battery_soc_184" x="205" y="327" fill=${data.batteryColour}
                           class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st14 left-align'}"
-                          display="${[InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel) && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
+                          display="${!data.inverterProg.show && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
                         ${data.batteryShutdown}%
                     </text>
                     <text id="battery_soc_184" x="205" y="340" fill=${data.batteryColour}
                           class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st14 left-align'}"
-                          display="${[InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel) && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
+                          display="${!data.inverterProg.show && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
                         ${data.shutdownOffGrid}%
                     </text>
 
@@ -1964,12 +1964,17 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.energy_cost_buy)}>
                                         <text id="energy_cost" x="414" y="305" class="${!config.show_grid ? 'st12' : 'st3 right-align'}" 
                                               fill="${data.gridColour}" 
-                                              display="${config.entities?.energy_cost_buy && data.stateEnergyCostBuy.isValid() ? '' : 'none'}" >
+                                              display="${config.entities?.energy_cost_buy && data.stateEnergyCostBuy.isValid() && !config.entities.non_essential_load2_extra ? '' : 'none'}" >
+                                            ${data.energyCost} ${data.stateEnergyCostBuy?.getUOM()}
+                                        </text>
+                                        <text id="energy_cost" x="${config.inverter?.three_phase ? '414' : '430'}" y="305" class="${!config.show_grid ? 'st12' : config.inverter?.three_phase ? 'st3 right-align' : 'st3 left-align'}" 
+                                              fill="${data.gridColour}" 
+                                              display="${config.entities?.energy_cost_buy && data.stateEnergyCostBuy.isValid() && config.entities.non_essential_load2_extra ? '' : 'none'}" >
                                             ${data.energyCost}
                                         </text>
-                                        <text id="energy_cost" x="414" y="318" class="${!config.show_grid ? 'st12' : 'st3 right-align'}" 
+                                        <text id="energy_cost" x="${config.inverter?.three_phase ? '414' : '437'}" y="318" class="${!config.show_grid ? 'st12' : config.inverter?.three_phase ? 'st3 right-align' : 'st3 left-align'}" 
                                               fill="${data.gridColour}" 
-                                              display="${config.entities?.energy_cost_buy && data.stateEnergyCostBuy.isValid() ? '' : 'none'}" >
+                                              display="${config.entities?.energy_cost_buy && data.stateEnergyCostBuy.isValid() && config.entities.non_essential_load2_extra ? '' : 'none'}" >
                                             ${data.stateEnergyCostBuy?.getUOM()}
                                         </text>
                                     </a>`
@@ -1977,12 +1982,17 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.energy_cost_sell)}>
                                         <text id="energy_cost" x="414" y="305"  class="${!config.show_grid ? 'st12' : 'st3 right-align'}" 
                                               fill="${data.gridColour}" 
-                                              display="${config.entities?.energy_cost_sell && data.stateEnergyCostSell.isValid() ? '' : 'none'}" >
-                                            ${data.energyCost}}
+                                              display="${config.entities?.energy_cost_sell && data.stateEnergyCostSell.isValid() && !config.entities.non_essential_load2_extra ? '' : 'none'}" >
+                                            ${data.energyCost} ${data.stateEnergyCostSell?.getUOM()}
                                         </text>
-                                        <text id="energy_cost" x="414" y="318"  class="${!config.show_grid ? 'st12' : 'st3 right-align'}" 
+                                        <text id="energy_cost" x="${config.inverter?.three_phase ? '414' : '430'}" y="305"  class="${!config.show_grid ? 'st12' : config.inverter?.three_phase ? 'st3 right-align' : 'st3 left-align'}" 
                                               fill="${data.gridColour}" 
-                                              display="${config.entities?.energy_cost_sell && data.stateEnergyCostSell.isValid() ? '' : 'none'}" >
+                                              display="${config.entities?.energy_cost_sell && data.stateEnergyCostSell.isValid() && config.entities.non_essential_load2_extra ? '' : 'none'}" >
+                                            ${data.energyCost}
+                                        </text>
+                                        <text id="energy_cost" x="${config.inverter?.three_phase ? '414' : '437'}" y="318"  class="${!config.show_grid ? 'st12' : config.inverter?.three_phase ? 'st3 right-align' : 'st3 left-align'}" 
+                                              fill="${data.gridColour}" 
+                                              display="${config.entities?.energy_cost_sell && data.stateEnergyCostSell.isValid() && config.entities.non_essential_load2_extra ? '' : 'none'}" >
                                             ${data.stateEnergyCostSell?.getUOM()}
                                         </text>
                                     </a>`
@@ -2058,10 +2068,9 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
                         <text id="battery_soc_184" x="191.5" y="333" fill=${data.batteryColour}
                               class="st13 st8 left-align"
-                              display="${data.inverterProg.show === false
+                              display="${!data.inverterProg.show
                               || config.entities.battery_soc_184 === 'none'
                               || !config.show_battery
-                              || [InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel)
                               || config.battery.hide_soc ? 'none' : ''}">
                             | ${data.inverterProg.capacity || 0}%
                         </text>
@@ -2069,7 +2078,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
                         <text id="battery_soc_184" x="191.5" y="333" fill=${data.batteryColour}
                               class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st13 st8 left-align'}"
-                              display="${[InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel) && config.battery?.shutdown_soc && !config.battery?.shutdown_soc_offgrid
+                              display="${!data.inverterProg.show && config.battery?.shutdown_soc && !config.battery?.shutdown_soc_offgrid
                                       ? '' : 'none'}">
                             | ${data.batteryShutdown || 0}%
                         </text>
@@ -2077,7 +2086,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
                         <text id="battery_soc_184" x="191.5" y="333" fill=${data.batteryColour}
                               class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st13 st8 left-align'}"
-                              display="${[InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel) && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
+                              display="${!data.inverterProg.show && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
                             |
                         </text>
                     </a>

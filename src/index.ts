@@ -555,10 +555,8 @@ export class SunsynkPowerFlowCard extends LitElement {
         //calculate battery capacity
         let batteryCapacity: number = 0;
         if (config.show_battery) {
-            switch (inverterModel) {
-                case InverterModel.GoodweGridMode:
-                case InverterModel.Goodwe:
-                case InverterModel.Huawei:
+            switch (true) {
+                case !inverterProg.show:
                     if (batteryPower > 0) {
                         if (
                             (gridStatus === 'on' || gridStatus === '1' || gridStatus.toLowerCase() === 'on-grid') &&

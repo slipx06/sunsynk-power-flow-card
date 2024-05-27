@@ -343,13 +343,13 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     <text id="battery_soc_184" x="${data.compactMode ? '343' : '363'}" y="351"
                           fill=${data.batteryColour}
                           class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st14 left-align'}"
-                          display="${[InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel) && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
+                          display="${!data.inverterProg.show && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
                         ${data.batteryShutdown}%
                     </text>
                     <text id="battery_soc_184" x="${data.compactMode ? '343' : '363'}" y="364"
                           fill=${data.batteryColour}
                           class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st14 left-align'}"
-                          display="${[InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel) && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
+                          display="${!data.inverterProg.show && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
                         ${data.shutdownOffGrid}%
                     </text>
 
@@ -988,10 +988,9 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         <text id="battery_soc_184" x="${data.compactMode ? '330' : '350'}" y="358"
                               fill=${data.batteryColour}
                               class="st13 st8 left-align"
-                              display="${data.inverterProg.show === false
+                              display="${!data.inverterProg.show
                               || config.entities.battery_soc_184 === 'none'
                               || !config.show_battery
-                              || [InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel)
                               || config.battery.hide_soc ? 'none' : ''}">
                             | ${data.inverterProg.capacity || 0}%
                         </text>
@@ -1000,7 +999,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         <text id="battery_soc_184" x="${data.compactMode ? '330' : '350'}" y="358"
                               fill=${data.batteryColour}
                               class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st13 st8 left-align'}"
-                              display="${[InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel) && config.battery?.shutdown_soc && !config.battery?.shutdown_soc_offgrid
+                              display="${!data.inverterProg.show && config.battery?.shutdown_soc && !config.battery?.shutdown_soc_offgrid
                                       ? '' : 'none'}">
                             | ${data.batteryShutdown || 0}%
                         </text>
@@ -1009,7 +1008,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         <text id="battery_soc_184" x="${data.compactMode ? '330' : '350'}" y="358"
                               fill=${data.batteryColour}
                               class="${config.battery.hide_soc || !config.show_battery ? 'st12' : 'st13 st8 left-align'}"
-                              display="${[InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei].includes(data.inverterModel) && config.battery.shutdown_soc_offgrid ? '' : 'none'}">
+                              display="${!data.inverterProg.show && config.battery.shutdown_soc_offgrid ? '' : 'none'}">
                             |
                         </text>
                     </a>
