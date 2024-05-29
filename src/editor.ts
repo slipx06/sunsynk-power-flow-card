@@ -139,6 +139,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                     {name: 'pv3_max_power', selector: {number: {}}},
                                     {name: 'pv4_max_power', selector: {number: {}}},
                                     {name: 'efficiency', selector: {number: {mode: 'box', min: 0, max: 3,}}},
+                                    {name: 'off_threshold', selector: {number: {}}},
                                 ]
                             },  {
                                 type: "expandable",
@@ -178,6 +179,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                     {name: 'show_remaining_energy', selector: {boolean: {}}},
                                     {name: 'animation_speed', selector: {number: {}}},
                                     {name: 'max_power', selector: {number: {}}}, 
+                                    {name: 'path_threshold', selector: {number: {}}},
                                 ]
                             },  {
                                 type: "expandable",
@@ -219,6 +221,8 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                     {name: 'load4_icon', selector: {icon: {}}},
                                     {name: 'animation_speed', selector: {number: {}}},
                                     {name: 'max_power', selector: {number: {}}},
+                                    {name: 'off_threshold', selector: {number: {}}},
+                                    {name: 'path_threshold', selector: {number: {}}},
                                 ]
                             },  {
                                 type: "expandable",
@@ -292,6 +296,7 @@ export class SunSynkCardEditor extends ScopedRegistryHost(LitElement) implements
                                     {name: 'load3_icon', selector: {icon: {}}},
                                     {name: 'animation_speed', selector: {number: {}}},
                                     {name: 'max_power', selector: {number: {}}},
+                                    {name: 'off_threshold', selector: {number: {}}},
                                 ]
                             },  {
                                 type: "expandable",

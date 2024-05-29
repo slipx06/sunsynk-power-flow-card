@@ -150,6 +150,7 @@
       "aux_colour": "Farve",
       "aux_dynamic_colour": "Aux Dynamisk Farve",
       "aux_off_colour": "Off Farve",
+      "off_threshold": "Off Threshold",
       "panel_mode": "Panel Mode",
       "invert_grid": "Inverter Værdier",
       "invert_load": "Inverter Værdier",
@@ -177,6 +178,7 @@
       "nonessential_icon": "Ikke Essentielt Ikon",
       "energy_cost_decimals": "Energiudgift Decimaler",
       "show_remaining_energy": "Vis resterende Energi",
+      "path_threshold": "Path Threshold",
       "cat_title": {
         "title": "Titel Options",
         "general": "Generelle Options",

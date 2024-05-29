@@ -39,6 +39,7 @@ export default {
         dynamic_colour: true,
         linear_gradient: true,
         animate: true,
+        path_threshold: 100,
     },
     solar: {
         colour: 'orange',
@@ -54,12 +55,14 @@ export default {
         display_mode: 1,
         dynamic_colour: true,
         efficiency: 3,
+        off_threshold: 10,
     },
     load: {
         colour: '#5fb6ad',
         dynamic_colour: true,
         dynamic_icon: true,
         aux_dynamic_colour: true,
+        off_threshold: 0,
         show_daily: false,
         show_aux: false,
         show_daily_aux: false,
@@ -81,6 +84,7 @@ export default {
         load1_name: localize('common.load1_name'),
         load2_name: localize('common.load2_name'),
         auto_scale: true,
+        path_threshold: 100,
     },
     grid: {
         colour: '#5490c2',
@@ -103,6 +107,7 @@ export default {
         auto_scale: true,
         energy_cost_decimals: 2,
         show_absolute: false,
+        off_threshold: 0,
     },
 
 }
