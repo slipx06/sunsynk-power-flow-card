@@ -68,7 +68,7 @@ export class Utils {
         if (!event || !entityId) {
           return;
         }
-
+    
         event.stopPropagation();
     
         // Handle different actions based on actionConfig
@@ -86,6 +86,17 @@ export class Utils {
           composed: true,
           detail: { entityId },
         });
+    
+        // Push the state to the history
+        history.pushState({ entityId: entityId }, '', window.location.href);
+    
+        // Handle popstate event to close the popup when navigating back
+        const closePopup = () => {
+          // Remove the event listener to avoid multiple bindings
+          window.removeEventListener('popstate', closePopup);
+        };
+    
+        window.addEventListener('popstate', closePopup);
         event.target.dispatchEvent(moreInfoEvent);
       }
 }
