@@ -56,25 +56,36 @@ export class Utils {
         return `${numberValue.toFixed(decimal)} ${unit}`;
     }
 
-    static handlePopup(e, entityId) {
-        if(!entityId)
-            return;
-        this._handleClick(e, {action: 'more-info'}, entityId);
-    }
-
-    private static _handleClick(event, actionConfig, entityId) {
-        if (!entityId || !event)
-            return;
-        event.stopPropagation();
-        let e;
-        // eslint-disable-next-line default-case
-        switch (actionConfig.action) {
-            case 'more-info': {
-                e = new Event('hass-more-info', {composed: true});
-                e.detail = {entityId};
-                event.target.dispatchEvent(e);
-                break;
-            }
+    static handlePopup(event, entityId) {
+        if (!entityId) {
+          return;
         }
-    }
+        event.preventDefault();
+        this._handleClick(event, { action: 'more-info' }, entityId);
+      }
+    
+      private static _handleClick(event, actionConfig, entityId) {
+        if (!event || !entityId) {
+          return;
+        }
+
+        event.stopPropagation();
+    
+        // Handle different actions based on actionConfig
+        switch (actionConfig.action) {
+          case 'more-info':
+            this._dispatchMoreInfoEvent(event, entityId);
+            break;
+          default:
+            console.warn(`Action '${actionConfig.action}' is not supported.`);
+        }
+      }
+    
+      private static _dispatchMoreInfoEvent(event, entityId) {
+        const moreInfoEvent = new CustomEvent('hass-more-info', {
+          composed: true,
+          detail: { entityId },
+        });
+        event.target.dispatchEvent(moreInfoEvent);
+      }
 }
