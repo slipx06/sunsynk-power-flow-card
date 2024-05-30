@@ -56,6 +56,7 @@ export class Utils {
         return `${numberValue.toFixed(decimal)} ${unit}`;
     }
 
+    private static isPopupOpen = false;
     static handlePopup(event, entityId) {
         if (!entityId) {
           return;
@@ -82,6 +83,13 @@ export class Utils {
       }
     
       private static _dispatchMoreInfoEvent(event, entityId) {
+
+        if (Utils.isPopupOpen) {
+            return;
+          }
+
+        Utils.isPopupOpen = true;
+
         const moreInfoEvent = new CustomEvent('hass-more-info', {
           composed: true,
           detail: { entityId },
@@ -93,8 +101,16 @@ export class Utils {
     
         const closePopup = () => {
  
-          window.removeEventListener('popstate', closePopup);
-          history.back();
+            if (Utils.isPopupOpen) {
+                //console.log(`Closing popup for entityId: ${entityId}`);
+                Utils.isPopupOpen = false;
+        
+                // Remove the event listener to avoid multiple bindings
+                window.removeEventListener('popstate', closePopup);
+        
+                // Optionally, if your popup close logic doesn't trigger history.back(), call it manually
+                history.back();
+                }
         };
     
         window.addEventListener('popstate', closePopup, { once: true });
