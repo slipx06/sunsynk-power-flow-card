@@ -87,16 +87,16 @@ export class Utils {
           detail: { entityId },
         });
     
-        // Push the state to the history
-        history.pushState({ entityId: entityId }, '', window.location.href);
+        history.pushState({ popupOpen: true }, '', window.location.href);
+
+        event.target.dispatchEvent(moreInfoEvent);
     
-        // Handle popstate event to close the popup when navigating back
         const closePopup = () => {
-          // Remove the event listener to avoid multiple bindings
+ 
           window.removeEventListener('popstate', closePopup);
+          history.back();
         };
     
-        window.addEventListener('popstate', closePopup);
-        event.target.dispatchEvent(moreInfoEvent);
+        window.addEventListener('popstate', closePopup, { once: true });
       }
 }
