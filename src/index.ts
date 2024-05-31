@@ -1,13 +1,22 @@
 import {CSSResultGroup, LitElement} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
-import {fireEvent, HomeAssistant} from 'custom-card-helpers';
+import {fireEvent, HomeAssistant, LovelaceCardEditor} from 'custom-card-helpers';
 import {styles} from './style';
 import {CardStyle, DataDto, InverterModel, InverterSettings, sunsynkPowerFlowCardConfig,} from './types';
 import defaultConfig from './defaults';
-import {CARD_VERSION, valid3phase, validaux, validLoadValues, validnonLoadValues, validGridConnected, validGridDisconnected, validauxLoads} from './const';
+import {
+    CARD_VERSION,
+    valid3phase,
+    validaux,
+    validLoadValues,
+    validnonLoadValues,
+    validGridConnected,
+    validGridDisconnected,
+    validauxLoads,
+    EDITOR_NAME, MAIN_NAME
+} from './const';
 import {localize} from './localize/localize';
 import merge from 'lodash.merge';
-import {SunSynkCardEditor} from './editor';
 import {Utils} from './helpers/utils';
 import {fullCard} from './cards/full-card';
 import {compactCard} from './cards/compact-card';
@@ -25,7 +34,7 @@ console.groupCollapsed(
 console.log('Readme:', 'https://github.com/slipx06/sunsynk-power-flow-card');
 console.groupEnd();
 
-@customElement('sunsynk-power-flow-card')
+@customElement(MAIN_NAME)
 export class SunsynkPowerFlowCard extends LitElement {
     @property() public hass!: HomeAssistant;
     @property() private _config!: sunsynkPowerFlowCardConfig;
@@ -49,14 +58,9 @@ export class SunsynkPowerFlowCard extends LitElement {
         return styles;
     }
 
-    static getConfigElement() {
-        return document.createElement("content-card-editor");
-    }
-
-    handlePopup(e, entityId) {
-        if(!e || !entityId)
-            return;
-        fireEvent(e.target, 'hass-more-info', {entityId})
+    public static async getConfigElement() {
+        await import("./editor");
+        return document.createElement(EDITOR_NAME) as LovelaceCardEditor;
     }
 
     static getStubConfig() {
@@ -1175,11 +1179,11 @@ export class SunsynkPowerFlowCard extends LitElement {
         };
 
         if (this.isFullCard) {
-            return fullCard(config, this.handlePopup, inverterImg, data)
+            return fullCard(config, inverterImg, data)
         }
 
         if (this.isLiteCard || this.isCompactCard) {
-            return compactCard(config, this.handlePopup, inverterImg, data)
+            return compactCard(config, inverterImg, data)
         }
     }
 
@@ -1346,11 +1350,6 @@ export class SunsynkPowerFlowCard extends LitElement {
     }
 }
 
-try {
-    customElements.define("content-card-editor", SunSynkCardEditor);
-} catch (_e) {
-}
-(window as any).customCards = (window as any).customCards || [];
 (window as any).customCards.push({
     type: 'sunsynk-power-flow-card',
     name: 'Sunsynk Power Flow Card',

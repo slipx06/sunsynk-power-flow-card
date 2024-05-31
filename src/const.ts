@@ -10,6 +10,9 @@ export const validauxLoads = [0, 1, 2]
 export const validGridDisconnected = ['off', '0', 'off-grid', 'off grid', 'offgrid']
 export const validGridConnected = ['on', '1', 'on-grid', 'on grid', 'ongrid']
 
+export const EDITOR_NAME = 'sunsynk-content-card-editor';
+export const MAIN_NAME = 'sunsynk-power-flow-card';
+
 export const enum SensorDeviceClass {
     DATE = "date",
     ENUM = "enum",
