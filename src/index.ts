@@ -1,13 +1,23 @@
 import {CSSResultGroup, LitElement} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
-import {HomeAssistant} from 'custom-card-helpers';
+import {HomeAssistant, LovelaceCardEditor} from 'custom-card-helpers';
 import {styles} from './style';
 import {CardStyle, DataDto, InverterModel, InverterSettings, sunsynkPowerFlowCardConfig,} from './types';
 import defaultConfig from './defaults';
-import {CARD_VERSION, valid3phase, validaux, validLoadValues, validnonLoadValues, validGridConnected, validGridDisconnected, validauxLoads} from './const';
+import {
+    CARD_VERSION,
+    EDITOR_NAME,
+    MAIN_NAME,
+    valid3phase,
+    validaux,
+    validauxLoads,
+    validGridConnected,
+    validGridDisconnected,
+    validLoadValues,
+    validnonLoadValues
+} from './const';
 import {localize} from './localize/localize';
 import merge from 'lodash.merge';
-import {SunSynkCardEditor} from './editor';
 import {Utils} from './helpers/utils';
 import {fullCard} from './cards/full-card';
 import {compactCard} from './cards/compact-card';
@@ -25,7 +35,7 @@ console.groupCollapsed(
 console.log('Readme:', 'https://github.com/slipx06/sunsynk-power-flow-card');
 console.groupEnd();
 
-@customElement('sunsynk-power-flow-card')
+@customElement(MAIN_NAME)
 export class SunsynkPowerFlowCard extends LitElement {
     @property() public hass!: HomeAssistant;
     @property() private _config!: sunsynkPowerFlowCardConfig;
@@ -49,8 +59,9 @@ export class SunsynkPowerFlowCard extends LitElement {
         return styles;
     }
 
-    static getConfigElement() {
-        return document.createElement("content-card-editor");
+    public static async getConfigElement() {
+        await import("./editor");
+        return document.createElement(EDITOR_NAME) as LovelaceCardEditor;
     }
 
     static getStubConfig() {
@@ -228,7 +239,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let batteryCurrentDirection = !stateBatteryCurrentDirection.isNaN() ? stateBatteryCurrentDirection.toNum(0) : null;
         let genericInverterImage = config.inverter?.modern;
 
-        let loadColour = this.colourConvert(config.load?.colour);        
+        let loadColour = this.colourConvert(config.load?.colour);
         let auxDynamicColour = this.calculateAuxLoadColour(stateAuxPower, Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
         let auxOffColour = this.colourConvert(config.load?.aux_off_colour || auxDynamicColour);
         let auxDynamicColourLoad1 = this.calculateAuxLoadColour(stateAuxLoad1, Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
@@ -310,14 +321,14 @@ export class SunsynkPowerFlowCard extends LitElement {
         }
 
         let dynamicColourNonEssentialLoad1 = Math.abs(stateNonessentialLoad1.toNum(0)) > Utils.toNum(config.grid?.off_threshold, 0)
-                ? gridColour
-                : 'grey';
+            ? gridColour
+            : 'grey';
         let dynamicColourNonEssentialLoad2 = Math.abs(stateNonessentialLoad2.toNum(0)) > Utils.toNum(config.grid?.off_threshold, 0)
-                ? gridColour
-                : 'grey';
+            ? gridColour
+            : 'grey';
         let dynamicColourNonEssentialLoad3 = Math.abs(stateNonessentialLoad3.toNum(0)) > Utils.toNum(config.grid?.off_threshold, 0)
-                ? gridColour
-                : 'grey';
+            ? gridColour
+            : 'grey';
 
         const gridOffColour = this.colourConvert(config.grid?.grid_off_colour || gridColour);
 
@@ -357,7 +368,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         }
 
         let auxType = config.load?.aux_type; //valid options are gen,inverter, default, gen, boiler, pump, aircon
-        
+
         //Icons
         const iconEssentialLoad1 = this.getEntity('load.load1_icon', {state: config.load?.load1_icon?.toString() ?? ''}).state;
         const iconEssentialLoad2 = this.getEntity('load.load2_icon', {state: config.load?.load2_icon?.toString() ?? ''}).state;
@@ -369,7 +380,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         const iconNonessentialLoad1 = this.getEntity('grid.load1_icon', {state: config.grid?.load1_icon?.toString() ?? ''}).state;
         const iconNonessentialLoad2 = this.getEntity('grid.load2_icon', {state: config.grid?.load2_icon?.toString() ?? ''}).state;
         const iconNonessentialLoad3 = this.getEntity('grid.load3_icon', {state: config.grid?.load3_icon?.toString() ?? ''}).state;
-        
+
         let decimalPlaces = config.decimal_places;
         let decimalPlacesEnergy = config.decimal_places_energy;
         let remainingSolar = config.entities.remaining_solar ? Utils.convertValueNew(stateRemainingSolar.state, stateRemainingSolar.attributes?.unit_of_measurement, decimalPlaces) : false;
@@ -515,20 +526,20 @@ export class SunsynkPowerFlowCard extends LitElement {
                 break;
             default:
                 inverterProg.show = true;
-        
+
                 const timer_now = new Date(); // Create a new Date object representing the current time
-        
+
                 const progTimes: Date[] = [];
-        
+
                 [prog1, prog2, prog3, prog4, prog5, prog6].forEach((prog, index) => {
                     const [hours, minutes] = prog.time.state.split(':').map(item => parseInt(item, 10));
                     progTimes[index] = new Date(timer_now.getTime());
                     progTimes[index].setHours(hours);
                     progTimes[index].setMinutes(minutes);
                 });
-        
+
                 const [prog_time1, prog_time2, prog_time3, prog_time4, prog_time5, prog_time6] = progTimes;
-        
+
                 if (timer_now >= prog_time6 || timer_now < prog_time1) {
                     assignInverterProgValues(prog6, config.entities.prog6_charge);
                 } else if (timer_now >= prog_time1 && timer_now < prog_time2) {
@@ -542,16 +553,17 @@ export class SunsynkPowerFlowCard extends LitElement {
                 } else if (timer_now >= prog_time5 && timer_now < prog_time6) {
                     assignInverterProgValues(prog5, config.entities.prog5_charge);
                 }
-        
-                function assignInverterProgValues(prog, entityID) {
-                     if (prog.charge.state === 'No Grid or Gen' || prog.charge.state === '0' || prog.charge.state === 'off') {
-                         inverterProg.charge = 'none';
-                     } else {
-                         inverterProg.charge = 'both';
-                     }
-                     inverterProg.capacity = parseInt(prog.capacity.state);
-                     inverterProg.entityID = entityID;
-                 }
+
+            function assignInverterProgValues(prog, entityID) {
+                if (prog.charge.state === 'No Grid or Gen' || prog.charge.state === '0' || prog.charge.state === 'off') {
+                    inverterProg.charge = 'none';
+                } else {
+                    inverterProg.charge = 'both';
+                }
+                inverterProg.capacity = parseInt(prog.capacity.state);
+                inverterProg.entityID = entityID;
+            }
+
                 break;
         }
 
@@ -867,7 +879,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         const totalPercentage = pvPercentageRaw + batteryPercentageRaw;
         const normalizedPvPercentage = totalPercentage === 0 ? 0 : (pvPercentageRaw / totalPercentage) * 100;
         const normalizedBatteryPercentage = totalPercentage === 0 ? 0 : (batteryPercentageRaw / totalPercentage) * 100;
-        
+
         //console.log(`${normalizedPvPercentage} % normalizedPVPercentage to load, ${normalizedBatteryPercentage} % normalizedBatteryPercentage to load`); 
 
         let pvPercentage = 0;
@@ -949,7 +961,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         let essIcon: string;
         let essIconSize: number;
-        
+
         switch (true) {
             case pvPercentageRaw >= 100 && batteryPercentageRaw <= 5 && (totalGridPower - nonessentialPower) < 50 && config.load.dynamic_icon:
                 essIcon = icons.essPv;
@@ -977,11 +989,11 @@ export class SunsynkPowerFlowCard extends LitElement {
         const pv3MaxPower = this.getEntity('solar.pv3_max_power', {state: config.solar.pv3_max_power?.toString() ?? ''});
         const pv4MaxPower = this.getEntity('solar.pv4_max_power', {state: config.solar.pv4_max_power?.toString() ?? ''});
 
-        const totalPVEfficiency = (!config.solar.max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((totalPV / solarMaxPower.toNum()) * 100, 200) ,0); 
-        const PV1Efficiency = (!config.solar.pv1_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv1PowerWatts / pv1MaxPower.toNum()) * 100, 200) ,0);
-        const PV2Efficiency = (!config.solar.pv2_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv2PowerWatts / pv2MaxPower.toNum()) * 100, 200) ,0);
-        const PV3Efficiency = (!config.solar.pv3_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv3PowerWatts / pv3MaxPower.toNum()) * 100, 200) ,0);
-        const PV4Efficiency = (!config.solar.pv4_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv4PowerWatts / pv4MaxPower.toNum()) * 100, 200) ,0);
+        const totalPVEfficiency = (!config.solar.max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((totalPV / solarMaxPower.toNum()) * 100, 200), 0);
+        const PV1Efficiency = (!config.solar.pv1_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv1PowerWatts / pv1MaxPower.toNum()) * 100, 200), 0);
+        const PV2Efficiency = (!config.solar.pv2_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv2PowerWatts / pv2MaxPower.toNum()) * 100, 200), 0);
+        const PV3Efficiency = (!config.solar.pv3_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv3PowerWatts / pv3MaxPower.toNum()) * 100, 200), 0);
+        const PV4Efficiency = (!config.solar.pv4_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv4PowerWatts / pv4MaxPower.toNum()) * 100, 200), 0);
         /**
          * The current structure of this data object is intentional, but it is considered temporary.
          * There is a need to evaluate the data being passed, as there might be duplication.
@@ -1340,11 +1352,6 @@ export class SunsynkPowerFlowCard extends LitElement {
     }
 }
 
-try {
-    customElements.define("content-card-editor", SunSynkCardEditor);
-} catch (_e) {
-}
-(window as any).customCards = (window as any).customCards || [];
 (window as any).customCards.push({
     type: 'sunsynk-power-flow-card',
     name: 'Sunsynk Power Flow Card',

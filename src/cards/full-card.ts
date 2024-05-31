@@ -5,6 +5,7 @@ import {Utils} from '../helpers/utils';
 import {UnitOfElectricalCurrent, UnitOfElectricPotential, UnitOfEnergy, UnitOfPower, validGridConnected, validGridDisconnected} from '../const';
 import {icons} from '../helpers/icons';
 
+
 export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string, data: DataDto) => {
     return html`
         <ha-card>

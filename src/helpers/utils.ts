@@ -1,4 +1,4 @@
-import {UnitOfEnergy, UnitOfPower, UnitOfEnergyOrPower, unitOfEnergyConversionRules} from '../const';
+import {unitOfEnergyConversionRules, UnitOfEnergyOrPower, UnitOfPower} from '../const';
 
 export class Utils {
     static toNum(val: string | number, decimals: number = -1, invert: boolean = false): number {
@@ -64,14 +64,14 @@ export class Utils {
         event.preventDefault();
         this._handleClick(event, { action: 'more-info' }, entityId);
       }
-    
+
       private static _handleClick(event, actionConfig, entityId) {
         if (!event || !entityId) {
           return;
         }
     
         event.stopPropagation();
-    
+
         // Handle different actions based on actionConfig
         switch (actionConfig.action) {
           case 'more-info':
@@ -81,7 +81,7 @@ export class Utils {
             console.warn(`Action '${actionConfig.action}' is not supported.`);
         }
       }
-    
+
       private static _dispatchMoreInfoEvent(event, entityId) {
 
         if (Utils.isPopupOpen) {
