@@ -37,29 +37,56 @@ export class Utils {
 
         if (unit === UnitOfPower.WATT && Math.abs(numberValue) < 1000) {
             return `${Math.round(numberValue)} ${unit}`;
-        }
+        };
 
         if (unit === UnitOfPower.KILO_WATT && Math.abs(numberValue) < 1) {
             return `${Math.round(numberValue * 1000)} W`;
-        }
+        };
 
         if (unit === UnitOfPower.MEGA_WATT && Math.abs(numberValue) < 1) {
             return `${(numberValue * 1000).toFixed(decimal)} kW`;
-        }
+        };
 
         for (const rule of rules) {
             if (Math.abs(numberValue) >= rule.threshold) {
                 const convertedValue = (numberValue / rule.divisor).toFixed(rule.decimal || decimal);
                 return `${convertedValue} ${rule.targetUnit}`;
             }
-        }
+        };
 
         return `${numberValue.toFixed(decimal)} ${unit}`;
     }
 
-    static handlePopup(e, entityId) {
-        if (!entityId)
-            return;
-        return fireEvent(e.target, 'hass-more-info', {entityId})
-    }
+    static handlePopup(event, entityId) {
+        if (!entityId) {
+          return;
+        }
+        event.preventDefault();
+        this._handleClick(event, { action: 'more-info' }, entityId);
+      }
+
+      private static _handleClick(event, actionConfig, entityId) {
+        if (!event || !entityId) {
+          return;
+        }
+
+        event.stopPropagation();
+
+        // Handle different actions based on actionConfig
+        switch (actionConfig.action) {
+          case 'more-info':
+            this._dispatchMoreInfoEvent(event, entityId);
+            break;
+          default:
+            console.warn(`Action '${actionConfig.action}' is not supported.`);
+        }
+      }
+
+      private static _dispatchMoreInfoEvent(event, entityId) {
+        const moreInfoEvent = new CustomEvent('hass-more-info', {
+          composed: true,
+          detail: { entityId },
+        });
+        event.target.dispatchEvent(moreInfoEvent);
+      }
 }

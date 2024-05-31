@@ -139,6 +139,7 @@
     "aux_load1_icon": "Aux Load 1 Icon",
     "aux_load2_icon": "Aux Load 2 Icon",
     "aux_dynamic_colour": "Aux Dynamic Colour",
+    "off_threshold": "Off Threshold",
     "show_daily_buy": "Show Daily Buy",
     "show_daily_sell": "Show Daily Sell",
     "no_grid_colour": "No Grid Colour",
@@ -177,6 +178,7 @@
     "nonessential_icon": "Non Essential Icon",
     "energy_cost_decimals": "Energy Cost Decimals",
     "show_remaining_energy": "Show Remaining Energy",
+    "path_threshold": "Path Threshold",
     "cat_title": {
       "title": "Title Options",
       "general": "General Options",

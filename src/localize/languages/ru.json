@@ -150,6 +150,7 @@
       "animate": "Анимированный Градиент",
       "aux_colour": "Цвет",
       "aux_off_colour": "Цвет выключенного",
+      "off_threshold": "Off Threshold",
       "panel_mode": "Panel Mode",
       "invert_grid": "Инвертировать показания",
       "invert_load": "Инвертировать показания",
@@ -177,6 +178,7 @@
       "nonessential_icon": "Иконка Не Обязательной Нагрузки",
       "energy_cost_decimals": "Разрядность Стоимости Энергии",
       "show_remaining_energy": "Показать Остаток Энергии",
+      "path_threshold": "Path Threshold",
       "cat_title": {
         "title": "Параметры Заголовка",
         "general": "Общие Настройки",

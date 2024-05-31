@@ -85,6 +85,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         dynamic_colour: boolean;
         linear_gradient: boolean;
         animate: boolean;
+        path_threshold: number,
     }
     solar: {
         colour: string;
@@ -104,6 +105,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         display_mode: number;
         dynamic_colour: boolean;
         efficiency: number;
+        off_threshold: number;
     }
     load: {
         colour: string;
@@ -121,6 +123,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         aux_type: string;
         aux_colour: string;
         aux_off_colour: string;
+        off_threshold: number;
         additional_loads: number;
         aux_loads: number;
         aux_load1_name: string;
@@ -139,6 +142,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         show_daily_aux: boolean;
         auto_scale: boolean;
         essential_name: string,
+        path_threshold: number,
     }
     grid: {
         colour: string;
@@ -164,6 +168,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         auto_scale: boolean;
         energy_cost_decimals: number;
         show_absolute: boolean;
+        off_threshold: number;
     }
     entities: CardConfigEntities
 }
@@ -445,5 +450,12 @@ export interface DataDto {
     PV4Efficiency,
     gridPercentage,
     flowColour,
-    flowBatColour
+    flowBatColour,
+    dynamicColourEssentialLoad1,
+    dynamicColourEssentialLoad2,
+    dynamicColourEssentialLoad3,
+    dynamicColourEssentialLoad4,
+    dynamicColourNonEssentialLoad1,
+    dynamicColourNonEssentialLoad2,
+    dynamicColourNonEssentialLoad3
 }

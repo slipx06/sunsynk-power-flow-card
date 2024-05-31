@@ -150,6 +150,7 @@
       "animate": "Animate Linear Gradient",
       "aux_colour": "Cor",
       "aux_off_colour": "Cor Off",
+      "off_threshold": "Off Threshold",
       "panel_mode": "Modo do Painel",
       "invert_grid": "Inverter Valores",
       "invert_load": "Inverter Valores",
@@ -177,6 +178,7 @@
       "nonessential_icon": "Icone Desnecessário",
       "energy_cost_decimals": "Decimais do custo de energia",
       "show_remaining_energy": "Exibir energia restante",
+      "path_threshold": "Path Threshold",
       "cat_title": {
         "title": "Opções de título",
         "general": "Opções gerais",
