@@ -1,5 +1,4 @@
 import {unitOfEnergyConversionRules, UnitOfEnergyOrPower, UnitOfPower} from '../const';
-import {fireEvent} from 'custom-card-helpers';
 
 export class Utils {
     static toNum(val: string | number, decimals: number = -1, invert: boolean = false): number {
