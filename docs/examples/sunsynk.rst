@@ -219,6 +219,7 @@ Full Configuration (All Options)
     dynamic_colour: true
     linear_gradient: true
     animate: true
+    path_threshold: 100
   solar:
     colour: orange
     show_daily: true
@@ -237,6 +238,7 @@ Full Configuration (All Options)
     display_mode: 1
     dynamic_colour: true
     efficiency: 3
+    off_threshold: 0
   load:
     colour: '#5fb6ad'
     show_daily: true
@@ -262,6 +264,8 @@ Full Configuration (All Options)
     load2_icon: mdi:pool
     auto_scale: true
     dynamic_colour: true
+    path_theshold: 100
+    off_threshold: 0
   grid:
     colour: '#5490c2'
     export_colour: brown
@@ -281,6 +285,7 @@ Full Configuration (All Options)
     animation_speed: 8
     max_power: 8000
     auto_scale: true
+    off_threshold: 0
   entities:
     use_timer_248: switch.sunsynk_toggle_system_timer
     priority_load_243: switch.sunsynk_toggle_priority_load

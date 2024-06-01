@@ -312,7 +312,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             case totalGridPower < 0:
                 gridColour = gridExportColour;
                 break;
-            case totalGridPower === 0: //>= 0 && totalGridPower <= Utils.toNum(config.grid?.off_threshold, 0):
+            case totalGridPower >= 0 && totalGridPower <= Utils.toNum(config.grid?.off_threshold, 0):
                 gridColour = noGridColour;
                 break;
             default:
