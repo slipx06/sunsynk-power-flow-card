@@ -430,6 +430,7 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
                                             selector: {entity: {device_class: SensorDeviceClass.ENERGY}}
                                         },
                                         {name: "battery_rated_capacity", selector: {entity: {}}},
+                                        {name: "battery_soh", selector: {entity: {}}},
                                         {name: "battery_current_direction", selector: {entity: {}}},
                                         {name: "battery_status", selector: {entity: {}}},
                                     ]

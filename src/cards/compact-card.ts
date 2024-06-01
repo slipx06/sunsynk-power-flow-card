@@ -1181,6 +1181,15 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             ${data.stateBatteryTemp.toNum(1)}°
                         </text>
                     </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soh)}>
+                        <text id="battery_soh" x="${data.compactMode ? '205' : '250'}"
+                              y="${data.compactMode ? '332' : '324.5'}"
+                              class="${config.entities?.battery_soh ? 'st3 left-align' : 'st12'}"
+                              fill="${data.batteryColour}"
+                              display="${!config.show_battery || !data.stateBatterySOH.isValid() || config.entities?.battery_temp_182 ? 'none' : ''}">
+                            ${data.stateBatterySOH.toNum(0)}%
+                        </text>
+                    </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.radiator_temp_91)}>
                         <text id="ac_temp" x="173" y="168.2" class="st3 left-align" fill="${data.inverterColour}"
                               display="${config.entities?.radiator_temp_91 && data.stateRadiatorTemp.isValid() ? '' : 'none'}">

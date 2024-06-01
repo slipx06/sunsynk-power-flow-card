@@ -2243,6 +2243,13 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.stateBatteryTemp.toNum(1)}°
                         </text>
                     </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soh)}>
+                        <text id="battery_soh" x="93.7" y="295"
+                              class="${config.entities?.battery_soh ? 'st3 left-align' : 'st12'}"
+                              fill="${data.batteryColour}" display="${!config.show_battery || !data.stateBatterySOH.isValid() || config.entities?.battery_temp_182 ? 'none' : ''}">
+                            ${data.stateBatterySOH.toNum(0)}%
+                        </text>
+                    </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.radiator_temp_91)}>
                         <text id="ac_temp" x="${config.solar?.mppts === 4 ? '110' : '134'}"
                               y="${config.solar?.mppts === 4 ? '237' : '153'}" class="st3 left-align"

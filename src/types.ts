@@ -189,6 +189,7 @@ export interface CardConfigEntities {
     battery_power_190: string,
     battery_current_191: string,
     battery_rated_capacity: string;
+    battery_soh: string;
     grid_power_169: string,
     grid_voltage: string,
     day_grid_import_76: string,
@@ -457,5 +458,6 @@ export interface DataDto {
     dynamicColourEssentialLoad4,
     dynamicColourNonEssentialLoad1,
     dynamicColourNonEssentialLoad2,
-    dynamicColourNonEssentialLoad3
+    dynamicColourNonEssentialLoad3,
+    stateBatterySOH: CustomEntity,
 }

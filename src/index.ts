@@ -158,6 +158,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         const stateBatteryRatedCapacity = this.getEntity('entities.battery_rated_capacity', {state: ''});
         const stateShutdownSOC = this.getEntity('battery.shutdown_soc', {state: config.battery.shutdown_soc?.toString() ?? ''});
         const stateShutdownSOCOffGrid = this.getEntity('battery.shutdown_soc_offgrid', {state: config.battery.shutdown_soc_offgrid?.toString() ?? ''});
+        const stateBatterySOH = this.getEntity('entities.battery_soh', {state: ''});
 
         //Load
         const stateEssentialPower = this.getEntity('entities.essential_power');
@@ -1177,7 +1178,8 @@ export class SunsynkPowerFlowCard extends LitElement {
             dynamicColourEssentialLoad4,
             dynamicColourNonEssentialLoad1,
             dynamicColourNonEssentialLoad2,
-            dynamicColourNonEssentialLoad3
+            dynamicColourNonEssentialLoad3,
+            stateBatterySOH
         };
 
         if (this.isFullCard) {
