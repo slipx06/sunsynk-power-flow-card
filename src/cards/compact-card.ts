@@ -161,18 +161,24 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     <rect id="es-load2" x="406" y="290" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                           stroke="${data.dynamicColourEssentialLoad2}" pointer-events="all"
                           display="${data.additionalLoad === 2 ? '' : 'none'}"/>
-                    <rect id="es-load4" x="405" y="127" width="35" height="20" rx="4.5" ry="4.5" fill="none"
+                    <rect id="es-load1" x="405" y="127" width="35" height="20" rx="4.5" ry="4.5" fill="none"
                           stroke="${data.dynamicColourEssentialLoad1}" pointer-events="all"
                           display="${data.additionalLoad === 4 ? '' : 'none'}"/>
-                    <rect id="es-load4" x="441" y="127" width="35" height="20" rx="4.5" ry="4.5" fill="none"
+                    <rect id="es-load2" x="441" y="127" width="35" height="20" rx="4.5" ry="4.5" fill="none"
                           stroke="${data.dynamicColourEssentialLoad2}" pointer-events="all"
                           display="${data.additionalLoad === 4 ? '' : 'none'}"/>
-                    <rect id="es-load4" x="405" y="290" width="35" height="20" rx="4.5" ry="4.5" fill="none"
+                    <rect id="es-load2" x="405" y="290" width="35" height="20" rx="4.5" ry="4.5" fill="none"
+                          stroke="${data.dynamicColourEssentialLoad2}" pointer-events="all"
+                          display="${data.additionalLoad === 3 ? '' : 'none'}"/>
+                    <rect id="es-load3" x="441" y="290" width="35" height="20" rx="4.5" ry="4.5" fill="none"
                           stroke="${data.dynamicColourEssentialLoad3}" pointer-events="all"
-                          display="${[3, 4].includes(data.additionalLoad) ? '' : 'none'}"/>
+                          display="${data.additionalLoad === 3 ? '' : 'none'}"/>
+                    <rect id="es-load3" x="405" y="290" width="35" height="20" rx="4.5" ry="4.5" fill="none"
+                          stroke="${data.dynamicColourEssentialLoad3}" pointer-events="all"
+                          display="${data.additionalLoad === 4 ? '' : 'none'}"/>
                     <rect id="es-load4" x="441" y="290" width="35" height="20" rx="4.5" ry="4.5" fill="none"
                           stroke="${data.dynamicColourEssentialLoad4}" pointer-events="all"
-                          display="${[3, 4].includes(data.additionalLoad) ? '' : 'none'}"/>
+                          display="${data.additionalLoad === 4 ? '' : 'none'}"/>
 
                     <text id="duration" x="${data.compactMode ? '270' : '290'}" y="377.5"
                           class="${data.largeFont !== true ? 'st14' : 'st4'} left-align"
