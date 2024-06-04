@@ -452,6 +452,7 @@ export interface DataDto {
     gridPercentage,
     flowColour,
     flowBatColour,
+    flowInvColour,
     dynamicColourEssentialLoad1,
     dynamicColourEssentialLoad2,
     dynamicColourEssentialLoad3,

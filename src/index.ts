@@ -240,15 +240,18 @@ export class SunsynkPowerFlowCard extends LitElement {
         let batteryCurrentDirection = !stateBatteryCurrentDirection.isNaN() ? stateBatteryCurrentDirection.toNum(0) : null;
         let genericInverterImage = config.inverter?.modern;
 
+        let decimalPlaces = config.decimal_places;
+        let decimalPlacesEnergy = config.decimal_places_energy;
+
         let loadColour = this.colourConvert(config.load?.colour);
-        let auxDynamicColour = this.calculateAuxLoadColour(stateAuxPower, Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
+        let auxDynamicColour = this.calculateAuxLoadColour(stateAuxPower.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
         let auxOffColour = this.colourConvert(config.load?.aux_off_colour || auxDynamicColour);
-        let auxDynamicColourLoad1 = this.calculateAuxLoadColour(stateAuxLoad1, Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
-        let auxDynamicColourLoad2 = this.calculateAuxLoadColour(stateAuxLoad2, Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
-        let dynamicColourEssentialLoad1 = this.calculateEssentialLoadColour(stateEssentialLoad1, Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
-        let dynamicColourEssentialLoad2 = this.calculateEssentialLoadColour(stateEssentialLoad2, Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
-        let dynamicColourEssentialLoad3 = this.calculateEssentialLoadColour(stateEssentialLoad3, Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
-        let dynamicColourEssentialLoad4 = this.calculateEssentialLoadColour(stateEssentialLoad4, Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
+        let auxDynamicColourLoad1 = this.calculateAuxLoadColour(stateAuxLoad1.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
+        let auxDynamicColourLoad2 = this.calculateAuxLoadColour(stateAuxLoad2.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
+        let dynamicColourEssentialLoad1 = this.calculateEssentialLoadColour(stateEssentialLoad1.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
+        let dynamicColourEssentialLoad2 = this.calculateEssentialLoadColour(stateEssentialLoad2.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
+        let dynamicColourEssentialLoad3 = this.calculateEssentialLoadColour(stateEssentialLoad3.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
+        let dynamicColourEssentialLoad4 = this.calculateEssentialLoadColour(stateEssentialLoad4.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
 
         config.title_colour = this.colourConvert(config.title_colour);
 
@@ -321,13 +324,13 @@ export class SunsynkPowerFlowCard extends LitElement {
                 break;
         }
 
-        let dynamicColourNonEssentialLoad1 = Math.abs(stateNonessentialLoad1.toNum(0)) > Utils.toNum(config.grid?.off_threshold, 0)
+        let dynamicColourNonEssentialLoad1 = Math.abs(stateNonessentialLoad1.toPower(false)) > Utils.toNum(config.grid?.off_threshold, 0)
             ? gridColour
             : 'grey';
-        let dynamicColourNonEssentialLoad2 = Math.abs(stateNonessentialLoad2.toNum(0)) > Utils.toNum(config.grid?.off_threshold, 0)
+        let dynamicColourNonEssentialLoad2 = Math.abs(stateNonessentialLoad2.toPower(false)) > Utils.toNum(config.grid?.off_threshold, 0)
             ? gridColour
             : 'grey';
-        let dynamicColourNonEssentialLoad3 = Math.abs(stateNonessentialLoad3.toNum(0)) > Utils.toNum(config.grid?.off_threshold, 0)
+        let dynamicColourNonEssentialLoad3 = Math.abs(stateNonessentialLoad3.toPower(false)) > Utils.toNum(config.grid?.off_threshold, 0)
             ? gridColour
             : 'grey';
 
@@ -382,8 +385,6 @@ export class SunsynkPowerFlowCard extends LitElement {
         const iconNonessentialLoad2 = this.getEntity('grid.load2_icon', {state: config.grid?.load2_icon?.toString() ?? ''}).state;
         const iconNonessentialLoad3 = this.getEntity('grid.load3_icon', {state: config.grid?.load3_icon?.toString() ?? ''}).state;
 
-        let decimalPlaces = config.decimal_places;
-        let decimalPlacesEnergy = config.decimal_places_energy;
         let remainingSolar = config.entities.remaining_solar ? Utils.convertValueNew(stateRemainingSolar.state, stateRemainingSolar.attributes?.unit_of_measurement, decimalPlaces) : false;
         let totalSolarGeneration = config.entities.total_pv_generation ? Utils.convertValueNew(stateTotalPVGeneration.state, stateTotalPVGeneration.attributes?.unit_of_measurement, 2) : false;
         let largeFont = config.large_font;
@@ -958,6 +959,25 @@ export class SunsynkPowerFlowCard extends LitElement {
                 break;
         }
 
+        let flowInvColour: string;
+        switch (true) {
+            case pvPercentage >= Utils.toNum(config.load?.path_threshold, 0):
+                flowInvColour = solarColour;
+                break;
+            case batteryPercentage >= Utils.toNum(config.load?.path_threshold, 0):
+                flowInvColour = batteryColour;
+                break;
+            case gridPercentage >= Utils.toNum(config.load?.path_threshold, 0):
+                flowInvColour = gridColour;
+                break;
+            case gridPercentageBat >= Utils.toNum(config.battery?.path_threshold, 0):
+                flowInvColour = gridColour;
+                break;
+            default:
+                flowInvColour = inverterColour;
+                break;
+        }
+
         //console.log(`${pvPercentageBat} % PV to charge battery, ${gridPercentageBat} % Grid to charge battery`);
 
         let essIcon: string;
@@ -1172,6 +1192,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             gridPercentage,
             flowColour,
             flowBatColour,
+            flowInvColour,
             dynamicColourEssentialLoad1,
             dynamicColourEssentialLoad2,
             dynamicColourEssentialLoad3,
@@ -1261,7 +1282,7 @@ export class SunsynkPowerFlowCard extends LitElement {
     calculateAuxLoadColour(state, threshold) {
         return !this._config.load.aux_dynamic_colour
             ? this.colourConvert(this._config.load?.aux_colour)
-            : Math.abs(state.toNum(0)) > threshold
+            : Math.abs(state) > threshold
                 ? this.colourConvert(this._config.load?.aux_colour)
                 : 'grey';
     }
@@ -1269,7 +1290,7 @@ export class SunsynkPowerFlowCard extends LitElement {
     calculateEssentialLoadColour(state, threshold) {
         return !this._config.load.dynamic_colour
             ? this.colourConvert(this._config.load?.colour)
-            : Math.abs(state.toNum(0)) > threshold
+            : Math.abs(state) > threshold
                 ? this.colourConvert(this._config.load?.colour)
                 : 'grey';
     }
