@@ -161,10 +161,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     <rect id="es-load2" x="406" y="290" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                           stroke="${data.dynamicColourEssentialLoad2}" pointer-events="all"
                           display="${data.additionalLoad === 2 ? '' : 'none'}"/>
-                    <rect id="es-load1" x="405" y="127" width="35" height="20" rx="4.5" ry="4.5" fill="none"
+                    <rect id="es-load1" x="405" y="107" width="35" height="20" rx="4.5" ry="4.5" fill="none"
                           stroke="${data.dynamicColourEssentialLoad1}" pointer-events="all"
                           display="${data.additionalLoad === 4 ? '' : 'none'}"/>
-                    <rect id="es-load2" x="441" y="127" width="35" height="20" rx="4.5" ry="4.5" fill="none"
+                    <rect id="es-load2" x="441" y="107" width="35" height="20" rx="4.5" ry="4.5" fill="none"
                           stroke="${data.dynamicColourEssentialLoad2}" pointer-events="all"
                           display="${data.additionalLoad === 4 ? '' : 'none'}"/>
                     <rect id="es-load2" x="405" y="290" width="35" height="20" rx="4.5" ry="4.5" fill="none"
@@ -314,11 +314,11 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                           display="${data.additionalLoad === 2 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad2}">
                         ${config.load?.load2_name ? `${config.load.load2_name}` : ''}
                     </text>
-                    <text id="es-load1" x="433" y="156" class="st3 st8 right-align"
+                    <text id="es-load1" x="435" y="136" class="st3 st8 right-align"
                           display="${data.additionalLoad === 4 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad1}">
                         ${config.load?.load1_name ? `${config.load.load1_name}` : ''}
                     </text>
-                    <text id="es-load2" x="448" y="156" class="st3 st8 left-align"
+                    <text id="es-load2" x="448" y="136" class="st3 st8 left-align"
                           display="${data.additionalLoad === 4 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad2}">
                         ${config.load?.load2_name ? `${config.load.load2_name}` : ''}
                     </text>
@@ -330,7 +330,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                           display="${data.additionalLoad === 3 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad3}">
                         ${config.load?.load3_name ? `${config.load.load3_name}` : ''}
                     </text>
-                    <text id="es-load3" x="433" y="320" class="st3 st8 right-align"
+                    <text id="es-load3" x="435" y="320" class="st3 st8 right-align"
                           display="${data.additionalLoad === 4 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad3}">
                         ${config.load?.load3_name ? `${config.load.load3_name}` : ''}
                     </text>
@@ -662,7 +662,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     </g>
 
                     <g display="${data.additionalLoad === 4 ? '' : 'none'}">
-                        <foreignObject x="412" y="101" width="30" height="30" style="position: fixed; ">
+                        <foreignObject x="412" y="81" width="30" height="30" style="position: fixed; ">
                             <body xmlns="http://www.w3.org/1999/xhtml">
                             <div style="position: fixed; ">
                                 <ha-icon icon="${data.iconEssentialLoad1}" class="essload1_small-icon"></ha-icon>
@@ -672,7 +672,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     </g>
 
                     <g display="${data.additionalLoad === 4 ? '' : 'none'}">
-                        <foreignObject x="449" y="101" width="30" height="30" style="position: fixed; ">
+                        <foreignObject x="449" y="81" width="30" height="30" style="position: fixed; ">
                             <body xmlns="http://www.w3.org/1999/xhtml">
                             <div style="position: fixed; ">
                                 <ha-icon icon="${data.iconEssentialLoad2}" class="essload2_small-icon"></ha-icon>
@@ -1226,6 +1226,14 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             ${data.stateEssentialLoad1Extra.getUOM()}
                         </text>
                     </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1_extra)}>
+                        <text id="ess_load1_extra" x="435" y="147"
+                        display="${(config.entities?.essential_load1_extra && data.additionalLoad === 4) && data.stateEssentialLoad1Extra.isValid() ? '' : 'none'}"
+                              class="st3 right-align" fill="${data.dynamicColourEssentialLoad1}">
+                            ${data.stateEssentialLoad1Extra.toNum(1)}
+                            ${data.stateEssentialLoad1Extra.getUOM()}
+                        </text>
+                    </a>                    
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load2_extra)}>
                         <text id="ess_load2_extra" x="448" y="282"
                               display="${(config.entities?.essential_load2_extra && data.additionalLoad === 2) && data.stateEssentialLoad2Extra.isValid() ? '' : 'none'}"
@@ -1234,6 +1242,30 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             ${data.stateEssentialLoad2Extra.getUOM()}
                         </text>
                     </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load2_extra)}>
+                        <text id="ess_load2_extra" x="448" y="147"
+                              display="${(config.entities?.essential_load2_extra && data.additionalLoad === 4) && data.stateEssentialLoad2Extra.isValid() ? '' : 'none'}"
+                              class="st3 left-align" fill="${data.dynamicColourEssentialLoad2}">
+                            ${data.stateEssentialLoad2Extra.toNum(1)}
+                            ${data.stateEssentialLoad2Extra.getUOM()}
+                        </text>
+                    </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load3_extra)}>
+                        <text id="ess_load3_extra" x="435" y="332"
+                              display="${(config.entities?.essential_load3_extra && data.additionalLoad === 4) && data.stateEssentialLoad3Extra.isValid() ? '' : 'none'}"
+                              class="st3 right-align" fill="${data.dynamicColourEssentialLoad3}">
+                            ${data.stateEssentialLoad3Extra.toNum(1)}
+                            ${data.stateEssentialLoad3Extra.getUOM()}
+                        </text>
+                    </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load4_extra)}>
+                        <text id="ess_load4_extra" x="448" y="332"
+                              display="${(config.entities?.essential_load4_extra && data.additionalLoad === 4) && data.stateEssentialLoad4Extra.isValid() ? '' : 'none'}"
+                              class="st3 left-align" fill="${data.dynamicColourEssentialLoad4}">
+                            ${data.stateEssentialLoad4Extra.toNum(1)}
+                            ${data.stateEssentialLoad4Extra.getUOM()}
+                        </text>
+                    </a>                                                                   
                     ${data.totalGridPower >= 0
                             ? svg`
                                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.energy_cost_buy)}>
@@ -1344,14 +1376,14 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1)}>
-                        <text id="ess_load4" x="423" y="138" display="${data.additionalLoad === 4 && data.stateEssentialLoad1.isValid() ? '' : 'none'}" 
+                        <text id="ess_load4" x="423" y="118" display="${data.additionalLoad === 4 && data.stateEssentialLoad1.isValid() ? '' : 'none'}" 
                               class="st3" 
                               fill="${data.dynamicColourEssentialLoad1}">
                             ${data.stateEssentialLoad1?.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                         </text>
                     </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load2)}>
-                        <text id="ess_load4" x="459" y="138" display="${data.additionalLoad === 4 && data.stateEssentialLoad2.isValid() ? '' : 'none'}" 
+                        <text id="ess_load4" x="459" y="118" display="${data.additionalLoad === 4 && data.stateEssentialLoad2.isValid() ? '' : 'none'}" 
                               class="st3" 
                               fill="${data.dynamicColourEssentialLoad2}">
                             ${data.stateEssentialLoad2?.toPowerString(config.load.auto_scale, data.decimalPlaces)}
