@@ -790,7 +790,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </svg>
 
                     <path d="${config.inverter.three_phase ? 'M 180 223 L 180 235' : 'M 180 212 L 180 235'}"
-                          fill="none" stroke="${data.inverterColour}" stroke-width="${data.minLineWidth}" stroke-miterlimit="10"
+                          fill="none" stroke="${config.battery.dynamic_colour && config.load.dynamic_colour ? data.flowInvColour : data.inverterColour}" stroke-width="${data.minLineWidth}" stroke-miterlimit="10"
                           pointer-events="stroke"/>
                     
                     <svg id="load-flow">
@@ -835,14 +835,14 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         <defs>
                             <linearGradient id="bLg" x1="0%" x2="0%" y1="100%" y2="0%">
                                 <stop offset="0%"
-                                      stop-color="${Number(data.pvPercentageBat) > 0 ? data.solarColour : (Number(data.gridPercentageBat) > 0 ? data.gridColour : data.batteryColour)}"/>
-                                <stop offset="${data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat}%"
-                                      stop-color="${Number(data.pvPercentageBat) > 0 ? data.solarColour : (Number(data.gridPercentageBat) > 0 ? data.gridColour : data.batteryColour)}"/>
-                                <stop offset="${data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat}%"
-                                      stop-color="${Number(data.gridPercentageBat) > 0 ? data.gridColour : data.batteryColour}"/>
-                                <stop offset="${(Number(data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat) + Number(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat))}%"
-                                      stop-color="${Number(data.gridPercentageBat) > 0 ? `${data.gridColour}` : `${data.batteryColour}`}"/>
-                                <stop offset="${(Number(data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat) + Number(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat))}%"
+                                      stop-color="${data.gridPercentageBat > 0 ? data.gridColour : data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
+                                <stop offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
+                                      stop-color="${data.gridPercentageBat > 0 ? data.gridColour : data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
+                                <stop offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
+                                      stop-color="${data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
+                                <stop offset="${(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat) + (data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat)}%"
+                                      stop-color="${data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
+                                <stop offset="${(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat) + (data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat)}%"
                                       stop-color="${data.batteryColour}"/>
                                 <stop offset="100%"
                                       stop-color="${data.batteryColour}"/>
