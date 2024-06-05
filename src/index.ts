@@ -229,9 +229,8 @@ export class SunsynkPowerFlowCard extends LitElement {
         let gridPower = stateGridCTPower.toPower(invert_grid);
         let gridPowerL2 = stateGridCTPowerL2.toPower(invert_grid);
         let gridPowerL3 = stateGridCTPowerL3.toPower(invert_grid);
-        let gridPower3Phase = stateGridCTPowerTotal.toPower(invert_grid);
         let gridPowerTotal = config.entities?.grid_ct_power_total
-            ? gridPower3Phase
+            ? stateGridCTPowerTotal.toPower(invert_grid)
             : gridPower + gridPowerL2 + gridPowerL3;
 
         let totalGridPower = config.inverter.three_phase ? gridPowerTotal : gridPower;

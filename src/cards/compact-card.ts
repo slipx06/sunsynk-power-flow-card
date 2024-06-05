@@ -378,7 +378,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                           display="${!data.inverterProg.show && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
                         ${data.shutdownOffGrid}%
                     </text>
-                    <text x="5" y="294" class="st3 st8 left-align" fill="${data.gridColour}"
+                    <text x="5" y="${config.grid.show_daily_buy ? '294' : '267'}" class="st3 st8 left-align" fill="${data.gridColour}"
                           display="${!config.show_grid ? 'none' : ''}">${config.grid.grid_name}
                     </text>
 
