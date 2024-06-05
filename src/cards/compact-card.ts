@@ -1250,10 +1250,26 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             ${data.stateEssentialLoad2Extra.getUOM()}
                         </text>
                     </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load2_extra)}>
+                        <text id="ess_load2_extra" x="435" y="332"
+                              display="${(config.entities?.essential_load2_extra && data.additionalLoad === 3) && data.stateEssentialLoad2Extra.isValid() ? '' : 'none'}"
+                              class="st3 right-align" fill="${data.dynamicColourEssentialLoad2}">
+                            ${data.stateEssentialLoad2Extra.toNum(1)}
+                            ${data.stateEssentialLoad2Extra.getUOM()}
+                        </text>
+                    </a>
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load3_extra)}>
                         <text id="ess_load3_extra" x="435" y="332"
                               display="${(config.entities?.essential_load3_extra && data.additionalLoad === 4) && data.stateEssentialLoad3Extra.isValid() ? '' : 'none'}"
                               class="st3 right-align" fill="${data.dynamicColourEssentialLoad3}">
+                            ${data.stateEssentialLoad3Extra.toNum(1)}
+                            ${data.stateEssentialLoad3Extra.getUOM()}
+                        </text>
+                    </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load3_extra)}>
+                        <text id="ess_load3_extra" x="448" y="332"
+                              display="${(config.entities?.essential_load3_extra && data.additionalLoad === 3) && data.stateEssentialLoad3Extra.isValid() ? '' : 'none'}"
+                              class="st3 left-align" fill="${data.dynamicColourEssentialLoad3}">
                             ${data.stateEssentialLoad3Extra.toNum(1)}
                             ${data.stateEssentialLoad3Extra.getUOM()}
                         </text>
