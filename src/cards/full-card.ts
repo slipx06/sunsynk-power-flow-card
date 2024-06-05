@@ -89,6 +89,16 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     color: ${data.gridColour} !important;
                     --mdc-icon-size: 70px;
                 }
+
+                .grid-icon {
+                    color: ${data.customGridIconColour} !important;
+                    --mdc-icon-size: 64px;
+                }
+
+                .grid-icon-small {
+                    color: ${data.customGridIconColour} !important;
+                    --mdc-icon-size: 32px;
+                }
             </style>
             <div class="container card">
                 ${config.title ? html`<h1
@@ -883,7 +893,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                              height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
                             <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
                                   fill="${data.gridColour}"
-                                  display="${!config.show_grid || data.totalGridPower < 0 ? 'none' : ''}"
+                                  display="${!config.show_grid || data.totalGridPower < 0 || config.grid.import_icon ? 'none' : ''}"
                                   d="${icons.gridOn}"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="transmission_off"
@@ -892,7 +902,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                              width="${config.inverter.three_phase ? '34' : '65'}"
                              height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
                             <path class="${validGridConnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
-                                  fill="${data.gridOffColour}" display="${!config.show_grid ? 'none' : ''}"
+                                  fill="${data.gridOffColour}" display="${!config.show_grid || config.grid.disconnected_icon ? 'none' : ''}"
                                   d="${icons.gridOff}"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="grid_export"
@@ -902,9 +912,23 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                              height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
                             <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
                                   fill="${data.gridColour}"
-                                  display="${!config.show_grid || data.totalGridPower >= 0 ? 'none' : ''}"
+                                  display="${!config.show_grid || data.totalGridPower >= 0 || config.grid.export_icon ? 'none' : ''}"
                                   d="${icons.gridExport}"/>
                         </svg>
+                    </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_connected_status_194)}>
+                        <g display="${config.show_grid || config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon ? '' : 'none'}">
+                            <foreignObject x="${config.inverter.three_phase ? '404' : '389'}" 
+                                           y="${config.inverter.three_phase ? '339' : '308'}" 
+                                           width="${config.inverter.three_phase ? '34' : '65'}" 
+                                           height="${config.inverter.three_phase ? '34' : '65'}" style="position: fixed; ">
+                                <body xmlns="http://www.w3.org/1999/xhtml">
+                                <div style="position: fixed; ">
+                                    <ha-icon icon="${data.customGridIcon}" class="${config.inverter.three_phase ? 'grid-icon-small' : 'grid-icon'}"></ha-icon>
+                                </div>
+                                </body>
+                            </foreignObject>
+                        </g>
                     </a>
 
                     <!-- Nonessential Icon -->

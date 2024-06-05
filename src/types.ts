@@ -169,6 +169,9 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
         energy_cost_decimals: number;
         show_absolute: boolean;
         off_threshold: number;
+        import_icon: string;
+        export_icon: string;
+        disconnected_icon: string;
     }
     entities: CardConfigEntities
 }
@@ -465,4 +468,6 @@ export interface DataDto {
     dynamicColourNonEssentialLoad2,
     dynamicColourNonEssentialLoad3,
     stateBatterySOH: CustomEntity,
+    customGridIcon,
+    customGridIconColour
 }

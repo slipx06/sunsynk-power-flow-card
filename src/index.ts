@@ -385,6 +385,9 @@ export class SunsynkPowerFlowCard extends LitElement {
         const iconNonessentialLoad1 = this.getEntity('grid.load1_icon', {state: config.grid?.load1_icon?.toString() ?? ''}).state;
         const iconNonessentialLoad2 = this.getEntity('grid.load2_icon', {state: config.grid?.load2_icon?.toString() ?? ''}).state;
         const iconNonessentialLoad3 = this.getEntity('grid.load3_icon', {state: config.grid?.load3_icon?.toString() ?? ''}).state;
+        const iconGridImport = this.getEntity('grid.import_icon', {state: config.grid?.import_icon?.toString() ?? ''}).state;
+        const iconGridDisconnected = this.getEntity('grid.disconnected_icon', {state: config.grid?.disconnected_icon?.toString() ?? ''}).state;
+        const iconGridExport = this.getEntity('grid.export_icon', {state: config.grid?.export_icon?.toString() ?? ''}).state;
 
         let remainingSolar = config.entities.remaining_solar ? Utils.convertValueNew(stateRemainingSolar.state, stateRemainingSolar.attributes?.unit_of_measurement, decimalPlaces) : false;
         let totalSolarGeneration = config.entities.total_pv_generation ? Utils.convertValueNew(stateTotalPVGeneration.state, stateTotalPVGeneration.attributes?.unit_of_measurement, 2) : false;
@@ -1016,6 +1019,28 @@ export class SunsynkPowerFlowCard extends LitElement {
         const PV2Efficiency = (!config.solar.pv2_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv2PowerWatts / pv2MaxPower.toNum()) * 100, 200), 0);
         const PV3Efficiency = (!config.solar.pv3_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv3PowerWatts / pv3MaxPower.toNum()) * 100, 200), 0);
         const PV4Efficiency = (!config.solar.pv4_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv4PowerWatts / pv4MaxPower.toNum()) * 100, 200), 0);
+        
+        let customGridIcon: string;
+        let customGridIconColour: string;
+        switch (true) {
+            case totalGridPower < 0 && validGridConnected.includes(gridStatus.toLowerCase()):
+                customGridIcon = iconGridExport;
+                customGridIconColour = gridColour;
+                break;
+            case totalGridPower >= 0 && validGridConnected.includes(gridStatus.toLowerCase()):
+                customGridIcon = iconGridImport;
+                customGridIconColour = gridColour;
+                break;
+            case totalGridPower === 0 && validGridDisconnected.includes(gridStatus.toLowerCase()):
+                customGridIcon = iconGridDisconnected;
+                customGridIconColour = gridOffColour;
+                break;
+            default:
+                customGridIcon = iconGridImport;
+                customGridIconColour = gridColour;
+                break;
+        }
+           
         /**
          * The current structure of this data object is intentional, but it is considered temporary.
          * There is a need to evaluate the data being passed, as there might be duplication.
@@ -1203,7 +1228,9 @@ export class SunsynkPowerFlowCard extends LitElement {
             dynamicColourNonEssentialLoad1,
             dynamicColourNonEssentialLoad2,
             dynamicColourNonEssentialLoad3,
-            stateBatterySOH
+            stateBatterySOH,
+            customGridIcon,
+            customGridIconColour
         };
 
         if (this.isFullCard) {

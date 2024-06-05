@@ -301,6 +301,9 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
                                     {name: 'animation_speed', selector: {number: {}}},
                                     {name: 'max_power', selector: {number: {}}},
                                     {name: 'off_threshold', selector: {number: {}}},
+                                    {name: 'import_icon', selector: {icon: {}}},
+                                    {name: 'export_icon', selector: {icon: {}}},
+                                    {name: 'disconnected_icon', selector: {icon: {}}},
                                 ]
                             }, {
                                 type: "expandable",
@@ -313,6 +316,9 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
                                         {name: 'load2_icon', selector: {entity: {}}},
                                         {name: 'load3_icon', selector: {entity: {}}},
                                         {name: 'max_power', selector: {entity: {}}},
+                                        {name: 'import_icon', selector: {entity: {}}},
+                                        {name: 'export_icon', selector: {entity: {}}},
+                                        {name: 'disconnected_icon', selector: {entity: {}}},
                                     ]
                                 }]
                             }]

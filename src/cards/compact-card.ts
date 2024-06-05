@@ -38,6 +38,11 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     color: ${data.dynamicColourEssentialLoad4} !important;
                     --mdc-icon-size: 20px;
                 }
+
+                .grid-icon {
+                    color: ${data.customGridIconColour} !important;
+                    --mdc-icon-size: 64px;
+                }
             </style>
             <div class="container card">
                 ${config.title ? html`<h1
@@ -773,22 +778,33 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                              width="64.5" height="64.5" viewBox="0 0 24 24">
                             <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
                                   fill="${data.gridColour}"
-                                  display="${!config.show_grid || data.totalGridPower < 0 ? 'none' : ''}"
+                                  display="${!config.show_grid || data.totalGridPower < 0 || config.grid.import_icon ? 'none' : ''}"
                                   d="${icons.gridOn}"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="transmission_off" x="-0.5" y="187.5"
                              width="64.5" height="64.5" viewBox="0 0 24 24">
                             <path class="${validGridConnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
-                                  fill="${data.gridOffColour}" display="${!config.show_grid ? 'none' : ''}"
+                                  fill="${data.gridOffColour}" display="${!config.show_grid || config.grid.disconnected_icon ? 'none' : ''}"
                                   d="${icons.gridOff}"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="grid_export" x="-0.5" y="187.5"
                              width="64.5" height="64.5" viewBox="0 0 24 24">
                             <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
                                   fill="${data.gridColour}"
-                                  display="${!config.show_grid || data.totalGridPower >= 0 ? 'none' : ''}"
+                                  display="${!config.show_grid || data.totalGridPower >= 0 || config.grid.export_icon ? 'none' : ''}"
                                   d="${icons.gridExportCompact}"/>
                         </svg>
+                    </a>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_connected_status_194)}>
+                        <g display="${config.show_grid || config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon ? '' : 'none'}">
+                            <foreignObject x="-0.5" y="187.5" width="70" height="70" style="position: fixed; ">
+                                <body xmlns="http://www.w3.org/1999/xhtml">
+                                <div style="position: fixed; ">
+                                    <ha-icon icon="${data.customGridIcon}" class="grid-icon"></ha-icon>
+                                </div>
+                                </body>
+                            </foreignObject>
+                        </g>
                     </a>
                     <svg xmlns="http://www.w3.org/2000/svg" id="essen" x="${data.essIconSize === 1 ? "405" : "402"}"
                          y="${data.essIconSize === 1 ? "186" : "177.5"}" width="${data.essIconSize === 1 ? "75" : "79"}"
