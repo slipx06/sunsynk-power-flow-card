@@ -546,6 +546,8 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
                                         },
                                         {name: "essential_load1_extra", selector: {entity: {}}},
                                         {name: "essential_load2_extra", selector: {entity: {}}},
+                                        {name: "essential_load3_extra", selector: {entity: {}}},
+                                        {name: "essential_load4_extra", selector: {entity: {}}},
                                         {
                                             name: "load_power_L1",
                                             selector: {entity: {device_class: SensorDeviceClass.POWER}}
