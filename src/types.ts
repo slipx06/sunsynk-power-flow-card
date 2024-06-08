@@ -147,6 +147,8 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
     grid: {
         colour: string;
         grid_name: string;
+        label_daily_grid_buy: string;
+        label_daily_grid_sell: string;
         export_colour: string;
         no_grid_colour: string;
         grid_off_colour: string;

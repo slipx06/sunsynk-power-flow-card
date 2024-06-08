@@ -89,6 +89,8 @@ export default {
     grid: {
         colour: '#5490c2',
         grid_name: localize('common.grid_name'),
+        label_daily_grid_buy: localize('common.daily_grid_buy'),
+        label_daily_grid_sell: localize('common.daily_grid_sell'),
         show_daily_buy: false,
         show_daily_sell: false,
         show_nonessential: true,

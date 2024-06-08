@@ -227,12 +227,12 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     <text id="daily_grid_buy" x="5" y="282.1" class="st3 left-align"
                           fill="${data.gridShowDailyBuy !== true ? 'transparent' : `${data.gridColour}`}"
                           display="${!config.show_grid ? 'none' : ''}">
-                        ${localize('common.daily_grid_buy')}
+                        ${config.grid.label_daily_grid_buy}
                     </text>
                     <text id="daily_grid_sell" x="5" y="179" class="st3 left-align"
                           fill="${data.gridShowDailySell !== true ? 'transparent' : `${data.gridColour}`}"
                           display="${!config.show_grid ? 'none' : ''}">
-                        ${localize('common.daily_grid_sell')}
+                        ${config.grid.label_daily_grid_sell}
                     </text>
                     <text id="daily_solar" x="200" y="40" class="st3 left-align"
                           display="${config.solar.display_mode === 1 ? '' : 'none'}"

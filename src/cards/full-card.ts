@@ -412,7 +412,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                           class="st3 left-align"
                           fill="${data.gridShowDailyBuy !== true ? 'transparent' : `${data.gridColour}`}"
                           display="${!config.show_grid ? 'none' : ''}">
-                        ${localize('common.daily_grid_buy')}
+                        ${config.grid.label_daily_grid_buy}
                     </text>
                     <text id="daily_grid_sell" 
                           x="${!data.showNonessential ? '311' : '347'}"
@@ -422,7 +422,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                           class="st3 left-align"
                           fill="${data.gridShowDailySell !== true ? 'transparent' : `${data.gridColour}`}"
                           display="${!config.show_grid ? 'none' : ''}">
-                        ${localize('common.daily_grid_sell')}
+                        ${config.grid.label_daily_grid_sell}
                     </text>
                     <text id="aux_one" x="411" y="82" class="st3 st8"
                           display="${!data.showAux || [1, 2].includes(data.additionalAuxLoad) ? 'none' : ''}"

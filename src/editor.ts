@@ -286,6 +286,8 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
                                     {name: 'export_colour', selector: {color_rgb: {}}},
                                     {name: 'grid_off_colour', selector: {color_rgb: {}}},
                                     {name: 'grid_name', selector: {text: {}}},
+                                    {name: 'label_daily_grid_buy', selector: {text: {}}},
+                                    {name: 'label_daily_grid_sell', selector: {text: {}}},
                                     {name: 'show_absolute', selector: {boolean: {}}},
                                     {name: 'energy_cost_decimals', selector: {number: {mode: 'box', min: 0, max: 3,}}},
                                     {name: 'show_nonessential', selector: {boolean: {}}},

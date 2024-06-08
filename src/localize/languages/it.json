@@ -179,6 +179,8 @@
       "energy_cost_decimals": "Energy Cost Decimals",
       "show_remaining_energy": "Show Remaining Energy",
       "path_threshold": "Path Threshold",
+      "label_daily_grid_buy": "Daily Grid Buy Label",
+      "label_daily_grid_sell": "Daily Grid Sell Label",
       "cat_title": {
         "title": "Title Options",
         "general": "General Options",
