@@ -32,7 +32,7 @@ export class Utils {
         if (isNaN(numberValue)) return 0;
 
         const rules = unitOfEnergyConversionRules[unit];
-        if (!rules) return `${Math.round(numberValue)} ${unit}`;
+        if (!rules) return `${numberValue.toFixed(decimal)} ${unit}`;
 
         if (unit === UnitOfPower.WATT && Math.abs(numberValue) < 1000) {
             return `${Math.round(numberValue)} ${unit}`;
