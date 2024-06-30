@@ -1,4 +1,4 @@
-import { localize } from "./localize/localize";
+import {localize} from "./localize/localize";
 import {InverterModel} from './types';
 
 
@@ -81,8 +81,10 @@ export default {
         essential_name: localize('common.essential'),
         load1_icon: 'default',
         load2_icon: 'default',
-        load1_name: localize('common.load1_name'),
-        load2_name: localize('common.load2_name'),
+        load1_name: '',
+        load2_name: '',
+        load3_name: '',
+        load4_name: '',
         auto_scale: true,
         path_threshold: 100,
     },

@@ -290,7 +290,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </text>
                     <text x="0" y="78.5" class="st3 st8 left-align"
                           display="${!config.show_solar ? 'none' : ''}" fill="${data.solarColour}">
-                        ${config.solar.pv1_name}
+                        ${config.solar.pv1_name || localize('common.pv1_name')}
                     </text>
                     <text x="0" y="90" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 left-align' : 'st12'}"
                           display="${!config.show_solar || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}" fill="${data.solarColour}">
@@ -298,7 +298,8 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </text>
                     <text x="99" y="78.5" class="st3 st8 left-align"
                           display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}"
-                          fill="${data.solarColour}">${config.solar.pv2_name}
+                          fill="${data.solarColour}">
+                        ${config.solar.pv2_name || localize('common.pv2_name')}
                     </text>
                     <text x="99" y="90" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 left-align' : 'st12'}"
                           display="${!config.show_solar || config.solar.mppts === 1 || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
@@ -306,7 +307,8 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </text>
                     <text x="0" y="139" class="st3 st8 left-align"
                           display="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'none' : ''}"
-                          fill="${data.solarColour}">${config.solar.pv3_name}
+                          fill="${data.solarColour}">
+                        ${config.solar.pv3_name || localize('common.pv3_name')}
                     </text>
                     <text x="0" y="150" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 left-align' : 'st12'}"
                           display="${!config.show_solar || [1, 2].includes(config.solar.mppts) || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
@@ -314,7 +316,8 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </text>
                     <text x="99" y="139" class="st3 st8 left-align"
                           display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}"
-                          fill="${data.solarColour}">${config.solar.pv4_name}
+                          fill="${data.solarColour}">
+                        ${config.solar.pv4_name || localize('common.pv4_name')}
                     </text>
                     <text x="99" y="150" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 left-align' : 'st12'}"
                           display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
@@ -325,7 +328,8 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                           fill="${data.solarColour}">${data.totalPVEfficiency}%
                     </text>
                     <text x="421" y="377" class="st3 st8" fill="${data.gridColour}"
-                          display="${!config.show_grid ? 'none' : ''}">${config.grid.grid_name}
+                          display="${!config.show_grid ? 'none' : ''}">
+                        ${config.grid.grid_name || localize('common.grid_name')}
                     </text>
                     <text x="167" y="306" class="st3 left-align" fill="${data.inverterColour}">${data.inverterStateMsg}
                     </text>
@@ -341,11 +345,13 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </text>
                     <text x="411" y="157" class="st3 st8"
                           display="${[0].includes(data.additionalLoad) || (!data.showAux && [1, 2].includes(data.additionalLoad)) ? '' : 'none'}"
-                          fill="${data.loadColour}">${config.load.essential_name}
+                          fill="${data.loadColour}">
+                        ${config.load.essential_name || localize('common.essential')}
                     </text>
                     <text id="ess_load" x="411" y="130" class="st3 st8"
                           display="${([1,2].includes(data.additionalLoad) && data.showAux) || (!data.showAux && [4].includes(data.additionalLoad)) ? '' : 'none'}"
-                          fill="${data.loadColour}">${config.load.essential_name}
+                          fill="${data.loadColour}">
+                        ${config.load.essential_name || localize('common.essential')}
                     </text>
                     <text id="ess-load1" x="416" y="${!data.showAux ? 70 : 181}" class="st3 left-align"
                           display="${data.additionalLoad === 1 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad1}">
@@ -412,7 +418,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                           class="st3 left-align"
                           fill="${data.gridShowDailyBuy !== true ? 'transparent' : `${data.gridColour}`}"
                           display="${!config.show_grid ? 'none' : ''}">
-                        ${config.grid.label_daily_grid_buy}
+                        ${config.grid.label_daily_grid_buy || localize('common.daily_grid_buy')}
                     </text>
                     <text id="daily_grid_sell" 
                           x="${!data.showNonessential ? '311' : '347'}"
@@ -422,17 +428,17 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                           class="st3 left-align"
                           fill="${data.gridShowDailySell !== true ? 'transparent' : `${data.gridColour}`}"
                           display="${!config.show_grid ? 'none' : ''}">
-                        ${config.grid.label_daily_grid_sell}
+                        ${config.grid.label_daily_grid_sell || localize('common.daily_grid_sell')}
                     </text>
                     <text id="aux_one" x="411" y="82" class="st3 st8"
                           display="${!data.showAux || [1, 2].includes(data.additionalAuxLoad) ? 'none' : ''}"
                           fill="${data.auxStatus === 'on' || data.auxStatus === '1' ? `${data.auxDynamicColour}` : `${data.auxOffColour}`}">
-                        ${config.load.aux_name}
+                        ${config.load.aux_name || localize('common.aux_name')}
                     </text>
                     <text id="noness" x="340" y="377" class="st3 st8"
                           display="${!config.show_grid || !data.showNonessential ? 'none' : ''}"
                           fill="${data.gridColour}">
-                        ${config.grid.nonessential_name}
+                        ${config.grid.nonessential_name || localize('common.nonessential_name')}
                     </text>
                     <text id="noness1" x="340" y="338" class="st3 st8"
                           display="${!config.show_grid || !data.showNonessential || [0, 2, 3].includes(data.nonessentialLoads) ? 'none' : ''}"
@@ -488,7 +494,8 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                           x="${[1, 2].includes(data.additionalAuxLoad) ? '238' : '238'}" y="24"
                           class="st3 left-align"
                           display="${!data.showAux || data.showDailyAux !== true ? 'none' : ''}"
-                          fill="${data.auxDynamicColour}">${config.load.aux_daily_name}
+                          fill="${data.auxDynamicColour}">
+                        ${config.load.aux_daily_name || localize('common.daily_aux')}
                     </text>
                     <text id="load-power-3P" x="237" y="142"
                           display="${config.inverter.three_phase && config.entities?.load_power_L1 ? '' : 'none'}"

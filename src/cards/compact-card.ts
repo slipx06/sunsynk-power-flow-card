@@ -227,12 +227,12 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     <text id="daily_grid_buy" x="5" y="282.1" class="st3 left-align"
                           fill="${data.gridShowDailyBuy !== true ? 'transparent' : `${data.gridColour}`}"
                           display="${!config.show_grid ? 'none' : ''}">
-                        ${config.grid.label_daily_grid_buy}
+                        ${config.grid.label_daily_grid_buy || localize('common.daily_grid_buy')}
                     </text>
                     <text id="daily_grid_sell" x="5" y="179" class="st3 left-align"
                           fill="${data.gridShowDailySell !== true ? 'transparent' : `${data.gridColour}`}"
                           display="${!config.show_grid ? 'none' : ''}">
-                        ${config.grid.label_daily_grid_sell}
+                        ${config.grid.label_daily_grid_sell || localize('common.daily_grid_sell')}
                     </text>
                     <text id="daily_solar" x="200" y="40" class="st3 left-align"
                           display="${config.solar.display_mode === 1 ? '' : 'none'}"
@@ -251,7 +251,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     </text>
                     <text x="${config.solar.mppts === 1 ? '230' : '179'}" y="94" class="st3 st8 right-align"
                           display="${!config.show_solar ? 'none' : ''}" fill="${data.solarColour}">
-                        ${config.solar.pv1_name}
+                        ${config.solar.pv1_name || localize('common.pv1_name') }
                     </text>
                     <text x="${config.solar.mppts === 1 ? '230' : '179'}" y="106" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 right-align' : 'st12'}"
                           display="${!config.show_solar || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}" fill="${data.solarColour}">
@@ -259,7 +259,8 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     </text>
                     <text x="281" y="94" class="st3 st8 right-align"
                           display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}"
-                          fill="${data.solarColour}">${config.solar.pv2_name}
+                          fill="${data.solarColour}">
+                        ${config.solar.pv2_name || localize('common.pv2_name')}
                     </text>
                     <text x="281" y="106" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 right-align' : 'st12'}"
                           display="${!config.show_solar || config.solar.mppts === 1 || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
@@ -267,7 +268,8 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     </text>
                     <text x="105" y="94" class="st3 st8 right-align"
                           display="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'none' : ''}"
-                          fill="${data.solarColour}">${config.solar.pv3_name}
+                          fill="${data.solarColour}">
+                        ${config.solar.pv3_name || localize('common.pv3_name')}
                     </text>
                     <text x="105" y="106" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 right-align' : 'st12'}"
                           display="${!config.show_solar || [1, 2].includes(config.solar.mppts) || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
@@ -275,7 +277,8 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     </text>
                     <text x="357" y="94" class="st3 st8 right-align"
                           display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}"
-                          fill="${data.solarColour}">${config.solar.pv4_name}
+                          fill="${data.solarColour}">
+                        ${config.solar.pv4_name || localize('common.pv4_name')}
                     </text>
                     <text x="357" y="106" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 right-align' : 'st12'}"
                           display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
@@ -313,35 +316,35 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     </text>
                     <text id="es-load1" x="441" y="108" class="st3"
                           display="${[1, 2, 3].includes(data.additionalLoad) ? '' : 'none'}"
-                          fill="${data.dynamicColourEssentialLoad1}">${config.load?.load1_name ? `${config.load.load1_name}` : ''}
+                          fill="${data.dynamicColourEssentialLoad1}">${config.load.load1_name}
                     </text>
                     <text id="es-load2" x="441" y="330.5" class="st3"
                           display="${data.additionalLoad === 2 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad2}">
-                        ${config.load?.load2_name ? `${config.load.load2_name}` : ''}
+                        ${config.load.load2_name}
                     </text>
                     <text id="es-load1" x="435" y="136" class="st3 st8 right-align"
                           display="${data.additionalLoad === 4 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad1}">
-                        ${config.load?.load1_name ? `${config.load.load1_name}` : ''}
+                        ${config.load.load1_name}
                     </text>
                     <text id="es-load2" x="448" y="136" class="st3 st8 left-align"
                           display="${data.additionalLoad === 4 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad2}">
-                        ${config.load?.load2_name ? `${config.load.load2_name}` : ''}
+                        ${config.load.load2_name}
                     </text>
                     <text id="es-load2" x="433" y="320" class="st3 st8 right-align"
                           display="${data.additionalLoad === 3 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad2}">
-                        ${config.load?.load2_name ? `${config.load.load2_name}` : ''}
+                        ${config.load.load2_name}
                     </text>
                     <text id="es-load3" x="448" y="320" class="st3 st8 left-align"
                           display="${data.additionalLoad === 3 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad3}">
-                        ${config.load?.load3_name ? `${config.load.load3_name}` : ''}
+                        ${config.load.load3_name}
                     </text>
                     <text id="es-load3" x="435" y="320" class="st3 st8 right-align"
                           display="${data.additionalLoad === 4 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad3}">
-                        ${config.load?.load3_name ? `${config.load.load3_name}` : ''}
+                        ${config.load.load3_name}
                     </text>
                     <text id="es-load4" x="448" y="320" class="st3 st8 left-align"
                           display="${data.additionalLoad === 4 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad4}">
-                        ${config.load?.load4_name ? `${config.load.load4_name}` : ''}
+                        ${config.load.load4_name}
                     </text>
                     <text id="load-power-L1" x="375" y="241"
                           display="${config.inverter.three_phase && config.entities?.load_power_L1 ? '' : 'none'}"
@@ -384,7 +387,8 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         ${data.shutdownOffGrid}%
                     </text>
                     <text x="5" y="${config.grid.show_daily_buy ? '294' : '267'}" class="st3 st8 left-align" fill="${data.gridColour}"
-                          display="${!config.show_grid ? 'none' : ''}">${config.grid.grid_name}
+                          display="${!config.show_grid ? 'none' : ''}">
+                        ${config.grid.grid_name || localize('common.grid_name')}
                     </text>
 
                     <circle id="standby" cx="220" cy="260" r="3.5" fill="${data.inverterStateColour}"/>
