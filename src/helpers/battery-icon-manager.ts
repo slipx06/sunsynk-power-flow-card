@@ -48,17 +48,17 @@ export class BatteryIconManager {
             case 65 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 75:
                 batteryIcon = batteryIcon70;
                 batteryCharge = battery70;
-                stopColour = 'yellow';
+                stopColour = 'gold';
                 break;
             case 55 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 65:
                 batteryIcon = batteryIcon60;
                 batteryCharge = battery60;
-                stopColour = 'yellow';
+                stopColour = 'gold';
                 break;
             case 45 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 55:
                 batteryIcon = batteryIcon50;
                 batteryCharge = battery50;
-                stopColour = 'yellow';
+                stopColour = 'gold';
                 break;
             case 35 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 45:
                 batteryIcon = batteryIcon40;
