@@ -224,87 +224,87 @@ export class SunsynkPowerFlowCard extends LitElement {
         const stateTotalPVGeneration = this.getEntity('entities.total_pv_generation');
 
         //Set defaults
-        let {invert_aux} = config.load;
-        let auxPower = stateAuxPower.toPower(invert_aux);
+        const {invert_aux} = config.load;
+        const auxPower = stateAuxPower.toPower(invert_aux);
 
-        let {invert_grid} = config.grid;
-        let gridPower = stateGridCTPower.toPower(invert_grid);
-        let gridPowerL2 = stateGridCTPowerL2.toPower(invert_grid);
-        let gridPowerL3 = stateGridCTPowerL3.toPower(invert_grid);
-        let gridPowerTotal = config.entities?.grid_ct_power_total
+        const {invert_grid} = config.grid;
+        const gridPower = stateGridCTPower.toPower(invert_grid);
+        const gridPowerL2 = stateGridCTPowerL2.toPower(invert_grid);
+        const gridPowerL3 = stateGridCTPowerL3.toPower(invert_grid);
+        const gridPowerTotal = config.entities?.grid_ct_power_total
             ? stateGridCTPowerTotal.toPower(invert_grid)
             : gridPower + gridPowerL2 + gridPowerL3;
 
-        let totalGridPower = config.inverter.three_phase ? gridPowerTotal : gridPower;
+        const totalGridPower = config.inverter.three_phase ? gridPowerTotal : gridPower;
 
-        let gridVoltage = !stateGridVoltage.isNaN() ? stateGridVoltage.toNum(0) : null;
-        let batteryCurrentDirection = !stateBatteryCurrentDirection.isNaN() ? stateBatteryCurrentDirection.toNum(0) : null;
-        let genericInverterImage = config.inverter?.modern;
+        const gridVoltage = !stateGridVoltage.isNaN() ? stateGridVoltage.toNum(0) : null;
+        const batteryCurrentDirection = !stateBatteryCurrentDirection.isNaN() ? stateBatteryCurrentDirection.toNum(0) : null;
+        const genericInverterImage = config.inverter?.modern;
 
-        let decimalPlaces = config.decimal_places;
-        let decimalPlacesEnergy = config.decimal_places_energy;
+        const decimalPlaces = config.decimal_places;
+        const decimalPlacesEnergy = config.decimal_places_energy;
 
-        let loadColour = this.colourConvert(config.load?.colour);
-        let auxDynamicColour = this.calculateAuxLoadColour(stateAuxPower.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
-        let auxOffColour = this.colourConvert(config.load?.aux_off_colour || auxDynamicColour);
-        let auxDynamicColourLoad1 = this.calculateAuxLoadColour(stateAuxLoad1.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
-        let auxDynamicColourLoad2 = this.calculateAuxLoadColour(stateAuxLoad2.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
-        let dynamicColourEssentialLoad1 = this.calculateEssentialLoadColour(stateEssentialLoad1.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
-        let dynamicColourEssentialLoad2 = this.calculateEssentialLoadColour(stateEssentialLoad2.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
-        let dynamicColourEssentialLoad3 = this.calculateEssentialLoadColour(stateEssentialLoad3.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
-        let dynamicColourEssentialLoad4 = this.calculateEssentialLoadColour(stateEssentialLoad4.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
+        const loadColour = this.colourConvert(config.load?.colour);
+        const auxDynamicColour = this.calculateAuxLoadColour(stateAuxPower.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
+        const auxOffColour = this.colourConvert(config.load?.aux_off_colour || auxDynamicColour);
+        const auxDynamicColourLoad1 = this.calculateAuxLoadColour(stateAuxLoad1.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
+        const auxDynamicColourLoad2 = this.calculateAuxLoadColour(stateAuxLoad2.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
+        const dynamicColourEssentialLoad1 = this.calculateEssentialLoadColour(stateEssentialLoad1.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
+        const dynamicColourEssentialLoad2 = this.calculateEssentialLoadColour(stateEssentialLoad2.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
+        const dynamicColourEssentialLoad3 = this.calculateEssentialLoadColour(stateEssentialLoad3.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
+        const dynamicColourEssentialLoad4 = this.calculateEssentialLoadColour(stateEssentialLoad4.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
 
         config.title_colour = this.colourConvert(config.title_colour);
 
-        let loadShowDaily = config.load?.show_daily;
-        let showNonessential = config.grid?.show_nonessential;
+        const loadShowDaily = config.load?.show_daily;
+        const showNonessential = config.grid?.show_nonessential;
         let gridStatus = config.entities?.grid_connected_status_194 ? stateGridConnectedStatus.state : 'on';
         if (!validGridConnected.includes(gridStatus.toLowerCase()) && !validGridDisconnected.includes(gridStatus.toLowerCase())) {
             gridStatus = 'on';
         }
 
-        let auxStatus = config.entities?.aux_connected_status ? stateAuxConnectedStatus.state : 'on';
-        let loadFrequency = config.entities?.load_frequency_192 ? stateLoadFrequency.toNum(2) : 0;
-        let inverterVoltage = config.entities?.inverter_voltage_154
+        const auxStatus = config.entities?.aux_connected_status ? stateAuxConnectedStatus.state : 'on';
+        const loadFrequency = config.entities?.load_frequency_192 ? stateLoadFrequency.toNum(2) : 0;
+        const inverterVoltage = config.entities?.inverter_voltage_154
             ? config.inverter.three_phase && (this.isLiteCard || this.isCompactCard)
                 ? stateInverterVoltage.toNum(0)
                 : stateInverterVoltage.toNum(1)
             : 0;
-        let inverterVoltageL2 = config.entities?.inverter_voltage_L2
+        const inverterVoltageL2 = config.entities?.inverter_voltage_L2
             ? config.inverter.three_phase && (this.isLiteCard || this.isCompactCard)
                 ? stateInverterVoltageL2.toNum(0)
                 : stateInverterVoltageL2.toNum(1)
             : '';
-        let inverterVoltageL3 = config.entities?.inverter_voltage_L3
+        const inverterVoltageL3 = config.entities?.inverter_voltage_L3
             ? config.inverter.three_phase && (this.isLiteCard || this.isCompactCard)
                 ? stateInverterVoltageL3.toNum(0)
                 : stateInverterVoltageL3.toNum(1)
             : '';
-        let inverterCurrent = config.entities?.inverter_current_164
+        const inverterCurrent = config.entities?.inverter_current_164
             ? stateInverterCurrent.toNum(1)
             : 0;
-        let inverterCurrentL2 = config.entities?.inverter_current_L2
+        const inverterCurrentL2 = config.entities?.inverter_current_L2
             ? stateInverterCurrentL2.toNum(1)
             : '';
-        let inverterCurrentL3 = config.entities?.inverter_current_L3
+        const inverterCurrentL3 = config.entities?.inverter_current_L3
             ? stateInverterCurrentL3.toNum(1)
             : '';
-        let batteryVoltage = config.entities?.battery_voltage_183 ? stateBatteryVoltage.toNum(1) : 0;
-        let autoScaledInverterPower = config.entities?.inverter_power_175
+        const batteryVoltage = config.entities?.battery_voltage_183 ? stateBatteryVoltage.toNum(1) : 0;
+        const autoScaledInverterPower = config.entities?.inverter_power_175
             ? stateInverterPower.toPower()
             : 0;
-        let autoScaledGridPower = config.entities?.grid_power_169
+        const autoScaledGridPower = config.entities?.grid_power_169
             ? stateGridPower.toPower()
             : 0;
 
-        let {invert_load} = config.load;
-        let loadPowerL1 = config.entities?.load_power_L1
+        const {invert_load} = config.load;
+        const loadPowerL1 = config.entities?.load_power_L1
             ? stateLoadPowerL1.toPower(invert_load)
             : '';
-        let loadPowerL2 = config.entities?.load_power_L2
+        const loadPowerL2 = config.entities?.load_power_L2
             ? stateLoadPowerL2.toPower(invert_load)
             : '';
-        let loadPowerL3 = config.entities?.load_power_L3
+        const loadPowerL3 = config.entities?.load_power_L3
             ? stateLoadPowerL3.toPower(invert_load)
             : '';
 
@@ -325,13 +325,13 @@ export class SunsynkPowerFlowCard extends LitElement {
                 break;
         }
 
-        let dynamicColourNonEssentialLoad1 = Math.abs(stateNonessentialLoad1.toPower(false)) > Utils.toNum(config.grid?.off_threshold, 0)
+        const dynamicColourNonEssentialLoad1 = Math.abs(stateNonessentialLoad1.toPower(false)) > Utils.toNum(config.grid?.off_threshold, 0)
             ? gridColour
             : 'grey';
-        let dynamicColourNonEssentialLoad2 = Math.abs(stateNonessentialLoad2.toPower(false)) > Utils.toNum(config.grid?.off_threshold, 0)
+        const dynamicColourNonEssentialLoad2 = Math.abs(stateNonessentialLoad2.toPower(false)) > Utils.toNum(config.grid?.off_threshold, 0)
             ? gridColour
             : 'grey';
-        let dynamicColourNonEssentialLoad3 = Math.abs(stateNonessentialLoad3.toPower(false)) > Utils.toNum(config.grid?.off_threshold, 0)
+        const dynamicColourNonEssentialLoad3 = Math.abs(stateNonessentialLoad3.toPower(false)) > Utils.toNum(config.grid?.off_threshold, 0)
             ? gridColour
             : 'grey';
 
@@ -347,20 +347,20 @@ export class SunsynkPowerFlowCard extends LitElement {
             pvEfficiencyMode = 0;
         }
 
-        let gridShowDailyBuy = config.grid?.show_daily_buy;
-        let gridShowDailySell = config.grid?.show_daily_sell;
+        const gridShowDailyBuy = config.grid?.show_daily_buy;
+        const gridShowDailySell = config.grid?.show_daily_sell;
 
-        let batteryColourConfig = this.colourConvert(config.battery?.colour);
-        let batteryChargeColour = this.colourConvert(config.battery?.charge_colour || batteryColourConfig);
-        let batteryShowDaily = config.battery?.show_daily;
+        const batteryColourConfig = this.colourConvert(config.battery?.colour);
+        const batteryChargeColour = this.colourConvert(config.battery?.charge_colour || batteryColourConfig);
+        const batteryShowDaily = config.battery?.show_daily;
 
-        let solarShowDaily = config.solar?.show_daily;
+        const solarShowDaily = config.solar?.show_daily;
         let showAux = config.load?.show_aux;
         if (!validaux.includes(showAux)) {
             showAux = false;
         }
 
-        let showDailyAux = config.load?.show_daily_aux;
+        const showDailyAux = config.load?.show_daily_aux;
 
         let additionalLoad = config.load?.additional_loads;
         if (!validLoadValues.includes(additionalLoad) || (this.isFullCard && [3, 4].includes(additionalLoad) && showAux) || (this.isFullCard && [3].includes(additionalLoad))) {
@@ -372,7 +372,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             additionalAuxLoad = 0;
         }
 
-        let auxType = config.load?.aux_type; //valid options are gen,inverter, default, gen, boiler, pump, aircon
+        const auxType = config.load?.aux_type; //valid options are gen,inverter, default, gen, boiler, pump, aircon
 
         //Icons
         const iconEssentialLoad1 = this.getEntity('load.load1_icon', {state: config.load?.load1_icon?.toString() ?? ''}).state;
@@ -389,21 +389,21 @@ export class SunsynkPowerFlowCard extends LitElement {
         const iconGridDisconnected = this.getEntity('grid.disconnected_icon', {state: config.grid?.disconnected_icon?.toString() ?? ''}).state;
         const iconGridExport = this.getEntity('grid.export_icon', {state: config.grid?.export_icon?.toString() ?? ''}).state;
 
-        let remainingSolar = config.entities.remaining_solar ? Utils.convertValueNew(stateRemainingSolar.state, stateRemainingSolar.attributes?.unit_of_measurement, decimalPlaces) : false;
-        let totalSolarGeneration = config.entities.total_pv_generation ? Utils.convertValueNew(stateTotalPVGeneration.state, stateTotalPVGeneration.attributes?.unit_of_measurement, 2) : false;
-        let largeFont = config.large_font;
-        let panelMode = config.panel_mode;
-        let inverterColour = this.colourConvert(config.inverter?.colour);
-        let enableAutarky = config.inverter?.autarky;
-        let enableTimer = !config.entities.use_timer_248 ? false : stateUseTimer.state;
-        let priorityLoad = !config.entities.priority_load_243 ? false : statePriorityLoad.state;
+        const remainingSolar = config.entities.remaining_solar ? Utils.convertValueNew(stateRemainingSolar.state, stateRemainingSolar.attributes?.unit_of_measurement, decimalPlaces) : false;
+        const totalSolarGeneration = config.entities.total_pv_generation ? Utils.convertValueNew(stateTotalPVGeneration.state, stateTotalPVGeneration.attributes?.unit_of_measurement, 2) : false;
+        const largeFont = config.large_font;
+        const panelMode = config.panel_mode;
+        const inverterColour = this.colourConvert(config.inverter?.colour);
+        const enableAutarky = config.inverter?.autarky;
+        const enableTimer = !config.entities.use_timer_248 ? false : stateUseTimer.state;
+        const priorityLoad = !config.entities.priority_load_243 ? false : statePriorityLoad.state;
         let batteryPower = stateBatteryPower.toPower(config.battery?.invert_power);
 
         const cardHeight = this.getEntity('card_height', {state: config.card_height?.toString() ?? ''}).state;
         const cardWidth = this.getEntity('card_width', {state: config.card_width?.toString() ?? ''}).state;
 
-        let energy_cost_decimals = config.grid?.energy_cost_decimals === 0 ? 0 : config.grid?.energy_cost_decimals || 2;
-        let energyCost =
+        const energy_cost_decimals = config.grid?.energy_cost_decimals === 0 ? 0 : config.grid?.energy_cost_decimals || 2;
+        const energyCost =
             totalGridPower >= 0
                 ? stateEnergyCostBuy.toNum(energy_cost_decimals)
                 : stateEnergyCostSell.toNum(energy_cost_decimals);
@@ -428,15 +428,15 @@ export class SunsynkPowerFlowCard extends LitElement {
         }
         //totalsolar = pv1_power_186 + pv2_power_187 + pv3_power_188 + pv4_power_189
 
-        let pv1PowerWatts = statePV1Power.toPower();
-        let pv2PowerWatts = statePV2Power.toPower();
-        let pv3PowerWatts = statePV3Power.toPower();
-        let pv4PowerWatts = statePV4Power.toPower();
+        const pv1PowerWatts = statePV1Power.toPower();
+        const pv2PowerWatts = statePV2Power.toPower();
+        const pv3PowerWatts = statePV3Power.toPower();
+        const pv4PowerWatts = statePV4Power.toPower();
 
-        let totalsolar = pv1PowerWatts + pv2PowerWatts + pv3PowerWatts + pv4PowerWatts;
-        let totalPV = config.entities?.pv_total ? statePVTotal.toNum() : totalsolar;
+        const totalsolar = pv1PowerWatts + pv2PowerWatts + pv3PowerWatts + pv4PowerWatts;
+        const totalPV = config.entities?.pv_total ? statePVTotal.toNum() : totalsolar;
 
-        let solarColour =
+        const solarColour =
             !config.solar.dynamic_colour
                 ? this.colourConvert(config.solar?.colour)
                 : Utils.toNum(totalPV, 0) > Utils.toNum(config.solar?.off_threshold, 0)
@@ -470,6 +470,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                     : stateNonessentialPower.toPower();
         }
 
+        // eslint-disable-next-line prefer-const
         essentialPower =
             essential_power === 'none' || !essential_power
                 ? threePhase === true && config.entities.load_power_L1 && config.entities.load_power_L2
@@ -510,10 +511,10 @@ export class SunsynkPowerFlowCard extends LitElement {
         };
 
 
-        let shutdownOffGrid = stateShutdownSOCOffGrid.toNum();
-        let batteryShutdown = stateShutdownSOC.toNum();
+        const shutdownOffGrid = stateShutdownSOCOffGrid.toNum();
+        const batteryShutdown = stateShutdownSOC.toNum();
 
-        let inverterProg: InverterSettings = {
+        const inverterProg: InverterSettings = {
             capacity: batteryShutdown,
             entityID: '',
         };
@@ -530,7 +531,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             case !config.entities.prog6_time:
                 inverterProg.show = false;
                 break;
-            default:
+            default: {
                 inverterProg.show = true;
 
                 const timer_now = new Date(); // Create a new Date object representing the current time
@@ -571,6 +572,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             }
 
                 break;
+            }
         }
 
         if (gridVoltage != null && !Number.isNaN(gridVoltage) && inverterModel == InverterModel.Solis) {
@@ -656,7 +658,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             batteryDuration += `${minutes} ${localize('common.min')}`;
         }
 
-        let isFloating =
+        const isFloating =
             -2 <= stateBatteryCurrent.toNum(0) && stateBatteryCurrent.toNum(0) <= 2 && stateBatterySoc.toNum(0) >= 99;
 
         // Determine battery colours
@@ -670,7 +672,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         //Set Inverter Status Message and dot
         let inverterStateColour = '';
         let inverterStateMsg = '';
-        let inverterState = stateInverterStatus.state as any;
+        let inverterState = stateInverterStatus.state as string;
 
         let found = false;
 
@@ -681,7 +683,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             inverterState = !stateInverterStatus.isNaN() ? stateInverterStatus.toNum(0).toString() : stateInverterStatus.toString();
         }
 
-        let typeStatusGroups = inverterSettings.statusGroups;
+        const typeStatusGroups = inverterSettings.statusGroups;
         if (typeStatusGroups)
             for (const groupKey of Object.keys(typeStatusGroups)) {
                 const info = typeStatusGroups[groupKey];
@@ -709,7 +711,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let batteryStateMsg = '';
         if ([InverterModel.GoodweGridMode, InverterModel.Goodwe, InverterModel.Huawei]
             .includes(inverterModel)) {
-            let batStatusGroups = inverterSettings.batteryStatusGroups;
+            const batStatusGroups = inverterSettings.batteryStatusGroups;
 
             if (batStatusGroups)
                 for (const groupKey of Object.keys(batStatusGroups)) {
@@ -735,12 +737,12 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         //Autarky in Percent = Home Production / Home Consumption
         //Ratio in Percent = Home Consumption / Home Production
-        let productionEnergy = stateDayPVEnergy.toNum() + stateDayBatteryDischarge.toNum();
-        let consumptionEnergy = stateDayLoadEnergy.toNum() + stateDayBatteryCharge.toNum();
-        let autarkyEnergy = consumptionEnergy != 0 ? Math.max(Math.min(Math.round((productionEnergy * 100) / consumptionEnergy), 100), 0) : 0;
-        let ratioEnergy = productionEnergy != 0 ? Math.max(Math.min(Math.round((consumptionEnergy * 100) / productionEnergy), 100), 0) : 0;
+        const productionEnergy = stateDayPVEnergy.toNum() + stateDayBatteryDischarge.toNum();
+        const consumptionEnergy = stateDayLoadEnergy.toNum() + stateDayBatteryCharge.toNum();
+        const autarkyEnergy = consumptionEnergy != 0 ? Math.max(Math.min(Math.round((productionEnergy * 100) / consumptionEnergy), 100), 0) : 0;
+        const ratioEnergy = productionEnergy != 0 ? Math.max(Math.min(Math.round((consumptionEnergy * 100) / productionEnergy), 100), 0) : 0;
 
-        let productionPower =
+        const productionPower =
             totalPV +
             Utils.toNum(`${batteryPower > 0 ? batteryPower : 0}`) +
             Utils.toNum(`${auxPower < 0 ? auxPower * -1 : 0}`);
@@ -750,7 +752,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         //console.log(`P_Aux Power:${Utils.toNum(`${auxPower < 0 ? auxPower * -1 : 0}`)}`);
         //console.log(`Production Total:${productionPower}`);      
 
-        let consumptionPower =
+        const consumptionPower =
             essentialPower +
             Math.max(nonessentialPower, 0) +
             Utils.toNum(`${auxPower > 0 ? auxPower : 0}`) +
@@ -762,30 +764,30 @@ export class SunsynkPowerFlowCard extends LitElement {
         //console.log(`C_Aux Power:${Utils.toNum(`${auxPower > 0 ? auxPower : 0}`)}`);
         //console.log(`C_Consumption Total:${consumptionPower}`);
 
-        let autarkyPower = consumptionPower != 0 ? Math.max(Math.min(Math.round((productionPower * 100) / consumptionPower), 100), 0) : 0;
-        let ratioPower = productionPower != 0 ? Math.max(Math.min(Math.round((consumptionPower * 100) / productionPower), 100), 0) : 0;
+        const autarkyPower = consumptionPower != 0 ? Math.max(Math.min(Math.round((productionPower * 100) / consumptionPower), 100), 0) : 0;
+        const ratioPower = productionPower != 0 ? Math.max(Math.min(Math.round((consumptionPower * 100) / productionPower), 100), 0) : 0;
 
-        let maxLineWidth = (Utils.toNum(config.max_line_width) < 1 ? 1 : config.max_line_width) - 1;
-        let minLineWidth = Utils.toNum(config.min_line_width) || 1;
+        const maxLineWidth = (Utils.toNum(config.max_line_width) < 1 ? 1 : config.max_line_width) - 1;
+        const minLineWidth = Utils.toNum(config.min_line_width) || 1;
 
         const batteryMaxPower = this.getEntity('battery.max_power', {state: config.battery.max_power?.toString() ?? ''});
-        let BattMaxPower = batteryMaxPower.toNum(0);
+        const BattMaxPower = batteryMaxPower.toNum(0);
         const solarMaxPower = this.getEntity('solar.max_power', {state: config.solar.max_power?.toString() ?? ''});
         const loadMaxPower = this.getEntity('load.max_power', {state: config.load.max_power?.toString() ?? ''});
         const gridMaxPower = this.getEntity('grid.max_power', {state: config.grid.max_power?.toString() ?? ''});
 
         //Calculate line width depending on power usage
-        let pv1LineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(pv1PowerWatts, (solarMaxPower.toNum() || pv1PowerWatts), maxLineWidth, minLineWidth);
-        let pv2LineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(pv2PowerWatts, (solarMaxPower.toNum() || pv2PowerWatts), maxLineWidth, minLineWidth);
-        let pv3LineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(pv3PowerWatts, (solarMaxPower.toNum() || pv3PowerWatts), maxLineWidth, minLineWidth);
-        let pv4LineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(pv4PowerWatts, (solarMaxPower.toNum() || pv4PowerWatts), maxLineWidth, minLineWidth);
-        let batLineWidth = !config.battery.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(batteryPower), (BattMaxPower || Math.abs(batteryPower)), maxLineWidth, minLineWidth);
-        let loadLineWidth = !config.load.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(essentialPower), (loadMaxPower.toNum() || Math.abs(essentialPower)), maxLineWidth, minLineWidth);
-        let auxLineWidth = !config.load.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(auxPower), (loadMaxPower.toNum() || Math.abs(auxPower)), maxLineWidth, minLineWidth);
-        let gridLineWidth = !config.grid.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(totalGridPower), (gridMaxPower.toNum() || Math.abs(totalGridPower)), maxLineWidth, minLineWidth);
-        let grid169LineWidth = !config.grid.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(autoScaledGridPower), (gridMaxPower.toNum() || Math.abs(autoScaledGridPower)), maxLineWidth, minLineWidth);
-        let nonessLineWidth = !config.grid.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(nonessentialPower), (gridMaxPower.toNum() || Math.abs(nonessentialPower)), maxLineWidth, minLineWidth);
-        let solarLineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(totalPV, (solarMaxPower.toNum() || totalPV), maxLineWidth, minLineWidth);
+        const pv1LineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(pv1PowerWatts, (solarMaxPower.toNum() || pv1PowerWatts), maxLineWidth, minLineWidth);
+        const pv2LineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(pv2PowerWatts, (solarMaxPower.toNum() || pv2PowerWatts), maxLineWidth, minLineWidth);
+        const pv3LineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(pv3PowerWatts, (solarMaxPower.toNum() || pv3PowerWatts), maxLineWidth, minLineWidth);
+        const pv4LineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(pv4PowerWatts, (solarMaxPower.toNum() || pv4PowerWatts), maxLineWidth, minLineWidth);
+        const batLineWidth = !config.battery.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(batteryPower), (BattMaxPower || Math.abs(batteryPower)), maxLineWidth, minLineWidth);
+        const loadLineWidth = !config.load.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(essentialPower), (loadMaxPower.toNum() || Math.abs(essentialPower)), maxLineWidth, minLineWidth);
+        const auxLineWidth = !config.load.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(auxPower), (loadMaxPower.toNum() || Math.abs(auxPower)), maxLineWidth, minLineWidth);
+        const gridLineWidth = !config.grid.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(totalGridPower), (gridMaxPower.toNum() || Math.abs(totalGridPower)), maxLineWidth, minLineWidth);
+        const grid169LineWidth = !config.grid.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(autoScaledGridPower), (gridMaxPower.toNum() || Math.abs(autoScaledGridPower)), maxLineWidth, minLineWidth);
+        const nonessLineWidth = !config.grid.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(nonessentialPower), (gridMaxPower.toNum() || Math.abs(nonessentialPower)), maxLineWidth, minLineWidth);
+        const solarLineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(totalPV, (solarMaxPower.toNum() || totalPV), maxLineWidth, minLineWidth);
 
         //Calculate power use animation speeds depending on Inverter size
         if (config && config.solar && config.solar.animation_speed) {
@@ -1405,6 +1407,7 @@ export class SunsynkPowerFlowCard extends LitElement {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (window as any).customCards.push({
     type: 'sunsynk-power-flow-card',
     name: 'Sunsynk Power Flow Card',
