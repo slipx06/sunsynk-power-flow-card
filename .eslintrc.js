@@ -14,6 +14,7 @@ module.exports = {
     },
     rules: {
         "@typescript-eslint/camelcase": 0,
-        "@typescript-eslint/no-explicit-any": "off"
+        "@typescript-eslint/no-explicit-any": 0,
+        //'prettier/prettier': 'warn'
     }
 };

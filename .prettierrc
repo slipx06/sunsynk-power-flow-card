@@ -4,5 +4,6 @@
   singleQuote: true,
   printWidth: 120,
   useTabs: true,
-  tabWidth: 2
+  tabWidth: 4,
+  bracketSpacing: false
 }

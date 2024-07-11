@@ -1,6 +1,6 @@
 import {html, svg} from 'lit';
 import {localize} from '../localize/localize';
-import {AutarkyType, DataDto, InverterModel, sunsynkPowerFlowCardConfig} from '../types';
+import {AutarkyType, DataDto, sunsynkPowerFlowCardConfig} from '../types';
 import {Utils} from '../helpers/utils';
 import {UnitOfElectricalCurrent, UnitOfElectricPotential, UnitOfEnergy, UnitOfPower, validGridConnected, validGridDisconnected} from '../const';
 import {icons} from '../helpers/icons';
@@ -813,9 +813,18 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     <svg id="load-flow">
                         <circle id="es-dot" cx="0" cy="0"
                                 r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                fill="${data.essentialPower === 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
+                                fill="${data.essentialPower === 0 || data.essentialPower < 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
                             <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
                                            keyPoints="0;1"
+                                           keyTimes="0;1" calcMode="linear">
+                                <mpath xlink:href="#es-line2"/>
+                            </animateMotion>
+                        </circle>
+                        <circle id="es-dot" cx="0" cy="0"
+                                r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
+                                fill="${data.essentialPower === 0 || data.essentialPower > 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
+                            <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
+                                           keyPoints="1;0"
                                            keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#es-line2"/>
                             </animateMotion>
@@ -826,9 +835,18 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     <svg id="load1-flow">
                         <circle id="es-dot" cx="0" cy="0"
                                 r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                fill="${data.essentialPower === 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
+                                fill="${data.essentialPower === 0 || data.essentialPower < 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
                             <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
                                            keyPoints="1;0"
+                                           keyTimes="0;1" calcMode="linear">
+                                <mpath xlink:href="#es-line"/>
+                            </animateMotion>
+                        </circle>
+                        <circle id="es-dot" cx="0" cy="0"
+                                r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
+                                fill="${data.essentialPower === 0 || data.essentialPower > 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
+                            <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
+                                           keyPoints="0;1"
                                            keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#es-line"/>
                             </animateMotion>

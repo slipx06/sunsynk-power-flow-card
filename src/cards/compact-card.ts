@@ -1,7 +1,7 @@
 import {html, svg} from 'lit';
 import {localize} from '../localize/localize';
 import {Utils} from '../helpers/utils';
-import {AutarkyType, DataDto, InverterModel, sunsynkPowerFlowCardConfig} from '../types';
+import {AutarkyType, DataDto, sunsynkPowerFlowCardConfig} from '../types';
 import {UnitOfElectricalCurrent, UnitOfElectricPotential, UnitOfEnergy, UnitOfPower, validGridConnected, validGridDisconnected} from '../const';
 import {icons} from '../helpers/icons';
 
@@ -568,9 +568,18 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                               stroke-width="${data.loadLineWidth}" stroke-miterlimit="10" pointer-events="stroke"/>
                         <circle id="es-dot" cx="0" cy="0"
                                 r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                fill="${data.essentialPower === 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
+                                fill="${data.essentialPower === 0 || data.essentialPower < 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
                             <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
                                            keyPoints="1;0"
+                                           keyTimes="0;1" calcMode="linear">
+                                <mpath xlink:href="#es-line"/>
+                            </animateMotion>
+                        </circle>
+                        <circle id="es-dot" cx="0" cy="0"
+                                r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
+                                fill="${data.essentialPower === 0 || data.essentialPower > 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
+                            <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
+                                           keyPoints="0;1"
                                            keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#es-line"/>
                             </animateMotion>
@@ -581,9 +590,18 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                               stroke-width="${data.loadLineWidth}" stroke-miterlimit="10" pointer-events="stroke"/>
                         <circle id="es-dot" cx="0" cy="0"
                                 r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                fill="${data.essentialPower === 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
+                                fill="${data.essentialPower === 0 || data.essentialPower < 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
                             <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
                                            keyPoints="0;1"
+                                           keyTimes="0;1" calcMode="linear">
+                                <mpath xlink:href="#es-line1"/>
+                            </animateMotion>
+                        </circle>
+                        <circle id="es-dot" cx="0" cy="0"
+                                r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
+                                fill="${data.essentialPower === 0 || data.essentialPower > 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
+                            <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
+                                           keyPoints="1;0"
                                            keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#es-line1"/>
                             </animateMotion>
