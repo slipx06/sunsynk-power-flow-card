@@ -46,7 +46,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
             </style>
             <div class="container card">
                 ${config.title ? html`<h1
-                        style="text-align: center; color: ${config.title_colour || 'inherit'}; data.largeFont-size: ${config.title_size || '32px'};">
+                        style="text-align: center; color: ${config.title_colour || 'inherit'}; font-size: ${config.title_size || '32px'};">
                     ${config.title}</h1>` : ''}
                 <svg viewBox="0 ${!config.show_solar ? (data.additionalLoad !== 0 || !config.show_battery ? 80 : 145.33) : 1} 483 ${!config.show_solar ? (config.show_battery ? (data.additionalLoad !== 0 ? 350 : 270.67) : 270.67) : (!config.show_battery ? ([2, 3, 4].includes(data.additionalLoad) ? 350 : 300) : 408)}"
                      preserveAspectRatio="xMidYMid meet"
