@@ -855,61 +855,134 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                               stroke="${config.load.dynamic_colour ? data.flowColour : data.loadColour}" stroke-width="${data.loadLineWidth}" stroke-miterlimit="10"
                               pointer-events="stroke"/>
                     </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" x="154.5" y="224.75" width="54"
-                         height="79" viewBox="0 0 74 91" preserveAspectRatio="xMidYMid meet"
-                         opacity="${!data.genericInverterImage ? 0 : 1}">
-                        <g transform="translate(0.000000,91.000000) scale(0.100000,-0.100000)"
-                           fill="${data.inverterColour}" stroke="none">
-                            <path d="${icons.inverter}"/>
-                        </g>
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" id="bat" x="74.5"
-                         y="${config.battery?.show_remaining_energy ? "294" : "296.25"}" width="82"
-                         height="82" preserveAspectRatio="none"
-                         viewBox="0 0 24 24">
-                        <defs>
-                            <linearGradient id="bLg" x1="0%" x2="0%" y1="100%" y2="0%">
-                                <stop offset="0%"
-                                      stop-color="${data.gridPercentageBat > 0 ? data.gridColour : data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
-                                <stop offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
-                                      stop-color="${data.gridPercentageBat > 0 ? data.gridColour : data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
-                                <stop offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
-                                      stop-color="${data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
-                                <stop offset="${(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat) + (data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat)}%"
-                                      stop-color="${data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
-                                <stop offset="${(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat) + (data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat)}%"
-                                      stop-color="${data.batteryColour}"/>
-                                <stop offset="100%"
-                                      stop-color="${data.batteryColour}"/>
-                            </linearGradient>
-                        </defs>
-                        <path class="${!config.show_battery ? 'st12' : ''}"
-                              fill="${config.battery.dynamic_colour ? 'url(#bLg)' : data.batteryColour}"
-                              d="${config.battery.linear_gradient ? data.battery0 : data.batteryIcon}"/>
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" id="bat" x="74.5"
-                         y="${config.battery?.show_remaining_energy ? "294" : "296.25"}" width="82"
-                         height="82" preserveAspectRatio="none"
-                         viewBox="0 0 24 24">
-                        <defs>
-                            <linearGradient id="sLg" x1="0%" x2="0%" y1="100%" y2="0%">
-                                <stop offset="0%"
-                                      stop-color="red"/>
-                                <stop offset="100%"
-                                      stop-color="${data.stopColour}"/>
-                                <animate attributeName="${config.battery.animate ? 'y2' : 'none'}" dur="6s" values="100%; 0%" repeatCount="indefinite" />
-                            </linearGradient>
-                        </defs>
-                        <path class="${!config.show_battery ? 'st12' : ''}"
-                              fill="${config.battery.linear_gradient ? 'url(#sLg)' : data.batteryColour}"
-                              display="${!config.battery.linear_gradient ? 'none' : ''}"
-                              d="${data.batteryCharge}"/>
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" id="sun" x="0" y="-0.5" width="40" height="40"
-                         viewBox="0 0 24 24">
-                        <path class="${!config.show_solar ? 'st12' : ''}" fill="${data.solarColour}"
-                              d="${icons.sun}"/>
-                    </svg>
+                    ${config.inverter?.navigate
+                            ? svg`
+                                <a href="#" @click=${(e) => Utils.handleNavigation(e, config.inverter.navigate)}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" x="154.5" y="224.75" width="54"
+                                        height="79" viewBox="0 0 74 91" preserveAspectRatio="xMidYMid meet"
+                                        opacity="${!data.genericInverterImage ? 0 : 1}">
+                                        <g transform="translate(0.000000,91.000000) scale(0.100000,-0.100000)"
+                                        fill="${data.inverterColour}" stroke="none">
+                                            <path d="${icons.inverter}"/>
+                                        </g>
+                                    </svg>
+                                </a>`
+                            : svg`
+                                <svg xmlns="http://www.w3.org/2000/svg" x="154.5" y="224.75" width="54"
+                                    height="79" viewBox="0 0 74 91" preserveAspectRatio="xMidYMid meet"
+                                    opacity="${!data.genericInverterImage ? 0 : 1}">
+                                    <g transform="translate(0.000000,91.000000) scale(0.100000,-0.100000)"
+                                    fill="${data.inverterColour}" stroke="none">
+                                        <path d="${icons.inverter}"/>
+                                    </g>
+                                </svg>`
+                    }           
+                    ${config.battery?.navigate
+                            ? svg`
+                                <a href="#" @click=${(e) => Utils.handleNavigation(e, config.battery.navigate)}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="bat" x="74.5"
+                                        y="${config.battery?.show_remaining_energy ? "294" : "296.25"}" width="82"
+                                        height="82" preserveAspectRatio="none"
+                                        viewBox="0 0 24 24">
+                                        <defs>
+                                            <linearGradient id="bLg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                                <stop offset="0%"
+                                                    stop-color="${data.gridPercentageBat > 0 ? data.gridColour : data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
+                                                <stop offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
+                                                    stop-color="${data.gridPercentageBat > 0 ? data.gridColour : data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
+                                                <stop offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
+                                                    stop-color="${data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
+                                                <stop offset="${(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat) + (data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat)}%"
+                                                    stop-color="${data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
+                                                <stop offset="${(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat) + (data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat)}%"
+                                                    stop-color="${data.batteryColour}"/>
+                                                <stop offset="100%"
+                                                    stop-color="${data.batteryColour}"/>
+                                            </linearGradient>
+                                        </defs>
+                                        <path class="${!config.show_battery ? 'st12' : ''}"
+                                            fill="${config.battery.dynamic_colour ? 'url(#bLg)' : data.batteryColour}"
+                                            d="${config.battery.linear_gradient ? data.battery0 : data.batteryIcon}"/>
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="bat" x="74.5"
+                                        y="${config.battery?.show_remaining_energy ? "294" : "296.25"}" width="82"
+                                        height="82" preserveAspectRatio="none"
+                                        viewBox="0 0 24 24">
+                                        <defs>
+                                            <linearGradient id="sLg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                                <stop offset="0%"
+                                                    stop-color="red"/>
+                                                <stop offset="100%"
+                                                    stop-color="${data.stopColour}"/>
+                                                <animate attributeName="${config.battery.animate ? 'y2' : 'none'}" dur="6s" values="100%; 0%" repeatCount="indefinite" />
+                                            </linearGradient>
+                                        </defs>
+                                        <path class="${!config.show_battery ? 'st12' : ''}"
+                                            fill="${config.battery.linear_gradient ? 'url(#sLg)' : data.batteryColour}"
+                                            display="${!config.battery.linear_gradient ? 'none' : ''}"
+                                            d="${data.batteryCharge}"/>
+                                    </svg>
+                                </a>`
+                            : svg`
+                                <svg xmlns="http://www.w3.org/2000/svg" id="bat" x="74.5"
+                                    y="${config.battery?.show_remaining_energy ? "294" : "296.25"}" width="82"
+                                    height="82" preserveAspectRatio="none"
+                                    viewBox="0 0 24 24">
+                                    <defs>
+                                        <linearGradient id="bLg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                            <stop offset="0%"
+                                                stop-color="${data.gridPercentageBat > 0 ? data.gridColour : data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
+                                            <stop offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
+                                                stop-color="${data.gridPercentageBat > 0 ? data.gridColour : data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
+                                            <stop offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
+                                                stop-color="${data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
+                                            <stop offset="${(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat) + (data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat)}%"
+                                                stop-color="${data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
+                                            <stop offset="${(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat) + (data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat)}%"
+                                                stop-color="${data.batteryColour}"/>
+                                            <stop offset="100%"
+                                                stop-color="${data.batteryColour}"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <path class="${!config.show_battery ? 'st12' : ''}"
+                                        fill="${config.battery.dynamic_colour ? 'url(#bLg)' : data.batteryColour}"
+                                        d="${config.battery.linear_gradient ? data.battery0 : data.batteryIcon}"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" id="bat" x="74.5"
+                                    y="${config.battery?.show_remaining_energy ? "294" : "296.25"}" width="82"
+                                    height="82" preserveAspectRatio="none"
+                                    viewBox="0 0 24 24">
+                                    <defs>
+                                        <linearGradient id="sLg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                            <stop offset="0%"
+                                                stop-color="red"/>
+                                            <stop offset="100%"
+                                                stop-color="${data.stopColour}"/>
+                                            <animate attributeName="${config.battery.animate ? 'y2' : 'none'}" dur="6s" values="100%; 0%" repeatCount="indefinite" />
+                                        </linearGradient>
+                                    </defs>
+                                    <path class="${!config.show_battery ? 'st12' : ''}"
+                                        fill="${config.battery.linear_gradient ? 'url(#sLg)' : data.batteryColour}"
+                                        display="${!config.battery.linear_gradient ? 'none' : ''}"
+                                        d="${data.batteryCharge}"/>
+                                </svg>`
+                    }     
+                    ${config.solar?.navigate
+                            ? svg`
+                                <a href="#" @click=${(e) => Utils.handleNavigation(e, config.solar.navigate)}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="sun" x="0" y="-0.5" width="40" height="40"
+                                        viewBox="0 0 24 24">
+                                        <path class="${!config.show_solar ? 'st12' : ''}" fill="${data.solarColour}"
+                                            d="${icons.sun}"/>
+                                    </svg>
+                                </a>`
+                            : svg`
+                                <svg xmlns="http://www.w3.org/2000/svg" id="sun" x="0" y="-0.5" width="40" height="40"
+                                    viewBox="0 0 24 24">
+                                    <path class="${!config.show_solar ? 'st12' : ''}" fill="${data.solarColour}"
+                                        d="${icons.sun}"/>
+                                </svg>`
+                    }          
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_connected_status_194)}>
                         <svg xmlns="http://www.w3.org/2000/svg" id="transmission_on"
                              x="${config.inverter.three_phase ? '404' : '389'}"
@@ -1150,99 +1223,193 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             </body>
                         </foreignObject>
                     </g>
-
                     <!-- Essential Icon -->
-                    <svg xmlns="http://www.w3.org/2000/svg" id="essen_aux" x="373.5"
-                         y="${data.essIconSize === 1 ? "82.5" : "78.5"}" width="77"
-                         height="77" viewBox="0 0 24 24">
-                         <defs>
-                            <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
-                                <stop offset="0%"
-                                    stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
-                                <stop offset="${data.gridPercentage}%"
-                                    stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
-                                <stop offset="${data.gridPercentage}%"
-                                    stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
-                                <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
-                                    stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
-                                <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
-                                    stop-color="${data.solarColour}"/>
-                                <stop offset="100%"
-                                    stop-color="${data.solarColour}"/>
-                            </linearGradient>
-                        </defs>
-                        <path display="${[1, 2].includes(data.additionalLoad) && !data.showAux ? '' : 'none'}"
-                              fill="${config.load.dynamic_colour ? 'url(#Lg)' : data.loadColour}"
-                              d="${data.essIcon}"/>
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" id="essen_noaux" x="390" y="89" width="38"
-                         height="38" viewBox="0 0 24 24">
-                         <defs>
-                            <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
-                                <stop offset="0%"
-                                    stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
-                                <stop offset="${data.gridPercentage}%"
-                                    stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
-                                <stop offset="${data.gridPercentage}%"
-                                    stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
-                                <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
-                                    stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
-                                <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
-                                    stop-color="${data.solarColour}"/>
-                                <stop offset="100%"
-                                    stop-color="${data.solarColour}"/>
-                            </linearGradient>
-                        </defs>
-                        <path display="${([1, 2].includes(data.additionalLoad) && data.showAux) ? '' : 'none'}"
-                              fill="${config.load.dynamic_colour ? 'url(#Lg)' : data.loadColour}"
-                              d="${data.essIcon}"/>
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" id="essen_noaux_four" x="387" y="77" width="50"
-                         height="50" viewBox="0 0 24 24">
-                         <defs>
-                            <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
-                                <stop offset="0%"
-                                    stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
-                                <stop offset="${data.gridPercentage}%"
-                                    stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
-                                <stop offset="${data.gridPercentage}%"
-                                    stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
-                                <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
-                                    stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
-                                <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
-                                    stop-color="${data.solarColour}"/>
-                                <stop offset="100%"
-                                    stop-color="${data.solarColour}"/>
-                            </linearGradient>
-                        </defs>
-                        <path display="${[4].includes(data.additionalLoad) && !data.showAux ? '' : 'none'}"
-                              fill="${config.load.dynamic_colour ? 'url(#Lg)' : data.loadColour}"
-                              d="${data.essIcon}"/>
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" id="essen_default" x="373.5"
-                         y="${data.essIconSize === 1 ? "82.5" : "78.5"}" width="77"
-                         height="77" viewBox="0 0 24 24">
-                         <defs>
-                            <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
-                                <stop offset="0%"
-                                    stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
-                                <stop offset="${data.gridPercentage}%"
-                                    stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
-                                <stop offset="${data.gridPercentage}%"
-                                    stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
-                                <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
-                                    stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
-                                <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
-                                    stop-color="${data.solarColour}"/>
-                                <stop offset="100%"
-                                    stop-color="${data.solarColour}"/>
-                            </linearGradient>
-                        </defs>
-                        <path display="${[1, 2, 3, 4].includes(data.additionalLoad) ? 'none' : ''}"
-                              fill="${config.load.dynamic_colour ? 'url(#Lg)' : data.loadColour}"
-                              d="${data.essIcon}"/>
-                    </svg>
-
+                    ${config.load?.navigate
+                            ? svg`
+                                <a href="#" @click=${(e) => Utils.handleNavigation(e, config.load.navigate)}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="essen_aux" x="373.5"
+                                            y="${data.essIconSize === 1 ? "82.5" : "78.5"}" width="77"
+                                            height="77" viewBox="0 0 24 24">
+                                            <defs>
+                                                <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                                    <stop offset="0%"
+                                                        stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
+                                                    <stop offset="${data.gridPercentage}%"
+                                                        stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
+                                                    <stop offset="${data.gridPercentage}%"
+                                                        stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
+                                                    <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
+                                                        stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
+                                                    <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
+                                                        stop-color="${data.solarColour}"/>
+                                                    <stop offset="100%"
+                                                        stop-color="${data.solarColour}"/>
+                                                </linearGradient>
+                                            </defs>
+                                            <path display="${[1, 2].includes(data.additionalLoad) && !data.showAux ? '' : 'none'}"
+                                                fill="${config.load.dynamic_colour ? 'url(#Lg)' : data.loadColour}"
+                                                d="${data.essIcon}"/>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" id="essen_noaux" x="390" y="89" width="38"
+                                            height="38" viewBox="0 0 24 24">
+                                            <defs>
+                                                <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                                    <stop offset="0%"
+                                                        stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
+                                                    <stop offset="${data.gridPercentage}%"
+                                                        stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
+                                                    <stop offset="${data.gridPercentage}%"
+                                                        stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
+                                                    <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
+                                                        stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
+                                                    <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
+                                                        stop-color="${data.solarColour}"/>
+                                                    <stop offset="100%"
+                                                        stop-color="${data.solarColour}"/>
+                                                </linearGradient>
+                                            </defs>
+                                            <path display="${([1, 2].includes(data.additionalLoad) && data.showAux) ? '' : 'none'}"
+                                                fill="${config.load.dynamic_colour ? 'url(#Lg)' : data.loadColour}"
+                                                d="${data.essIcon}"/>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" id="essen_noaux_four" x="387" y="77" width="50"
+                                            height="50" viewBox="0 0 24 24">
+                                            <defs>
+                                                <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                                    <stop offset="0%"
+                                                        stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
+                                                    <stop offset="${data.gridPercentage}%"
+                                                        stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
+                                                    <stop offset="${data.gridPercentage}%"
+                                                        stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
+                                                    <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
+                                                        stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
+                                                    <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
+                                                        stop-color="${data.solarColour}"/>
+                                                    <stop offset="100%"
+                                                        stop-color="${data.solarColour}"/>
+                                                </linearGradient>
+                                            </defs>
+                                            <path display="${[4].includes(data.additionalLoad) && !data.showAux ? '' : 'none'}"
+                                                fill="${config.load.dynamic_colour ? 'url(#Lg)' : data.loadColour}"
+                                                d="${data.essIcon}"/>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" id="essen_default" x="373.5"
+                                            y="${data.essIconSize === 1 ? "82.5" : "78.5"}" width="77"
+                                            height="77" viewBox="0 0 24 24">
+                                            <defs>
+                                                <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                                    <stop offset="0%"
+                                                        stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
+                                                    <stop offset="${data.gridPercentage}%"
+                                                        stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
+                                                    <stop offset="${data.gridPercentage}%"
+                                                        stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
+                                                    <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
+                                                        stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
+                                                    <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
+                                                        stop-color="${data.solarColour}"/>
+                                                    <stop offset="100%"
+                                                        stop-color="${data.solarColour}"/>
+                                                </linearGradient>
+                                            </defs>
+                                            <path display="${[1, 2, 3, 4].includes(data.additionalLoad) ? 'none' : ''}"
+                                                fill="${config.load.dynamic_colour ? 'url(#Lg)' : data.loadColour}"
+                                                d="${data.essIcon}"/>
+                                        </svg>
+                                </a>`
+                            : svg`
+                                <svg xmlns="http://www.w3.org/2000/svg" id="essen_aux" x="373.5"
+                                    y="${data.essIconSize === 1 ? "82.5" : "78.5"}" width="77"
+                                    height="77" viewBox="0 0 24 24">
+                                    <defs>
+                                        <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                            <stop offset="0%"
+                                                stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
+                                            <stop offset="${data.gridPercentage}%"
+                                                stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
+                                            <stop offset="${data.gridPercentage}%"
+                                                stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
+                                            <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
+                                                stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
+                                            <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
+                                                stop-color="${data.solarColour}"/>
+                                            <stop offset="100%"
+                                                stop-color="${data.solarColour}"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <path display="${[1, 2].includes(data.additionalLoad) && !data.showAux ? '' : 'none'}"
+                                        fill="${config.load.dynamic_colour ? 'url(#Lg)' : data.loadColour}"
+                                        d="${data.essIcon}"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" id="essen_noaux" x="390" y="89" width="38"
+                                    height="38" viewBox="0 0 24 24">
+                                    <defs>
+                                        <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                            <stop offset="0%"
+                                                stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
+                                            <stop offset="${data.gridPercentage}%"
+                                                stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
+                                            <stop offset="${data.gridPercentage}%"
+                                                stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
+                                            <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
+                                                stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
+                                            <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
+                                                stop-color="${data.solarColour}"/>
+                                            <stop offset="100%"
+                                                stop-color="${data.solarColour}"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <path display="${([1, 2].includes(data.additionalLoad) && data.showAux) ? '' : 'none'}"
+                                        fill="${config.load.dynamic_colour ? 'url(#Lg)' : data.loadColour}"
+                                        d="${data.essIcon}"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" id="essen_noaux_four" x="387" y="77" width="50"
+                                    height="50" viewBox="0 0 24 24">
+                                    <defs>
+                                        <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                            <stop offset="0%"
+                                                stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
+                                            <stop offset="${data.gridPercentage}%"
+                                                stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
+                                            <stop offset="${data.gridPercentage}%"
+                                                stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
+                                            <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
+                                                stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
+                                            <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
+                                                stop-color="${data.solarColour}"/>
+                                            <stop offset="100%"
+                                                stop-color="${data.solarColour}"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <path display="${[4].includes(data.additionalLoad) && !data.showAux ? '' : 'none'}"
+                                        fill="${config.load.dynamic_colour ? 'url(#Lg)' : data.loadColour}"
+                                        d="${data.essIcon}"/>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" id="essen_default" x="373.5"
+                                    y="${data.essIconSize === 1 ? "82.5" : "78.5"}" width="77"
+                                    height="77" viewBox="0 0 24 24">
+                                    <defs>
+                                        <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                            <stop offset="0%"
+                                                stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
+                                            <stop offset="${data.gridPercentage}%"
+                                                stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
+                                            <stop offset="${data.gridPercentage}%"
+                                                stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
+                                            <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
+                                                stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
+                                            <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
+                                                stop-color="${data.solarColour}"/>
+                                            <stop offset="100%"
+                                                stop-color="${data.solarColour}"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <path display="${[1, 2, 3, 4].includes(data.additionalLoad) ? 'none' : ''}"
+                                        fill="${config.load.dynamic_colour ? 'url(#Lg)' : data.loadColour}"
+                                        d="${data.essIcon}"/>
+                                </svg>`
+                    }           
                     <!-- Aux Icon -->
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.aux_connected_status)}>
                         <svg xmlns="http://www.w3.org/2000/svg" id="aux_default" x="371" y="5" width="83"
@@ -1632,11 +1799,20 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                               fill="${data.inverterColour}">${localize('common.priority_batt')}
                         </text>
                     </a>
-                    <image x="155" y="224.75" width="53" height="72"
-                           class="${!data.genericInverterImage ? '' : 'st12'}"
-                           href="${inverterImg}"
-                           preserveAspectRatio="none"/>
-
+                    ${config.inverter?.navigate
+                            ? svg`
+                                <a href="#" @click=${(e) => Utils.handleNavigation(e, config.inverter.navigate)}>
+                                    <image x="155" y="224.75" width="53" height="72"
+                                        class="${!data.genericInverterImage ? '' : 'st12'}"
+                                        href="${inverterImg}"
+                                        preserveAspectRatio="none"/>
+                                </a>`
+                            : svg`
+                                <image x="155" y="224.75" width="53" height="72"
+                                    class="${!data.genericInverterImage ? '' : 'st12'}"
+                                    href="${inverterImg}"
+                                    preserveAspectRatio="none"/>`
+                    }
                     <a href="#" @click=${(e) => Utils.handlePopup(e, data.inverterProg.entityID)}>
                         <svg xmlns="http://www.w3.org/2000/svg" id="prog_grid_on" x="265"
                              y="${data.enableAutarky != AutarkyType.No ? "232" : "249"}" width="20" height="18"

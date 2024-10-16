@@ -155,6 +155,8 @@
       "invert_load": "Invert Values",
       "shutdown_soc": "Shutdown SOC",
       "shutdown_soc_offgrid": "Shutdown SOC (Off Grid)",
+      "soc_end_of_charge": "SOC End of Charge",
+      "navigate": "Navigation Path",
       "energy": "Energy",
       "aux_dynamic_colour": "Aux Dynamic Colour",
       "auto_scale": "Auto Scale",

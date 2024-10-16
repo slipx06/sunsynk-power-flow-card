@@ -156,6 +156,8 @@
       "invert_load": "Inverter Værdier",
       "shutdown_soc": "Nedluknings SOC",
       "shutdown_soc_offgrid": "Shutdown SOC (Off Grid)",
+      "soc_end_of_charge": "SOC End of Charge",
+      "navigate": "Navigation Path",
       "energy": "Energi",
       "auto_scale": "Auto Skalering",
       "three_phase": "Tre Faser",

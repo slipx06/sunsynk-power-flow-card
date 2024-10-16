@@ -121,6 +121,7 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 										},
 									},
 									{name: 'colour', selector: {color_rgb: {}}},
+									{name: 'navigate', selector: {text: {}}},
 								],
 							},
 						],
@@ -151,6 +152,7 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 									{name: 'pv4_max_power', selector: {number: {}}},
 									{name: 'efficiency', selector: {number: {mode: 'box', min: 0, max: 3}}},
 									{name: 'off_threshold', selector: {number: {}}},
+									{name: 'navigate', selector: {text: {}}},
 								],
 							},
 							{
@@ -186,6 +188,7 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 										name: 'shutdown_soc_offgrid',
 										selector: {number: {mode: 'box', min: 0, max: 100}},
 									},
+									{name: 'soc_end_of_charge', selector: {number: {mode: 'box', min: 80, max: 100}}},
 									{name: 'show_daily', selector: {boolean: {}}},
 									{name: 'auto_scale', selector: {boolean: {}}},
 									{name: 'invert_power', selector: {boolean: {}}},
@@ -200,6 +203,7 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 									{name: 'animation_speed', selector: {number: {}}},
 									{name: 'max_power', selector: {number: {}}},
 									{name: 'path_threshold', selector: {number: {}}},
+									{name: 'navigate', selector: {text: {}}},
 								],
 							},
 							{
@@ -213,6 +217,7 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 											{name: 'energy', selector: {entity: {}}},
 											{name: 'shutdown_soc', selector: {entity: {}}},
 											{name: 'shutdown_soc_offgrid', selector: {entity: {}}},
+											{name: 'soc_end_of_charge', selector: {entity: {}}},
 											{name: 'max_power', selector: {entity: {}}},
 										],
 									},
@@ -248,6 +253,7 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 									{name: 'max_power', selector: {number: {}}},
 									{name: 'off_threshold', selector: {number: {}}},
 									{name: 'path_threshold', selector: {number: {}}},
+									{name: 'navigate', selector: {text: {}}},
 								],
 							},
 							{

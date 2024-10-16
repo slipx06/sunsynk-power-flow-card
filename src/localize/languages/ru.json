@@ -156,6 +156,8 @@
       "invert_load": "Инвертировать показания",
       "shutdown_soc": "% Отключения",
       "shutdown_soc_offgrid": "Shutdown SOC (Off Grid)",
+      "soc_end_of_charge": "SOC End of Charge",
+      "navigate": "Navigation Path",
       "energy": "Энергия",
       "auto_scale": "Масштабирование",
       "three_phase": "Три Фазы",

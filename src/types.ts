@@ -64,11 +64,13 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 		model: InverterModel;
 		auto_scale: boolean;
 		three_phase: boolean;
+		navigate: string;
 	};
 	battery: {
 		energy: any;
 		shutdown_soc: any;
 		shutdown_soc_offgrid: any;
+		soc_end_of_charge: any;
 		hide_soc: boolean;
 		invert_power: boolean;
 		colour: string;
@@ -85,6 +87,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 		linear_gradient: boolean;
 		animate: boolean;
 		path_threshold: number;
+		navigate: string;
 	};
 	solar: {
 		colour: string;
@@ -105,6 +108,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 		dynamic_colour: boolean;
 		efficiency: number;
 		off_threshold: number;
+		navigate: string;
 	};
 	load: {
 		colour: string;
@@ -142,6 +146,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 		auto_scale: boolean;
 		essential_name: string;
 		path_threshold: number;
+		navigate:'',
 	};
 	grid: {
 		colour: string;
@@ -471,4 +476,5 @@ export interface DataDto {
 	stateBatterySOH: CustomEntity;
 	customGridIcon;
 	customGridIconColour;
+	maximumSOC;
 }

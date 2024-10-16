@@ -155,6 +155,8 @@
       "invert_load": "Invertir Valors",
       "shutdown_soc": "SOC d'Apagada",
       "shutdown_soc_offgrid": "SOC d'Apagada (Sense Xarxa)",
+      "soc_end_of_charge": "SOC End of Charge",
+      "navigate": "Navigation Path",
       "energy": "Energia",
       "auto_scale": "Escala Automàtica",
       "three_phase": "Trifàsic",

@@ -1,4 +1,5 @@
 import {unitOfEnergyConversionRules, UnitOfEnergyOrPower, UnitOfPower} from '../const';
+import { navigate } from 'custom-card-helpers';''
 
 export class Utils {
     static toNum(val: string | number, decimals: number = -1, invert: boolean = false): number {
@@ -57,6 +58,7 @@ export class Utils {
     }
 
     private static isPopupOpen = false;
+
     static handlePopup(event, entityId) {
         if (!entityId) {
           return;
@@ -65,11 +67,19 @@ export class Utils {
         this._handleClick(event, { action: 'more-info' }, entityId);
       }
 
-      private static _handleClick(event, actionConfig, entityId) {
-        if (!event || !entityId) {
+    static handleNavigation(event, navigationPath,) {
+        if (!navigationPath) {
           return;
         }
-    
+        event.preventDefault();
+        this._handleClick(event, { action: 'navigate', navigation_path: navigationPath }, null);
+      }
+
+      private static _handleClick(event, actionConfig, entityId) {
+        if (!event || (!entityId && !actionConfig.navigation_path)) {
+          return;
+        }
+
         event.stopPropagation();
 
         // Handle different actions based on actionConfig
@@ -77,13 +87,17 @@ export class Utils {
           case 'more-info':
             this._dispatchMoreInfoEvent(event, entityId);
             break;
+
+          case 'navigate':
+            this._handleNavigationEvent(event, actionConfig.navigation_path);
+            break;
+
           default:
             console.warn(`Action '${actionConfig.action}' is not supported.`);
         }
       }
 
       private static _dispatchMoreInfoEvent(event, entityId) {
-
         if (Utils.isPopupOpen) {
             return;
           }
@@ -94,25 +108,28 @@ export class Utils {
           composed: true,
           detail: { entityId },
         });
-    
+
         history.pushState({ popupOpen: true }, '', window.location.href);
 
         event.target.dispatchEvent(moreInfoEvent);
-    
+
         const closePopup = () => {
- 
             if (Utils.isPopupOpen) {
-                //console.log(`Closing popup for entityId: ${entityId}`);
                 Utils.isPopupOpen = false;
-        
-                // Remove the event listener to avoid multiple bindings
                 window.removeEventListener('popstate', closePopup);
-        
-                // Optionally, if your popup close logic doesn't trigger history.back(), call it manually
-                history.back();
+                history.back(); // Optionally close the popup with history.back() if needed
                 }
         };
-    
+
         window.addEventListener('popstate', closePopup, { once: true });
       }
+
+      private static _handleNavigationEvent(event, navigationPath) {
+        // Perform the navigation action
+        if (navigationPath) {
+          navigate(event.target, navigationPath); // Assuming 'navigate' is a function available in your environment
+        } else {
+          console.warn("Navigation path is not provided.");
+        }
+        }
 }

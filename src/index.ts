@@ -159,6 +159,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         const stateShutdownSOC = this.getEntity('battery.shutdown_soc', {state: config.battery.shutdown_soc?.toString() ?? ''});
         const stateShutdownSOCOffGrid = this.getEntity('battery.shutdown_soc_offgrid', {state: config.battery.shutdown_soc_offgrid?.toString() ?? ''});
         const stateBatterySOH = this.getEntity('entities.battery_soh', {state: ''});
+        const stateSOCEndOfCharge = this.getEntity('battery.soc_end_of_charge', {state: config.battery.soc_end_of_charge?.toString() ?? ''});
 
         //Load
         const stateEssentialPower = this.getEntity('entities.essential_power');
@@ -644,6 +645,9 @@ export class SunsynkPowerFlowCard extends LitElement {
             }
         }
 
+        let maximumSOC = stateSOCEndOfCharge.toNum();
+        maximumSOC = Math.max(80, Math.min(maximumSOC, 100))
+
         //calculate battery capacity
         let batteryCapacity: number = 0;
         if (config.show_battery) {
@@ -665,12 +669,12 @@ export class SunsynkPowerFlowCard extends LitElement {
                             batteryCapacity = batteryShutdown;
                         }
                     } else if (batteryPower < 0) {
-                        batteryCapacity = 100;
+                        batteryCapacity = maximumSOC;
                     }
                     break;
 
                 default:
-                    batteryCapacity = inverterSettings.getBatteryCapacity(batteryPower, gridStatus, batteryShutdown, inverterProg, stateBatterySoc);
+                    batteryCapacity = inverterSettings.getBatteryCapacity(batteryPower, gridStatus, batteryShutdown, inverterProg, stateBatterySoc, maximumSOC);
             }
         }
 
@@ -1290,7 +1294,8 @@ export class SunsynkPowerFlowCard extends LitElement {
             dynamicColourNonEssentialLoad3,
             stateBatterySOH,
             customGridIcon,
-            customGridIconColour
+            customGridIconColour,
+            maximumSOC
         };
 
         if (this.isFullCard) {

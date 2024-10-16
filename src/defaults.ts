@@ -22,10 +22,12 @@ export default {
 		model: InverterModel.Sunsynk,
 		auto_scale: true,
 		three_phase: false,
+		navigate:'',
 	},
 	battery: {
 		energy: 0,
 		shutdown_soc: 20,
+		soc_end_of_charge: 100,
 		invert_power: false,
 		hide_soc: false,
 		colour: 'pink',
@@ -39,6 +41,7 @@ export default {
 		linear_gradient: true,
 		animate: true,
 		path_threshold: 100,
+		navigate:'',
 	},
 	solar: {
 		colour: 'orange',
@@ -55,6 +58,7 @@ export default {
 		dynamic_colour: true,
 		efficiency: 3,
 		off_threshold: 10,
+		navigate:'',
 	},
 	load: {
 		colour: '#5fb6ad',
@@ -86,6 +90,7 @@ export default {
 		load4_name: '',
 		auto_scale: true,
 		path_threshold: 100,
+		navigate:'',
 	},
 	grid: {
 		colour: '#5490c2',
