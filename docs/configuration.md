@@ -71,7 +71,7 @@ The `invert_power` attribute can be used to reverse direction if needed by your 
 | hide_soc:        | Optional     | `false` | If set to `true` the current program capacity (soc), or for Goodwe inverters the shutdown soc and offgrid shutdown soc that is shown to the left of the current battery SOC will be hidden.      |
 | show_remaining_energy:        | Optional     | `true` | Set to `true` to display the remaining battery energy in kWh based on the current SOC. Only visable on the `lite` and `full` cards     |
 | path_threshold:  | Optional     | `100`    |  Specify threshold to apply dynamic colour to the battery path element. The colour of the path will change to the source colour if the percentage supply by a single source equals or exceeds this value    |
-| navigate:        | Optional    |     | Sets the navigation path when clicking on the inveter image. Can be used to link to other dashboards and views e.g. `/lovelace/1`    
+| navigate:        | Optional    |     | Sets the navigation path when clicking on the inverter image. Can be used to link to other dashboards and views e.g. `/lovelace/1`    
 
 ### Solar
 
