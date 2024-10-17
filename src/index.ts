@@ -646,7 +646,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         }
 
         let maximumSOC = stateSOCEndOfCharge.toNum();
-        maximumSOC = Math.max(80, Math.min(maximumSOC, 100))
+        maximumSOC = Math.max(50, Math.min(maximumSOC, 100))
 
         //calculate battery capacity
         let batteryCapacity: number = 0;
