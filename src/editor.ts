@@ -341,6 +341,7 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 									{name: 'import_icon', selector: {icon: {}}},
 									{name: 'export_icon', selector: {icon: {}}},
 									{name: 'disconnected_icon', selector: {icon: {}}},
+									{name: 'navigate', selector: {text: {}}},
 								],
 							},
 							{

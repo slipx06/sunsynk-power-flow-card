@@ -116,5 +116,6 @@ export default {
 		energy_cost_decimals: 2,
 		show_absolute: false,
 		off_threshold: 0,
+		navigate:'',
 	},
 };

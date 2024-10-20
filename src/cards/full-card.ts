@@ -982,53 +982,105 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                     <path class="${!config.show_solar ? 'st12' : ''}" fill="${data.solarColour}"
                                         d="${icons.sun}"/>
                                 </svg>`
-                    }          
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_connected_status_194)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" id="transmission_on"
-                             x="${config.inverter.three_phase ? '404' : '389'}"
-                             y="${config.inverter.three_phase ? '339' : '308'}"
-                             width="${config.inverter.three_phase ? '34' : '65'}"
-                             height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
-                            <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
-                                  fill="${data.gridColour}"
-                                  display="${!config.show_grid || data.totalGridPower < 0 || config.grid.import_icon ? 'none' : ''}"
-                                  d="${icons.gridOn}"/>
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" id="transmission_off"
-                             x="${config.inverter.three_phase ? '404' : '389'}"
-                             y="${config.inverter.three_phase ? '339' : '308'}"
-                             width="${config.inverter.three_phase ? '34' : '65'}"
-                             height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
-                            <path class="${validGridConnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
-                                  fill="${data.gridOffColour}" display="${!config.show_grid || config.grid.disconnected_icon ? 'none' : ''}"
-                                  d="${icons.gridOff}"/>
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" id="grid_export"
-                             x="${config.inverter.three_phase ? '404' : '389'}"
-                             y="${config.inverter.three_phase ? '339' : '308'}"
-                             width="${config.inverter.three_phase ? '34' : '65'}"
-                             height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
-                            <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
-                                  fill="${data.gridColour}"
-                                  display="${!config.show_grid || data.totalGridPower >= 0 || config.grid.export_icon ? 'none' : ''}"
-                                  d="${icons.gridExport}"/>
-                        </svg>
-                    </a>
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_connected_status_194)}>
-                        <g display="${config.show_grid || config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon ? '' : 'none'}">
-                            <foreignObject x="${config.inverter.three_phase ? '404' : '389'}" 
-                                           y="${config.inverter.three_phase ? '339' : '308'}" 
-                                           width="${config.inverter.three_phase ? '34' : '65'}" 
-                                           height="${config.inverter.three_phase ? '34' : '65'}" style="position: fixed; ">
-                                <body xmlns="http://www.w3.org/1999/xhtml">
-                                <div style="position: fixed; ">
-                                    <ha-icon icon="${data.customGridIcon}" class="${config.inverter.three_phase ? 'grid-icon-small' : 'grid-icon'}"></ha-icon>
-                                </div>
-                                </body>
-                            </foreignObject>
-                        </g>
-                    </a>
-
+                    }
+                    ${config.grid?.navigate
+                            ? svg`
+                                <a href="#" @click=${(e) => Utils.handleNavigation(e, config.grid.navigate)}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="transmission_on"
+                                        x="${config.inverter.three_phase ? '404' : '389'}"
+                                        y="${config.inverter.three_phase ? '339' : '308'}"
+                                        width="${config.inverter.three_phase ? '34' : '65'}"
+                                        height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
+                                        <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
+                                            fill="${data.gridColour}"
+                                            display="${!config.show_grid || data.totalGridPower < 0 || config.grid.import_icon ? 'none' : ''}"
+                                            d="${icons.gridOn}"/>
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="transmission_off"
+                                        x="${config.inverter.three_phase ? '404' : '389'}"
+                                        y="${config.inverter.three_phase ? '339' : '308'}"
+                                        width="${config.inverter.three_phase ? '34' : '65'}"
+                                        height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
+                                        <path class="${validGridConnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
+                                            fill="${data.gridOffColour}" display="${!config.show_grid || config.grid.disconnected_icon ? 'none' : ''}"
+                                            d="${icons.gridOff}"/>
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="grid_export"
+                                        x="${config.inverter.three_phase ? '404' : '389'}"
+                                        y="${config.inverter.three_phase ? '339' : '308'}"
+                                        width="${config.inverter.three_phase ? '34' : '65'}"
+                                        height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
+                                        <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
+                                            fill="${data.gridColour}"
+                                            display="${!config.show_grid || data.totalGridPower >= 0 || config.grid.export_icon ? 'none' : ''}"
+                                            d="${icons.gridExport}"/>
+                                    </svg>
+                                </a>`
+                            : svg`
+                                <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_connected_status_194)}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="transmission_on"
+                                        x="${config.inverter.three_phase ? '404' : '389'}"
+                                        y="${config.inverter.three_phase ? '339' : '308'}"
+                                        width="${config.inverter.three_phase ? '34' : '65'}"
+                                        height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
+                                        <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
+                                            fill="${data.gridColour}"
+                                            display="${!config.show_grid || data.totalGridPower < 0 || config.grid.import_icon ? 'none' : ''}"
+                                            d="${icons.gridOn}"/>
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="transmission_off"
+                                        x="${config.inverter.three_phase ? '404' : '389'}"
+                                        y="${config.inverter.three_phase ? '339' : '308'}"
+                                        width="${config.inverter.three_phase ? '34' : '65'}"
+                                        height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
+                                        <path class="${validGridConnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
+                                            fill="${data.gridOffColour}" display="${!config.show_grid || config.grid.disconnected_icon ? 'none' : ''}"
+                                            d="${icons.gridOff}"/>
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="grid_export"
+                                        x="${config.inverter.three_phase ? '404' : '389'}"
+                                        y="${config.inverter.three_phase ? '339' : '308'}"
+                                        width="${config.inverter.three_phase ? '34' : '65'}"
+                                        height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
+                                        <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
+                                            fill="${data.gridColour}"
+                                            display="${!config.show_grid || data.totalGridPower >= 0 || config.grid.export_icon ? 'none' : ''}"
+                                            d="${icons.gridExport}"/>
+                                    </svg>
+                                </a>`
+                    }       
+                    ${config.grid?.navigate
+                            ? svg`
+                                <a href="#" @click=${(e) => Utils.handleNavigation(e, config.grid.navigate)}>
+                                    <g display="${config.show_grid || config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon ? '' : 'none'}">
+                                        <foreignObject x="${config.inverter.three_phase ? '404' : '389'}" 
+                                                    y="${config.inverter.three_phase ? '339' : '308'}" 
+                                                    width="${config.inverter.three_phase ? '34' : '65'}" 
+                                                    height="${config.inverter.three_phase ? '34' : '65'}" style="position: fixed; ">
+                                            <body xmlns="http://www.w3.org/1999/xhtml">
+                                            <div style="position: fixed; ">
+                                                <ha-icon icon="${data.customGridIcon}" class="${config.inverter.three_phase ? 'grid-icon-small' : 'grid-icon'}"></ha-icon>
+                                            </div>
+                                            </body>
+                                        </foreignObject>
+                                    </g>
+                                </a>`
+                            : svg`
+                                <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_connected_status_194)}>
+                                    <g display="${config.show_grid || config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon ? '' : 'none'}">
+                                        <foreignObject x="${config.inverter.three_phase ? '404' : '389'}" 
+                                                    y="${config.inverter.three_phase ? '339' : '308'}" 
+                                                    width="${config.inverter.three_phase ? '34' : '65'}" 
+                                                    height="${config.inverter.three_phase ? '34' : '65'}" style="position: fixed; ">
+                                            <body xmlns="http://www.w3.org/1999/xhtml">
+                                            <div style="position: fixed; ">
+                                                <ha-icon icon="${data.customGridIcon}" class="${config.inverter.three_phase ? 'grid-icon-small' : 'grid-icon'}"></ha-icon>
+                                            </div>
+                                            </body>
+                                        </foreignObject>
+                                    </g>
+                                </a>`
+                    }
                     <!-- Nonessential Icon -->
                     <svg xmlns="http://www.w3.org/2000/svg" id="noness_default" x="303.5" y="305.5" width="70"
                          height="70" viewBox="0 0 24 24"

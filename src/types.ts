@@ -146,7 +146,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 		auto_scale: boolean;
 		essential_name: string;
 		path_threshold: number;
-		navigate:'',
+		navigate: string;
 	};
 	grid: {
 		colour: string;
@@ -178,6 +178,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 		import_icon: string;
 		export_icon: string;
 		disconnected_icon: string;
+		navigate: string;
 	};
 	entities: CardConfigEntities;
 }
