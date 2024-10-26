@@ -153,6 +153,7 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 									{name: 'efficiency', selector: {number: {mode: 'box', min: 0, max: 3}}},
 									{name: 'off_threshold', selector: {number: {}}},
 									{name: 'navigate', selector: {text: {}}},
+									{name: 'invert_flow', selector: {boolean: {}}},
 								],
 							},
 							{
@@ -204,6 +205,7 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 									{name: 'max_power', selector: {number: {}}},
 									{name: 'path_threshold', selector: {number: {}}},
 									{name: 'navigate', selector: {text: {}}},
+									{name: 'invert_flow', selector: {boolean: {}}},
 								],
 							},
 							{
@@ -254,6 +256,8 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 									{name: 'off_threshold', selector: {number: {}}},
 									{name: 'path_threshold', selector: {number: {}}},
 									{name: 'navigate', selector: {text: {}}},
+									{name: 'invert_flow', selector: {boolean: {}}},
+									{name: 'label_daily_load', selector: {text: {}}},
 								],
 							},
 							{
@@ -342,6 +346,7 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 									{name: 'export_icon', selector: {icon: {}}},
 									{name: 'disconnected_icon', selector: {icon: {}}},
 									{name: 'navigate', selector: {text: {}}},
+									{name: 'invert_flow', selector: {boolean: {}}},
 								],
 							},
 							{

@@ -183,6 +183,7 @@
       "path_threshold": "Umbral Ruta",
       "label_daily_grid_buy": "Etiqueta Compra Diària Xarxa",
       "label_daily_grid_sell": "Etiqueta Venta Diària Xarxa",
+      "invert_flow": "Invert Flow",
       "cat_title": {
         "title": "Opcions Títol",
         "general": "Opcions Generals",

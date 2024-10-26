@@ -16,6 +16,10 @@ export class Utils {
         return numberValue;
     }
 
+    static invertKeyPoints(keyPoints: string) {
+      return keyPoints.split(';').reverse().join(';');
+    }
+
     static convertValue(value, decimal = 2) {
         decimal = Number.isNaN(decimal) ? 2 : decimal;
         if (Math.abs(value) >= 1000000) {

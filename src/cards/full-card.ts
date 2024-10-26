@@ -380,7 +380,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     <text id="daily_load_aux" x="${data.additionalAuxLoad === 2 ? '238' : '238'}" y="93"
                           class="st3 left-align"
                           fill="${!data.loadShowDaily || !data.showAux ? 'transparent' : `${data.loadColour}`}">
-                        ${localize('common.daily_load')}
+                        ${config.load.label_daily_load || localize('common.daily_load')}
                     </text>
                     <text id="daily_load" x="${data.additionalLoad === 0 ? '377' : '238'}"
                           y="${data.additionalLoad === 0 ? 71 : 93}" class="st3 left-align"
@@ -546,7 +546,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 class="${!config.show_solar ? 'st12' : ''}"
                                 fill="${Math.round(data.pv1PowerWatts) <= 0 ? 'transparent' : `${data.solarColour}`}">
                             <animateMotion dur="${data.durationCur['pv1']}s" repeatCount="indefinite"
-                                           keyPoints="1;0"
+                                           keyPoints=${config.solar.invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"}
                                            keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#pv1-line"/>
                             </animateMotion>
@@ -563,7 +563,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
                                 fill="${Math.round(data.pv2PowerWatts) <= 0 ? 'transparent' : `${data.solarColour}`}">
                             <animateMotion dur="${data.durationCur['pv2']}s" repeatCount="indefinite"
-                                           keyPoints="1;0"
+                                           keyPoints=${config.solar.invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"}
                                            keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#pv2-line"/>
                             </animateMotion>
@@ -580,7 +580,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 class="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'st12' : ''}"
                                 fill="${Math.round(data.pv3PowerWatts) <= 0 ? 'transparent' : `${data.solarColour}`}">
                             <animateMotion dur="${data.durationCur['pv3']}s" repeatCount="indefinite"
-                                           keyPoints="1;0"
+                                           keyPoints=${config.solar.invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"}
                                            keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#pv3-line"/>
                             </animateMotion>
@@ -597,7 +597,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 class="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"
                                 fill="${Math.round(data.pv4PowerWatts) <= 0 ? 'transparent' : `${data.solarColour}`}">
                             <animateMotion dur="${data.durationCur['pv4']}s" repeatCount="indefinite"
-                                           keyPoints="1;0"
+                                           keyPoints=${config.solar.invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"}
                                            keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#pv4-line"/>
                             </animateMotion>
@@ -614,7 +614,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
                                 fill="${data.totalPV === 0 ? 'transparent' : `${data.solarColour}`}">
                             <animateMotion dur="${data.durationCur['solar']}s" repeatCount="indefinite"
-                                           keyPoints="1;0"
+                                           keyPoints=${config.solar.invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"}
                                            keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#so-line"/>
                             </animateMotion>
@@ -630,7 +630,8 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 class="${!config.show_battery ? 'st12' : ''}"
                                 fill="${data.batteryPower < 0 || data.batteryPower === 0 ? 'transparent' : `${data.batteryColour}`}">
                             <animateMotion dur="${data.durationCur['battery']}s" repeatCount="indefinite"
-                                           keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+                                           keyPoints=${config.battery.invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"} 
+                                           keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#bat-line"/>
                             </animateMotion>
                         </circle>
@@ -639,7 +640,8 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 class="${!config.show_battery ? 'st12' : ''}"
                                 fill="${data.batteryPower > 0 || data.batteryPower === 0 ? 'transparent' : `${config.battery.dynamic_colour ? data.flowBatColour : data.batteryColour}`}">
                             <animateMotion dur="${data.durationCur['battery']}s" repeatCount="indefinite"
-                                           keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+                                           keyPoints=${config.battery.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"} 
+                                           keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#bat-line"/>
                             </animateMotion>
                         </circle>
@@ -653,7 +655,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 fill="${data.totalGridPower < 0 || data.totalGridPower === 0 ? 'transparent' : `${data.gridColour}`}"
                                 display="${!config.show_grid ? 'none' : ''}">
                             <animateMotion dur="${data.durationCur['grid']}s" repeatCount="indefinite"
-                                           keyPoints="1;0"
+                                           keyPoints=${config.grid.invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"}
                                            keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#grid-line"/>
                             </animateMotion>
@@ -663,7 +665,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 fill="${data.totalGridPower > 0 || data.totalGridPower === 0 ? 'transparent' : `${data.gridColour}`}"
                                 display="${!config.show_grid ? 'none' : ''}">
                             <animateMotion dur="${data.durationCur['grid']}s" repeatCount="indefinite"
-                                           keyPoints="0;1"
+                                           keyPoints=${config.grid.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
                                            keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#grid-line"/>
                             </animateMotion>
@@ -680,7 +682,8 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 fill="${data.totalGridPower < 0 || data.totalGridPower === 0 ? 'transparent' : `${data.gridColour}`}"
                                 display="${!config.show_grid ? 'none' : ''}">
                             <animateMotion dur="${data.durationCur['grid'] / 1.5}s" repeatCount="indefinite"
-                                           keyPoints="1;0" keyTimes="0;1" calcMode="linear">
+                                           keyPoints=${config.grid.invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"} 
+                                           keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#grid-line1"/>
                             </animateMotion>
                         </circle>
@@ -689,7 +692,8 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 fill="${data.totalGridPower > 0 || data.totalGridPower === 0 ? 'transparent' : `${data.gridColour}`}"
                                 display="${!config.show_grid ? 'none' : ''}">
                             <animateMotion dur="${data.durationCur['grid'] / 1.5}s" repeatCount="indefinite"
-                                           keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+                                           keyPoints=${config.grid.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"} 
+                                           keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#grid-line1"/>
                             </animateMotion>
                         </circle>
@@ -705,7 +709,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 fill="${data.nonessentialPower <= 0 ? 'transparent' : `${data.gridColour}`}"
                                 display="${!config.show_grid ? 'none' : ''}">
                             <animateMotion dur="${data.durationCur['ne'] / 1.5}s" repeatCount="indefinite"
-                                           keyPoints="0;1"
+                                           keyPoints=${config.grid.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
                                            keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#ne-line1"/>
                             </animateMotion>
@@ -722,7 +726,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 fill="${data.nonessentialPower <= 0 ? 'transparent' : `${data.gridColour}`}"
                                 display="${!config.show_grid ? 'none' : ''}">
                             <animateMotion dur="${data.durationCur['ne']}s" repeatCount="indefinite"
-                                           keyPoints="1;0"
+                                           keyPoints=${config.grid.invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"}
                                            keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#ne-line"/>
                             </animateMotion>
@@ -789,7 +793,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 fill="${data.autoScaledGridPower < 0 || data.autoScaledGridPower === 0 ? 'transparent' : `${data.gridColour}`}"
                                 display="${!config.show_grid ? 'none' : ''}">
                             <animateMotion dur="${data.durationCur['grid']}s" repeatCount="indefinite"
-                                           keyPoints="1;0"
+                                           keyPoints=${config.grid.invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"}
                                            keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#grid2-line"/>
                             </animateMotion>
@@ -799,7 +803,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 fill="${data.autoScaledGridPower > 0 || data.autoScaledGridPower === 0 ? 'transparent' : `${data.gridColour}`}"
                                 display="${!config.show_grid ? 'none' : ''}">
                             <animateMotion dur="${data.durationCur['grid']}s" repeatCount="indefinite"
-                                           keyPoints="0;1"
+                                           keyPoints=${config.grid.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
                                            keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#grid2-line"/>
                             </animateMotion>
@@ -815,7 +819,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
                                 fill="${data.essentialPower === 0 || data.essentialPower < 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
                             <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
-                                           keyPoints="0;1"
+                                           keyPoints=${config.load.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
                                            keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#es-line2"/>
                             </animateMotion>
@@ -824,7 +828,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
                                 fill="${data.essentialPower === 0 || data.essentialPower > 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
                             <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
-                                           keyPoints="1;0"
+                                           keyPoints=${config.load.invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"}
                                            keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#es-line2"/>
                             </animateMotion>
@@ -837,7 +841,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
                                 fill="${data.essentialPower === 0 || data.essentialPower < 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
                             <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
-                                           keyPoints="1;0"
+                                           keyPoints=${config.load.invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"}
                                            keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#es-line"/>
                             </animateMotion>
@@ -846,7 +850,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
                                 fill="${data.essentialPower === 0 || data.essentialPower > 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
                             <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
-                                           keyPoints="0;1"
+                                           keyPoints=${config.load.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
                                            keyTimes="0;1" calcMode="linear">
                                 <mpath xlink:href="#es-line"/>
                             </animateMotion>

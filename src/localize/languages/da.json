@@ -183,6 +183,8 @@
       "path_threshold": "Path Threshold",
       "label_daily_grid_buy": "Daily Grid Buy Label",
       "label_daily_grid_sell": "Daily Grid Sell Label",
+      "invert_flow": "Invert Flow",
+      "label_daily_load": "Daily Load Label",
       "cat_title": {
         "title": "Titel Options",
         "general": "Generelle Options",

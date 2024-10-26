@@ -42,6 +42,7 @@ export default {
 		animate: true,
 		path_threshold: 100,
 		navigate:'',
+		invert_flow: false,
 	},
 	solar: {
 		colour: 'orange',
@@ -59,6 +60,7 @@ export default {
 		efficiency: 3,
 		off_threshold: 10,
 		navigate:'',
+		invert_flow: false,
 	},
 	load: {
 		colour: '#5fb6ad',
@@ -91,6 +93,8 @@ export default {
 		auto_scale: true,
 		path_threshold: 100,
 		navigate:'',
+		invert_flow: false,
+		label_daily_load: localize('common.daily_load'),
 	},
 	grid: {
 		colour: '#5490c2',
@@ -117,5 +121,6 @@ export default {
 		show_absolute: false,
 		off_threshold: 0,
 		navigate:'',
+		invert_flow: false,
 	},
 };
