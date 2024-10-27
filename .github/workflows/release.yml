@@ -17,6 +17,8 @@ jobs:
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Specify node version to match project requirements
 
       - name: Get latest tag or fail
         id: get-latest-tag
@@ -45,10 +47,17 @@ jobs:
           fi
           echo "is_higher=$is_higher" >> $GITHUB_OUTPUT
 
+      - name: Remove package-lock.json to prevent conflicts
+        if: steps.check-version.outputs.is_higher == 'true'
+        run: |
+          if [ -f package-lock.json ]; then
+            rm package-lock.json
+          fi
+
       - name: Build project
         if: steps.check-version.outputs.is_higher == 'true'
         run: |
-          yarn install
+          yarn install --ignore-optional --verbose
           yarn run build
 
       - name: 🛎️ Create release
