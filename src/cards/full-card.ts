@@ -385,7 +385,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     <text id="daily_load" x="${data.additionalLoad === 0 ? '377' : '238'}"
                           y="${data.additionalLoad === 0 ? 71 : 93}" class="st3 left-align"
                           fill="${!data.loadShowDaily || data.showAux ? 'transparent' : `${data.loadColour}`}">
-                        ${localize('common.daily_load')}
+                        ${config.load.label_daily_load || localize('common.daily_load')}
                     </text>
                     <text id="daily_solar" x="43.5" y="29" class="st3 left-align"
                           display="${config.solar.display_mode === 1 ? '' : 'none'}"
