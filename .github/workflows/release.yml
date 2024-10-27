@@ -43,6 +43,7 @@ jobs:
           if node -pe "const semver = require('semver'); semver.gt('${{ env.version }}', '${{ steps.get-latest-tag.outputs.tag }}')"; then
             echo "is_higher_version=true" >> $GITHUB_ENV
           else
+            echo "is_higher_version=false" >> $GITHUB_ENV
             echo "The version is not higher than the latest release"
             exit 1
           fi
