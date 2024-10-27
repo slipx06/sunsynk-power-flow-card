@@ -32,7 +32,7 @@ jobs:
 
       - name: Get current version
         id: get-version
-        run: echo ::set-output name=version::$(node -pe "require('./package.json').version")
+        run: echo "version=$(node -pe "require('./package.json').version")" >> $GITHUB_ENV
 
       - name: Install semver
         run: npm install semver
@@ -40,36 +40,36 @@ jobs:
       - name: Check if version is higher
         id: check-version
         run: |
-          is_higher=$(node -pe "const semver = require('semver'); semver.gt('${{ steps.get-version.outputs.version }}', '${{ steps.get-latest-tag.outputs.tag }}')")
-          if [ -z "$is_higher" ]; then
+          if node -pe "const semver = require('semver'); semver.gt('${{ env.version }}', '${{ steps.get-latest-tag.outputs.tag }}')"; then
+            echo "is_higher_version=true" >> $GITHUB_ENV
+          else
             echo "The version is not higher than the latest release"
             exit 1
           fi
-          echo "is_higher=$is_higher" >> $GITHUB_OUTPUT
 
       - name: Remove package-lock.json to prevent conflicts
-        if: steps.check-version.outputs.is_higher == 'true'
+        if: env.is_higher_version == 'true'
         run: |
           if [ -f package-lock.json ]; then
             rm package-lock.json
           fi
 
       - name: Build project
-        if: steps.check-version.outputs.is_higher == 'true'
+        if: env.is_higher_version == 'true'
         run: |
           npm install --legacy-peer-deps
           npm run build
 
       - name: 🛎️ Create release
-        if: steps.check-version.outputs.is_higher == 'true'
+        if: env.is_higher_version == 'true'
         uses: softprops/action-gh-release@v2
         with:
           files: dist/sunsynk-power-flow-card.js
-          tag_name: v${{ steps.get-version.outputs.version }}
-          name: v${{ steps.get-version.outputs.version }}
+          tag_name: v${{ env.version }}
+          name: v${{ env.version }}
           token: ${{ secrets.GITHUB_TOKEN }}
           generate_release_notes: true
 
       - name: 🏷️ Update latest tag
-        if: steps.check-version.outputs.is_higher == 'true'
+        if: env.is_higher_version == 'true'
         uses: EndBug/latest-tag@latest
