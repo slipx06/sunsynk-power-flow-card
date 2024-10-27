@@ -40,8 +40,7 @@ jobs:
       - name: Check if version is higher
         id: check-version
         run: |
-          latest_tag="${{ steps.get-latest-tag.outputs.tag }}"
-          if node -pe "const semver = require('semver'); semver.gt('${{ env.version }}', '${latest_tag}')"; then
+          if node -pe "const semver = require('semver'); semver.gt('${{ env.version }}', '${{ steps.get-latest-tag.outputs.tag }}')"; then
             echo "is_higher_version=true" >> $GITHUB_ENV
           else
             echo "is_higher_version=false" >> $GITHUB_ENV
