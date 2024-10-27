@@ -40,13 +40,14 @@ jobs:
       - name: Check if version is higher
         id: check-version
         run: |
-          if node -pe "const semver = require('semver'); semver.gt('${{ env.version }}', '${{ steps.get-latest-tag.outputs.tag }}')"; then
-            echo "is_higher_version=true" >> $GITHUB_ENV
-          else
+          is_higher=$(node -pe "const semver = require('semver'); semver.gt('${{ env.version }}', '${{ steps.get-latest-tag.outputs.tag }}')")
+          if [ "$is_higher" != "true" ]; then
             echo "is_higher_version=false" >> $GITHUB_ENV
             echo "The version is not higher than the latest release"
             exit 1
           fi
+
+          echo "is_higher_version=true" >> $GITHUB_ENV
 
       - name: Remove package-lock.json to prevent conflicts
         if: env.is_higher_version == 'true'
