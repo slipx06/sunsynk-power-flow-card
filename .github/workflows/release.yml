@@ -57,9 +57,8 @@ jobs:
       - name: Build project
         if: steps.check-version.outputs.is_higher == 'true'
         run: |
-          yarn install --ignore-optional --force --verbose
-          yarn run build
-
+          npm install --legacy-peer-deps
+          npm run build
 
       - name: 🛎️ Create release
         if: steps.check-version.outputs.is_higher == 'true'
