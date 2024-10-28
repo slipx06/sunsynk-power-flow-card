@@ -274,12 +274,12 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </text>
                     <text id="duration_text" x="132" y="368" class="st3 left-align"
                           display="${!config.show_battery ? 'none' : ''}"
-                          fill="${data.batteryEnergy === 0 || data.batteryPower <= 0 || data.isFloating ? 'transparent' : `${data.batteryColour}`}">
+                          fill="${data.batteryEnergy === 0 || (config.battery.invert_flow === true ? data.batteryPower >= 0 : data.batteryPower <= 0) || data.isFloating ? 'transparent' : `${data.batteryColour}`}">
                         ${localize('common.runtime_to')} ${data.batteryCapacity}% @${data.formattedResultTime}
                     </text>
                     <text id="duration_text_charging" x="132" y="368" class="st3 left-align"
                           display="${!config.show_battery ? 'none' : ''}"
-                          fill="${data.batteryEnergy === 0 || data.batteryPower >= 0 || data.isFloating ? 'transparent' : `${data.batteryColour}`}">
+                          fill="${data.batteryEnergy === 0 || (config.battery.invert_flow === true ? data.batteryPower <= 0 : data.batteryPower >= 0) || data.isFloating ? 'transparent' : `${data.batteryColour}`}">
                         ${localize('common.to')} ${data.batteryCapacity}% ${localize('common.charge')}
                             @${data.formattedResultTime}
                     </text>

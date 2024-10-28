@@ -10,15 +10,15 @@ export class InverterSettingsDto {
     constructor() {
     }
 
-    getBatteryCapacity(batteryPower: number, gridStatus: string, shutdown: number, inverterProg, stateBatterySOC, maxsoc: number) {
+    getBatteryCapacity(batteryPower: number, gridStatus: string, shutdown: number, inverterProg, stateBatterySOC, maxsoc: number, invertBatFlow: boolean) {
         let batteryCapacity = 0;
-        if (batteryPower > 0) {
+        if (invertBatFlow === true ? batteryPower < 0 : batteryPower > 0 ) {
             if (gridStatus === 'off' || gridStatus === '0' || gridStatus.toLowerCase() === 'off-grid' || !inverterProg.show || parseInt(stateBatterySOC.state) <= inverterProg.capacity) {
                 batteryCapacity = shutdown;
             } else {
                 batteryCapacity = inverterProg.capacity;
             }
-        } else if (batteryPower < 0) {
+        } else if (invertBatFlow === true ? batteryPower > 0 : batteryPower < 0) {
             if (gridStatus === 'off' || gridStatus === '0' || gridStatus.toLowerCase() === 'off-grid' || !inverterProg.show || parseInt(stateBatterySOC.state) >= inverterProg.capacity) {
                 batteryCapacity = maxsoc;
             } else if (parseInt(stateBatterySOC.state) < inverterProg.capacity) {
