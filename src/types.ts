@@ -26,6 +26,7 @@ export enum InverterModel {
 	SolarEdge = 'solaredge',
 	Sofar = 'sofar',
 	Solis = 'solis',
+	Sungrow = `sungrow`,
 	Sunsynk = 'sunsynk',
 	Victron = 'victron',
 }

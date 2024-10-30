@@ -20,6 +20,7 @@ import {Azzurro} from './brands/azzurro';
 import {MPPSolar} from './brands/mpp-solar';
 import {SMASolar} from './brands/sma-solar';
 import {E3dc} from './brands/e3dc';
+import {Sungrow} from './brands/sungrow';
 
 
 
@@ -73,6 +74,8 @@ export class InverterFactory {
                 return new MPPSolar();
             case InverterModel.SMASolar:
                 return new SMASolar();
+            case InverterModel.Sungrow: 
+                return new Sungrow();
             case InverterModel.Sunsynk:
             default:
                 return new Sunsynk()
