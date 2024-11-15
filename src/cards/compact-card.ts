@@ -1446,17 +1446,17 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             fill="${!data.loadShowDaily ? 'transparent' : `${data.loadColour}`}">
                             ${config.load.label_daily_load || localize('common.daily_load')}
                         </text>
-                        <text id="load-power-L1" x="375" y="241"
+                        <text id="load-power-L1" x="${config.wide ? '304' : '375'}" y="241"
                             display="${config.inverter.three_phase && config.entities?.load_power_L1 ? '' : 'none'}"
                             class="st3 left-align" fill="${data.loadColour}">
                             ${config.load.auto_scale ? `${Utils.convertValue(data.loadPowerL1, data.decimalPlaces) || 0}` : `${data.loadPowerL1 || 0} ${UnitOfPower.WATT}`}
                         </text>
-                        <text id="load-power-L2" x="375" y="254"
+                        <text id="load-power-L2" x="${config.wide ? '304' : '375'}" y="254"
                             display="${config.inverter.three_phase && config.entities?.load_power_L2 ? '' : 'none'}"
                             class="st3 left-align" fill="${data.loadColour}">
                             ${config.load.auto_scale ? `${Utils.convertValue(data.loadPowerL2, data.decimalPlaces) || 0}` : `${data.loadPowerL2 || 0} ${UnitOfPower.WATT}`}
                         </text>
-                        <text id="load-power-L3" x="375" y="267"
+                        <text id="load-power-L3" x="${config.wide ? '304' : '375'}" y="267"
                             display="${config.inverter.three_phase && config.entities?.load_power_L3 ? '' : 'none'}"
                             class="st3 left-align" fill="${data.loadColour}">
                             ${config.load.auto_scale ? `${Utils.convertValue(data.loadPowerL3, data.decimalPlaces) || 0}` : `${data.loadPowerL3 || 0} ${UnitOfPower.WATT}`}
