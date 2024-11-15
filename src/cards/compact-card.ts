@@ -72,7 +72,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                      xmlns:xlink="http://www.w3.org/1999/xlink"> -->             
                     
                      <!-- Solar Elements -->
-                     <svg id="Solar" style="overflow: visible" x="${config.wide ? '5%' : '0%'}" >
+                     <svg id="Solar" style="overflow: visible" x="${config.wide ? '10%' : '0%'}" >
                         <svg id="pvtotal" x="205" y="116.5" width="70" height="30"
                             viewBox="0 0 70 30" overflow="visible">
                             <rect width="70" height="30" rx="4.5" ry="4.5" fill="none"
@@ -484,7 +484,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     </svg>
 
                     <!-- Battery Elements -->
-                    <svg id="Battery" style="overflow: visible" x="${config.wide ? '5%' : '0%'}">
+                    <svg id="Battery" style="overflow: visible" x="${config.wide ? '10%' : '0%'}">
                         <rect x="205" y="290" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                             stroke="${data.batteryColour}" pointer-events="all"
                             display="${!config.show_battery ? 'none' : ''}"
@@ -820,7 +820,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             ${config.grid.grid_name || localize('common.grid_name')}
                         </text>
                         <svg id="grid-flow">
-                            <path id="grid-line" d="${config.wide ? 'M 173 218 L 250 218': 'M 173 218 L 214 218'} fill="none" stroke="${data.gridColour}"
+                            <path id="grid-line" d="${config.wide ? 'M 173 218 L 287 218': 'M 173 218 L 214 218'} fill="none" stroke="${data.gridColour}"
                                 stroke-width="${data.gridLineWidth}" stroke-miterlimit="10" pointer-events="stroke"
                                 display="${!config.show_grid ? 'none' : ''}"/>
                             <circle id="grid-dot" cx="0" cy="0"
@@ -1462,7 +1462,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             ${config.load.auto_scale ? `${Utils.convertValue(data.loadPowerL3, data.decimalPlaces) || 0}` : `${data.loadPowerL3 || 0} ${UnitOfPower.WATT}`}
                         </text>
                         <svg id="load-flow">
-                            <path id="es-line" d="${config.wide ? 'M 304 218.5 L 80 218.5': 'M 304 218.5 L 264.7 218.5'}" fill="none" stroke="${config.load.dynamic_colour ? data.flowColour : data.loadColour}"
+                            <path id="es-line" d="${config.wide ? 'M 304 218.5 L 117 218.5': 'M 304 218.5 L 264.7 218.5'}" fill="none" stroke="${config.load.dynamic_colour ? data.flowColour : data.loadColour}"
                                 stroke-width="${data.loadLineWidth}" stroke-miterlimit="10" pointer-events="stroke"/>
                             <circle id="es-dot" cx="0" cy="0"
                                     r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
@@ -1594,7 +1594,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     </svg>
 
                     <!-- Inverter Elements -->
-                    <svg id="Inverter" style="overflow: visible" x="${config.wide ? '5%' : '0%'}">
+                    <svg id="Inverter" style="overflow: visible" x="${config.wide ? '10%' : '0%'}">
                         <text id="autarkye_value" x="127" y="260"
                             display="${data.enableAutarky === AutarkyType.No ? 'none' : ''}"
                             class="${data.enableAutarky === AutarkyType.Energy ? 'st4 st8 left-align' : 'st12'}"

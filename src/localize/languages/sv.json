@@ -134,6 +134,10 @@
       "load2_icon": "Belastning 2 Ikon",
       "load3_icon": "Belastning 3 Ikon",
       "load4_icon": "Belastning 4 Ikon",
+      "load5_name": "Belastning 5 Namn",
+      "load6_name": "Belastning 6 Namn",
+      "load5_icon": "Belastning 5 Ikon",
+      "load6_icon": "Belastning 6 Ikon",
       "aux_load1_name": "Aux Belastning 1 Namn",
       "aux_load2_name": "Aux Belastning 2 Namn",
       "aux_load1_icon": "Aux Belastning 1 Ikon",
@@ -185,6 +189,7 @@
       "label_daily_grid_sell": "Daglig Nätsälj Etikett",
       "invert_flow": "Invert Flow",
       "label_daily_load": "Daily Load Label",
+      "wide": "Wide Screen Layout",
       "cat_title": {
         "title": "Titelalternativ",
         "general": "Allmänna Alternativ",

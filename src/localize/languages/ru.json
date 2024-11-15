@@ -134,6 +134,10 @@
       "load2_icon": "Нагрузка 2 Иконка",
       "load3_icon": "Нагрузка 3 Иконка",
       "load4_icon": "Нагрузка 4 Иконка",
+      "load5_name": "Load 5 Name",
+      "load6_name": "Load 6 Name",
+      "load5_icon": "Load 5 Icon",
+      "load6_icon": "Load 6 Icon",
       "aux_load1_name": "Вспом. Нагр. 1 Название",
       "aux_load2_name": "Вспом. Нагр. 2 Название",
       "aux_load1_icon": "Вспом. Нагр. 2 Иконка",
@@ -185,6 +189,7 @@
       "label_daily_grid_sell": "Daily Grid Sell Label",
       "invert_flow": "Invert Flow",
       "label_daily_load": "Daily Load Label",
+      "wide": "Wide Screen Layout",
       "cat_title": {
         "title": "Параметры Заголовка",
         "general": "Общие Настройки",
