@@ -91,6 +91,8 @@ export default {
 		load2_name: '',
 		load3_name: '',
 		load4_name: '',
+		load5_name: '',
+		load6_name: '',
 		auto_scale: true,
 		path_threshold: 100,
 		navigate:'',

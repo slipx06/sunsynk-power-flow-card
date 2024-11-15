@@ -39,6 +39,16 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     --mdc-icon-size: 20px;
                 }
 
+                .essload5_small-icon {
+                    color: ${data.dynamicColourEssentialLoad5} !important;
+                    --mdc-icon-size: 20px;
+                }
+
+                .essload6_small-icon {
+                    color: ${data.dynamicColourEssentialLoad6} !important;
+                    --mdc-icon-size: 20px;
+                }
+
                 .grid-icon {
                     color: ${data.customGridIconColour} !important;
                     --mdc-icon-size: 64px;
@@ -1105,7 +1115,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                     ${data.stateEssentialLoad1Extra.getUOM()}
                                 </text>
                             </a>
-                            <g display="${[0, 4].includes(data.additionalLoad) ? 'none' : ''}">
+                            <g display="${[0, 4, 5, 6].includes(data.additionalLoad) ? 'none' : ''}">
                                 <foreignObject x="371" y="114" width="36" height="36" style="position: fixed; ">
                                     <body>
                                     <div style="position: fixed; ">
@@ -1115,7 +1125,6 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 </foreignObject>
                             </g>
                         </svg>
-                        
                         <svg id="Esential-Load2" style="overflow: visible">
                             <rect id="es-load2" x="406" y="290" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                                 stroke="${data.dynamicColourEssentialLoad2}" pointer-events="all"
@@ -1163,7 +1172,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                     ${data.stateEssentialLoad2Extra.getUOM()}
                                 </text>
                             </a>
-                            <g display="${[0, 1, 3, 4].includes(data.additionalLoad) ? 'none' : ''}">
+                            <g display="${data.additionalLoad === 2 ? '' : 'none'}">
                                 <foreignObject x="371" y="288" width="36" height="36" style="position:fixed; ">
                                     <body>
                                     <div style="position: fixed; ">
@@ -1240,33 +1249,33 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         <svg id="Esential-Load4" style="overflow: visible">
                             <rect id="es-load3" x="405" y="290" width="35" height="20" rx="4.5" ry="4.5" fill="none"
                                 stroke="${data.dynamicColourEssentialLoad3}" pointer-events="all"
-                                display="${data.additionalLoad === 4 ? '' : 'none'}"/>
+                                display="${data.additionalLoad >= 4 ? '' : 'none'}"/>
                             <rect id="es-load1" x="405" y="107" width="35" height="20" rx="4.5" ry="4.5" fill="none"
                                 stroke="${data.dynamicColourEssentialLoad1}" pointer-events="all"
-                                display="${data.additionalLoad === 4 ? '' : 'none'}"/>
+                                display="${data.additionalLoad >= 4 ? '' : 'none'}"/>
                             <rect id="es-load2" x="441" y="107" width="35" height="20" rx="4.5" ry="4.5" fill="none"
                                 stroke="${data.dynamicColourEssentialLoad2}" pointer-events="all"
-                                display="${data.additionalLoad === 4 ? '' : 'none'}"/>
+                                display="${data.additionalLoad >= 4 ? '' : 'none'}"/>
                             <rect id="es-load4" x="441" y="290" width="35" height="20" rx="4.5" ry="4.5" fill="none"
                                 stroke="${data.dynamicColourEssentialLoad4}" pointer-events="all"
-                                display="${data.additionalLoad === 4 ? '' : 'none'}"/>
+                                display="${data.additionalLoad >= 4 ? '' : 'none'}"/>
                             <text id="es-load1" x="435" y="136" class="st3 st8 right-align"
-                                display="${data.additionalLoad === 4 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad1}">
+                                display="${data.additionalLoad >= 4 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad1}">
                                 ${config.load.load1_name}
                             </text>
                             <text id="es-load2" x="448" y="136" class="st3 st8 left-align"
-                                display="${data.additionalLoad === 4 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad2}">
+                                display="${data.additionalLoad >= 4 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad2}">
                                 ${config.load.load2_name}
                             </text>
                             <text id="es-load3" x="435" y="320" class="st3 st8 right-align"
-                                display="${data.additionalLoad === 4 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad3}">
+                                display="${data.additionalLoad >= 4 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad3}">
                                 ${config.load.load3_name}
                             </text>
                             <text id="es-load4" x="448" y="320" class="st3 st8 left-align"
-                                display="${data.additionalLoad === 4 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad4}">
+                                display="${data.additionalLoad >= 4 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad4}">
                                 ${config.load.load4_name}
                             </text>
-                            <g display="${data.additionalLoad === 4 ? '' : 'none'}">
+                            <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
                                 <foreignObject x="412" y="81" width="30" height="30" style="position: fixed; ">
                                     <body>
                                     <div style="position: fixed; ">
@@ -1275,7 +1284,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                     </body>
                                 </foreignObject>
                             </g>
-                            <g display="${data.additionalLoad === 4 ? '' : 'none'}">
+                            <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
                                 <foreignObject x="449" y="81" width="30" height="30" style="position: fixed; ">
                                     <body>
                                     <div style="position: fixed; ">
@@ -1284,7 +1293,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                     </body>
                                 </foreignObject>
                             </g>
-                            <g display="${data.additionalLoad === 4 ? '' : 'none'}">
+                            <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
                                 <foreignObject x="412" y="264" width="30" height="30" style="position: fixed; ">
                                     <body>
                                     <div style="position: fixed; ">
@@ -1293,7 +1302,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                     </body>
                                 </foreignObject>
                             </g>
-                            <g display="${data.additionalLoad === 4 ? '' : 'none'}">
+                            <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
                                 <foreignObject x="449" y="264" width="30" height="30" style="position: fixed; ">
                                     <body>
                                     <div style="position: fixed; ">
@@ -1304,7 +1313,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             </g>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1_extra)}>
                                 <text id="ess_load1_extra" x="435" y="147"
-                                display="${(config.entities?.essential_load1_extra && data.additionalLoad === 4) && data.stateEssentialLoad1Extra.isValid() ? '' : 'none'}"
+                                display="${(config.entities?.essential_load1_extra && data.additionalLoad >= 4) && data.stateEssentialLoad1Extra.isValid() ? '' : 'none'}"
                                     class="st3 right-align" fill="${data.dynamicColourEssentialLoad1}">
                                     ${data.stateEssentialLoad1Extra.toNum(1)}
                                     ${data.stateEssentialLoad1Extra.getUOM()}
@@ -1312,7 +1321,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             </a>                    
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load2_extra)}>
                                 <text id="ess_load2_extra" x="448" y="147"
-                                    display="${(config.entities?.essential_load2_extra && data.additionalLoad === 4) && data.stateEssentialLoad2Extra.isValid() ? '' : 'none'}"
+                                    display="${(config.entities?.essential_load2_extra && data.additionalLoad >= 4) && data.stateEssentialLoad2Extra.isValid() ? '' : 'none'}"
                                     class="st3 left-align" fill="${data.dynamicColourEssentialLoad2}">
                                     ${data.stateEssentialLoad2Extra.toNum(1)}
                                     ${data.stateEssentialLoad2Extra.getUOM()}
@@ -1320,7 +1329,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             </a>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load3_extra)}>
                                 <text id="ess_load3_extra" x="435" y="332"
-                                    display="${(config.entities?.essential_load3_extra && data.additionalLoad === 4) && data.stateEssentialLoad3Extra.isValid() ? '' : 'none'}"
+                                    display="${(config.entities?.essential_load3_extra && data.additionalLoad >= 4) && data.stateEssentialLoad3Extra.isValid() ? '' : 'none'}"
                                     class="st3 right-align" fill="${data.dynamicColourEssentialLoad3}">
                                     ${data.stateEssentialLoad3Extra.toNum(1)}
                                     ${data.stateEssentialLoad3Extra.getUOM()}
@@ -1328,109 +1337,111 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             </a>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load4_extra)}>
                                 <text id="ess_load4_extra" x="448" y="332"
-                                    display="${(config.entities?.essential_load4_extra && data.additionalLoad === 4) && data.stateEssentialLoad4Extra.isValid() ? '' : 'none'}"
+                                    display="${(config.entities?.essential_load4_extra && data.additionalLoad >= 4) && data.stateEssentialLoad4Extra.isValid() ? '' : 'none'}"
                                     class="st3 left-align" fill="${data.dynamicColourEssentialLoad4}">
                                     ${data.stateEssentialLoad4Extra.toNum(1)}
                                     ${data.stateEssentialLoad4Extra.getUOM()}
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1)}>
-                                <text id="ess_load4" x="423" y="118" display="${data.additionalLoad === 4 && data.stateEssentialLoad1.isValid() ? '' : 'none'}" 
+                                <text id="ess_load4" x="423" y="118" display="${data.additionalLoad >= 4 && data.stateEssentialLoad1.isValid() ? '' : 'none'}" 
                                     class="st3" 
                                     fill="${data.dynamicColourEssentialLoad1}">
                                     ${data.stateEssentialLoad1?.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load2)}>
-                                <text id="ess_load4" x="459" y="118" display="${data.additionalLoad === 4 && data.stateEssentialLoad2.isValid() ? '' : 'none'}" 
+                                <text id="ess_load4" x="459" y="118" display="${data.additionalLoad >= 4 && data.stateEssentialLoad2.isValid() ? '' : 'none'}" 
                                     class="st3" 
                                     fill="${data.dynamicColourEssentialLoad2}">
                                     ${data.stateEssentialLoad2?.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load3)}>
-                                <text id="ess_load4" x="423" y="301" display="${data.additionalLoad === 4 && data.stateEssentialLoad3.isValid() ? '' : 'none'}" 
+                                <text id="ess_load4" x="423" y="301" display="${data.additionalLoad >= 4 && data.stateEssentialLoad3.isValid() ? '' : 'none'}" 
                                     class="st3" 
                                     fill="${data.dynamicColourEssentialLoad3}">
                                     ${data.stateEssentialLoad3?.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load4)}>
-                                <text id="ess_load4" x="459" y="301" display="${data.additionalLoad === 4 && data.stateEssentialLoad4.isValid() ? '' : 'none'}" 
+                                <text id="ess_load4" x="459" y="301" display="${data.additionalLoad >= 4 && data.stateEssentialLoad4.isValid() ? '' : 'none'}" 
                                     class="st3" 
                                     fill="${data.dynamicColourEssentialLoad4}">
                                     ${data.stateEssentialLoad4?.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                                 </text>
                             </a>
                         </svg>
-                        <svg id="Esential-Load5" style="overflow: visible" x="-5%">
+                        <svg id="Esential-Load5" 
+                             viewBox="${config.wide && [5, 6].includes(data.additionalLoad) ? "0 0 720 405" : "0 0 0 0"}" 
+                             style="overflow: visible" x="-5%">
                             <rect id="es-load5" x="405" y="107" width="35" height="20" rx="4.5" ry="4.5" fill="none"
-                                stroke="${data.dynamicColourEssentialLoad1}" pointer-events="all"
-                                display="${data.additionalLoad === 4 ? '' : 'none'}"/>
+                                stroke="${data.dynamicColourEssentialLoad5}" pointer-events="all"
+                                display="${[5, 6].includes(data.additionalLoad) ? '' : 'none'}"/>
                             <text id="es-load5" x="435" y="136" class="st3 st8 right-align"
-                                display="${data.additionalLoad === 4 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad1}">
-                                ${config.load.load1_name}
+                                display="${[5, 6].includes(data.additionalLoad) ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad5}">
+                                ${config.load.load5_name}
                             </text>
-                            <g display="${data.additionalLoad === 4 ? '' : 'none'}">
+                            <g display="${[5, 6].includes(data.additionalLoad) ? '' : 'none'}">
                                 <foreignObject x="412" y="81" width="30" height="30" style="position: fixed; ">
                                     <body>
                                     <div style="position: fixed; ">
-                                        <ha-icon icon="${data.iconEssentialLoad1}" class="essload1_small-icon"></ha-icon>
+                                        <ha-icon icon="${data.iconEssentialLoad5}" class="essload5_small-icon"></ha-icon>
                                     </div>
                                     </body>
                                 </foreignObject>
                             </g>
-                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1_extra)}>
-                                <text id="ess_load1_extra" x="435" y="147"
-                                display="${(config.entities?.essential_load1_extra && data.additionalLoad === 4) && data.stateEssentialLoad1Extra.isValid() ? '' : 'none'}"
+                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load5_extra)}>
+                                <text id="ess_load5_extra" x="435" y="147"
+                                display="${(config.entities?.essential_load5_extra && [5, 6].includes(data.additionalLoad)) && data.stateEssentialLoad5Extra.isValid() ? '' : 'none'}"
                                     class="st3 right-align" fill="${data.dynamicColourEssentialLoad1}">
-                                    ${data.stateEssentialLoad1Extra.toNum(1)}
-                                    ${data.stateEssentialLoad1Extra.getUOM()}
+                                    ${data.stateEssentialLoad5Extra.toNum(1)}
+                                    ${data.stateEssentialLoad5Extra.getUOM()}
                                 </text>
                             </a>                    
-                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1)}>
-                                <text id="ess_load4" x="423" y="118" display="${data.additionalLoad === 4 && data.stateEssentialLoad1.isValid() ? '' : 'none'}" 
+                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load5)}>
+                                <text id="ess_load5" x="423" y="118" display="${[5, 6].includes(data.additionalLoad) && data.stateEssentialLoad5.isValid() ? '' : 'none'}" 
                                     class="st3" 
-                                    fill="${data.dynamicColourEssentialLoad1}">
-                                    ${data.stateEssentialLoad1?.toPowerString(config.load.auto_scale, data.decimalPlaces)}
+                                    fill="${data.dynamicColourEssentialLoad5}">
+                                    ${data.stateEssentialLoad5?.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                                 </text>
                             </a>
                         </svg>
-                        <svg id="Esential-Load6" style="overflow: visible" x="-5%">
+                        <svg id="Esential-Load6" viewBox="${config.wide && data.additionalLoad === 6  ? '0 0 720 405' : '0 0 0 0'}" style="overflow: visible" x="-5%">
                             <rect id="es-load6" x="405" y="290" width="35" height="20" rx="4.5" ry="4.5" fill="none"
-                                stroke="${data.dynamicColourEssentialLoad3}" pointer-events="all"
-                                display="${data.additionalLoad === 4 ? '' : 'none'}"/>
+                                stroke="${data.dynamicColourEssentialLoad6}" pointer-events="all"
+                                display="${data.additionalLoad === 6 ? '' : 'none'}"/>
                             <text id="es-load6" x="435" y="320" class="st3 st8 right-align"
-                                display="${data.additionalLoad === 4 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad3}">
-                                ${config.load.load3_name}
+                                display="${data.additionalLoad === 6 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad6}">
+                                ${config.load.load6_name}
                             </text>
-                            <g display="${data.additionalLoad === 4 ? '' : 'none'}">
+                            <g display="${data.additionalLoad === 6 ? '' : 'none'}">
                                 <foreignObject x="412" y="264" width="30" height="30" style="position: fixed; ">
                                     <body>
                                     <div style="position: fixed; ">
-                                        <ha-icon icon="${data.iconEssentialLoad3}" class="essload3_small-icon"></ha-icon>
+                                        <ha-icon icon="${data.iconEssentialLoad6}" class="essload6_small-icon"></ha-icon>
                                     </div>
                                     </body>
                                 </foreignObject>
                             </g>
-                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load3_extra)}>
-                                <text id="ess_load3_extra" x="435" y="332"
-                                    display="${(config.entities?.essential_load3_extra && data.additionalLoad === 4) && data.stateEssentialLoad3Extra.isValid() ? '' : 'none'}"
-                                    class="st3 right-align" fill="${data.dynamicColourEssentialLoad3}">
-                                    ${data.stateEssentialLoad3Extra.toNum(1)}
-                                    ${data.stateEssentialLoad3Extra.getUOM()}
+                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load6_extra)}>
+                                <text id="ess_load6_extra" x="435" y="332"
+                                    display="${(config.entities?.essential_load6_extra && data.additionalLoad === 6) && data.stateEssentialLoad6Extra.isValid() ? '' : 'none'}"
+                                    class="st3 right-align" fill="${data.dynamicColourEssentialLoad6}">
+                                    ${data.stateEssentialLoad6Extra.toNum(1)}
+                                    ${data.stateEssentialLoad6Extra.getUOM()}
                                 </text>
                             </a>                    
-                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load3)}>
-                                <text id="ess_load4" x="423" y="301" display="${data.additionalLoad === 4 && data.stateEssentialLoad3.isValid() ? '' : 'none'}" 
+                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load6)}>
+                                <text id="ess_load6" x="423" y="301" display="${data.additionalLoad === 6 && data.stateEssentialLoad6.isValid() ? '' : 'none'}" 
                                     class="st3" 
-                                    fill="${data.dynamicColourEssentialLoad3}">
-                                    ${data.stateEssentialLoad3?.toPowerString(config.load.auto_scale, data.decimalPlaces)}
+                                    fill="${data.dynamicColourEssentialLoad6}">
+                                    ${data.stateEssentialLoad6?.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                                 </text>
                             </a>
                         </svg>      
-                        <text id="daily_load" x="${[2, 3, 4].includes(data.additionalLoad) ? '365' : '412'}"
-                            y="${[2, 3, 4].includes(data.additionalLoad) ? '189' : '282.1'}"
+                        <text id="daily_load" x="${[2, 3, 4, 5, 6].includes(data.additionalLoad) ? '365' : '412'}"
+                            y="${[2, 3, 4 , 5, 6].includes(data.additionalLoad) ? '189' : '282.1'}"
                             class="st3 left-align"
                             fill="${!data.loadShowDaily ? 'transparent' : `${data.loadColour}`}">
                             ${config.load.label_daily_load || localize('common.daily_load')}
@@ -1498,11 +1509,11 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             fill="none" stroke="${data.loadColour}" stroke-width="1" stroke-miterlimit="10"
                             pointer-events="stroke"/>
                         <path id="es-load1" d="M 441 180 L 441 147"
-                            class="${[2, 3, 4].includes(data.additionalLoad) ? '' : 'st12'}" fill="none"
+                            class="${[2, 3, 4, 5, 6].includes(data.additionalLoad) ? '' : 'st12'}" fill="none"
                             stroke="${data.loadColour}" stroke-width="1" stroke-miterlimit="10"
                             pointer-events="stroke"/>
                         <path id="es-load2" d="M 441 290 L 441 257"
-                            class="${[2, 3, 4].includes(data.additionalLoad) ? '' : 'st12'}" fill="none"
+                            class="${[2, 3, 4, 5, 6].includes(data.additionalLoad) ? '' : 'st12'}" fill="none"
                             stroke="${data.loadColour}" stroke-width="1" stroke-miterlimit="10"
                             pointer-events="stroke"/>
                         ${config.load?.navigate
@@ -1559,8 +1570,8 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         }
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_load_energy_84)}>
                             <text id="daily_load_value"
-                                x="${[2, 3, 4].includes(data.additionalLoad) ? '365' : '412'}"
-                                y="${[2, 3, 4].includes(data.additionalLoad) ? '175' : '267.9'}"
+                                x="${[2, 3, 4, 5, 6].includes(data.additionalLoad) ? '365' : '412'}"
+                                y="${[2, 3, 4, 5, 6].includes(data.additionalLoad) ? '175' : '267.9'}"
                                 class="st10 left-align" display="${!data.loadShowDaily || !data.stateDayLoadEnergy.isValid() ? 'none' : ''}"
                                 fill="${data.loadColour}">
                                 ${data.stateDayLoadEnergy?.toPowerString(true, data.decimalPlacesEnergy)}

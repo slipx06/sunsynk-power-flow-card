@@ -174,6 +174,8 @@ export class SunsynkPowerFlowCard extends LitElement {
         const stateEssentialLoad2 = this.getEntity('entities.essential_load2');
         const stateEssentialLoad3 = this.getEntity('entities.essential_load3');
         const stateEssentialLoad4 = this.getEntity('entities.essential_load4');
+        const stateEssentialLoad5 = this.getEntity('entities.essential_load5');
+        const stateEssentialLoad6 = this.getEntity('entities.essential_load6');
         const stateAuxConnectedStatus = this.getEntity('entities.aux_connected_status', {state: 'on'});
         const stateAuxLoad1 = this.getEntity('entities.aux_load1');
         const stateAuxLoad2 = this.getEntity('entities.aux_load2');
@@ -181,6 +183,8 @@ export class SunsynkPowerFlowCard extends LitElement {
         const stateEssentialLoad2Extra = this.getEntity('entities.essential_load2_extra');
         const stateEssentialLoad3Extra = this.getEntity('entities.essential_load3_extra');
         const stateEssentialLoad4Extra = this.getEntity('entities.essential_load4_extra');
+        const stateEssentialLoad5Extra = this.getEntity('entities.essential_load5_extra');
+        const stateEssentialLoad6Extra = this.getEntity('entities.essential_load6_extra');
         const stateLoadPowerL1 = this.getEntity('entities.load_power_L1');
         const stateLoadPowerL2 = this.getEntity('entities.load_power_L2');
         const stateLoadPowerL3 = this.getEntity('entities.load_power_L3');
@@ -254,6 +258,8 @@ export class SunsynkPowerFlowCard extends LitElement {
         const dynamicColourEssentialLoad2 = this.calculateEssentialLoadColour(stateEssentialLoad2.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
         const dynamicColourEssentialLoad3 = this.calculateEssentialLoadColour(stateEssentialLoad3.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
         const dynamicColourEssentialLoad4 = this.calculateEssentialLoadColour(stateEssentialLoad4.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
+        const dynamicColourEssentialLoad5 = this.calculateEssentialLoadColour(stateEssentialLoad5.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
+        const dynamicColourEssentialLoad6 = this.calculateEssentialLoadColour(stateEssentialLoad6.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
 
         config.title_colour = this.colourConvert(config.title_colour);
 
@@ -364,8 +370,14 @@ export class SunsynkPowerFlowCard extends LitElement {
         const showDailyAux = config.load?.show_daily_aux;
 
         let additionalLoad = config.load?.additional_loads;
-        if (!validLoadValues.includes(additionalLoad) || (this.isFullCard && [3, 4].includes(additionalLoad) && showAux) || (this.isFullCard && [3].includes(additionalLoad))) {
-            additionalLoad = 0;
+        const invalidLoad =
+            !validLoadValues.includes(additionalLoad) ||
+            (this.isFullCard && [3, 4].includes(additionalLoad) && showAux) ||
+            (this.isFullCard && additionalLoad === 3) ||
+            (!config.wide && additionalLoad >= 5); // New condition
+
+        if (invalidLoad) {
+        additionalLoad = 0;
         }
 
         let additionalAuxLoad = config.load?.aux_loads;
@@ -380,6 +392,8 @@ export class SunsynkPowerFlowCard extends LitElement {
         const iconEssentialLoad2 = this.getEntity('load.load2_icon', {state: config.load?.load2_icon?.toString() ?? ''}).state;
         const iconEssentialLoad3 = this.getEntity('load.load3_icon', {state: config.load?.load3_icon?.toString() ?? ''}).state;
         const iconEssentialLoad4 = this.getEntity('load.load4_icon', {state: config.load?.load4_icon?.toString() ?? ''}).state;
+        const iconEssentialLoad5 = this.getEntity('load.load5_icon', {state: config.load?.load5_icon?.toString() ?? ''}).state;
+        const iconEssentialLoad6 = this.getEntity('load.load6_icon', {state: config.load?.load6_icon?.toString() ?? ''}).state;
         const iconAuxLoad1 = this.getEntity('load.aux_load1_icon', {state: config.load?.aux_load1_icon?.toString() ?? ''}).state;
         const iconAuxLoad2 = this.getEntity('load.aux_load2_icon', {state: config.load?.aux_load2_icon?.toString() ?? ''}).state;
         const nonessentialIcon = this.getEntity('grid.nonessential_icon', {state: config.grid?.nonessential_icon?.toString() ?? ''}).state;
@@ -1186,6 +1200,8 @@ export class SunsynkPowerFlowCard extends LitElement {
             stateEssentialLoad2,
             stateEssentialLoad3,
             stateEssentialLoad4,
+            stateEssentialLoad5,
+            stateEssentialLoad6,
             gridPower,
             gridPowerL2,
             gridPowerL3,
@@ -1195,6 +1211,8 @@ export class SunsynkPowerFlowCard extends LitElement {
             stateEssentialLoad2Extra,
             stateEssentialLoad3Extra,
             stateEssentialLoad4Extra,
+            stateEssentialLoad5Extra,
+            stateEssentialLoad6Extra,
             stateNonEssentialLoad1Extra,
             stateNonEssentialLoad2Extra,
             loadFrequency,
@@ -1256,6 +1274,8 @@ export class SunsynkPowerFlowCard extends LitElement {
             iconEssentialLoad2,
             iconEssentialLoad3,
             iconEssentialLoad4,
+            iconEssentialLoad5,
+            iconEssentialLoad6,
             enableTimer,
             stateSolarSell,
             priorityLoad,
@@ -1326,6 +1346,8 @@ export class SunsynkPowerFlowCard extends LitElement {
             dynamicColourEssentialLoad2,
             dynamicColourEssentialLoad3,
             dynamicColourEssentialLoad4,
+            dynamicColourEssentialLoad5,
+            dynamicColourEssentialLoad6,
             dynamicColourNonEssentialLoad1,
             dynamicColourNonEssentialLoad2,
             dynamicColourNonEssentialLoad3,
