@@ -340,7 +340,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     <text x="101" y="378" class="st3"
                           display="${!config.show_battery || !config.battery.show_remaining_energy ? 'none' : ''}"
                           fill="${data.batteryColour}">
-                        ${Utils.toNum((data.batteryEnergy * (data.stateBatterySoc?.toNum() / 100) / 1000), 2)}
+                        ${Utils.toNum((data.batteryEnergy * ((data.stateBatterySoc?.toNum()-data.shutdown_soc?.toNum()) / 100) / 1000), 2)}
                         ${UnitOfEnergy.KILO_WATT_HOUR}
                     </text>
                     <text x="411" y="157" class="st3 st8"
