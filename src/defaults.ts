@@ -4,6 +4,7 @@ import {InverterModel} from './types';
 export default {
 	cardstyle: 'lite',
 	panel_mode: false,
+	wide: false,
 	large_font: false,
 	show_solar: true,
 	show_battery: true,

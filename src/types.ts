@@ -47,6 +47,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 	type: string;
 	cardstyle: CardStyle;
 	panel_mode?: boolean;
+	wide?: boolean;
 	large_font?: boolean;
 	show_solar: boolean;
 	show_battery: boolean;
@@ -302,6 +303,8 @@ export interface DataDto {
 	config: sunsynkPowerFlowCardConfig;
 	panelMode;
 	compactMode;
+	viewBoxYLite;
+    viewBoxHeightLite;
 	cardHeight;
 	cardWidth;
 	loadColour;

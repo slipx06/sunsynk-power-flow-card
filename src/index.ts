@@ -1127,7 +1127,19 @@ export class SunsynkPowerFlowCard extends LitElement {
                 customGridIconColour = gridColour;
                 break;
         }
-           
+         
+        const viewBoxYLite = !config.show_solar 
+            ? (additionalLoad !== 0 || !config.show_battery ? 80 : 145.33) 
+            : 1;
+
+        const viewBoxHeightLite = !config.show_solar 
+            ? (config.show_battery 
+                ? (additionalLoad !== 0 ? 350 : 270.67) 
+                : 270.67) 
+            : (!config.show_battery 
+                ? ([2, 3, 4].includes(additionalLoad) ? 350 : 300) 
+                : 408);
+
         /**
          * The current structure of this data object is intentional, but it is considered temporary.
          * There is a need to evaluate the data being passed, as there might be duplication.
@@ -1137,6 +1149,8 @@ export class SunsynkPowerFlowCard extends LitElement {
             config,
             panelMode,
             compactMode,
+            viewBoxYLite,
+            viewBoxHeightLite,
             cardHeight,
             cardWidth,
             loadColour,
