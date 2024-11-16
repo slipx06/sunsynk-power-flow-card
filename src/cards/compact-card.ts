@@ -64,13 +64,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                      width="${data.panelMode === true ? `${data.cardWidth}` : '100%'}"
                      xmlns="http://www.w3.org/2000/svg"
                      xmlns:xlink="http://www.w3.org/1999/xlink">                
-                <!-- 
-                <svg viewBox="0 ${!config.show_solar ? (data.additionalLoad !== 0 || !config.show_battery ? 80 : 145.33) : 1} 483 ${!config.show_solar ? (config.show_battery ? (data.additionalLoad !== 0 ? 350 : 270.67) : 270.67) : (!config.show_battery ? ([2, 3, 4].includes(data.additionalLoad) ? 350 : 300) : 408)}"
-                     preserveAspectRatio="xMidYMid meet"
-                     height="${data.panelMode === false ? `${!config.show_solar && !config.show_battery ? '270px' : !config.show_solar ? (data.additionalLoad !== 0 ? '330px' : '246px') : config.show_solar && !config.show_battery ? ([2, 3, 4].includes(data.additionalLoad) ? '350px' : '300px') : `${data.cardHeight}`}` : `${!config.show_solar ? '75%' : '100%'}`}"
-                     width="${data.panelMode === true ? `${data.cardWidth}` : '100%'}"
-                     xmlns:xlink="http://www.w3.org/1999/xlink"> -->             
-                    
+                       
                      <!-- Solar Elements -->
                      <svg id="Solar" style="overflow: visible" x="${config.wide ? '10%' : '0%'}" >
                         <svg id="pvtotal" x="205" y="116.5" width="70" height="30"
