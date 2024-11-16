@@ -244,6 +244,7 @@ export interface CardConfigEntities {
 	non_essential_load3: string;
 	non_essential_load1_extra: string;
 	non_essential_load2_extra: string;
+	non_essential_load3_extra: string;
 	essential_load1: string;
 	essential_load2: string;
 	essential_load3: string;
@@ -453,6 +454,7 @@ export interface DataDto {
 	stateEssentialLoad6Extra: CustomEntity;
 	stateNonEssentialLoad1Extra: CustomEntity;
 	stateNonEssentialLoad2Extra: CustomEntity;
+	stateNonEssentialLoad3Extra: CustomEntity;
 	statePV4Current: CustomEntity;
 	statePV1Current: CustomEntity;
 	statePV2Current: CustomEntity;

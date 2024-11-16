@@ -789,6 +789,42 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
 
                     <!-- Grid Elements -->
                     <svg id="Grid" style="overflow: visible" x="${config.wide ? '30%' : '3%'}" y="2.5%">
+                        <svg id="nonessential3" style="overflow: visible">
+                            <rect id="noness3" x="266" y="310" width="35" height="20" rx="4.5" ry="4.5"
+                                display="${data.nonessentialLoads === 3 && (config.battery.hide_soc || config.wide) ? '' : 'none'}"
+                                fill="none" stroke="${data.dynamicColourNonEssentialLoad3}"
+                                pointer-events="all"
+                                class="${!config.show_grid || !data.showNonessential || data.nonessentialLoads === 1 ? 'st12' : ''}"/>
+                            <text id="noness3" x="284" y="338" class="${config.battery.hide_soc || config.wide ? 'st3 st8' : 'st12'}"
+                                display="${!config.show_grid || !data.showNonessential || [0, 1, 2].includes(data.nonessentialLoads) ? 'none' : ''}"
+                                fill="${data.dynamicColourNonEssentialLoad3}">${config.grid.load3_name}
+                            </text>
+                            <g display="${!config.show_grid || !data.showNonessential || [0, 1, 2].includes(data.nonessentialLoads) ? 'none' : ''}"
+                            opacity="${(config.battery.hide_soc || config.wide) && data.nonessentialLoads === 3 ? 1 : 0}">
+                                <foreignObject x="269" y="341" width="30" height="30" style="position: fixed; ">
+                                    <body xmlns="http://www.w3.org/1999/xhtml">
+                                    <div style="position: fixed; ">
+                                        <ha-icon icon="${data.iconNonessentialLoad3}" class="nonessload3-icon"></ha-icon>
+                                    </div>
+                                    </body>
+                                </foreignObject>
+                            </g>
+                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load3)}>
+                                <text id="noness3_value" x="283" y="321" class="${config.battery.hide_soc || config.wide ? 'st3' : 'st12'}" 
+                                    display="${!config.show_grid || !data.showNonessential || [0, 1, 2].includes(data.nonessentialLoads) || !data.stateNonessentialLoad3.isValid() ? 'none' : ''}" 
+                                    fill="${data.dynamicColourNonEssentialLoad3}">
+                                    ${data.stateNonessentialLoad3.toPowerString(config.grid.auto_scale, data.decimalPlaces)}
+                                </text>
+                            </a>
+                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load3_extra)}>
+                                <text id="non_ess_load2_value_extra" x="300" y="305"
+                                    display="${config.entities?.non_essential_load3_extra && data.nonessentialLoads === 3 &&  data.stateNonEssentialLoad3Extra.isValid() && config.show_grid && config.wide ? '' : 'none'}"
+                                    class="st3 right-align" fill="${data.dynamicColourNonEssentialLoad3}">
+                                    ${data.stateNonEssentialLoad3Extra.toNum(1)}
+                                    ${data.stateNonEssentialLoad3Extra?.getUOM()}
+                                </text>
+                            </a>
+                        </svg>
                         <rect x="234" y="153" width="70" height="70" rx="10.5" ry="10.5" fill="none"
                             stroke="${data.gridColour}" pointer-events="all"
                             display="${!config.show_grid ? 'none' : ''}"/>
@@ -804,7 +840,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             stroke="${data.dynamicColourNonEssentialLoad1}"
                             pointer-events="all"
                             class="${!config.show_grid || !data.showNonessential ? 'st12' : ''}"/>
-                        <rect id="noness2" x="303" y="310" width="35" height="20" rx="4.5" ry="4.5"
+                        <rect id="noness1" x="303" y="310" width="35" height="20" rx="4.5" ry="4.5"
                             display="${[2, 3].includes(data.nonessentialLoads) ? '' : 'none'}"
                             fill="none" stroke="${data.dynamicColourNonEssentialLoad1}"
                             pointer-events="all"
@@ -812,11 +848,6 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         <rect id="noness2" x="340" y="310" width="35" height="20" rx="4.5" ry="4.5"
                             display="${[2, 3].includes(data.nonessentialLoads) ? '' : 'none'}"
                             fill="none" stroke="${data.dynamicColourNonEssentialLoad2}"
-                            pointer-events="all"
-                            class="${!config.show_grid || !data.showNonessential || data.nonessentialLoads === 1 ? 'st12' : ''}"/>
-                        <rect id="noness3" x="266" y="310" width="35" height="20" rx="4.5" ry="4.5"
-                            display="${data.nonessentialLoads === 3 && config.battery.hide_soc ? '' : 'none'}"
-                            fill="none" stroke="${data.dynamicColourNonEssentialLoad3}"
                             pointer-events="all"
                             class="${!config.show_grid || !data.showNonessential || data.nonessentialLoads === 1 ? 'st12' : ''}"/>
                         <text id="noness1" x="340" y="338" class="st3 st8"
@@ -830,10 +861,6 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         <text id="noness2" x="358" y="338" class="st3 st8"
                             display="${!config.show_grid || !data.showNonessential || [0, 1].includes(data.nonessentialLoads) ? 'none' : ''}"
                             fill="${data.dynamicColourNonEssentialLoad2}">${config.grid.load2_name}
-                        </text>
-                        <text id="noness3" x="284" y="338" class="${config.battery.hide_soc ? 'st3 st8' : 'st12'}"
-                            display="${!config.show_grid || !data.showNonessential || [0, 1, 2].includes(data.nonessentialLoads) ? 'none' : ''}"
-                            fill="${data.dynamicColourNonEssentialLoad3}">${config.grid.load3_name}
                         </text>
                         <text x="421" y="377" class="st3 st8" fill="${data.gridColour}"
                             display="${!config.show_grid ? 'none' : ''}">
@@ -976,102 +1003,102 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             </circle>
                         </svg>
                         ${config.grid?.navigate
-                                ? svg`
-                                    <a href="#" @click=${(e) => Utils.handleNavigation(e, config.grid.navigate)}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" id="transmission_on"
-                                            x="${config.inverter.three_phase ? '404' : '389'}"
-                                            y="${config.inverter.three_phase ? '339' : '308'}"
-                                            width="${config.inverter.three_phase ? '34' : '65'}"
-                                            height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
-                                            <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
-                                                fill="${data.gridColour}"
-                                                display="${!config.show_grid || data.totalGridPower < 0 || config.grid.import_icon ? 'none' : ''}"
-                                                d="${icons.gridOn}"/>
-                                        </svg>
-                                        <svg xmlns="http://www.w3.org/2000/svg" id="transmission_off"
-                                            x="${config.inverter.three_phase ? '404' : '389'}"
-                                            y="${config.inverter.three_phase ? '339' : '308'}"
-                                            width="${config.inverter.three_phase ? '34' : '65'}"
-                                            height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
-                                            <path class="${validGridConnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
-                                                fill="${data.gridOffColour}" display="${!config.show_grid || config.grid.disconnected_icon ? 'none' : ''}"
-                                                d="${icons.gridOff}"/>
-                                        </svg>
-                                        <svg xmlns="http://www.w3.org/2000/svg" id="grid_export"
-                                            x="${config.inverter.three_phase ? '404' : '389'}"
-                                            y="${config.inverter.three_phase ? '339' : '308'}"
-                                            width="${config.inverter.three_phase ? '34' : '65'}"
-                                            height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
-                                            <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
-                                                fill="${data.gridColour}"
-                                                display="${!config.show_grid || data.totalGridPower >= 0 || config.grid.export_icon ? 'none' : ''}"
-                                                d="${icons.gridExport}"/>
-                                        </svg>
-                                    </a>`
-                                : svg`
-                                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_connected_status_194)}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" id="transmission_on"
-                                            x="${config.inverter.three_phase ? '404' : '389'}"
-                                            y="${config.inverter.three_phase ? '339' : '308'}"
-                                            width="${config.inverter.three_phase ? '34' : '65'}"
-                                            height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
-                                            <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
-                                                fill="${data.gridColour}"
-                                                display="${!config.show_grid || data.totalGridPower < 0 || config.grid.import_icon ? 'none' : ''}"
-                                                d="${icons.gridOn}"/>
-                                        </svg>
-                                        <svg xmlns="http://www.w3.org/2000/svg" id="transmission_off"
-                                            x="${config.inverter.three_phase ? '404' : '389'}"
-                                            y="${config.inverter.three_phase ? '339' : '308'}"
-                                            width="${config.inverter.three_phase ? '34' : '65'}"
-                                            height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
-                                            <path class="${validGridConnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
-                                                fill="${data.gridOffColour}" display="${!config.show_grid || config.grid.disconnected_icon ? 'none' : ''}"
-                                                d="${icons.gridOff}"/>
-                                        </svg>
-                                        <svg xmlns="http://www.w3.org/2000/svg" id="grid_export"
-                                            x="${config.inverter.three_phase ? '404' : '389'}"
-                                            y="${config.inverter.three_phase ? '339' : '308'}"
-                                            width="${config.inverter.three_phase ? '34' : '65'}"
-                                            height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
-                                            <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
-                                                fill="${data.gridColour}"
-                                                display="${!config.show_grid || data.totalGridPower >= 0 || config.grid.export_icon ? 'none' : ''}"
-                                                d="${icons.gridExport}"/>
-                                        </svg>
-                                    </a>`
+                            ? svg`
+                                <a href="#" @click=${(e) => Utils.handleNavigation(e, config.grid.navigate)}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="transmission_on"
+                                        x="${config.inverter.three_phase ? '404' : '389'}"
+                                        y="${config.inverter.three_phase ? '339' : '308'}"
+                                        width="${config.inverter.three_phase ? '34' : '65'}"
+                                        height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
+                                        <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
+                                            fill="${data.gridColour}"
+                                            display="${!config.show_grid || data.totalGridPower < 0 || config.grid.import_icon ? 'none' : ''}"
+                                            d="${icons.gridOn}"/>
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="transmission_off"
+                                        x="${config.inverter.three_phase ? '404' : '389'}"
+                                        y="${config.inverter.three_phase ? '339' : '308'}"
+                                        width="${config.inverter.three_phase ? '34' : '65'}"
+                                        height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
+                                        <path class="${validGridConnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
+                                            fill="${data.gridOffColour}" display="${!config.show_grid || config.grid.disconnected_icon ? 'none' : ''}"
+                                            d="${icons.gridOff}"/>
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="grid_export"
+                                        x="${config.inverter.three_phase ? '404' : '389'}"
+                                        y="${config.inverter.three_phase ? '339' : '308'}"
+                                        width="${config.inverter.three_phase ? '34' : '65'}"
+                                        height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
+                                        <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
+                                            fill="${data.gridColour}"
+                                            display="${!config.show_grid || data.totalGridPower >= 0 || config.grid.export_icon ? 'none' : ''}"
+                                            d="${icons.gridExport}"/>
+                                    </svg>
+                                </a>`
+                            : svg`
+                                <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_connected_status_194)}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="transmission_on"
+                                        x="${config.inverter.three_phase ? '404' : '389'}"
+                                        y="${config.inverter.three_phase ? '339' : '308'}"
+                                        width="${config.inverter.three_phase ? '34' : '65'}"
+                                        height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
+                                        <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
+                                            fill="${data.gridColour}"
+                                            display="${!config.show_grid || data.totalGridPower < 0 || config.grid.import_icon ? 'none' : ''}"
+                                            d="${icons.gridOn}"/>
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="transmission_off"
+                                        x="${config.inverter.three_phase ? '404' : '389'}"
+                                        y="${config.inverter.three_phase ? '339' : '308'}"
+                                        width="${config.inverter.three_phase ? '34' : '65'}"
+                                        height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
+                                        <path class="${validGridConnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
+                                            fill="${data.gridOffColour}" display="${!config.show_grid || config.grid.disconnected_icon ? 'none' : ''}"
+                                            d="${icons.gridOff}"/>
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="grid_export"
+                                        x="${config.inverter.three_phase ? '404' : '389'}"
+                                        y="${config.inverter.three_phase ? '339' : '308'}"
+                                        width="${config.inverter.three_phase ? '34' : '65'}"
+                                        height="${config.inverter.three_phase ? '34' : '65'}" viewBox="0 0 24 24">
+                                        <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
+                                            fill="${data.gridColour}"
+                                            display="${!config.show_grid || data.totalGridPower >= 0 || config.grid.export_icon ? 'none' : ''}"
+                                            d="${icons.gridExport}"/>
+                                    </svg>
+                                </a>`
                         }       
                         ${config.grid?.navigate
-                                ? svg`
-                                    <a href="#" @click=${(e) => Utils.handleNavigation(e, config.grid.navigate)}>
-                                        <g display="${config.show_grid || config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon ? '' : 'none'}">
-                                            <foreignObject x="${config.inverter.three_phase ? '404' : '389'}" 
-                                                        y="${config.inverter.three_phase ? '339' : '308'}" 
-                                                        width="${config.inverter.three_phase ? '34' : '65'}" 
-                                                        height="${config.inverter.three_phase ? '34' : '65'}" style="position: fixed; ">
-                                                <body xmlns="http://www.w3.org/1999/xhtml">
-                                                <div style="position: fixed; ">
-                                                    <ha-icon icon="${data.customGridIcon}" class="${config.inverter.three_phase ? 'grid-icon-small' : 'grid-icon'}"></ha-icon>
-                                                </div>
-                                                </body>
-                                            </foreignObject>
-                                        </g>
-                                    </a>`
-                                : svg`
-                                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_connected_status_194)}>
-                                        <g display="${config.show_grid || config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon ? '' : 'none'}">
-                                            <foreignObject x="${config.inverter.three_phase ? '404' : '389'}" 
-                                                        y="${config.inverter.three_phase ? '339' : '308'}" 
-                                                        width="${config.inverter.three_phase ? '34' : '65'}" 
-                                                        height="${config.inverter.three_phase ? '34' : '65'}" style="position: fixed; ">
-                                                <body xmlns="http://www.w3.org/1999/xhtml">
-                                                <div style="position: fixed; ">
-                                                    <ha-icon icon="${data.customGridIcon}" class="${config.inverter.three_phase ? 'grid-icon-small' : 'grid-icon'}"></ha-icon>
-                                                </div>
-                                                </body>
-                                            </foreignObject>
-                                        </g>
-                                    </a>`
+                            ? svg`
+                                <a href="#" @click=${(e) => Utils.handleNavigation(e, config.grid.navigate)}>
+                                    <g display="${config.show_grid || config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon ? '' : 'none'}">
+                                        <foreignObject x="${config.inverter.three_phase ? '404' : '389'}" 
+                                                    y="${config.inverter.three_phase ? '339' : '308'}" 
+                                                    width="${config.inverter.three_phase ? '34' : '65'}" 
+                                                    height="${config.inverter.three_phase ? '34' : '65'}" style="position: fixed; ">
+                                            <body xmlns="http://www.w3.org/1999/xhtml">
+                                            <div style="position: fixed; ">
+                                                <ha-icon icon="${data.customGridIcon}" class="${config.inverter.three_phase ? 'grid-icon-small' : 'grid-icon'}"></ha-icon>
+                                            </div>
+                                            </body>
+                                        </foreignObject>
+                                    </g>
+                                </a>`
+                            : svg`
+                                <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_connected_status_194)}>
+                                    <g display="${config.show_grid || config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon ? '' : 'none'}">
+                                        <foreignObject x="${config.inverter.three_phase ? '404' : '389'}" 
+                                                    y="${config.inverter.three_phase ? '339' : '308'}" 
+                                                    width="${config.inverter.three_phase ? '34' : '65'}" 
+                                                    height="${config.inverter.three_phase ? '34' : '65'}" style="position: fixed; ">
+                                            <body xmlns="http://www.w3.org/1999/xhtml">
+                                            <div style="position: fixed; ">
+                                                <ha-icon icon="${data.customGridIcon}" class="${config.inverter.three_phase ? 'grid-icon-small' : 'grid-icon'}"></ha-icon>
+                                            </div>
+                                            </body>
+                                        </foreignObject>
+                                    </g>
+                                </a>`
                         }
                         <!-- Nonessential Icon -->
                         <svg xmlns="http://www.w3.org/2000/svg" id="noness_default" x="303.5" y="305.5" width="70"
@@ -1205,16 +1232,6 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 <body xmlns="http://www.w3.org/1999/xhtml">
                                 <div style="position: fixed; ">
                                     <ha-icon icon="${data.iconNonessentialLoad2}" class="nonessload2-icon"></ha-icon>
-                                </div>
-                                </body>
-                            </foreignObject>
-                        </g>
-                        <g display="${!config.show_grid || !data.showNonessential || [0, 1, 2].includes(data.nonessentialLoads) || !config.battery.hide_soc ? 'none' : ''}"
-                        opacity="${config.battery.hide_soc ? 1 : 0}">
-                            <foreignObject x="269" y="341" width="30" height="30" style="position: fixed; ">
-                                <body xmlns="http://www.w3.org/1999/xhtml">
-                                <div style="position: fixed; ">
-                                    <ha-icon icon="${data.iconNonessentialLoad3}" class="nonessload3-icon"></ha-icon>
                                 </div>
                                 </body>
                             </foreignObject>
@@ -1497,24 +1514,17 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 ${data.stateNonessentialLoad2.toPowerString(config.grid.auto_scale, data.decimalPlaces)}
                             </text>
                         </a>
-                        <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load3)}>
-                            <text id="noness3_value" x="283" y="321" class="${config.battery.hide_soc ? 'st3' : 'st12'}" 
-                                display="${!config.show_grid || !data.showNonessential || [0, 1, 2].includes(data.nonessentialLoads) || !data.stateNonessentialLoad3.isValid() ? 'none' : ''}" 
-                                fill="${data.dynamicColourNonEssentialLoad3}">
-                                ${data.stateNonessentialLoad3.toPowerString(config.grid.auto_scale, data.decimalPlaces)}
-                            </text>
-                        </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load1_extra)}>
-                            <text id="non_ess_load1_value_extra" x="330" y="305"
-                                display="${config.entities?.non_essential_load1_extra && [1, 2].includes(data.nonessentialLoads) && data.stateNonEssentialLoad1Extra.isValid() && config.show_grid ? '' : 'none'}"
+                            <text id="non_ess_load1_value_extra" x="335" y="305"
+                                display="${config.entities?.non_essential_load1_extra && [1, 2, 3].includes(data.nonessentialLoads) && data.stateNonEssentialLoad1Extra.isValid() && config.show_grid ? '' : 'none'}"
                                 class="st3 right-align" fill="${data.dynamicColourNonEssentialLoad1}">
                                 ${data.stateNonEssentialLoad1Extra.toNum(1)}
                                 ${data.stateNonEssentialLoad1Extra?.getUOM()}
                             </text>
                         </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load2_extra)}>
-                            <text id="non_ess_load2_value_extra" x="348" y="305"
-                                display="${config.entities?.non_essential_load2_extra && data.nonessentialLoads === 2 &&  data.stateNonEssentialLoad2Extra.isValid() && config.show_grid ? '' : 'none'}"
+                            <text id="non_ess_load2_value_extra" x="342" y="305"
+                                display="${config.entities?.non_essential_load2_extra &&  [2, 3].includes(data.nonessentialLoads) &&  data.stateNonEssentialLoad2Extra.isValid() && config.show_grid ? '' : 'none'}"
                                 class="st3 left-align" fill="${data.dynamicColourNonEssentialLoad2}">
                                 ${data.stateNonEssentialLoad2Extra.toNum(1)}
                                 ${data.stateNonEssentialLoad2Extra?.getUOM()}

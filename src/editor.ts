@@ -716,6 +716,7 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 											},
 											{name: 'non_essential_load1_extra', selector: {entity: {}}},
 											{name: 'non_essential_load2_extra', selector: {entity: {}}},
+											{name: 'non_essential_load3_extra', selector: {entity: {}}},
 											{name: 'grid_connected_status_194', selector: {entity: {}}},
 											{name: 'energy_cost_buy', selector: {entity: {}}},
 											{name: 'energy_cost_sell', selector: {entity: {}}},

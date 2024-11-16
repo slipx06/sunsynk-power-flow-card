@@ -170,6 +170,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         const stateNonessentialLoad3 = this.getEntity('entities.non_essential_load3');
         const stateNonEssentialLoad1Extra = this.getEntity('entities.non_essential_load1_extra');
         const stateNonEssentialLoad2Extra = this.getEntity('entities.non_essential_load2_extra');
+        const stateNonEssentialLoad3Extra = this.getEntity('entities.non_essential_load3_extra');
         const stateEssentialLoad1 = this.getEntity('entities.essential_load1');
         const stateEssentialLoad2 = this.getEntity('entities.essential_load2');
         const stateEssentialLoad3 = this.getEntity('entities.essential_load3');
@@ -1215,6 +1216,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             stateEssentialLoad6Extra,
             stateNonEssentialLoad1Extra,
             stateNonEssentialLoad2Extra,
+            stateNonEssentialLoad3Extra,
             loadFrequency,
             statePV4Current,
             gridShowDailyBuy,
