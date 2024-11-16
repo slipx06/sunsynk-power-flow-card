@@ -112,7 +112,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     xmlns:xlink="http://www.w3.org/1999/xlink">
 
                     <!-- Solar Elements -->
-                    <svg id="Solar" style="overflow: visible" x="${config.wide ? '10%' : '3%'}" y="2.5%" >
+                    <svg id="Solar" style="overflow: visible" x="${config.wide ? '3%' : '3%'}" y="2.5%" >
                         <svg xmlns="http://www.w3.org/2000/svg" id="pvtotal" x="51" y="162" width="70" height="30"
                             viewBox="0 0 70 30" overflow="visible">
                             <rect width="70" height="30" rx="4.5" ry="4.5" fill="none"
@@ -327,7 +327,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             </circle>
                         </svg>
                         <svg id="solar-flow">
-                            <path id="so-line" d="M 155 250 L 96 250 Q 86 250 86 240 L 86 192"
+                            <path id="so-line" d="${config.wide ? 'M 278 250 L 96 250 Q 86 250 86 240 L 86 192': 'M 155 250 L 96 250 Q 86 250 86 240 L 86 192'}"
                                 class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
                                 fill="none" stroke="${data.solarColour}" stroke-width="${data.solarLineWidth}"
                                 stroke-miterlimit="10"
@@ -523,7 +523,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </svg>
                     
                     <!-- Battery Elements -->
-                    <svg id="Battery" style="overflow: visible" x="${config.wide ? '10%' : '3%'}" y="2.5%">
+                    <svg id="Battery" style="overflow: visible" x="${config.wide ? '3%' : '3%'}" y="2.5%">
                         <rect x="6" y="300.75" width="70" height="70" rx="10.5" ry="10.5" fill="none"
                             stroke="${data.batteryColour}" pointer-events="all"
                             display="${!config.show_battery ? 'none' : ''}"/>
@@ -577,7 +577,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             ${data.shutdownOffGrid}%
                         </text>
                         <svg id="battery-flow">
-                            <path id="bat-line" d="M 155 280 L 91 280 Q 85 280 86 286 L 86 297"
+                            <path id="bat-line" d="${config.wide ? 'M 279 280 L 96 280 Q 86 280 86 290 L 86 297': 'M 155 280 L 96 280 Q 86 280 86 290 L 86 297'}"
                                 class="${!config.show_battery ? 'st12' : ''}" fill="none"
                                 stroke="${config.battery.dynamic_colour ? data.flowBatColour : data.batteryColour}" stroke-width="${data.batLineWidth}" stroke-miterlimit="10"
                                 pointer-events="stroke"/>
@@ -788,7 +788,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </svg>
 
                     <!-- Grid Elements -->
-                    <svg id="Grid" style="overflow: visible" x="${config.wide ? '10%' : '3%'}" y="2.5%">
+                    <svg id="Grid" style="overflow: visible" x="${config.wide ? '30%' : '3%'}" y="2.5%">
                         <rect x="234" y="153" width="70" height="70" rx="10.5" ry="10.5" fill="none"
                             stroke="${data.gridColour}" pointer-events="all"
                             display="${!config.show_grid ? 'none' : ''}"/>
@@ -951,7 +951,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             </circle>
                         </svg>
                         <svg id="grid2-flow">
-                            <path id="grid2-line" d="M215 187 234 187" fill="none"
+                            <path id="grid2-line" d="${config.wide ? 'M143 187 234 187': 'M215 187 234 187'}" fill="none"
                                 stroke="${data.gridColour}" stroke-width="${data.grid169LineWidth}" stroke-miterlimit="10"
                                 pointer-events="stroke" display="${!config.show_grid ? 'none' : ''}"/>
                             <circle id="grid-dot" cx="0" cy="0"
@@ -1523,7 +1523,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </svg>
 
                     <!-- Load Elements -->
-                    <svg id="Load" style="overflow: visible" x="${config.wide ? '10%' : '3%'}" y="2.5%">
+                    <svg id="Load" style="overflow: visible" x="${config.wide ? '30%' : '3%'}" y="2.5%">
                         <rect x="236" y="103" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                             stroke="${data.loadColour}" pointer-events="all"/>
                         <rect id="es-load1" x="374" y="${!data.showAux ? '30' : '143'}" width="70" height="30"
@@ -1647,7 +1647,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                     <mpath xlink:href="#es-line"/>
                                 </animateMotion>
                             </circle>
-                            <path id="es-line" d="M 236 118 L 190 118 Q 180 118 180 128 L 180 162" fill="none"
+                            <path id="es-line" d="${config.wide ? 'M 236 118 L 118 118 Q 108 118 108 128 L 108 162': 'M 236 118 L 190 118 Q 180 118 180 128 L 180 162'}" fill="none"
                                 stroke="${config.load.dynamic_colour ? data.flowColour : data.loadColour}" stroke-width="${data.loadLineWidth}" stroke-miterlimit="10"
                                 pointer-events="stroke"/>
                         </svg>
@@ -2173,7 +2173,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </svg>
                     
                     <!-- AUX Elements -->
-                    <svg id="Aux Load" style="overflow: visible" x="${config.wide ? '10%' : '3%'}" y="2.5%">
+                    <svg id="Aux Load" style="overflow: visible" x="${config.wide ? '30%' : '3%'}" y="2.5%">
                         <rect x="237" y="32" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                             stroke="${data.auxDynamicColour}" pointer-events="all"
                             class="${!data.showAux ? 'st12' : ''}"/>
@@ -2237,7 +2237,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             </circle>
                         </svg>
                         <svg id="aux1-flow">
-                            <path id="aux-line2" d="M 180 162 L 180 57 Q 180 47 190 47 L 237 47" fill="none"
+                            <path id="aux-line2" d="${config.wide ? 'M 108 162 L 108 57 Q 108 47 118 47 L 237 47': 'M 180 162 L 180 57 Q 180 47 190 47 L 237 47'}" fill="none"
                                 class="${!data.showAux ? 'st12' : ''}" stroke="${data.auxDynamicColour}"
                                 stroke-width="${data.auxLineWidth}"
                                 stroke-miterlimit="10" pointer-events="stroke"/>
@@ -2425,7 +2425,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     </svg>
                     
                     <!-- Inverter Elements -->
-                    <svg id="Inverter" style="overflow: visible" x="${config.wide ? '10%' : '3%'}" y="2.5%">
+                    <svg id="Inverter" style="overflow: visible" x="${config.wide ? '20%' : '3%'}" y="2.5%">
                         <rect x="145.15" y="162" width="70"
                             height="${config.inverter.three_phase ? 60 : 50}" rx="7.5" ry="7.5"
                             fill="none" stroke="${data.inverterColour}" pointer-events="all"/>
