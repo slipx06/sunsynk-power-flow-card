@@ -134,6 +134,10 @@
       "load2_icon": "Load 2 Icon",
       "load3_icon": "Load 3 Icon",
       "load4_icon": "Load 4 Icon",
+      "load5_name": "Load 5 Name",
+      "load6_name": "Load 6 Name",
+      "load5_icon": "Load 5 Icon",
+      "load6_icon": "Load 6 Icon",
       "aux_load1_name": "Aux Load 1 Name",
       "aux_load2_name": "Aux Load 2 Name",
       "aux_load1_icon": "Aux Load 1 Icon",
@@ -185,6 +189,7 @@
       "label_daily_grid_sell": "Daily Grid Sell Label",
       "label_daily_load": "Daily Load Label",
       "invert_flow": "Invert Flow",
+      "wide": "Wide Screen Layout",
       "cat_title": {
         "title": "Title Options",
         "general": "General Options",
