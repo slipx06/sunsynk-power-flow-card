@@ -1568,7 +1568,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             </g>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load5_extra)}>
                                 <text id="ess_load5_value_extra" x="418" y="70"
-                                    display="${config.entities?.essential_load2_extra && [5, 6].includes(data.additionalLoad) && !data.showAux && data.stateEssentialLoad5Extra.isValid() ? '' : 'none'}"
+                                    display="${config.entities?.essential_load5_extra && [5, 6].includes(data.additionalLoad) && !data.showAux && data.stateEssentialLoad5Extra.isValid() ? '' : 'none'}"
                                     class="st3 left-align" fill="${data.dynamicColourEssentialLoad5}">
                                     ${data.stateEssentialLoad5Extra.toNum(1)}
                                     ${data.stateEssentialLoad5Extra?.getUOM()}
@@ -1584,7 +1584,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </svg>
                         <svg id="es-load6" 
                              style="overflow: visible" 
-                             viewBox="${config.wide && [5, 6].includes(data.additionalLoad) ? "0 0 720 405" : "0 0 0 0"}" 
+                             viewBox="${config.wide && [6].includes(data.additionalLoad) ? "0 0 720 405" : "0 0 0 0"}" 
                              x="5%">
                             <rect id="es-load5" x="413"
                                 y="149" width="35" height="20" rx="4.5" ry="4.5"
@@ -1606,7 +1606,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             </g>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load6_extra)}>
                                 <text id="ess_load6_value_extra" x="418" y="190"
-                                    display="${config.entities?.essential_load2_extra && [5, 6].includes(data.additionalLoad) && !data.showAux && data.stateEssentialLoad6Extra.isValid() ? '' : 'none'}"
+                                    display="${config.entities?.essential_load6_extra && [5, 6].includes(data.additionalLoad) && !data.showAux && data.stateEssentialLoad6Extra.isValid() ? '' : 'none'}"
                                     class="st3 left-align" fill="${data.dynamicColourEssentialLoad6}">
                                     ${data.stateEssentialLoad6Extra.toNum(1)}
                                     ${data.stateEssentialLoad6Extra?.getUOM()}
