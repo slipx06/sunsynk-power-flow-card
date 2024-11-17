@@ -30,6 +30,16 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     --mdc-icon-size: 20px;
                 }
 
+                .essload5-icon-small {
+                    color: ${data.dynamicColourEssentialLoad5} !important;
+                    --mdc-icon-size: 20px;
+                }
+
+                .essload6-icon-small {
+                    color: ${data.dynamicColourEssentialLoad6} !important;
+                    --mdc-icon-size: 20px;
+                }
+
                 .essload1-icon {
                     color: ${data.dynamicColourEssentialLoad1} !important;
                     --mdc-icon-size: 36px;
@@ -1534,6 +1544,82 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
 
                     <!-- Load Elements -->
                     <svg id="Load" style="overflow: visible" x="${config.wide ? '30%' : '3%'}" y="2.5%">
+                        <svg id="es-load5" 
+                             style="overflow: visible" 
+                             viewBox="${config.wide && [5, 6].includes(data.additionalLoad) ? "0 0 720 405" : "0 0 0 0"}" 
+                             x="5%">
+                            <rect id="es-load5" x="413"
+                                y="30" width="35" height="20" rx="4.5" ry="4.5"
+                                fill="none" stroke="${data.dynamicColourEssentialLoad5}" pointer-events="all"
+                                display="${[5, 6].includes(data.additionalLoad) ? '' : 'none'}"/>
+                            <text id="ess-load5" x="418"
+                                y="59" class="st3 st8 left-align"
+                                display="${[5, 6].includes(data.additionalLoad) ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad5}">
+                                ${config.load.load5_name}
+                            </text>
+                            <g display="${[5, 6].includes(data.additionalLoad) ? '' : 'none'}">
+                                <foreignObject x="421" y="5" width="30" height="30"style="position: fixed;">
+                                    <body xmlns="http://www.w3.org/1999/xhtml">
+                                        <div style="position: fixed;">
+                                            <ha-icon icon="${data.iconEssentialLoad5}" class="essload5-icon-small"></ha-icon>
+                                        </div>
+                                    </body>
+                                </foreignObject>
+                            </g>
+                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load5_extra)}>
+                                <text id="ess_load5_value_extra" x="418" y="70"
+                                    display="${config.entities?.essential_load2_extra && [5, 6].includes(data.additionalLoad) && !data.showAux && data.stateEssentialLoad5Extra.isValid() ? '' : 'none'}"
+                                    class="st3 left-align" fill="${data.dynamicColourEssentialLoad5}">
+                                    ${data.stateEssentialLoad5Extra.toNum(1)}
+                                    ${data.stateEssentialLoad5Extra?.getUOM()}
+                                </text>
+                            </a>
+                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load5)}>
+                                <text id="ess_load5_value" x="430" y="41" 
+                                    display="${[5, 6].includes(data.additionalLoad) && data.stateEssentialLoad5.isValid() ? '' : 'none'}" class="st3" 
+                                    fill="${data.dynamicColourEssentialLoad5}">
+                                    ${data.stateEssentialLoad5.toPowerString(config.load.auto_scale, data.decimalPlaces)}
+                                </text>
+                            </a>
+                        </svg>
+                        <svg id="es-load6" 
+                             style="overflow: visible" 
+                             viewBox="${config.wide && [5, 6].includes(data.additionalLoad) ? "0 0 720 405" : "0 0 0 0"}" 
+                             x="5%">
+                            <rect id="es-load5" x="413"
+                                y="149" width="35" height="20" rx="4.5" ry="4.5"
+                                fill="none" stroke="${data.dynamicColourEssentialLoad6}" pointer-events="all"
+                                display="${[5, 6].includes(data.additionalLoad) ? '' : 'none'}"/>
+                            <text id="ess-load5" x="418"
+                                y="178" class="st3 st8 left-align"
+                                display="${[5, 6].includes(data.additionalLoad) ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad6}">
+                                ${config.load.load6_name}
+                            </text>
+                            <g display="${[5, 6].includes(data.additionalLoad) ? '' : 'none'}">
+                                <foreignObject x="421" y="123" width="30" height="30"style="position: fixed;">
+                                    <body xmlns="http://www.w3.org/1999/xhtml">
+                                        <div style="position: fixed;">
+                                            <ha-icon icon="${data.iconEssentialLoad6}" class="essload6-icon-small"></ha-icon>
+                                        </div>
+                                    </body>
+                                </foreignObject>
+                            </g>
+                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load6_extra)}>
+                                <text id="ess_load6_value_extra" x="418" y="190"
+                                    display="${config.entities?.essential_load2_extra && [5, 6].includes(data.additionalLoad) && !data.showAux && data.stateEssentialLoad6Extra.isValid() ? '' : 'none'}"
+                                    class="st3 left-align" fill="${data.dynamicColourEssentialLoad6}">
+                                    ${data.stateEssentialLoad6Extra.toNum(1)}
+                                    ${data.stateEssentialLoad6Extra?.getUOM()}
+                                </text>
+                            </a>
+                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load6)}>
+                                <text id="ess_load6_value" x="430" y="160" 
+                                    display="${[5, 6].includes(data.additionalLoad) && data.stateEssentialLoad6.isValid() ? '' : 'none'}" class="st3" 
+                                    fill="${data.dynamicColourEssentialLoad6}">
+                                    ${data.stateEssentialLoad6.toPowerString(config.load.auto_scale, data.decimalPlaces)}
+                                </text>
+                            </a>
+                        </svg>
                         <rect x="236" y="103" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                             stroke="${data.loadColour}" pointer-events="all"/>
                         <rect id="es-load1" x="374" y="${!data.showAux ? '30' : '143'}" width="70" height="30"
@@ -1542,26 +1628,26 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         <rect id="es-load2" x="${!data.showAux ? '376' : '373'}"
                             y="${!data.showAux ? '30' : '149'}" width="35" height="20" rx="4.5" ry="4.5"
                             fill="none" stroke="${data.dynamicColourEssentialLoad1}" pointer-events="all"
-                            display="${[2, 4].includes(data.additionalLoad) ? '' : 'none'}"/>
+                            display="${[2, 4, 5, 6].includes(data.additionalLoad) ? '' : 'none'}"/>
                         <rect id="es-load2" x="${!data.showAux ? '413' : '410'}"
                             y="${!data.showAux ? '30' : '149'}" width="35" height="20" rx="4.5" ry="4.5"
                             fill="none" stroke="${data.dynamicColourEssentialLoad2}" pointer-events="all"
-                            display="${[2, 4].includes(data.additionalLoad) ? '' : 'none'}"/>
+                            display="${[2, 4, 5, 6].includes(data.additionalLoad) ? '' : 'none'}"/>
                         <rect id="es-load4" x="376"
                             y="149" width="35" height="20" rx="4.5" ry="4.5"
                             fill="none" stroke="${data.dynamicColourEssentialLoad3}" pointer-events="all"
-                            display="${!data.showAux && [3, 4].includes(data.additionalLoad) ? '' : 'none'}"/>
+                            display="${!data.showAux && [3, 4, 5, 6].includes(data.additionalLoad) ? '' : 'none'}"/>
                         <rect id="es-load4" x="413"
                             y="149" width="35" height="20" rx="4.5" ry="4.5"
                             fill="none" stroke="${data.dynamicColourEssentialLoad4}" pointer-events="all"
-                            display="${!data.showAux && [3, 4].includes(data.additionalLoad) ? '' : 'none'}"/>
+                            display="${!data.showAux && [3, 4, 5, 6].includes(data.additionalLoad) ? '' : 'none'}"/>
                         <text x="411" y="157" class="st3 st8"
                             display="${[0].includes(data.additionalLoad) || (!data.showAux && [1, 2].includes(data.additionalLoad)) ? '' : 'none'}"
                             fill="${data.loadColour}">
                             ${config.load.essential_name || localize('common.essential')}
                         </text>
                         <text id="ess_load" x="411" y="130" class="st3 st8"
-                            display="${([1,2].includes(data.additionalLoad) && data.showAux) || (!data.showAux && [4].includes(data.additionalLoad)) ? '' : 'none'}"
+                            display="${([1,2].includes(data.additionalLoad) && data.showAux) || (!data.showAux && [4, 5, 6].includes(data.additionalLoad)) ? '' : 'none'}"
                             fill="${data.loadColour}">
                             ${config.load.essential_name || localize('common.essential')}
                         </text>
@@ -1571,22 +1657,22 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </text>
                         <text id="ess-load2" x="${!data.showAux ? 405 : 402}"
                             y="${!data.showAux ? 59 : 178}" class="st3 st8 right-align"
-                            display="${[2, 4].includes(data.additionalLoad) ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad1}">
+                            display="${[2, 4, 5, 6].includes(data.additionalLoad) ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad1}">
                             ${config.load.load1_name}
                         </text>
                         <text id="ess-load2" x="${!data.showAux ? 418 : 415}"
                             y="${!data.showAux ? 59 : 178}" class="st3 st8 left-align"
-                            display="${[2, 4].includes(data.additionalLoad) ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad2}">
+                            display="${[2, 4, 5, 6].includes(data.additionalLoad) ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad2}">
                             ${config.load.load2_name}
                         </text>
                         <text id="ess-load4" x="405"
                             y="178" class="st3 st8 right-align"
-                            display="${[4].includes(data.additionalLoad) ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad3}">
+                            display="${[4, 5, 6].includes(data.additionalLoad) ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad3}">
                             ${config.load.load3_name}
                         </text>
                         <text id="ess-load4" x="418"
                             y="178" class="st3 st8 left-align"
-                            display="${[4].includes(data.additionalLoad) ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad4}">
+                            display="${[4, 5, 6].includes(data.additionalLoad) ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad4}">
                             ${config.load.load4_name}
                         </text>
                         <text id="daily_load" x="${data.additionalLoad === 0 ? '377' : '238'}"
@@ -1607,14 +1693,14 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             stroke="${data.loadColour}" stroke-width="1" stroke-miterlimit="10"
                             pointer-events="stroke"/>
                         <path id="es-load1" d="M 412 143 L 412 135" display="${!data.showAux ? '' : 'none'}"
-                            class="${[4].includes(data.additionalLoad) ? '' : 'st12'}" fill="none"
+                            class="${[4, 5, 6].includes(data.additionalLoad) ? '' : 'st12'}" fill="none"
                             stroke="${data.loadColour}" stroke-width="1" stroke-miterlimit="10"
                             pointer-events="stroke"/>
                         <path id="es-load1" d="M 412 80 L 412 60" display="${!data.showAux ? '' : 'none'}"
                             class="${data.additionalLoad === 1 ? '' : 'st12'}" fill="none" stroke="${data.loadColour}"
                             stroke-width="1" stroke-miterlimit="10" pointer-events="stroke"/>
                         <path id="es-load2" d="M 412 80 L 412 53" display="${!data.showAux ? '' : 'none'}"
-                            class="${[2, 4].includes(data.additionalLoad) ? '' : 'st12'}" fill="none" stroke="${data.loadColour}"
+                            class="${[2, 4, 5, 6].includes(data.additionalLoad) ? '' : 'st12'}" fill="none" stroke="${data.loadColour}"
                             stroke-width="1" stroke-miterlimit="10" pointer-events="stroke"/>
                         <svg id="load-flow">
                             <circle id="es-dot" cx="0" cy="0"
@@ -1728,7 +1814,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                                         stop-color="${data.solarColour}"/>
                                                 </linearGradient>
                                             </defs>
-                                            <path display="${[4].includes(data.additionalLoad) && !data.showAux ? '' : 'none'}"
+                                            <path display="${[4, 5, 6].includes(data.additionalLoad) && !data.showAux ? '' : 'none'}"
                                                 fill="${config.load.dynamic_colour ? 'url(#Lg)' : data.loadColour}"
                                                 d="${data.essIcon}"/>
                                         </svg>
@@ -1751,7 +1837,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                                         stop-color="${data.solarColour}"/>
                                                 </linearGradient>
                                             </defs>
-                                            <path display="${[1, 2, 3, 4].includes(data.additionalLoad) ? 'none' : ''}"
+                                            <path display="${[1, 2, 3, 4, 5, 6].includes(data.additionalLoad) ? 'none' : ''}"
                                                 fill="${config.load.dynamic_colour ? 'url(#Lg)' : data.loadColour}"
                                                 d="${data.essIcon}"/>
                                         </svg>
@@ -1820,7 +1906,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                                 stop-color="${data.solarColour}"/>
                                         </linearGradient>
                                     </defs>
-                                    <path display="${[4].includes(data.additionalLoad) && !data.showAux ? '' : 'none'}"
+                                    <path display="${[4, 5, 6].includes(data.additionalLoad) && !data.showAux ? '' : 'none'}"
                                         fill="${config.load.dynamic_colour ? 'url(#Lg)' : data.loadColour}"
                                         d="${data.essIcon}"/>
                                 </svg>
@@ -1843,7 +1929,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                                 stop-color="${data.solarColour}"/>
                                         </linearGradient>
                                     </defs>
-                                    <path display="${[1, 2, 3, 4].includes(data.additionalLoad) ? 'none' : ''}"
+                                    <path display="${[1, 2, 3, 4, 5, 6].includes(data.additionalLoad) ? 'none' : ''}"
                                         fill="${config.load.dynamic_colour ? 'url(#Lg)' : data.loadColour}"
                                         d="${data.essIcon}"/>
                                 </svg>
@@ -1866,14 +1952,14 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="ess_boiler_left_top" x="382" y="5" width="24"
                             height="24" viewBox="0 0 24 24"
-                            opacity="${data.iconEssentialLoad1 === 'boiler' && [2, 4].includes(data.additionalLoad) && !data.showAux ? '1' : '0'}">
+                            opacity="${data.iconEssentialLoad1 === 'boiler' && [2, 4, 5, 6].includes(data.additionalLoad) && !data.showAux ? '1' : '0'}">
                             <path display="${[2, 4].includes(data.additionalLoad)  ? '' : 'none'}"
                                 fill="${data.dynamicColourEssentialLoad1}"
                                 d="${icons.boiler}"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="ess_boiler_right_top" x="419" y="5" width="24"
                             height="24" viewBox="0 0 24 24"
-                            opacity="${data.iconEssentialLoad2 === 'boiler' && [2, 4].includes(data.additionalLoad) && !data.showAux ? '1' : '0'}">
+                            opacity="${data.iconEssentialLoad2 === 'boiler' && [2, 4, 5, 6].includes(data.additionalLoad) && !data.showAux ? '1' : '0'}">
                             <path display="${[2, 4].includes(data.additionalLoad) ? '' : 'none'}"
                                 fill="${data.dynamicColourEssentialLoad2}"
                                 d="${icons.boiler}"/>
@@ -1903,22 +1989,22 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="ess_ac_right_bottom" x="429" y="124" width="20"
                             height="20" viewBox="0 0 24 24"
-                            opacity="${data.iconEssentialLoad2 === 'aircon' && [2, 3, 4].includes(data.additionalLoad) ? '1' : '0'}">
+                            opacity="${data.iconEssentialLoad2 === 'aircon' && [2, 3, 4, 5, 6].includes(data.additionalLoad) ? '1' : '0'}">
                             <path display="${data.showAux && [2].includes(data.additionalLoad) ? '' : 'none'}"
                                 fill="${data.dynamicColourEssentialLoad2}"
                                 d="${icons.aircon}"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="ess_ac_left_top" x="382" y="6" width="20"
                             height="20" viewBox="0 0 24 24"
-                            opacity="${data.iconEssentialLoad1 === 'aircon' && [2, 4].includes(data.additionalLoad) && !data.showAux ? '1' : '0'}">
-                            <path display="${[2, 4].includes(data.additionalLoad) ? '' : 'none'}"
+                            opacity="${data.iconEssentialLoad1 === 'aircon' && [2, 4, 5, 6].includes(data.additionalLoad) && !data.showAux ? '1' : '0'}">
+                            <path display="${[2, 4, 5, 6].includes(data.additionalLoad) ? '' : 'none'}"
                                 fill="${data.dynamicColourEssentialLoad1}"
                                 d="${icons.aircon}"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="ess_ac_right_top" x="419" y="6" width="20"
                             height="20" viewBox="0 0 24 24"
-                            opacity="${data.iconEssentialLoad2 === 'aircon' && [2, 4].includes(data.additionalLoad) && !data.showAux ? '1' : '0'}">
-                            <path display="${[2, 4].includes(data.additionalLoad) ? '' : 'none'}"
+                            opacity="${data.iconEssentialLoad2 === 'aircon' && [2, 4, 5, 6].includes(data.additionalLoad) && !data.showAux ? '1' : '0'}">
+                            <path display="${[2, 4, 5, 6].includes(data.additionalLoad) ? '' : 'none'}"
                                 fill="${data.dynamicColourEssentialLoad2}"
                                 d="${icons.aircon}"/>
                         </svg>
@@ -1954,15 +2040,15 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="ess_pump_left_top" x="383" y="7" width="20"
                             height="25" viewBox="0 0 24 24"
-                            opacity="${data.iconEssentialLoad1 === 'pump' && [2, 4].includes(data.additionalLoad) && !data.showAux ? '1' : '0'}">
-                            <path display="${[2, 4].includes(data.additionalLoad) ? '' : 'none'}"
+                            opacity="${data.iconEssentialLoad1 === 'pump' && [2, 4, 5, 6].includes(data.additionalLoad) && !data.showAux ? '1' : '0'}">
+                            <path display="${[2, 4, 5, 6].includes(data.additionalLoad) ? '' : 'none'}"
                                 fill="${data.dynamicColourEssentialLoad1}"
                                 d="${icons.pump}"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="ess_pump_right_top" x="421" y="7" width="20"
                             height="25" viewBox="0 0 24 24"
-                            opacity="${data.iconEssentialLoad2 === 'pump' && [2, 4].includes(data.additionalLoad) && !data.showAux ? '1' : '0'}">
-                            <path display="${[2, 4].includes(data.additionalLoad) ? '' : 'none'}"
+                            opacity="${data.iconEssentialLoad2 === 'pump' && [2, 4, 5, 6].includes(data.additionalLoad) && !data.showAux ? '1' : '0'}">
+                            <path display="${[2, 4, 5, 6].includes(data.additionalLoad) ? '' : 'none'}"
                                 fill="${data.dynamicColourEssentialLoad2}"
                                 d="${icons.pump}"/>
                         </svg>
@@ -1998,15 +2084,15 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="ess_oven_left_top" x="382" y="5" width="24"
                             height="24" viewBox="0 0 32 32"
-                            opacity="${data.iconEssentialLoad1 === 'oven' && [2, 4].includes(data.additionalLoad) && !data.showAux ? '1' : '0'}">
-                            <path display="${[2, 4].includes(data.additionalLoad) ? '' : 'none'}"
+                            opacity="${data.iconEssentialLoad1 === 'oven' && [2, 4, 5, 6].includes(data.additionalLoad) && !data.showAux ? '1' : '0'}">
+                            <path display="${[2, 4, 5, 6].includes(data.additionalLoad) ? '' : 'none'}"
                                 fill="${data.dynamicColourEssentialLoad1}"
                                 d="${icons.oven}"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="ess_oven_right_top" x="419" y="5" width="24"
                             height="24" viewBox="0 0 32 32"
-                            opacity="${data.iconEssentialLoad2 === 'oven' && [2, 4].includes(data.additionalLoad) && !data.showAux ? '1' : '0'}">
-                            <path display="${[2, 4].includes(data.additionalLoad) ? '' : 'none'}"
+                            opacity="${data.iconEssentialLoad2 === 'oven' && [2, 4, 5, 6].includes(data.additionalLoad) && !data.showAux ? '1' : '0'}">
+                            <path display="${[2, 4, 5, 6].includes(data.additionalLoad) ? '' : 'none'}"
                                 fill="${data.dynamicColourEssentialLoad2}"
                                 d="${icons.oven}"/>
                         </svg>
@@ -2025,49 +2111,49 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 d="${icons.oven}"/>
                         </svg>
 
-                        <g display="${[2, 4].includes(data.additionalLoad) ? '' : 'none'}">
+                        <g display="${[2, 4, 5, 6].includes(data.additionalLoad) ? '' : 'none'}">
                             <foreignObject x="${data.showAux ? '371' : '384'}"
                                         y="${data.showAux ? '123' : '5'}" width="30" height="30"
                                         style="position: fixed; ">
                                 <body xmlns="http://www.w3.org/1999/xhtml">
-                                <div style="position: fixed; ">
-                                    <ha-icon icon="${data.iconEssentialLoad1}" class="essload1-icon-small"></ha-icon>
-                                </div>
+                                    <div style="position: fixed; ">
+                                        <ha-icon icon="${data.iconEssentialLoad1}" class="essload1-icon-small"></ha-icon>
+                                    </div>
                                 </body>
                             </foreignObject>
                         </g>
 
-                        <g display="${[2, 4].includes(data.additionalLoad) ? '' : 'none'}">
+                        <g display="${[2, 4, 5, 6].includes(data.additionalLoad) ? '' : 'none'}">
                             <foreignObject x="${data.showAux ? '429' : '421'}"
                                         y="${data.showAux ? '123' : '5'}" width="30" height="30"
                                         style="position: fixed;">
                                 <body xmlns="http://www.w3.org/1999/xhtml">
-                                <div style="position: fixed;">
-                                    <ha-icon icon="${data.iconEssentialLoad2}" class="essload2-icon-small"></ha-icon>
-                                </div>
+                                    <div style="position: fixed;">
+                                        <ha-icon icon="${data.iconEssentialLoad2}" class="essload2-icon-small"></ha-icon>
+                                    </div>
                                 </body>
                             </foreignObject>
                         </g>
 
-                        <g display="${[4].includes(data.additionalLoad) ? '' : 'none'}">
+                        <g display="${[4, 5, 6].includes(data.additionalLoad) ? '' : 'none'}">
                             <foreignObject x="371" y="123" width="30" height="30"
                                         style="position: fixed; ">
                                 <body xmlns="http://www.w3.org/1999/xhtml">
-                                <div style="position: fixed; ">
-                                    <ha-icon icon="${data.iconEssentialLoad3}" class="essload3-icon-small"></ha-icon>
-                                </div>
+                                    <div style="position: fixed; ">
+                                        <ha-icon icon="${data.iconEssentialLoad3}" class="essload3-icon-small"></ha-icon>
+                                    </div>
                                 </body>
                             </foreignObject>
                         </g>
 
-                        <g display="${[4].includes(data.additionalLoad) ? '' : 'none'}">
+                        <g display="${[4, 5, 6].includes(data.additionalLoad) ? '' : 'none'}">
                             <foreignObject x="429"
                                         y="123" width="30" height="30"
                                         style="position: fixed;">
                                 <body xmlns="http://www.w3.org/1999/xhtml">
-                                <div style="position: fixed;">
-                                    <ha-icon icon="${data.iconEssentialLoad4}" class="essload4-icon-small"></ha-icon>
-                                </div>
+                                    <div style="position: fixed;">
+                                        <ha-icon icon="${data.iconEssentialLoad4}" class="essload4-icon-small"></ha-icon>
+                                    </div>
                                 </body>
                             </foreignObject>
                         </g>
@@ -2076,9 +2162,9 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                         y="${data.showAux ? '140' : '27'}" width="40" height="40"
                                         style="position: fixed; ">
                                 <body xmlns="http://www.w3.org/1999/xhtml">
-                                <div style="position: fixed; ">
-                                    <ha-icon icon="${data.iconEssentialLoad1}" class="essload1-icon"></ha-icon>
-                                </div>
+                                    <div style="position: fixed; ">
+                                        <ha-icon icon="${data.iconEssentialLoad1}" class="essload1-icon"></ha-icon>
+                                    </div>
                                 </body>
                             </foreignObject>
                         </g>
@@ -2116,7 +2202,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1_extra)}>
                             <text id="ess_load2_value_extra" x="405" y="70"
-                                display="${config.entities?.essential_load1_extra && [2, 4].includes(data.additionalLoad) && !data.showAux && data.stateEssentialLoad1Extra.isValid() ? '' : 'none'}"
+                                display="${config.entities?.essential_load1_extra && [2, 4, 5, 6].includes(data.additionalLoad) && !data.showAux && data.stateEssentialLoad1Extra.isValid() ? '' : 'none'}"
                                 class="st3 right-align" fill="${data.dynamicColourEssentialLoad1}">
                                 ${data.stateEssentialLoad1Extra.toNum(1)}
                                 ${data.stateEssentialLoad1Extra?.getUOM()}
@@ -2124,7 +2210,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load2_extra)}>
                             <text id="ess_load2_value_extra" x="418" y="70"
-                                display="${config.entities?.essential_load2_extra && [2, 4].includes(data.additionalLoad) && !data.showAux && data.stateEssentialLoad2Extra.isValid() ? '' : 'none'}"
+                                display="${config.entities?.essential_load2_extra && [2, 4, 5, 6].includes(data.additionalLoad) && !data.showAux && data.stateEssentialLoad2Extra.isValid() ? '' : 'none'}"
                                 class="st3 left-align" fill="${data.dynamicColourEssentialLoad2}">
                                 ${data.stateEssentialLoad2Extra.toNum(1)}
                                 ${data.stateEssentialLoad2Extra?.getUOM()}
@@ -2154,28 +2240,28 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1)}>
                             <text id="ess_load2_value" x="${!data.showAux ? '394' : '391'}" y="${!data.showAux ? '41' : '160'}" 
-                                display="${[2, 4].includes(data.additionalLoad) && data.stateEssentialLoad2.isValid() ? '' : 'none'}" class="st3" 
+                                display="${[2, 4, 5, 6].includes(data.additionalLoad) && data.stateEssentialLoad2.isValid() ? '' : 'none'}" class="st3" 
                                 fill="${data.dynamicColourEssentialLoad1}">
                                 ${data.stateEssentialLoad1.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                             </text>
                         </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load2)}>
                             <text id="ess_load2_value" x="${!data.showAux ? '430' : '427'}" y="${!data.showAux ? '41' : '160'}" 
-                                display="${[2, 4].includes(data.additionalLoad) && data.stateEssentialLoad2.isValid() ? '' : 'none'}" class="st3" 
+                                display="${[2, 4, 5, 6].includes(data.additionalLoad) && data.stateEssentialLoad2.isValid() ? '' : 'none'}" class="st3" 
                                 fill="${data.dynamicColourEssentialLoad2}">
                                 ${data.stateEssentialLoad2.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                             </text>
                         </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load3)}>
                             <text id="ess_load4_value" x="392" y="160" 
-                                display="${[4].includes(data.additionalLoad) && data.stateEssentialLoad3.isValid() ? '' : 'none'}" class="st3" 
+                                display="${[4, 5, 6].includes(data.additionalLoad) && data.stateEssentialLoad3.isValid() ? '' : 'none'}" class="st3" 
                                 fill="${data.dynamicColourEssentialLoad3}">
                                 ${data.stateEssentialLoad3.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                             </text>
                         </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load4)}>
                             <text id="ess_load4_value" x="430" y="160" 
-                                display="${[4].includes(data.additionalLoad) && data.stateEssentialLoad4.isValid() ? '' : 'none'}" class="st3" 
+                                display="${[4, 5, 6].includes(data.additionalLoad) && data.stateEssentialLoad4.isValid() ? '' : 'none'}" class="st3" 
                                 fill="${data.dynamicColourEssentialLoad4}">
                                 ${data.stateEssentialLoad4.toPowerString(config.load.auto_scale, data.decimalPlaces)}
                             </text>

@@ -373,7 +373,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let additionalLoad = config.load?.additional_loads;
         const invalidLoad =
             !validLoadValues.includes(additionalLoad) ||
-            (this.isFullCard && [3, 4].includes(additionalLoad) && showAux) ||
+            (this.isFullCard && [3, 4, 5, 6].includes(additionalLoad) && showAux) ||
             (this.isFullCard && additionalLoad === 3) ||
             (!config.wide && additionalLoad >= 5); // New condition
 
