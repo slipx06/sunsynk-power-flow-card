@@ -211,6 +211,12 @@ export interface CardConfigEntities {
 	battery_current_191: string;
 	battery_rated_capacity: string;
 	battery_soh: string;
+	battery2_voltage_183: string;
+	battery2_soc_184: string;
+	battery2_power_190: string;
+	battery2_current_191: string;
+	battery2_rated_capacity: string;
+	battery2_soh: string;
 	grid_power_169: string;
 	grid_voltage: string;
 	day_grid_import_76: string;
@@ -254,6 +260,7 @@ export interface CardConfigEntities {
 	energy_cost_buy: string;
 	solar_sell_247: string;
 	battery_status: string;
+	battery2_status: string;
 	aux_load1_extra: string;
 	aux_load2_extra: string;
 	pv_total: string;
@@ -326,12 +333,14 @@ export interface DataDto {
 	batteryEnergy;
 	largeFont;
 	batteryPower;
+	batteryPowerTotal;
 	batteryDuration;
 	batteryCapacity;
 	additionalLoad;
 	essIconSize;
 	essIcon;
 	batteryStateMsg;
+	battery2StateMsg;
 	solarShowDaily;
 	batteryPercentage;
 	pvPercentage;
@@ -351,12 +360,14 @@ export interface DataDto {
 	batteryShowDaily;
 	inverterModel;
 	batteryShutdown;
+	batteryShutdownAverage;
 	enableAutarky;
 	autarkyPower;
 	ratioPower;
 	ratioEnergy;
 	autarkyEnergy;
 	shutdownOffGrid;
+	shutdownOffGridAverage;
 	energyCost;
 	inverterCurrent;
 	inverterCurrentL2;
@@ -385,6 +396,7 @@ export interface DataDto {
 	pv3PowerWatts;
 	pv4PowerWatts;
 	batteryStateColour;
+	battery2StateColour;
 	inverterStateColour;
 	iconEssentialLoad1;
 	iconEssentialLoad2;
@@ -467,6 +479,7 @@ export interface DataDto {
 	statePV3Voltage: CustomEntity;
 	statePV4Voltage: CustomEntity;
 	stateBatteryTemp: CustomEntity;
+	stateBattery2Temp: CustomEntity;
 	statePrepaidUnits: CustomEntity;
 	stateDCTransformerTemp: CustomEntity;
 	stateSolarSell: CustomEntity;
@@ -502,6 +515,7 @@ export interface DataDto {
 	dynamicColourNonEssentialLoad2;
 	dynamicColourNonEssentialLoad3;
 	stateBatterySOH: CustomEntity;
+	stateBattery2SOH: CustomEntity;
 	customGridIcon;
 	customGridIconColour;
 	maximumSOC;
