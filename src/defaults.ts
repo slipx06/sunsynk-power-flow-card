@@ -26,6 +26,7 @@ export default {
 		navigate:'',
 	},
 	battery: {
+		count: 1,
 		energy: 0,
 		shutdown_soc: 20,
 		soc_end_of_charge: 100,
@@ -47,12 +48,15 @@ export default {
 	},
 	battery2: {
 		energy: 0,
+		shutdown_soc: 20,
 		soc_end_of_charge: 100,
 		invert_power: false,
 		hide_soc: false,
 		colour: 'pink',
 		show_daily: false,
 		show_remaining_energy: true,
+		animation_speed: 6,
+		max_power: 4500,
 		show_absolute: false,
 		auto_scale: true,
 		dynamic_colour: true,
