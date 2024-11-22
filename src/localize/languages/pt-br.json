@@ -206,7 +206,9 @@
         "inv": "Entidades do Inversor",
         "ld": "Entidade do Load",
         "gri": "Entidade da Rede",
-        "sensor": "Optional Sensors"
+        "sensor": "Optional Sensors",
+        "bat1": "Battery 1",
+        "bat2": "Battery 2"
       }
     }
 }

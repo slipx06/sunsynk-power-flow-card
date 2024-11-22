@@ -53,7 +53,6 @@ export default {
 		invert_power: false,
 		hide_soc: false,
 		colour: 'pink',
-		show_daily: false,
 		show_remaining_energy: true,
 		animation_speed: 6,
 		max_power: 4500,

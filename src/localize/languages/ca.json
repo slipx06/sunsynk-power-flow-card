@@ -205,7 +205,9 @@
         "inv": "Entitats Inversor",
         "ld": "Entitats Càrrega",
         "gri": "Entitats Xarxa",
-        "sensor": "Sensors Opcionals"
+        "sensor": "Sensors Opcionals",
+        "bat1": "Battery 1",
+        "bat2": "Battery 2"
       }
     }
 }

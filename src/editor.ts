@@ -184,48 +184,111 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 								name: 'battery',
 								type: 'grid',
 								schema: [
-									{name: 'energy', selector: {number: {min: 0}}},
-									{name: 'shutdown_soc', selector: {number: {mode: 'box', min: 0, max: 100}}},
-									{
-										name: 'shutdown_soc_offgrid',
-										selector: {number: {mode: 'box', min: 0, max: 100}},
-									},
-									{name: 'soc_end_of_charge', selector: {number: {mode: 'box', min: 80, max: 100}}},
+									{name: 'count', selector: {number: {mode: 'box', min: 1, max: 2}}},
 									{name: 'show_daily', selector: {boolean: {}}},
-									{name: 'auto_scale', selector: {boolean: {}}},
-									{name: 'invert_power', selector: {boolean: {}}},
-									{name: 'show_absolute', selector: {boolean: {}}},
-									{name: 'colour', selector: {color_rgb: {}}},
-									{name: 'charge_colour', selector: {color_rgb: {}}},
-									{name: 'dynamic_colour', selector: {boolean: {}}},
-									{name: 'linear_gradient', selector: {boolean: {}}},
-									{name: 'animate', selector: {boolean: {}}},
-									{name: 'hide_soc', selector: {boolean: {}}},
-									{name: 'show_remaining_energy', selector: {boolean: {}}},
-									{name: 'animation_speed', selector: {number: {}}},
-									{name: 'max_power', selector: {number: {}}},
-									{name: 'path_threshold', selector: {number: {}}},
-									{name: 'navigate', selector: {text: {}}},
-									{name: 'invert_flow', selector: {boolean: {}}},
-								],
+								]
 							},
 							{
 								type: 'expandable',
-								title: this._title('sensor'),
+								title: this._title('bat1'),
 								schema: [
 									{
 										name: 'battery',
 										type: 'grid',
 										schema: [
-											{name: 'energy', selector: {entity: {}}},
-											{name: 'shutdown_soc', selector: {entity: {}}},
-											{name: 'shutdown_soc_offgrid', selector: {entity: {}}},
-											{name: 'soc_end_of_charge', selector: {entity: {}}},
-											{name: 'max_power', selector: {entity: {}}},
+											{name: 'energy', selector: {number: {min: 0}}},
+											{name: 'shutdown_soc', selector: {number: {mode: 'box', min: 0, max: 100}}},
+											{
+												name: 'shutdown_soc_offgrid',
+												selector: {number: {mode: 'box', min: 0, max: 100}},
+											},
+											{name: 'soc_end_of_charge', selector: {number: {mode: 'box', min: 80, max: 100}}},
+											{name: 'auto_scale', selector: {boolean: {}}},
+											{name: 'invert_power', selector: {boolean: {}}},
+											{name: 'show_absolute', selector: {boolean: {}}},
+											{name: 'colour', selector: {color_rgb: {}}},
+											{name: 'charge_colour', selector: {color_rgb: {}}},
+											{name: 'dynamic_colour', selector: {boolean: {}}},
+											{name: 'linear_gradient', selector: {boolean: {}}},
+											{name: 'animate', selector: {boolean: {}}},
+											{name: 'hide_soc', selector: {boolean: {}}},
+											{name: 'show_remaining_energy', selector: {boolean: {}}},
+											{name: 'animation_speed', selector: {number: {}}},
+											{name: 'max_power', selector: {number: {}}},
+											{name: 'path_threshold', selector: {number: {}}},
+											{name: 'navigate', selector: {text: {}}},
+											{name: 'invert_flow', selector: {boolean: {}}},
+										],
+									},
+									{
+										type: 'expandable',
+										title: this._title('sensor'),
+										schema: [
+											{
+												name: 'battery',
+												type: 'grid',
+												schema: [
+													{name: 'energy', selector: {entity: {}}},
+													{name: 'shutdown_soc', selector: {entity: {}}},
+													{name: 'shutdown_soc_offgrid', selector: {entity: {}}},
+													{name: 'soc_end_of_charge', selector: {entity: {}}},
+													{name: 'max_power', selector: {entity: {}}},
+												],
+											},
 										],
 									},
 								],
 							},
+							{
+								type: 'expandable',
+								title: this._title('bat2'),
+								schema: [
+									{
+										name: 'battery2',
+										type: 'grid',
+										schema: [
+											{name: 'energy', selector: {number: {min: 0}}},
+											{name: 'shutdown_soc', selector: {number: {mode: 'box', min: 0, max: 100}}},
+											{
+												name: 'shutdown_soc_offgrid',
+												selector: {number: {mode: 'box', min: 0, max: 100}},
+											},
+											{name: 'soc_end_of_charge', selector: {number: {mode: 'box', min: 80, max: 100}}},
+											{name: 'auto_scale', selector: {boolean: {}}},
+											{name: 'invert_power', selector: {boolean: {}}},
+											{name: 'show_absolute', selector: {boolean: {}}},
+											{name: 'colour', selector: {color_rgb: {}}},
+											{name: 'charge_colour', selector: {color_rgb: {}}},
+											{name: 'dynamic_colour', selector: {boolean: {}}},
+											{name: 'linear_gradient', selector: {boolean: {}}},
+											{name: 'animate', selector: {boolean: {}}},
+											{name: 'hide_soc', selector: {boolean: {}}},
+											{name: 'show_remaining_energy', selector: {boolean: {}}},
+											{name: 'animation_speed', selector: {number: {}}},
+											{name: 'max_power', selector: {number: {}}},
+											{name: 'path_threshold', selector: {number: {}}},
+											{name: 'navigate', selector: {text: {}}},
+										],
+									},
+									{
+										type: 'expandable',
+										title: this._title('sensor'),
+										schema: [
+											{
+												name: 'battery2',
+												type: 'grid',
+												schema: [
+													{name: 'energy', selector: {entity: {}}},
+													{name: 'shutdown_soc', selector: {entity: {}}},
+													{name: 'shutdown_soc_offgrid', selector: {entity: {}}},
+													{name: 'soc_end_of_charge', selector: {entity: {}}},
+													{name: 'max_power', selector: {entity: {}}},
+												],
+											},
+										],
+									},
+								],
+							},		
 						],
 					},
 					{
@@ -469,26 +532,6 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 										type: 'grid',
 										schema: [
 											{
-												name: 'battery_power_190',
-												selector: {entity: {device_class: SensorDeviceClass.POWER}},
-											},
-											{
-												name: 'battery_current_191',
-												selector: {entity: {device_class: SensorDeviceClass.CURRENT}},
-											},
-											{
-												name: 'battery_temp_182',
-												selector: {entity: {device_class: SensorDeviceClass.TEMPERATURE}},
-											},
-											{
-												name: 'battery_voltage_183',
-												selector: {entity: {device_class: SensorDeviceClass.VOLTAGE}},
-											},
-											{
-												name: 'battery_soc_184',
-												selector: {entity: {device_class: SensorDeviceClass.BATTERY}},
-											},
-											{
 												name: 'day_battery_charge_70',
 												selector: {entity: {device_class: SensorDeviceClass.ENERGY}},
 											},
@@ -496,10 +539,78 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 												name: 'day_battery_discharge_71',
 												selector: {entity: {device_class: SensorDeviceClass.ENERGY}},
 											},
-											{name: 'battery_rated_capacity', selector: {entity: {}}},
-											{name: 'battery_soh', selector: {entity: {}}},
-											{name: 'battery_current_direction', selector: {entity: {}}},
-											{name: 'battery_status', selector: {entity: {}}},
+										],
+									},
+									{
+										type: 'expandable',
+										title: this._title('bat1'),
+										schema: [
+											{
+												name: 'entities',
+												type: 'grid',
+												schema: [
+													{
+														name: 'battery_power_190',
+														selector: {entity: {device_class: SensorDeviceClass.POWER}},
+													},
+													{
+														name: 'battery_current_191',
+														selector: {entity: {device_class: SensorDeviceClass.CURRENT}},
+													},
+													{
+														name: 'battery_temp_182',
+														selector: {entity: {device_class: SensorDeviceClass.TEMPERATURE}},
+													},
+													{
+														name: 'battery_voltage_183',
+														selector: {entity: {device_class: SensorDeviceClass.VOLTAGE}},
+													},
+													{
+														name: 'battery_soc_184',
+														selector: {entity: {device_class: SensorDeviceClass.BATTERY}},
+													},
+													{name: 'battery_rated_capacity', selector: {entity: {}}},
+													{name: 'battery_soh', selector: {entity: {}}},
+													{name: 'battery_current_direction', selector: {entity: {}}},
+													{name: 'battery_status', selector: {entity: {}}},
+												],
+											},
+										],
+									},
+									{
+										type: 'expandable',
+										title: this._title('bat2'),
+										schema: [
+											{
+												name: 'entities',
+												type: 'grid',
+												schema: [
+													{
+														name: 'battery2_power_190',
+														selector: {entity: {device_class: SensorDeviceClass.POWER}},
+													},
+													{
+														name: 'battery2_current_191',
+														selector: {entity: {device_class: SensorDeviceClass.CURRENT}},
+													},
+													{
+														name: 'battery2_temp_182',
+														selector: {entity: {device_class: SensorDeviceClass.TEMPERATURE}},
+													},
+													{
+														name: 'battery2_voltage_183',
+														selector: {entity: {device_class: SensorDeviceClass.VOLTAGE}},
+													},
+													{
+														name: 'battery2_soc_184',
+														selector: {entity: {device_class: SensorDeviceClass.BATTERY}},
+													},
+													{name: 'battery2_rated_capacity', selector: {entity: {}}},
+													{name: 'battery2_soh', selector: {entity: {}}},
+													{name: 'battery2_current_direction', selector: {entity: {}}},
+													{name: 'battery2_status', selector: {entity: {}}},
+												],
+											},
 										],
 									},
 								],

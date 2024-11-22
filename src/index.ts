@@ -555,8 +555,8 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         const shutdownOffGrid = stateShutdownSOCOffGrid.toNum();
         const batteryShutdown = stateShutdownSOC.toNum();
-        const shutdownOffGrid2 = stateShutdownSOCOffGrid2.toNum();
-        const batteryShutdown2 = stateShutdownSOC2.toNum();
+        const shutdownOffGrid2 = stateShutdownSOCOffGrid2.toNum() || shutdownOffGrid;
+        const batteryShutdown2 = stateShutdownSOC2.toNum() || batteryShutdown;
         
         const inverterProg: InverterSettings = {
             capacity: batteryShutdown,
@@ -692,7 +692,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         let maximumSOC = stateSOCEndOfCharge.toNum();
         maximumSOC = Math.max(50, Math.min(maximumSOC, 100));
 
-        let maximumSOC2 = stateSOCEndOfCharge2.toNum();
+        let maximumSOC2 = stateSOCEndOfCharge2.toNum() || maximumSOC;
         maximumSOC2 = Math.max(50, Math.min(maximumSOC2, 100));
 
         const batteryPowerTotal = batteryPower + battery2Power;

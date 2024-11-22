@@ -206,7 +206,9 @@
         "inv": "Сущности Инвертора",
         "ld": "Сущности Нагрузки",
         "gri": "Сущности Сети",
-        "sensor": "Optional Sensors"
+        "sensor": "Optional Sensors",
+        "bat1": "Battery 1",
+        "bat2": "Battery 2"
       }
     }
 }
