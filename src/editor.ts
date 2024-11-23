@@ -186,6 +186,8 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 								schema: [
 									{name: 'count', selector: {number: {mode: 'box', min: 1, max: 2}}},
 									{name: 'show_daily', selector: {boolean: {}}},
+									{name: 'animation_speed', selector: {number: {}}},
+									{name: 'max_power', selector: {number: {}}},
 								]
 							},
 							{
@@ -213,8 +215,6 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 											{name: 'animate', selector: {boolean: {}}},
 											{name: 'hide_soc', selector: {boolean: {}}},
 											{name: 'show_remaining_energy', selector: {boolean: {}}},
-											{name: 'animation_speed', selector: {number: {}}},
-											{name: 'max_power', selector: {number: {}}},
 											{name: 'path_threshold', selector: {number: {}}},
 											{name: 'navigate', selector: {text: {}}},
 											{name: 'invert_flow', selector: {boolean: {}}},
@@ -264,8 +264,6 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 											{name: 'animate', selector: {boolean: {}}},
 											{name: 'hide_soc', selector: {boolean: {}}},
 											{name: 'show_remaining_energy', selector: {boolean: {}}},
-											{name: 'animation_speed', selector: {number: {}}},
-											{name: 'max_power', selector: {number: {}}},
 											{name: 'path_threshold', selector: {number: {}}},
 											{name: 'navigate', selector: {text: {}}},
 										],
@@ -282,7 +280,6 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 													{name: 'shutdown_soc', selector: {entity: {}}},
 													{name: 'shutdown_soc_offgrid', selector: {entity: {}}},
 													{name: 'soc_end_of_charge', selector: {entity: {}}},
-													{name: 'max_power', selector: {entity: {}}},
 												],
 											},
 										],
