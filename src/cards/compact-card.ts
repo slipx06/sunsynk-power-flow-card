@@ -589,7 +589,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             </a>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_power_190)}>
                                 <text id="data.batteryPower_190" x="231"
-                                    y="325"
+                                    y="326"
                                     display="${config.entities.battery_power_190 === 'none' ? 'none' : ''}"
                                     fill=${data.batteryColour} class="st3">
                                     ${config.battery.auto_scale
