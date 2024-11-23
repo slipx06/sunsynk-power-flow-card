@@ -1335,17 +1335,19 @@ export class SunsynkPowerFlowCard extends LitElement {
                 break;
         }
          
-        const viewBoxYLite = !config.show_solar 
-            ? (additionalLoad !== 0 || !config.show_battery ? 80 : 145.33) 
-            : 1;
-
-        const viewBoxHeightLite = !config.show_solar 
+         const viewBoxYLite = !config.show_solar 
+              ? (config.show_battery 
+                ? 1  
+                : 60) 
+              : 1;
+         
+         const viewBoxHeightLite = !config.show_solar 
             ? (config.show_battery 
-                ? (additionalLoad !== 0 ? 350 : 270.67) 
-                : 270.67) 
+                ? 408  
+                : 300) 
             : (!config.show_battery 
                 ? ([2, 3, 4].includes(additionalLoad) ? 350 : 300) 
-                : 408);
+                : 408);  
 
         /**
          * The current structure of this data object is intentional, but it is considered temporary.
