@@ -13,6 +13,7 @@ Refer to [https://slipx06.github.io/sunsynk-power-flow-card/index.html](https://
 ## Features
 
 * Option to switch between three card styles: `compact`, `lite` or `full`.
+* Wide view for 16:9 layout
 * Animated power flow based on positive/negative/zero sensor values with configurable dynamic speed. (Supports inverted battery, AUX and grid power).
 * Dynamic battery image based on SOC.
 * Grid connected status.
@@ -52,7 +53,7 @@ Refer to [https://slipx06.github.io/sunsynk-power-flow-card/index.html](https://
 ![image](https://github.com/slipx06/sunsynk-power-flow-card/assets/7227275/12af5b02-c456-4685-a50f-bd0044b9e9b0)
 
 
-
+*Wide Version*
 
 
 
