@@ -538,10 +538,10 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         x="${config.wide ? '3%' : '3%'}" y="2.5%">
                         <svg id="battery_total_power" 
                             style="display: ${config.wide && data.batteryCount === 2 ? 'inline' : 'none'};">
-                            <rect x="51" y="265" width="70" height="30" rx="4.5" ry="4.5" fill="none"
+                            <rect x="86" y="265" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                                 stroke="${data.batteryColour}" pointer-events="all"
                                 class="${data.compactMode ? '' : ''}"/>
-                            <text x="85" y="282" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
+                            <text x="120" y="282" class="${data.largeFont !== true ? 'st14' : 'st4'} st8"
                                 fill="${data.batteryColour}">
                             ${config.battery.auto_scale
                                 ? Utils.convertValue(data.batteryPowerTotal, data.decimalPlaces) || 0
@@ -1016,7 +1016,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </text>
                         <svg id="battery1_daily"
                             x="${data.batteryCount === 2  ? '-2%' : '0%'}"
-                            y="${data.batteryCount === 2  ? '-6%' : '0%'}">
+                            y="${data.batteryCount === 2  ? '2%' : '0%'}">
                             <text id="daily_bat_charge" x="4.5" y="251" class="st3 left-align"
                                 fill="${data.batteryShowDaily !== true ? 'transparent' : `${data.batteryColour}`}">
                                 ${localize('common.daily_charge')}
@@ -1044,7 +1044,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             <path id="bat-line" 
                                 d="${config.wide 
                                         ? (data.batteryCount === 2 
-                                            ? 'M 279 280 L 121 281' 
+                                            ? 'M 279 280 L 156 281' 
                                             : 'M 279 280 L 96 280 Q 86 280 86 290 L 86 297') 
                                         : 'M 155 280 L 96 280 Q 86 280 86 290 L 86 297'}"
                                 fill="none"
