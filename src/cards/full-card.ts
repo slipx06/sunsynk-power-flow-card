@@ -748,7 +748,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                     </svg>`
                             }
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery2_temp_182)}>
-                                <text id="battery_temp_182" x="93.7" y="295"
+                                <text id="battery2_temp_182" x="93.7" y="295"
                                     class="${config.entities?.battery2_temp_182 ? 'st3 left-align' : 'st12'}"
                                     fill="${data.battery2Colour}" display="${!data.stateBattery2Temp.isValid() ? 'none' : ''}">
                                     ${data.stateBattery2Temp.toNum(1)}°
@@ -834,7 +834,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             x="${data.batteryCount === 2 ? '25%' : '0%'}">
                             <text id="duration_text" x="132" y="368" class="st3 left-align"
                                 fill="${data.battery2Energy === 0 || (config.battery2.invert_flow === true ? data.battery2Power >= 0 : data.battery2Power <= 0) || data.isFloating2 ? 'transparent' : `${data.battery2Colour}`}">
-                                ${localize('common.runtime_to')} ${data.batteryCapacity}% @${data.formattedResultTime}
+                                ${localize('common.runtime_to')} ${data.battery2Capacity}% @${data.formattedResultTime2}
                             </text>
                             <text id="duration_text_charging" x="132" y="368" class="st3 left-align"
                                 fill="${data.battery2Energy === 0 || (config.battery2.invert_flow === true ? data.battery2Power <= 0 : data.battery2Power >= 0) || data.isFloating2 ? 'transparent' : `${data.battery2Colour}`}">
@@ -863,7 +863,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery2_soc_184)}>
-                                <text id="battery_soc_184" x="191.5" y="333" fill=${data.battery2Colour}
+                                <text id="battery2_soc_184" x="191.5" y="333" fill=${data.battery2Colour}
                                     class="st13 st8 left-align"
                                     display="${!data.inverterProg.show
                                     || config.entities.battery2_soc_184 === 'none'
@@ -872,7 +872,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery2_soc_184)}>
-                                <text id="battery_soc_184" x="191.5" y="333" fill=${data.battery2Colour}
+                                <text id="battery2_soc_184" x="191.5" y="333" fill=${data.battery2Colour}
                                     class="${config.battery2.hide_soc ? 'st12' : 'st13 st8 left-align'}"
                                     display="${!data.inverterProg.show && config.battery2?.shutdown_soc && !config.battery2?.shutdown_soc_offgrid
                                             ? '' : 'none'}">
@@ -880,7 +880,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery2_soc_184)}>
-                                <text id="battery_soc_184" x="191.5" y="333" fill=${data.battery2Colour}
+                                <text id="battery2_soc_184" x="191.5" y="333" fill=${data.battery2Colour}
                                     class="${config.battery2.hide_soc ? 'st12' : 'st13 st8 left-align'}"
                                     display="${!data.inverterProg.show && config.battery2?.shutdown_soc_offgrid ? '' : 'none'}">
                                     |
@@ -890,7 +890,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 fill="${data.battery2Energy === 0 || data.isFloating2 || data.battery2Power === 0 ? 'transparent' : `${data.battery2Colour}`}">
                                 ${data.batteryDuration2}
                             </text>
-                            <circle id="bat" 
+                            <circle id="bat2" 
                                 cx="136"
                                 cy="377" r="3"
                                 display="${config.entities?.battery2_status === 'none' || !config.entities?.battery2_status ? 'none' : ''}"
@@ -1014,7 +1014,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             y="378" class="st3 left-align"
                             fill="${data.batteryColour}">${data.batteryStateMsg}
                         </text>
-                        <svg id="battery1_daily"
+                        <svg id="battery_daily"
                             x="${data.batteryCount === 2  ? '-2%' : '0%'}"
                             y="${data.batteryCount === 2  ? '2%' : '0%'}">
                             <text id="daily_bat_charge" x="4.5" y="251" class="st3 left-align"
