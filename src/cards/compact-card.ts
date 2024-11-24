@@ -1158,7 +1158,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                     ${data.stateBattery2SOH.toNum(0)}%
                                 </text>
                             </a>
-                            <circle id="bat" cx="162"
+                            <circle id="bat" cx="295"
                                 cy="${data.compactMode
                                         ? '326'
                                         : !config.battery2.show_remaining_energy
