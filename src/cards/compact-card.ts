@@ -257,7 +257,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                     class="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'st12' : ''}"
                                     fill="${Math.round(data.pv3PowerWatts) <= 0 ? 'transparent' : `${data.solarColour}`}">
                                 <animateMotion dur="${data.durationCur['pv3']}s" repeatCount="indefinite"
-                                            keyPoints="${config.solar.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
+                                            keyPoints=${config.solar.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
                                             keyTimes="0;1" calcMode="linear">
                                     <mpath xlink:href="#pv3-line"/>
                                 </animateMotion>
@@ -1309,7 +1309,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             ${config.grid.grid_name || localize('common.grid_name')}
                         </text>
                         <svg id="grid-flow">
-                            <path id="grid-line" d="${config.wide ? 'M 173 218 L 287 218': 'M 173 218 L 214 218'} fill="none" stroke="${data.gridColour}"
+                            <path id="grid-line" d="${config.wide ? 'M 173 218 L 287 218': 'M 173 218 L 214 218'}" fill="none" stroke="${data.gridColour}"
                                 stroke-width="${data.gridLineWidth}" stroke-miterlimit="10" pointer-events="stroke"
                                 display="${!config.show_grid ? 'none' : ''}"/>
                             <circle id="grid-dot" cx="0" cy="0"
