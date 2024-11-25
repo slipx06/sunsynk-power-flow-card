@@ -781,26 +781,26 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         const batteryTotalEnergy = batteryEnergy + battery2Energy;
 
-        console.log(`batteryPower ${batteryPower}`);
-        console.log(`battery2Power ${battery2Power}`);
-        console.log(`batteryPowerTotal ${batteryPowerTotal}`);
+        // console.log(`batteryPower ${batteryPower}`);
+        // console.log(`battery2Power ${battery2Power}`);
+        // console.log(`batteryPowerTotal ${batteryPowerTotal}`);
 
-        console.log(`shutdownOffGrid ${shutdownOffGrid}`);
-        console.log(`shutdownOffGrid2 ${shutdownOffGrid2}`);
+        // console.log(`shutdownOffGrid ${shutdownOffGrid}`);
+        // console.log(`shutdownOffGrid2 ${shutdownOffGrid2}`);
         
         
-        console.log(`batteryShutdown ${batteryShutdown}`);
-        console.log(`batteryShutdown2 ${batteryShutdown2}`);
+        // console.log(`batteryShutdown ${batteryShutdown}`);
+        // console.log(`batteryShutdown2 ${batteryShutdown2}`);
     
-        console.log(`batterySOC ${stateBatterySoc.toNum(0)}`);
-        console.log(`battery2SOC ${stateBattery2Soc.toNum(0)}`);
+        // console.log(`batterySOC ${stateBatterySoc.toNum(0)}`);
+        // console.log(`battery2SOC ${stateBattery2Soc.toNum(0)}`);
         
-        console.log(`batteryCapacity ${batteryCapacity}`);
-        console.log(`battery2Capacity ${battery2Capacity}`);
+        // console.log(`batteryCapacity ${batteryCapacity}`);
+        // console.log(`battery2Capacity ${battery2Capacity}`);
 
-        console.log(`batteryEnergy ${batteryEnergy}`);
-        console.log(`battery2Energy ${battery2Energy}`);
-        console.log(`batteryTotalEnergy ${batteryTotalEnergy}`);
+        // console.log(`batteryEnergy ${batteryEnergy}`);
+        // console.log(`battery2Energy ${battery2Energy}`);
+        // console.log(`batteryTotalEnergy ${batteryTotalEnergy}`);
 
     
         if (config.show_battery || batteryEnergy !== 0 || battery2Energy !== 0) {

@@ -87,22 +87,22 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             </defs>
                         </svg>
                         <svg id="pv1" x="${config.solar.mppts === 1 ? '205' : '154'}" y="54.5" 
-                         width="70" height="30" viewBox="0 0 70 30" overflow="visible">
-                          <rect id="pv1" width="70" height="30" rx="4.5" ry="4.5" 
-                          fill="none" stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#PV1LG)' : data.solarColour}"
-                          pointer-events="all" class="${!config.show_solar ? 'st12' : ''}"/>
-                          <defs>
-                            <linearGradient id="PV1LG" x1="0%" x2="0%" y1="100%" y2="0%">
-                                <stop offset="0%"
-                                      stop-color="${data.PV1Efficiency === 0 ? 'grey' : data.solarColour}"/>
-                                <stop offset="${data.PV1Efficiency}%"
-                                      stop-color="${data.PV1Efficiency === 0 ? 'grey' : data.solarColour}"/>
-                                <stop offset="${data.PV1Efficiency}%"
-                                      stop-color="${data.PV1Efficiency < 100 ? 'grey' : data.solarColour}"/>
-                                <stop offset="100%"
-                                      stop-color="${data.PV1Efficiency < 100 ? 'grey' : data.solarColour}"/>
-                            </linearGradient>
-                          </defs>
+                            width="70" height="30" viewBox="0 0 70 30" overflow="visible">
+                            <rect id="pv1" width="70" height="30" rx="4.5" ry="4.5" 
+                            fill="none" stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#PV1LG)' : data.solarColour}"
+                            pointer-events="all" class="${!config.show_solar ? 'st12' : ''}"/>
+                            <defs>
+                                <linearGradient id="PV1LG" x1="0%" x2="0%" y1="100%" y2="0%">
+                                    <stop offset="0%"
+                                        stop-color="${data.PV1Efficiency === 0 ? 'grey' : data.solarColour}"/>
+                                    <stop offset="${data.PV1Efficiency}%"
+                                        stop-color="${data.PV1Efficiency === 0 ? 'grey' : data.solarColour}"/>
+                                    <stop offset="${data.PV1Efficiency}%"
+                                        stop-color="${data.PV1Efficiency < 100 ? 'grey' : data.solarColour}"/>
+                                    <stop offset="100%"
+                                        stop-color="${data.PV1Efficiency < 100 ? 'grey' : data.solarColour}"/>
+                                </linearGradient>
+                            </defs>
                         </svg>            
                         <svg id="pv2" x="254" y="54.5" width="70" height="30"
                             viewBox="0 0 70 30" overflow="visible">
@@ -159,9 +159,9 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             </defs>
                         </svg>
                         <text id="daily_solar" x="200" y="40" class="st3 left-align"
-                          display="${config.solar.display_mode === 1 ? '' : 'none'}"
-                          fill="${!data.solarShowDaily || !config.show_solar ? 'transparent' : `${data.solarColour}`}">
-                        ${localize('common.daily_solar')}
+                            display="${config.solar.display_mode === 1 ? '' : 'none'}"
+                            fill="${!data.solarShowDaily || !config.show_solar ? 'transparent' : `${data.solarColour}`}">
+                            ${localize('common.daily_solar')}
                         </text>
                         <text id="remaining_solar" x="200" y="40" class="st3 left-align"
                             display="${config.solar.display_mode === 2 ? '' : 'none'}"
@@ -414,29 +414,29 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         </a>
                         ${config.entities?.pv_total
                             ? svg`
-                                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv_total)}>
-                                        <text id="pvtotal_power" x="238.8" y="133.9" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                                              display="${!config.show_solar || config.solar.mppts === 1 || !data.statePVTotal.isValid() ? 'none' : ''}" 
-                                              fill="${data.solarColour}">
-                                            ${config.solar.auto_scale
-                                    ? config.entities?.pv_total
-                                            ? Utils.convertValueNew(data.totalPV, data.statePVTotal.getUOM(), data.decimalPlaces)
-                                            : Utils.convertValue(data.totalPV, data.decimalPlaces) || 0
-                                    : `${Utils.toNum(data.totalPV || 0, 0)} ${UnitOfPower.WATT}`
-                            }
-                                        </text>
-                                    </a>`
-                            : svg`
+                                <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv_total)}>
                                     <text id="pvtotal_power" x="238.8" y="133.9" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                                          display="${!config.show_solar || config.solar.mppts === 1 || !data.statePVTotal.isValid() ? 'none' : ''}" 
-                                          fill="${data.solarColour}">
+                                            display="${!config.show_solar || config.solar.mppts === 1 || !data.statePVTotal.isValid() ? 'none' : ''}" 
+                                            fill="${data.solarColour}">
                                         ${config.solar.auto_scale
-                                    ? config.entities?.pv_total
-                                            ? Utils.convertValueNew(data.totalPV, data.statePVTotal.getUOM(), data.decimalPlaces)
-                                            : Utils.convertValue(data.totalPV, data.decimalPlaces) || 0
-                                    : `${Utils.toNum(data.totalPV || 0, 0)} ${UnitOfPower.WATT}`
-                            }
-                                    </text>`          
+                                            ? config.entities?.pv_total
+                                                    ? Utils.convertValueNew(data.totalPV, data.statePVTotal.getUOM(), data.decimalPlaces)
+                                                    : Utils.convertValue(data.totalPV, data.decimalPlaces) || 0
+                                            : `${Utils.toNum(data.totalPV || 0, 0)} ${UnitOfPower.WATT}`
+                                        }
+                                    </text>
+                                </a>`
+                            : svg`
+                                <text id="pvtotal_power" x="238.8" y="133.9" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
+                                    display="${!config.show_solar || config.solar.mppts === 1 || !data.statePVTotal.isValid() ? 'none' : ''}" 
+                                    fill="${data.solarColour}">
+                                    ${config.solar.auto_scale
+                                        ? config.entities?.pv_total
+                                                ? Utils.convertValueNew(data.totalPV, data.statePVTotal.getUOM(), data.decimalPlaces)
+                                                : Utils.convertValue(data.totalPV, data.decimalPlaces) || 0
+                                        : `${Utils.toNum(data.totalPV || 0, 0)} ${UnitOfPower.WATT}`
+                                    }
+                                </text>`          
                         }
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv1_power_186)}>
                             <text id="pv1_power_186" x="${config.solar.mppts === 1 ? '238.8' : '188.1'}" y="71" 
