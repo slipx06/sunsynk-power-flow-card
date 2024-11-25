@@ -206,7 +206,9 @@
         "inv": "Inverterentiteter",
         "ld": "Belastningsentiteter",
         "gri": "Nätentiteter",
-        "sensor": "Valfria Sensorer"
+        "sensor": "Valfria Sensorer",
+        "bat1": "Battery 1",
+        "bat2": "Battery 2"
       }
     }
 }
