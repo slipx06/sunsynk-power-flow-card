@@ -21,7 +21,7 @@ Refer to [https://slipx06.github.io/sunsynk-power-flow-card/index.html](https://
 * Daily Totals that can be toggled on or off.
 * Hide all solar data if not installed or specify number of mppts in use. Set custom MPPT labels.
 * "Use Timer" setting and "Energy Pattern" setting (Priority Load or Priority Battery) shown as dynamic icons, with the ability to hide if not required. If setup as switches can be toggled by clicking on the card.
-* Panel mode for bigger card.
+* Card can be scaled by setting the card_height and card_width attributes.
 * AUX and Non-essential can be hidden from the full card or assigned configurable labels.
 * Customisable - Change colours and images.
 * Most entities can be clicked to show more-info dialog.
@@ -54,12 +54,15 @@ Refer to [https://slipx06.github.io/sunsynk-power-flow-card/index.html](https://
 
 
 *Wide Full Version (2 batteries)*
+
 ![image](https://github.com/user-attachments/assets/2832afb0-da0a-4924-80c5-afb9d70606fa)
 
 *Wide Lite Version (2 batteries)*
+
 ![image](https://github.com/user-attachments/assets/59161598-1eba-4daf-8588-fdf6f047f0bf)
 
 *Wide Compact Version (2 batteries)*
+
 ![image](https://github.com/user-attachments/assets/5cec317c-d1b7-437a-9a55-1d3c6a43f311)
 
 

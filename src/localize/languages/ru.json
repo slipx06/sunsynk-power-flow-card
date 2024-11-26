@@ -155,7 +155,6 @@
       "aux_colour": "Цвет",
       "aux_off_colour": "Цвет выключенного",
       "off_threshold": "Off Threshold",
-      "panel_mode": "Panel Mode",
       "invert_grid": "Инвертировать показания",
       "invert_load": "Инвертировать показания",
       "shutdown_soc": "% Отключения",

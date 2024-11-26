@@ -429,7 +429,6 @@ export class SunsynkPowerFlowCard extends LitElement {
         const remainingSolar = config.entities.remaining_solar ? Utils.convertValueNew(stateRemainingSolar.state, stateRemainingSolar.attributes?.unit_of_measurement, decimalPlaces) : false;
         const totalSolarGeneration = config.entities.total_pv_generation ? Utils.convertValueNew(stateTotalPVGeneration.state, stateTotalPVGeneration.attributes?.unit_of_measurement, 2) : false;
         const largeFont = config.large_font;
-        const panelMode = config.panel_mode;
         const inverterColour = this.colourConvert(config.inverter?.colour);
         const enableAutarky = config.inverter?.autarky;
         const enableTimer = !config.entities.use_timer_248 ? false : stateUseTimer.state;
@@ -1335,19 +1334,43 @@ export class SunsynkPowerFlowCard extends LitElement {
                 break;
         }
          
-         const viewBoxYLite = !config.show_solar 
-              ? (config.show_battery 
-                ? 1  
-                : 60) 
-              : 1;
-         
-         const viewBoxHeightLite = !config.show_solar 
-            ? (config.show_battery 
-                ? 408  
-                : 300) 
-            : (!config.show_battery 
-                ? ([2, 3, 4].includes(additionalLoad) ? 350 : 300) 
-                : 408);  
+        const viewbox = config.viewbox || '0 0 483 408';
+        
+        let viewBoxYLite:string;
+        let viewBoxHeightLite:string;
+        switch (true) {
+            case !config.show_solar && config.show_battery && additionalLoad === 0:
+                viewBoxYLite = '138';
+                viewBoxHeightLite = '280';
+                break;
+            case !config.show_solar && config.show_battery && [1, 2, 3, 4].includes(additionalLoad):
+                viewBoxYLite = '70';
+                viewBoxHeightLite = '350';
+                break;
+            case config.show_solar && !config.show_battery && [2, 3, 4].includes(additionalLoad):
+                viewBoxYLite = '0';
+                viewBoxHeightLite = '350';
+                break;
+            case config.show_solar && !config.show_battery && [0, 1].includes(additionalLoad):
+                viewBoxYLite = '0';
+                viewBoxHeightLite = '315';
+                break;
+            case !config.show_solar && !config.show_battery && additionalLoad === 0:
+                viewBoxYLite = '115';
+                viewBoxHeightLite = '225';
+                break;
+            case !config.show_solar && !config.show_battery && additionalLoad === 1:
+                viewBoxYLite = '85';
+                viewBoxHeightLite = '230';
+                break;
+            case !config.show_solar && !config.show_battery && [2, 3, 4].includes(additionalLoad):
+                viewBoxYLite = '65';
+                viewBoxHeightLite = '285';
+                break;
+            default:
+                viewBoxYLite = '0';
+                viewBoxHeightLite = '408';
+        }
 
         /**
          * The current structure of this data object is intentional, but it is considered temporary.
@@ -1356,7 +1379,7 @@ export class SunsynkPowerFlowCard extends LitElement {
          */
         const data: DataDto = {
             config,
-            panelMode,
+            viewbox,
             compactMode,
             viewBoxYLite,
             viewBoxHeightLite,

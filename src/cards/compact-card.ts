@@ -58,15 +58,17 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                 ${config.title ? html`<h1
                         style="text-align: center; color: ${config.title_colour || 'inherit'}; font-size: ${config.title_size || '32px'};">
                     ${config.title}</h1>` : ''}
-                <svg viewBox="${config.wide ? "0 0 720 405" : `0 ${data.viewBoxYLite} 483 ${data.viewBoxHeightLite}`}"
+                <svg viewBox="${config.wide ? "0 0 720 405" : `-2 ${data.viewBoxYLite} 490 ${data.viewBoxHeightLite}`}"
                      preserveAspectRatio="xMidYMid meet"
-                     height="${data.panelMode === false ? `${!config.show_solar && !config.show_battery ? '270px' : !config.show_solar ? (data.additionalLoad !== 0 ? '330px' : '246px') : config.show_solar && !config.show_battery ? ([2, 3, 4].includes(data.additionalLoad) ? '350px' : '300px') : `${data.cardHeight}`}` : `${!config.show_solar ? '75%' : '100%'}`}"
-                     width="${data.panelMode === true ? `${data.cardWidth}` : '100%'}"
+                     height="${data.cardHeight}"
+                     width="${data.cardWidth}"
                      xmlns="http://www.w3.org/2000/svg"
                      xmlns:xlink="http://www.w3.org/1999/xlink">                
                        
                      <!-- Solar Elements -->
-                     <svg id="Solar" style="overflow: visible" x="${config.wide ? '10%' : '0%'}" >
+                     <svg id="Solar" 
+                        style="overflow: visible; display: ${!config.show_solar ? 'none' : 'inline'};"
+                        x="${config.wide ? '10%' : '0%'}" >
                         <svg id="pvtotal" x="205" y="116.5" width="70" height="30"
                             viewBox="0 0 70 30" overflow="visible">
                             <rect width="70" height="30" rx="4.5" ry="4.5" fill="none"
@@ -482,7 +484,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         style="overflow: visible; display: ${!config.show_battery ? 'none' : 'inline'};" 
                         x="${config.wide ? '10%' : '0%'}">
                         <svg id="battery_total_power" 
-                            style="display: ${config.wide && data.batteryCount === 2 ? 'inline' : 'none'};">
+                            style="overflow: visible; display: ${config.wide && data.batteryCount === 2 ? 'inline' : 'none'};">
                             <rect x="205" y="285" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                                 stroke="${data.batteryColour}" pointer-events="all"
                                 class="${data.compactMode ? '' : ''}"/>
@@ -494,7 +496,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             }
                             </text>
                         </svg>
-                        <svg id="battery_data" x="${data.batteryCount === 2 ? '-6.5%' : '0%'}">
+                        <svg id="battery_data" style="overflow: visible;" x="${data.batteryCount === 2 ? '-6.5%' : '0%'}">
                             <rect x="205" y="290" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                                 stroke="${data.batteryColour}" pointer-events="all"
                                 class="${data.compactMode && data.batteryCount === 1 ? '' : 'st12'}"/>
@@ -568,7 +570,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             </text>
                         </svg>
                         <svg id="two_batteries_data_compact_bat1" 
-                             style="display: ${config.wide && data.batteryCount === 2 && data.compactMode ? 'inline' : 'none'};"
+                             style="overflow: visible; display: ${config.wide && data.batteryCount === 2 && data.compactMode ? 'inline' : 'none'};"
                              x="-2.5%">
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_voltage_183)}>
                                 <text id="battery_voltage_183" x="215" y="295"
@@ -613,7 +615,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             </text>
                         </svg>
                         <svg id="two_batteries_data_compact_bat2" 
-                             style="display: ${config.wide && data.batteryCount === 2 && data.compactMode ? 'inline' : 'none'};"
+                             style="overflow: visible; display: ${config.wide && data.batteryCount === 2 && data.compactMode ? 'inline' : 'none'};"
                              x="9.5%">
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery2_voltage_183)}>
                                 <text id="battery2_voltage_183" x="213.5" y="295"
@@ -658,7 +660,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             </text>
                         </svg>
                         <svg id="battery2_data_lite" 
-                            style="display: ${config.wide && data.batteryCount === 2 && !data.compactMode ? 'inline' : 'none'};"
+                            style="overflow: visible; display: ${config.wide && data.batteryCount === 2 && !data.compactMode ? 'inline' : 'none'};"
                             x="19%">
                             <rect x="159" y="329.75" width="70"
                                 height="70"
@@ -712,7 +714,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 ${data.battery2StateMsg}
                             </text>
                         </svg>
-                        <svg id="battery_1_runtime" x="${data.batteryCount === 2 ? '-43.5%' : '0%'}">
+                        <svg id="battery_1_runtime" style="overflow: visible;" x="${data.batteryCount === 2 ? '-43.5%' : '0%'}">
                             <text id="duration" x="${data.compactMode ? '270' : '290'}" y="377.5"
                                 class="${data.largeFont !== true ? 'st14' : 'st4'} left-align"
                                 display="${data.compactMode && data.batteryCount === 2 ? 'none' : ''}"
@@ -785,7 +787,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             </a>
                         </svg>
                         <svg id="two_batteries_runtime_compact_bat1" 
-                             style="display: ${config.wide && data.batteryCount === 2 && data.compactMode ? 'inline' : 'none'};"
+                             style="overflow: visible; display: ${config.wide && data.batteryCount === 2 && data.compactMode ? 'inline' : 'none'};"
                              x="-29%">
                             <text id="duration" x="270" y="377.5"
                                 class="${data.largeFont !== true ? 'st14' : 'st4'} left-align"
@@ -855,7 +857,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             </a>
                         </svg>
                         <svg id="two_batteries_runtime_compact_bat2" 
-                             style="display: ${config.wide && data.batteryCount === 2 && data.compactMode ? 'inline' : 'none'};"
+                             style="overflow: visible; display: ${config.wide && data.batteryCount === 2 && data.compactMode ? 'inline' : 'none'};"
                              x="0.3%">    
                             <text id="duration" x="290" y="377.5"
                                 class="${data.largeFont !== true ? 'st14' : 'st4'} left-align"
@@ -924,7 +926,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             </a>
                         </svg>
                         <svg id="battery_2_runtime" 
-                            style="display: ${config.wide && data.batteryCount === 2 && !data.compactMode ? 'inline' : 'none'};"  
+                            style="overflow: visible; display: ${config.wide && data.batteryCount === 2 && !data.compactMode ? 'inline' : 'none'};"  
                             x="12%">
                             <text id="duration" x="290" y="377.5"
                                 class="${data.largeFont !== true ? 'st14' : 'st4'} left-align"
@@ -992,7 +994,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 </text>
                             </a>
                         </svg>
-                        <svg id="battery-flow">
+                        <svg id="battery-flow" style="overflow: visible;">
                             <path id="bat-line"
                             d="${data.batteryCount === 2
                                     ? 'M 239 250 L 239 285'
@@ -1021,7 +1023,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 </animateMotion>
                             </circle>
                         </svg>
-                        <svg id="battery_icon" x="${data.batteryCount === 2 ? '-6.25%' : '0%'}">
+                        <svg id="battery_icon" style="overflow: visible;" x="${data.batteryCount === 2 ? '-6.25%' : '0%'}">
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_temp_182)}>
                                 <text id="battery_temp_182" x="${data.compactMode ? '205' : '250'}"
                                     y="${data.compactMode ? '332' : '324.5'}"
@@ -1138,7 +1140,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             }
                         </svg>
                         <svg id="battery2_icon" 
-                            style="display: ${config.wide && data.batteryCount === 2 ? 'inline' : 'none'};" 
+                            style="overflow: visible; display: ${config.wide && data.batteryCount === 2 ? 'inline' : 'none'};" 
                             x="0.75%">
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery2_temp_182)}>
                                 <text id="battery2_temp_182" x="250"
@@ -1255,8 +1257,8 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                     </svg>`
                             }
                         </svg>
-                        <svg id="battery_daily">
-                            <svg id="battery_daily_charge" x="${data.batteryCount === 2 ? '42%' : '0%'}" y="${data.batteryCount === 2 ? '-20%' : '0%'}">
+                        <svg id="battery_daily" style="overflow: visible;">
+                            <svg id="battery_daily_charge" style="overflow: visible;" x="${data.batteryCount === 2 ? '42%' : '0%'}" y="${data.batteryCount === 2 ? '-20%' : '0%'}">
                                 <text id="daily_bat_charge" x="${data.compactMode && data.batteryCount === 1 ? '132' : '77.2'}" y="357.2"
                                     class="st3 left-align"
                                     fill="${data.batteryShowDaily !== true  ? 'transparent' : `${data.batteryColour}`}">
@@ -1271,7 +1273,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                     </text>
                                 </a>
                             </svg>
-                            <svg id="battery_daily_discharge" x="${data.batteryCount === 2 ? '42%' : '0%'}" y="${data.batteryCount === 2 ? '-20%' : '0%'}">
+                            <svg id="battery_daily_discharge" style="overflow: visible;" x="${data.batteryCount === 2 ? '42%' : '0%'}" y="${data.batteryCount === 2 ? '-20%' : '0%'}">
                                 <text id="daily_bat_dischcharge" x="${data.compactMode && data.batteryCount === 1 ? '132' : '77.2'}" y="393.7"
                                     class="st3 left-align"
                                     fill="${data.batteryShowDaily !== true ? 'transparent' : `${data.batteryColour}`}">
@@ -1410,24 +1412,20 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 ? svg`
                                     <a href="#" @click=${(e) => Utils.handleNavigation(e, config.grid.navigate)}>
                                         <g display="${config.show_grid || config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon ? '' : 'none'}">
-                                            <foreignObject x="-0.5" y="187.5" width="70" height="70" style="position: fixed; ">
-                                                <body>
-                                                <div style="position: fixed; ">
+                                            <foreignObject x="-0.5" y="187.5" width="70" height="70">
+                                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 70px; height: 70px;">
                                                     <ha-icon icon="${data.customGridIcon}" class="grid-icon"></ha-icon>
                                                 </div>
-                                                </body>
                                             </foreignObject>
                                         </g>
                                     </a>`
                                 : svg`
                                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_connected_status_194)}>
                                         <g display="${config.show_grid || config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon ? '' : 'none'}">
-                                            <foreignObject x="-0.5" y="187.5" width="70" height="70" style="position: fixed; ">
-                                                <body>
-                                                <div style="position: fixed; ">
+                                            <foreignObject x="-0.5" y="187.5" width="70" height="70">
+                                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 70px; height: 70px;">
                                                     <ha-icon icon="${data.customGridIcon}" class="grid-icon"></ha-icon>
                                                 </div>
-                                                </body>
                                             </foreignObject>
                                         </g>
                                     </a>`
@@ -1605,12 +1603,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 </text>
                             </a>
                             <g display="${[0, 4, 5, 6].includes(data.additionalLoad) ? 'none' : ''}">
-                                <foreignObject x="371" y="114" width="36" height="36" style="position: fixed; ">
-                                    <body>
-                                    <div style="position: fixed; ">
+                                <foreignObject x="371" y="114" width="36" height="36">
+                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 36px; height: 36px;">
                                         <ha-icon icon="${data.iconEssentialLoad1}" class="essload1-icon"></ha-icon>
                                     </div>
-                                    </body>
                                 </foreignObject>
                             </g>
                         </svg>
@@ -1662,12 +1658,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 </text>
                             </a>
                             <g display="${data.additionalLoad === 2 ? '' : 'none'}">
-                                <foreignObject x="371" y="288" width="36" height="36" style="position:fixed; ">
-                                    <body>
-                                    <div style="position: fixed; ">
+                                <foreignObject x="371" y="288" width="36" height="36">
+                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 36px; height: 36px;">
                                         <ha-icon icon="${data.iconEssentialLoad2}" class="essload2-icon"></ha-icon>
                                     </div>
-                                    </body>
                                 </foreignObject>
                             </g>
                         </svg>
@@ -1687,21 +1681,17 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 ${config.load.load3_name}
                             </text>
                             <g display="${data.additionalLoad === 3 ? '' : 'none'}">
-                                <foreignObject x="412" y="264" width="30" height="30" style="position: fixed; ">
-                                    <body>
-                                    <div style="position: fixed; ">
+                                <foreignObject x="412" y="264" width="30" height="30">
+                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
                                         <ha-icon icon="${data.iconEssentialLoad2}" class="essload2_small-icon"></ha-icon>
                                     </div>
-                                    </body>
                                 </foreignObject>
                             </g>
                             <g display="${data.additionalLoad === 3 ? '' : 'none'}">
-                                <foreignObject x="449" y="264" width="30" height="30" style="position: fixed; ">
-                                    <body>
-                                    <div style="position: fixed; ">
+                                <foreignObject x="449" y="264" width="30" height="30">
+                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
                                         <ha-icon icon="${data.iconEssentialLoad3}" class="essload3_small-icon"></ha-icon>
                                     </div>
-                                    </body>
                                 </foreignObject>
                             </g>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load2_extra)}>
@@ -1765,39 +1755,31 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 ${config.load.load4_name}
                             </text>
                             <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
-                                <foreignObject x="412" y="81" width="30" height="30" style="position: fixed; ">
-                                    <body>
-                                    <div style="position: fixed; ">
+                                <foreignObject x="412" y="81" width="30" height="30">
+                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
                                         <ha-icon icon="${data.iconEssentialLoad1}" class="essload1_small-icon"></ha-icon>
                                     </div>
-                                    </body>
                                 </foreignObject>
                             </g>
                             <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
-                                <foreignObject x="449" y="81" width="30" height="30" style="position: fixed; ">
-                                    <body>
-                                    <div style="position: fixed; ">
+                                <foreignObject x="449" y="81" width="30" height="30">
+                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
                                         <ha-icon icon="${data.iconEssentialLoad2}" class="essload2_small-icon"></ha-icon>
                                     </div>
-                                    </body>
                                 </foreignObject>
                             </g>
                             <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
-                                <foreignObject x="412" y="264" width="30" height="30" style="position: fixed; ">
-                                    <body>
-                                    <div style="position: fixed; ">
+                                <foreignObject x="412" y="264" width="30" height="30">
+                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
                                         <ha-icon icon="${data.iconEssentialLoad3}" class="essload3_small-icon"></ha-icon>
                                     </div>
-                                    </body>
                                 </foreignObject>
                             </g>
                             <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
-                                <foreignObject x="449" y="264" width="30" height="30" style="position: fixed; ">
-                                    <body>
-                                    <div style="position: fixed; ">
+                                <foreignObject x="449" y="264" width="30" height="30">
+                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
                                         <ha-icon icon="${data.iconEssentialLoad4}" class="essload4_small-icon"></ha-icon>
                                     </div>
-                                    </body>
                                 </foreignObject>
                             </g>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1_extra)}>
@@ -1872,12 +1854,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 ${config.load.load5_name}
                             </text>
                             <g display="${[5, 6].includes(data.additionalLoad) ? '' : 'none'}">
-                                <foreignObject x="412" y="81" width="30" height="30" style="position: fixed; ">
-                                    <body>
-                                    <div style="position: fixed; ">
+                                <foreignObject x="412" y="81" width="30" height="30">
+                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
                                         <ha-icon icon="${data.iconEssentialLoad5}" class="essload5_small-icon"></ha-icon>
                                     </div>
-                                    </body>
                                 </foreignObject>
                             </g>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load5_extra)}>
@@ -1905,12 +1885,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 ${config.load.load6_name}
                             </text>
                             <g display="${data.additionalLoad === 6 ? '' : 'none'}">
-                                <foreignObject x="412" y="264" width="30" height="30" style="position: fixed; ">
-                                    <body>
-                                    <div style="position: fixed; ">
+                                <foreignObject x="412" y="264" width="30" height="30">
+                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
                                         <ha-icon icon="${data.iconEssentialLoad6}" class="essload6_small-icon"></ha-icon>
                                     </div>
-                                    </body>
                                 </foreignObject>
                             </g>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load6_extra)}>

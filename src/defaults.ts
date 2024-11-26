@@ -3,13 +3,12 @@ import {InverterModel} from './types';
 
 export default {
 	cardstyle: 'lite',
-	panel_mode: false,
 	wide: false,
 	large_font: false,
 	show_solar: true,
 	show_battery: true,
 	show_grid: true,
-	card_height: '396px',
+	card_height: '100%',
 	card_width: '100%',
 	decimal_places: 2,
 	decimal_places_energy: 1,

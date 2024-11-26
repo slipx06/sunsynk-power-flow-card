@@ -155,7 +155,6 @@
       "aux_colour": "Cor",
       "aux_off_colour": "Cor Off",
       "off_threshold": "Off Threshold",
-      "panel_mode": "Modo do Painel",
       "invert_grid": "Inverter Valores",
       "invert_load": "Inverter Valores",
       "shutdown_soc": "Desligamento do SOC",

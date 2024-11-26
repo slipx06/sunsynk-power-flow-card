@@ -116,8 +116,8 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     ${config.title}</h1>` : ''}
                 <svg viewBox="${config.wide ? "0 0 720 405" : "0 0 483 405"}"
                     preserveAspectRatio="xMidYMid meet"
-                    height="${data.panelMode !== true ? `${data.cardHeight}` : '100%'}"
-                    width="${data.panelMode === true ? `${data.cardWidth}` : '100%'}"
+                    height="${data.cardHeight}"
+                    width="${data.cardWidth}"
                     xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink">
 
@@ -1083,14 +1083,12 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 display="${!config.show_grid || !data.showNonessential || [0, 1, 2].includes(data.nonessentialLoads) ? 'none' : ''}"
                                 fill="${data.dynamicColourNonEssentialLoad3}">${config.grid.load3_name}
                             </text>
-                            <g display="${!config.show_grid || !data.showNonessential || [0, 1, 2].includes(data.nonessentialLoads) ? 'none' : ''}"
-                            opacity="${(config.battery.hide_soc || config.wide) && data.nonessentialLoads === 3 ? 1 : 0}">
-                                <foreignObject x="269" y="341" width="30" height="30" style="position: fixed; ">
-                                    <body xmlns="http://www.w3.org/1999/xhtml">
-                                    <div style="position: fixed; ">
+                            <g display="${!config.show_grid || !data.showNonessential || [0, 1, 2].includes(data.nonessentialLoads) ? 'none' : ''}">
+                                <foreignObject x="269" y="341" width="30" height="30" 
+                                    display="${(config.battery.hide_soc || config.wide) && data.nonessentialLoads === 3 ? '' : 'none'}">
+                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
                                         <ha-icon icon="${data.iconNonessentialLoad3}" class="nonessload3-icon"></ha-icon>
                                     </div>
-                                    </body>
                                 </foreignObject>
                             </g>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load3)}>
@@ -1359,12 +1357,11 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                         <foreignObject x="${config.inverter.three_phase ? '404' : '389'}" 
                                                     y="${config.inverter.three_phase ? '339' : '308'}" 
                                                     width="${config.inverter.three_phase ? '34' : '65'}" 
-                                                    height="${config.inverter.three_phase ? '34' : '65'}" style="position: fixed; ">
-                                            <body xmlns="http://www.w3.org/1999/xhtml">
-                                            <div style="position: fixed; ">
+                                                    height="${config.inverter.three_phase ? '34' : '65'}">
+                                            <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; 
+                                                 width: ${config.inverter.three_phase ? '34px' : '65px'}; height: ${config.inverter.three_phase ? '34px' : '65px'};">
                                                 <ha-icon icon="${data.customGridIcon}" class="${config.inverter.three_phase ? 'grid-icon-small' : 'grid-icon'}"></ha-icon>
                                             </div>
-                                            </body>
                                         </foreignObject>
                                     </g>
                                 </a>`
@@ -1375,11 +1372,10 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                                     y="${config.inverter.three_phase ? '339' : '308'}" 
                                                     width="${config.inverter.three_phase ? '34' : '65'}" 
                                                     height="${config.inverter.three_phase ? '34' : '65'}" style="position: fixed; ">
-                                            <body xmlns="http://www.w3.org/1999/xhtml">
-                                            <div style="position: fixed; ">
+                                            <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; 
+                                                 width: ${config.inverter.three_phase ? '34px' : '65px'}; height: ${config.inverter.three_phase ? '34px' : '65px'};">
                                                 <ha-icon icon="${data.customGridIcon}" class="${config.inverter.three_phase ? 'grid-icon-small' : 'grid-icon'}"></ha-icon>
                                             </div>
-                                            </body>
                                         </foreignObject>
                                     </g>
                                 </a>`
@@ -1419,12 +1415,10 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 d="${icons.aircon}"/>
                         </svg>
                         <g display="${!config.show_grid || !data.showNonessential || [1, 2, 3].includes(data.nonessentialLoads) ? 'none' : ''}">
-                            <foreignObject x="303.5" y="303.5" width="85" height="85" style="position: fixed; ">
-                                <body xmlns="http://www.w3.org/1999/xhtml">
-                                <div style="position: fixed; ">
+                            <foreignObject x="303.5" y="303.5" width="85" height="85">
+                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 85px; height: 85px;">
                                     <ha-icon icon="${data.nonessentialIcon}" class="noness-icon"></ha-icon>
                                 </div>
-                                </body>
                             </foreignObject>
                         </g>
                         <!-- Nonessential Load Icon -->
@@ -1503,21 +1497,17 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </svg>
 
                         <g display="${!config.show_grid || !data.showNonessential || [0, 1].includes(data.nonessentialLoads) ? 'none' : ''}">
-                            <foreignObject x="306" y="341" width="30" height="30" style="position: fixed; ">
-                                <body xmlns="http://www.w3.org/1999/xhtml">
-                                <div style="position: fixed; ">
+                            <foreignObject x="306" y="341" width="30" height="30">
+                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
                                     <ha-icon icon="${data.iconNonessentialLoad1}" class="nonessload1-icon"></ha-icon>
                                 </div>
-                                </body>
                             </foreignObject>
                         </g>
                         <g display="${!config.show_grid || !data.showNonessential || [0, 1].includes(data.nonessentialLoads) ? 'none' : ''}">
-                            <foreignObject x="343" y="341" width="30" height="30" style="position: fixed; ">
-                                <body xmlns="http://www.w3.org/1999/xhtml">
-                                <div style="position: fixed; ">
+                            <foreignObject x="343" y="341" width="30" height="30">
+                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
                                     <ha-icon icon="${data.iconNonessentialLoad2}" class="nonessload2-icon"></ha-icon>
                                 </div>
-                                </body>
                             </foreignObject>
                         </g>
                         <svg xmlns="http://www.w3.org/2000/svg" id="noness1_default" x="324.5" y="341" width="32"
@@ -1554,12 +1544,10 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 d="${icons.aircon}"/>
                         </svg>
                         <g display="${!config.show_grid || !data.showNonessential || [0, 2, 3].includes(data.nonessentialLoads) ? 'none' : ''}">
-                            <foreignObject x="324.5" y="341" width="30" height="30" style="position: fixed; ">
-                                <body xmlns="http://www.w3.org/1999/xhtml">
-                                <div style="position: fixed; ">
+                            <foreignObject x="324.5" y="341" width="30" height="30">
+                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
                                     <ha-icon icon="${data.iconNonessentialLoad1}" class="nonessload1-icon"></ha-icon>
                                 </div>
-                                </body>
                             </foreignObject>
                         </g>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_grid_import_76)}>
@@ -1832,12 +1820,10 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 ${config.load.load5_name}
                             </text>
                             <g display="${[5, 6].includes(data.additionalLoad) ? '' : 'none'}">
-                                <foreignObject x="421" y="5" width="30" height="30"style="position: fixed;">
-                                    <body xmlns="http://www.w3.org/1999/xhtml">
-                                        <div style="position: fixed;">
-                                            <ha-icon icon="${data.iconEssentialLoad5}" class="essload5-icon-small"></ha-icon>
-                                        </div>
-                                    </body>
+                                <foreignObject x="421" y="5" width="30" height="30">
+                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
+                                        <ha-icon icon="${data.iconEssentialLoad5}" class="essload5-icon-small"></ha-icon>
+                                    </div>
                                 </foreignObject>
                             </g>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load5_extra)}>
@@ -1870,12 +1856,10 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 ${config.load.load6_name}
                             </text>
                             <g display="${[5, 6].includes(data.additionalLoad) ? '' : 'none'}">
-                                <foreignObject x="421" y="123" width="30" height="30"style="position: fixed;">
-                                    <body xmlns="http://www.w3.org/1999/xhtml">
-                                        <div style="position: fixed;">
+                                <foreignObject x="421" y="123" width="30" height="30">
+                                        <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
                                             <ha-icon icon="${data.iconEssentialLoad6}" class="essload6-icon-small"></ha-icon>
                                         </div>
-                                    </body>
                                 </foreignObject>
                             </g>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load6_extra)}>
@@ -2387,59 +2371,43 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
 
                         <g display="${[2, 4, 5, 6].includes(data.additionalLoad) ? '' : 'none'}">
                             <foreignObject x="${data.showAux ? '371' : '384'}"
-                                        y="${data.showAux ? '123' : '5'}" width="30" height="30"
-                                        style="position: fixed; ">
-                                <body xmlns="http://www.w3.org/1999/xhtml">
-                                    <div style="position: fixed; ">
-                                        <ha-icon icon="${data.iconEssentialLoad1}" class="essload1-icon-small"></ha-icon>
-                                    </div>
-                                </body>
+                                y="${data.showAux ? '123' : '5'}" width="30" height="30">
+                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
+                                    <ha-icon icon="${data.iconEssentialLoad1}" class="essload1-icon-small"></ha-icon>
+                                </div>
                             </foreignObject>
                         </g>
 
                         <g display="${[2, 4, 5, 6].includes(data.additionalLoad) ? '' : 'none'}">
                             <foreignObject x="${data.showAux ? '429' : '421'}"
-                                        y="${data.showAux ? '123' : '5'}" width="30" height="30"
-                                        style="position: fixed;">
-                                <body xmlns="http://www.w3.org/1999/xhtml">
-                                    <div style="position: fixed;">
-                                        <ha-icon icon="${data.iconEssentialLoad2}" class="essload2-icon-small"></ha-icon>
-                                    </div>
-                                </body>
+                                y="${data.showAux ? '123' : '5'}" width="30" height="30">
+                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
+                                    <ha-icon icon="${data.iconEssentialLoad2}" class="essload2-icon-small"></ha-icon>
+                                </div>
                             </foreignObject>
                         </g>
 
                         <g display="${[4, 5, 6].includes(data.additionalLoad) ? '' : 'none'}">
-                            <foreignObject x="371" y="123" width="30" height="30"
-                                        style="position: fixed; ">
-                                <body xmlns="http://www.w3.org/1999/xhtml">
-                                    <div style="position: fixed; ">
-                                        <ha-icon icon="${data.iconEssentialLoad3}" class="essload3-icon-small"></ha-icon>
-                                    </div>
-                                </body>
+                            <foreignObject x="371" y="123" width="30" height="30">
+                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
+                                    <ha-icon icon="${data.iconEssentialLoad3}" class="essload3-icon-small"></ha-icon>
+                                </div>
                             </foreignObject>
                         </g>
 
                         <g display="${[4, 5, 6].includes(data.additionalLoad) ? '' : 'none'}">
-                            <foreignObject x="429"
-                                        y="123" width="30" height="30"
-                                        style="position: fixed;">
-                                <body xmlns="http://www.w3.org/1999/xhtml">
-                                    <div style="position: fixed;">
+                            <foreignObject x="429" y="123" width="30" height="30">
+                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
                                         <ha-icon icon="${data.iconEssentialLoad4}" class="essload4-icon-small"></ha-icon>
                                     </div>
-                                </body>
                             </foreignObject>
                         </g>
                         <g display="${[1].includes(data.additionalLoad) ? '' : 'none'}">
                             <foreignObject x="${data.showAux ? '336' : '336'}"
-                                        y="${data.showAux ? '140' : '27'}" width="40" height="40"
-                                        style="position: fixed; ">
-                                <body xmlns="http://www.w3.org/1999/xhtml">
-                                    <div style="position: fixed; ">
-                                        <ha-icon icon="${data.iconEssentialLoad1}" class="essload1-icon"></ha-icon>
-                                    </div>
-                                </body>
+                                y="${data.showAux ? '140' : '27'}" width="40" height="40">
+                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 40px; height: 40px;">
+                                    <ha-icon icon="${data.iconEssentialLoad1}" class="essload1-icon"></ha-icon>
+                                </div>
                             </foreignObject>
                         </g>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_load_energy_84)}>
@@ -2687,32 +2655,26 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                     d="${icons.pump}"/>
                             </svg>
                             <g display="${!data.showAux || [1, 2].includes(data.additionalAuxLoad) ? 'none' : ''}">
-                                <foreignObject x="375" y="8" width="70" height="70" style="position: fixed; ">
-                                    <body xmlns="http://www.w3.org/1999/xhtml">
-                                    <div style="position: fixed; ">
+                                <foreignObject x="375" y="8" width="70" height="70">
+                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 70px; height: 70px;">
                                         <ha-icon icon="${data.auxType}"
-                                                class="${data.auxStatus === 'on' || data.auxStatus === '1' ? 'aux-icon' : 'aux-off-icon'}"></ha-icon>
+                                            class="${data.auxStatus === 'on' || data.auxStatus === '1' ? 'aux-icon' : 'aux-off-icon'}"></ha-icon>
                                     </div>
-                                    </body>
                                 </foreignObject>
                             </g>
                         </a>
                         <g display="${!data.showAux || data.additionalAuxLoad === 0 ? 'none' : ''}">
-                            <foreignObject x="345" y="18" width="40" height="40" style="position: fixed; ">
-                                <body xmlns="http://www.w3.org/1999/xhtml">
-                                <div style="position: fixed; ">
+                            <foreignObject x="345" y="18" width="40" height="40">
+                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 40px; height: 40px;">
                                     <ha-icon icon="${data.iconAuxLoad1}" class="aux-small-icon-1"></ha-icon>
                                 </div>
-                                </body>
                             </foreignObject>
                         </g>
                         <g display="${!data.showAux || [0, 1].includes(data.additionalAuxLoad) ? 'none' : ''}">
-                            <foreignObject x="345" y="52" width="40" height="40" style="position: fixed; ">
-                                <body xmlns="http://www.w3.org/1999/xhtml">
-                                <div style="position: fixed; ">
+                            <foreignObject x="345" y="52" width="40" height="40">
+                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 40px; height: 40px;">
                                     <ha-icon icon="${data.iconAuxLoad2}" class="aux-small-icon-2"></ha-icon>
                                 </div>
-                                </body>
                             </foreignObject>
                         </g>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_aux_energy)}>

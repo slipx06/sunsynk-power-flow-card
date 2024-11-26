@@ -155,7 +155,6 @@
       "aux_colour": "Color",
       "aux_off_colour": "Color Caigut",
       "off_threshold": "Umbral de Caiguda",
-      "panel_mode": "Mode de Panell",
       "invert_grid": "Invertir Valors",
       "invert_load": "Invertir Valors",
       "shutdown_soc": "SOC d'Apagada",

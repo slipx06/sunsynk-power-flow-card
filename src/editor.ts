@@ -59,7 +59,6 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 								type: 'grid',
 								schema: [
 									{name: 'large_font', selector: {boolean: {}}},
-									{name: 'panel_mode', selector: {boolean: {}}},
 									{name: 'wide', selector: {boolean: {}}},
 									{name: 'card_height', selector: {text: {}}},
 									{name: 'card_width', selector: {text: {}}},
