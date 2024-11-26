@@ -16,7 +16,6 @@ Integration via https://github.com/sfstar/hass-victron
 
   type: custom:sunsynk-power-flow-card
   cardstyle: full
-  panel_mode: false
   large_font: false
   title: Victron - Power Monitor
   title_colour: White

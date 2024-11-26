@@ -187,7 +187,6 @@ Full Configuration (All Options)
   
   type: custom:sunsynk-power-flow-card
   cardstyle: full
-  panel_mode: false
   large_font: false
   title: Sunsynk Inverter
   title_colour: grey
@@ -199,6 +198,7 @@ Full Configuration (All Options)
   dynamic_line_width: true
   min_line_width: 1
   max_line_width: 4
+  wide: false
   inverter:
     modern: true
     colour: grey
@@ -206,6 +206,7 @@ Full Configuration (All Options)
     auto_scale: true
     three_phase: false
   battery:
+    count: 1
     energy: 15960
     shutdown_soc: 20
     invert_power: false

@@ -15,7 +15,6 @@ Example 1
     show_grid: true
     show_battery: true
     large_font: false
-    panel_mode: false
     inverter:
       auto_scale: false
       modern: false

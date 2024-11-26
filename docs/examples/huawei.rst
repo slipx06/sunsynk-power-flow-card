@@ -100,7 +100,6 @@ Example 1 - 1 x L1 1phase inverter with a 15kWh LUNA ESS battery - 2 PV strings 
 
   type: custom:sunsynk-power-flow-card
   cardstyle: full
-  panel_mode: false
   large_font: false
   title: Huawei - Power Monitor
   title_size: 18px
@@ -265,7 +264,6 @@ Example 2 - 2 x L1 1phase inverter with a 15kWh LUNA ESS battery - 4 PV strings 
 
   type: custom:sunsynk-power-flow-card
   cardstyle: full
-  panel_mode: false
   large_font: false
   title: Huawei - Power Monitor
   title_size: 18px
@@ -439,7 +437,6 @@ Example 3 - 1 x M1 3phase inverter with a 15kWh LUNA ESS battery - 2 PV strings 
 
   type: custom:sunsynk-power-flow-card
   cardstyle: full
-  panel_mode: false
   large_font: false
   title: Huawei - Power Monitor
   title_size: 18px
@@ -613,7 +610,6 @@ Example 4 - 1 x M1 3phase inverters with 2 x 15kWh LUNA ESS batteries - 2 PV str
 
   type: custom:sunsynk-power-flow-card
   cardstyle: full
-  panel_mode: false
   large_font: false
   title: Huawei - Power Monitor
   title_size: 18px
@@ -788,7 +784,6 @@ Example 5 - 2 x M1 3phase inverters with a 15kWh LUNA ESS battery - 4 PV strings
 
   type: custom:sunsynk-power-flow-card
   cardstyle: full
-  panel_mode: false
   large_font: false
   title: Huawei - Power Monitor
   title_size: 18px

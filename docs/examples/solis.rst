@@ -74,7 +74,6 @@ Example 2 (Solis S6 or S2-WL-ST) - Integration via https://github.com/Pho3niX90/
     cardstyle: lite
     large_font: true
     show_solar: true
-    panel_mode: true
     card_height: 415px
     inverter:
       model: solis

@@ -11,7 +11,6 @@ Example 1 - Integration via https://github.com/nathanmarlor/foxess_modbus
 
     type: custom:sunsynk-power-flow-card
     cardstyle: full
-    panel_mode: true
     card_width: 80%
     show_solar: true
     inverter:

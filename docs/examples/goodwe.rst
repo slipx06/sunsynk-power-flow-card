@@ -11,7 +11,6 @@ Example 1
 
   type: custom:sunsynk-power-flow-card
   cardstyle: lite
-  panel_mode: false
   large_font: true
   title: Goodwe
   title_colour: grey
