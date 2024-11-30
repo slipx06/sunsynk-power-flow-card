@@ -694,7 +694,9 @@ export class SunsynkPowerFlowCard extends LitElement {
         let maximumSOC2 = stateSOCEndOfCharge2.toNum() || maximumSOC;
         maximumSOC2 = Math.max(50, Math.min(maximumSOC2, 100));
 
-        const batteryPowerTotal = batteryPower + battery2Power;
+        const batteryPowerTotal = batteryCount === 2 
+                ? batteryPower + battery2Power 
+                : batteryPower;
 
         //calculate battery capacity
         let batteryCapacity: number = 0;
@@ -1333,9 +1335,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                 customGridIconColour = gridColour;
                 break;
         }
-         
-        const viewbox = config.viewbox || '0 0 483 408';
-        
+             
         let viewBoxYLite:string;
         let viewBoxHeightLite:string;
         switch (true) {
@@ -1379,7 +1379,6 @@ export class SunsynkPowerFlowCard extends LitElement {
          */
         const data: DataDto = {
             config,
-            viewbox,
             compactMode,
             viewBoxYLite,
             viewBoxHeightLite,

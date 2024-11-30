@@ -339,7 +339,6 @@ export interface InverterSettings {
 
 export interface DataDto {
 	config: sunsynkPowerFlowCardConfig;
-	viewbox;
 	compactMode;
 	viewBoxYLite;
     viewBoxHeightLite;
