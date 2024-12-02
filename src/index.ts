@@ -1185,7 +1185,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         } else {
             pvPercentage = Utils.toNum(Math.min(pvPercentageRaw, 100), 0);
             batteryPercentage = Utils.toNum(Math.min(batteryPercentageRaw, 100), 0);
-            gridPercentage = 100 - (pvPercentage + batteryPercentage);
+            gridPercentage = totalGridPower > 0 ? 100 - (pvPercentage + batteryPercentage) : 0;
         }
 
         //console.log(`${pvPercentage} % PVPercentage, ${batteryPercentage} % BatteryPercentage, ${gridPercentage} % GridPercentage`); 
