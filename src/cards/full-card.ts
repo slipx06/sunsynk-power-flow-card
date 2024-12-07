@@ -270,7 +270,11 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </text>
                         <svg id="pv1-flow">
                             <path id="pv1-line"
-                                d="${config.solar.mppts === 1 ? 'M 86 175 M 155 250 L 96 250 Q 86 250 86 240 L 86 56 H 70' : 'M 86 162 L 86 56 Q 86 56 86 56 L 70 56'}"
+                                d="${config.solar.mppts === 1 
+                                    ? config.wide 
+                                        ? 'M 86 175 M 278 250 L 96 250 Q 86 250 86 240 L 86 56 H 70' 
+                                        : 'M 86 175 M 155 250 L 96 250 Q 86 250 86 240 L 86 56 H 70'
+                                    : 'M 86 162 L 86 56 Q 86 56 86 56 L 70 56'}"
                                 class="${!config.show_solar ? 'st12' : ''}" fill="none"
                                 stroke="${data.solarColour}" stroke-width="${data.pv1LineWidth}" stroke-miterlimit="10"
                                 pointer-events="stroke"/>
@@ -2934,8 +2938,8 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             </text>
                         </a>   
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.radiator_temp_91)}>
-                            <text id="ac_temp" x="${config.solar?.mppts === 4 ? '110' : '134'}"
-                                y="${config.solar?.mppts === 4 ? '237' : '153'}" class="st3 left-align"
+                            <text id="ac_temp" x="${config.solar?.mppts === 4 && !config.wide ? '110' : '134'}"
+                                y="${config.solar?.mppts === 4 && !config.wide ? '237' : '153'}" class="st3 left-align"
                                 fill="${data.inverterColour}"
                                 display="${config.entities?.radiator_temp_91 && data.stateRadiatorTemp.isValid() ? '' : 'none'}">AC:
                                 ${data.stateRadiatorTemp.toNum(1)}°

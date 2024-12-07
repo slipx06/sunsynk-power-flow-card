@@ -341,13 +341,13 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         let gridColour: string;
         switch (true) {
-            case totalGridPower < 0:
+            case totalGridPower < -Utils.toNum(config.grid?.off_threshold, 0): 
                 gridColour = gridExportColour;
                 break;
-            case totalGridPower >= 0 && totalGridPower <= Utils.toNum(config.grid?.off_threshold, 0):
+            case totalGridPower >= -Utils.toNum(config.grid?.off_threshold, 0) && totalGridPower <= Utils.toNum(config.grid?.off_threshold, 0):
                 gridColour = noGridColour;
                 break;
-            default:
+            default: // Import
                 gridColour = gridImportColour;
                 break;
         }
