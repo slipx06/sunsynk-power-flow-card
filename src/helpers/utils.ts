@@ -1,5 +1,5 @@
-import {unitOfEnergyConversionRules, UnitOfEnergyOrPower, UnitOfPower} from '../const';
-import { navigate } from 'custom-card-helpers';''
+import {unitOfEnergyConversionRules, UnitOfEnergyOrPower, UnitOfPower, UnitOfEnergy} from '../const';
+import { navigate } from 'custom-card-helpers';
 
 export class Utils {
     static toNum(val: string | number, decimals: number = -1, invert: boolean = false): number {
@@ -39,6 +39,10 @@ export class Utils {
         const rules = unitOfEnergyConversionRules[unit];
         if (!rules) return `${numberValue.toFixed(decimal)} ${unit}`;
 
+        if (unit === UnitOfEnergy.WATT_HOUR && Math.abs(numberValue) < 1000) {
+          return `${Math.round(numberValue)} ${unit}`;
+        };
+        
         if (unit === UnitOfPower.WATT && Math.abs(numberValue) < 1000) {
             return `${Math.round(numberValue)} ${unit}`;
         };
