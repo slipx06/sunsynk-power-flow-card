@@ -250,7 +250,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             fill="${data.solarColour}">${data.PV4Efficiency}%
                         </text>
                         <text x="51" y="202" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 left-align' : 'st12'}"
-                            display="${!config.show_solar || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
+                            display="${!config.show_solar || [0, 1].includes(config.solar.efficiency) || config.solar.mppts === 1 ? 'none' : ''}"
                             fill="${data.solarColour}">${data.totalPVEfficiency}%
                         </text>
                         <text id="daily_solar" x="43.5" y="29" class="st3 left-align"
