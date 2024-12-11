@@ -390,4 +390,4 @@ If `three_phase:true`
 
 The modbus registers can be visualised on the `full` card below:
 
-![image](https://user-images.githubusercontent.com/7227275/235479493-b322d5b2-f2b1-431f-9048-f845fc2989b4.png)
+![sunsynk_reg](https://github.com/user-attachments/assets/2c42a4e7-b4a2-4dd3-b019-14e1bd642d68)
