@@ -76,7 +76,8 @@ The `invert_power` attribute can be used to reverse direction if needed by your 
 | show_absolute:   | Optional     | `false` | set to `true` to display power and current as absolute values.                                                                                                                   
 | auto_scale:      | Optional     | `true` | If set to `true` the card will use the entities `unit_of_measurement` attribute to perform the correct scaling (i,e, power values greater than 999W will be displayed as kW e.g. 1.23kW) and display the correct unit. The number of decimal places can be changed using the `decimal_places` card attribute apart from the daily energy values which are set using the `decimal_places_energy` attribute.                                                                                  |
 | hide_soc:        | Optional     | `false` | If set to `true` the current program capacity (soc), or for Goodwe inverters the shutdown soc and offgrid shutdown soc that is shown to the left of the current battery one SOC will be hidden.      |
-| show_remaining_energy:        | Optional     | `true` | Set to `true` to display the remaining battery one energy in kWh based on the current SOC. Only visable on the `lite` and `full` cards.     |
+| show_remaining_energy:        | Optional     | `true` | Set to `true` to display the remaining battery one energy in kWh based on the current SOC.   |
+| remaining_energy_to_shutdown: | Optional     | `false` | If set to `true` the displayed remaining battery energy will be the available energy to the shutdown SOC and not to 0%.     |
 | navigate:        | Optional    |     | Sets the navigation path when clicking on the battery one image. Can be used to link to other dashboards and views e.g. `/lovelace/1`.    
 | invert_flow:      | Optional    |  `false`   | Inverts the animated flow. Expects a positive number for battery charging and a negative number for battery discharging   
 
@@ -96,7 +97,8 @@ The `invert_power` attribute can be used to reverse direction if needed by your 
 | show_absolute:   | Optional     | `false` | set to `true` to display power and current as absolute values.                                                                                                                   
 | auto_scale:      | Optional     | `true` | If set to `true` the card will use the entities `unit_of_measurement` attribute to perform the correct scaling (i,e, power values greater than 999W will be displayed as kW e.g. 1.23kW) and display the correct unit. The number of decimal places can be changed using the `decimal_places` card attribute apart from the daily energy values which are set using the `decimal_places_energy` attribute.                                                                                  |
 | hide_soc:        | Optional     | `false` | If set to `true` the current program capacity (soc), or for Goodwe inverters the shutdown soc and offgrid shutdown soc that is shown to the left of the current battery SOC will be hidden.      |
-| show_remaining_energy:        | Optional     | `true` | Set to `true` to display the remaining battery two energy in kWh based on the current SOC. Only visable on the `lite` and `full` cards.     |
+| show_remaining_energy:        | Optional     | `true` | Set to `true` to display the remaining battery two energy in kWh based on the current SOC.      |
+| remaining_energy_to_shutdown: | Optional     | `false` | If set to `true` the displayed remaining battery energy will be the available energy to the shutdown SOC and not to 0%.     |
 | navigate:        | Optional    |     | Sets the navigation path when clicking on the battery two image. Can be used to link to other dashboards and views e.g. `/lovelace/1`.    
 | invert_flow:      | Optional    |  `false`   | Inverts the animated flow. Expects a positive number for battery two charging and a negative number for battery two discharging   
 
@@ -131,7 +133,8 @@ These attributes are only needed if `show_solar` is set to `true`.
 
 | Attribute          | Requirement | Default           | Description                                                                                                                                                                |
 |--------------------|-------------|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| colour:            | Optional    | `'#5fb6ad'`       | Setss the colour of all the load card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc).                                                         |
+| colour:            | Optional    | `'#5fb6ad'`       | Sets the colour of all the load card objects. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc).                                                         |
+| off_colour:         | Optional    | `grey`       | Sets the off colour for the additional essential loads. Set this to `transparent` to hide the load when power is below the `off_threshold`                                                        |
 | dynamic_colour:    | Optional    | `true`            | The essential icon colour will change based on the % contribution of the power source (battery, grid, solar) supplying the load. Set to `false`  to disable.                |
 | dynamic_icon:      | Optional    | `true`            | The essential icon will change when there is 100% contribution from a single power source (battery, grid, solar). Set to `false`  to disable.               |
 | invert_load:          | Optional    | `false`         | Set to `true` if your sensor provides a negative number when the load is drawing power.                          |

@@ -189,6 +189,8 @@
       "invert_flow": "Invert Flow",
       "label_daily_load": "Daily Load Label",
       "wide": "Wide Screen Layout",
+      "remaining_energy_to_shutdown": "Remaining Energy to Shutdown",
+      "off_colour": "Off Colour",
       "cat_title": {
         "title": "Параметры Заголовка",
         "general": "Общие Настройки",

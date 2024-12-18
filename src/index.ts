@@ -781,29 +781,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         }
 
         const batteryTotalEnergy = batteryEnergy + battery2Energy;
-
-        // console.log(`batteryPower ${batteryPower}`);
-        // console.log(`battery2Power ${battery2Power}`);
-        // console.log(`batteryPowerTotal ${batteryPowerTotal}`);
-
-        // console.log(`shutdownOffGrid ${shutdownOffGrid}`);
-        // console.log(`shutdownOffGrid2 ${shutdownOffGrid2}`);
-        
-        
-        // console.log(`batteryShutdown ${batteryShutdown}`);
-        // console.log(`batteryShutdown2 ${batteryShutdown2}`);
-    
-        // console.log(`batterySOC ${stateBatterySoc.toNum(0)}`);
-        // console.log(`battery2SOC ${stateBattery2Soc.toNum(0)}`);
-        
-        // console.log(`batteryCapacity ${batteryCapacity}`);
-        // console.log(`battery2Capacity ${battery2Capacity}`);
-
-        // console.log(`batteryEnergy ${batteryEnergy}`);
-        // console.log(`battery2Energy ${battery2Energy}`);
-        // console.log(`batteryTotalEnergy ${batteryTotalEnergy}`);
-
-    
+   
         if (config.show_battery || batteryEnergy !== 0 || battery2Energy !== 0) {
             const calculateTotalSeconds = (soc, shutdown, capacity, energy, power, invertFlow) => {
                 if (power === 0) {
@@ -1372,6 +1350,80 @@ export class SunsynkPowerFlowCard extends LitElement {
                 viewBoxHeightLite = '408';
         }
 
+        const offThreshold = Utils.toNum(config.load?.off_threshold, 0);
+        const offColourTransparent = config.load?.off_colour === 'transparent';
+        
+        // Helper function to check if all given loads are <= offThreshold
+        const areLoadsBelowThreshold = (...loads) => 
+          loads.every(load => load.toPower(false) <= offThreshold);
+        
+        // Initialize colours
+        let load1Colour = loadColour;
+        let load2Colour = loadColour;
+        
+        // Mapping for Lite and Compact cards
+        const liteCompactLoads = {
+          1: [stateEssentialLoad1],
+          2: [stateEssentialLoad1],
+          3: [stateEssentialLoad1],
+          4: [stateEssentialLoad1, stateEssentialLoad2],
+          5: [stateEssentialLoad1, stateEssentialLoad2, stateEssentialLoad5],
+          6: [stateEssentialLoad1, stateEssentialLoad2, stateEssentialLoad5],
+        };
+        const liteCompactLoads2 = {
+          2: [stateEssentialLoad2],
+          3: [stateEssentialLoad2, stateEssentialLoad3],
+          4: [stateEssentialLoad3, stateEssentialLoad4],
+          5: [stateEssentialLoad3, stateEssentialLoad4],
+          6: [stateEssentialLoad3, stateEssentialLoad4, stateEssentialLoad6],
+        };
+        
+        // Mapping for Full cards
+        const fullCardLoads = {
+          1: [stateEssentialLoad1],
+          2: [stateEssentialLoad1, stateEssentialLoad2],
+          4: [stateEssentialLoad1, stateEssentialLoad2],
+          5: [stateEssentialLoad1, stateEssentialLoad2, stateEssentialLoad5],
+          6: [stateEssentialLoad1, stateEssentialLoad2, stateEssentialLoad5],
+        };
+        const fullCardLoads2 = {
+          4: [stateEssentialLoad3, stateEssentialLoad4],
+          5: [stateEssentialLoad3, stateEssentialLoad4],
+          6: [stateEssentialLoad3, stateEssentialLoad4, stateEssentialLoad6],
+        };
+        
+        // Function to determine load color
+        const getLoadColour = (essentialLoads, defaultColour) =>
+          areLoadsBelowThreshold(...essentialLoads) ? 'transparent' : defaultColour;
+        
+        // Logic for Lite and Compact cards
+        if (offColourTransparent && (this.isLiteCard || this.isCompactCard)) {
+          load1Colour = getLoadColour(liteCompactLoads[additionalLoad] || [], load1Colour);
+          load2Colour = getLoadColour(liteCompactLoads2[additionalLoad] || [], load2Colour);
+        }
+        
+        // Logic for Full cards
+        if (offColourTransparent && this.isFullCard) {
+          load1Colour = getLoadColour(fullCardLoads[additionalLoad] || [], load1Colour);
+          load2Colour = getLoadColour(fullCardLoads2[additionalLoad] || [], load2Colour);
+        }
+              
+        const gridStatusLower = gridStatus.toLowerCase();
+        let batteryOneShutdown = batteryShutdown;
+        let batteryTwoShutdown = batteryShutdown2;
+        switch (true) {
+            case ['on', '1', 'on-grid'].includes(gridStatusLower):
+                batteryOneShutdown = batteryShutdown;
+                batteryTwoShutdown = batteryShutdown2;
+                break;
+        
+            case ['off', '0', 'off-grid'].includes(gridStatusLower):
+                batteryOneShutdown = stateShutdownSOCOffGrid.notEmpty() ? shutdownOffGrid : batteryShutdown;
+                batteryTwoShutdown = stateShutdownSOCOffGrid2.notEmpty() ? shutdownOffGrid2 : batteryShutdown2;
+                break;
+        }
+        
+
         /**
          * The current structure of this data object is intentional, but it is considered temporary.
          * There is a need to evaluate the data being passed, as there might be duplication.
@@ -1385,6 +1437,8 @@ export class SunsynkPowerFlowCard extends LitElement {
             cardHeight,
             cardWidth,
             loadColour,
+            load1Colour,
+            load2Colour,
             batteryColour,
             battery2Colour,
             gridColour,
@@ -1459,6 +1513,8 @@ export class SunsynkPowerFlowCard extends LitElement {
             autarkyEnergy,
             shutdownOffGrid2,
             shutdownOffGrid,
+            batteryOneShutdown,
+            batteryTwoShutdown,
             statePV1Current,
             statePV2Current,
             statePV3Current,
@@ -1688,7 +1744,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             ? this.colourConvert(this._config.load?.colour)
             : Math.abs(state) > threshold
                 ? this.colourConvert(this._config.load?.colour)
-                : 'grey';
+                : this.colourConvert(this._config.load?.off_colour) || 'grey';
     }
 
     setConfig(config) {

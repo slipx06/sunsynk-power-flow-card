@@ -85,6 +85,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 		show_absolute: boolean;
 		auto_scale: boolean;
 		show_remaining_energy: boolean;
+		remaining_energy_to_shutdown: boolean;
 		dynamic_colour: boolean;
 		linear_gradient: boolean;
 		animate: boolean;
@@ -106,6 +107,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 		show_absolute: boolean;
 		auto_scale: boolean;
 		show_remaining_energy: boolean;
+		remaining_energy_to_shutdown: boolean;
 		dynamic_colour: boolean;
 		linear_gradient: boolean;
 		animate: boolean;
@@ -137,6 +139,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 	};
 	load: {
 		colour: string;
+		off_colour: string;
 		dynamic_colour: boolean;
 		aux_dynamic_colour: boolean;
 		dynamic_icon: boolean;
@@ -345,8 +348,10 @@ export interface DataDto {
 	cardHeight;
 	cardWidth;
 	loadColour;
+	load1Colour;
+	load2Colour;
 	batteryColour;
-	battery2Colour,
+	battery2Colour;
 	gridColour;
 	isFloating;
 	isFloating2,
@@ -397,6 +402,8 @@ export interface DataDto {
 	autarkyEnergy;
 	shutdownOffGrid;
 	shutdownOffGrid2;
+	batteryOneShutdown;
+	batteryTwoShutdown;
 	energyCost;
 	inverterCurrent;
 	inverterCurrentL2;

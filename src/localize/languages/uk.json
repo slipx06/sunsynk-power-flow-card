@@ -189,6 +189,8 @@
         "invert_flow": "Інвертувати Потік",
         "label_daily_load": "Етикетка Добового Навантаження",
         "wide": "Wide Screen Layout",
+        "remaining_energy_to_shutdown": "Remaining Energy to Shutdown",
+        "off_colour": "Off Colour",
         "cat_title": {
             "title": "Параметри Заголовка",
             "general": "Загальні Параметри",

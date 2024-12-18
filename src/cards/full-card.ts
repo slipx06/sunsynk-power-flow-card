@@ -658,8 +658,10 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             <text x="101" y="378" class="st3"
                                 display="${!config.battery.show_remaining_energy ? 'none' : ''}"
                                 fill="${data.batteryColour}">
-                                ${Utils.toNum((data.batteryEnergy * (data.stateBatterySoc?.toNum() / 100) / 1000), 2)}
-                                ${UnitOfEnergy.KILO_WATT_HOUR}
+                                ${!config.battery.remaining_energy_to_shutdown
+                                    ? `${Utils.toNum((data.batteryEnergy * (data.stateBatterySoc.toNum() / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`
+                                    : `${Utils.toNum((data.batteryEnergy * ((data.stateBatterySoc?.toNum() - data.batteryOneShutdown) / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`
+                                }
                             </text>
                         </svg>
                         <svg id="battery2_icon" 
@@ -768,8 +770,10 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             <text x="101" y="378" class="st3"
                                 display="${!config.battery2.show_remaining_energy ? 'none' : ''}"
                                 fill="${data.battery2Colour}">
-                                ${Utils.toNum((data.battery2Energy * (data.stateBattery2Soc?.toNum() / 100) / 1000), 2)}
-                                ${UnitOfEnergy.KILO_WATT_HOUR}
+                                ${!config.battery2.remaining_energy_to_shutdown
+                                    ? `${Utils.toNum((data.battery2Energy * (data.stateBattery2Soc.toNum() / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`
+                                    : `${Utils.toNum((data.battery2Energy * ((data.stateBattery2Soc?.toNum() - data.batteryTwoShutdown) / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`
+                                }
                             </text>
                         </svg>
                         <svg id="battery1_remaining" 
@@ -1952,17 +1956,17 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </text>
                         <path id="es-load1" d="M 409 143 L 409 135" display="${data.showAux ? '' : 'none'}"
                             class="${[1, 2].includes(data.additionalLoad) ? '' : 'st12'}" fill="none"
-                            stroke="${data.loadColour}" stroke-width="1" stroke-miterlimit="10"
+                            stroke="${data.load1Colour}" stroke-width="1" stroke-miterlimit="10"
                             pointer-events="stroke"/>
                         <path id="es-load1" d="M 412 143 L 412 135" display="${!data.showAux ? '' : 'none'}"
                             class="${[4, 5, 6].includes(data.additionalLoad) ? '' : 'st12'}" fill="none"
-                            stroke="${data.loadColour}" stroke-width="1" stroke-miterlimit="10"
+                            stroke="${data.load2Colour}" stroke-width="1" stroke-miterlimit="10"
                             pointer-events="stroke"/>
                         <path id="es-load1" d="M 412 80 L 412 60" display="${!data.showAux ? '' : 'none'}"
-                            class="${data.additionalLoad === 1 ? '' : 'st12'}" fill="none" stroke="${data.loadColour}"
+                            class="${data.additionalLoad === 1 ? '' : 'st12'}" fill="none" stroke="${data.load1Colour}"
                             stroke-width="1" stroke-miterlimit="10" pointer-events="stroke"/>
                         <path id="es-load2" d="M 412 80 L 412 53" display="${!data.showAux ? '' : 'none'}"
-                            class="${[2, 4, 5, 6].includes(data.additionalLoad) ? '' : 'st12'}" fill="none" stroke="${data.loadColour}"
+                            class="${[2, 4, 5, 6].includes(data.additionalLoad) ? '' : 'st12'}" fill="none" stroke="${data.load1Colour}"
                             stroke-width="1" stroke-miterlimit="10" pointer-events="stroke"/>
                         <svg id="load-flow">
                             <circle id="es-dot" cx="0" cy="0"

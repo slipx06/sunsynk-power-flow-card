@@ -560,8 +560,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 class="${!config.entities?.battery_status && !data.compactMode ? 'st3' : 'st3 left-align'}"
                                 display="${!config.battery.show_remaining_energy || (data.compactMode && data.batteryCount === 2) ? 'none' : ''}"
                                 fill="${data.batteryColour}">
-                                ${Utils.toNum((data.batteryEnergy * (data.stateBatterySoc.toNum(2) / 100) / 1000), 2)}
-                                ${UnitOfEnergy.KILO_WATT_HOUR}
+                                ${!config.battery.remaining_energy_to_shutdown
+                                    ? `${Utils.toNum((data.batteryEnergy * (data.stateBatterySoc.toNum() / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`
+                                    : `${Utils.toNum((data.batteryEnergy * ((data.stateBatterySoc?.toNum() - data.batteryOneShutdown) / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`
+                                }
                             </text>
                             <text x="169" y="${!config.battery.show_remaining_energy ? '320' : '311'}" class="st3 left-align"
                                 display="${data.compactMode  ? 'none' : ''}"
@@ -610,8 +612,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 class="st3 left-align"
                                 display="${!config.battery.show_remaining_energy ? 'none' : ''}"
                                 fill="${data.batteryColour}">
-                                ${Utils.toNum((data.batteryEnergy * (data.stateBatterySoc.toNum(2) / 100) / 1000), 2)}
-                                ${UnitOfEnergy.KILO_WATT_HOUR}
+                                ${!config.battery.remaining_energy_to_shutdown
+                                    ? `${Utils.toNum((data.batteryEnergy * (data.stateBatterySoc.toNum() / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`
+                                    : `${Utils.toNum((data.batteryEnergy * ((data.stateBatterySoc?.toNum() - data.batteryOneShutdown) / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`
+                                }
                             </text>
                         </svg>
                         <svg id="two_batteries_data_compact_bat2" 
@@ -655,8 +659,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 class="st3 left-align"
                                 display="${!config.battery2.show_remaining_energy ? 'none' : ''}"
                                 fill="${data.battery2Colour}">
-                                ${Utils.toNum((data.battery2Energy * (data.stateBattery2Soc.toNum(2) / 100) / 1000), 2)}
-                                ${UnitOfEnergy.KILO_WATT_HOUR}
+                                ${!config.battery2.remaining_energy_to_shutdown
+                                    ? `${Utils.toNum((data.battery2Energy * (data.stateBattery2Soc.toNum() / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`
+                                    : `${Utils.toNum((data.battery2Energy * ((data.stateBattery2Soc?.toNum() - data.batteryTwoShutdown) / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`
+                                }
                             </text>
                         </svg>
                         <svg id="battery2_data_lite" 
@@ -705,8 +711,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 class="${!config.entities?.battery2_status ? 'st3' : 'st3 left-align'}"
                                 display="${!config.show_battery || !config.battery2.show_remaining_energy ? 'none' : ''}"
                                 fill="${data.battery2Colour}">
-                                ${Utils.toNum((data.battery2Energy * (data.stateBattery2Soc.toNum(2) / 100) / 1000), 2)}
-                                ${UnitOfEnergy.KILO_WATT_HOUR}
+                                ${!config.battery2.remaining_energy_to_shutdown
+                                    ? `${Utils.toNum((data.battery2Energy * (data.stateBattery2Soc.toNum() / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`
+                                    : `${Utils.toNum((data.battery2Energy * ((data.stateBattery2Soc?.toNum() - data.batteryTwoShutdown) / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`
+                                }
                             </text>
                             <text x="169" y="${!config.battery2.show_remaining_energy ? '320' : '311'}" class="st3 left-align"
                                 display="${!config.show_battery ? 'none' : ''}"
@@ -1973,15 +1981,15 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             </circle>
                         </svg>
                         <path id="es-load1" d="M 441 180 L 441 147" class="${data.additionalLoad === 1 ? '' : 'st12'}"
-                            fill="none" stroke="${data.loadColour}" stroke-width="1" stroke-miterlimit="10"
+                            fill="none" stroke="${data.load1Colour}" stroke-width="1" stroke-miterlimit="10"
                             pointer-events="stroke"/>
                         <path id="es-load1" d="M 441 180 L 441 147"
                             class="${[2, 3, 4, 5, 6].includes(data.additionalLoad) ? '' : 'st12'}" fill="none"
-                            stroke="${data.loadColour}" stroke-width="1" stroke-miterlimit="10"
+                            stroke="${data.load1Colour}" stroke-width="1" stroke-miterlimit="10"
                             pointer-events="stroke"/>
                         <path id="es-load2" d="M 441 290 L 441 257"
                             class="${[2, 3, 4, 5, 6].includes(data.additionalLoad) ? '' : 'st12'}" fill="none"
-                            stroke="${data.loadColour}" stroke-width="1" stroke-miterlimit="10"
+                            stroke="${data.load2Colour}" stroke-width="1" stroke-miterlimit="10"
                             pointer-events="stroke"/>
                         ${config.load?.navigate
                             ? svg`

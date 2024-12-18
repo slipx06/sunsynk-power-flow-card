@@ -188,6 +188,8 @@
       "label_daily_grid_buy": "Etiqueta Compra Diària Xarxa",
       "label_daily_grid_sell": "Etiqueta Venta Diària Xarxa",
       "invert_flow": "Invert Flow",
+      "remaining_energy_to_shutdown": "Remaining Energy to Shutdown",
+      "off_colour": "Off Colour",
       "cat_title": {
         "title": "Opcions Títol",
         "general": "Opcions Generals",

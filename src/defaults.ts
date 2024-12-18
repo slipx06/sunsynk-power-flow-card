@@ -34,6 +34,7 @@ export default {
 		colour: 'pink',
 		show_daily: false,
 		show_remaining_energy: true,
+		remaining_energy_to_shutdown: false,
 		animation_speed: 6,
 		max_power: 4500,
 		show_absolute: false,
@@ -53,6 +54,7 @@ export default {
 		hide_soc: false,
 		colour: 'pink',
 		show_remaining_energy: true,
+		remaining_energy_to_shutdown: false,
 		show_absolute: false,
 		auto_scale: true,
 		dynamic_colour: true,
@@ -82,6 +84,7 @@ export default {
 	},
 	load: {
 		colour: '#5fb6ad',
+		off_colour: 'grey',
 		dynamic_colour: true,
 		dynamic_icon: true,
 		aux_dynamic_colour: true,

@@ -189,6 +189,8 @@
       "label_daily_grid_sell": "Daily Grid Sell Label",
       "invert_flow": "Invert Flow",
       "label_daily_load": "Daily Load Label",
+      "remaining_energy_to_shutdown": "Remaining Energy to Shutdown",
+      "off_colour": "Off Colour",
       "cat_title": {
         "title": "Title Options",
         "general": "General Options",
