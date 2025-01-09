@@ -1704,8 +1704,8 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                                 ? `${Math.abs(parseFloat(Utils.convertValue(data.autoScaledGridPower, data.decimalPlaces)))} ${Utils.convertValue(data.autoScaledGridPower, data.decimalPlaces).split(' ')[1]}`
                                                 : Utils.convertValue(data.autoScaledGridPower, data.decimalPlaces) || 0}`
                                         : `${config.grid.show_absolute
-                                                ? `${Math.abs(data.autoScaledGridPower)} ${UnitOfPower.WATT}`
-                                                : `${data.autoScaledGridPower || 0} ${UnitOfPower.WATT}`
+                                                ? `${Math.abs(data.autoScaledGridPower)} ${UnitOfElectricalCurrent.AMPERE}`
+                                                : `${data.autoScaledGridPower || 0} ${UnitOfElectricalCurrent.AMPERE}`
                                         }`
                                 }
                             </text>
