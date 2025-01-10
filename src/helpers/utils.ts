@@ -125,7 +125,7 @@ export class Utils {
             if (Utils.isPopupOpen) {
                 Utils.isPopupOpen = false;
                 window.removeEventListener('popstate', closePopup);
-                history.back(); // Optionally close the popup with history.back() if needed
+                //history.back(); // Optionally close the popup with history.back() if needed
                 }
         };
 
