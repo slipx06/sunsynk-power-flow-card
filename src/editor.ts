@@ -134,12 +134,14 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 								name: 'solar',
 								type: 'grid',
 								schema: [
-									{name: 'mppts', selector: {number: {min: 1, max: 4}}},
+									{name: 'mppts', selector: {number: {min: 1, max: 6}}},
 									{name: 'show_daily', selector: {boolean: {}}},
 									{name: 'pv1_name', selector: {text: {}}},
 									{name: 'pv2_name', selector: {text: {}}},
 									{name: 'pv3_name', selector: {text: {}}},
 									{name: 'pv4_name', selector: {text: {}}},
+									{name: 'pv5_name', selector: {text: {}}},
+									{name: 'pv6_name', selector: {text: {}}},
 									{name: 'auto_scale', selector: {boolean: {}}},
 									{name: 'display_mode', selector: {number: {mode: 'box', min: 1, max: 3}}},
 									{name: 'colour', selector: {color_rgb: {}}},
@@ -150,6 +152,8 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 									{name: 'pv2_max_power', selector: {number: {}}},
 									{name: 'pv3_max_power', selector: {number: {}}},
 									{name: 'pv4_max_power', selector: {number: {}}},
+									{name: 'pv5_max_power', selector: {number: {}}},
+									{name: 'pv6_max_power', selector: {number: {}}},
 									{name: 'efficiency', selector: {number: {mode: 'box', min: 0, max: 3}}},
 									{name: 'off_threshold', selector: {number: {}}},
 									{name: 'navigate', selector: {text: {}}},
@@ -169,6 +173,8 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 											{name: 'pv2_max_power', selector: {entity: {}}},
 											{name: 'pv3_max_power', selector: {entity: {}}},
 											{name: 'pv4_max_power', selector: {entity: {}}},
+											{name: 'pv5_max_power', selector: {entity: {}}},
+											{name: 'pv6_max_power', selector: {entity: {}}},
 										],
 									},
 								],
@@ -470,6 +476,14 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 												selector: {entity: {device_class: SensorDeviceClass.POWER}},
 											},
 											{
+												name: 'pv5_power',
+												selector: {entity: {device_class: SensorDeviceClass.POWER}},
+											},
+											{
+												name: 'pv6_power',
+												selector: {entity: {device_class: SensorDeviceClass.POWER}},
+											},
+											{
 												name: 'pv1_voltage_109',
 												selector: {entity: {device_class: SensorDeviceClass.VOLTAGE}},
 											},
@@ -499,6 +513,22 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 											},
 											{
 												name: 'pv4_current_116',
+												selector: {entity: {device_class: SensorDeviceClass.CURRENT}},
+											},
+											{
+												name: 'pv5_voltage',
+												selector: {entity: {device_class: SensorDeviceClass.VOLTAGE}},
+											},
+											{
+												name: 'pv5_current',
+												selector: {entity: {device_class: SensorDeviceClass.CURRENT}},
+											},
+											{
+												name: 'pv6_voltage',
+												selector: {entity: {device_class: SensorDeviceClass.VOLTAGE}},
+											},
+											{
+												name: 'pv6_current',
 												selector: {entity: {device_class: SensorDeviceClass.CURRENT}},
 											},
 											{

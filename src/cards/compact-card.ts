@@ -160,6 +160,146 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 </linearGradient>
                             </defs>
                         </svg>
+                        <svg id="PV5" 
+                            style="overflow: visible; display: ${config.show_solar && config.wide && [5, 6].includes(config.solar.mppts)  ? 'inline' : 'none'};" x="-10.5%">
+                            <svg id="pv5" x="78" y="54.5" width="70" height="30"
+                                viewBox="0 0 70 30" overflow="visible">
+                                <rect id="pv5" width="70" height="30" rx="4.5" ry="4.5" fill="none"
+                                stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#PV5LG)' : data.solarColour}" pointer-events="all"
+                                class="${!config.show_solar || [1, 2, 3, 4].includes(config.solar.mppts) ? 'st12' : ''}"/>
+                                <defs>
+                                    <linearGradient id="PV5LG" x1="0%" x2="0%" y1="100%" y2="0%">
+                                        <stop offset="0%"
+                                            stop-color="${data.PV5Efficiency === 0 ? 'grey' : data.solarColour}"/>
+                                        <stop offset="${data.PV5Efficiency}%"
+                                            stop-color="${data.PV5Efficiency === 0 ? 'grey' : data.solarColour}"/>
+                                        <stop offset="${data.PV5Efficiency}%"
+                                            stop-color="${data.PV5Efficiency < 100 ? 'grey' : data.solarColour}"/>
+                                        <stop offset="100%"
+                                            stop-color="${data.PV5Efficiency < 100 ? 'grey' : data.solarColour}"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <text x="105" y="94" class="st3 st8 right-align"
+                                display="${!config.show_solar ? 'none' : ''}"
+                                fill="${data.solarColour}">
+                                ${config.solar.pv5_name || localize('common.pv5_name')}
+                            </text>
+                            <text x="105" y="106" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 right-align' : 'st12'}"
+                                display="${!config.show_solar || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
+                                fill="${data.solarColour}">${data.PV5Efficiency}%
+                            </text>
+                            <svg id="pv5-flow">
+                                <path id="pv5-line" d="M 113 84 L 113 125 Q 113 132 120 132 L 280 132"
+                                    class="${!config.show_solar ? 'st12' : ''}"
+                                    fill="none" stroke="${data.solarColour}" stroke-width="${data.pv5LineWidth}"
+                                    stroke-miterlimit="10"
+                                    pointer-events="stroke"/>
+                                <circle id="pv5-dot" cx="0" cy="0"
+                                        r="${Math.min(2 + data.pv5LineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
+                                        class="${!config.show_solar ? 'st12' : ''}"
+                                        fill="${Math.round(data.pv5PowerWatts) <= 0 ? 'transparent' : `${data.solarColour}`}">
+                                    <animateMotion dur="${data.durationCur['pv5']}s" repeatCount="indefinite"
+                                                keyPoints=${config.solar.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
+                                                keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#pv5-line"/>
+                                    </animateMotion>
+                                </circle>
+                            </svg>
+                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv5_voltage)}>
+                                <text id="pv5_voltage" x="120" y="106" class="st3 left-align"
+                                    display="${!config.show_solar || !config.entities.pv5_voltage || config.entities.pv5_voltage === 'none' || !data.statePV5Voltage.isValid() ? 'none' : ''}"
+                                    fill="${data.solarColour}">${data.statePV5Voltage.toNum(1)}
+                                    ${UnitOfElectricPotential.VOLT}
+                                </text>
+                            </a>
+                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv5_current)}>
+                                <text id="pv5_current" x="120" y="94" class="st3 left-align"
+                                    display="${!config.show_solar || !config.entities.pv5_current || config.entities.pv5_current === 'none' || !data.statePV5Current.isValid() ? 'none' : ''}"
+                                    fill="${data.solarColour}">${data.statePV5Current.toNum(1)}
+                                    ${UnitOfElectricalCurrent.AMPERE}
+                                </text>
+                            </a>
+                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv5_power)}>
+                                <text id="pv5_power" x="113" y="71" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
+                                    display="${!config.show_solar || !data.statePV5Power.isValid() ? 'none' : ''}" 
+                                    fill="${data.solarColour}">
+                                    ${config.solar.auto_scale 
+                                        ? Utils.convertValue(data.pv5PowerWatts, data.decimalPlaces) || 0 
+                                        : `${Utils.toNum(data.pv5PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
+                                </text>
+                            </a>
+                        </svg>
+                        <svg id="PV6" 
+                            style="overflow: visible; display: ${config.show_solar && config.wide && config.solar.mppts === 6  ? 'inline' : 'none'};" x="10.5%">
+                            <svg id="pv6" x="330" y="54.5" width="70" height="30"
+                                viewBox="0 0 70 30" overflow="visible">
+                                <rect id="pv6" width="70" height="30" rx="4.5" ry="4.5" fill="none"
+                                stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#PV6LG)' : data.solarColour}" pointer-events="all"
+                                class="${!config.show_solar || [1, 2, 3, 4, 5].includes(config.solar.mppts) ? 'st12' : ''}"/>
+                                <defs>
+                                    <linearGradient id="PV6LG" x1="0%" x2="0%" y1="100%" y2="0%">
+                                        <stop offset="0%"
+                                            stop-color="${data.PV6Efficiency === 0 ? 'grey' : data.solarColour}"/>
+                                        <stop offset="${data.PV6Efficiency}%"
+                                            stop-color="${data.PV6Efficiency === 0 ? 'grey' : data.solarColour}"/>
+                                        <stop offset="${data.PV6Efficiency}%"
+                                            stop-color="${data.PV6Efficiency < 100 ? 'grey' : data.solarColour}"/>
+                                        <stop offset="100%"
+                                            stop-color="${data.PV6Efficiency < 100 ? 'grey' : data.solarColour}"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <text x="357" y="94" class="st3 st8 right-align"
+                                display="${!config.show_solar ? 'none' : ''}"
+                                fill="${data.solarColour}">
+                                ${config.solar.pv6_name || localize('common.pv6_name')}
+                            </text>
+                            <text x="357" y="106" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 right-align' : 'st12'}"
+                                display="${!config.show_solar || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
+                                fill="${data.solarColour}">${data.PV6Efficiency}%
+                            </text>
+                            <svg id="pv6-flow">
+                                <path id="pv6-line" d="M 365 85 L 365 125 Q 365 132 358 132 L 200 132"
+                                    class="${!config.show_solar ? 'st12' : ''}"
+                                    fill="none" stroke="${data.solarColour}" stroke-width="${data.pv6LineWidth}"
+                                    stroke-miterlimit="10"
+                                    pointer-events="stroke"/>
+                                <circle id="pv6-dot" cx="0" cy="0"
+                                        r="${Math.min(2 + data.pv6LineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
+                                        class="${!config.show_solar ? 'st12' : ''}"
+                                        fill="${Math.round(data.pv6PowerWatts) <= 0 ? 'transparent' : `${data.solarColour}`}">
+                                    <animateMotion dur="${data.durationCur['pv6']}s" repeatCount="indefinite"
+                                                keyPoints=${config.solar.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
+                                                keyTimes="0;1" calcMode="linear">
+                                        <mpath xlink:href="#pv6-line"/>
+                                    </animateMotion>
+                                </circle>
+                            </svg>
+                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv6_voltage)}>
+                                <text id="pv6_voltage" x="372" y="106" class="st3 left-align"
+                                    display="${!config.show_solar || !config.entities.pv6_voltage || config.entities.pv6_voltage === 'none' || !data.statePV6Voltage.isValid() ? 'none' : ''}"
+                                    fill="${data.solarColour}">${data.statePV6Voltage.toNum(1)}
+                                    ${UnitOfElectricPotential.VOLT}
+                                </text>
+                            </a>
+                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv6_current)}>
+                                <text id="pv6_current" x="372" y="94" class="st3 left-align"
+                                    display="${!config.show_solar || !config.entities.pv6_current || config.entities.pv6_current === 'none' || !data.statePV6Current.isValid() ? 'none' : ''}"
+                                    fill="${data.solarColour}">${data.statePV6Current.toNum(1)}
+                                    ${UnitOfElectricalCurrent.AMPERE}
+                                </text>
+                            </a>
+                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv6_power)}>
+                                <text id="pv6_power" x="366" y="71" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
+                                    display="${!config.show_solar || !data.statePV6Power.isValid() ? 'none' : ''}" 
+                                    fill="${data.solarColour}">
+                                    ${config.solar.auto_scale 
+                                        ? Utils.convertValue(data.pv6PowerWatts, data.decimalPlaces) || 0 
+                                        : `${Utils.toNum(data.pv6PowerWatts || 0, 0)} ${UnitOfPower.WATT}`}
+                                </text>
+                            </a>
+                        </svg>
                         <text id="daily_solar" x="200" y="40" class="st3 left-align"
                             display="${config.solar.display_mode === 1 ? '' : 'none'}"
                             fill="${!data.solarShowDaily || !config.show_solar ? 'transparent' : `${data.solarColour}`}">

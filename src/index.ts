@@ -46,6 +46,8 @@ export class SunsynkPowerFlowCard extends LitElement {
     @query('#pv2-flow') pv2Flow?: SVGSVGElement;
     @query('#pv3-flow') pv3Flow?: SVGSVGElement;
     @query('#pv4-flow') pv4Flow?: SVGSVGElement;
+    @query('#pv5-flow') pv5Flow?: SVGSVGElement;
+    @query('#pv6-flow') pv6Flow?: SVGSVGElement;
     @query('#battery-flow') batteryFlow?: SVGSVGElement;
     @query('#load-flow') loadFlow?: SVGSVGElement;
     @query('#aux-flow') auxFlow?: SVGSVGElement;
@@ -236,10 +238,16 @@ export class SunsynkPowerFlowCard extends LitElement {
         const statePV3Current = this.getEntity('entities.pv3_current_114');
         const statePV4Voltage = this.getEntity('entities.pv4_voltage_115');
         const statePV4Current = this.getEntity('entities.pv4_current_116');
+        const statePV5Voltage = this.getEntity('entities.pv5_voltage');
+        const statePV5Current = this.getEntity('entities.pv5_current');
+        const statePV6Voltage = this.getEntity('entities.pv6_voltage');
+        const statePV6Current = this.getEntity('entities.pv6_current');
         const statePV1Power = this.getEntity('entities.pv1_power_186');
         const statePV2Power = this.getEntity('entities.pv2_power_187');
         const statePV3Power = this.getEntity('entities.pv3_power_188');
         const statePV4Power = this.getEntity('entities.pv4_power_189');
+        const statePV5Power = this.getEntity('entities.pv5_power');
+        const statePV6Power = this.getEntity('entities.pv6_power');
         const stateRemainingSolar = this.getEntity('entities.remaining_solar');
         const stateSolarSell = this.getEntity('entities.solar_sell_247', {state: 'undefined'});
         const statePVTotal = this.getEntity('entities.pv_total');
@@ -469,8 +477,10 @@ export class SunsynkPowerFlowCard extends LitElement {
         const pv2PowerWatts = statePV2Power.toPower();
         const pv3PowerWatts = statePV3Power.toPower();
         const pv4PowerWatts = statePV4Power.toPower();
+        const pv5PowerWatts = statePV5Power.toPower();
+        const pv6PowerWatts = statePV6Power.toPower();
 
-        const totalsolar = pv1PowerWatts + pv2PowerWatts + pv3PowerWatts + pv4PowerWatts;
+        const totalsolar = pv1PowerWatts + pv2PowerWatts + pv3PowerWatts + pv4PowerWatts + pv5PowerWatts + pv6PowerWatts;
         const totalPV = config.entities?.pv_total ? statePVTotal.toNum() : totalsolar;
 
         const solarColour =
@@ -1032,6 +1042,8 @@ export class SunsynkPowerFlowCard extends LitElement {
         const pv2LineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(pv2PowerWatts, (solarMaxPower.toNum() || pv2PowerWatts), maxLineWidth, minLineWidth);
         const pv3LineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(pv3PowerWatts, (solarMaxPower.toNum() || pv3PowerWatts), maxLineWidth, minLineWidth);
         const pv4LineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(pv4PowerWatts, (solarMaxPower.toNum() || pv4PowerWatts), maxLineWidth, minLineWidth);
+        const pv5LineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(pv5PowerWatts, (solarMaxPower.toNum() || pv5PowerWatts), maxLineWidth, minLineWidth);
+        const pv6LineWidth = !config.solar.max_power ? minLineWidth : this.dynamicLineWidth(pv6PowerWatts, (solarMaxPower.toNum() || pv6PowerWatts), maxLineWidth, minLineWidth);
         const batLineWidth = !config.battery.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(batteryPowerTotal), (BattMaxPower || Math.abs(batteryPowerTotal)), maxLineWidth, minLineWidth);
         const loadLineWidth = !config.load.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(essentialPower), (loadMaxPower.toNum() || Math.abs(essentialPower)), maxLineWidth, minLineWidth);
         const auxLineWidth = !config.load.max_power ? minLineWidth : this.dynamicLineWidth(Math.abs(auxPower), (loadMaxPower.toNum() || Math.abs(auxPower)), maxLineWidth, minLineWidth);
@@ -1078,6 +1090,22 @@ export class SunsynkPowerFlowCard extends LitElement {
                 (config.solar.animation_speed - 1) *
                 (pv4PowerWatts / (solarMaxPower.toNum() || pv4PowerWatts));
             this.changeAnimationSpeed(`pv4`, speed);
+        }
+
+        if (config && config.solar && config.solar.animation_speed) {
+            const speed =
+                config.solar.animation_speed -
+                (config.solar.animation_speed - 1) *
+                (pv5PowerWatts / (solarMaxPower.toNum() || pv5PowerWatts));
+            this.changeAnimationSpeed(`pv5`, speed);
+        }
+
+        if (config && config.solar && config.solar.animation_speed) {
+            const speed =
+                config.solar.animation_speed -
+                (config.solar.animation_speed - 1) *
+                (pv6PowerWatts / (solarMaxPower.toNum() || pv6PowerWatts));
+            this.changeAnimationSpeed(`pv6`, speed);
         }
 
         if (config && config.battery && config.battery.animation_speed) {
@@ -1286,12 +1314,16 @@ export class SunsynkPowerFlowCard extends LitElement {
         const pv2MaxPower = this.getEntity('solar.pv2_max_power', {state: config.solar.pv2_max_power?.toString() ?? ''});
         const pv3MaxPower = this.getEntity('solar.pv3_max_power', {state: config.solar.pv3_max_power?.toString() ?? ''});
         const pv4MaxPower = this.getEntity('solar.pv4_max_power', {state: config.solar.pv4_max_power?.toString() ?? ''});
+        const pv5MaxPower = this.getEntity('solar.pv5_max_power', {state: config.solar.pv5_max_power?.toString() ?? ''});
+        const pv6MaxPower = this.getEntity('solar.pv6_max_power', {state: config.solar.pv6_max_power?.toString() ?? ''});
 
         const totalPVEfficiency = (!config.solar.max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((totalPV / solarMaxPower.toNum()) * 100, 200), 0);
         const PV1Efficiency = (!config.solar.pv1_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv1PowerWatts / pv1MaxPower.toNum()) * 100, 200), 0);
         const PV2Efficiency = (!config.solar.pv2_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv2PowerWatts / pv2MaxPower.toNum()) * 100, 200), 0);
         const PV3Efficiency = (!config.solar.pv3_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv3PowerWatts / pv3MaxPower.toNum()) * 100, 200), 0);
         const PV4Efficiency = (!config.solar.pv4_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv4PowerWatts / pv4MaxPower.toNum()) * 100, 200), 0);
+        const PV5Efficiency = (!config.solar.pv5_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv5PowerWatts / pv5MaxPower.toNum()) * 100, 200), 0);
+        const PV6Efficiency = (!config.solar.pv6_max_power || config.solar.efficiency === 0) ? 100 : Utils.toNum(Math.min((pv6PowerWatts / pv6MaxPower.toNum()) * 100, 200), 0);
         
         let customGridIcon: string;
         let customGridIconColour: string;
@@ -1499,7 +1531,6 @@ export class SunsynkPowerFlowCard extends LitElement {
             stateNonEssentialLoad2Extra,
             stateNonEssentialLoad3Extra,
             loadFrequency,
-            statePV4Current,
             gridShowDailyBuy,
             gridShowDailySell,
             batteryShowDaily,
@@ -1518,6 +1549,9 @@ export class SunsynkPowerFlowCard extends LitElement {
             statePV1Current,
             statePV2Current,
             statePV3Current,
+            statePV4Current,
+            statePV5Current,
+            statePV6Current,
             energyCost,
             inverterCurrent,
             inverterCurrentL2,
@@ -1545,16 +1579,22 @@ export class SunsynkPowerFlowCard extends LitElement {
             pv2LineWidth,
             pv3LineWidth,
             pv4LineWidth,
+            pv5LineWidth,
+            pv6LineWidth,
             gridLineWidth,
             pv1PowerWatts,
             pv2PowerWatts,
             pv3PowerWatts,
             pv4PowerWatts,
+            pv5PowerWatts,
+            pv6PowerWatts,
             stateEnvironmentTemp,
             statePV1Voltage,
             statePV2Voltage,
             statePV3Voltage,
             statePV4Voltage,
+            statePV5Voltage,
+            statePV6Voltage,
             batteryStateColour,
             battery2StateColour,
             inverterStateColour,
@@ -1573,9 +1613,6 @@ export class SunsynkPowerFlowCard extends LitElement {
             priorityLoad,
             inverterImg,
             stateDayPVEnergy,
-            statePV2Power,
-            statePV3Power,
-            statePV4Power,
             remainingSolar,
             totalSolarGeneration,
             stateDayLoadEnergy,
@@ -1585,6 +1622,11 @@ export class SunsynkPowerFlowCard extends LitElement {
             stateDayGridExport,
             statePVTotal,
             statePV1Power,
+            statePV2Power,
+            statePV3Power,
+            statePV4Power,
+            statePV5Power,
+            statePV6Power,
             minLineWidth,
             stopColour,
             stop2Colour,
@@ -1634,6 +1676,8 @@ export class SunsynkPowerFlowCard extends LitElement {
             PV2Efficiency,
             PV3Efficiency,
             PV4Efficiency,
+            PV5Efficiency,
+            PV6Efficiency,
             gridPercentage,
             flowColour,
             flowBatColour,
