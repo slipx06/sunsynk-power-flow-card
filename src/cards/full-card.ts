@@ -1361,7 +1361,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         ${config.grid?.navigate
                             ? svg`
                                 <a href="#" @click=${(e) => Utils.handleNavigation(e, config.grid.navigate)}>
-                                    <g display="${config.show_grid || config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon ? '' : 'none'}">
+                                    <g display="${config.show_grid && (config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon) ? '' : 'none'}">
                                         <foreignObject x="${config.inverter.three_phase ? '404' : '389'}" 
                                                     y="${config.inverter.three_phase ? '339' : '308'}" 
                                                     width="${config.inverter.three_phase ? '34' : '65'}" 
@@ -1375,7 +1375,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 </a>`
                             : svg`
                                 <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_connected_status_194)}>
-                                    <g display="${config.show_grid || config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon ? '' : 'none'}">
+                                    <g display="${config.show_grid && (config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon) ? '' : 'none'}">
                                         <foreignObject x="${config.inverter.three_phase ? '404' : '389'}" 
                                                     y="${config.inverter.three_phase ? '339' : '308'}" 
                                                     width="${config.inverter.three_phase ? '34' : '65'}" 

@@ -1419,7 +1419,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         ${config.grid?.navigate
                                 ? svg`
                                     <a href="#" @click=${(e) => Utils.handleNavigation(e, config.grid.navigate)}>
-                                        <g display="${config.show_grid || config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon ? '' : 'none'}">
+                                        <g display="${config.show_grid && (config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon) ? '' : 'none'}">
                                             <foreignObject x="-0.5" y="187.5" width="70" height="70">
                                                 <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 70px; height: 70px;">
                                                     <ha-icon icon="${data.customGridIcon}" class="grid-icon"></ha-icon>
@@ -1429,7 +1429,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                     </a>`
                                 : svg`
                                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_connected_status_194)}>
-                                        <g display="${config.show_grid || config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon ? '' : 'none'}">
+                                        <g display="${config.show_grid && (config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon) ? '' : 'none'}">
                                             <foreignObject x="-0.5" y="187.5" width="70" height="70">
                                                 <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 70px; height: 70px;">
                                                     <ha-icon icon="${data.customGridIcon}" class="grid-icon"></ha-icon>
