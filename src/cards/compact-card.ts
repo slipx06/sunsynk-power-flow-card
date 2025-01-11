@@ -1751,11 +1751,22 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 </text>
                             </a>
                             <g display="${[0, 4, 5, 6].includes(data.additionalLoad) ? 'none' : ''}">
-                                <foreignObject x="371" y="114" width="36" height="36">
-                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 36px; height: 36px;">
-                                        <ha-icon icon="${data.iconEssentialLoad1}" class="essload1-icon"></ha-icon>
-                                    </div>
-                                </foreignObject>
+                                ${data.iconEssentialLoad1 && config.load.load1_switch
+                                    ? svg`
+                                        <a href="#" @click=${(e) => Utils.handlePopup(e, config.load.load1_switch)}>
+                                            <foreignObject x="371" y="114" width="36" height="36">
+                                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 36px; height: 36px;">
+                                                    <ha-icon icon="${data.iconEssentialLoad1}" class="essload1-icon"></ha-icon>
+                                                </div>
+                                            </foreignObject>
+                                        </a>`
+                                    : svg`
+                                        <foreignObject x="371" y="114" width="36" height="36">
+                                            <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 36px; height: 36px;">
+                                                <ha-icon icon="${data.iconEssentialLoad1}" class="essload1-icon"></ha-icon>
+                                            </div>
+                                        </foreignObject>`
+                                }      
                             </g>
                         </svg>
                         <svg id="Esential-Load2" style="overflow: visible">
@@ -1806,11 +1817,22 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 </text>
                             </a>
                             <g display="${data.additionalLoad === 2 ? '' : 'none'}">
-                                <foreignObject x="371" y="288" width="36" height="36">
-                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 36px; height: 36px;">
-                                        <ha-icon icon="${data.iconEssentialLoad2}" class="essload2-icon"></ha-icon>
-                                    </div>
-                                </foreignObject>
+                                ${data.iconEssentialLoad2 && config.load.load2_switch
+                                    ? svg`
+                                        <a href="#" @click=${(e) => Utils.handlePopup(e, config.load.load2_switch)}>
+                                            <foreignObject x="371" y="288" width="36" height="36">
+                                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 36px; height: 36px;">
+                                                    <ha-icon icon="${data.iconEssentialLoad2}" class="essload2-icon"></ha-icon>
+                                                </div>
+                                            </foreignObject>
+                                        </a>`
+                                    : svg`
+                                        <foreignObject x="371" y="288" width="36" height="36">
+                                            <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 36px; height: 36px;">
+                                                <ha-icon icon="${data.iconEssentialLoad2}" class="essload2-icon"></ha-icon>
+                                            </div>
+                                        </foreignObject>`
+                                }     
                             </g>
                         </svg>
                         <svg id="Esential-Load3" style="overflow: visible">
@@ -1829,18 +1851,40 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 ${config.load.load3_name}
                             </text>
                             <g display="${data.additionalLoad === 3 ? '' : 'none'}">
-                                <foreignObject x="412" y="264" width="30" height="30">
-                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                        <ha-icon icon="${data.iconEssentialLoad2}" class="essload2_small-icon"></ha-icon>
-                                    </div>
-                                </foreignObject>
+                                ${data.iconEssentialLoad2 && config.load.load2_switch
+                                    ? svg`
+                                        <a href="#" @click=${(e) => Utils.handlePopup(e, config.load.load2_switch)}>
+                                            <foreignObject x="412" y="264" width="30" height="30">
+                                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
+                                                    <ha-icon icon="${data.iconEssentialLoad2}" class="essload2_small-icon"></ha-icon>
+                                                </div>
+                                            </foreignObject>
+                                        </a>`
+                                    : svg`
+                                        <foreignObject x="412" y="264" width="30" height="30">
+                                            <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
+                                                <ha-icon icon="${data.iconEssentialLoad2}" class="essload2_small-icon"></ha-icon>
+                                            </div>
+                                        </foreignObject>`
+                                }     
                             </g>
                             <g display="${data.additionalLoad === 3 ? '' : 'none'}">
-                                <foreignObject x="449" y="264" width="30" height="30">
-                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                        <ha-icon icon="${data.iconEssentialLoad3}" class="essload3_small-icon"></ha-icon>
-                                    </div>
-                                </foreignObject>
+                                ${data.iconEssentialLoad3 && config.load.load3_switch
+                                    ? svg`
+                                        <a href="#" @click=${(e) => Utils.handlePopup(e, config.load.load3_switch)}>
+                                            <foreignObject x="449" y="264" width="30" height="30">
+                                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
+                                                    <ha-icon icon="${data.iconEssentialLoad3}" class="essload3_small-icon"></ha-icon>
+                                                </div>
+                                            </foreignObject>
+                                        </a>`
+                                    : svg`
+                                        <foreignObject x="449" y="264" width="30" height="30">
+                                            <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
+                                                <ha-icon icon="${data.iconEssentialLoad3}" class="essload3_small-icon"></ha-icon>
+                                            </div>
+                                        </foreignObject>`
+                                }    
                             </g>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load2_extra)}>
                                 <text id="ess_load2_extra" x="435" y="332"
@@ -1903,32 +1947,76 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 ${config.load.load4_name}
                             </text>
                             <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
-                                <foreignObject x="412" y="81" width="30" height="30">
-                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                        <ha-icon icon="${data.iconEssentialLoad1}" class="essload1_small-icon"></ha-icon>
-                                    </div>
-                                </foreignObject>
+                                ${data.iconEssentialLoad1 && config.load.load1_switch
+                                    ? svg`
+                                        <a href="#" @click=${(e) => Utils.handlePopup(e, config.load.load1_switch)}>
+                                            <foreignObject x="412" y="81" width="30" height="30">
+                                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
+                                                    <ha-icon icon="${data.iconEssentialLoad1}" class="essload1_small-icon"></ha-icon>
+                                                </div>
+                                            </foreignObject>
+                                        </a>`
+                                    : svg`
+                                        <foreignObject x="412" y="81" width="30" height="30">
+                                            <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
+                                                <ha-icon icon="${data.iconEssentialLoad1}" class="essload1_small-icon"></ha-icon>
+                                            </div>
+                                        </foreignObject>`
+                                }    
                             </g>
                             <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
-                                <foreignObject x="449" y="81" width="30" height="30">
-                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                        <ha-icon icon="${data.iconEssentialLoad2}" class="essload2_small-icon"></ha-icon>
-                                    </div>
-                                </foreignObject>
+                                ${data.iconEssentialLoad2 && config.load.load2_switch
+                                    ? svg`
+                                        <a href="#" @click=${(e) => Utils.handlePopup(e, config.load.load2_switch)}>
+                                            <foreignObject x="449" y="81" width="30" height="30">
+                                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
+                                                    <ha-icon icon="${data.iconEssentialLoad2}" class="essload2_small-icon"></ha-icon>
+                                                </div>
+                                            </foreignObject>
+                                        </a>`
+                                    : svg`
+                                        <foreignObject x="449" y="81" width="30" height="30">
+                                            <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
+                                                <ha-icon icon="${data.iconEssentialLoad2}" class="essload2_small-icon"></ha-icon>
+                                            </div>
+                                        </foreignObject>`
+                                }     
                             </g>
                             <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
-                                <foreignObject x="412" y="264" width="30" height="30">
-                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                        <ha-icon icon="${data.iconEssentialLoad3}" class="essload3_small-icon"></ha-icon>
-                                    </div>
-                                </foreignObject>
+                                ${data.iconEssentialLoad3 && config.load.load3_switch
+                                    ? svg`
+                                        <a href="#" @click=${(e) => Utils.handlePopup(e, config.load.load3_switch)}>
+                                            <foreignObject x="412" y="264" width="30" height="30">
+                                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
+                                                    <ha-icon icon="${data.iconEssentialLoad3}" class="essload3_small-icon"></ha-icon>
+                                                </div>
+                                            </foreignObject>
+                                        </a>`
+                                    : svg`
+                                        <foreignObject x="412" y="264" width="30" height="30">
+                                            <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
+                                                <ha-icon icon="${data.iconEssentialLoad3}" class="essload3_small-icon"></ha-icon>
+                                            </div>
+                                        </foreignObject>`
+                                }    
                             </g>
                             <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
-                                <foreignObject x="449" y="264" width="30" height="30">
-                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                        <ha-icon icon="${data.iconEssentialLoad4}" class="essload4_small-icon"></ha-icon>
-                                    </div>
-                                </foreignObject>
+                                ${data.iconEssentialLoad4 && config.load.load4_switch
+                                    ? svg`
+                                        <a href="#" @click=${(e) => Utils.handlePopup(e, config.load.load4_switch)}>
+                                            <foreignObject x="449" y="264" width="30" height="30">
+                                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
+                                                    <ha-icon icon="${data.iconEssentialLoad4}" class="essload4_small-icon"></ha-icon>
+                                                </div>
+                                            </foreignObject>
+                                        </a>`
+                                    : svg`
+                                        <foreignObject x="449" y="264" width="30" height="30">
+                                            <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
+                                                <ha-icon icon="${data.iconEssentialLoad4}" class="essload4_small-icon"></ha-icon>
+                                            </div>
+                                        </foreignObject>`
+                                }      
                             </g>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1_extra)}>
                                 <text id="ess_load1_extra" x="435" y="147"
@@ -2002,11 +2090,22 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 ${config.load.load5_name}
                             </text>
                             <g display="${[5, 6].includes(data.additionalLoad) ? '' : 'none'}">
-                                <foreignObject x="412" y="81" width="30" height="30">
-                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                        <ha-icon icon="${data.iconEssentialLoad5}" class="essload5_small-icon"></ha-icon>
-                                    </div>
-                                </foreignObject>
+                                ${data.iconEssentialLoad5 && config.load.load5_switch
+                                    ? svg`
+                                        <a href="#" @click=${(e) => Utils.handlePopup(e, config.load.load5_switch)}>
+                                            <foreignObject x="412" y="81" width="30" height="30">
+                                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
+                                                    <ha-icon icon="${data.iconEssentialLoad5}" class="essload5_small-icon"></ha-icon>
+                                                </div>
+                                            </foreignObject>
+                                        </a>`
+                                    : svg`
+                                        <foreignObject x="412" y="81" width="30" height="30">
+                                            <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
+                                                <ha-icon icon="${data.iconEssentialLoad5}" class="essload5_small-icon"></ha-icon>
+                                            </div>
+                                        </foreignObject>`
+                                }      
                             </g>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load5_extra)}>
                                 <text id="ess_load5_extra" x="435" y="147"
@@ -2033,11 +2132,22 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 ${config.load.load6_name}
                             </text>
                             <g display="${data.additionalLoad === 6 ? '' : 'none'}">
-                                <foreignObject x="412" y="264" width="30" height="30">
-                                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                        <ha-icon icon="${data.iconEssentialLoad6}" class="essload6_small-icon"></ha-icon>
-                                    </div>
-                                </foreignObject>
+                                ${data.iconEssentialLoad6 && config.load.load6_switch
+                                    ? svg`
+                                        <a href="#" @click=${(e) => Utils.handlePopup(e, config.load.load6_switch)}>
+                                        <foreignObject x="412" y="264" width="30" height="30">
+                                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
+                                                    <ha-icon icon="${data.iconEssentialLoad6}" class="essload6_small-icon"></ha-icon>
+                                                </div>
+                                            </foreignObject>
+                                        </a>`
+                                    : svg`
+                                        <foreignObject x="412" y="264" width="30" height="30">
+                                            <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
+                                                <ha-icon icon="${data.iconEssentialLoad6}" class="essload6_small-icon"></ha-icon>
+                                            </div>
+                                        </foreignObject>`
+                                }    
                             </g>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load6_extra)}>
                                 <text id="ess_load6_extra" x="435" y="332"
