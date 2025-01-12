@@ -7,19 +7,25 @@ export class Solax extends InverterSettingsDto {
     statusGroups: InverterStatus = {
         normal: {states: ['normal mode'], color: 'green', message: localize('common.normal')},
         standby: {
-            states: ['waiting', 'checking', 'idle mode', 'standby'],
+            states: ['0', 'waiting', 'waitmode', '9', 'idle', 'idlemode', 'idle mode', '10', 'standby', 'standbymode'],
             color: 'blue',
             message: localize('common.standby')
         },
-        selftest: {states: ['self test'], color: 'yellow', message: localize('common.selftest')},
+        selftest: {
+            states: ['8', 'self testing', 'selftest', 'self test'], 
+            color: 'yellow', 
+            message: localize('common.selftest')},
         offgrid: {
-            states: ['off-grid waiting', 'off-grid', 'eps mode'],
+            states: ['6', 'off-grid waiting', 'epscheckmode', '7', 'off-grid', 'epsmode', 'eps mode'],
             color: 'green',
             message: localize('common.offgrid')
         },
-        fault: {states: ['permanent fault mode', 'fault'], color: 'red', message: localize('common.fault')},
+        fault: {
+            states: ['4', 'permanent fault', 'permanentfaultmode', 'permanent fault mode', '3', 'fault', 'faultmode'], 
+            color: 'red', 
+            message: localize('common.fault')},
         check: {
-            states: ['checking', 'update mode', 'eps check mode'],
+            states: ['1', 'checking', 'checkmode', '5', 'update', 'updatemode', 'update mode', 'eps check mode'],
             color: 'orange',
             message: localize('common.check')
         },
