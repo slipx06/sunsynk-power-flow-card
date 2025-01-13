@@ -1108,7 +1108,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                             </a>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load3_extra)}>
                                 <text id="non_ess_load2_value_extra" x="300" y="305"
-                                    display="${config.entities?.non_essential_load3_extra && data.nonessentialLoads === 3 &&  data.stateNonEssentialLoad3Extra.isValid() && config.show_grid && config.wide ? '' : 'none'}"
+                                    display="${config.entities?.non_essential_load3_extra && data.nonessentialLoads === 3 &&  data.stateNonEssentialLoad3Extra.isValid() && config.show_grid && config.wide && data.showNonessential ? '' : 'none'}"
                                     class="st3 right-align" fill="${data.dynamicColourNonEssentialLoad3}">
                                     ${data.stateNonEssentialLoad3Extra.toNum(1)}
                                     ${data.stateNonEssentialLoad3Extra?.getUOM()}
@@ -1796,7 +1796,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load1_extra)}>
                             <text id="non_ess_load1_value_extra" x="335" y="305"
-                                display="${config.entities?.non_essential_load1_extra && [1, 2, 3].includes(data.nonessentialLoads) && data.stateNonEssentialLoad1Extra.isValid() && config.show_grid ? '' : 'none'}"
+                                display="${config.entities?.non_essential_load1_extra && [1, 2, 3].includes(data.nonessentialLoads) && data.stateNonEssentialLoad1Extra.isValid() && config.show_grid && data.showNonessential ? '' : 'none'}"
                                 class="st3 right-align" fill="${data.dynamicColourNonEssentialLoad1}">
                                 ${data.stateNonEssentialLoad1Extra.toNum(1)}
                                 ${data.stateNonEssentialLoad1Extra?.getUOM()}
@@ -1804,7 +1804,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.non_essential_load2_extra)}>
                             <text id="non_ess_load2_value_extra" x="342" y="305"
-                                display="${config.entities?.non_essential_load2_extra &&  [2, 3].includes(data.nonessentialLoads) &&  data.stateNonEssentialLoad2Extra.isValid() && config.show_grid ? '' : 'none'}"
+                                display="${config.entities?.non_essential_load2_extra &&  [2, 3].includes(data.nonessentialLoads) &&  data.stateNonEssentialLoad2Extra.isValid() && config.show_grid && data.showNonessential ? '' : 'none'}"
                                 class="st3 left-align" fill="${data.dynamicColourNonEssentialLoad2}">
                                 ${data.stateNonEssentialLoad2Extra.toNum(1)}
                                 ${data.stateNonEssentialLoad2Extra?.getUOM()}
