@@ -5,7 +5,10 @@ import {localize} from '../../localize/localize';
 export class Solax extends InverterSettingsDto {
     brand = InverterModel.Solax;
     statusGroups: InverterStatus = {
-        normal: {states: ['normal mode'], color: 'green', message: localize('common.normal')},
+        normal: {
+            states: ['2', 'normal', 'normalmode', 'normal mode'], 
+            color: 'green', 
+            message: localize('common.normal')},
         standby: {
             states: ['0', 'waiting', 'waitmode', '9', 'idle', 'idlemode', 'idle mode', '10', 'standby', 'standbymode'],
             color: 'blue',
