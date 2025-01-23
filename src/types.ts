@@ -159,6 +159,13 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 		aux_colour: string;
 		aux_off_colour: string;
 		off_threshold: number;
+		load1_max_threshold: number;
+		load2_max_threshold: number;
+		load3_max_threshold: number;
+		load4_max_threshold: number;
+		load5_max_threshold: number;
+		load6_max_threshold: number;
+		max_colour: string;
 		additional_loads: number;
 		aux_loads: number;
 		aux_load1_name: string;

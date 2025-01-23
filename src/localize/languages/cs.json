@@ -197,6 +197,13 @@
       "label_daily_load": "Daily Load Label",
       "remaining_energy_to_shutdown": "Remaining Energy to Shutdown",
       "off_colour": "Off Colour",
+      "load1_max_threshold": "Load 1 Max Threshold",
+      "load2_max_threshold": "Load 2 Max Threshold",
+      "load3_max_threshold": "Load 3 Max Threshold",
+      "load4_max_threshold": "Load 4 Max Threshold",
+      "load5_max_threshold": "Load 5 Max Threshold",
+      "load6_max_threshold": "Load 6 Max Threshold",
+      "max_colour": "Max Colour",
       "cat_title": {
         "title": "Title Options",
         "general": "General Options",

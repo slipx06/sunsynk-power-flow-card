@@ -280,12 +280,19 @@ export class SunsynkPowerFlowCard extends LitElement {
         const auxOffColour = this.colourConvert(config.load?.aux_off_colour || auxDynamicColour);
         const auxDynamicColourLoad1 = this.calculateAuxLoadColour(stateAuxLoad1.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
         const auxDynamicColourLoad2 = this.calculateAuxLoadColour(stateAuxLoad2.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
-        const dynamicColourEssentialLoad1 = this.calculateEssentialLoadColour(stateEssentialLoad1.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
-        const dynamicColourEssentialLoad2 = this.calculateEssentialLoadColour(stateEssentialLoad2.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
-        const dynamicColourEssentialLoad3 = this.calculateEssentialLoadColour(stateEssentialLoad3.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
-        const dynamicColourEssentialLoad4 = this.calculateEssentialLoadColour(stateEssentialLoad4.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
-        const dynamicColourEssentialLoad5 = this.calculateEssentialLoadColour(stateEssentialLoad5.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
-        const dynamicColourEssentialLoad6 = this.calculateEssentialLoadColour(stateEssentialLoad6.toPower(false), Utils.toNum(config.load?.off_threshold, 0)) || loadColour;
+        const threshold = Utils.toNum(config.load?.off_threshold, 0);
+        const Load1MaxThreshold = Utils.toNum(config.load?.load1_max_threshold, 0) || Infinity; 
+        const Load2MaxThreshold = Utils.toNum(config.load?.load2_max_threshold, 0) || Infinity; 
+        const Load3MaxThreshold = Utils.toNum(config.load?.load3_max_threshold, 0) || Infinity; 
+        const Load4MaxThreshold = Utils.toNum(config.load?.load4_max_threshold, 0) || Infinity; 
+        const Load5MaxThreshold = Utils.toNum(config.load?.load5_max_threshold, 0) || Infinity; 
+        const Load6MaxThreshold = Utils.toNum(config.load?.load6_max_threshold, 0) || Infinity; 
+        const dynamicColourEssentialLoad1 = this.calculateEssentialLoadColour(stateEssentialLoad1.toPower(false), threshold, Load1MaxThreshold) || loadColour;
+        const dynamicColourEssentialLoad2 = this.calculateEssentialLoadColour(stateEssentialLoad2.toPower(false), threshold, Load2MaxThreshold) || loadColour;
+        const dynamicColourEssentialLoad3 = this.calculateEssentialLoadColour(stateEssentialLoad3.toPower(false), threshold, Load3MaxThreshold) || loadColour;
+        const dynamicColourEssentialLoad4 = this.calculateEssentialLoadColour(stateEssentialLoad4.toPower(false), threshold, Load4MaxThreshold) || loadColour;
+        const dynamicColourEssentialLoad5 = this.calculateEssentialLoadColour(stateEssentialLoad5.toPower(false), threshold, Load5MaxThreshold) || loadColour;
+        const dynamicColourEssentialLoad6 = this.calculateEssentialLoadColour(stateEssentialLoad6.toPower(false), threshold, Load6MaxThreshold) || loadColour;
 
         config.title_colour = this.colourConvert(config.title_colour);
 
@@ -992,10 +999,9 @@ export class SunsynkPowerFlowCard extends LitElement {
             }
         }
 
-
         const totalDayBatteryDischarge = stateDayBatteryDischarge.toNum() + stateDayBattery2Discharge.toNum();
-
         const totalDayBatteryCharge = stateDayBatteryCharge.toNum() + stateDayBattery2Charge.toNum();
+        
         //Autarky in Percent = Home Production / Home Consumption
         //Ratio in Percent = Home Consumption / Home Production
         const productionEnergy = stateDayPVEnergy.toNum() + totalDayBatteryDischarge;
@@ -1003,30 +1009,54 @@ export class SunsynkPowerFlowCard extends LitElement {
         const autarkyEnergy = consumptionEnergy != 0 ? Math.max(Math.min(Math.round((productionEnergy * 100) / consumptionEnergy), 100), 0) : 0;
         const ratioEnergy = productionEnergy != 0 ? Math.max(Math.min(Math.round((consumptionEnergy * 100) / productionEnergy), 100), 0) : 0;
 
+        //const productionPower =
+        //    totalPV +
+        //    Utils.toNum(`${(config.battery.invert_flow === true ? batteryPowerTotal < 0 : batteryPowerTotal > 0) ? Math.abs(batteryPowerTotal) : 0}`) +
+        //   Utils.toNum(`${auxPower < 0 ? auxPower * -1 : 0}`);
+        
         const productionPower =
             totalPV +
-            Utils.toNum(`${(config.battery.invert_flow === true ? batteryPowerTotal < 0 : batteryPowerTotal > 0) ? Math.abs(batteryPowerTotal) : 0}`) +
-            Utils.toNum(`${auxPower < 0 ? auxPower * -1 : 0}`);
+            (config.battery.invert_flow === true 
+                ? (batteryPowerTotal < 0 ? Math.abs(batteryPowerTotal) : 0)
+                : (batteryPowerTotal > 0 ? Math.abs(batteryPowerTotal) : 0)) +
+            (auxPower < 0 ? Math.abs(auxPower) : 0);
+           
         //console.log(`Production Data`);
         //console.log(`P_Solar Power:${totalPV}`);
-        //console.log(`P_Battery Power:${Utils.toNum(`${batteryPower > 0 ? batteryPower : 0}`)}`);
-        //console.log(`P_Aux Power:${Utils.toNum(`${auxPower < 0 ? auxPower * -1 : 0}`)}`);
+        //console.log(`P_Battery Power: ${(config.battery.invert_flow === true 
+        //        ? (batteryPowerTotal < 0 ? Math.abs(batteryPowerTotal) : 0)
+        //        : (batteryPowerTotal > 0 ? Math.abs(batteryPowerTotal) : 0))}`);
+        //console.log(`P_Aux Power:${(auxPower < 0 ? auxPower * -1 : 0)}`);
         //console.log(`Production Total:${productionPower}`);      
 
+        //const consumptionPower =
+        //    essentialPower +
+        //    Math.max(nonessentialPower, 0) +
+        //    Utils.toNum(`${auxPower > 0 ? auxPower : 0}`) +
+        //    Utils.toNum(`${(config.battery.invert_flow === true ? batteryPowerTotal > 0 : batteryPowerTotal < 0) ? Math.abs(batteryPowerTotal) : 0}`);
+        
         const consumptionPower =
             essentialPower +
             Math.max(nonessentialPower, 0) +
-            Utils.toNum(`${auxPower > 0 ? auxPower : 0}`) +
-            Utils.toNum(`${(config.battery.invert_flow === true ? batteryPowerTotal > 0 : batteryPowerTotal < 0) ? Math.abs(batteryPowerTotal) : 0}`);
+            (auxPower > 0 ? auxPower : 0) +
+            (config.battery.invert_flow === true 
+                ? (batteryPowerTotal > 0 ? Math.abs(batteryPowerTotal) : 0)
+                : (batteryPowerTotal < 0 ? Math.abs(batteryPowerTotal) : 0));
+
         //console.log(`Consumption Data`);
         //console.log(`C_Essential Power:${essentialPower}`);
         //console.log(`C_NonEssential Power:${nonessentialPower}`);
-        //console.log(`C_Battery Power:${Utils.toNum(`${batteryPower < 0 ? batteryPower * -1 : 0}`)}`);
-        //console.log(`C_Aux Power:${Utils.toNum(`${auxPower > 0 ? auxPower : 0}`)}`);
-        //console.log(`C_Consumption Total:${consumptionPower}`);
+        //console.log(`C_Battery Power:${(config.battery.invert_flow === true 
+        //    ? (batteryPowerTotal > 0 ? Math.abs(batteryPowerTotal) : 0)
+        //    : (batteryPowerTotal < 0 ? Math.abs(batteryPowerTotal) : 0))}`);
+        //console.log(`C_Aux Power:${(auxPower > 0 ? auxPower : 0)}`);
+        //console.log(`Consumption Total:${consumptionPower}`);
 
         const autarkyPower = consumptionPower != 0 ? Math.max(Math.min(Math.round((productionPower * 100) / consumptionPower), 100), 0) : 0;
         const ratioPower = productionPower != 0 ? Math.max(Math.min(Math.round((consumptionPower * 100) / productionPower), 100), 0) : 0;
+        
+        //console.log(`Autarky: ${autarkyPower}`);
+        //console.log(`Ratio: ${ratioPower}`);
 
         const maxLineWidth = (Utils.toNum(config.max_line_width) < 1 ? 1 : config.max_line_width) - 1;
         const minLineWidth = Utils.toNum(config.min_line_width) || 1;
@@ -1783,12 +1813,32 @@ export class SunsynkPowerFlowCard extends LitElement {
                 : 'grey';
     }
 
-    calculateEssentialLoadColour(state, threshold) {
-        return !this._config.load.dynamic_colour
-            ? this.colourConvert(this._config.load?.colour)
-            : Math.abs(state) > threshold
-                ? this.colourConvert(this._config.load?.colour)
-                : this.colourConvert(this._config.load?.off_colour) || 'grey';
+    //calculateEssentialLoadColour(state, threshold) {
+    //    return !this._config.load.dynamic_colour
+    //        ? this.colourConvert(this._config.load?.colour)
+    //        : Math.abs(state) > threshold
+    //            ? this.colourConvert(this._config.load?.colour)
+    //            : this.colourConvert(this._config.load?.off_colour) || 'grey';
+    //}
+
+    calculateEssentialLoadColour(state: number, threshold: number, maxThreshold: number): string {
+        if (!this._config.load.dynamic_colour) {
+            // If dynamic colour is disabled, return the default colour
+            return this.colourConvert(this._config.load?.colour);
+        }
+    
+        if (Math.abs(state) > maxThreshold) {
+            // If the state exceeds the max threshold, return the max colour
+            return this.colourConvert(this._config.load?.max_colour);
+        }
+    
+        if (Math.abs(state) > threshold) {
+            // If the state exceeds the regular threshold, return the default colour
+            return this.colourConvert(this._config.load?.colour);
+        }
+    
+        // If the state is below the threshold, return the off colour or grey
+        return this.colourConvert(this._config.load?.off_colour) || 'grey';
     }
 
     setConfig(config) {
