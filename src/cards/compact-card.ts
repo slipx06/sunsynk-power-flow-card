@@ -1154,7 +1154,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 pointer-events="stroke"/>
                             <circle id="power-dot-discharge" cx="0" cy="0"
                                     r="${Math.min(2 + data.batLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                    fill="${data.batteryPower < 0 || data.batteryPower === 0 ? 'transparent' : `${data.batteryColour}`}">
+                                    fill="${data.batteryPowerTotal < 0 || data.batteryPowerTotal === 0 ? 'transparent' : `${data.batteryColour}`}">
                                 <animateMotion dur="${data.durationCur['battery']}s" repeatCount="indefinite"
                                             keyPoints=${config.battery.invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"}
                                             keyTimes="0;1" calcMode="linear">
@@ -1163,7 +1163,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             </circle>
                             <circle id="power-dot-charge" cx="0" cy="0"
                                     r="${Math.min(2 + data.batLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                    fill="${data.batteryPower > 0 || data.batteryPower === 0 ? 'transparent' : `${config.battery.dynamic_colour ? data.flowBatColour : data.batteryColour}`}">
+                                    fill="${data.batteryPowerTotal > 0 || data.batteryPowerTotal === 0 ? 'transparent' : `${config.battery.dynamic_colour ? data.flowBatColour : data.batteryColour}`}">
                                 <animateMotion dur="${data.durationCur['battery']}s" repeatCount="indefinite"
                                             keyPoints=${config.battery.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"} 
                                             keyTimes="0;1" calcMode="linear">
