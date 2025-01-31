@@ -1,6 +1,6 @@
 {
     "common": {
-      "description": "kartica home assistant za posnemanje pretoka energije sunsynk, ki je prikazan na zaslonu pretvornika",
+      "description": "kartica Home Assistant za posnemanje pretoka energije Sunsynk, ki je prikazan na zaslonu pretvornika",
       "version": "različica",
       "runtime_to": "spraznitev do",
       "battery_floating": "vzdrževanje polnosti",
