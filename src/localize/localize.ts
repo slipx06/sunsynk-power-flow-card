@@ -13,6 +13,7 @@ import * as sk from './languages/sk.json';
 import * as pt_br from './languages/pt-br.json';
 import * as sv from './languages/sv.json';
 import * as uk from './languages/uk.json';
+import * as sl from './languages/sl.json';
 import {globalData} from '../helpers/globals';
 
 const languages: any = {
@@ -31,6 +32,7 @@ const languages: any = {
     pt_BR: pt_br,
     sv: sv,
     uk: uk,
+    sl: sl,
 };
 
 export function localize(string: string, search = '', replace = '') {
