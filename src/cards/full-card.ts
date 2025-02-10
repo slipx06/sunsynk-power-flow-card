@@ -805,7 +805,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                 <text id="battery_soc_184" x="132.5" y="333"
                                     display="${config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid() ? 'none' : ''}"
                                     fill=${data.batteryColour} class="st13 st8 left-align">
-                                    ${data.stateBatterySoc.toNum(0)}%
+                                    ${data.stateBatterySoc.toDisplay()}
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>

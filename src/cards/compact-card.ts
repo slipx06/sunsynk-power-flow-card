@@ -902,7 +902,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 <text id="battery_soc_184" x="${data.compactMode ? '270' : '290'}" y="358"
                                     display="${config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid() || (data.compactMode && data.batteryCount === 2) ? 'none' : ''}"
                                     fill=${data.batteryColour} class="st13 st8 left-align">
-                                    ${data.stateBatterySoc.toNum(0)}%
+                                    ${data.stateBatterySoc.toDisplay()}
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
@@ -973,7 +973,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 <text id="battery_soc_184" x="270" y="358"
                                     display="${config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid() ? 'none' : ''}"
                                     fill=${data.batteryColour} class="st13 st8 left-align">
-                                    ${data.stateBatterySoc.toNum(0)}%
+                                    ${data.stateBatterySoc.toDisplay()}
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>

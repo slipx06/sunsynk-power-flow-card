@@ -8,6 +8,10 @@ import {
     CARD_VERSION,
     EDITOR_NAME,
     MAIN_NAME,
+    Percentage,
+    UnitOfElectricalCurrent,
+    UnitOfEnergy,
+    UnitOfPower,
     valid3phase,
     validaux,
     validauxLoads,
@@ -153,7 +157,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         //Battery 1
         const stateBatteryVoltage = this.getEntity('entities.battery_voltage_183');
-        const stateBatterySoc = this.getEntity('entities.battery_soc_184');
+        const stateBatterySoc = this.getEntity('entities.battery_soc_184', null, config.battery.soc_decimal_places, Percentage.PERCENTAGE);
         const stateBatteryPower = this.getEntity('entities.battery_power_190');
         const stateBatteryCurrent = this.getEntity('entities.battery_current_191');
         const stateBatteryTemp = this.getEntity('entities.battery_temp_182', {state: ''});
@@ -1742,11 +1746,16 @@ export class SunsynkPowerFlowCard extends LitElement {
      * Fetches the entity object, returned the defaultValue when the entity is not found. Pass null for no default.
      * @param entity
      * @param defaultValue
+     * @param decimals used in toDisplay
+     * @param measurement used in toDisplay
      */
     getEntity(entity: keyof sunsynkPowerFlowCardConfig,
               defaultValue: Partial<CustomEntity> | null = {
-                  state: '0', attributes: {unit_of_measurement: ''},
-              }): CustomEntity {
+                  state: '0',
+                  attributes: {unit_of_measurement: ''},
+              },
+              decimals = 0,
+              measurement: UnitOfPower | UnitOfEnergy | UnitOfElectricalCurrent | Percentage | 'NA' = 'NA'): CustomEntity {
 
         let entityString;
 
@@ -1759,9 +1768,9 @@ export class SunsynkPowerFlowCard extends LitElement {
         }
 
         const state = entityString ? this.hass.states[entityString] : undefined;
-        return (state !== undefined ? convertToCustomEntity(state)
-            : defaultValue ? convertToCustomEntity(defaultValue)
-                : convertToCustomEntity({state: undefined})) as CustomEntity;
+        return (state !== undefined ? convertToCustomEntity(state, measurement, decimals)
+            : defaultValue ? convertToCustomEntity(defaultValue, measurement, decimals)
+                : convertToCustomEntity({state: undefined}, measurement, decimals)) as CustomEntity;
     }
 
     changeAnimationSpeed(el: string, speedRaw: number) {

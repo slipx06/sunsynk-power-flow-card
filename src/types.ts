@@ -92,6 +92,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 		path_threshold: number;
 		navigate: string;
 		invert_flow: boolean;
+		soc_decimal_places?: number;
 	};
 	battery2: {
 		energy: any;
@@ -447,6 +448,7 @@ export interface DataDto {
 	battery0;
 	battery20;
 	essentialPower: number;
+	batterySocDecimals?: number;
 	pv1LineWidth;
 	pv2LineWidth;
 	pv3LineWidth;
