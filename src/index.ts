@@ -1265,48 +1265,50 @@ export class SunsynkPowerFlowCard extends LitElement {
         let flowBatColour: string;
         switch (true) {
             case pvPercentageBat >= Utils.toNum(config.battery?.path_threshold, 0):
-                flowBatColour = solarColour;
+                flowBatColour = Utils.toHexColor(solarColour);
                 break;
             case gridPercentageBat >= Utils.toNum(config.battery?.path_threshold, 0):
-                flowBatColour = gridColour;
+                flowBatColour = Utils.toHexColor(gridColour);
                 break;
             default:
-                flowBatColour = batteryColour;
+                flowBatColour = Utils.toHexColor(batteryColour);
                 break;
         }
+
+        // console.log({flowBatColour, solarColour, gridColour, batteryColour});
 
         let flowColour: string;
         switch (true) {
             case pvPercentage >= Utils.toNum(config.load?.path_threshold, 0):
-                flowColour = solarColour;
+                flowColour = Utils.toHexColor(solarColour);
                 break;
             case batteryPercentage >= Utils.toNum(config.load?.path_threshold, 0):
-                flowColour = batteryColour;
+                flowColour = Utils.toHexColor(batteryColour);
                 break;
             case gridPercentage >= Utils.toNum(config.load?.path_threshold, 0):
-                flowColour = gridColour;
+                flowColour = Utils.toHexColor(gridColour);
                 break;
             default:
-                flowColour = loadColour;
+                flowColour = Utils.toHexColor(loadColour);
                 break;
         }
 
         let flowInvColour: string;
         switch (true) {
             case pvPercentage >= Utils.toNum(config.load?.path_threshold, 0):
-                flowInvColour = solarColour;
+                flowInvColour = Utils.toHexColor(solarColour);
                 break;
             case batteryPercentage >= Utils.toNum(config.load?.path_threshold, 0):
-                flowInvColour = batteryColour;
+                flowInvColour = Utils.toHexColor(batteryColour);
                 break;
             case gridPercentage >= Utils.toNum(config.load?.path_threshold, 0):
-                flowInvColour = gridColour;
+                flowInvColour = Utils.toHexColor(gridColour);
                 break;
             case gridPercentageBat >= Utils.toNum(config.battery?.path_threshold, 0):
-                flowInvColour = gridColour;
+                flowInvColour = Utils.toHexColor(gridColour);
                 break;
             default:
-                flowInvColour = inverterColour;
+                flowInvColour = Utils.toHexColor(inverterColour);
                 break;
         }
 
@@ -1364,19 +1366,19 @@ export class SunsynkPowerFlowCard extends LitElement {
         switch (true) {
             case totalGridPower < 0 && validGridConnected.includes(gridStatus.toLowerCase()):
                 customGridIcon = iconGridExport;
-                customGridIconColour = gridColour;
+                customGridIconColour = Utils.toHexColor(gridColour);
                 break;
             case totalGridPower >= 0 && validGridConnected.includes(gridStatus.toLowerCase()):
                 customGridIcon = iconGridImport;
-                customGridIconColour = gridColour;
+                customGridIconColour = Utils.toHexColor(gridColour);
                 break;
             case totalGridPower === 0 && validGridDisconnected.includes(gridStatus.toLowerCase()):
                 customGridIcon = iconGridDisconnected;
-                customGridIconColour = gridOffColour;
+                customGridIconColour = Utils.toHexColor(gridOffColour);
                 break;
             default:
                 customGridIcon = iconGridImport;
-                customGridIconColour = gridColour;
+                customGridIconColour = Utils.toHexColor(gridColour);
                 break;
         }
              
@@ -1424,8 +1426,8 @@ export class SunsynkPowerFlowCard extends LitElement {
           loads.every(load => load.toPower(false) <= offThreshold);
         
         // Initialize colours
-        let load1Colour = loadColour;
-        let load2Colour = loadColour;
+        let load1Colour = Utils.toHexColor(loadColour);
+        let load2Colour = Utils.toHexColor(loadColour);
         
         // Mapping for Lite and Compact cards
         const liteCompactLoads = {
@@ -1488,14 +1490,13 @@ export class SunsynkPowerFlowCard extends LitElement {
                 batteryTwoShutdown = stateShutdownSOCOffGrid2.notEmpty() ? shutdownOffGrid2 : batteryShutdown2;
                 break;
         }
-        
-
         /**
          * The current structure of this data object is intentional, but it is considered temporary.
          * There is a need to evaluate the data being passed, as there might be duplication.
          * Future improvements should focus on optimizing the data structure and ensuring a unified naming standard.
          */
         const data: DataDto = {
+            timestamp_id: new Date().getTime(),
             config,
             compactMode,
             viewBoxYLite,
@@ -1740,6 +1741,7 @@ export class SunsynkPowerFlowCard extends LitElement {
         if (this.isLiteCard || this.isCompactCard) {
             return compactCard(config, inverterImg, data)
         }
+
     }
 
     /**
@@ -1798,8 +1800,8 @@ export class SunsynkPowerFlowCard extends LitElement {
         return this._config.cardstyle == CardStyle.Full;
     }
 
-    colourConvert(colour) {
-        return colour && Array.isArray(colour) ? `rgb(${colour})` : colour;
+    colourConvert(colour: string) {
+        return colour && Array.isArray(colour) ? Utils.toHexColor(`rgb(${colour})`) : Utils.toHexColor(colour);
     }
 
     dynamicLineWidth(power: number, maxpower: number, width: number, defaultLineWidth: number = 1) {
@@ -1923,6 +1925,8 @@ export class SunsynkPowerFlowCard extends LitElement {
         const customConfig: sunsynkPowerFlowCardConfig = config;
 
         this._config = merge({}, defaultConfig, customConfig);
+
+        this.requestUpdate()
     }
 
     getCardSize() {
