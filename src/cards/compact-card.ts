@@ -72,11 +72,11 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         <svg id="pvtotal" x="205" y="116.5" width="70" height="30"
                             viewBox="0 0 70 30" overflow="visible">
                             <rect width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                            stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#SlG)' : data.solarColour}" pointer-events="all"
+                            stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#solar_gradient-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
                             display="${config.solar.mppts === 1 ? 'none' : ''}"
                             class="${!config.show_solar ? 'st12' : ''}"/>
                             <defs>
-                                <linearGradient id="SlG" x1="0%" x2="0%" y1="100%" y2="0%">
+                                <linearGradient id="solar_gradient-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
                                     <stop offset="0%"
                                         stop-color="${data.totalPVEfficiency === 0 ? 'grey' : data.solarColour}"/>
                                     <stop offset="${data.totalPVEfficiency}%"
@@ -90,11 +90,8 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         </svg>
                         <svg id="pv1" x="${config.solar.mppts === 1 ? '205' : '154'}" y="54.5" 
                             width="70" height="30" viewBox="0 0 70 30" overflow="visible">
-                            <rect id="pv1" width="70" height="30" rx="4.5" ry="4.5" 
-                            fill="none" stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#PV1LG)' : data.solarColour}"
-                            pointer-events="all" class="${!config.show_solar ? 'st12' : ''}"/>
                             <defs>
-                                <linearGradient id="PV1LG" x1="0%" x2="0%" y1="100%" y2="0%">
+                                <linearGradient id="PV1LG-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
                                     <stop offset="0%"
                                         stop-color="${data.PV1Efficiency === 0 ? 'grey' : data.solarColour}"/>
                                     <stop offset="${data.PV1Efficiency}%"
@@ -105,14 +102,14 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                         stop-color="${data.PV1Efficiency < 100 ? 'grey' : data.solarColour}"/>
                                 </linearGradient>
                             </defs>
+                            <rect id="pv1" width="70" height="30" rx="4.5" ry="4.5"
+                                  fill="none" stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#PV1LG-${data.timestamp_id})` : data.solarColour}"
+                                  pointer-events="all" class="${!config.show_solar ? 'st12' : ''}"/>
                         </svg>            
                         <svg id="pv2" x="254" y="54.5" width="70" height="30"
                             viewBox="0 0 70 30" overflow="visible">
-                            <rect id="pv2" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                            stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#PV2LG)' : data.solarColour}" pointer-events="all"
-                            class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"/>
                             <defs>
-                                <linearGradient id="PV2LG" x1="0%" x2="0%" y1="100%" y2="0%">
+                                <linearGradient id="PV2LG-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
                                     <stop offset="0%"
                                         stop-color="${data.PV2Efficiency === 0 ? 'grey' : data.solarColour}"/>
                                     <stop offset="${data.PV2Efficiency}%"
@@ -123,12 +120,12 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                         stop-color="${data.PV2Efficiency < 100 ? 'grey' : data.solarColour}"/>
                                 </linearGradient>
                             </defs>
+                            <rect id="pv2" width="70" height="30" rx="4.5" ry="4.5" fill="none"
+                                  stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#PV2LG-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
+                                  class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"/>
                         </svg>
                         <svg id="pv3" x="78" y="54.5" width="70" height="30"
                             viewBox="0 0 70 30" overflow="visible">
-                            <rect id="pv3" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                            stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#PV3LG)' : data.solarColour}" pointer-events="all"
-                            class="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'st12' : ''}"/>
                             <defs>
                                 <linearGradient id="PV3LG" x1="0%" x2="0%" y1="100%" y2="0%">
                                     <stop offset="0%"
@@ -141,14 +138,14 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                         stop-color="${data.PV3Efficiency < 100 ? 'grey' : data.solarColour}"/>
                                 </linearGradient>
                             </defs>
+                            <rect id="pv3" width="70" height="30" rx="4.5" ry="4.5" fill="none"
+                                  stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#PV3LG-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
+                                  class="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'st12' : ''}"/>
                         </svg>
                         <svg id="pv4" x="330" y="54.5" width="70" height="30"
                             viewBox="0 0 70 30" overflow="visible">
-                            <rect id="pv4" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                            stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#PV4LG)' : data.solarColour}" pointer-events="all"
-                            class="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"/>
                             <defs>
-                                <linearGradient id="PV4LG" x1="0%" x2="0%" y1="100%" y2="0%">
+                                <linearGradient id="PV4LG-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
                                     <stop offset="0%"
                                         stop-color="${data.PV4Efficiency === 0 ? 'grey' : data.solarColour}"/>
                                     <stop offset="${data.PV4Efficiency}%"
@@ -158,15 +155,15 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                     <stop offset="100%"
                                         stop-color="${data.PV4Efficiency < 100 ? 'grey' : data.solarColour}"/>
                                 </linearGradient>
+                                <rect id="pv4" width="70" height="30" rx="4.5" ry="4.5" fill="none"
+                                      stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#PV4LG-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
+                                      class="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"/>
                             </defs>
                         </svg>
                         <svg id="PV5" 
                             style="overflow: visible; display: ${config.show_solar && config.wide && [5, 6].includes(config.solar.mppts)  ? 'inline' : 'none'};" x="-10.5%">
                             <svg id="pv5" x="78" y="54.5" width="70" height="30"
                                 viewBox="0 0 70 30" overflow="visible">
-                                <rect id="pv5" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                                stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#PV5LG)' : data.solarColour}" pointer-events="all"
-                                class="${!config.show_solar || [1, 2, 3, 4].includes(config.solar.mppts) ? 'st12' : ''}"/>
                                 <defs>
                                     <linearGradient id="PV5LG" x1="0%" x2="0%" y1="100%" y2="0%">
                                         <stop offset="0%"
@@ -179,6 +176,9 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                             stop-color="${data.PV5Efficiency < 100 ? 'grey' : data.solarColour}"/>
                                     </linearGradient>
                                 </defs>
+                                <rect id="pv5" width="70" height="30" rx="4.5" ry="4.5" fill="none"
+                                      stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#PV5LG-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
+                                      class="${!config.show_solar || [1, 2, 3, 4].includes(config.solar.mppts) ? 'st12' : ''}"/>
                             </svg>
                             <text x="105" y="94" class="st3 st8 right-align"
                                 display="${!config.show_solar ? 'none' : ''}"
@@ -620,9 +620,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                     </svg>
 
                     <!-- Battery Elements -->
-                    <svg id="Battery" 
+                    <svg id="battery_main" 
                         style="overflow: visible; display: ${!config.show_battery ? 'none' : 'inline'};" 
                         x="${config.wide ? '10%' : '0%'}">
+                        <g>
                         <svg id="battery_total_power" 
                             style="overflow: visible; display: ${config.wide && data.batteryCount === 2 ? 'inline' : 'none'};">
                             <rect x="205" y="285" width="70" height="30" rx="4.5" ry="4.5" fill="none"
@@ -1142,7 +1143,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 </text>
                             </a>
                         </svg>
-                        <svg id="battery-flow" style="overflow: visible;">
+                        <svg id="battery_flow" style="overflow: visible;">
                             <path id="bat-line"
                             d="${data.batteryCount === 2
                                     ? 'M 239 250 L 239 285'
@@ -1200,15 +1201,14 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 r="3.5"
                                 display="${config.entities?.battery_status === 'none' || !config.entities?.battery_status || (data.compactMode && data.batteryCount === 2) ? 'none' : ''}"
                                 fill="${data.batteryStateColour}"/>
-                            ${config.battery.navigate
-                                ? svg`
-                                    <a href="#" @click=${(e) => Utils.handleNavigation(e, config.battery.navigate)}>
-                                        <svg id="bat" x="${data.compactMode && data.batteryCount === 1 ? '212.5' : '232.5'}"
+                            
+                                    <a href="#" @click=${(e) => config.battery.navigate ? Utils.handleNavigation(e, config.battery.navigate) : null}>
+                                        <svg id="bat_outter" x="${data.compactMode && data.batteryCount === 1 ? '212.5' : '232.5'}"
                                             y="325.5" width="78.75"
                                             height="78.75" preserveAspectRatio="none"
                                             viewBox="0 0 24 24">
                                             <defs>
-                                                <linearGradient id="bLg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                                <linearGradient id="bLg-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
                                                     <stop offset="0%"
                                                         stop-color="${data.gridPercentageBat > 0 ? data.gridColour : data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
                                                     <stop offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
@@ -1223,15 +1223,15 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                                         stop-color="${data.batteryColour}"/>
                                                 </linearGradient>
                                             </defs>
-                                            <path fill="${config.battery.dynamic_colour ? 'url(#bLg)' : data.batteryColour}"
+                                            <path fill="${config.battery.dynamic_colour ? `url(#bLg-${data.timestamp_id})` : data.batteryColour}"
                                                 d="${config.battery.linear_gradient ? data.battery0 : data.batteryIcon}"/>
                                         </svg>
-                                        <svg id="bat" x="${data.compactMode && data.batteryCount === 1 ? '212.5' : '232.5'}"
+                                        <svg id="bat_inner" x="${data.compactMode && data.batteryCount === 1 ? '212.5' : '232.5'}"
                                             y="325.5" width="78.75"
                                             height="78.75" preserveAspectRatio="none"
                                             viewBox="0 0 24 24">
                                             <defs>
-                                                <linearGradient id="sLg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                                <linearGradient id="sLg-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
                                                     <stop offset="0%"
                                                         stop-color="red"/>
                                                     <stop offset="100%"
@@ -1239,53 +1239,11 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                                     <animate attributeName="${config.battery.animate ? 'y2' : 'none'}" dur="6s" values="100%; 0%" repeatCount="indefinite" />
                                                 </linearGradient>
                                             </defs>
-                                            <path fill="${config.battery.linear_gradient ? 'url(#sLg)' : data.batteryColour}"
+                                            <path fill="${config.battery.linear_gradient ? `url(#sLg-${data.timestamp_id})` : data.batteryColour}"
                                                 display="${!config.battery.linear_gradient ? 'none' : ''}"
                                                 d="${data.batteryCharge}"/>
                                         </svg>
-                                    </a>`
-                                : svg`
-                                    <svg id="bat" x="${data.compactMode && data.batteryCount === 1 ? '212.5' : '232.5'}"
-                                        y="325.5" width="78.75"
-                                        height="78.75" preserveAspectRatio="none"
-                                        viewBox="0 0 24 24">
-                                        <defs>
-                                            <linearGradient id="bLg" x1="0%" x2="0%" y1="100%" y2="0%">
-                                                <stop offset="0%"
-                                                    stop-color="${data.gridPercentageBat > 0 ? data.gridColour : data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
-                                                <stop offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
-                                                    stop-color="${data.gridPercentageBat > 0 ? data.gridColour : data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
-                                                <stop offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
-                                                    stop-color="${data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
-                                                <stop offset="${(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat) + (data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat)}%"
-                                                    stop-color="${data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
-                                                <stop offset="${(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat) + (data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat)}%"
-                                                    stop-color="${data.batteryColour}"/>
-                                                <stop offset="100%"
-                                                    stop-color="${data.batteryColour}"/>
-                                            </linearGradient>
-                                        </defs>
-                                        <path fill="${config.battery.dynamic_colour ? 'url(#bLg)' : data.batteryColour}"
-                                            d="${config.battery.linear_gradient ? data.battery0 : data.batteryIcon}"/>
-                                    </svg>
-                                    <svg id="bat" x="${data.compactMode && data.batteryCount === 1 ? '212.5' : '232.5'}"
-                                        y="325.5" width="78.75"
-                                        height="78.75" preserveAspectRatio="none"
-                                        viewBox="0 0 24 24">
-                                        <defs>
-                                            <linearGradient id="sLg" x1="0%" x2="0%" y1="100%" y2="0%">
-                                                <stop offset="0%"
-                                                    stop-color="red"/>
-                                                <stop offset="100%"
-                                                    stop-color="${data.stopColour}"/>
-                                                <animate attributeName="${config.battery.animate ? 'y2' : 'none'}" dur="6s" values="100%; 0%" repeatCount="indefinite" />
-                                            </linearGradient>
-                                        </defs>
-                                        <path fill="${config.battery.linear_gradient ? 'url(#sLg)' : data.batteryColour}"
-                                            display="${!config.battery.linear_gradient ? 'none' : ''}"
-                                            d="${data.batteryCharge}"/>
-                                    </svg>`
-                            }
+                                    </a>
                         </svg>
                         <svg id="battery2_icon" 
                             style="overflow: visible; display: ${config.wide && data.batteryCount === 2 ? 'inline' : 'none'};" 
@@ -1318,15 +1276,14 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 r="3.5"
                                 display="${config.entities?.battery2_status === 'none' || !config.entities?.battery2_status || (data.compactMode && data.batteryCount === 2) ? 'none' : ''}"
                                 fill="${data.battery2StateColour}"/>
-                            ${config.battery2.navigate
-                                ? svg`
-                                    <a href="#" @click=${(e) => Utils.handleNavigation(e, config.battery2.navigate)}>
+
+                                    <a href="#" @click=${(e) => config.battery2.navigate ? Utils.handleNavigation(e, config.battery2.navigate) : null}>
                                         <svg id="bat" x="232.5"
                                             y="325.5" width="78.75"
                                             height="78.75" preserveAspectRatio="none"
                                             viewBox="0 0 24 24">
                                             <defs>
-                                                <linearGradient id="b2Lg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                                <linearGradient id="b2Lg-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
                                                     <stop offset="0%"
                                                         stop-color="${data.gridPercentageBat > 0 ? data.gridColour : data.pvPercentageBat > 0 ? data.solarColour : data.battery2Colour}"/>
                                                     <stop offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
@@ -1341,7 +1298,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                                         stop-color="${data.battery2Colour}"/>
                                                 </linearGradient>
                                             </defs>
-                                            <path fill="${config.battery2.dynamic_colour ? 'url(#b2Lg)' : data.battery2Colour}"
+                                            <path fill="${config.battery2.dynamic_colour ? `url(#b2Lg-${data.timestamp_id})` : data.battery2Colour}"
                                                 d="${config.battery2.linear_gradient ? data.battery20 : data.battery2Icon}"/>
                                         </svg>
                                         <svg id="bat" x="232.5"
@@ -1349,7 +1306,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                             height="78.75" preserveAspectRatio="none"
                                             viewBox="0 0 24 24">
                                             <defs>
-                                                <linearGradient id="s2Lg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                                <linearGradient id="s2Lg-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
                                                     <stop offset="0%"
                                                         stop-color="red"/>
                                                     <stop offset="100%"
@@ -1357,53 +1314,11 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                                     <animate attributeName="${config.battery2.animate ? 'y2' : 'none'}" dur="6s" values="100%; 0%" repeatCount="indefinite" />
                                                 </linearGradient>
                                             </defs>
-                                            <path fill="${config.battery2.linear_gradient ? 'url(#s2Lg)' : data.battery2Colour}"
+                                            <path fill="${config.battery2.linear_gradient ? `url(#s2Lg-${data.timestamp_id})` : data.battery2Colour}"
                                                 display="${!config.battery2.linear_gradient ? 'none' : ''}"
                                                 d="${data.battery2Charge}"/>
                                         </svg>
-                                    </a>`
-                                : svg`
-                                    <svg id="bat" x="232.5"
-                                        y="325.5" width="78.75"
-                                        height="78.75" preserveAspectRatio="none"
-                                        viewBox="0 0 24 24">
-                                        <defs>
-                                            <linearGradient id="b2Lg" x1="0%" x2="0%" y1="100%" y2="0%">
-                                                <stop offset="0%"
-                                                    stop-color="${data.gridPercentageBat > 0 ? data.gridColour : data.pvPercentageBat > 0 ? data.solarColour : data.battery2Colour}"/>
-                                                <stop offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
-                                                    stop-color="${data.gridPercentageBat > 0 ? data.gridColour : data.pvPercentageBat > 0 ? data.solarColour : data.battery2Colour}"/>
-                                                <stop offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
-                                                    stop-color="${data.pvPercentageBat > 0 ? data.solarColour : data.battery2Colour}"/>
-                                                <stop offset="${(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat) + (data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat)}%"
-                                                    stop-color="${data.pvPercentageBat > 0 ? data.solarColour : data.battery2Colour}"/>
-                                                <stop offset="${(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat) + (data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat)}%"
-                                                    stop-color="${data.battery2Colour}"/>
-                                                <stop offset="100%"
-                                                    stop-color="${data.battery2Colour}"/>
-                                            </linearGradient>
-                                        </defs>
-                                        <path fill="${config.battery2.dynamic_colour ? 'url(#b2Lg)' : data.battery2Colour}"
-                                            d="${config.battery2.linear_gradient ? data.battery20 : data.battery2Icon}"/>
-                                    </svg>
-                                    <svg id="bat" x="232.5"
-                                        y="325.5" width="78.75"
-                                        height="78.75" preserveAspectRatio="none"
-                                        viewBox="0 0 24 24">
-                                        <defs>
-                                            <linearGradient id="s2Lg" x1="0%" x2="0%" y1="100%" y2="0%">
-                                                <stop offset="0%"
-                                                    stop-color="red"/>
-                                                <stop offset="100%"
-                                                    stop-color="${data.stop2Colour}"/>
-                                                <animate attributeName="${config.battery2.animate ? 'y2' : 'none'}" dur="6s" values="100%; 0%" repeatCount="indefinite" />
-                                            </linearGradient>
-                                        </defs>
-                                        <path fill="${config.battery2.linear_gradient ? 'url(#s2Lg)' : data.battery2Colour}"
-                                            display="${!config.battery2.linear_gradient ? 'none' : ''}"
-                                            d="${data.battery2Charge}"/>
-                                    </svg>`
-                            }
+                                    </a>
                         </svg>
                         <svg id="battery_daily" style="overflow: visible;">
                             <svg id="battery_daily_charge" style="overflow: visible;" x="${data.batteryCount === 2 ? '42%' : '0%'}" y="${data.batteryCount === 2 ? '-20%' : '0%'}">
@@ -1437,6 +1352,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 </a>
                             </svg>
                         </svg>
+                        </g>
                     </svg>
 
                     <!-- Grid Elements -->
@@ -2241,15 +2157,13 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             class="${[2, 3, 4, 5, 6].includes(data.additionalLoad) ? '' : 'st12'}" fill="none"
                             stroke="${data.load2Colour}" stroke-width="1" stroke-miterlimit="10"
                             pointer-events="stroke"/>
-                        ${config.load?.navigate
-                            ? svg`
-                                <a href="#" @click=${(e) => Utils.handleNavigation(e, config.load.navigate)}>
+                                <a href="#" @click=${config.load?.navigate ? (e) => Utils.handleNavigation(e, config.load.navigate) : null}>
                                     <svg id="essen" x="${data.essIconSize === 1 ? "405" : "402"}"
                                         y="${data.essIconSize === 1 ? "186" : "177.5"}" width="${data.essIconSize === 1 ? "75" : "79"}"
                                         height="${data.essIconSize === 1 ? "75" : "79"}"
                                         viewBox="0 0 24 24">
                                         <defs>
-                                            <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
+                                            <linearGradient id="Lg-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
                                                 <stop offset="0%"
                                                     stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
                                                 <stop offset="${data.gridPercentage}%"
@@ -2264,35 +2178,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                                     stop-color="${data.solarColour}"/>
                                             </linearGradient>
                                         </defs>
-                                        <path fill="${config.load.dynamic_colour ? 'url(#Lg)' : data.loadColour}"
+                                        <path fill="${config.load.dynamic_colour ? `url(#Lg-${data.timestamp_id})` : data.loadColour}"
                                             d="${data.essIcon}"/>
                                     </svg>
-                                </a>`
-                            : svg`
-                                <svg id="essen" x="${data.essIconSize === 1 ? "405" : "402"}"
-                                    y="${data.essIconSize === 1 ? "186" : "177.5"}" width="${data.essIconSize === 1 ? "75" : "79"}"
-                                    height="${data.essIconSize === 1 ? "75" : "79"}"
-                                    viewBox="0 0 24 24">
-                                    <defs>
-                                        <linearGradient id="Lg" x1="0%" x2="0%" y1="100%" y2="0%">
-                                            <stop offset="0%"
-                                                stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
-                                            <stop offset="${data.gridPercentage}%"
-                                                stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
-                                            <stop offset="${data.gridPercentage}%"
-                                                stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
-                                            <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
-                                                stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
-                                            <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
-                                                stop-color="${data.solarColour}"/>
-                                            <stop offset="100%"
-                                                stop-color="${data.solarColour}"/>
-                                        </linearGradient>
-                                    </defs>
-                                    <path fill="${config.load.dynamic_colour ? 'url(#Lg)' : data.loadColour}"
-                                        d="${data.essIcon}"/>
-                                </svg>`
-                        }
+                                </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_load_energy_84)}>
                             <text id="daily_load_value"
                                 x="${[2, 3, 4, 5, 6].includes(data.additionalLoad) ? '365' : '412'}"

@@ -364,6 +364,7 @@ export interface InverterSettings {
 }
 
 export interface DataDto {
+	timestamp_id: number;
 	config: sunsynkPowerFlowCardConfig;
 	compactMode;
 	viewBoxYLite;
