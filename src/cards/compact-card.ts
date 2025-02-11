@@ -127,7 +127,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         <svg id="pv3" x="78" y="54.5" width="70" height="30"
                             viewBox="0 0 70 30" overflow="visible">
                             <defs>
-                                <linearGradient id="PV3LG" x1="0%" x2="0%" y1="100%" y2="0%">
+                                <linearGradient id="PV3LG-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
                                     <stop offset="0%"
                                         stop-color="${data.PV3Efficiency === 0 ? 'grey' : data.solarColour}"/>
                                     <stop offset="${data.PV3Efficiency}%"
@@ -155,17 +155,17 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                     <stop offset="100%"
                                         stop-color="${data.PV4Efficiency < 100 ? 'grey' : data.solarColour}"/>
                                 </linearGradient>
-                                <rect id="pv4" width="70" height="30" rx="4.5" ry="4.5" fill="none"
+                            </defs>
+                            <rect id="pv4" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                                       stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#PV4LG-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
                                       class="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"/>
-                            </defs>
                         </svg>
                         <svg id="PV5" 
                             style="overflow: visible; display: ${config.show_solar && config.wide && [5, 6].includes(config.solar.mppts)  ? 'inline' : 'none'};" x="-10.5%">
                             <svg id="pv5" x="78" y="54.5" width="70" height="30"
                                 viewBox="0 0 70 30" overflow="visible">
                                 <defs>
-                                    <linearGradient id="PV5LG" x1="0%" x2="0%" y1="100%" y2="0%">
+                                    <linearGradient id="PV5LG-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
                                         <stop offset="0%"
                                             stop-color="${data.PV5Efficiency === 0 ? 'grey' : data.solarColour}"/>
                                         <stop offset="${data.PV5Efficiency}%"
@@ -235,7 +235,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             <svg id="pv6" x="330" y="54.5" width="70" height="30"
                                 viewBox="0 0 70 30" overflow="visible">
                                 <defs>
-                                    <linearGradient id="PV6LG" x1="0%" x2="0%" y1="100%" y2="0%">
+                                    <linearGradient id="PV6LG-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
                                         <stop offset="0%"
                                             stop-color="${data.PV6Efficiency === 0 ? 'grey' : data.solarColour}"/>
                                         <stop offset="${data.PV6Efficiency}%"
@@ -247,7 +247,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                     </linearGradient>
                                 </defs>
                                 <rect id="pv6" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                                stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#PV6LG)' : data.solarColour}" pointer-events="all"
+                                stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#PV6LG-${data.timestamp_id})' : data.solarColour}" pointer-events="all"
                                 class="${!config.show_solar || [1, 2, 3, 4, 5].includes(config.solar.mppts) ? 'st12' : ''}"/>
                             </svg>
                             <text x="357" y="94" class="st3 st8 right-align"
