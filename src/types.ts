@@ -141,6 +141,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 		off_threshold: number;
 		navigate: string;
 		invert_flow: boolean;
+		custom_label: string;
 	};
 	load: {
 		colour: string;

@@ -125,11 +125,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                     <svg id="Solar" style="overflow: visible" x="${config.wide ? '3%' : '3%'}" y="2.5%" >
                         <svg xmlns="http://www.w3.org/2000/svg" id="pvtotal" x="51" y="162" width="70" height="30"
                             viewBox="0 0 70 30" overflow="visible">
-                            <rect width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                                stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#SlG-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
-                                display="${config.solar.mppts === 1 ? 'none' : ''}"
-                                class="${!config.show_solar ? 'st12' : ''}"/>
-                                <defs>
+                            <defs>
                                 <linearGradient id="SlG-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
                                     <stop offset="0%"
                                         stop-color="${data.totalPVEfficiency === 0 ? 'grey' : data.solarColour}"/>
@@ -141,12 +137,13 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                         stop-color="${data.totalPVEfficiency < 100 ? 'grey' : data.solarColour}"/>
                                 </linearGradient>
                             </defs>
+                            <rect width="70" height="30" rx="4.5" ry="4.5" fill="none"
+                                stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#SlG-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
+                                display="${config.solar.mppts === 1 ? 'none' : ''}"
+                                class="${!config.show_solar ? 'st12' : ''}"/>
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" id="pv1" x="0" y="40" 
                          width="70" height="30" viewBox="0 0 70 30" overflow="visible">
-                          <rect id="pv1" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                          stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#PV1LG-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
-                          class="${!config.show_solar ? 'st12' : ''}"/>
                           <defs>
                             <linearGradient id="PV1LG-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
                                 <stop offset="0%"
@@ -159,12 +156,12 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                       stop-color="${data.PV1Efficiency < 100 ? 'grey' : data.solarColour}"/>
                             </linearGradient>
                           </defs>
+                          <rect id="pv1" width="70" height="30" rx="4.5" ry="4.5" fill="none"
+                          stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#PV1LG-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
+                          class="${!config.show_solar ? 'st12' : ''}"/>
                         </svg>                     
                         <svg xmlns="http://www.w3.org/2000/svg" id="pv2" x="101" y="40" width="70" height="30"
                             viewBox="0 0 70 30" overflow="visible">                    
-                            <rect id="pv2" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                            stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#PV2LG-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
-                            class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"/>
                             <defs>
                                 <linearGradient id="PV2LG-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
                                     <stop offset="0%"
@@ -177,12 +174,12 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                         stop-color="${data.PV2Efficiency < 100 ? 'grey' : data.solarColour}"/>
                                 </linearGradient>
                             </defs>
+                            <rect id="pv2" width="70" height="30" rx="4.5" ry="4.5" fill="none"
+                            stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#PV2LG-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
+                            class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"/>
                         </svg>                   
                         <svg xmlns="http://www.w3.org/2000/svg" id="pv3" x="0" y="100" width="70" height="30"
                             viewBox="0 0 70 30" overflow="visible">                    
-                            <rect id="pv3" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                            stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#PV3LG-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
-                            class="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'st12' : ''}"/>
                             <defs>
                                 <linearGradient id="PV3LG-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
                                     <stop offset="0%"
@@ -195,12 +192,12 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                         stop-color="${data.PV3Efficiency < 100 ? 'grey' : data.solarColour}"/>
                                 </linearGradient>
                             </defs>
+                            <rect id="pv3" width="70" height="30" rx="4.5" ry="4.5" fill="none"
+                            stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#PV3LG-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
+                            class="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'st12' : ''}"/>
                         </svg>                    
                         <svg xmlns="http://www.w3.org/2000/svg" id="pv4" x="101" y="100" width="70" height="30"
                             viewBox="0 0 70 30" overflow="visible">                    
-                            <rect id="pv4" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                            stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#PV4LG-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
-                            class="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"/>
                             <defs>
                                 <linearGradient id="PV4LG-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
                                     <stop offset="0%"
@@ -213,6 +210,9 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                         stop-color="${data.PV4Efficiency < 100 ? 'grey' : data.solarColour}"/>
                                 </linearGradient>
                             </defs>
+                            <rect id="pv4" width="70" height="30" rx="4.5" ry="4.5" fill="none"
+                            stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#PV4LG-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
+                            class="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"/>
                         </svg>
                         <text x="0" y="78.5" class="st3 st8 left-align"
                             display="${!config.show_solar ? 'none' : ''}" fill="${data.solarColour}">
@@ -256,17 +256,17 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                         <text id="daily_solar" x="43.5" y="29" class="st3 left-align"
                             display="${config.solar.display_mode === 1 ? '' : 'none'}"
                             fill="${!data.solarShowDaily || !config.show_solar ? 'transparent' : `${data.solarColour}`}">
-                            ${localize('common.daily_solar')}
+                            ${config.solar.custom_label || localize('common.daily_solar')}
                         </text>
                         <text id="remaining_solar" x="43.5" y="29" class="st3 left-align"
                             display="${config.solar.display_mode === 2 ? '' : 'none'}"
                             fill="${!data.solarShowDaily || !config.show_solar ? 'transparent' : `${data.solarColour}`}">
-                            ${localize('common.daily_solar_left')}
+                            ${config.solar.custom_label || localize('common.daily_solar_left')}
                         </text>
                         <text id="total_solar_generation" x="43.5" y="29" class="st3 left-align"
                             display="${config.solar.display_mode === 3 ? '' : 'none'}"
                             fill="${!data.solarShowDaily || !config.show_solar ? 'transparent' : `${data.solarColour}`}">
-                            ${localize('common.total_solar_generation')}
+                            ${config.solar.custom_label || localize('common.total_solar_generation')}
                         </text>
                         <svg id="pv1-flow">
                             <path id="pv1-line"
@@ -638,7 +638,7 @@ export const fullCard = (config: sunsynkPowerFlowCardConfig, inverterImg: string
                                                     <stop offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
                                                         stop-color="${data.gridPercentageBat > 0 ? data.gridColour : data.pvPercentageBat > 0 ? data.solarColour : data.battery2Colour}"/>
                                                     <stop offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
-                                                        stop-color="${data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
+                                                        stop-color="${data.pvPercentageBat > 0 ? data.solarColour : data.battery2Colour}"/>
                                                     <stop offset="${(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat) + (data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat)}%"
                                                         stop-color="${data.pvPercentageBat > 0 ? data.solarColour : data.battery2Colour}"/>
                                                     <stop offset="${(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat) + (data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat)}%"

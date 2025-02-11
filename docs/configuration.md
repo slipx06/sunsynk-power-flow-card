@@ -132,6 +132,7 @@ These attributes are only needed if `show_solar` is set to `true`.
 | off_threshold:   | Optional     | `10`    |  When total PV power falls belows this threshold colour will change to grey. Requires `dynamic_colour` to be enabled.
 | navigate:        | Optional     |         | Sets the navigation path when clicking on the sun image. Can be used to link to other dashboards and views e.g. `/lovelace/1`.
 | invert_flow:     | Optional     | `false` | Inverts the animated flow.    
+| custom_label:    | Optional     |         | Set a custom label that overides the default `Daily Solar`, `Daily Solar / Left Today` and `Daily Solar / Total Solar` lablels.    
 
 ### Load
 

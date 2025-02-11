@@ -12,7 +12,7 @@
         "daily_grid_sell": "CESSIONE OGGI IN RETE",
         "daily_solar": "ENERGIA SOLARE OGGI",
         "daily_solar_left": "ENERGIA SOLARE OGGI / STIMA RIMANENTE",
-        "total_solar_generation": "ENERGIA SOLARE OGGI / TOTAL SOLAR",
+        "total_solar_generation": "ENERGIA SOLARE OGGI / TOTALE SOLARE",
         "daily_charge": "CARICA OGGI",
         "daily_discharge": "SCARICA OGGI" ,
         "ratio": "Autoconsumo",
@@ -204,6 +204,7 @@
       "load5_max_threshold": "Load 5 Max Threshold",
       "load6_max_threshold": "Load 6 Max Threshold",
       "max_colour": "Max Colour",
+      "custom_label": "Custom Label",
       "cat_title": {
         "title": "Title Options",
         "general": "General Options",

@@ -71,10 +71,6 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         x="${config.wide ? '10%' : '0%'}" >
                         <svg id="pvtotal" x="205" y="116.5" width="70" height="30"
                             viewBox="0 0 70 30" overflow="visible">
-                            <rect width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                            stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#solar_gradient-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
-                            display="${config.solar.mppts === 1 ? 'none' : ''}"
-                            class="${!config.show_solar ? 'st12' : ''}"/>
                             <defs>
                                 <linearGradient id="solar_gradient-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
                                     <stop offset="0%"
@@ -87,6 +83,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                         stop-color="${data.totalPVEfficiency < 100 ? 'grey' : data.solarColour}"/>
                                 </linearGradient>
                             </defs>
+                            <rect width="70" height="30" rx="4.5" ry="4.5" fill="none"
+                            stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#solar_gradient-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
+                            display="${config.solar.mppts === 1 ? 'none' : ''}"
+                            class="${!config.show_solar ? 'st12' : ''}"/>
                         </svg>
                         <svg id="pv1" x="${config.solar.mppts === 1 ? '205' : '154'}" y="54.5" 
                             width="70" height="30" viewBox="0 0 70 30" overflow="visible">
@@ -127,7 +127,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         <svg id="pv3" x="78" y="54.5" width="70" height="30"
                             viewBox="0 0 70 30" overflow="visible">
                             <defs>
-                                <linearGradient id="PV3LG" x1="0%" x2="0%" y1="100%" y2="0%">
+                                <linearGradient id="PV3LG-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
                                     <stop offset="0%"
                                         stop-color="${data.PV3Efficiency === 0 ? 'grey' : data.solarColour}"/>
                                     <stop offset="${data.PV3Efficiency}%"
@@ -155,17 +155,17 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                     <stop offset="100%"
                                         stop-color="${data.PV4Efficiency < 100 ? 'grey' : data.solarColour}"/>
                                 </linearGradient>
-                                <rect id="pv4" width="70" height="30" rx="4.5" ry="4.5" fill="none"
+                            </defs>
+                            <rect id="pv4" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                                       stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#PV4LG-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
                                       class="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"/>
-                            </defs>
                         </svg>
                         <svg id="PV5" 
                             style="overflow: visible; display: ${config.show_solar && config.wide && [5, 6].includes(config.solar.mppts)  ? 'inline' : 'none'};" x="-10.5%">
                             <svg id="pv5" x="78" y="54.5" width="70" height="30"
                                 viewBox="0 0 70 30" overflow="visible">
                                 <defs>
-                                    <linearGradient id="PV5LG" x1="0%" x2="0%" y1="100%" y2="0%">
+                                    <linearGradient id="PV5LG-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
                                         <stop offset="0%"
                                             stop-color="${data.PV5Efficiency === 0 ? 'grey' : data.solarColour}"/>
                                         <stop offset="${data.PV5Efficiency}%"
@@ -234,11 +234,8 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             style="overflow: visible; display: ${config.show_solar && config.wide && config.solar.mppts === 6  ? 'inline' : 'none'};" x="10.5%">
                             <svg id="pv6" x="330" y="54.5" width="70" height="30"
                                 viewBox="0 0 70 30" overflow="visible">
-                                <rect id="pv6" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                                stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#PV6LG)' : data.solarColour}" pointer-events="all"
-                                class="${!config.show_solar || [1, 2, 3, 4, 5].includes(config.solar.mppts) ? 'st12' : ''}"/>
                                 <defs>
-                                    <linearGradient id="PV6LG" x1="0%" x2="0%" y1="100%" y2="0%">
+                                    <linearGradient id="PV6LG-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
                                         <stop offset="0%"
                                             stop-color="${data.PV6Efficiency === 0 ? 'grey' : data.solarColour}"/>
                                         <stop offset="${data.PV6Efficiency}%"
@@ -249,6 +246,9 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                             stop-color="${data.PV6Efficiency < 100 ? 'grey' : data.solarColour}"/>
                                     </linearGradient>
                                 </defs>
+                                <rect id="pv6" width="70" height="30" rx="4.5" ry="4.5" fill="none"
+                                stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#PV6LG-${data.timestamp_id})' : data.solarColour}" pointer-events="all"
+                                class="${!config.show_solar || [1, 2, 3, 4, 5].includes(config.solar.mppts) ? 'st12' : ''}"/>
                             </svg>
                             <text x="357" y="94" class="st3 st8 right-align"
                                 display="${!config.show_solar ? 'none' : ''}"
@@ -303,17 +303,17 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         <text id="daily_solar" x="200" y="40" class="st3 left-align"
                             display="${config.solar.display_mode === 1 ? '' : 'none'}"
                             fill="${!data.solarShowDaily || !config.show_solar ? 'transparent' : `${data.solarColour}`}">
-                            ${localize('common.daily_solar')}
+                            ${config.solar.custom_label || localize('common.daily_solar')}
                         </text>
                         <text id="remaining_solar" x="200" y="40" class="st3 left-align"
                             display="${config.solar.display_mode === 2 ? '' : 'none'}"
                             fill="${!data.solarShowDaily || !config.show_solar ? 'transparent' : `${data.solarColour}`}">
-                            ${localize('common.daily_solar_left')}
+                            ${config.solar.custom_label || localize('common.daily_solar_left')}
                         </text>
                         <text id="total_solar_generation" x="200" y="40" class="st3 left-align"
                             display="${config.solar.display_mode === 3 ? '' : 'none'}"
                             fill="${!data.solarShowDaily || !config.show_solar ? 'transparent' : `${data.solarColour}`}">
-                            ${localize('common.total_solar_generation')}
+                            ${config.solar.custom_label || localize('common.total_solar_generation')}
                         </text>
                         <text x="${config.solar.mppts === 1 ? '230' : '179'}" y="94" class="st3 st8 right-align"
                             display="${!config.show_solar ? 'none' : ''}" fill="${data.solarColour}">
