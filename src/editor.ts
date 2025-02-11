@@ -157,6 +157,7 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 									{name: 'efficiency', selector: {number: {mode: 'box', min: 0, max: 3}}},
 									{name: 'off_threshold', selector: {number: {}}},
 									{name: 'navigate', selector: {text: {}}},
+									{name: 'custom_label', selector: {text: {}}},
 									{name: 'invert_flow', selector: {boolean: {}}},
 								],
 							},

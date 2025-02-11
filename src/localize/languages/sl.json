@@ -196,6 +196,7 @@
       "label_daily_grid_sell": "oznaka dnevne prodaje v omrežje",
       "invert_flow": "invertiraj pretok",
       "label_daily_load": "oznaka dnevne obremenitve",
+      "custom_label": "Custom Label",
       "cat_title": {
         "title": "možnosti naslova",
         "general": "splošne možnosti",

@@ -204,6 +204,7 @@
         "load5_max_threshold": "Load 5 Max Threshold",
         "load6_max_threshold": "Load 6 Max Threshold",
         "max_colour": "Max Colour",
+        "custom_label": "Custom Label",
         "cat_title": {
             "title": "Параметри Заголовка",
             "general": "Загальні Параметри",
