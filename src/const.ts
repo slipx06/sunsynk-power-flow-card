@@ -60,6 +60,10 @@ export const enum UnitOfElectricPotential {
     VOLT = "V"
 }
 
+export const enum Percentage {
+    PERCENTAGE = "%"
+}
+
 export type UnitOfEnergyOrPower = UnitOfEnergy | UnitOfPower;
 
 type ConversionRule = {

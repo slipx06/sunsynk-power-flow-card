@@ -204,6 +204,7 @@
       "load6_max_threshold": "Load 6 Max Threshold",
       "max_colour": "Max Colour",
       "custom_label": "Custom Label",
+      "soc_decimal_places": "SOC Decimal Places",
       "cat_title": {
         "title": "Opcions Títol",
         "general": "Opcions Generals",

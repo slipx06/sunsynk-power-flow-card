@@ -197,6 +197,7 @@
       "invert_flow": "invertiraj pretok",
       "label_daily_load": "oznaka dnevne obremenitve",
       "custom_label": "Custom Label",
+      "soc_decimal_places": "SOC Decimal Places",
       "cat_title": {
         "title": "možnosti naslova",
         "general": "splošne možnosti",

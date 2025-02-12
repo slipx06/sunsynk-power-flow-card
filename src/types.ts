@@ -92,6 +92,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 		path_threshold: number;
 		navigate: string;
 		invert_flow: boolean;
+		soc_decimal_places?: number;
 	};
 	battery2: {
 		energy: any;
@@ -114,6 +115,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 		path_threshold: number;
 		navigate: string;
 		invert_flow: boolean;
+		soc_decimal_places?: number;
 	};
 	solar: {
 		colour: string;
