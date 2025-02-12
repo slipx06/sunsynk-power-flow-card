@@ -86,7 +86,7 @@ export function convertToCustomEntity(entity: any, measurement: UnitOfPower | Un
 }
 
 function toDisplayFunction(state: string, measurement: UnitOfPower | UnitOfEnergy | UnitOfElectricalCurrent | Percentage | 'NA', decimals?: number): string {
-    console.log(state, measurement, decimals);
+    //console.log(state, measurement, decimals);
     if(state == null)
         return state;
     if(Number.isNaN(state))
