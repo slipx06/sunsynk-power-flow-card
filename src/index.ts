@@ -171,7 +171,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 
         //Battery 2
         const stateBattery2Voltage = this.getEntity('entities.battery2_voltage_183');
-        const stateBattery2Soc = this.getEntity('entities.battery2_soc_184');
+        const stateBattery2Soc = this.getEntity('entities.battery2_soc_184', null, config.battery2.soc_decimal_places, Percentage.PERCENTAGE);
         const stateBattery2Power = this.getEntity('entities.battery2_power_190');
         const stateBattery2Current = this.getEntity('entities.battery2_current_191');
         const stateBattery2Temp = this.getEntity('entities.battery2_temp_182', {state: ''});
