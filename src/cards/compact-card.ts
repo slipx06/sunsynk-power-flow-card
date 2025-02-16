@@ -748,16 +748,6 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                     }
                                 </text>
                             </a>
-                            <text x="79"
-                                y="338"
-                                class="st3 left-align"
-                                display="${!config.battery.show_remaining_energy ? 'none' : ''}"
-                                fill="${data.batteryColour}">
-                                ${!config.battery.remaining_energy_to_shutdown
-                                    ? `${Utils.toNum((data.batteryEnergy * (data.stateBatterySoc.toNum() / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`
-                                    : `${Utils.toNum((data.batteryEnergy * ((data.stateBatterySoc?.toNum() - data.batteryOneShutdown) / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`
-                                }
-                            </text>
                         </svg>
                         <svg id="two_batteries_data_compact_bat2" 
                              style="overflow: visible; display: ${config.wide && data.batteryCount === 2 && data.compactMode ? 'inline' : 'none'};"
@@ -807,8 +797,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             </text>
                         </svg>
                         <svg id="battery2_data_lite" 
-                            style="overflow: visible; display: ${config.wide && data.batteryCount === 2 && !data.compactMode ? 'inline' : 'none'};"
-                            x="19%">
+                            style="overflow: visible; display: ${config.wide && data.batteryCount === 2 && !data.compactMode ? 'inline' : 'none'};" x="19%">
                             <rect x="159" y="329.75" width="70"
                                 height="70"
                                 rx="10.5" ry="10.5"
@@ -863,285 +852,367 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 ${data.battery2StateMsg}
                             </text>
                         </svg>
-                        <svg id="battery_1_runtime" style="overflow: visible;" x="${data.batteryCount === 2 ? '-43.5%' : '0%'}">
+                        <svg id="battery_1_runtime" style="overflow: visible; display: ${data.batteryCount === 2  ? 'none' : 'inline'};" >
                             <text id="duration" x="${data.compactMode ? '270' : '290'}" y="377.5"
                                 class="${data.largeFont !== true ? 'st14' : 'st4'} left-align"
                                 display="${data.compactMode && data.batteryCount === 2 ? 'none' : ''}"
-                                fill="${data.batteryEnergy === 0 || data.isFloating || data.batteryPower === 0 ? 'transparent' : `${data.batteryColour}`}">
+                                fill="${data.batteryEnergy === 0 || data.isFloating || data.batteryPower === 0 ? 'transparent' : data.batteryColour}">
                                 ${data.batteryDuration}
                             </text>
                             <text id="duration_text" x="${data.compactMode ? '270' : '290'}" y="393.7" class="st3 left-align"
                                 display="${data.compactMode && data.batteryCount === 2 ? 'none' : ''}"
-                                fill="${data.batteryEnergy === 0 || (config.battery.invert_flow === true ? data.batteryPower >= 0 : data.batteryPower <= 0) || data.isFloating ? 'transparent' : `${data.batteryColour}`}">
+                                fill="${data.batteryEnergy === 0 || (config.battery.invert_flow === true ? data.batteryPower >= 0 : data.batteryPower <= 0) || data.isFloating ? 'transparent' : data.batteryColour}">
                                 ${localize('common.runtime_to')} ${data.batteryCapacity}% @${data.formattedResultTime}
                             </text>
                             <text id="duration_text_charging" x="${data.compactMode ? '270' : '290'}" y="393.7"
                                 class="st3 left-align"
                                 display="${data.compactMode && data.batteryCount === 2 ? 'none' : ''}"
-                                fill="${data.batteryEnergy === 0 || (config.battery.invert_flow === true ? data.batteryPower <= 0 : data.batteryPower >= 0) || data.isFloating ? 'transparent' : `${data.batteryColour}`}">
+                                fill="${data.batteryEnergy === 0 || (config.battery.invert_flow === true ? data.batteryPower <= 0 : data.batteryPower >= 0) || data.isFloating ? 'transparent' : data.batteryColour}">
                                 ${localize('common.to')} ${data.batteryCapacity}% ${localize('common.charge')}
                                     @${data.formattedResultTime}
                             </text>
                             <text id="floating" x="${data.compactMode ? '270' : '290'}" y="393.7" class="st3 left-align"
                                 display="${data.compactMode && data.batteryCount === 2 ? 'none' : ''}"
-                                fill="${data.batteryEnergy === 0 || !data.isFloating ? 'transparent' : `${data.batteryColour}`}">
+                                fill="${data.batteryEnergy === 0 || !data.isFloating ? 'transparent' : data.batteryColour}">
                                 ${localize('common.battery_floating')}
                             </text>
-                            <text id="battery_soc_184" x="${data.compactMode ? '343' : '363'}" y="351"
+                            <text id="battery_soc_184" x="${data.compactMode ? '340' : '360'}" y="351"
                                 fill=${data.batteryColour}
                                 class="${config.battery.hide_soc || (data.compactMode && data.batteryCount === 2) ? 'st12' : 'st14 left-align'}"
                                 display="${!data.inverterProg.show && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
                                 ${data.batteryShutdown}%
                             </text>
-                            <text id="battery_soc_184" x="${data.compactMode ? '343' : '363'}" y="364"
+                            <text id="battery_soc_184" x="${data.compactMode ? '340' : '360'}" y="364"
                                 fill=${data.batteryColour}
                                 class="${config.battery.hide_soc || (data.compactMode && data.batteryCount === 2) ? 'st12' : 'st14 left-align'}"
                                 display="${!data.inverterProg.show && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
                                 ${data.shutdownOffGrid}%
                             </text>
-                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
-                                <text id="battery_soc_184" x="${data.compactMode ? '270' : '290'}" y="358"
-                                    display="${config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid() || (data.compactMode && data.batteryCount === 2) ? 'none' : ''}"
-                                    fill=${data.batteryColour} class="st13 st8 left-align">
-                                    ${config.battery.hide_soc ? data.stateBatterySoc.toDisplay() : `${data.stateBatterySoc.toNum(0)}%`}
-                                </text>
-                            </a>
-                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
-                                <text id="battery_soc_184" x="${data.compactMode ? '330' : '350'}" y="358"
-                                    fill=${data.batteryColour}
-                                    class="st13 st8 left-align"
-                                    display="${!data.inverterProg.show
-                                    || config.entities.battery_soc_184 === 'none'
-                                    || config.battery.hide_soc 
-                                    || (data.compactMode && data.batteryCount === 2) ? 'none' : ''}">
-                                    | ${data.inverterProg.capacity || 0}%
-                                </text>
-                            </a>
-                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
-                                <text id="battery_soc_184" x="${data.compactMode ? '330' : '350'}" y="358"
-                                    fill=${data.batteryColour}
-                                    class="${config.battery.hide_soc || (data.compactMode && data.batteryCount === 2) ? 'st12' : 'st13 st8 left-align'}"
-                                    display="${!data.inverterProg.show && config.battery?.shutdown_soc && !config.battery?.shutdown_soc_offgrid
-                                            ? '' : 'none'}">
-                                    | ${data.batteryShutdown || 0}%
-                                </text>
-                            </a>
-                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
-                                <text id="battery_soc_184" x="${data.compactMode ? '330' : '350'}" y="358"
-                                    fill=${data.batteryColour}
-                                    class="${config.battery.hide_soc || (data.compactMode && data.batteryCount === 2) ? 'st12' : 'st13 st8 left-align'}"
-                                    display="${!data.inverterProg.show && config.battery.shutdown_soc_offgrid ? '' : 'none'}">
-                                    |
-                                </text>
-                            </a>
+                            <svg id="Battery1_SOC" 
+                             style="overflow: visible; 
+                                    display: ${config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid() || (data.compactMode && data.batteryCount === 2) ? 'none' : 'inline'};">  
+                                <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
+                                    <text id="battery_soc_184" x="${data.compactMode ? '270' : '290'}" y="358"
+                                        display="${config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid() || (data.compactMode && data.batteryCount === 2) ? 'none' : ''}"
+                                        fill=${data.batteryColour} class="st13 st8 left-align">
+                                        ${!data.inverterProg.show && config.battery.shutdown_soc_offgrid 
+                                            ? (config.battery.hide_soc ? data.stateBatterySoc.toDisplay() : `${data.stateBatterySoc.toNum(0)}% | `)
+                                            : (config.battery.hide_soc ? data.stateBatterySoc.toDisplay() : `${data.stateBatterySoc.toNum(0)}%`)}
+                                </a>
+                            </svg>
+                            <svg id="Battery1_SOC_Program_Capacity" 
+                             style="overflow: visible; 
+                                    display: ${config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid() || config.battery.hide_soc || !data.inverterProg.show ? 'none' : 'inline'};">  
+                                <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
+                                    <text id="battery_soc_184" x="${data.compactMode ? '270' : '290'}" y="358"
+                                        display="${config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid() ? 'none' : ''}"
+                                        fill=${data.batteryColour} class="st13 st8 left-align">
+                                        ${data.stateBatterySoc.toNum(0)}% | ${data.inverterProg.capacity || 0}%
+                                    </text>
+                                </a>
+                            </svg>
+                            <svg id="Battery1_SOC_Shutdown" 
+                             style="overflow: visible; 
+                                    display: ${config.entities.battery_soc_184 !== 'none' && data.stateBatterySoc.isValid() && !config.battery.hide_soc && !data.inverterProg.show && config.battery?.shutdown_soc && !config.battery?.shutdown_soc_offgrid ? 'inline' : 'none'};">  
+                                <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
+                                    <text id="battery_soc_184" x="${data.compactMode ? '270' : '290'}" y="358"
+                                        display="${config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid() ? 'none' : ''}"
+                                        fill=${data.batteryColour} class="st13 st8 left-align">
+                                        ${data.stateBatterySoc.toNum(0)}% | ${data.batteryShutdown || 0}%
+                                    </text>
+                                </a>
+                            </svg>
                         </svg>
-                        <svg id="two_batteries_runtime_compact_bat1" 
-                             style="overflow: visible; display: ${config.wide && data.batteryCount === 2 && data.compactMode ? 'inline' : 'none'};"
-                             x="-29%">
-                            <text id="duration" x="270" y="377.5"
-                                class="${data.largeFont !== true ? 'st14' : 'st4'} left-align"
-                                fill="${data.batteryEnergy === 0 || data.isFloating || data.batteryPower === 0 ? 'transparent' : `${data.batteryColour}`}">
+                        <svg id="two_batteries_battery1_runtime_lite" 
+                            style="overflow: visible; display: ${config.wide && data.batteryCount === 2 && !data.compactMode ? 'inline' : 'none'};" 
+                            x="-43.5%">
+                            <text id="duration" x="413" y="377.5"
+                                class="${data.largeFont !== true ? 'st4' : 'st14'} right-align"
+                                fill="${data.batteryEnergy === 0 || data.isFloating || data.batteryPower === 0 ? 'transparent' : data.batteryColour}">
                                 ${data.batteryDuration}
-                            </text>
-                            <text id="duration_text" x="270" y="393.7" class="st3 left-align"
-                                display="${data.batteryCount === 1 ? 'none' : ''}"
-                                fill="${data.batteryEnergy === 0 || (config.battery.invert_flow === true ? data.batteryPower >= 0 : data.batteryPower <= 0) || data.isFloating ? 'transparent' : `${data.batteryColour}`}">
+                            </text>                          
+                            <text id="duration_text" x="413" y="393.7" class="st3 right-align"
+                                fill="${data.batteryEnergy === 0 || (config.battery.invert_flow ? data.batteryPower >= 0 : data.batteryPower <= 0) || data.isFloating ? 'transparent' : data.batteryColour}">
                                 ${localize('common.runtime_to')} ${data.batteryCapacity}% @${data.formattedResultTime}
                             </text>
-                            <text id="duration_text_charging" x="270" y="393.7"
-                                class="st3 left-align"
-                                fill="${data.batteryEnergy === 0 || (config.battery.invert_flow === true ? data.batteryPower <= 0 : data.batteryPower >= 0) || data.isFloating ? 'transparent' : `${data.batteryColour}`}">
+                            <text id="duration_text_charging" x="413" y="393.7"
+                                class="st3 right-align"
+                                fill="${data.batteryEnergy === 0 || (config.battery.invert_flow === true ? data.batteryPower <= 0 : data.batteryPower >= 0) || data.isFloating ? 'transparent' : data.batteryColour}">
                                 ${localize('common.to')} ${data.batteryCapacity}% ${localize('common.charge')}
                                     @${data.formattedResultTime}
                             </text>
-                            <text id="floating" x="270" y="393.7" class="st3 left-align"
-                                fill="${data.batteryEnergy === 0 || !data.isFloating ? 'transparent' : `${data.batteryColour}`}">
+                            <text id="floating" x="413" y="393.7" class="st3 right-align"
+                                fill="${data.batteryEnergy === 0 || !data.isFloating ? 'transparent' : data.batteryColour}">
                                 ${localize('common.battery_floating')}
                             </text>
-                            <text id="battery_soc_184" x="343" y="351"
+                            <text id="battery_soc_184" x="342" y="351"
                                 fill=${data.batteryColour}
-                                class="${config.battery.hide_soc ? 'st12' : 'st14 left-align'}"
+                                class="${config.battery.hide_soc || (data.compactMode && data.batteryCount === 2) ? 'st12' : 'st14 right-align'}"
                                 display="${!data.inverterProg.show && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
                                 ${data.batteryShutdown}%
                             </text>
-                            <text id="battery_soc_184" x="343" y="364"
+                            <text id="battery_soc_184" x="342" y="364"
                                 fill=${data.batteryColour}
-                                class="${config.battery.hide_soc  ? 'st12' : 'st14 left-align'}"
+                                class="${config.battery.hide_soc || (data.compactMode && data.batteryCount === 2) ? 'st12' : 'st14 right-align'}"
                                 display="${!data.inverterProg.show && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
                                 ${data.shutdownOffGrid}%
                             </text>
-                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
-                                <text id="battery_soc_184" x="270" y="358"
-                                    display="${config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid() ? 'none' : ''}"
-                                    fill=${data.batteryColour} class="st13 st8 left-align">
-                                    ${config.battery.hide_soc ? data.stateBatterySoc.toDisplay() : `${data.stateBatterySoc.toNum(0)}%`}
-                                </text>
-                            </a>
-                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
-                                <text id="battery_soc_184" x="330" y="358"
-                                    fill=${data.batteryColour}
-                                    class="st13 st8 left-align"
-                                    display="${!data.inverterProg.show
-                                    || config.entities.battery_soc_184 === 'none'
-                                    || config.battery.hide_soc ? 'none' : ''}">
-                                    | ${data.inverterProg.capacity || 0}%
-                                </text>
-                            </a>
-                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
-                                <text id="battery_soc_184" x="330" y="358"
-                                    fill=${data.batteryColour}
-                                    class="${config.battery.hide_soc ? 'st12' : 'st13 st8 left-align'}"
-                                    display="${!data.inverterProg.show && config.battery?.shutdown_soc && !config.battery?.shutdown_soc_offgrid
-                                            ? '' : 'none'}">
-                                    | ${data.batteryShutdown || 0}%
-                                </text>
-                            </a>
-                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
-                                <text id="battery_soc_184" x="330" y="358"
-                                    fill=${data.batteryColour}
-                                    class="${config.battery.hide_soc ? 'st12' : 'st13 st8 left-align'}"
-                                    display="${!data.inverterProg.show && config.battery.shutdown_soc_offgrid ? '' : 'none'}">
-                                    |
-                                </text>
-                            </a>
+                            <svg id="Battery1_SOC" 
+                             style="overflow: visible; 
+                                    display: ${config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid() || (data.compactMode && data.batteryCount === 2) ? 'none' : 'inline'};">  
+                                <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
+                                    <text id="battery_soc_184" x="413" y="358"
+                                        display="${config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid() || (data.compactMode && data.batteryCount === 2) ? 'none' : ''}"
+                                        fill=${data.batteryColour} class="st13 st8 right-align">
+                                        ${!data.inverterProg.show && config.battery.shutdown_soc_offgrid 
+                                            ? (config.battery.hide_soc ? data.stateBatterySoc.toDisplay() : `| ${data.stateBatterySoc.toNum(0)}%`)
+                                            : (config.battery.hide_soc ? data.stateBatterySoc.toDisplay() : `${data.stateBatterySoc.toNum(0)}%`)}
+                                    </text>
+                                </a>
+                            </svg>
+                            <svg id="Battery1_SOC_Program_Capacity" 
+                             style="overflow: visible; 
+                                    display: ${config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid() || config.battery.hide_soc || !data.inverterProg.show ? 'none' : 'inline'};">  
+                                <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
+                                    <text id="battery_soc_184" x="413" y="358"
+                                        display="${config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid() ? 'none' : ''}"
+                                        fill=${data.batteryColour} class="st13 st8 right-align">
+                                        ${data.inverterProg.capacity || 0}% | ${data.stateBatterySoc.toNum(0)}%
+                                    </text>
+                                </a>
+                            </svg>
+                            <svg id="Battery1_SOC_Shutdown" 
+                             style="overflow: visible; 
+                                    display: ${config.entities.battery_soc_184 !== 'none' && data.stateBatterySoc.isValid() && !config.battery.hide_soc && !data.inverterProg.show && config.battery?.shutdown_soc && !config.battery?.shutdown_soc_offgrid ? 'inline' : 'none'};">  
+                                <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
+                                    <text id="battery_soc_184" x="413" y="358"
+                                        display="${config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid() ? 'none' : ''}"
+                                        fill=${data.batteryColour} class="st13 st8 right-align">
+                                        ${data.batteryShutdown || 0}% | ${data.stateBatterySoc.toNum(0)}%
+                                    </text>
+                                </a>
+                            </svg>
                         </svg>
-                        <svg id="two_batteries_runtime_compact_bat2" 
-                             style="overflow: visible; display: ${config.wide && data.batteryCount === 2 && data.compactMode ? 'inline' : 'none'};"
-                             x="0.3%">    
-                            <text id="duration" x="290" y="377.5"
-                                class="${data.largeFont !== true ? 'st14' : 'st4'} left-align"
-                                fill="${data.battery2Energy === 0 || data.isFloating2 || data.battery2Power === 0 ? 'transparent' : `${data.battery2Colour}`}">
-                                ${data.batteryDuration2}
-                            </text>
-                            <text id="duration_text" x="290" y="393.7" class="st3 left-align"
-                                fill="${data.battery2Energy === 0 || (config.battery2.invert_flow === true ? data.battery2Power >= 0 : data.battery2Power <= 0) || data.isFloating2 ? 'transparent' : `${data.battery2Colour}`}">
-                                ${localize('common.runtime_to')} ${data.battery2Capacity}% @${data.formattedResultTime2}
-                            </text>
-                            <text id="duration_text_charging" x="290" y="393.7"
-                                class="st3 left-align"
-                                fill="${data.battery2Energy === 0 || (config.battery2.invert_flow === true ? data.battery2Power <= 0 : data.battery2Power >= 0) || data.isFloating2 ? 'transparent' : `${data.battery2Colour}`}">
-                                ${localize('common.to')} ${data.battery2Capacity}% ${localize('common.charge')}
-                                    @${data.formattedResultTime2}
-                            </text>
-                            <text id="floating" x="290" y="393.7" class="st3 left-align"
-                                fill="${data.battery2Energy === 0 || !data.isFloating2 ? 'transparent' : `${data.battery2Colour}`}">
-                                ${localize('common.battery_floating')}
-                            </text>
-                            <text id="battery_soc_184" x="363" y="351"
-                                fill=${data.battery2Colour}
-                                class="${config.battery2.hide_soc ? 'st12' : 'st14 left-align'}"
-                                display="${!data.inverterProg.show && config.battery2?.shutdown_soc_offgrid ? '' : 'none'}">
-                                ${data.batteryShutdown2}%
-                            </text>
-                            <text id="battery_soc_184" x="363" y="364"
-                                fill=${data.battery2Colour}
-                                class="${config.battery2.hide_soc ? 'st12' : 'st14 left-align'}"
-                                display="${!data.inverterProg.show && config.battery2?.shutdown_soc_offgrid ? '' : 'none'}">
-                                ${data.shutdownOffGrid2}%
-                            </text>
-                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery2_soc_184)}>
-                                <text id="battery_soc_184" x="290" y="358"
-                                    display="${config.entities.battery2_soc_184 === 'none' || !data.stateBattery2Soc.isValid() ? 'none' : ''}"
-                                    fill=${data.battery2Colour} class="st13 st8 left-align">
-                                    ${config.battery2.hide_soc ? data.stateBattery2Soc.toDisplay() : `${data.stateBattery2Soc.toNum(0)}%`}
-                                </text>
-                            </a>
-                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery2_soc_184)}>
-                                <text id="battery_soc_184" x="350" y="358"
-                                    fill=${data.battery2Colour}
-                                    class="st13 st8 left-align"
-                                    display="${!data.inverterProg.show
-                                    || config.entities.battery2_soc_184 === 'none'
-                                    || config.battery2.hide_soc ? 'none' : ''}">
-                                    | ${data.inverterProg.capacity || 0}%
-                                </text>
-                            </a>
-                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery2_soc_184)}>
-                                <text id="battery_soc_184" x="350" y="358"
-                                    fill=${data.battery2Colour}
-                                    class="${config.battery2.hide_soc ? 'st12' : 'st13 st8 left-align'}"
-                                    display="${!data.inverterProg.show && config.battery2?.shutdown_soc && !config.battery2?.shutdown_soc_offgrid
-                                            ? '' : 'none'}">
-                                    | ${data.batteryShutdown2 || 0}%
-                                </text>
-                            </a>
-                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery2_soc_184)}>
-                                <text id="battery_soc_184" x="350" y="358"
-                                    fill=${data.battery2Colour}
-                                    class="${config.battery2.hide_soc ? 'st12' : 'st13 st8 left-align'}"
-                                    display="${!data.inverterProg.show && config.battery2.shutdown_soc_offgrid ? '' : 'none'}">
-                                    |
-                                </text>
-                            </a>
-                        </svg>
-                        <svg id="battery_2_runtime" 
+                        <svg id="two_batteries_battery_2_runtime_lite" 
                             style="overflow: visible; display: ${config.wide && data.batteryCount === 2 && !data.compactMode ? 'inline' : 'none'};"  
                             x="12%">
                             <text id="duration" x="290" y="377.5"
                                 class="${data.largeFont !== true ? 'st14' : 'st4'} left-align"
-                                fill="${data.battery2Energy === 0 || data.isFloating2 || data.battery2Power === 0 ? 'transparent' : `${data.battery2Colour}`}">
+                                fill="${data.battery2Energy === 0 || data.isFloating2 || data.battery2Power === 0 ? 'transparent' : data.battery2Colour}">
                                 ${data.batteryDuration2}
                             </text>
                             <text id="duration_text" x="290" y="393.7" class="st3 left-align"
-                                fill="${data.battery2Energy === 0 || (config.battery2.invert_flow === true ? data.battery2Power >= 0 : data.battery2Power <= 0) || data.isFloating2 ? 'transparent' : `${data.battery2Colour}`}">
+                                fill="${data.battery2Energy === 0 || (config.battery2.invert_flow === true ? data.battery2Power >= 0 : data.battery2Power <= 0) || data.isFloating2 ? 'transparent' : data.battery2Colour}">
                                 ${localize('common.runtime_to')} ${data.battery2Capacity}% @${data.formattedResultTime2}
                             </text>
                             <text id="duration_text_charging" x="290" y="393.7"
                                 class="st3 left-align"
-                                fill="${data.battery2Energy === 0 || (config.battery2.invert_flow === true ? data.battery2Power <= 0 : data.battery2Power >= 0) || data.isFloating2 ? 'transparent' : `${data.battery2Colour}`}">
+                                fill="${data.battery2Energy === 0 || (config.battery2.invert_flow === true ? data.battery2Power <= 0 : data.battery2Power >= 0) || data.isFloating2 ? 'transparent' : data.battery2Colour}">
                                 ${localize('common.to')} ${data.battery2Capacity}% ${localize('common.charge')}
                                     @${data.formattedResultTime2}
                             </text>
                             <text id="floating" x="290" y="393.7" class="st3 left-align"
-                                fill="${data.battery2Energy === 0 || !data.isFloating2 ? 'transparent' : `${data.battery2Colour}`}">
+                                fill="${data.battery2Energy === 0 || !data.isFloating2 ? 'transparent' : data.battery2Colour}">
                                 ${localize('common.battery_floating')}
                             </text>
-                            <text id="battery_soc_184" x="363" y="351"
+                            <text id="battery_soc_184" x="360" y="351"
                                 fill=${data.battery2Colour}
                                 class="${config.battery2.hide_soc ? 'st12' : 'st14 left-align'}"
                                 display="${!data.inverterProg.show && config.battery2?.shutdown_soc_offgrid ? '' : 'none'}">
                                 ${data.batteryShutdown2}%
                             </text>
-                            <text id="battery_soc_184" x="363" y="364"
+                            <text id="battery_soc_184" x="360" y="364"
                                 fill=${data.battery2Colour}
                                 class="${config.battery2.hide_soc ? 'st12' : 'st14 left-align'}"
                                 display="${!data.inverterProg.show && config.battery2?.shutdown_soc_offgrid ? '' : 'none'}">
                                 ${data.shutdownOffGrid2}%
                             </text>
-                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery2_soc_184)}>
-                                <text id="battery_soc_184" x="290" y="358"
-                                    display="${config.entities.battery2_soc_184 === 'none' || !data.stateBattery2Soc.isValid() ? 'none' : ''}"
-                                    fill=${data.battery2Colour} class="st13 st8 left-align">
-                                    ${config.battery2.hide_soc ? data.stateBattery2Soc.toDisplay() : `${data.stateBattery2Soc.toNum(0)}%`}
-                                </text>
-                            </a>
-                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery2_soc_184)}>
-                                <text id="battery_soc_184" x="350" y="358"
-                                    fill=${data.battery2Colour}
-                                    class="st13 st8 left-align"
-                                    display="${!data.inverterProg.show
-                                    || config.entities.battery2_soc_184 === 'none'
-                                    || config.battery2.hide_soc ? 'none' : ''}">
-                                    | ${data.inverterProg.capacity || 0}%
-                                </text>
-                            </a>
-                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery2_soc_184)}>
-                                <text id="battery_soc_184" x="350" y="358"
-                                    fill=${data.battery2Colour}
-                                    class="${config.battery2.hide_soc ? 'st12' : 'st13 st8 left-align'}"
-                                    display="${!data.inverterProg.show && config.battery2?.shutdown_soc && !config.battery2?.shutdown_soc_offgrid
-                                            ? '' : 'none'}">
-                                    | ${data.batteryShutdown2 || 0}%
-                                </text>
-                            </a>
-                            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery2_soc_184)}>
-                                <text id="battery_soc_184" x="350" y="358"
-                                    fill=${data.battery2Colour}
-                                    class="${config.battery2.hide_soc ? 'st12' : 'st13 st8 left-align'}"
-                                    display="${!data.inverterProg.show && config.battery2.shutdown_soc_offgrid ? '' : 'none'}">
-                                    |
-                                </text>
-                            </a>
+                            <svg id="Battery2_SOC" 
+                             style="overflow: visible; 
+                                    display: ${config.entities.battery2_soc_184 === 'none' || !data.stateBattery2Soc.isValid() ? 'none' : 'inline'};">  
+                                <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery2_soc_184)}>
+                                    <text id="battery_soc_184" x="290" y="358"
+                                        display="${config.entities.battery2_soc_184 === 'none' || !data.stateBattery2Soc.isValid() ? 'none' : ''}"
+                                        fill=${data.battery2Colour} class="st13 st8 left-align">
+                                        ${!data.inverterProg.show && config.battery2.shutdown_soc_offgrid 
+                                            ? (config.battery2.hide_soc ? data.stateBattery2Soc.toDisplay() : `${data.stateBattery2Soc.toNum(0)}% |`)
+                                            : (config.battery2.hide_soc ? data.stateBattery2Soc.toDisplay() : `${data.stateBattery2Soc.toNum(0)}%`)}
+                                    </text>
+                                </a>
+                            </svg>
+                            <svg id="Battery2_SOC_Program_Capacity" 
+                             style="overflow: visible; 
+                                    display: ${config.entities.battery2_soc_184 === 'none' || !data.stateBattery2Soc.isValid() || config.battery2.hide_soc || !data.inverterProg.show ? 'none' : 'inline'};">  
+                                <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery2_soc_184)}>
+                                    <text id="battery_soc_184" x="290" y="358"
+                                        display="${config.entities.battery2_soc_184 === 'none' || !data.stateBattery2Soc.isValid() ? 'none' : ''}"
+                                        fill=${data.battery2Colour} class="st13 st8 left-align">
+                                        ${data.stateBattery2Soc.toNum(0)}% | ${data.inverterProg.capacity || 0}%
+                                    </text>
+                                </a>
+                            </svg>
+                            <svg id="Battery2_SOC_Shutdown" 
+                             style="overflow: visible; 
+                                    display: ${config.entities.battery2_soc_184 !== 'none' && data.stateBattery2Soc.isValid() && !config.battery2.hide_soc && !data.inverterProg.show && config.battery2?.shutdown_soc && !config.battery2?.shutdown_soc_offgrid ? 'inline' : 'none'};">  
+                                <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery2_soc_184)}>
+                                    <text id="battery_soc_184" x="290" y="358"
+                                        display="${config.entities.battery2_soc_184 === 'none' || !data.stateBattery2Soc.isValid() ? 'none' : ''}"
+                                        fill=${data.battery2Colour} class="st13 st8 left-align">
+                                        ${data.stateBattery2Soc.toNum(0)}% | ${data.batteryShutdown2 || 0}%
+                                    </text>
+                                </a>
+                            </svg>
+                        </svg>
+                        <svg id="two_batteries_runtime_compact_bat1" 
+                             style="overflow: visible; display: ${config.wide && data.batteryCount === 2 && data.compactMode ? 'inline' : 'none'};"
+                             x="-29%">
+                            <text id="duration" x="393" y="377.5"
+                                class="${data.largeFont !== true ? 'st14' : 'st4'} right-align"
+                                fill="${data.batteryEnergy === 0 || data.isFloating || data.batteryPower === 0 ? 'transparent' : data.batteryColour}">
+                                ${data.batteryDuration}
+                            </text>
+                            <text id="duration_text" x="393" y="393.7" class="st3 right-align"
+                                display="${data.batteryCount === 1 ? 'none' : ''}"
+                                fill="${data.batteryEnergy === 0 || (config.battery.invert_flow === true ? data.batteryPower >= 0 : data.batteryPower <= 0) || data.isFloating ? 'transparent' : data.batteryColour}">
+                                ${localize('common.runtime_to')} ${data.batteryCapacity}% @${data.formattedResultTime}
+                            </text>
+                            <text id="duration_text_charging" x="393" y="393.7"
+                                class="st3 right-align"
+                                fill="${data.batteryEnergy === 0 || (config.battery.invert_flow === true ? data.batteryPower <= 0 : data.batteryPower >= 0) || data.isFloating ? 'transparent' : data.batteryColour}">
+                                ${localize('common.to')} ${data.batteryCapacity}% ${localize('common.charge')}
+                                    @${data.formattedResultTime}
+                            </text>
+                            <text id="floating" x="393" y="393.7" class="st3 right-align"
+                                fill="${data.batteryEnergy === 0 || !data.isFloating ? 'transparent' : data.batteryColour}">
+                                ${localize('common.battery_floating')}
+                            </text>
+                            <text id="battery_soc_184" x="320" y="351"
+                                fill=${data.batteryColour}
+                                class="${config.battery.hide_soc ? 'st12' : 'st14 right-align'}"
+                                display="${!data.inverterProg.show && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
+                                ${data.batteryShutdown}%
+                            </text>
+                            <text id="battery_soc_184" x="320" y="364"
+                                fill=${data.batteryColour}
+                                class="${config.battery.hide_soc  ? 'st12' : 'st14 right-align'}"
+                                display="${!data.inverterProg.show && config.battery?.shutdown_soc_offgrid ? '' : 'none'}">
+                                ${data.shutdownOffGrid}%
+                            </text>
+                            <svg id="Battery1_SOC" 
+                             style="overflow: visible; 
+                                    display: ${config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid() ? 'none' : 'inline'};">  
+                                <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
+                                    <text id="battery_soc_184" x="393" y="358"
+                                        display="${config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid() ? 'none' : ''}"
+                                        fill=${data.batteryColour} class="st13 st8 right-align">
+                                        ${!data.inverterProg.show && config.battery.shutdown_soc_offgrid 
+                                            ? (config.battery.hide_soc ? data.stateBatterySoc.toDisplay() : `| ${data.stateBatterySoc.toNum(0)}%`)
+                                            : (config.battery.hide_soc ? data.stateBatterySoc.toDisplay() : `${data.stateBatterySoc.toNum(0)}%`)}
+                                    </text>
+                                </a>
+                            </svg>                            
+                            <svg id="Battery1_SOC_Program_Capacity" 
+                             style="overflow: visible; 
+                                    display: ${config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid() || config.battery.hide_soc || !data.inverterProg.show ? 'none' : 'inline'};">  
+                                <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery_soc_184)}>
+                                    <text id="battery_soc_184" x="393" y="358"
+                                        display="${config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid() ? 'none' : ''}"
+                                        fill=${data.batteryColour} class="st13 st8 right-align">
+                                        ${data.inverterProg.capacity || 0}% | ${data.stateBatterySoc.toNum(0)}%
+                                    </text>
+                                </a>
+                            </svg>
+                            <svg id="Battery1_SOC_Shutdown" 
+                             style="overflow: visible; 
+                                    display: ${config.entities.battery_soc_184 !== 'none' && data.stateBatterySoc.isValid() && !config.battery.hide_soc && !data.inverterProg.show && config.battery?.shutdown_soc && !config.battery?.shutdown_soc_offgrid ? 'inline' : 'none'};">  
+                                <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery2_soc_184)}>
+                                    <text id="battery_soc_184" x="393" y="358"
+                                        display="${config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid() ? 'none' : ''}"
+                                        fill=${data.batteryColour} class="st13 st8 right-align">
+                                        ${data.batteryShutdown || 0}% | ${data.stateBatterySoc.toNum(0)}%
+                                    </text>
+                                </a>
+                            </svg>
+                            <text x="393"
+                                y="338"
+                                class="st3 right-align"
+                                display="${!config.battery.show_remaining_energy ? 'none' : ''}"
+                                fill="${data.batteryColour}">
+                                ${!config.battery.remaining_energy_to_shutdown
+                                    ? `${Utils.toNum((data.batteryEnergy * (data.stateBatterySoc.toNum() / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`
+                                    : `${Utils.toNum((data.batteryEnergy * ((data.stateBatterySoc?.toNum() - data.batteryOneShutdown) / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`
+                                }
+                            </text>
+                        </svg>
+                        <svg id="two_batteries_runtime_compact_bat2" 
+                             style="overflow: visible; display: ${config.wide && data.batteryCount === 2 && data.compactMode ? 'inline' : 'none'};"
+                             x="0.3%">
+                            <text id="duration" x="290" y="377.5"
+                                class="${data.largeFont !== true ? 'st14' : 'st4'} left-align"
+                                fill="${data.battery2Energy === 0 || data.isFloating2 || data.battery2Power === 0 ? 'transparent' : data.battery2Colour}">
+                                ${data.batteryDuration2}
+                            </text>
+                            <text id="duration_text" x="290" y="393.7" class="st3 left-align"
+                                fill="${data.battery2Energy === 0 || (config.battery2.invert_flow === true ? data.battery2Power >= 0 : data.battery2Power <= 0) || data.isFloating2 ? 'transparent' : data.battery2Colour}">
+                                ${localize('common.runtime_to')} ${data.battery2Capacity}% @${data.formattedResultTime2}
+                            </text>
+                            <text id="duration_text_charging" x="290" y="393.7"
+                                class="st3 left-align"
+                                fill="${data.battery2Energy === 0 || (config.battery2.invert_flow === true ? data.battery2Power <= 0 : data.battery2Power >= 0) || data.isFloating2 ? 'transparent' : data.battery2Colour}">
+                                ${localize('common.to')} ${data.battery2Capacity}% ${localize('common.charge')}
+                                    @${data.formattedResultTime2}
+                            </text>
+                            <text id="floating" x="290" y="393.7" class="st3 left-align"
+                                fill="${data.battery2Energy === 0 || !data.isFloating2 ? 'transparent' : data.battery2Colour}">
+                                ${localize('common.battery_floating')}
+                            </text>
+                            <text id="battery_soc_184" x="360" y="351"
+                                fill=${data.battery2Colour}
+                                class="${config.battery2.hide_soc ? 'st12' : 'st14 left-align'}"
+                                display="${!data.inverterProg.show && config.battery2?.shutdown_soc_offgrid ? '' : 'none'}">
+                                ${data.batteryShutdown2}%
+                            </text>
+                            <text id="battery_soc_184" x="360" y="364"
+                                fill=${data.battery2Colour}
+                                class="${config.battery2.hide_soc ? 'st12' : 'st14 left-align'}"
+                                display="${!data.inverterProg.show && config.battery2?.shutdown_soc_offgrid ? '' : 'none'}">
+                                ${data.shutdownOffGrid2}%
+                            </text>
+                            <svg id="Battery2_SOC" 
+                             style="overflow: visible; 
+                                    display: ${config.entities.battery2_soc_184 === 'none' || !data.stateBattery2Soc.isValid() ? 'none' : 'inline'};">  
+                                <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery2_soc_184)}>
+                                    <text id="battery_soc_184" x="290" y="358"
+                                        display="${config.entities.battery2_soc_184 === 'none' || !data.stateBattery2Soc.isValid() ? 'none' : ''}"
+                                        fill=${data.battery2Colour} class="st13 st8 left-align">
+                                        ${!data.inverterProg.show && config.battery2.shutdown_soc_offgrid 
+                                            ? (config.battery2.hide_soc ? data.stateBattery2Soc.toDisplay() : `${data.stateBattery2Soc.toNum(0)}% |`)
+                                            : (config.battery2.hide_soc ? data.stateBattery2Soc.toDisplay() : `${data.stateBattery2Soc.toNum(0)}%`)}
+                                    </text>
+                                </a>
+                            </svg>
+                            <svg id="Battery2_SOC_Program_Capacity" 
+                             style="overflow: visible; 
+                                    display: ${config.entities.battery2_soc_184 === 'none' || !data.stateBattery2Soc.isValid() || config.battery2.hide_soc || !data.inverterProg.show ? 'none' : 'inline'};">  
+                                <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery2_soc_184)}>
+                                    <text id="battery_soc_184" x="290" y="358"
+                                        display="${config.entities.battery2_soc_184 === 'none' || !data.stateBattery2Soc.isValid() ? 'none' : ''}"
+                                        fill=${data.battery2Colour} class="st13 st8 left-align">
+                                        ${data.stateBattery2Soc.toNum(0)}% | ${data.inverterProg.capacity || 0}%
+                                    </text>
+                                </a>
+                            </svg>
+                            <svg id="Battery2_SOC_Shutdown" 
+                             style="overflow: visible; 
+                                    display: ${config.entities.battery2_soc_184 !== 'none' && data.stateBattery2Soc.isValid() && !config.battery2.hide_soc && !data.inverterProg.show && config.battery2?.shutdown_soc && !config.battery2?.shutdown_soc_offgrid ? 'inline' : 'none'};">  
+                                <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.battery2_soc_184)}>
+                                    <text id="battery_soc_184" x="290" y="358"
+                                        display="${config.entities.battery2_soc_184 === 'none' || !data.stateBattery2Soc.isValid() ? 'none' : ''}"
+                                        fill=${data.battery2Colour} class="st13 st8 left-align">
+                                        ${data.stateBattery2Soc.toNum(0)}% | ${data.batteryShutdown2 || 0}%
+                                    </text>
+                                </a>
+                            </svg>
                         </svg>
                         <svg id="battery_flow" style="overflow: visible;">
                             <path id="bat-line"
@@ -1155,7 +1226,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 pointer-events="stroke"/>
                             <circle id="power-dot-discharge" cx="0" cy="0"
                                     r="${Math.min(2 + data.batLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                    fill="${data.batteryPowerTotal < 0 || data.batteryPowerTotal === 0 ? 'transparent' : `${data.batteryColour}`}">
+                                    fill="${data.batteryPowerTotal < 0 || data.batteryPowerTotal === 0 ? 'transparent' : data.batteryColour}">
                                 <animateMotion dur="${data.durationCur['battery']}s" repeatCount="indefinite"
                                             keyPoints=${config.battery.invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"}
                                             keyTimes="0;1" calcMode="linear">
@@ -1324,7 +1395,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             <svg id="battery_daily_charge" style="overflow: visible;" x="${data.batteryCount === 2 ? '42%' : '0%'}" y="${data.batteryCount === 2 ? '-20%' : '0%'}">
                                 <text id="daily_bat_charge" x="${data.compactMode && data.batteryCount === 1 ? '132' : '77.2'}" y="357.2"
                                     class="st3 left-align"
-                                    fill="${data.batteryShowDaily !== true  ? 'transparent' : `${data.batteryColour}`}">
+                                    fill="${data.batteryShowDaily !== true  ? 'transparent' : data.batteryColour}">
                                     ${localize('common.daily_charge')}
                                 </text>
                                 <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_battery_charge_70)}>
@@ -1339,7 +1410,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             <svg id="battery_daily_discharge" style="overflow: visible;" x="${data.batteryCount === 2 ? '42%' : '0%'}" y="${data.batteryCount === 2 ? '-20%' : '0%'}">
                                 <text id="daily_bat_dischcharge" x="${data.compactMode && data.batteryCount === 1 ? '132' : '77.2'}" y="393.7"
                                     class="st3 left-align"
-                                    fill="${data.batteryShowDaily !== true ? 'transparent' : `${data.batteryColour}`}">
+                                    fill="${data.batteryShowDaily !== true ? 'transparent' : data.batteryColour}">
                                     ${localize('common.daily_discharge')}
                                 </text>
                                 <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_battery_discharge_71)}>

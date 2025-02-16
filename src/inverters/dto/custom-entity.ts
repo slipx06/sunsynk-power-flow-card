@@ -90,8 +90,8 @@ function toDisplayFunction(state: string, measurement: UnitOfPower | UnitOfEnerg
     if(state == null)
         return state;
     if(Number.isNaN(state))
-        return `${state} ${measurement}`;
+        return `${state}${measurement}`;
     const stateDec = decimals != null && decimals >= 0 ? parseFloat(state).toFixed(decimals) : state;
     const suffix = measurement != 'NA' && measurement ? measurement : '';
-    return `${stateDec} ${suffix}`;
+    return `${stateDec}${suffix}`;
 }
