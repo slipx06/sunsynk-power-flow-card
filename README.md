@@ -55,15 +55,17 @@ Refer to [https://slipx06.github.io/sunsynk-power-flow-card/index.html](https://
 
 *Wide Full Version (2 batteries)*
 
-![image](https://github.com/user-attachments/assets/2832afb0-da0a-4924-80c5-afb9d70606fa)
+![{4D3F02C5-3DC5-4995-AD99-7478E6DE5557}](https://github.com/user-attachments/assets/af169593-c73f-469e-bc8b-62fb72b8af43)
+
 
 *Wide Lite Version (2 batteries)*
 
-![image](https://github.com/user-attachments/assets/59161598-1eba-4daf-8588-fdf6f047f0bf)
+![{F448EFB0-5549-470B-BAE0-13F9DF2E3769}](https://github.com/user-attachments/assets/100c80d2-1d5f-46f4-ae83-f48c923cadf6)
+
 
 *Wide Compact Version (2 batteries)*
 
-![image](https://github.com/user-attachments/assets/5cec317c-d1b7-437a-9a55-1d3c6a43f311)
+![{B8CBC3C3-0E0A-4E37-B489-C41CB8EA4E7E}](https://github.com/user-attachments/assets/1cd5508d-33a0-4df9-9665-5a4d9e753178)
 
 
 ## Installation
