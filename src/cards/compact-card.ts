@@ -85,21 +85,16 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 ?hidden=${[0, 1].includes(config.solar.efficiency)}
                                 fill="${data.solarColour}">${data.PV5Efficiency}%
                             </text>
-                            <svg id="pv5-flow">
-                                <path id="pv5-line" d="M 113 84 L 113 125 Q 113 132 120 132 L 280 132"
-                                    fill="none" stroke="${data.solarColour}" stroke-width="${data.pv5LineWidth}"
-                                    stroke-miterlimit="10"
-                                    pointer-events="stroke"/>
-                                <circle id="pv5-dot" cx="0" cy="0"
-                                        r="${Math.min(2 + data.pv5LineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                        fill="${Math.round(data.pv5PowerWatts) <= 0 ? 'transparent' : `${data.solarColour}`}">
-                                    <animateMotion dur="${data.durationCur['pv5']}s" repeatCount="indefinite"
-                                                keyPoints=${config.solar.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
-                                                keyTimes="0;1" calcMode="linear">
-                                        <mpath xlink:href="#pv5-line"/>
-                                    </animateMotion>
-                                </circle>
-                            </svg>
+                            ${renderPVFlow(
+                                'pv5',
+                                'M 113 84 L 113 125 Q 113 132 120 132 L 280 132',
+                                data.solarColour,
+                                data.pv5LineWidth,
+                                data.pv5PowerWatts,
+                                data.durationCur['pv5'],
+                                config.solar.invert_flow,
+                                data.minLineWidth,
+                            )}
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv5_voltage)}>
                                 <text id="pv5_voltage" x="120" y="106" class="st3 left-align"
                                     ?hidden=${!config.entities.pv5_voltage || config.entities.pv5_voltage === 'none' || !data.statePV5Voltage.isValid()}
@@ -135,21 +130,16 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 ?hidden=${[0, 1].includes(config.solar.efficiency)}
                                 fill="${data.solarColour}">${data.PV6Efficiency}%
                             </text>
-                            <svg id="pv6-flow">
-                                <path id="pv6-line" d="M 365 85 L 365 125 Q 365 132 358 132 L 200 132"
-                                    fill="none" stroke="${data.solarColour}" stroke-width="${data.pv6LineWidth}"
-                                    stroke-miterlimit="10"
-                                    pointer-events="stroke"/>
-                                <circle id="pv6-dot" cx="0" cy="0"
-                                        r="${Math.min(2 + data.pv6LineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                        fill="${Math.round(data.pv6PowerWatts) <= 0 ? 'transparent' : `${data.solarColour}`}">
-                                    <animateMotion dur="${data.durationCur['pv6']}s" repeatCount="indefinite"
-                                                keyPoints=${config.solar.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
-                                                keyTimes="0;1" calcMode="linear">
-                                        <mpath xlink:href="#pv6-line"/>
-                                    </animateMotion>
-                                </circle>
-                            </svg>
+                            ${renderPVFlow(
+                                'pv6',
+                                'M 365 85 L 365 125 Q 365 132 358 132 L 200 132',
+                                data.solarColour,
+                                data.pv6LineWidth,
+                                data.pv6PowerWatts,
+                                data.durationCur['pv6'],
+                                config.solar.invert_flow,
+                                data.minLineWidth,
+                            )}
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv6_voltage)}>
                                 <text id="pv6_voltage" x="372" y="106" class="st3 left-align"
                                     ?hidden=${!config.entities.pv6_voltage || config.entities.pv6_voltage === 'none' || !data.statePV6Voltage.isValid()}
@@ -228,90 +218,61 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             display="${config.solar.mppts === 1 ? 'none' : ''}"
                             fill="${data.solarColour}">${data.totalPVEfficiency}%
                         </text>
-                        <svg id="pv1-flow">
-                            <path id="pv1-line"
-                                d="${config.solar.mppts === 1 ? 'M 239.23 84 L 239 190' : 'M 187 84 L 187 122 Q 187 132 195 132 L 205 132.03'}"
-                                fill="none"
-                                stroke="${data.solarColour}" stroke-width="${data.pv1LineWidth}" stroke-miterlimit="10"
-                                pointer-events="stroke"/>
-                            <circle id="pv1-dot" cx="0" cy="0"
-                                    r="${Math.min(2 + data.pv1LineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                    fill="${Math.round(data.pv1PowerWatts) <= 0 ? 'transparent' : `${data.solarColour}`}">
-                                <animateMotion dur="${data.durationCur['pv1']}s" repeatCount="indefinite"
-                                            keyPoints=${config.solar.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
-                                            keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#pv1-line"/>
-                                </animateMotion>
-                            </circle>
-                        </svg>
-                        <svg id="pv2-flow">
-                            <path id="pv2-line" d="M 289 84.5 L 289 125 Q 289 132 282 132 L 275 132"
-                                class="${config.solar.mppts === 1 ? 'st12' : ''}"
-                                fill="none" stroke="${data.solarColour}" stroke-width="${data.pv2LineWidth}"
-                                stroke-miterlimit="10"
-                                pointer-events="stroke"/>
-                            <circle id="pv2-dot" cx="0" cy="0"
-                                    r="${Math.min(2 + data.pv2LineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                    class="${config.solar.mppts === 1 ? 'st12' : ''}"
-                                    fill="${Math.round(data.pv2PowerWatts) <= 0 ? 'transparent' : `${data.solarColour}`}">
-                                <animateMotion dur="${data.durationCur['pv2']}s" repeatCount="indefinite"
-                                            keyPoints=${config.solar.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
-                                            keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#pv2-line"/>
-                                </animateMotion>
-                            </circle>
-                        </svg>
-                        <svg id="pv3-flow">
-                            <path id="pv3-line" d="M 113 84 L 113 125 Q 113 132 120 132 L 205 132.03"
-                                class="${[1, 2].includes(config.solar.mppts) ? 'st12' : ''}"
-                                fill="none" stroke="${data.solarColour}" stroke-width="${data.pv3LineWidth}"
-                                stroke-miterlimit="10"
-                                pointer-events="stroke"/>
-                            <circle id="pv3-dot" cx="0" cy="0"
-                                    r="${Math.min(2 + data.pv3LineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                    class="${[1, 2].includes(config.solar.mppts) ? 'st12' : ''}"
-                                    fill="${Math.round(data.pv3PowerWatts) <= 0 ? 'transparent' : `${data.solarColour}`}">
-                                <animateMotion dur="${data.durationCur['pv3']}s" repeatCount="indefinite"
-                                            keyPoints=${config.solar.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
-                                            keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#pv3-line"/>
-                                </animateMotion>
-                            </circle>
-                        </svg>
-                        <svg id="pv4-flow">
-                            <path id="pv4-line" d="M 365 85 L 365 125 Q 365 132 358 132 L 275 132"
-                                class="${[1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"
-                                fill="none" stroke="${data.solarColour}" stroke-width="${data.pv4LineWidth}"
-                                stroke-miterlimit="10"
-                                pointer-events="stroke"/>
-                            <circle id="pv4-dot" cx="0" cy="0"
-                                    r="${Math.min(2 + data.pv4LineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                    class="${[1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"
-                                    fill="${Math.round(data.pv4PowerWatts) <= 0 ? 'transparent' : `${data.solarColour}`}">
-                                <animateMotion dur="${data.durationCur['pv4']}s" repeatCount="indefinite"
-                                            keyPoints=${config.solar.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
-                                            keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#pv4-line"/>
-                                </animateMotion>
-                            </circle>
-                        </svg>
-                        <svg id="solar-flow">
-                            <path id="so-line" d="M 239 190 L 239 147"
-                                class="${config.solar.mppts === 1 ? 'st12' : ''}"
-                                fill="none" stroke="${data.solarColour}" stroke-width="${data.solarLineWidth}"
-                                stroke-miterlimit="10"
-                                pointer-events="stroke"/>
-                            <circle id="so-dot" cx="0" cy="0"
-                                    r="${Math.min(2 + data.solarLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                    class="${config.solar.mppts === 1 ? 'st12' : ''}"
-                                    fill="${data.totalPV === 0 ? 'transparent' : `${data.solarColour}`}">
-                                <animateMotion dur="${data.durationCur['solar']}s" repeatCount="indefinite"
-                                            keyPoints=${config.solar.invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"}
-                                            keyTimes="0;1" calcMode="linear">
-                                    <mpath xlink:href="#so-line"/>
-                                </animateMotion>
-                            </circle>
-                        </svg>
+                        ${renderPVFlow(
+                            'pv1',
+                            config.solar.mppts === 1 ? 'M 239.23 84 L 239 190' : 'M 187 84 L 187 122 Q 187 132 195 132 L 205 132.03',
+                            data.solarColour,
+                            data.pv1LineWidth,
+                            data.pv1PowerWatts,
+                            data.durationCur['pv1'],
+                            config.solar.invert_flow,
+                            data.minLineWidth
+                        )} 
+                        ${renderPVFlow(
+                            'pv2',
+                            'M 289 84.5 L 289 125 Q 289 132 282 132 L 275 132',
+                            data.solarColour,
+                            data.pv2LineWidth,
+                            data.pv2PowerWatts,
+                            data.durationCur['pv2'],
+                            config.solar.invert_flow,
+                            data.minLineWidth,
+                            config.solar.mppts === 1 ? 'st12' : ''
+                        )}
+                        ${renderPVFlow(
+                            'pv3',
+                            'M 113 84 L 113 125 Q 113 132 120 132 L 205 132.03',
+                            data.solarColour,
+                            data.pv3LineWidth,
+                            data.pv3PowerWatts,
+                            data.durationCur['pv3'],
+                            config.solar.invert_flow,
+                            data.minLineWidth,
+                            [1, 2].includes(config.solar.mppts) ? 'st12' : ''
+                        )}
+                        ${renderPVFlow(
+                            'pv4',
+                            'M 365 85 L 365 125 Q 365 132 358 132 L 275 132',
+                            data.solarColour,
+                            data.pv4LineWidth,
+                            data.pv4PowerWatts,
+                            data.durationCur['pv4'],
+                            config.solar.invert_flow,
+                            data.minLineWidth,
+                            [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''
+                        )}
+                        ${renderPVFlow(
+                            'solar',
+                            'M 239 190 L 239 147',
+                            data.solarColour,
+                            data.solarLineWidth,
+                            data.totalPV,
+                            data.durationCur['solar'],
+                            config.solar.invert_flow,
+                            data.minLineWidth,
+                            config.solar.mppts === 1 ? 'st12' : '',
+                            "1;0"
+                        )}
                         ${config.solar?.navigate
                             ? svg`
                                 <a href="#" @click=${(e) => Utils.handleNavigation(e, config.solar.navigate)}>
@@ -2239,6 +2200,28 @@ function renderPV(id: string, x: string, y: string, data: DataDto, config: sunsy
                   pointer-events="all"
                   class="${className}"
                   style="${style}"/>
+        </svg>
+    `;
+}
+
+function renderPVFlow(id: string, path: string, color: string, lineWidth: number, powerWatts: number, duration: number, invertFlow: boolean, minLineWidth: number, className: string = "", keyPoints: string = "0;1") {
+    const lineId = `${id}-line`;
+    const finalKeyPoints = invertFlow === true ? Utils.invertKeyPoints(keyPoints) : keyPoints;
+    return html`
+        <svg id="${id}-flow">
+            <path id="${lineId}" d="${path}"
+                fill="none" stroke="${color}" stroke-width="${lineWidth}"
+                stroke-miterlimit="10"
+                pointer-events="stroke"
+                class="${className}"/>
+            <circle id="${id}-dot"  r="${Math.min(2 + lineWidth + Math.max(minLineWidth - 2, 0), 8)}"
+                    fill="${Math.round(powerWatts) <= 0 ? 'transparent' : `${color}`}"
+                    class="${className}">
+                <animateMotion dur="${duration}s" repeatCount="indefinite"
+                            keyPoints=${finalKeyPoints}
+                            keyTimes="0;1" calcMode="linear" rotate="auto" path="${path}">
+                </animateMotion>
+            
         </svg>
     `;
 }
