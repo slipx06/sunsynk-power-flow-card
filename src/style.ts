@@ -51,32 +51,32 @@ export const getDynamicStyles = (data) => html`
             --mdc-icon-size: 32px;
         }
 
-        .essload1_small-icon {
+        .essload1-small-icon {
             color: ${data.dynamicColourEssentialLoad1} !important;
             --mdc-icon-size: 20px;
         }
 
-        .essload2_small-icon {
+        .essload2-small-icon {
             color: ${data.dynamicColourEssentialLoad2} !important;
             --mdc-icon-size: 20px;
         }
 
-        .essload3_small-icon {
+        .essload3-small-icon {
             color: ${data.dynamicColourEssentialLoad3} !important;
             --mdc-icon-size: 20px;
         }
 
-        .essload4_small-icon {
+        .essload4-small-icon {
             color: ${data.dynamicColourEssentialLoad4} !important;
             --mdc-icon-size: 20px;
         }
 
-        .essload5_small-icon {
+        .essload5-small-icon {
             color: ${data.dynamicColourEssentialLoad5} !important;
             --mdc-icon-size: 20px;
         }
 
-        .essload6_small-icon {
+        .essload6-small-icon {
             color: ${data.dynamicColourEssentialLoad6} !important;
             --mdc-icon-size: 20px;
         }
@@ -86,5 +86,54 @@ export const getDynamicStyles = (data) => html`
             --mdc-icon-size: 64px;
         }
 
+        .essload1-icon-full {
+            color: ${data.dynamicColourEssentialLoad1} !important;
+            --mdc-icon-size: 36px;
+        }
+
+        .aux-icon {
+            color: ${data.auxDynamicColour} !important;
+            --mdc-icon-size: 70px;
+        }
+
+        .aux-small-icon-1 {
+            color: ${data.auxDynamicColourLoad1} !important;
+            --mdc-icon-size: 24px;
+        }
+
+        .aux-small-icon-2 {
+            color: ${data.auxDynamicColourLoad2} !important;
+            --mdc-icon-size: 24px;
+        }
+
+        .aux-off-icon {
+            color: ${data.auxOffColour} !important;
+            --mdc-icon-size: 70px;
+        }
+
+        .nonessload1-icon {
+            color: ${data.dynamicColourNonEssentialLoad1} !important;
+            --mdc-icon-size: 32px;
+        }
+
+        .nonessload2-icon {
+            color: ${data.dynamicColourNonEssentialLoad2} !important;
+            --mdc-icon-size: 32px;
+        }
+
+        .nonessload3-icon {
+            color: ${data.dynamicColourNonEssentialLoad3} !important;
+            --mdc-icon-size: 32px;
+        }
+
+        .noness-icon {
+            color: ${data.gridColour} !important;
+            --mdc-icon-size: 70px;
+        }
+
+        .grid-icon-small {
+            color: ${data.customGridIconColour} !important;
+            --mdc-icon-size: 32px;
+        }       
     </style>
 `;

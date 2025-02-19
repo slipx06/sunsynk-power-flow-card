@@ -3,9 +3,10 @@ import {svg, html} from 'lit';
 import {localize} from '../../../localize/localize';
 import {Utils} from '../../../helpers/utils';
 import {DataDto, sunsynkPowerFlowCardConfig} from '../../../types';
-import {icons} from '../../../helpers/icons';
 import {UnitOfPower} from '../../../const';
 import {renderLoadIcon} from '../../shared/load/render-load-icon';
+import { renderStaticLoadIcon } from '../../shared/load/render-static-load-icon';
+import { getCompactLayoutIconConfigs } from '../../shared/load/icon-configs';
 
 
 export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
@@ -22,30 +23,6 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     display="${[1, 2, 3].includes(data.additionalLoad) ? '' : 'none'}"
                     fill="${data.dynamicColourEssentialLoad1}">${config.load.load1_name}
                 </text>
-                <svg id="ess_oven_top" x="368" y="113" width="36"
-                    height="36" viewBox="0 0 32 32"
-                    opacity="${data.iconEssentialLoad1 === 'oven' && [1, 2].includes(data.additionalLoad) ? '1' : '0'}">
-                    <path display="${data.additionalLoad === 0 ? 'none' : ''}" fill="${data.dynamicColourEssentialLoad1}"
-                        d="${icons.oven}"/>
-                </svg>
-                <svg id="ess_pump_top" x="368" y="113" width="36"
-                    height="36" viewBox="0 0 24 24"
-                    opacity="${data.iconEssentialLoad1 === 'pump' && [1, 2].includes(data.additionalLoad) ? '1' : '0'}">
-                    <path display="${data.additionalLoad === 0 ? 'none' : ''}" fill="${data.dynamicColourEssentialLoad1}"
-                        d="${icons.pump}"/>
-                </svg>
-                <svg id="ess_ac_top" x="374" y="116" width="30"
-                    height="30" viewBox="0 0 24 24"
-                    opacity="${data.iconEssentialLoad1 === 'aircon' && [1, 2].includes(data.additionalLoad) ? '1' : '0'}">
-                    <path display="${data.additionalLoad === 0 ? 'none' : ''}" fill="${data.dynamicColourEssentialLoad1}"
-                        d="${icons.aircon}"/>
-                </svg>
-                <svg id="ess_boiler_top" x="371" y="113" width="36"
-                    height="36" viewBox="0 0 24 24"
-                    opacity="${data.iconEssentialLoad1 === 'boiler' && [1, 2].includes(data.additionalLoad) ? '1' : '0'}">
-                    <path display="${data.additionalLoad === 0 ? 'none' : ''}" fill="${data.dynamicColourEssentialLoad1}"
-                        d="${icons.boiler}"/>
-                </svg>
                 <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1)}>
                     <text id="ess_load1" x="440" y="133" display="${[1, 2, 3].includes(data.additionalLoad) && data.stateEssentialLoad1.isValid() ? '' : 'none'}" 
                         class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
@@ -73,30 +50,6 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     display="${data.additionalLoad === 2 ? '' : 'none'}" fill="${data.dynamicColourEssentialLoad2}">
                     ${config.load.load2_name}
                 </text>
-                <svg id="ess_oven_bottom" x="368" y="287" width="36"
-                height="36" viewBox="0 0 32 32"
-                opacity="${data.iconEssentialLoad2 === 'oven' && data.additionalLoad === 2 ? '1' : '0'}">
-                <path display="${data.additionalLoad === 0 ? 'none' : ''}" fill="${data.dynamicColourEssentialLoad2}"
-                    d="${icons.oven}"/>
-                </svg>
-                <svg id="ess_pump_bottom" x="368" y="287" width="36"
-                    height="36" viewBox="0 0 24 24"
-                    opacity="${data.iconEssentialLoad2 === 'pump' && data.additionalLoad === 2 ? '1' : '0'}">
-                    <path display="${data.additionalLoad === 0 ? 'none' : ''}" fill="${data.dynamicColourEssentialLoad2}"
-                        d="${icons.pump}"/>
-                </svg>
-                <svg id="ess_ac_bottom" x="374" y="289" width="30"
-                    height="30" viewBox="0 0 24 24"
-                    opacity="${data.iconEssentialLoad2 === 'aircon' && data.additionalLoad === 2 ? '1' : '0'}">
-                    <path display="${data.additionalLoad === 0 ? 'none' : ''}" fill="${data.dynamicColourEssentialLoad2}"
-                        d="${icons.aircon}"/>
-                </svg>
-                <svg id="ess_boiler_bottom" x="371" y="287" width="36"
-                    height="36" viewBox="0 0 24 24"
-                    opacity="${data.iconEssentialLoad2 === 'boiler' && data.additionalLoad === 2 ? '1' : '0'}">
-                    <path display="${data.additionalLoad === 0 ? 'none' : ''}" fill="${data.dynamicColourEssentialLoad2}"
-                        d="${icons.boiler}"/>
-                </svg>
                 <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load2)}>
                     <text id="ess_load2" x="440" y="306.5" display="${data.additionalLoad === 2 && data.stateEssentialLoad2.isValid() ? '' : 'none'}" 
                         class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
@@ -132,10 +85,10 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     ${config.load.load3_name}
                 </text>
                 <g display="${data.additionalLoad === 3 ? '' : 'none'}">
-                    ${renderLoadIcon(config.load.load2_switch, data.iconEssentialLoad2, 'essload2_small-icon', 412, 264)}
+                    ${renderLoadIcon(config.load.load2_switch, data.iconEssentialLoad2, 'essload2-small-icon', 412, 264)}
                 </g>
                 <g display="${data.additionalLoad === 3 ? '' : 'none'}">
-                    ${renderLoadIcon(config.load.load3_switch, data.iconEssentialLoad3, 'essload3_small-icon', 449, 264)}
+                    ${renderLoadIcon(config.load.load3_switch, data.iconEssentialLoad3, 'essload3-small-icon', 449, 264)}
                 </g>
                 <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load2_extra)}>
                     <text id="ess_load2_extra" x="435" y="332"
@@ -198,16 +151,16 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     ${config.load.load4_name}
                 </text>
                 <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
-                    ${renderLoadIcon(config.load.load1_switch, data.iconEssentialLoad1, 'essload1_small-icon', 412, 81)}
+                    ${renderLoadIcon(config.load.load1_switch, data.iconEssentialLoad1, 'essload1-small-icon', 412, 81)}
                 </g>
                 <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
-                    ${renderLoadIcon(config.load.load2_switch, data.iconEssentialLoad2, 'essload2_small-icon', 449, 81)}  
+                    ${renderLoadIcon(config.load.load2_switch, data.iconEssentialLoad2, 'essload2-small-icon', 449, 81)}
                 </g>
                 <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
-                    ${renderLoadIcon(config.load.load3_switch, data.iconEssentialLoad3, 'essload3_small-icon', 412, 264)}
+                    ${renderLoadIcon(config.load.load3_switch, data.iconEssentialLoad3, 'essload3-small-icon', 412, 264)}
                 </g>
                 <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
-                    ${renderLoadIcon(config.load.load4_switch, data.iconEssentialLoad4, 'essload4_small-icon', 449, 264)} 
+                    ${renderLoadIcon(config.load.load4_switch, data.iconEssentialLoad4, 'essload4-small-icon', 449, 264)}
                 </g>
                 <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1_extra)}>
                     <text id="ess_load1_extra" x="435" y="147"
@@ -281,7 +234,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     ${config.load.load5_name}
                 </text>
                 <g display="${[5, 6].includes(data.additionalLoad) ? '' : 'none'}">
-                    ${renderLoadIcon(config.load.load5_switch, data.iconEssentialLoad5, 'essload5_small-icon', 412, 81)}
+                    ${renderLoadIcon(config.load.load5_switch, data.iconEssentialLoad5, 'essload5-small-icon', 412, 81)}
                 </g>
                 <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load5_extra)}>
                     <text id="ess_load5_extra" x="435" y="147"
@@ -308,7 +261,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     ${config.load.load6_name}
                 </text>
                 <g display="${data.additionalLoad === 6 ? '' : 'none'}">
-                    ${renderLoadIcon(config.load.load6_switch, data.iconEssentialLoad6, 'essload6_small-icon', 412, 264)}
+                    ${renderLoadIcon(config.load.load6_switch, data.iconEssentialLoad6, 'essload6-small-icon', 412, 264)}
                 </g>
                 <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load6_extra)}>
                     <text id="ess_load6_extra" x="435" y="332"
@@ -450,6 +403,8 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                             ${config.load.auto_scale ? `${Utils.convertValue(data.essentialPower, data.decimalPlaces) || 0}` : `${data.essentialPower || 0} ${UnitOfPower.WATT}`}
                         </text>`
             }
+            <!-- Render Static Icons e.g. Boiler, Aircon, Oven and Pump etc -->
+            ${getCompactLayoutIconConfigs(data).map(iconConfig => renderStaticLoadIcon(data, iconConfig))}
         </svg>
     `;
 }
