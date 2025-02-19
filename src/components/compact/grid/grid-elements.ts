@@ -6,8 +6,71 @@ import {DataDto, sunsynkPowerFlowCardConfig} from '../../../types';
 import {icons} from '../../../helpers/icons';
 import {UnitOfPower, validGridConnected, validGridDisconnected} from '../../../const';
 
+const renderGridIcons = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
+    const isGridConnected = validGridConnected.includes(data.gridStatus.toLowerCase());
+    const isGridDisconnected = validGridDisconnected.includes(data.gridStatus.toLowerCase());
+    const showGrid = config.show_grid;
+    const totalGridPower = data.totalGridPower;
+
+    return svg`
+        <svg id="transmission_on" x="-0.5" y="187.5" width="64.5" height="64.5" viewBox="0 0 24 24">
+            <path class="${isGridDisconnected ? 'st12' : ''}"
+                fill="${data.gridColour}"
+                display="${!showGrid || totalGridPower < 0 || config.grid.import_icon ? 'none' : ''}"
+                d="${icons.gridOn}"/>
+        </svg>
+        <svg id="transmission_off" x="-0.5" y="187.5" width="64.5" height="64.5" viewBox="0 0 24 24">
+            <path class="${isGridConnected ? 'st12' : ''}"
+                fill="${data.gridOffColour}" display="${!showGrid || config.grid.disconnected_icon ? 'none' : ''}"
+                d="${icons.gridOff}"/>
+        </svg>
+        <svg id="grid_export" x="-0.5" y="187.5" width="64.5" height="64.5" viewBox="0 0 24 24">
+            <path class="${isGridDisconnected ? 'st12' : ''}"
+                fill="${data.gridColour}"
+                display="${!showGrid || totalGridPower >= 0 || config.grid.export_icon ? 'none' : ''}"
+                d="${icons.gridExportCompact}"/>
+        </svg>
+    `;
+};
+
+const renderGridTotalPower = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
+    const totalGridPower = data.totalGridPower;
+    const auto_scale = config.grid.auto_scale;
+    const show_absolute = config.grid.show_absolute;
+    const decimalPlaces = data.decimalPlaces;
+
+    let powerValue: string | number;
+
+    if (auto_scale) {
+        const convertedValue = Utils.convertValue(totalGridPower, decimalPlaces);
+        powerValue = show_absolute
+            ? `${Math.abs(parseFloat(convertedValue))} ${convertedValue.split(' ')[1]}`
+            : convertedValue || '0';
+    } else {
+        powerValue = show_absolute
+            ? Math.abs(totalGridPower)
+            : totalGridPower || 0;
+    }
+
+    return svg`
+        <text id="grid_total_power" x="135" y="219.2"
+            display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
+            class="${data.largeFont !== true ? 'st14' : 'st4'} st8" fill="${data.gridColour}">
+            ${powerValue} ${!auto_scale ? UnitOfPower.WATT : ''}
+        </text>
+    `;
+};
 
 export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
+    
+    const gridFlowKeyPoints = config.grid.invert_flow
+        ? Utils.invertKeyPoints(data.totalGridPower < 0 ? "1;0" : "0;1")
+        : data.totalGridPower < 0 ? "1;0" : "0;1";
+
+    const grid1FlowKeyPoints = config.grid.invert_flow
+        ? Utils.invertKeyPoints(data.totalGridPower < 0 ? "0;1" : "1;0")
+        : data.totalGridPower < 0 ? "0;1" : "1;0";
+
     return html`
         <!-- Grid Elements -->
         <svg id="Grid" style="overflow: visible">
@@ -34,20 +97,10 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     display="${!config.show_grid ? 'none' : ''}"/>
                 <circle id="grid-dot" cx="0" cy="0"
                         r="${Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        fill="${data.totalGridPower < 0 || data.totalGridPower === 0 ? 'transparent' : `${data.gridColour}`}"
+                        fill="${data.totalGridPower === 0 ? 'transparent' : `${data.gridColour}`}"
                         display="${!config.show_grid ? 'none' : ''}">
                     <animateMotion dur="${data.durationCur['grid']}s" repeatCount="indefinite"
-                                keyPoints=${config.grid.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
-                                keyTimes="0;1" calcMode="linear">
-                        <mpath xlink:href="#grid-line"/>
-                    </animateMotion>
-                </circle>
-                <circle id="grid-dot" cx="0" cy="0"
-                        r="${Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        fill="${data.totalGridPower > 0 || data.totalGridPower === 0 ? 'transparent' : `${data.gridColour}`}"
-                        display="${!config.show_grid ? 'none' : ''}">
-                    <animateMotion dur="${data.durationCur['grid']}s" repeatCount="indefinite"
-                                keyPoints=${config.grid.invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"}
+                                keyPoints=${gridFlowKeyPoints}
                                 keyTimes="0;1" calcMode="linear">
                         <mpath xlink:href="#grid-line"/>
                     </animateMotion>
@@ -59,20 +112,10 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     display="${!config.show_grid ? 'none' : ''}"/>
                 <circle id="grid-dot1" cx="0" cy="0"
                         r="${Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        fill="${data.totalGridPower < 0 || data.totalGridPower === 0 ? 'transparent' : `${data.gridColour}`}"
+                        fill="${data.totalGridPower === 0 ? 'transparent' : `${data.gridColour}`}"
                         display="${!config.show_grid ? 'none' : ''}">
                     <animateMotion dur="${data.durationCur['grid']}s" repeatCount="indefinite"
-                                keyPoints=${config.grid.invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"}
-                                keyTimes="0;1" calcMode="linear">
-                        <mpath xlink:href="#grid-line1"/>
-                    </animateMotion>
-                </circle>
-                <circle id="grid-dot1" cx="0" cy="0"
-                        r="${Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        fill="${data.totalGridPower > 0 || data.totalGridPower === 0 ? 'transparent' : `${data.gridColour}`}"
-                        display="${!config.show_grid ? 'none' : ''}">
-                    <animateMotion dur="${data.durationCur['grid']}s" repeatCount="indefinite"
-                                keyPoints=${config.grid.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
+                                keyPoints=${grid1FlowKeyPoints}
                                 keyTimes="0;1" calcMode="linear">
                         <mpath xlink:href="#grid-line1"/>
                     </animateMotion>
@@ -81,51 +124,13 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
             ${config.grid?.navigate
                 ? svg`
                     <a href="#" @click=${(e) => Utils.handleNavigation(e, config.grid.navigate)}>
-                        <svg id="transmission_on" x="-0.5" y="187.5"
-                            width="64.5" height="64.5" viewBox="0 0 24 24">
-                            <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
-                                fill="${data.gridColour}"
-                                display="${!config.show_grid || data.totalGridPower < 0 || config.grid.import_icon ? 'none' : ''}"
-                                d="${icons.gridOn}"/>
-                        </svg>
-                        <svg id="transmission_off" x="-0.5" y="187.5"
-                            width="64.5" height="64.5" viewBox="0 0 24 24">
-                            <path class="${validGridConnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
-                                fill="${data.gridOffColour}" display="${!config.show_grid || config.grid.disconnected_icon ? 'none' : ''}"
-                                d="${icons.gridOff}"/>
-                        </svg>
-                        <svg id="grid_export" x="-0.5" y="187.5"
-                            width="64.5" height="64.5" viewBox="0 0 24 24">
-                            <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
-                                fill="${data.gridColour}"
-                                display="${!config.show_grid || data.totalGridPower >= 0 || config.grid.export_icon ? 'none' : ''}"
-                                d="${icons.gridExportCompact}"/>
-                        </svg>
+                        ${renderGridIcons(data, config)}
                     </a>`
                 : svg`
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_connected_status_194)}>
-                        <svg id="transmission_on" x="-0.5" y="187.5"
-                            width="64.5" height="64.5" viewBox="0 0 24 24">
-                            <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
-                                fill="${data.gridColour}"
-                                display="${!config.show_grid || data.totalGridPower < 0 || config.grid.import_icon ? 'none' : ''}"
-                                d="${icons.gridOn}"/>
-                        </svg>
-                        <svg id="transmission_off" x="-0.5" y="187.5"
-                            width="64.5" height="64.5" viewBox="0 0 24 24">
-                            <path class="${validGridConnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
-                                fill="${data.gridOffColour}" display="${!config.show_grid || config.grid.disconnected_icon ? 'none' : ''}"
-                                d="${icons.gridOff}"/>
-                        </svg>
-                        <svg id="grid_export" x="-0.5" y="187.5"
-                            width="64.5" height="64.5" viewBox="0 0 24 24">
-                            <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
-                                fill="${data.gridColour}"
-                                display="${!config.show_grid || data.totalGridPower >= 0 || config.grid.export_icon ? 'none' : ''}"
-                                d="${icons.gridExportCompact}"/>
-                        </svg>
+                        ${renderGridIcons(data, config)}
                     </a>`
-            }                    
+            }
             ${config.grid?.navigate
                     ? svg`
                         <a href="#" @click=${(e) => Utils.handleNavigation(e, config.grid.navigate)}>
@@ -173,49 +178,13 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 ? config.entities?.grid_ct_power_total
                         ? svg`
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_ct_power_total)}>
-                            <text id="data.totalGridPower" x="135" y="219.2"
-                                    display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
-                                    class="${data.largeFont !== true ? 'st14' : 'st4'} st8" fill="${data.gridColour}">
-                                ${config.grid.auto_scale
-                                ? `${config.grid.show_absolute
-                                        ? `${Math.abs(parseFloat(Utils.convertValue(data.totalGridPower, data.decimalPlaces)))} ${Utils.convertValue(data.totalGridPower, data.decimalPlaces).split(' ')[1]}`
-                                        : Utils.convertValue(data.totalGridPower, data.decimalPlaces) || 0}`
-                                : `${config.grid.show_absolute
-                                        ? `${Math.abs(data.totalGridPower)} ${UnitOfPower.WATT}`
-                                        : `${data.totalGridPower || 0} ${UnitOfPower.WATT}`
-                                }`
-                        }
-                            </text>
+                            ${renderGridTotalPower(data, config)}
                         </a>`
                         : svg`
-                            <text id="grid_total_power" x="135" y="219.2"
-                                    display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
-                                    class="${data.largeFont !== true ? 'st14' : 'st4'} st8" fill="${data.gridColour}">
-                                    ${config.grid.auto_scale
-                                ? `${config.grid.show_absolute
-                                        ? `${Math.abs(parseFloat(Utils.convertValue(data.totalGridPower, data.decimalPlaces)))} ${Utils.convertValue(data.totalGridPower, data.decimalPlaces).split(' ')[1]}`
-                                        : Utils.convertValue(data.totalGridPower, data.decimalPlaces) || 0}`
-                                : `${config.grid.show_absolute
-                                        ? `${Math.abs(data.totalGridPower)} ${UnitOfPower.WATT}`
-                                        : `${data.totalGridPower || 0} ${UnitOfPower.WATT}`
-                                }`
-                        }
-                            </text>`
+                            ${renderGridTotalPower(data, config)}`
                 : svg`
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_ct_power_172)}>
-                        <text id="grid_total_power" x="135" y="219.2"
-                                display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
-                                class="${data.largeFont !== true ? 'st14' : 'st4'} st8" fill="${data.gridColour}">
-                            ${config.grid.auto_scale
-                    ? `${config.grid.show_absolute
-                            ? `${Math.abs(parseFloat(Utils.convertValue(data.totalGridPower, data.decimalPlaces)))} ${Utils.convertValue(data.totalGridPower, data.decimalPlaces).split(' ')[1]}`
-                            : Utils.convertValue(data.totalGridPower, data.decimalPlaces) || 0}`
-                    : `${config.grid.show_absolute
-                            ? `${Math.abs(data.totalGridPower)} ${UnitOfPower.WATT}`
-                            : `${data.totalGridPower || 0} ${UnitOfPower.WATT}`
-                    }`
-                }
-                        </text>
+                        ${renderGridTotalPower(data, config)}
                     </a>`
             }
             ${data.totalGridPower >= 0
