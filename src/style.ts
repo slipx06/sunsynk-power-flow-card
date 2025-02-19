@@ -1,4 +1,4 @@
-import { CSSResultGroup, css } from "lit";
+import { CSSResultGroup, css, html } from "lit";
 
 export const styles: CSSResultGroup = css`
     .container {
@@ -37,5 +37,54 @@ export const styles: CSSResultGroup = css`
     .st12{display:none;}
     .st13{font-size:22px;}
     .st14{font-size:12px;}
-
     `;
+
+export const getDynamicStyles = (data) => html`
+    <style>
+        .essload1-icon {
+            color: ${data.dynamicColourEssentialLoad1} !important;
+            --mdc-icon-size: 32px;
+        }
+
+        .essload2-icon {
+            color: ${data.dynamicColourEssentialLoad2} !important;
+            --mdc-icon-size: 32px;
+        }
+
+        .essload1_small-icon {
+            color: ${data.dynamicColourEssentialLoad1} !important;
+            --mdc-icon-size: 20px;
+        }
+
+        .essload2_small-icon {
+            color: ${data.dynamicColourEssentialLoad2} !important;
+            --mdc-icon-size: 20px;
+        }
+
+        .essload3_small-icon {
+            color: ${data.dynamicColourEssentialLoad3} !important;
+            --mdc-icon-size: 20px;
+        }
+
+        .essload4_small-icon {
+            color: ${data.dynamicColourEssentialLoad4} !important;
+            --mdc-icon-size: 20px;
+        }
+
+        .essload5_small-icon {
+            color: ${data.dynamicColourEssentialLoad5} !important;
+            --mdc-icon-size: 20px;
+        }
+
+        .essload6_small-icon {
+            color: ${data.dynamicColourEssentialLoad6} !important;
+            --mdc-icon-size: 20px;
+        }
+
+        .grid-icon {
+            color: ${data.customGridIconColour} !important;
+            --mdc-icon-size: 64px;
+        }
+
+    </style>
+`;
