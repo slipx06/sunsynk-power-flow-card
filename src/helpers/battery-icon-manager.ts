@@ -29,53 +29,55 @@ export class BatteryIconManager {
         let batteryCharge: string
         let stopColour: string
 
+        const batteryLevel = parseInt(state_battery_soc.state);
+
         switch (true) {
-            case parseInt(state_battery_soc.state) >= 95:
+            case batteryLevel >= 95:
                 batteryIcon = batteryIcon100;
                 batteryCharge = battery100;
                 stopColour = 'green';
                 break;
-            case 85 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 95:
+            case batteryLevel >= 85:
                 batteryIcon = batteryIcon90;
                 batteryCharge = battery90;
                 stopColour = 'green';
                 break;
-            case 75 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 85:
+            case batteryLevel >= 75:
                 batteryIcon = batteryIcon80;
                 batteryCharge = battery80;
                 stopColour = '#9ACD32';
                 break;
-            case 65 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 75:
+            case batteryLevel >= 65:
                 batteryIcon = batteryIcon70;
                 batteryCharge = battery70;
                 stopColour = 'gold';
                 break;
-            case 55 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 65:
+            case batteryLevel >= 55:
                 batteryIcon = batteryIcon60;
                 batteryCharge = battery60;
                 stopColour = 'gold';
                 break;
-            case 45 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 55:
+            case batteryLevel >= 45:
                 batteryIcon = batteryIcon50;
                 batteryCharge = battery50;
                 stopColour = 'gold';
                 break;
-            case 35 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 45:
+            case batteryLevel >= 35:
                 batteryIcon = batteryIcon40;
                 batteryCharge = battery40;
                 stopColour = 'orange';
                 break;
-            case 25 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 35:
+            case batteryLevel >= 25:
                 batteryIcon = batteryIcon30;
                 batteryCharge = battery30;
                 stopColour = 'orange';
                 break;
-            case 10 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 25:
+            case batteryLevel >= 10:
                 batteryIcon = batteryIcon20;
                 batteryCharge = battery20;
                 stopColour = 'orange';
                 break;
-            case 0 <= parseInt(state_battery_soc.state) && parseInt(state_battery_soc.state) < 10:
+            case batteryLevel >= 0:
                 batteryIcon = battery0;
                 batteryCharge = battery0;
                 stopColour = 'red';

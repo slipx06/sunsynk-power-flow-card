@@ -69,135 +69,29 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                      <svg id="Solar" 
                         style="overflow: visible; display: ${!config.show_solar ? 'none' : 'inline'};"
                         x="${config.wide ? '10%' : '0%'}" >
-                        <svg id="pvtotal" x="205" y="116.5" width="70" height="30"
-                            viewBox="0 0 70 30" overflow="visible">
-                            <defs>
-                                <linearGradient id="solar_gradient-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
-                                    <stop offset="0%"
-                                        stop-color="${data.totalPVEfficiency === 0 ? 'grey' : data.solarColour}"/>
-                                    <stop offset="${data.totalPVEfficiency}%"
-                                        stop-color="${data.totalPVEfficiency === 0 ? 'grey' : data.solarColour}"/>
-                                    <stop offset="${data.totalPVEfficiency}%"
-                                        stop-color="${data.totalPVEfficiency < 100 ? 'grey' : data.solarColour}"/>
-                                    <stop offset="100%"
-                                        stop-color="${data.totalPVEfficiency < 100 ? 'grey' : data.solarColour}"/>
-                                </linearGradient>
-                            </defs>
-                            <rect width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                            stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#solar_gradient-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
-                            display="${config.solar.mppts === 1 ? 'none' : ''}"
-                            class="${!config.show_solar ? 'st12' : ''}"/>
-                        </svg>
-                        <svg id="pv1" x="${config.solar.mppts === 1 ? '205' : '154'}" y="54.5" 
-                            width="70" height="30" viewBox="0 0 70 30" overflow="visible">
-                            <defs>
-                                <linearGradient id="PV1LG-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
-                                    <stop offset="0%"
-                                        stop-color="${data.PV1Efficiency === 0 ? 'grey' : data.solarColour}"/>
-                                    <stop offset="${data.PV1Efficiency}%"
-                                        stop-color="${data.PV1Efficiency === 0 ? 'grey' : data.solarColour}"/>
-                                    <stop offset="${data.PV1Efficiency}%"
-                                        stop-color="${data.PV1Efficiency < 100 ? 'grey' : data.solarColour}"/>
-                                    <stop offset="100%"
-                                        stop-color="${data.PV1Efficiency < 100 ? 'grey' : data.solarColour}"/>
-                                </linearGradient>
-                            </defs>
-                            <rect id="pv1" width="70" height="30" rx="4.5" ry="4.5"
-                                  fill="none" stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#PV1LG-${data.timestamp_id})` : data.solarColour}"
-                                  pointer-events="all" class="${!config.show_solar ? 'st12' : ''}"/>
-                        </svg>            
-                        <svg id="pv2" x="254" y="54.5" width="70" height="30"
-                            viewBox="0 0 70 30" overflow="visible">
-                            <defs>
-                                <linearGradient id="PV2LG-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
-                                    <stop offset="0%"
-                                        stop-color="${data.PV2Efficiency === 0 ? 'grey' : data.solarColour}"/>
-                                    <stop offset="${data.PV2Efficiency}%"
-                                        stop-color="${data.PV2Efficiency === 0 ? 'grey' : data.solarColour}"/>
-                                    <stop offset="${data.PV2Efficiency}%"
-                                        stop-color="${data.PV2Efficiency < 100 ? 'grey' : data.solarColour}"/>
-                                    <stop offset="100%"
-                                        stop-color="${data.PV2Efficiency < 100 ? 'grey' : data.solarColour}"/>
-                                </linearGradient>
-                            </defs>
-                            <rect id="pv2" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                                  stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#PV2LG-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
-                                  class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"/>
-                        </svg>
-                        <svg id="pv3" x="78" y="54.5" width="70" height="30"
-                            viewBox="0 0 70 30" overflow="visible">
-                            <defs>
-                                <linearGradient id="PV3LG-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
-                                    <stop offset="0%"
-                                        stop-color="${data.PV3Efficiency === 0 ? 'grey' : data.solarColour}"/>
-                                    <stop offset="${data.PV3Efficiency}%"
-                                        stop-color="${data.PV3Efficiency === 0 ? 'grey' : data.solarColour}"/>
-                                    <stop offset="${data.PV3Efficiency}%"
-                                        stop-color="${data.PV3Efficiency < 100 ? 'grey' : data.solarColour}"/>
-                                    <stop offset="100%"
-                                        stop-color="${data.PV3Efficiency < 100 ? 'grey' : data.solarColour}"/>
-                                </linearGradient>
-                            </defs>
-                            <rect id="pv3" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                                  stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#PV3LG-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
-                                  class="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'st12' : ''}"/>
-                        </svg>
-                        <svg id="pv4" x="330" y="54.5" width="70" height="30"
-                            viewBox="0 0 70 30" overflow="visible">
-                            <defs>
-                                <linearGradient id="PV4LG-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
-                                    <stop offset="0%"
-                                        stop-color="${data.PV4Efficiency === 0 ? 'grey' : data.solarColour}"/>
-                                    <stop offset="${data.PV4Efficiency}%"
-                                        stop-color="${data.PV4Efficiency === 0 ? 'grey' : data.solarColour}"/>
-                                    <stop offset="${data.PV4Efficiency}%"
-                                        stop-color="${data.PV4Efficiency < 100 ? 'grey' : data.solarColour}"/>
-                                    <stop offset="100%"
-                                        stop-color="${data.PV4Efficiency < 100 ? 'grey' : data.solarColour}"/>
-                                </linearGradient>
-                            </defs>
-                            <rect id="pv4" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                                      stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#PV4LG-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
-                                      class="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"/>
-                        </svg>
+                        ${renderPV('pvtotal', '205', '116.5', data, config)}
+                        ${renderPV('pv1', config.solar.mppts === 1 ? '205' : '154', '54.5', data, config)}
+                        ${renderPV('pv2', '254', '54.5', data, config)}
+                        ${renderPV('pv3', '78', '54.5', data, config)}
+                        ${renderPV('pv4', '330', '54.5', data, config)}
                         <svg id="PV5" 
                             style="overflow: visible; display: ${config.show_solar && config.wide && [5, 6].includes(config.solar.mppts)  ? 'inline' : 'none'};" x="-10.5%">
-                            <svg id="pv5" x="78" y="54.5" width="70" height="30"
-                                viewBox="0 0 70 30" overflow="visible">
-                                <defs>
-                                    <linearGradient id="PV5LG-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
-                                        <stop offset="0%"
-                                            stop-color="${data.PV5Efficiency === 0 ? 'grey' : data.solarColour}"/>
-                                        <stop offset="${data.PV5Efficiency}%"
-                                            stop-color="${data.PV5Efficiency === 0 ? 'grey' : data.solarColour}"/>
-                                        <stop offset="${data.PV5Efficiency}%"
-                                            stop-color="${data.PV5Efficiency < 100 ? 'grey' : data.solarColour}"/>
-                                        <stop offset="100%"
-                                            stop-color="${data.PV5Efficiency < 100 ? 'grey' : data.solarColour}"/>
-                                    </linearGradient>
-                                </defs>
-                                <rect id="pv5" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                                      stroke="${[1, 3].includes(config.solar.efficiency) ? `url(#PV5LG-${data.timestamp_id})` : data.solarColour}" pointer-events="all"
-                                      class="${!config.show_solar || [1, 2, 3, 4].includes(config.solar.mppts) ? 'st12' : ''}"/>
-                            </svg>
+                            ${renderPV('pv5', '78', '54.5', data, config)}
                             <text x="105" y="94" class="st3 st8 right-align"
-                                display="${!config.show_solar ? 'none' : ''}"
                                 fill="${data.solarColour}">
                                 ${config.solar.pv5_name || localize('common.pv5_name')}
                             </text>
                             <text x="105" y="106" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 right-align' : 'st12'}"
-                                display="${!config.show_solar || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
+                                ?hidden=${[0, 1].includes(config.solar.efficiency)}
                                 fill="${data.solarColour}">${data.PV5Efficiency}%
                             </text>
                             <svg id="pv5-flow">
                                 <path id="pv5-line" d="M 113 84 L 113 125 Q 113 132 120 132 L 280 132"
-                                    class="${!config.show_solar ? 'st12' : ''}"
                                     fill="none" stroke="${data.solarColour}" stroke-width="${data.pv5LineWidth}"
                                     stroke-miterlimit="10"
                                     pointer-events="stroke"/>
                                 <circle id="pv5-dot" cx="0" cy="0"
                                         r="${Math.min(2 + data.pv5LineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                        class="${!config.show_solar ? 'st12' : ''}"
                                         fill="${Math.round(data.pv5PowerWatts) <= 0 ? 'transparent' : `${data.solarColour}`}">
                                     <animateMotion dur="${data.durationCur['pv5']}s" repeatCount="indefinite"
                                                 keyPoints=${config.solar.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
@@ -208,21 +102,21 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             </svg>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv5_voltage)}>
                                 <text id="pv5_voltage" x="120" y="106" class="st3 left-align"
-                                    display="${!config.show_solar || !config.entities.pv5_voltage || config.entities.pv5_voltage === 'none' || !data.statePV5Voltage.isValid() ? 'none' : ''}"
+                                    ?hidden=${!config.entities.pv5_voltage || config.entities.pv5_voltage === 'none' || !data.statePV5Voltage.isValid()}
                                     fill="${data.solarColour}">${data.statePV5Voltage.toNum(1)}
                                     ${UnitOfElectricPotential.VOLT}
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv5_current)}>
                                 <text id="pv5_current" x="120" y="94" class="st3 left-align"
-                                    display="${!config.show_solar || !config.entities.pv5_current || config.entities.pv5_current === 'none' || !data.statePV5Current.isValid() ? 'none' : ''}"
+                                    ?hidden=${!config.entities.pv5_current || config.entities.pv5_current === 'none' || !data.statePV5Current.isValid()}
                                     fill="${data.solarColour}">${data.statePV5Current.toNum(1)}
                                     ${UnitOfElectricalCurrent.AMPERE}
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv5_power)}>
                                 <text id="pv5_power" x="113" y="71" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                                    display="${!config.show_solar || !data.statePV5Power.isValid() ? 'none' : ''}" 
+                                    ?hidden=${!data.statePV5Power.isValid()} 
                                     fill="${data.solarColour}">
                                     ${config.solar.auto_scale 
                                         ? Utils.convertValue(data.pv5PowerWatts, data.decimalPlaces) || 0 
@@ -232,42 +126,22 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         </svg>
                         <svg id="PV6" 
                             style="overflow: visible; display: ${config.show_solar && config.wide && config.solar.mppts === 6  ? 'inline' : 'none'};" x="10.5%">
-                            <svg id="pv6" x="330" y="54.5" width="70" height="30"
-                                viewBox="0 0 70 30" overflow="visible">
-                                <defs>
-                                    <linearGradient id="PV6LG-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
-                                        <stop offset="0%"
-                                            stop-color="${data.PV6Efficiency === 0 ? 'grey' : data.solarColour}"/>
-                                        <stop offset="${data.PV6Efficiency}%"
-                                            stop-color="${data.PV6Efficiency === 0 ? 'grey' : data.solarColour}"/>
-                                        <stop offset="${data.PV6Efficiency}%"
-                                            stop-color="${data.PV6Efficiency < 100 ? 'grey' : data.solarColour}"/>
-                                        <stop offset="100%"
-                                            stop-color="${data.PV6Efficiency < 100 ? 'grey' : data.solarColour}"/>
-                                    </linearGradient>
-                                </defs>
-                                <rect id="pv6" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                                stroke="${[1, 3].includes(config.solar.efficiency) ? 'url(#PV6LG-${data.timestamp_id})' : data.solarColour}" pointer-events="all"
-                                class="${!config.show_solar || [1, 2, 3, 4, 5].includes(config.solar.mppts) ? 'st12' : ''}"/>
-                            </svg>
+                            ${renderPV('pv6', '330', '54.5', data, config)}
                             <text x="357" y="94" class="st3 st8 right-align"
-                                display="${!config.show_solar ? 'none' : ''}"
                                 fill="${data.solarColour}">
                                 ${config.solar.pv6_name || localize('common.pv6_name')}
                             </text>
                             <text x="357" y="106" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 right-align' : 'st12'}"
-                                display="${!config.show_solar || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
+                                ?hidden=${[0, 1].includes(config.solar.efficiency)}
                                 fill="${data.solarColour}">${data.PV6Efficiency}%
                             </text>
                             <svg id="pv6-flow">
                                 <path id="pv6-line" d="M 365 85 L 365 125 Q 365 132 358 132 L 200 132"
-                                    class="${!config.show_solar ? 'st12' : ''}"
                                     fill="none" stroke="${data.solarColour}" stroke-width="${data.pv6LineWidth}"
                                     stroke-miterlimit="10"
                                     pointer-events="stroke"/>
                                 <circle id="pv6-dot" cx="0" cy="0"
                                         r="${Math.min(2 + data.pv6LineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                        class="${!config.show_solar ? 'st12' : ''}"
                                         fill="${Math.round(data.pv6PowerWatts) <= 0 ? 'transparent' : `${data.solarColour}`}">
                                     <animateMotion dur="${data.durationCur['pv6']}s" repeatCount="indefinite"
                                                 keyPoints=${config.solar.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
@@ -278,21 +152,21 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             </svg>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv6_voltage)}>
                                 <text id="pv6_voltage" x="372" y="106" class="st3 left-align"
-                                    display="${!config.show_solar || !config.entities.pv6_voltage || config.entities.pv6_voltage === 'none' || !data.statePV6Voltage.isValid() ? 'none' : ''}"
+                                    ?hidden=${!config.entities.pv6_voltage || config.entities.pv6_voltage === 'none' || !data.statePV6Voltage.isValid()}
                                     fill="${data.solarColour}">${data.statePV6Voltage.toNum(1)}
                                     ${UnitOfElectricPotential.VOLT}
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv6_current)}>
                                 <text id="pv6_current" x="372" y="94" class="st3 left-align"
-                                    display="${!config.show_solar || !config.entities.pv6_current || config.entities.pv6_current === 'none' || !data.statePV6Current.isValid() ? 'none' : ''}"
+                                    ?hidden=${!config.entities.pv6_current || config.entities.pv6_current === 'none' || !data.statePV6Current.isValid()}
                                     fill="${data.solarColour}">${data.statePV6Current.toNum(1)}
                                     ${UnitOfElectricalCurrent.AMPERE}
                                 </text>
                             </a>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv6_power)}>
                                 <text id="pv6_power" x="366" y="71" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                                    display="${!config.show_solar || !data.statePV6Power.isValid() ? 'none' : ''}" 
+                                    ?hidden=${!data.statePV6Power.isValid()} 
                                     fill="${data.solarColour}">
                                     ${config.solar.auto_scale 
                                         ? Utils.convertValue(data.pv6PowerWatts, data.decimalPlaces) || 0 
@@ -316,53 +190,52 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             ${config.solar.custom_label || localize('common.total_solar_generation')}
                         </text>
                         <text x="${config.solar.mppts === 1 ? '230' : '179'}" y="94" class="st3 st8 right-align"
-                            display="${!config.show_solar ? 'none' : ''}" fill="${data.solarColour}">
+                            fill="${data.solarColour}">
                             ${config.solar.pv1_name || localize('common.pv1_name') }
                         </text>
                         <text x="${config.solar.mppts === 1 ? '230' : '179'}" y="106" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 right-align' : 'st12'}"
-                            display="${!config.show_solar || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}" fill="${data.solarColour}">
+                            ?hidden=${[0, 1].includes(config.solar.efficiency)} fill="${data.solarColour}">
                             ${data.PV1Efficiency}%
                         </text>
                         <text x="281" y="94" class="st3 st8 right-align"
-                            display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}"
+                            display="${config.solar.mppts === 1 ? 'none' : ''}"
                             fill="${data.solarColour}">
                             ${config.solar.pv2_name || localize('common.pv2_name')}
                         </text>
                         <text x="281" y="106" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 right-align' : 'st12'}"
-                            display="${!config.show_solar || config.solar.mppts === 1 || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
+                            display="${config.solar.mppts === 1 || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
                             fill="${data.solarColour}">${data.PV2Efficiency}%
                         </text>
                         <text x="105" y="94" class="st3 st8 right-align"
-                            display="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'none' : ''}"
+                            display="${[1, 2].includes(config.solar.mppts) ? 'none' : ''}"
                             fill="${data.solarColour}">
                             ${config.solar.pv3_name || localize('common.pv3_name')}
                         </text>
                         <text x="105" y="106" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 right-align' : 'st12'}"
-                            display="${!config.show_solar || [1, 2].includes(config.solar.mppts) || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
+                            display="${[1, 2].includes(config.solar.mppts) || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
                             fill="${data.solarColour}">${data.PV3Efficiency}%
                         </text>
                         <text x="357" y="94" class="st3 st8 right-align"
-                            display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}"
+                            display="${[1, 2, 3].includes(config.solar.mppts) ? 'none' : ''}"
                             fill="${data.solarColour}">
                             ${config.solar.pv4_name || localize('common.pv4_name')}
                         </text>
                         <text x="357" y="106" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8 right-align' : 'st12'}"
-                            display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
+                            display="${[1, 2, 3].includes(config.solar.mppts) || [0, 1].includes(config.solar.efficiency) ? 'none' : ''}"
                             fill="${data.solarColour}">${data.PV4Efficiency}%
                         </text>
                         <text x="215" y="156" class="${[2, 3].includes(config.solar.efficiency) ? 'st3 st8' : 'st12'}"
-                            display="${!config.show_solar || config.solar.mppts === 1 ? 'none' : ''}"
+                            display="${config.solar.mppts === 1 ? 'none' : ''}"
                             fill="${data.solarColour}">${data.totalPVEfficiency}%
                         </text>
                         <svg id="pv1-flow">
                             <path id="pv1-line"
                                 d="${config.solar.mppts === 1 ? 'M 239.23 84 L 239 190' : 'M 187 84 L 187 122 Q 187 132 195 132 L 205 132.03'}"
-                                class="${!config.show_solar ? 'st12' : ''}" fill="none"
+                                fill="none"
                                 stroke="${data.solarColour}" stroke-width="${data.pv1LineWidth}" stroke-miterlimit="10"
                                 pointer-events="stroke"/>
                             <circle id="pv1-dot" cx="0" cy="0"
                                     r="${Math.min(2 + data.pv1LineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                    class="${!config.show_solar ? 'st12' : ''}"
                                     fill="${Math.round(data.pv1PowerWatts) <= 0 ? 'transparent' : `${data.solarColour}`}">
                                 <animateMotion dur="${data.durationCur['pv1']}s" repeatCount="indefinite"
                                             keyPoints=${config.solar.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
@@ -373,13 +246,13 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         </svg>
                         <svg id="pv2-flow">
                             <path id="pv2-line" d="M 289 84.5 L 289 125 Q 289 132 282 132 L 275 132"
-                                class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
+                                class="${config.solar.mppts === 1 ? 'st12' : ''}"
                                 fill="none" stroke="${data.solarColour}" stroke-width="${data.pv2LineWidth}"
                                 stroke-miterlimit="10"
                                 pointer-events="stroke"/>
                             <circle id="pv2-dot" cx="0" cy="0"
                                     r="${Math.min(2 + data.pv2LineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                    class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
+                                    class="${config.solar.mppts === 1 ? 'st12' : ''}"
                                     fill="${Math.round(data.pv2PowerWatts) <= 0 ? 'transparent' : `${data.solarColour}`}">
                                 <animateMotion dur="${data.durationCur['pv2']}s" repeatCount="indefinite"
                                             keyPoints=${config.solar.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
@@ -390,13 +263,13 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         </svg>
                         <svg id="pv3-flow">
                             <path id="pv3-line" d="M 113 84 L 113 125 Q 113 132 120 132 L 205 132.03"
-                                class="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'st12' : ''}"
+                                class="${[1, 2].includes(config.solar.mppts) ? 'st12' : ''}"
                                 fill="none" stroke="${data.solarColour}" stroke-width="${data.pv3LineWidth}"
                                 stroke-miterlimit="10"
                                 pointer-events="stroke"/>
                             <circle id="pv3-dot" cx="0" cy="0"
                                     r="${Math.min(2 + data.pv3LineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                    class="${!config.show_solar || [1, 2].includes(config.solar.mppts) ? 'st12' : ''}"
+                                    class="${[1, 2].includes(config.solar.mppts) ? 'st12' : ''}"
                                     fill="${Math.round(data.pv3PowerWatts) <= 0 ? 'transparent' : `${data.solarColour}`}">
                                 <animateMotion dur="${data.durationCur['pv3']}s" repeatCount="indefinite"
                                             keyPoints=${config.solar.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
@@ -407,13 +280,13 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         </svg>
                         <svg id="pv4-flow">
                             <path id="pv4-line" d="M 365 85 L 365 125 Q 365 132 358 132 L 275 132"
-                                class="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"
+                                class="${[1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"
                                 fill="none" stroke="${data.solarColour}" stroke-width="${data.pv4LineWidth}"
                                 stroke-miterlimit="10"
                                 pointer-events="stroke"/>
                             <circle id="pv4-dot" cx="0" cy="0"
                                     r="${Math.min(2 + data.pv4LineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                    class="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"
+                                    class="${[1, 2, 3].includes(config.solar.mppts) ? 'st12' : ''}"
                                     fill="${Math.round(data.pv4PowerWatts) <= 0 ? 'transparent' : `${data.solarColour}`}">
                                 <animateMotion dur="${data.durationCur['pv4']}s" repeatCount="indefinite"
                                             keyPoints=${config.solar.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
@@ -424,13 +297,13 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         </svg>
                         <svg id="solar-flow">
                             <path id="so-line" d="M 239 190 L 239 147"
-                                class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
+                                class="${config.solar.mppts === 1 ? 'st12' : ''}"
                                 fill="none" stroke="${data.solarColour}" stroke-width="${data.solarLineWidth}"
                                 stroke-miterlimit="10"
                                 pointer-events="stroke"/>
                             <circle id="so-dot" cx="0" cy="0"
                                     r="${Math.min(2 + data.solarLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                                    class="${!config.show_solar || config.solar.mppts === 1 ? 'st12' : ''}"
+                                    class="${config.solar.mppts === 1 ? 'st12' : ''}"
                                     fill="${data.totalPV === 0 ? 'transparent' : `${data.solarColour}`}">
                                 <animateMotion dur="${data.durationCur['solar']}s" repeatCount="indefinite"
                                             keyPoints=${config.solar.invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"}
@@ -444,14 +317,14 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 <a href="#" @click=${(e) => Utils.handleNavigation(e, config.solar.navigate)}>
                                     <svg id="sun" x="154" y="10" width="40" height="40"
                                         viewBox="0 0 24 24">
-                                        <path class="${!config.show_solar ? 'st12' : ''}" fill="${data.solarColour}"
+                                        <path fill="${data.solarColour}"
                                             d="${icons.sun}"/>
                                     </svg>
                                 </a>`
                             : svg`
                                 <svg id="sun" x="154" y="10" width="40" height="40"
                                     viewBox="0 0 24 24">
-                                    <path class="${!config.show_solar ? 'st12' : ''}" fill="${data.solarColour}"
+                                    <path fill="${data.solarColour}"
                                         d="${icons.sun}"/>
                                 </svg>`
                         }
@@ -472,76 +345,76 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_pv_energy_108)}>
                             <text id="daily_solar_value" x="200" y="26" class="st10 left-align"
                                 display="${config.solar.display_mode === 1 && data.stateDayPVEnergy.isValid() ? '' : 'none'}"
-                                fill="${!data.solarShowDaily || !config.show_solar ? 'transparent' : `${data.solarColour}`}">
+                                fill="${!data.solarShowDaily ? 'transparent' : `${data.solarColour}`}">
                                 ${data.stateDayPVEnergy?.toPowerString(true, data.decimalPlacesEnergy)}
                             </text>
                         </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_pv_energy_108)}>
                             <text id="remaining_solar_value" x="200" y="26" class="st10 left-align"
                                 display="${config.solar.display_mode === 2 && data.stateDayPVEnergy.isValid() ? '' : 'none'}"
-                                fill="${!data.solarShowDaily || !config.show_solar ? 'transparent' : `${data.solarColour}`}">
+                                fill="${!data.solarShowDaily ? 'transparent' : `${data.solarColour}`}">
                                 ${data.stateDayPVEnergy?.toPowerString(true, data.decimalPlacesEnergy) + ' / ' + data.remainingSolar}
                             </text>
                         </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_pv_energy_108)}>
                             <text id="total_solar_value" x="200" y="26" class="st10 left-align"
                                 display="${config.solar.display_mode === 3 && data.stateDayPVEnergy.isValid() ? '' : 'none'}"
-                                fill="${!data.solarShowDaily || !config.show_solar ? 'transparent' : `${data.solarColour}`}">
+                                fill="${!data.solarShowDaily ? 'transparent' : `${data.solarColour}`}">
                                 ${data.stateDayPVEnergy?.toPowerString(true, data.decimalPlacesEnergy) + ' / ' + data.totalSolarGeneration}
                             </text>
                         </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv1_voltage_109)}>
                             <text id="pv1_voltage" x="${config.solar.mppts === 1 ? '244.7' : '194'}" y="106"
                                 class="st3 left-align"
-                                display="${!config.show_solar || !config.entities.pv1_voltage_109 || config.entities.pv1_voltage_109 === 'none' || !data.statePV1Voltage.isValid() ? 'none' : ''}"
+                                display="${!config.entities.pv1_voltage_109 || config.entities.pv1_voltage_109 === 'none' || !data.statePV1Voltage.isValid() ? 'none' : ''}"
                                 fill="${data.solarColour}">${data.statePV1Voltage.toNum(1)} ${UnitOfElectricPotential.VOLT}
                             </text>
                         </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv1_current_110)}>
                             <text id="pv1_current" x="${config.solar.mppts === 1 ? '244.7' : '194'}" y="94"
                                 class="st3 left-align"
-                                display="${!config.show_solar || !config.entities.pv1_current_110 || config.entities.pv1_current_110 === 'none' || !data.statePV1Current.isValid() ? 'none' : ''}"
+                                display="${!config.entities.pv1_current_110 || config.entities.pv1_current_110 === 'none' || !data.statePV1Current.isValid() ? 'none' : ''}"
                                 fill="${data.solarColour}">${data.statePV1Current.toNum(1)} ${UnitOfElectricalCurrent.AMPERE}
                             </text>
                         </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv2_voltage_111)}>
                             <text id="data.pv2_voltage" x="296" y="106" class="st3 left-align"
-                                display="${!config.show_solar || !config.entities.pv2_voltage_111 || config.entities.pv2_voltage_111 === 'none' || config.solar.mppts === 1 || !data.statePV2Voltage.isValid() ? 'none' : ''}"
+                                display="${!config.entities.pv2_voltage_111 || config.entities.pv2_voltage_111 === 'none' || config.solar.mppts === 1 || !data.statePV2Voltage.isValid() ? 'none' : ''}"
                                 fill="${data.solarColour}">${data.statePV2Voltage.toNum(1)}
                                 ${UnitOfElectricPotential.VOLT}
                             </text>
                         </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv2_current_112)}>
                             <text id="data.pv2_current" x="296" y="94" class="st3 left-align"
-                                display="${!config.show_solar || !config.entities.pv2_current_112 || config.entities.pv2_current_112 === 'none' || config.solar.mppts === 1 || !data.statePV2Current.isValid() ? 'none' : ''}"
+                                display="${!config.entities.pv2_current_112 || config.entities.pv2_current_112 === 'none' || config.solar.mppts === 1 || !data.statePV2Current.isValid() ? 'none' : ''}"
                                 fill="${data.solarColour}">${data.statePV2Current.toNum(1)}
                                 ${UnitOfElectricalCurrent.AMPERE}
                             </text>
                         </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv3_voltage_113)}>
                             <text id="pv3_voltage" x="120" y="106" class="st3 left-align"
-                                display="${!config.show_solar || !config.entities.pv3_voltage_113 || config.entities.pv3_voltage_113 === 'none' || [1, 2].includes(config.solar.mppts) || !data.statePV3Voltage.isValid() ? 'none' : ''}"
+                                display="${!config.entities.pv3_voltage_113 || config.entities.pv3_voltage_113 === 'none' || [1, 2].includes(config.solar.mppts) || !data.statePV3Voltage.isValid() ? 'none' : ''}"
                                 fill="${data.solarColour}">${data.statePV3Voltage.toNum(1)}
                                 ${UnitOfElectricPotential.VOLT}
                             </text>
                         </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv3_current_114)}>
                             <text id="pv3_current" x="120" y="94" class="st3 left-align"
-                                display="${!config.show_solar || !config.entities.pv3_current_114 || config.entities.pv3_current_114 === 'none' || [1, 2].includes(config.solar.mppts) || !data.statePV3Current.isValid() ? 'none' : ''}"
+                                display="${!config.entities.pv3_current_114 || config.entities.pv3_current_114 === 'none' || [1, 2].includes(config.solar.mppts) || !data.statePV3Current.isValid() ? 'none' : ''}"
                                 fill="${data.solarColour}">${data.statePV3Current.toNum(1)}
                                 ${UnitOfElectricalCurrent.AMPERE}
                             </text>
                         </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv4_voltage_115)}>
                             <text id="pv4_voltage" x="372" y="106" class="st3 left-align"
-                                display="${!config.show_solar || !config.entities.pv4_voltage_115 || config.entities.pv4_voltage_115 === 'none' || [1, 2, 3].includes(config.solar.mppts) || !data.statePV4Voltage.isValid() ? 'none' : ''}"
+                                display="${!config.entities.pv4_voltage_115 || config.entities.pv4_voltage_115 === 'none' || [1, 2, 3].includes(config.solar.mppts) || !data.statePV4Voltage.isValid() ? 'none' : ''}"
                                 fill="${data.solarColour}">${data.statePV4Voltage.toNum(1)}
                                 ${UnitOfElectricPotential.VOLT}
                             </text>
                         </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv4_current_116)}>
                             <text id="pv4_current" x="372" y="94" class="st3 left-align"
-                                display="${!config.show_solar || !config.entities.pv4_current_116 || config.entities.pv4_current_116 === 'none' || [1, 2, 3].includes(config.solar.mppts) || !data.statePV4Current.isValid() ? 'none' : ''}"
+                                display="${!config.entities.pv4_current_116 || config.entities.pv4_current_116 === 'none' || [1, 2, 3].includes(config.solar.mppts) || !data.statePV4Current.isValid() ? 'none' : ''}"
                                 fill="${data.solarColour}">${data.statePV4Current.toNum(1)}
                                 ${UnitOfElectricalCurrent.AMPERE}
                             </text>
@@ -550,7 +423,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             <text id="environ_temp" x="154" y="45"
                                 class="${config.entities?.environment_temp ? 'st3 left-align' : 'st12'}"
                                 fill="${data.solarColour}"
-                                display="${!config.show_solar || !data.stateEnvironmentTemp.isValid() ? 'none' : ''}">
+                                display="${!data.stateEnvironmentTemp.isValid() ? 'none' : ''}">
                                 ${data.stateEnvironmentTemp.toNum(1)}°
                             </text>
                         </a>
@@ -558,7 +431,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                             ? svg`
                                 <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv_total)}>
                                     <text id="pvtotal_power" x="238.8" y="133.9" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                                            display="${!config.show_solar || config.solar.mppts === 1 || !data.statePVTotal.isValid() ? 'none' : ''}" 
+                                            display="${config.solar.mppts === 1 || !data.statePVTotal.isValid() ? 'none' : ''}" 
                                             fill="${data.solarColour}">
                                         ${config.solar.auto_scale
                                             ? config.entities?.pv_total
@@ -570,7 +443,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 </a>`
                             : svg`
                                 <text id="pvtotal_power" x="238.8" y="133.9" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                                    display="${!config.show_solar || config.solar.mppts === 1 || !data.statePVTotal.isValid() ? 'none' : ''}" 
+                                    display="${config.solar.mppts === 1 || !data.statePVTotal.isValid() ? 'none' : ''}" 
                                     fill="${data.solarColour}">
                                     ${config.solar.auto_scale
                                         ? config.entities?.pv_total
@@ -583,7 +456,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv1_power_186)}>
                             <text id="pv1_power_186" x="${config.solar.mppts === 1 ? '238.8' : '188.1'}" y="71" 
                                 class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                                display="${!config.show_solar || !data.statePV1Power.isValid() ? 'none' : ''}" 
+                                display="${!data.statePV1Power.isValid() ? 'none' : ''}" 
                                 fill="${data.solarColour}">
                                 ${config.solar.auto_scale 
                                     ? Utils.convertValue(data.pv1PowerWatts, data.decimalPlaces) || 0 
@@ -592,7 +465,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv2_power_187)}>
                             <text id="pv2_power_187" x="289.5" y="71" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                                display="${!config.show_solar || config.solar.mppts === 1 || !data.statePV2Power.isValid() ? 'none' : ''}" 
+                                display="${config.solar.mppts === 1 || !data.statePV2Power.isValid() ? 'none' : ''}" 
                                 fill="${data.solarColour}">
                                 ${config.solar.auto_scale 
                                     ? Utils.convertValue(data.pv2PowerWatts, data.decimalPlaces) || 0 
@@ -601,7 +474,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv3_power_188)}>
                             <text id="pv3_power_188" x="113" y="71" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                                display="${!config.show_solar || [1, 2].includes(config.solar.mppts) || !data.statePV3Power.isValid() ? 'none' : ''}" 
+                                display="${[1, 2].includes(config.solar.mppts) || !data.statePV3Power.isValid() ? 'none' : ''}" 
                                 fill="${data.solarColour}">
                                 ${config.solar.auto_scale 
                                     ? Utils.convertValue(data.pv3PowerWatts, data.decimalPlaces) || 0 
@@ -610,7 +483,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                         </a>
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.pv4_power_189)}>
                             <text id="pv4_power_189" x="366" y="71" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                                display="${!config.show_solar || [1, 2, 3].includes(config.solar.mppts) || !data.statePV4Power.isValid() ? 'none' : ''}" 
+                                display="${[1, 2, 3].includes(config.solar.mppts) || !data.statePV4Power.isValid() ? 'none' : ''}" 
                                 fill="${data.solarColour}">
                                 ${config.solar.auto_scale 
                                     ? Utils.convertValue(data.pv4PowerWatts, data.decimalPlaces) || 0 
@@ -1738,22 +1611,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 </text>
                             </a>
                             <g display="${[0, 4, 5, 6].includes(data.additionalLoad) ? 'none' : ''}">
-                                ${data.iconEssentialLoad1 && config.load.load1_switch
-                                    ? svg`
-                                        <a href="#" @click=${(e) => Utils.handlePopup(e, config.load.load1_switch)}>
-                                            <foreignObject x="371" y="114" width="36" height="36">
-                                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 36px; height: 36px;">
-                                                    <ha-icon icon="${data.iconEssentialLoad1}" class="essload1-icon"></ha-icon>
-                                                </div>
-                                            </foreignObject>
-                                        </a>`
-                                    : svg`
-                                        <foreignObject x="371" y="114" width="36" height="36">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 36px; height: 36px;">
-                                                <ha-icon icon="${data.iconEssentialLoad1}" class="essload1-icon"></ha-icon>
-                                            </div>
-                                        </foreignObject>`
-                                }      
+                                ${renderLoadIcon(config.load.load1_switch, data.iconEssentialLoad1, 'essload1-icon', 371, 114)}
                             </g>
                         </svg>
                         <svg id="Esential-Load2" style="overflow: visible">
@@ -1804,22 +1662,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 </text>
                             </a>
                             <g display="${data.additionalLoad === 2 ? '' : 'none'}">
-                                ${data.iconEssentialLoad2 && config.load.load2_switch
-                                    ? svg`
-                                        <a href="#" @click=${(e) => Utils.handlePopup(e, config.load.load2_switch)}>
-                                            <foreignObject x="371" y="288" width="36" height="36">
-                                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 36px; height: 36px;">
-                                                    <ha-icon icon="${data.iconEssentialLoad2}" class="essload2-icon"></ha-icon>
-                                                </div>
-                                            </foreignObject>
-                                        </a>`
-                                    : svg`
-                                        <foreignObject x="371" y="288" width="36" height="36">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 36px; height: 36px;">
-                                                <ha-icon icon="${data.iconEssentialLoad2}" class="essload2-icon"></ha-icon>
-                                            </div>
-                                        </foreignObject>`
-                                }     
+                                ${renderLoadIcon(config.load.load2_switch, data.iconEssentialLoad2, 'essload2-icon', 371, 288)}
                             </g>
                         </svg>
                         <svg id="Esential-Load3" style="overflow: visible">
@@ -1838,40 +1681,10 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 ${config.load.load3_name}
                             </text>
                             <g display="${data.additionalLoad === 3 ? '' : 'none'}">
-                                ${data.iconEssentialLoad2 && config.load.load2_switch
-                                    ? svg`
-                                        <a href="#" @click=${(e) => Utils.handlePopup(e, config.load.load2_switch)}>
-                                            <foreignObject x="412" y="264" width="30" height="30">
-                                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                                    <ha-icon icon="${data.iconEssentialLoad2}" class="essload2_small-icon"></ha-icon>
-                                                </div>
-                                            </foreignObject>
-                                        </a>`
-                                    : svg`
-                                        <foreignObject x="412" y="264" width="30" height="30">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                                <ha-icon icon="${data.iconEssentialLoad2}" class="essload2_small-icon"></ha-icon>
-                                            </div>
-                                        </foreignObject>`
-                                }     
+                                ${renderLoadIcon(config.load.load2_switch, data.iconEssentialLoad2, 'essload2_small-icon', 412, 264)}
                             </g>
                             <g display="${data.additionalLoad === 3 ? '' : 'none'}">
-                                ${data.iconEssentialLoad3 && config.load.load3_switch
-                                    ? svg`
-                                        <a href="#" @click=${(e) => Utils.handlePopup(e, config.load.load3_switch)}>
-                                            <foreignObject x="449" y="264" width="30" height="30">
-                                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                                    <ha-icon icon="${data.iconEssentialLoad3}" class="essload3_small-icon"></ha-icon>
-                                                </div>
-                                            </foreignObject>
-                                        </a>`
-                                    : svg`
-                                        <foreignObject x="449" y="264" width="30" height="30">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                                <ha-icon icon="${data.iconEssentialLoad3}" class="essload3_small-icon"></ha-icon>
-                                            </div>
-                                        </foreignObject>`
-                                }    
+                                ${renderLoadIcon(config.load.load3_switch, data.iconEssentialLoad3, 'essload3_small-icon', 449, 264)}
                             </g>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load2_extra)}>
                                 <text id="ess_load2_extra" x="435" y="332"
@@ -1934,76 +1747,16 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 ${config.load.load4_name}
                             </text>
                             <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
-                                ${data.iconEssentialLoad1 && config.load.load1_switch
-                                    ? svg`
-                                        <a href="#" @click=${(e) => Utils.handlePopup(e, config.load.load1_switch)}>
-                                            <foreignObject x="412" y="81" width="30" height="30">
-                                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                                    <ha-icon icon="${data.iconEssentialLoad1}" class="essload1_small-icon"></ha-icon>
-                                                </div>
-                                            </foreignObject>
-                                        </a>`
-                                    : svg`
-                                        <foreignObject x="412" y="81" width="30" height="30">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                                <ha-icon icon="${data.iconEssentialLoad1}" class="essload1_small-icon"></ha-icon>
-                                            </div>
-                                        </foreignObject>`
-                                }    
+                                ${renderLoadIcon(config.load.load1_switch, data.iconEssentialLoad1, 'essload1_small-icon', 412, 81)}
                             </g>
                             <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
-                                ${data.iconEssentialLoad2 && config.load.load2_switch
-                                    ? svg`
-                                        <a href="#" @click=${(e) => Utils.handlePopup(e, config.load.load2_switch)}>
-                                            <foreignObject x="449" y="81" width="30" height="30">
-                                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                                    <ha-icon icon="${data.iconEssentialLoad2}" class="essload2_small-icon"></ha-icon>
-                                                </div>
-                                            </foreignObject>
-                                        </a>`
-                                    : svg`
-                                        <foreignObject x="449" y="81" width="30" height="30">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                                <ha-icon icon="${data.iconEssentialLoad2}" class="essload2_small-icon"></ha-icon>
-                                            </div>
-                                        </foreignObject>`
-                                }     
+                                ${renderLoadIcon(config.load.load2_switch, data.iconEssentialLoad2, 'essload2_small-icon', 449, 81)}  
                             </g>
                             <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
-                                ${data.iconEssentialLoad3 && config.load.load3_switch
-                                    ? svg`
-                                        <a href="#" @click=${(e) => Utils.handlePopup(e, config.load.load3_switch)}>
-                                            <foreignObject x="412" y="264" width="30" height="30">
-                                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                                    <ha-icon icon="${data.iconEssentialLoad3}" class="essload3_small-icon"></ha-icon>
-                                                </div>
-                                            </foreignObject>
-                                        </a>`
-                                    : svg`
-                                        <foreignObject x="412" y="264" width="30" height="30">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                                <ha-icon icon="${data.iconEssentialLoad3}" class="essload3_small-icon"></ha-icon>
-                                            </div>
-                                        </foreignObject>`
-                                }    
+                                ${renderLoadIcon(config.load.load3_switch, data.iconEssentialLoad3, 'essload3_small-icon', 412, 264)}
                             </g>
                             <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
-                                ${data.iconEssentialLoad4 && config.load.load4_switch
-                                    ? svg`
-                                        <a href="#" @click=${(e) => Utils.handlePopup(e, config.load.load4_switch)}>
-                                            <foreignObject x="449" y="264" width="30" height="30">
-                                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                                    <ha-icon icon="${data.iconEssentialLoad4}" class="essload4_small-icon"></ha-icon>
-                                                </div>
-                                            </foreignObject>
-                                        </a>`
-                                    : svg`
-                                        <foreignObject x="449" y="264" width="30" height="30">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                                <ha-icon icon="${data.iconEssentialLoad4}" class="essload4_small-icon"></ha-icon>
-                                            </div>
-                                        </foreignObject>`
-                                }      
+                                ${renderLoadIcon(config.load.load4_switch, data.iconEssentialLoad4, 'essload4_small-icon', 449, 264)} 
                             </g>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load1_extra)}>
                                 <text id="ess_load1_extra" x="435" y="147"
@@ -2077,22 +1830,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 ${config.load.load5_name}
                             </text>
                             <g display="${[5, 6].includes(data.additionalLoad) ? '' : 'none'}">
-                                ${data.iconEssentialLoad5 && config.load.load5_switch
-                                    ? svg`
-                                        <a href="#" @click=${(e) => Utils.handlePopup(e, config.load.load5_switch)}>
-                                            <foreignObject x="412" y="81" width="30" height="30">
-                                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                                    <ha-icon icon="${data.iconEssentialLoad5}" class="essload5_small-icon"></ha-icon>
-                                                </div>
-                                            </foreignObject>
-                                        </a>`
-                                    : svg`
-                                        <foreignObject x="412" y="81" width="30" height="30">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                                <ha-icon icon="${data.iconEssentialLoad5}" class="essload5_small-icon"></ha-icon>
-                                            </div>
-                                        </foreignObject>`
-                                }      
+                                ${renderLoadIcon(config.load.load5_switch, data.iconEssentialLoad5, 'essload5_small-icon', 412, 81)}
                             </g>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load5_extra)}>
                                 <text id="ess_load5_extra" x="435" y="147"
@@ -2119,22 +1857,7 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
                                 ${config.load.load6_name}
                             </text>
                             <g display="${data.additionalLoad === 6 ? '' : 'none'}">
-                                ${data.iconEssentialLoad6 && config.load.load6_switch
-                                    ? svg`
-                                        <a href="#" @click=${(e) => Utils.handlePopup(e, config.load.load6_switch)}>
-                                        <foreignObject x="412" y="264" width="30" height="30">
-                                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                                    <ha-icon icon="${data.iconEssentialLoad6}" class="essload6_small-icon"></ha-icon>
-                                                </div>
-                                            </foreignObject>
-                                        </a>`
-                                    : svg`
-                                        <foreignObject x="412" y="264" width="30" height="30">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                                                <ha-icon icon="${data.iconEssentialLoad6}" class="essload6_small-icon"></ha-icon>
-                                            </div>
-                                        </foreignObject>`
-                                }    
+                                ${renderLoadIcon(config.load.load6_switch, data.iconEssentialLoad6, 'essload6_small-icon', 412, 264)}
                             </g>
                             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_load6_extra)}>
                                 <text id="ess_load6_extra" x="435" y="332"
@@ -2446,4 +2169,76 @@ export const compactCard = (config: sunsynkPowerFlowCardConfig, inverterImg: str
             </div>
         </ha-card>
     `
+}
+
+function renderLoadIcon(entity: string | undefined, icon: string | undefined, className: string, x: number, y: number) {
+    if (icon && entity) {
+        return svg`
+            <a href="#" @click=${(e) => Utils.handlePopup(e, entity)}>
+                <foreignObject x="${x}" y="${y}" width="30" height="30">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
+                        <ha-icon icon="${icon}" class="${className}"></ha-icon>
+                    </div>
+                </foreignObject>
+            </a>`;
+    } else if (icon) {
+        return svg`
+            <foreignObject x="${x}" y="${y}" width="30" height="30">
+                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
+                    <ha-icon icon="${icon}" class="${className}"></ha-icon>
+                </div>
+            </foreignObject>`;
+    }
+    return '';
+}
+
+function renderPV(id: string, x: string, y: string, data: DataDto, config: sunsynkPowerFlowCardConfig) {
+    const gradientId = `${id}LG-${data.timestamp_id}`;
+    const efficiencyMap = {
+        pvtotal: 'totalPVEfficiency',
+        pv1: 'PV1Efficiency',
+        pv2: 'PV2Efficiency',
+        pv3: 'PV3Efficiency',
+        pv4: 'PV4Efficiency',
+        pv5: 'PV5Efficiency',
+        pv6: 'PV6Efficiency',
+    };
+    const efficiencyPropertyName = efficiencyMap[id] || 'totalPVEfficiency';
+    const efficiency = data[efficiencyPropertyName] || 0;
+    const solarColour = data.solarColour;
+    const useGradient = [1, 3].includes(config.solar.efficiency);
+    const gradientUrl = useGradient ? `url(#${gradientId})` : solarColour;
+    let className = '';
+
+    if (id === 'pv2' && config.solar.mppts === 1) {
+        className = 'st12';
+    } else if (id === 'pv3' && [1, 2].includes(config.solar.mppts)) {
+        className = 'st12';
+    } else if (id === 'pv4' && [1, 2, 3].includes(config.solar.mppts)) {
+        className = 'st12';
+    } else if (id === 'pv5' && [1, 2, 3, 4].includes(config.solar.mppts)) {
+        className = 'st12';
+    } else if (id === 'pv6' && [1, 2, 3, 4, 5].includes(config.solar.mppts)) {
+        className = 'st12';
+    }
+
+    const style = id === 'pvtotal' && config.solar.mppts === 1 ? 'display: none;' : '';
+
+    return html`
+        <svg id="${id}" x="${x}" y="${y}" width="70" height="30" viewBox="0 0 70 30" overflow="visible">
+            <defs>
+                <linearGradient id="${gradientId}" x1="0%" x2="0%" y1="100%" y2="0%">
+                    <stop offset="0%" stop-color="${efficiency === 0 ? 'grey' : solarColour}"/>
+                    <stop offset="${efficiency}%" stop-color="${efficiency === 0 ? 'grey' : solarColour}"/>
+                    <stop offset="${efficiency}%" stop-color="${efficiency < 100 ? 'grey' : solarColour}"/>
+                    <stop offset="100%" stop-color="${efficiency < 100 ? 'grey' : solarColour}"/>
+                </linearGradient>
+            </defs>
+            <rect id="${id}" width="70" height="30" rx="4.5" ry="4.5"
+                  fill="none" stroke="${gradientUrl}"
+                  pointer-events="all"
+                  class="${className}"
+                  style="${style}"/>
+        </svg>
+    `;
 }
