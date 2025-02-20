@@ -5,8 +5,8 @@ import {Utils} from '../../../helpers/utils';
 import {DataDto, sunsynkPowerFlowCardConfig} from '../../../types';
 import {UnitOfPower} from '../../../const';
 import {renderLoadIcon} from '../../shared/load/render-load-icon';
-import { renderStaticLoadIcon } from '../../shared/load/render-static-load-icon';
-import { getCompactLayoutIconConfigs } from '../../shared/load/icon-configs';
+import {renderStaticLoadIcon} from '../../shared/load/render-static-load-icon';
+import {getCompactLayoutIconConfigs} from '../../shared/load/icon-configs';
 
 
 export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {

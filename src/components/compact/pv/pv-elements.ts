@@ -5,8 +5,8 @@ import {Utils} from '../../../helpers/utils';
 import {DataDto, sunsynkPowerFlowCardConfig} from '../../../types';
 import {UnitOfElectricalCurrent, UnitOfElectricPotential, UnitOfPower,} from '../../../const';
 import {icons} from '../../../helpers/icons';
-import { renderPV } from '../../shared/pv/render-pv';
-import { renderPVFlow } from '../../shared/pv/render-pv-flow';
+import {renderPV} from '../../shared/pv/render-pv';
+import {renderPVFlow} from '../../shared/pv/render-pv-flow';
 
 
 export const renderSolarElements = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
