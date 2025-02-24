@@ -1,5 +1,5 @@
-import { DataDto } from '../../../types';
-import { LoadIconConfig } from './render-static-load-icon';
+import {DataDto} from '../../../types';
+import {LoadIconConfig} from './render-static-load-icon';
 
 export const getFullLayoutIconConfigs = (data: DataDto): LoadIconConfig[] => [
     // Boiler icons
