@@ -1,4 +1,3 @@
-// … existing code …
 import {html} from 'lit';
 import {icons} from '../../../helpers/icons';
 
