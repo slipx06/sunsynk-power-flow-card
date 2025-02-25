@@ -5,6 +5,7 @@ import {Utils} from '../../../helpers/utils';
 import {DataDto, sunsynkPowerFlowCardConfig} from '../../../types';
 import {icons} from '../../../helpers/icons';
 import {UnitOfPower, validGridConnected, validGridDisconnected} from '../../../const';
+import {createTextWithPopup, renderText} from '../../shared/text-utils';
 
 const renderGridIcons = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
     const isGridConnected = validGridConnected.includes(data.gridStatus.toLowerCase());
@@ -77,20 +78,36 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
             <rect x="103" y="203.5" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                 stroke="${data.gridColour}" pointer-events="all"
                 display="${!config.show_grid ? 'none' : ''}"/>
-            <text id="daily_grid_buy" x="5" y="282.1" class="st3 left-align"
-                fill="${data.gridShowDailyBuy !== true ? 'transparent' : `${data.gridColour}`}"
-                display="${!config.show_grid ? 'none' : ''}">
-                ${config.grid.label_daily_grid_buy || localize('common.daily_grid_buy')}
-            </text>
-            <text id="daily_grid_sell" x="5" y="179" class="st3 left-align"
-                fill="${data.gridShowDailySell !== true ? 'transparent' : `${data.gridColour}`}"
-                display="${!config.show_grid ? 'none' : ''}">
-                ${config.grid.label_daily_grid_sell || localize('common.daily_grid_sell')}
-            </text>
-            <text x="5" y="${config.grid.show_daily_buy ? '294' : '267'}" class="st3 st8 left-align" fill="${data.gridColour}"
-                display="${!config.show_grid ? 'none' : ''}">
-                ${config.grid.grid_name || localize('common.grid_name')}
-            </text>
+            ${renderText(
+                'daily_grid_buy',
+                5,
+                282.1,
+                !config.show_grid,
+                'st3 left-align',
+                data.gridShowDailyBuy !== true ? 'transparent' : data.gridColour,
+                config.grid.label_daily_grid_buy || localize('common.daily_grid_buy'),
+                true
+            )}
+            ${renderText(
+                'daily_grid_sell',
+                5,
+                179,
+                !config.show_grid,
+                'st3 left-align',
+                data.gridShowDailySell !== true ? 'transparent' : data.gridColour,
+                config.grid.label_daily_grid_sell || localize('common.daily_grid_sell'),
+                true
+            )}
+            ${renderText(
+                'grid_name',
+                5,
+                config.grid.show_daily_buy ? '294' : '267',
+                !config.show_grid,
+                'st3 st8 left-align',
+                data.gridColour,
+                config.grid.grid_name || localize('common.grid_name'),
+                true
+            )}
             <svg id="grid-flow">
                 <path id="grid-line" d="${config.wide ? 'M 173 218 L 287 218': 'M 173 218 L 214 218'}" fill="none" stroke="${data.gridColour}"
                     stroke-width="${data.gridLineWidth}" stroke-miterlimit="10" pointer-events="stroke"
@@ -153,27 +170,39 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                             </g>
                         </a>`
             }
-            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_grid_import_76)}>
-                <text id="daily_grid_buy_value" x="5" y="267.9" class="st10 left-align"
-                    display="${!config.show_grid || data.gridShowDailyBuy !== true || !data.stateDayGridImport.isValid() ? 'none' : ''}"
-                    fill="${data.gridColour}">
-                    ${data.stateDayGridImport?.toPowerString(true, data.decimalPlacesEnergy)}
-                </text>
-            </a>
-            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.day_grid_export_77)}>
-                <text id="daily_grid_sell_value" x="5" y="165" class="st10 left-align"
-                    display="${!config.show_grid || data.gridShowDailySell !== true || !data.stateDayGridExport.isValid() ? 'none' : ''}"
-                    fill="${data.gridColour}">
-                    ${data.stateDayGridExport?.toPowerString(true, data.decimalPlacesEnergy)}
-                </text>
-            </a>
-            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.max_sell_power)}>
-                <text id="max_sell_power" x="5" y="150" class="st3 left-align"
-                    fill="${['off', '0'].includes(data.stateSolarSell.state) ? 'grey' : data.gridColour}"
-                    display="${!config.show_grid || !data.stateMaxSellPower.isValid || !config.entities?.max_sell_power ? 'none' : ''}">
-                    ${localize('common.limit')}: ${data.stateMaxSellPower.toPowerString(config.grid.auto_scale, data.decimalPlaces)}
-                </text>
-            </a>
+            ${createTextWithPopup(
+                'daily_grid_buy_value',
+                5,
+                267.9,
+                !config.show_grid || data.gridShowDailyBuy !== true || !data.stateDayGridImport.isValid(),
+                'st10 left-align',
+                data.gridColour,
+                data.stateDayGridImport?.toPowerString(true, data.decimalPlacesEnergy),
+                (e) => Utils.handlePopup(e, config.entities.day_grid_import_76),
+                true
+            )}
+            ${createTextWithPopup(
+                'daily_grid_sell_value',
+                5,
+                165,
+                !config.show_grid || data.gridShowDailySell !== true || !data.stateDayGridExport.isValid(),
+                'st10 left-align',
+                data.gridColour,
+                data.stateDayGridExport?.toPowerString(true, data.decimalPlacesEnergy),
+                (e) => Utils.handlePopup(e, config.entities.day_grid_export_77),
+                true
+            )}
+            ${createTextWithPopup(
+                'max_sell_power',
+                5,
+                150,
+                !config.show_grid || !data.stateMaxSellPower.isValid || !config.entities?.max_sell_power,
+                'st3 left-align',
+                ['off', '0'].includes(data.stateSolarSell.state) ? 'grey' : data.gridColour,
+                `${localize('common.limit')}: ${data.stateMaxSellPower.toPowerString(config.grid.auto_scale, data.decimalPlaces)}`,
+                (e) => Utils.handlePopup(e, config.entities.max_sell_power),
+                true
+            )}
             ${config.inverter.three_phase
                 ? config.entities?.grid_ct_power_total
                         ? svg`
@@ -205,37 +234,47 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                             </text>
                         </a>`
             }
-            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.prepaid_units)}>
-            <text id="prepaid" x="31.5" y="253"
-                    class="${config.entities?.prepaid_units ? 'st3' : 'st12'}"
-                    fill="${data.gridColour}" display="${!config.show_grid || !data.statePrepaidUnits.isValid() ? 'none' : ''}">
-                ${data.statePrepaidUnits.toNum(1)}
-            </text>
-            </a>
-            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_ct_power_172)}>
-                <text id="grid-power-L1" x="80" y="241"
-                    display="${config.inverter.three_phase ? '' : 'none'}"
-                    class="${!config.show_grid ? 'st12' : 'st3 left-align'}"
-                    fill="${data.gridColour}">
-                    ${config.load.auto_scale ? `${Utils.convertValue(data.gridPower, data.decimalPlaces) || 0}` : `${data.gridPower || 0} ${UnitOfPower.WATT}`}
-                </text>
-            </a>
-            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_ct_power_L2)}>
-                <text id="grid-power-L2" x="80" y="254"
-                    display="${config.inverter.three_phase && config.entities?.grid_ct_power_L2 ? '' : 'none'}"
-                    class="${!config.show_grid ? 'st12' : 'st3 left-align'}"
-                    fill="${data.gridColour}">
-                    ${config.load.auto_scale ? `${Utils.convertValue(data.gridPowerL2, data.decimalPlaces) || 0}` : `${data.gridPowerL2 || 0} ${UnitOfPower.WATT}`}
-                </text>
-            </a>
-            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_ct_power_L3)}>
-                <text id="grid-power-L3" x="80" y="267"
-                    display="${config.inverter.three_phase && config.entities?.grid_ct_power_L3 ? '' : 'none'}"
-                    class="${!config.show_grid ? 'st12' : 'st3 left-align'}"
-                    fill="${data.gridColour}">
-                    ${config.load.auto_scale ? `${Utils.convertValue(data.gridPowerL3, data.decimalPlaces) || 0}` : `${data.gridPowerL3 || 0} ${UnitOfPower.WATT}`}
-                </text>
-            </a>
+            ${createTextWithPopup(
+                'prepaid',
+                31.5,
+                253,
+                !config.show_grid || !data.statePrepaidUnits.isValid(),
+                config.entities?.prepaid_units ? 'st3' : 'st12',
+                data.gridColour,
+                data.statePrepaidUnits.toNum(1).toString(),
+                (e) => Utils.handlePopup(e, config.entities.prepaid_units),
+                true
+            )}
+            ${createTextWithPopup(
+                'grid-power-L1',
+                80,
+                241,
+                config.inverter.three_phase,
+                !config.show_grid ? 'st12' : 'st3 left-align',
+                data.gridColour,
+                config.load.auto_scale ? `${Utils.convertValue(data.gridPower, data.decimalPlaces) || 0}` : `${data.gridPower || 0} ${UnitOfPower.WATT}`,
+                (e) => Utils.handlePopup(e, config.entities.grid_ct_power_172),
+            )}
+            ${createTextWithPopup(
+                'grid-power-L2',
+                80,
+                254,
+                !!(config.inverter.three_phase && config.entities?.grid_ct_power_L2),
+                !config.show_grid ? 'st12' : 'st3 left-align',
+                data.gridColour,
+                config.load.auto_scale ? `${Utils.convertValue(data.gridPowerL2, data.decimalPlaces) || 0}` : `${data.gridPowerL2 || 0} ${UnitOfPower.WATT}`,
+                (e) => Utils.handlePopup(e, config.entities.grid_ct_power_L2),
+            )}
+            ${createTextWithPopup(
+                'grid-power-L3',
+                80,
+                267,
+                !!(config.inverter.three_phase && config.entities?.grid_ct_power_L3),
+                !config.show_grid ? 'st12' : 'st3 left-align',
+                data.gridColour,
+                config.load.auto_scale ? `${Utils.convertValue(data.gridPowerL3, data.decimalPlaces) || 0}` : `${data.gridPowerL3 || 0} ${UnitOfPower.WATT}`,
+                (e) => Utils.handlePopup(e, config.entities.grid_ct_power_L3),
+            )}
         </svg>
     `;
 }

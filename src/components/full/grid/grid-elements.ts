@@ -120,7 +120,7 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 'grid_name',
                 421,
                 377,
-                false,
+                true,
                 'st3 st8',
                 data.gridColour,
                 config.grid.grid_name || localize('common.grid_name'),
