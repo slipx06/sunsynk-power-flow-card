@@ -10,9 +10,35 @@ import {createTextWithPopup, renderText} from '../../shared/text-utils';
 import {renderIcon} from '../../shared/render-icon';
 
 export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
-    const {showAux, additionalLoad, largeFont, dynamicColourEssentialLoad1, dynamicColourEssentialLoad2, dynamicColourEssentialLoad3, dynamicColourEssentialLoad4, dynamicColourEssentialLoad5, dynamicColourEssentialLoad6,  decimalPlaces} = data;
-    const {auto_scale, load1_name, load1_switch, load2_name, load2_switch, load3_name, load3_switch, load4_name, load4_switch, load5_name, load5_switch, load6_name, load6_switch} = config.load
+    const {
+        showAux,
+        additionalLoad,
+        largeFont,
+        dynamicColourEssentialLoad1,
+        dynamicColourEssentialLoad2,
+        dynamicColourEssentialLoad3,
+        dynamicColourEssentialLoad4,
+        dynamicColourEssentialLoad5,
+        dynamicColourEssentialLoad6,
+        decimalPlaces
+    } = data;
 
+    const {
+        auto_scale,
+        load1_name,
+        load1_switch,
+        load2_name,
+        load2_switch,
+        load3_name,
+        load3_switch,
+        load4_name,
+        load4_switch,
+        load5_name,
+        load5_switch,
+        load6_name,
+        load6_switch
+    } = config.load;
+    
     return html`
         <!-- Load Elements -->
         <svg id="Load" style="overflow: visible; border: 1px solid red;" x="${config.wide ? '30%' : '3%'}" y="2.5%">
