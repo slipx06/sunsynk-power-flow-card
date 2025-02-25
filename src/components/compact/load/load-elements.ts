@@ -4,7 +4,8 @@ import {localize} from '../../../localize/localize';
 import {Utils} from '../../../helpers/utils';
 import {DataDto, sunsynkPowerFlowCardConfig} from '../../../types';
 import {UnitOfPower} from '../../../const';
-import {renderLoadIcon} from '../../shared/load/render-load-icon';
+//import {renderLoadIcon} from '../../shared/load/render-load-icon';
+import {renderIcon} from '../../shared/render-icon';
 import {renderStaticLoadIcon} from '../../shared/load/render-static-load-icon';
 import {getCompactLayoutIconConfigs} from '../../shared/load/icon-configs';
 import {createTextWithPopup, renderText} from '../../shared/text-utils';
@@ -53,7 +54,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     (e) => Utils.handlePopup(e, config.entities.essential_load1_extra)
                 )}
                 <g display="${[0, 4, 5, 6].includes(additionalLoad) ? 'none' : ''}">
-                    ${renderLoadIcon(load1_switch, data.iconEssentialLoad1, 'essload1-icon', 371, 114)}
+                    ${renderIcon(load1_switch, data.iconEssentialLoad1, 'essload1-icon', 371, 114)}
                 </g>
             </svg>
             <svg id="Esential-Load2" style="overflow: visible">
@@ -90,7 +91,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     (e) => Utils.handlePopup(e, config.entities.essential_load2_extra)
                 )}
                 <g display="${data.additionalLoad === 2 ? '' : 'none'}">
-                    ${renderLoadIcon(config.load.load2_switch, data.iconEssentialLoad2, 'essload2-icon', 371, 288)}
+                    ${renderIcon(config.load.load2_switch, data.iconEssentialLoad2, 'essload2-icon', 371, 288)}
                 </g>
             </svg>
             <svg id="Esential-Load3" style="overflow: visible">
@@ -119,10 +120,10 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     load3_name
                 )} 
                 <g display="${data.additionalLoad === 3 ? '' : 'none'}">
-                    ${renderLoadIcon(config.load.load2_switch, data.iconEssentialLoad2, 'essload2-small-icon', 412, 264)}
+                    ${renderIcon(config.load.load2_switch, data.iconEssentialLoad2, 'essload2-small-icon', 412, 264)}
                 </g>
                 <g display="${data.additionalLoad === 3 ? '' : 'none'}">
-                    ${renderLoadIcon(config.load.load3_switch, data.iconEssentialLoad3, 'essload3-small-icon', 449, 264)}
+                    ${renderIcon(config.load.load3_switch, data.iconEssentialLoad3, 'essload3-small-icon', 449, 264)}
                 </g>
                 ${createTextWithPopup(
                     'ess_load2_extra',
@@ -215,16 +216,16 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     load4_name
                 )}
                 <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
-                    ${renderLoadIcon(load1_switch, data.iconEssentialLoad1, 'essload1-small-icon', 412, 81)}
+                    ${renderIcon(load1_switch, data.iconEssentialLoad1, 'essload1-small-icon', 412, 81)}
                 </g>
                 <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
-                    ${renderLoadIcon(load2_switch, data.iconEssentialLoad2, 'essload2-small-icon', 449, 81)}
+                    ${renderIcon(load2_switch, data.iconEssentialLoad2, 'essload2-small-icon', 449, 81)}
                 </g>
                 <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
-                    ${renderLoadIcon(load3_switch, data.iconEssentialLoad3, 'essload3-small-icon', 412, 264)}
+                    ${renderIcon(load3_switch, data.iconEssentialLoad3, 'essload3-small-icon', 412, 264)}
                 </g>
                 <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
-                    ${renderLoadIcon(load4_switch, data.iconEssentialLoad4, 'essload4-small-icon', 449, 264)}
+                    ${renderIcon(load4_switch, data.iconEssentialLoad4, 'essload4-small-icon', 449, 264)}
                 </g>
                 ${createTextWithPopup(
                     'ess_load1_extra',
@@ -323,7 +324,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     load5_name
                 )}
                 <g display="${[5, 6].includes(data.additionalLoad) ? '' : 'none'}">
-                    ${renderLoadIcon(load5_switch, data.iconEssentialLoad5, 'essload5-small-icon', 412, 81)}
+                    ${renderIcon(load5_switch, data.iconEssentialLoad5, 'essload5-small-icon', 412, 81)}
                 </g>
                 ${createTextWithPopup(
                     'ess_load5_extra',
@@ -360,7 +361,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     load6_name
                 )}
                 <g display="${data.additionalLoad === 6 ? '' : 'none'}">
-                    ${renderLoadIcon(load6_switch, data.iconEssentialLoad6, 'essload6-small-icon', 412, 264)}
+                    ${renderIcon(load6_switch, data.iconEssentialLoad6, 'essload6-small-icon', 412, 264)}
                 </g>
                 ${createTextWithPopup(
                     'ess_load6_extra',

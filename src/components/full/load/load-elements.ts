@@ -4,10 +4,10 @@ import {localize} from '../../../localize/localize';
 import {Utils} from '../../../helpers/utils';
 import {DataDto, sunsynkPowerFlowCardConfig} from '../../../types';
 import {UnitOfPower} from '../../../const';
-import {renderLoadIcon} from '../../shared/load/render-load-icon';
 import {getFullLayoutIconConfigs} from '../../shared/load/icon-configs';
 import {renderStaticLoadIcon} from '../../shared/load/render-static-load-icon';
 import {createTextWithPopup, renderText} from '../../shared/text-utils';
+import {renderIcon} from '../../shared/render-icon';
 
 export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
     const {showAux, additionalLoad, largeFont, dynamicColourEssentialLoad1, dynamicColourEssentialLoad2, dynamicColourEssentialLoad3, dynamicColourEssentialLoad4, dynamicColourEssentialLoad5, dynamicColourEssentialLoad6,  decimalPlaces} = data;
@@ -34,7 +34,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     load5_name
                 )}
                 <g display="${[5, 6].includes(additionalLoad) ? '' : 'none'}">
-                    ${renderLoadIcon(load5_switch, data.iconEssentialLoad5, 'essload5-small-icon', 421, 5)}
+                    ${renderIcon(load5_switch, data.iconEssentialLoad5, 'essload5-small-icon', 421, 5)}
                 </g>
                 ${createTextWithPopup(
                     'ess_load5_value_extra',
@@ -75,7 +75,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     load6_name
                 )}
                 <g display="${[5, 6].includes(additionalLoad) ? '' : 'none'}">
-                    ${renderLoadIcon(load6_switch, data.iconEssentialLoad6, 'essload6-small-icon', 421, 123)}
+                    ${renderIcon(load6_switch, data.iconEssentialLoad6, 'essload6-small-icon', 421, 123)}
                 </g>
                 ${createTextWithPopup(
                     'ess_load6_value_extra',
@@ -360,19 +360,19 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
             ${getFullLayoutIconConfigs(data).map(iconConfig => renderStaticLoadIcon(data, iconConfig))}
 
             <g display="${[2, 4, 5, 6].includes(additionalLoad) ? '' : 'none'}">
-                ${renderLoadIcon(load1_switch, data.iconEssentialLoad1, 'essload1-small-icon', showAux ? 371 : 384, showAux ? 123 : 5)}
+                ${renderIcon(load1_switch, data.iconEssentialLoad1, 'essload1-small-icon', showAux ? 371 : 384, showAux ? 123 : 5)}
             </g>
             <g display="${[2, 4, 5, 6].includes(additionalLoad) ? '' : 'none'}">
-                ${renderLoadIcon(load2_switch, data.iconEssentialLoad2, 'essload2-small-icon', showAux ? 429 : 421, showAux ? 123 : 5)}              
+                ${renderIcon(load2_switch, data.iconEssentialLoad2, 'essload2-small-icon', showAux ? 429 : 421, showAux ? 123 : 5)}              
             </g>
             <g display="${[4, 5, 6].includes(additionalLoad) ? '' : 'none'}">
-                ${renderLoadIcon(load3_switch, data.iconEssentialLoad3, 'essload3-small-icon', 371, 123)}
+                ${renderIcon(load3_switch, data.iconEssentialLoad3, 'essload3-small-icon', 371, 123)}
             </g>
             <g display="${[4, 5, 6].includes(additionalLoad) ? '' : 'none'}">
-                ${renderLoadIcon(load4_switch, data.iconEssentialLoad4, 'essload4-small-icon', 429, 123)}
+                ${renderIcon(load4_switch, data.iconEssentialLoad4, 'essload4-small-icon', 429, 123)}
             </g>
             <g display="${additionalLoad === 1 ? '' : 'none'}">
-                ${renderLoadIcon(load1_switch, data.iconEssentialLoad1, 'essload1-icon-full', 336, showAux ? 140 : 27)}
+                ${renderIcon(load1_switch, data.iconEssentialLoad1, 'essload1-icon-full', 336, showAux ? 140 : 27)}
             </g>
 
             ${createTextWithPopup(
