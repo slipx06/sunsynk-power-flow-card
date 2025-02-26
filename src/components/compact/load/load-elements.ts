@@ -4,7 +4,6 @@ import {localize} from '../../../localize/localize';
 import {Utils} from '../../../helpers/utils';
 import {DataDto, sunsynkPowerFlowCardConfig} from '../../../types';
 import {UnitOfPower} from '../../../const';
-//import {renderLoadIcon} from '../../shared/load/render-load-icon';
 import {renderIcon} from '../../shared/render-icon';
 import {renderStaticLoadIcon} from '../../shared/load/render-static-load-icon';
 import {getCompactLayoutIconConfigs} from '../../shared/load/icon-configs';
@@ -476,31 +475,31 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 class="${[2, 3, 4, 5, 6].includes(data.additionalLoad) ? '' : 'st12'}" fill="none"
                 stroke="${data.load2Colour}" stroke-width="1" stroke-miterlimit="10"
                 pointer-events="stroke"/>
-                    <a href="#" @click=${config.load?.navigate ? (e) => Utils.handleNavigation(e, config.load.navigate) : null}>
-                        <svg id="essen" x="${data.essIconSize === 1 ? "405" : "402"}"
-                            y="${data.essIconSize === 1 ? "186" : "177.5"}" width="${data.essIconSize === 1 ? "75" : "79"}"
-                            height="${data.essIconSize === 1 ? "75" : "79"}"
-                            viewBox="0 0 24 24">
-                            <defs>
-                                <linearGradient id="Lg-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
-                                    <stop offset="0%"
-                                        stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
-                                    <stop offset="${data.gridPercentage}%"
-                                        stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
-                                    <stop offset="${data.gridPercentage}%"
-                                        stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
-                                    <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
-                                        stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
-                                    <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
-                                        stop-color="${data.solarColour}"/>
-                                    <stop offset="100%"
-                                        stop-color="${data.solarColour}"/>
-                                </linearGradient>
-                            </defs>
-                            <path fill="${config.load.dynamic_colour ? `url(#Lg-${data.timestamp_id})` : data.loadColour}"
-                                d="${data.essIcon}"/>
-                        </svg>
-                    </a>
+            <a href="#" @click=${config.load?.navigate ? (e) => Utils.handleNavigation(e, config.load.navigate) : null}>
+                <svg id="essen" x="${data.essIconSize === 1 ? "405" : "402"}"
+                    y="${data.essIconSize === 1 ? "186" : "177.5"}" width="${data.essIconSize === 1 ? "75" : "79"}"
+                    height="${data.essIconSize === 1 ? "75" : "79"}"
+                    viewBox="0 0 24 24">
+                    <defs>
+                        <linearGradient id="Lg-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
+                            <stop offset="0%"
+                                stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
+                            <stop offset="${data.gridPercentage}%"
+                                stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
+                            <stop offset="${data.gridPercentage}%"
+                                stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
+                            <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
+                                stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
+                            <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
+                                stop-color="${data.solarColour}"/>
+                            <stop offset="100%"
+                                stop-color="${data.solarColour}"/>
+                        </linearGradient>
+                    </defs>
+                    <path fill="${config.load.dynamic_colour ? `url(#Lg-${data.timestamp_id})` : data.loadColour}"
+                        d="${data.essIcon}"/>
+                </svg>
+            </a>
             ${createTextWithPopup(
                 'daily_load_value',
                 [2, 3, 4, 5, 6].includes(additionalLoad) ? '365' : '412',
@@ -514,17 +513,30 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
             )}
             ${config.entities?.essential_power && config.entities.essential_power !== 'none'
                 ? svg`
-                        <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_power)}>
-                            <text id="ess_power" x="340.1" y="219.2" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                                    fill="${data.loadColour}">
-                                ${config.load.auto_scale ? `${Utils.convertValue(data.essentialPower, data.decimalPlaces) || 0}` : `${data.essentialPower || 0} ${UnitOfPower.WATT}`}
-                            </text>
-                        </a>`
+                    ${createTextWithPopup(
+                        'ess_power',
+                        340.1,
+                        219.2,
+                        true,
+                        `${data.largeFont !== true ? 'st14' : 'st4'} st8`,
+                        data.loadColour,
+                        config.load.auto_scale
+                            ? `${Utils.convertValue(data.essentialPower, data.decimalPlaces) || 0}`
+                            : `${data.essentialPower || 0} ${UnitOfPower.WATT}`,
+                        (e) => Utils.handlePopup(e, config.entities.essential_power),
+                    )}`
                 : svg`
-                        <text id="ess_power" x="340.1" y="219.2" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                                fill="${data.loadColour}">
-                            ${config.load.auto_scale ? `${Utils.convertValue(data.essentialPower, data.decimalPlaces) || 0}` : `${data.essentialPower || 0} ${UnitOfPower.WATT}`}
-                        </text>`
+                    ${renderText(
+                        'ess_power',
+                        340.1,
+                        219.2,
+                        true,
+                        `${data.largeFont !== true ? 'st14' : 'st4'} st8`,
+                        data.loadColour,
+                        config.load.auto_scale
+                            ? `${Utils.convertValue(data.essentialPower, data.decimalPlaces) || 0}`
+                            : `${data.essentialPower || 0} ${UnitOfPower.WATT}`
+                    )}`
             }
             <!-- Render Static Icons e.g. Boiler, Aircon, Oven and Pump etc -->
             ${getCompactLayoutIconConfigs(data).map(iconConfig => renderStaticLoadIcon(data, iconConfig))}

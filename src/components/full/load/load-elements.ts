@@ -38,7 +38,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
         load6_name,
         load6_switch
     } = config.load;
-    
+
     return html`
         <!-- Load Elements -->
         <svg id="Load" style="overflow: visible; border: 1px solid red;" x="${config.wide ? '30%' : '3%'}" y="2.5%">
@@ -465,17 +465,32 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
             )}
             ${config.entities?.essential_power && config.entities.essential_power !== 'none'
                 ? svg`
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.essential_power)}>
-                        <text id="ess_power" x="270" y="119" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                                fill="${data.loadColour}">
-                            ${config.load.auto_scale ? `${Utils.convertValue(data.essentialPower, decimalPlaces) || 0}` : `${data.essentialPower || 0} ${UnitOfPower.WATT}`}
-                        </text>
-                    </a>`
+                    ${createTextWithPopup(
+                        'ess_power',
+                        270,
+                        119,
+                        true,
+                        `${data.largeFont !== true ? 'st14' : 'st4'} st8`,
+                        data.loadColour,
+                        config.load.auto_scale
+                            ? `${Utils.convertValue(data.essentialPower, decimalPlaces) || 0}`
+                            : `${data.essentialPower || 0} ${UnitOfPower.WATT}`,
+                        (e) => Utils.handlePopup(e, config.entities.essential_power),
+                        false
+                    )}`
                 : svg`
-                    <text id="ess_power" x="270" y="119" class="${data.largeFont !== true ? 'st14' : 'st4'} st8" 
-                            fill="${data.loadColour}">
-                        ${config.load.auto_scale ? `${Utils.convertValue(data.essentialPower, decimalPlaces) || 0}` : `${data.essentialPower || 0} ${UnitOfPower.WATT}`}
-                    </text>`
+                    ${renderText(
+                        'ess_power',
+                        270,
+                        119,
+                        true,
+                        `${data.largeFont !== true ? 'st14' : 'st4'} st8`,
+                        data.loadColour,
+                        config.load.auto_scale
+                            ? `${Utils.convertValue(data.essentialPower, decimalPlaces) || 0}`
+                            : `${data.essentialPower || 0} ${UnitOfPower.WATT}`,
+                        false
+                    )}`
             }   
             ${createTextWithPopup(
                 'ess_load1_value',
