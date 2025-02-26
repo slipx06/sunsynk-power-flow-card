@@ -285,7 +285,7 @@ export const renderSolarElements = (data: DataDto, config: sunsynkPowerFlowCardC
                         true
                     )}`
                 : svg`
-                    ${createTextWithPopup(
+                    ${renderText(
                         'pvtotal_power',
                         87,
                         178,
@@ -297,7 +297,6 @@ export const renderSolarElements = (data: DataDto, config: sunsynkPowerFlowCardC
                                 ? `${Utils.convertValueNew(data.totalPV, data.statePVTotal?.getUOM(), data.decimalPlaces)}`
                                 : `${Utils.convertValue(data.totalPV, data.decimalPlaces) || 0}`
                             : `${Utils.toNum(data.totalPV || 0, 0)} ${UnitOfPower.WATT}`,
-                        (e) => Utils.handlePopup(e, config.entities.pv_total),
                         true
                     )}`
             }
