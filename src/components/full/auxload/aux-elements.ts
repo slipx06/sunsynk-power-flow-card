@@ -1,4 +1,4 @@
-// load-elements.ts
+// aux-elements.ts
 import {svg, html} from 'lit';
 import {localize} from '../../../localize/localize';
 import {Utils} from '../../../helpers/utils';

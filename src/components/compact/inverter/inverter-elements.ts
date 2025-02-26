@@ -5,38 +5,83 @@ import {Utils} from '../../../helpers/utils';
 import {AutarkyType, DataDto, sunsynkPowerFlowCardConfig} from '../../../types';
 import {icons} from '../../../helpers/icons';
 import {UnitOfElectricalCurrent, UnitOfElectricPotential} from '../../../const';
-
+import {createTextWithPopup, renderText} from '../../shared/text-utils';
 
 export const renderInverterElements = (data: DataDto, inverterImg: string, config: sunsynkPowerFlowCardConfig) => {
+    const {
+        inverterColour,
+        enableAutarky,
+        enableTimer,
+        priorityLoad
+    } = data;
+
+    const {
+        three_phase
+    } = config.inverter;
+
     return html`
         <!-- Inverter Elements -->
         <svg id="Inverter" style="overflow: visible" x="${config.wide ? '10%' : '0%'}">
-            <text id="autarkye_value" x="127" y="260"
-                display="${data.enableAutarky === AutarkyType.No ? 'none' : ''}"
-                class="${data.enableAutarky === AutarkyType.Energy ? 'st4 st8 left-align' : 'st12'}"
-                fill="${data.inverterColour}">${data.autarkyEnergy}%
-            </text>
-            <text id="ratioe_value" x="173" y="260"
-                display="${data.enableAutarky === AutarkyType.No ? 'none' : ''}"
-                class="${data.enableAutarky === AutarkyType.Energy ? 'st4 st8 left-align' : 'st12'}"
-                fill="${data.inverterColour}">${data.ratioEnergy}%
-            </text>
-            <text id="autarkyp_value" x="127" y="260"
-                display="${data.enableAutarky === AutarkyType.No ? 'none' : ''}"
-                class="${data.enableAutarky === AutarkyType.Power ? 'st4 st8 left-align' : 'st12'}"
-                fill="${data.inverterColour}">${data.autarkyPower}%
-            </text>
-            <text id="ratiop_value" x="173" y="260"
-                display="${data.enableAutarky === AutarkyType.No ? 'none' : ''}"
-                class="${data.enableAutarky === AutarkyType.Power ? 'st4 st8 left-align' : 'st12'}"
-                fill="${data.inverterColour}">${data.ratioPower}%
-            </text>
-            <text id="autarky" x="127" y="273" display="${data.enableAutarky === AutarkyType.No ? 'none' : ''}"
-                class="st3 left-align" fill="${data.inverterColour}">${localize('common.autarky')}
-            </text>
-            <text id="ratio" x="173" y="273" display="${data.enableAutarky === AutarkyType.No ? 'none' : ''}"
-                class="st3 left-align" fill="${data.inverterColour}">${localize('common.ratio')}
-            </text>
+            ${renderText(
+                'autarkye_value',
+                127,
+                260,
+                enableAutarky === AutarkyType.No,
+                enableAutarky === AutarkyType.Energy ? 'st4 st8 left-align' : 'st12',
+                inverterColour,
+                `${data.autarkyEnergy}%`,
+                true
+            )}    
+            ${renderText(
+                'ratioe_value',
+                173,
+                260,
+                enableAutarky === AutarkyType.No,
+                enableAutarky === AutarkyType.Energy ? 'st4 st8 left-align' : 'st12',
+                inverterColour,
+                `${data.ratioEnergy}%`,
+                true
+            )}
+            ${renderText(
+                'autarkyp_value',
+                127,
+                260,
+                enableAutarky === AutarkyType.No,
+                enableAutarky === AutarkyType.Power ? 'st4 st8 left-align' : 'st12',
+                inverterColour,
+                `${data.autarkyPower}%`,
+                true
+            )}
+            ${renderText(
+                'ratiop_value',
+                173,
+                260,
+                enableAutarky === AutarkyType.No,
+                enableAutarky === AutarkyType.Power ? 'st4 st8 left-align' : 'st12',
+                inverterColour,
+                `${data.ratioPower}%`,
+                true
+            )}
+            ${renderText(
+                'autarky',
+                127,
+                273,
+                enableAutarky === AutarkyType.No,
+                'st3 left-align',
+                inverterColour,
+                localize('common.autarky'),
+                true
+            )}
+            ${renderText(
+                'ratio',
+                173,
+                273,
+                enableAutarky === AutarkyType.No,
+                'st3 left-align',
+                inverterColour,
+                localize('common.ratio'),
+                true
+            )}
             <circle id="standby" cx="220" cy="260" r="3.5" fill="${data.inverterStateColour}"/>                             
             ${config.inverter?.navigate
                     ? svg`
@@ -45,7 +90,7 @@ export const renderInverterElements = (data: DataDto, inverterImg: string, confi
                                 height="79" viewBox="0 0 74 91" preserveAspectRatio="xMidYMid meet"
                                 opacity="${!data.genericInverterImage ? 0 : 1}">
                                 <g transform="translate(0.000000,91.000000) scale(0.100000,-0.100000)"
-                                fill="${data.inverterColour}" stroke="none">
+                                fill="${inverterColour}" stroke="none">
                                     <path d="${icons.inverter}"/>
                                 </g>
                             </svg>
@@ -55,7 +100,7 @@ export const renderInverterElements = (data: DataDto, inverterImg: string, confi
                             height="79" viewBox="0 0 74 91" preserveAspectRatio="xMidYMid meet"
                             opacity="${!data.genericInverterImage ? 0 : 1}">
                             <g transform="translate(0.000000,91.000000) scale(0.100000,-0.100000)"
-                            fill="${data.inverterColour}" stroke="none">
+                            fill="${inverterColour}" stroke="none">
                                 <path d="${icons.inverter}"/>
                             </g>
                         </svg>`
@@ -63,45 +108,55 @@ export const renderInverterElements = (data: DataDto, inverterImg: string, confi
             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.use_timer_248)}>
                 <svg id="timer" x="267.7" y="243.3" width="18"
                     height="18" viewBox="0 0 24 24">
-                    <path display="${data.stateUseTimer.state == 'on' && data.enableTimer !== 'no' ? '' : 'none'}"
-                        fill="${data.inverterColour}"
+                    <path display="${data.stateUseTimer.state == 'on' && enableTimer !== 'no' ? '' : 'none'}"
+                        fill="${inverterColour}"
                         d="${icons.timerOn}"/>
                 </svg>
                 <svg id="timer_off" x="267.7" y="243.3" width="18"
                     height="18" viewBox="0 0 24 24">
-                    <path display="${data.stateUseTimer.state == 'off' && data.enableTimer !== 'no' ? '' : 'none'}"
-                        fill="${data.inverterColour}"
+                    <path display="${data.stateUseTimer.state == 'off' && enableTimer !== 'no' ? '' : 'none'}"
+                        fill="${inverterColour}"
                         d="${icons.timerOff}"/>
                 </svg>
-                <text id="timer_text_off" x="287" y="254.7" class="st3 left-align"
-                    display="${data.stateUseTimer.state == 'off' && data.enableTimer !== 'no' ? '' : 'none'}"
-                    fill="${data.inverterColour}">${localize('common.timer_off')}
-                </text>
-                <text id="timer_text_on" x="287" y="254.7" class="st3 left-align"
-                    display="${data.stateUseTimer.state == 'on' && data.enableTimer !== 'no' ? '' : 'none'}"
-                    fill="${data.inverterColour}">${localize('common.timer_on')}
-                </text>
+                ${renderText(
+                    'timer_text_off',
+                    287,
+                    254.7,
+                    !!(data.stateUseTimer.state == 'off' && enableTimer !== 'no'),
+                    'st3 left-align',
+                    inverterColour,
+                    localize('common.timer_off'),
+                )}
+                ${renderText(
+                    'timer_text_on',
+                    287,
+                    254.7,
+                    !!(data.stateUseTimer.state == 'on' && enableTimer !== 'no'),
+                    'st3 left-align',
+                    inverterColour,
+                    localize('common.timer_on'),
+                )}
             </a>
             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.priority_load_243)}>
                 <svg id="pbat" x="267.7" y="262.5" width="18"
                     height="18" viewBox="0 0 24 24">
-                    <path display="${data.priorityLoad === 'off' && (data.priorityLoad !== 'no' || !data.priorityLoad) ? '' : 'none'}"
-                        fill="${data.inverterColour}"
+                    <path display="${priorityLoad === 'off' && (priorityLoad !== 'no' || !priorityLoad) ? '' : 'none'}"
+                        fill="${inverterColour}"
                         d="${icons.priorityLoadOff}"/>
                 </svg>
                 <svg id="pload" x="267.7" y="262.5" width="18"
                     height="18" viewBox="0 0 24 24">
-                    <path display="${data.priorityLoad === 'on' && (data.priorityLoad !== 'no' || !data.priorityLoad) ? '' : 'none'}"
-                        fill="${data.inverterColour}"
+                    <path display="${priorityLoad === 'on' && (priorityLoad !== 'no' || !priorityLoad) ? '' : 'none'}"
+                        fill="${inverterColour}"
                         d="${icons.priorityLoadOn}"/>
                 </svg>
                 <text id="priority_text_batt" x="287" y="273" class="st3 left-align"
-                    display="${data.priorityLoad === 'off' && (data.priorityLoad !== 'no' || !data.priorityLoad) ? '' : 'none'}"
-                    fill="${data.inverterColour}">${localize('common.priority_batt')}
+                    display="${priorityLoad === 'off' && (priorityLoad !== 'no' || !priorityLoad) ? '' : 'none'}"
+                    fill="${inverterColour}">${localize('common.priority_batt')}
                 </text>
                 <text id="priority_text_load" x="287" y="273" class="st3 left-align"
-                    display="${data.priorityLoad === 'on' && (data.priorityLoad !== 'no' || !data.priorityLoad) ? '' : 'none'}"
-                    fill="${data.inverterColour}">${localize('common.priority_load')}
+                    display="${priorityLoad === 'on' && (priorityLoad !== 'no' || !priorityLoad) ? '' : 'none'}"
+                    fill="${inverterColour}">${localize('common.priority_load')}
                 </text>
             </a>          
             ${config.inverter?.navigate
@@ -121,57 +176,73 @@ export const renderInverterElements = (data: DataDto, inverterImg: string, confi
             <a href="#" @click=${(e) => Utils.handlePopup(e, data.inverterProg.entityID)}>
                 <svg id="prog_grid_on" x="323" y="243" width="20"
                     height="18" viewBox="0 0 24 24">
-                    <path display="${data.inverterProg.show === false || data.enableTimer === 'no' ? 'none' : ''}"
+                    <path display="${data.inverterProg.show === false || enableTimer === 'no' ? 'none' : ''}"
                         class="${data.inverterProg.charge === 'none' || (data.stateUseTimer.state != 'off' && data.stateUseTimer.state != 'on') ? 'st12' : ''}"
-                        fill="${data.inverterColour}"
+                        fill="${inverterColour}"
                         d="${icons.progGridOn}"/>
                 </svg>
                 <svg id="prog_grid_off" x="323" y="243" width="20"
                     height="18" viewBox="0 0 24 24">
-                    <path display="${data.inverterProg.show === false || data.enableTimer === 'no' ? 'none' : ''}"
+                    <path display="${data.inverterProg.show === false || enableTimer === 'no' ? 'none' : ''}"
                         class="${data.inverterProg.charge === 'none' && (data.stateUseTimer.state === 'off' || data.stateUseTimer.state === 'on') ? '' : 'st12'}"
-                        fill="${data.inverterColour}"
+                        fill="${inverterColour}"
                         d="${icons.progGridOff}"/>
                 </svg>
             </a>
-            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.inverter_voltage_154)}>
-                <text id="inverter_voltage_154" x="270.2" y="168.2"
-                    display="${config.entities.inverter_voltage_154 === 'none' || !config.entities.inverter_voltage_154 ? 'none' : ''}"
-                    class="st3 left-align" fill="${data.inverterColour}">${data.inverterVoltage}
-                    ${config.inverter.three_phase && config.entities?.inverter_voltage_L2 ? '| ' + data.inverterVoltageL2 : ''}
-                    ${config.inverter.three_phase && config.entities?.inverter_voltage_L3 ? '| ' + data.inverterVoltageL3 : ''}
-                    ${UnitOfElectricPotential.VOLT}
-                </text>
-            </a>
-            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.load_frequency_192)}>
-                <text id="load_frequency_192" x="270.2" y="192.6"
-                    display="${config.entities.load_frequency_192 === 'none' || !config.entities.load_frequency_192 ? 'none' : ''}"
-                    class="st3 left-align" fill="${data.inverterColour}">${data.loadFrequency} Hz
-                </text>
-            </a>
-            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.inverter_current_164)}>
-                <text id="inverter_current_164" x="270.2" y="180.4"
-                    display="${config.entities.inverter_current_164 === 'none' || !config.entities.inverter_current_164 ? 'none' : ''}"
-                    class="st3 left-align" fill="${data.inverterColour}">${data.inverterCurrent}
-                    ${config.inverter.three_phase && config.entities?.inverter_current_L2 ? '| ' + data.inverterCurrentL2 : ''}
-                    ${config.inverter.three_phase && config.entities?.inverter_current_L3 ? '| ' + data.inverterCurrentL3 : ''}
-                    ${UnitOfElectricalCurrent.AMPERE}
-                </text>
-            </a>
-            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.radiator_temp_91)}>
-                <text id="ac_temp" x="173" y="168.2" class="st3 left-align" fill="${data.inverterColour}"
-                    display="${config.entities?.radiator_temp_91 && data.stateRadiatorTemp.isValid() ? '' : 'none'}">
-                    AC:
-                    ${data.stateRadiatorTemp.toNum(1)}°
-                </text>
-            </a>
-            <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.dc_transformer_temp_90)}>
-                <text id="dc_temp" x="173" y="180.4" class="st3 left-align" fill="${data.inverterColour}"
-                    display="${config.entities?.dc_transformer_temp_90 && data.stateDCTransformerTemp.isValid() ? '' : 'none'}">
-                    DC:
-                    ${data.stateDCTransformerTemp.toNum(1)}°
-                </text>
-            </a>
+            ${createTextWithPopup(
+                'inverter_voltage_154',
+                270.2,
+                168.2,
+                config.entities.inverter_voltage_154 === 'none' || !config.entities.inverter_voltage_154,
+                'st3 left-align',
+                inverterColour,
+                `${data.inverterVoltage}${three_phase && config.entities?.inverter_voltage_L2 ? '| ' + data.inverterVoltageL2 : ''}${three_phase && config.entities?.inverter_voltage_L3 ? '| ' + data.inverterVoltageL3 : ''} ${UnitOfElectricPotential.VOLT}`,
+                (e) => Utils.handlePopup(e, config.entities.inverter_voltage_154),
+                true
+            )}
+            ${createTextWithPopup(
+                'load_frequency_192',
+                270.2,
+                192.6,
+                config.entities.load_frequency_192 === 'none' || !config.entities.load_frequency_192,
+                'st3 left-align',
+                inverterColour,
+                `${data.loadFrequency} Hz`,
+                (e) => Utils.handlePopup(e, config.entities.load_frequency_192),
+                true
+            )}
+            ${createTextWithPopup(
+                'inverter_current_164',
+                270.2,
+                180.4,
+                config.entities.inverter_current_164 === 'none' || !config.entities.inverter_current_164,
+                'st3 left-align',
+                inverterColour,
+                `${data.inverterCurrent}${three_phase && config.entities?.inverter_current_L2 ? '| ' + data.inverterCurrentL2 : ''}${three_phase && config.entities?.inverter_current_L3 ? '| ' + data.inverterCurrentL3 : ''} ${UnitOfElectricalCurrent.AMPERE}`,
+                (e) => Utils.handlePopup(e, config.entities.inverter_current_164),
+                true
+            )}
+            ${createTextWithPopup(
+                'ac_temp',
+                173,
+                168.2,
+                !!(config.entities?.radiator_temp_91 && data.stateRadiatorTemp.isValid()),
+                'st3 left-align',
+                inverterColour,
+                `AC: ${data.stateRadiatorTemp.toNum(1)}°`,
+                (e) => Utils.handlePopup(e, config.entities.radiator_temp_91),
+            )}
+            ${createTextWithPopup(
+                'dc_temp',
+                173,
+                180.4,
+                !!(config.entities?.dc_transformer_temp_90 && data.stateDCTransformerTemp.isValid()),
+                'st3 left-align',
+                inverterColour,
+                `DC: ${data.stateDCTransformerTemp.toNum(1)}°`,
+                (e) => Utils.handlePopup(e, config.entities.dc_transformer_temp_90),
+                false
+            )}
         </svg>
     `;
 }

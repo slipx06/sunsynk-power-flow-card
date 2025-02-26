@@ -11,14 +11,46 @@ import {createTextWithPopup, renderText} from '../../shared/text-utils';
 
 
 export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
-    const {additionalLoad, largeFont, dynamicColourEssentialLoad1, dynamicColourEssentialLoad2, dynamicColourEssentialLoad3, dynamicColourEssentialLoad4, dynamicColourEssentialLoad5, dynamicColourEssentialLoad6,  decimalPlaces} = data;
-    const {auto_scale, load1_name, load1_switch, load2_name, load2_switch, load3_name, load3_switch, load4_name, load4_switch, load5_name, load5_switch, load6_name, load6_switch} = config.load
+    const {
+        additionalLoad, 
+        largeFont, 
+        dynamicColourEssentialLoad1, 
+        dynamicColourEssentialLoad2, 
+        dynamicColourEssentialLoad3, 
+        dynamicColourEssentialLoad4, 
+        dynamicColourEssentialLoad5, 
+        dynamicColourEssentialLoad6,  
+        decimalPlaces,
+        loadColour,
+        flowColour,
+        solarColour,
+        batteryColour,
+        essentialPower
+
+    } = data;
+    
+    const {
+        auto_scale, 
+        load1_name, 
+        load1_switch, 
+        load2_name, 
+        load2_switch, 
+        load3_name, 
+        load3_switch, 
+        load4_name, 
+        load4_switch, 
+        load5_name, 
+        load5_switch, 
+        load6_name, 
+        load6_switch,
+        dynamic_colour
+    } = config.load
 
     return html`
         <!-- Load Elements -->
         <svg id="Load" style="overflow: visible" x="${config.wide ? '30%' : '0%'}">
             <rect x="304" y="203.5" width="70" height="30" rx="4.5" ry="4.5" fill="none"
-                stroke="${data.loadColour}" pointer-events="all"/>                                                      
+                stroke="${loadColour}" pointer-events="all"/>                                                      
             <svg id="Esential-Load1" style="overflow: visible">
                 <rect id="es-load1" x="406" y="116.5" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                     stroke="${dynamicColourEssentialLoad1}" pointer-events="all"
@@ -37,7 +69,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     440,
                     133,
                     [1, 2, 3].includes(additionalLoad) && data.stateEssentialLoad1.isValid(),
-                    `${data.largeFont !== true ? 'st14' : 'st4'} st8`,
+                    `${largeFont !== true ? 'st14' : 'st4'} st8`,
                     dynamicColourEssentialLoad1,
                     data.stateEssentialLoad1?.toPowerString(auto_scale, decimalPlaces),
                     (e) => Utils.handlePopup(e, config.entities.essential_load1)
@@ -89,17 +121,17 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     `${data.stateEssentialLoad2Extra.toNum(1)} ${data.stateEssentialLoad2Extra.getUOM()}`,
                     (e) => Utils.handlePopup(e, config.entities.essential_load2_extra)
                 )}
-                <g display="${data.additionalLoad === 2 ? '' : 'none'}">
+                <g display="${additionalLoad === 2 ? '' : 'none'}">
                     ${renderIcon(config.load.load2_switch, data.iconEssentialLoad2, 'essload2-icon', 371, 288)}
                 </g>
             </svg>
             <svg id="Esential-Load3" style="overflow: visible">
                 <rect id="es-load2" x="405" y="290" width="35" height="20" rx="4.5" ry="4.5" fill="none"
                     stroke="${data.dynamicColourEssentialLoad2}" pointer-events="all"
-                    display="${data.additionalLoad === 3 ? '' : 'none'}"/>
+                    display="${additionalLoad === 3 ? '' : 'none'}"/>
                 <rect id="es-load3" x="441" y="290" width="35" height="20" rx="4.5" ry="4.5" fill="none"
                     stroke="${data.dynamicColourEssentialLoad3}" pointer-events="all"
-                    display="${data.additionalLoad === 3 ? '' : 'none'}"/>
+                    display="${additionalLoad === 3 ? '' : 'none'}"/>
                 ${renderText(
                     'es-load2',
                     433,
@@ -118,10 +150,10 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     dynamicColourEssentialLoad3,
                     load3_name
                 )} 
-                <g display="${data.additionalLoad === 3 ? '' : 'none'}">
+                <g display="${additionalLoad === 3 ? '' : 'none'}">
                     ${renderIcon(config.load.load2_switch, data.iconEssentialLoad2, 'essload2-small-icon', 412, 264)}
                 </g>
-                <g display="${data.additionalLoad === 3 ? '' : 'none'}">
+                <g display="${additionalLoad === 3 ? '' : 'none'}">
                     ${renderIcon(config.load.load3_switch, data.iconEssentialLoad3, 'essload3-small-icon', 449, 264)}
                 </g>
                 ${createTextWithPopup(
@@ -168,16 +200,16 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
             <svg id="Esential-Load4" style="overflow: visible">
                 <rect id="es-load3" x="405" y="290" width="35" height="20" rx="4.5" ry="4.5" fill="none"
                     stroke="${data.dynamicColourEssentialLoad3}" pointer-events="all"
-                    display="${data.additionalLoad >= 4 ? '' : 'none'}"/>
+                    display="${additionalLoad >= 4 ? '' : 'none'}"/>
                 <rect id="es-load1" x="405" y="107" width="35" height="20" rx="4.5" ry="4.5" fill="none"
                     stroke="${data.dynamicColourEssentialLoad1}" pointer-events="all"
-                    display="${data.additionalLoad >= 4 ? '' : 'none'}"/>
+                    display="${additionalLoad >= 4 ? '' : 'none'}"/>
                 <rect id="es-load2" x="441" y="107" width="35" height="20" rx="4.5" ry="4.5" fill="none"
                     stroke="${data.dynamicColourEssentialLoad2}" pointer-events="all"
-                    display="${data.additionalLoad >= 4 ? '' : 'none'}"/>
+                    display="${additionalLoad >= 4 ? '' : 'none'}"/>
                 <rect id="es-load4" x="441" y="290" width="35" height="20" rx="4.5" ry="4.5" fill="none"
                     stroke="${data.dynamicColourEssentialLoad4}" pointer-events="all"
-                    display="${data.additionalLoad >= 4 ? '' : 'none'}"/>
+                    display="${additionalLoad >= 4 ? '' : 'none'}"/>
                 ${renderText(
                     'es-load1',
                     435,
@@ -214,16 +246,16 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     dynamicColourEssentialLoad4,
                     load4_name
                 )}
-                <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
+                <g display="${additionalLoad >= 4 ? '' : 'none'}">
                     ${renderIcon(load1_switch, data.iconEssentialLoad1, 'essload1-small-icon', 412, 81)}
                 </g>
-                <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
+                <g display="${additionalLoad >= 4 ? '' : 'none'}">
                     ${renderIcon(load2_switch, data.iconEssentialLoad2, 'essload2-small-icon', 449, 81)}
                 </g>
-                <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
+                <g display="${additionalLoad >= 4 ? '' : 'none'}">
                     ${renderIcon(load3_switch, data.iconEssentialLoad3, 'essload3-small-icon', 412, 264)}
                 </g>
-                <g display="${data.additionalLoad >= 4 ? '' : 'none'}">
+                <g display="${additionalLoad >= 4 ? '' : 'none'}">
                     ${renderIcon(load4_switch, data.iconEssentialLoad4, 'essload4-small-icon', 449, 264)}
                 </g>
                 ${createTextWithPopup(
@@ -308,11 +340,11 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 )}
             </svg>
             <svg id="Esential-Load5" 
-                    viewBox="${config.wide && [5, 6].includes(data.additionalLoad) ? "0 0 720 405" : "0 0 0 0"}" 
+                    viewBox="${config.wide && [5, 6].includes(additionalLoad) ? "0 0 720 405" : "0 0 0 0"}" 
                     style="overflow: visible" x="-5%">
                 <rect id="es-load5" x="405" y="107" width="35" height="20" rx="4.5" ry="4.5" fill="none"
                     stroke="${data.dynamicColourEssentialLoad5}" pointer-events="all"
-                    display="${[5, 6].includes(data.additionalLoad) ? '' : 'none'}"/>
+                    display="${[5, 6].includes(additionalLoad) ? '' : 'none'}"/>
                 ${renderText(
                     'es-load5',
                     435,
@@ -322,7 +354,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     dynamicColourEssentialLoad5,
                     load5_name
                 )}
-                <g display="${[5, 6].includes(data.additionalLoad) ? '' : 'none'}">
+                <g display="${[5, 6].includes(additionalLoad) ? '' : 'none'}">
                     ${renderIcon(load5_switch, data.iconEssentialLoad5, 'essload5-small-icon', 412, 81)}
                 </g>
                 ${createTextWithPopup(
@@ -346,10 +378,10 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     (e) => Utils.handlePopup(e, config.entities.essential_load5)
                 )}
             </svg>
-            <svg id="Esential-Load6" viewBox="${config.wide && data.additionalLoad === 6  ? '0 0 720 405' : '0 0 0 0'}" style="overflow: visible" x="-5%">
+            <svg id="Esential-Load6" viewBox="${config.wide && additionalLoad === 6  ? '0 0 720 405' : '0 0 0 0'}" style="overflow: visible" x="-5%">
                 <rect id="es-load6" x="405" y="290" width="35" height="20" rx="4.5" ry="4.5" fill="none"
                     stroke="${data.dynamicColourEssentialLoad6}" pointer-events="all"
-                    display="${data.additionalLoad === 6 ? '' : 'none'}"/>
+                    display="${additionalLoad === 6 ? '' : 'none'}"/>
                 ${renderText(
                     'es-load6',
                     435,
@@ -359,7 +391,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     dynamicColourEssentialLoad6,
                     load6_name
                 )}
-                <g display="${data.additionalLoad === 6 ? '' : 'none'}">
+                <g display="${additionalLoad === 6 ? '' : 'none'}">
                     ${renderIcon(load6_switch, data.iconEssentialLoad6, 'essload6-small-icon', 412, 264)}
                 </g>
                 ${createTextWithPopup(
@@ -389,7 +421,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 [2, 3, 4, 5, 6].includes(additionalLoad) ? '189' : '282.1',
                 !data.loadShowDaily,
                 'st3 left-align',
-                data.loadColour,
+                loadColour,
                 config.load.label_daily_load || localize('common.daily_load'),
                 true
             )}
@@ -399,7 +431,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 241,
                 !!(config.inverter.three_phase && config.entities?.load_power_L1),
                 'st3 left-align',
-                data.loadColour,
+                loadColour,
                 auto_scale ? `${Utils.convertValue(data.loadPowerL1, decimalPlaces) || 0}` : `${data.loadPowerL1 || 0} ${UnitOfPower.WATT}`
             )}
             ${renderText(
@@ -408,7 +440,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 254,
                 !!(config.inverter.three_phase && config.entities?.load_power_L2),
                 'st3 left-align',
-                data.loadColour,
+                loadColour,
                 auto_scale ? `${Utils.convertValue(data.loadPowerL2, decimalPlaces) || 0}` : `${data.loadPowerL2 || 0} ${UnitOfPower.WATT}`
             )}
             ${renderText(
@@ -417,15 +449,15 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 267,
                 !!(config.inverter.three_phase && config.entities?.load_power_L3),
                 'st3 left-align',
-                data.loadColour,
+                loadColour,
                 auto_scale ? `${Utils.convertValue(data.loadPowerL3, decimalPlaces) || 0}` : `${data.loadPowerL3 || 0} ${UnitOfPower.WATT}`
             )}
             <svg id="load-flow">
-                <path id="es-line" d="${config.wide ? 'M 304 218.5 L 117 218.5': 'M 304 218.5 L 264.7 218.5'}" fill="none" stroke="${config.load.dynamic_colour ? data.flowColour : data.loadColour}"
+                <path id="es-line" d="${config.wide ? 'M 304 218.5 L 117 218.5': 'M 304 218.5 L 264.7 218.5'}" fill="none" stroke="${dynamic_colour ? flowColour : loadColour}"
                     stroke-width="${data.loadLineWidth}" stroke-miterlimit="10" pointer-events="stroke"/>
                 <circle id="es-dot" cx="0" cy="0"
                         r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        fill="${data.essentialPower === 0 || data.essentialPower < 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
+                        fill="${essentialPower === 0 || essentialPower < 0 ? 'transparent' : `${dynamic_colour ? flowColour : loadColour}`}">
                     <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
                                 keyPoints=${config.load.invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"}
                                 keyTimes="0;1" calcMode="linear">
@@ -434,7 +466,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 </circle>
                 <circle id="es-dot" cx="0" cy="0"
                         r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        fill="${data.essentialPower === 0 || data.essentialPower > 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
+                        fill="${essentialPower === 0 || essentialPower > 0 ? 'transparent' : `${dynamic_colour ? flowColour : loadColour}`}">
                     <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
                                 keyPoints=${config.load.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
                                 keyTimes="0;1" calcMode="linear">
@@ -443,11 +475,11 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 </circle>
             </svg>
             <svg id="load-flow1">
-                <path id="es-line1" d="M 374 218.5 L 402.38 218.5" fill="none" stroke="${config.load.dynamic_colour ? data.flowColour : data.loadColour}"
+                <path id="es-line1" d="M 374 218.5 L 402.38 218.5" fill="none" stroke="${dynamic_colour ? flowColour : loadColour}"
                     stroke-width="${data.loadLineWidth}" stroke-miterlimit="10" pointer-events="stroke"/>
                 <circle id="es-dot" cx="0" cy="0"
                         r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        fill="${data.essentialPower === 0 || data.essentialPower < 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
+                        fill="${essentialPower === 0 || essentialPower < 0 ? 'transparent' : `${dynamic_colour ? flowColour : loadColour}`}">
                     <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
                                 keyPoints=${config.load.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
                                 keyTimes="0;1" calcMode="linear">
@@ -456,7 +488,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 </circle>
                 <circle id="es-dot" cx="0" cy="0"
                         r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        fill="${data.essentialPower === 0 || data.essentialPower > 0 ? 'transparent' : `${config.load.dynamic_colour ? data.flowColour : data.loadColour}`}">
+                        fill="${essentialPower === 0 || essentialPower > 0 ? 'transparent' : `${dynamic_colour ? flowColour : loadColour}`}">
                     <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
                                 keyPoints=${config.load.invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"}
                                 keyTimes="0;1" calcMode="linear">
@@ -464,15 +496,15 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     </animateMotion>
                 </circle>
             </svg>
-            <path id="es-load1" d="M 441 180 L 441 147" class="${data.additionalLoad === 1 ? '' : 'st12'}"
+            <path id="es-load1" d="M 441 180 L 441 147" class="${additionalLoad === 1 ? '' : 'st12'}"
                 fill="none" stroke="${data.load1Colour}" stroke-width="1" stroke-miterlimit="10"
                 pointer-events="stroke"/>
             <path id="es-load1" d="M 441 180 L 441 147"
-                class="${[2, 3, 4, 5, 6].includes(data.additionalLoad) ? '' : 'st12'}" fill="none"
+                class="${[2, 3, 4, 5, 6].includes(additionalLoad) ? '' : 'st12'}" fill="none"
                 stroke="${data.load1Colour}" stroke-width="1" stroke-miterlimit="10"
                 pointer-events="stroke"/>
             <path id="es-load2" d="M 441 290 L 441 257"
-                class="${[2, 3, 4, 5, 6].includes(data.additionalLoad) ? '' : 'st12'}" fill="none"
+                class="${[2, 3, 4, 5, 6].includes(additionalLoad) ? '' : 'st12'}" fill="none"
                 stroke="${data.load2Colour}" stroke-width="1" stroke-miterlimit="10"
                 pointer-events="stroke"/>
             <a href="#" @click=${config.load?.navigate ? (e) => Utils.handleNavigation(e, config.load.navigate) : null}>
@@ -483,20 +515,20 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     <defs>
                         <linearGradient id="Lg-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
                             <stop offset="0%"
-                                stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
+                                stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? batteryColour : solarColour)}"/>
                             <stop offset="${data.gridPercentage}%"
-                                stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? data.batteryColour : data.solarColour)}"/>
+                                stop-color="${data.gridPercentage > 0 ? data.gridColour : (data.batteryPercentage > 0 ? batteryColour : solarColour)}"/>
                             <stop offset="${data.gridPercentage}%"
-                                stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
+                                stop-color="${data.batteryPercentage > 0 ? batteryColour : solarColour}"/>
                             <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
-                                stop-color="${data.batteryPercentage > 0 ? data.batteryColour : data.solarColour}"/>
+                                stop-color="${data.batteryPercentage > 0 ? batteryColour : solarColour}"/>
                             <stop offset="${(data.gridPercentage + data.batteryPercentage)}%"
-                                stop-color="${data.solarColour}"/>
+                                stop-color="${solarColour}"/>
                             <stop offset="100%"
-                                stop-color="${data.solarColour}"/>
+                                stop-color="${solarColour}"/>
                         </linearGradient>
                     </defs>
-                    <path fill="${config.load.dynamic_colour ? `url(#Lg-${data.timestamp_id})` : data.loadColour}"
+                    <path fill="${dynamic_colour ? `url(#Lg-${data.timestamp_id})` : loadColour}"
                         d="${data.essIcon}"/>
                 </svg>
             </a>
@@ -506,7 +538,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 [2, 3, 4, 5, 6].includes(additionalLoad) ? '175' : '267.9',
                 !data.loadShowDaily || !data.stateDayLoadEnergy.isValid(),
                 'st10 left-align',
-                data.loadColour,
+                loadColour,
                 data.stateDayLoadEnergy?.toPowerString(true, data.decimalPlacesEnergy),
                 (e) => Utils.handlePopup(e, config.entities.day_load_energy_84),
                 true
@@ -518,11 +550,11 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                         340.1,
                         219.2,
                         true,
-                        `${data.largeFont !== true ? 'st14' : 'st4'} st8`,
-                        data.loadColour,
-                        config.load.auto_scale
-                            ? `${Utils.convertValue(data.essentialPower, data.decimalPlaces) || 0}`
-                            : `${data.essentialPower || 0} ${UnitOfPower.WATT}`,
+                        `${largeFont !== true ? 'st14' : 'st4'} st8`,
+                        loadColour,
+                        auto_scale
+                            ? `${Utils.convertValue(essentialPower, decimalPlaces) || 0}`
+                            : `${essentialPower || 0} ${UnitOfPower.WATT}`,
                         (e) => Utils.handlePopup(e, config.entities.essential_power),
                     )}`
                 : svg`
@@ -531,11 +563,11 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                         340.1,
                         219.2,
                         true,
-                        `${data.largeFont !== true ? 'st14' : 'st4'} st8`,
-                        data.loadColour,
-                        config.load.auto_scale
-                            ? `${Utils.convertValue(data.essentialPower, data.decimalPlaces) || 0}`
-                            : `${data.essentialPower || 0} ${UnitOfPower.WATT}`
+                        `${largeFont !== true ? 'st14' : 'st4'} st8`,
+                        loadColour,
+                        auto_scale
+                            ? `${Utils.convertValue(essentialPower, decimalPlaces) || 0}`
+                            : `${essentialPower || 0} ${UnitOfPower.WATT}`
                     )}`
             }
             <!-- Render Static Icons e.g. Boiler, Aircon, Oven and Pump etc -->
