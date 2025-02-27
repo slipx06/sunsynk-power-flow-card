@@ -26,7 +26,6 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
         solarColour,
         batteryColour,
         essentialPower
-
     } = data;
     
     const {

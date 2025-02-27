@@ -10,6 +10,46 @@ import {renderStaticGridIcon} from '../../shared/grid/render-static-grid-icon';
 import {renderIcon} from '../../shared/render-icon';
 import {createTextWithPopup, renderText} from '../../shared/text-utils';
 
+const renderGridIcons = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
+    const isGridConnected = validGridConnected.includes(data.gridStatus.toLowerCase());
+    const isGridDisconnected = validGridDisconnected.includes(data.gridStatus.toLowerCase());
+    const totalGridPower = data.totalGridPower;
+    const gridColour = data.gridColour;
+    const three_phase = config.inverter.three_phase
+
+    return svg`
+        <svg xmlns="http://www.w3.org/2000/svg" id="transmission_on"
+            x="${three_phase ? '404' : '389'}"
+            y="${three_phase ? '339' : '308'}"
+            width="${three_phase ? '34' : '65'}"
+            height="${three_phase ? '34' : '65'}" viewBox="0 0 24 24">
+            <path class="${isGridDisconnected ? 'st12' : ''}"
+                fill="${gridColour}"
+                display="${totalGridPower < 0 || config.grid.import_icon ? 'none' : ''}"
+                d="${icons.gridOn}"/>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" id="transmission_off"
+            x="${three_phase ? '404' : '389'}"
+            y="${three_phase ? '339' : '308'}"
+            width="${three_phase ? '34' : '65'}"
+            height="${three_phase ? '34' : '65'}" viewBox="0 0 24 24">
+            <path class="${isGridConnected ? 'st12' : ''}"
+                fill="${data.gridOffColour}" display="${config.grid.disconnected_icon ? 'none' : ''}"
+                d="${icons.gridOff}"/>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" id="grid_export"
+            x="${three_phase ? '404' : '389'}"
+            y="${three_phase ? '339' : '308'}"
+            width="${three_phase ? '34' : '65'}"
+            height="${three_phase ? '34' : '65'}" viewBox="0 0 24 24">
+            <path class="${isGridDisconnected ? 'st12' : ''}"
+                fill="${gridColour}"
+                display="${totalGridPower >= 0 || config.grid.export_icon ? 'none' : ''}"
+                d="${icons.gridExport}"/>
+        </svg>
+    `;
+};
+
 
 export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
     const {
@@ -275,39 +315,16 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     </animateMotion>
                 </circle>
             </svg>
-
-            <a href="#" @click=${(e) => config.grid.navigate ? Utils.handleNavigation(e, config.grid.navigate) : null}>
-                <svg xmlns="http://www.w3.org/2000/svg" id="transmission_on"
-                    x="${three_phase ? '404' : '389'}"
-                    y="${three_phase ? '339' : '308'}"
-                    width="${three_phase ? '34' : '65'}"
-                    height="${three_phase ? '34' : '65'}" viewBox="0 0 24 24">
-                    <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
-                        fill="${gridColour}"
-                        display="${totalGridPower < 0 || config.grid.import_icon ? 'none' : ''}"
-                        d="${icons.gridOn}"/>
-                </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" id="transmission_off"
-                    x="${three_phase ? '404' : '389'}"
-                    y="${three_phase ? '339' : '308'}"
-                    width="${three_phase ? '34' : '65'}"
-                    height="${three_phase ? '34' : '65'}" viewBox="0 0 24 24">
-                    <path class="${validGridConnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
-                        fill="${data.gridOffColour}" display="${config.grid.disconnected_icon ? 'none' : ''}"
-                        d="${icons.gridOff}"/>
-                </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" id="grid_export"
-                    x="${three_phase ? '404' : '389'}"
-                    y="${three_phase ? '339' : '308'}"
-                    width="${three_phase ? '34' : '65'}"
-                    height="${three_phase ? '34' : '65'}" viewBox="0 0 24 24">
-                    <path class="${validGridDisconnected.includes(data.gridStatus.toLowerCase()) ? 'st12' : ''}"
-                        fill="${gridColour}"
-                        display="${totalGridPower >= 0 || config.grid.export_icon ? 'none' : ''}"
-                        d="${icons.gridExport}"/>
-                </svg>
-            </a>
-            }       
+            ${config.grid?.navigate
+                ? svg`
+                    <a href="#" @click=${(e) => Utils.handleNavigation(e, config.grid.navigate)}>
+                        ${renderGridIcons(data, config)}
+                    </a>`
+                : svg`
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_connected_status_194)}>
+                        ${renderGridIcons(data, config)}
+                    </a>`
+            }     
             ${config.grid?.navigate
                 ? svg`
                     <a href="#" @click=${(e) => Utils.handleNavigation(e, config.grid.navigate)}>

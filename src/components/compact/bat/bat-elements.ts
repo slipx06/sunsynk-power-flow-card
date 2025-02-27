@@ -662,48 +662,48 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
                     display="${config.entities?.battery_status === 'none' || !config.entities?.battery_status || (data.compactMode && data.batteryCount === 2) ? 'none' : ''}"
                     fill="${data.batteryStateColour}"/>
                 
-                        <a href="#" @click=${(e) => config.battery.navigate ? Utils.handleNavigation(e, config.battery.navigate) : null}>
-                            <svg id="bat_outter" x="${data.compactMode && data.batteryCount === 1 ? '212.5' : '232.5'}"
-                                y="325.5" width="78.75"
-                                height="78.75" preserveAspectRatio="none"
-                                viewBox="0 0 24 24">
-                                <defs>
-                                    <linearGradient id="bLg-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
-                                        <stop offset="0%"
-                                            stop-color="${data.gridPercentageBat > 0 ? data.gridColour : data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
-                                        <stop offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
-                                            stop-color="${data.gridPercentageBat > 0 ? data.gridColour : data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
-                                        <stop offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
-                                            stop-color="${data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
-                                        <stop offset="${(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat) + (data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat)}%"
-                                            stop-color="${data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
-                                        <stop offset="${(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat) + (data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat)}%"
-                                            stop-color="${data.batteryColour}"/>
-                                        <stop offset="100%"
-                                            stop-color="${data.batteryColour}"/>
-                                    </linearGradient>
-                                </defs>
-                                <path fill="${config.battery.dynamic_colour ? `url(#bLg-${data.timestamp_id})` : data.batteryColour}"
-                                    d="${config.battery.linear_gradient ? data.battery0 : data.batteryIcon}"/>
-                            </svg>
-                            <svg id="bat_inner" x="${data.compactMode && data.batteryCount === 1 ? '212.5' : '232.5'}"
-                                y="325.5" width="78.75"
-                                height="78.75" preserveAspectRatio="none"
-                                viewBox="0 0 24 24">
-                                <defs>
-                                    <linearGradient id="sLg-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
-                                        <stop offset="0%"
-                                            stop-color="red"/>
-                                        <stop offset="100%"
-                                            stop-color="${data.stopColour}"/>
-                                        <animate attributeName="${config.battery.animate ? 'y2' : 'none'}" dur="6s" values="100%; 0%" repeatCount="indefinite" />
-                                    </linearGradient>
-                                </defs>
-                                <path fill="${config.battery.linear_gradient ? `url(#sLg-${data.timestamp_id})` : data.batteryColour}"
-                                    display="${!config.battery.linear_gradient ? 'none' : ''}"
-                                    d="${data.batteryCharge}"/>
-                            </svg>
-                        </a>
+                <a href="#" @click=${(e) => config.battery.navigate ? Utils.handleNavigation(e, config.battery.navigate) : null}>
+                    <svg id="bat_outter" x="${data.compactMode && data.batteryCount === 1 ? '212.5' : '232.5'}"
+                        y="325.5" width="78.75"
+                        height="78.75" preserveAspectRatio="none"
+                        viewBox="0 0 24 24">
+                        <defs>
+                            <linearGradient id="bLg-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
+                                <stop offset="0%"
+                                    stop-color="${data.gridPercentageBat > 0 ? data.gridColour : data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
+                                <stop offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
+                                    stop-color="${data.gridPercentageBat > 0 ? data.gridColour : data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
+                                <stop offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
+                                    stop-color="${data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
+                                <stop offset="${(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat) + (data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat)}%"
+                                    stop-color="${data.pvPercentageBat > 0 ? data.solarColour : data.batteryColour}"/>
+                                <stop offset="${(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat) + (data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat)}%"
+                                    stop-color="${data.batteryColour}"/>
+                                <stop offset="100%"
+                                    stop-color="${data.batteryColour}"/>
+                            </linearGradient>
+                        </defs>
+                        <path fill="${config.battery.dynamic_colour ? `url(#bLg-${data.timestamp_id})` : data.batteryColour}"
+                            d="${config.battery.linear_gradient ? data.battery0 : data.batteryIcon}"/>
+                    </svg>
+                    <svg id="bat_inner" x="${data.compactMode && data.batteryCount === 1 ? '212.5' : '232.5'}"
+                        y="325.5" width="78.75"
+                        height="78.75" preserveAspectRatio="none"
+                        viewBox="0 0 24 24">
+                        <defs>
+                            <linearGradient id="sLg-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
+                                <stop offset="0%"
+                                    stop-color="red"/>
+                                <stop offset="100%"
+                                    stop-color="${data.stopColour}"/>
+                                <animate attributeName="${config.battery.animate ? 'y2' : 'none'}" dur="6s" values="100%; 0%" repeatCount="indefinite" />
+                            </linearGradient>
+                        </defs>
+                        <path fill="${config.battery.linear_gradient ? `url(#sLg-${data.timestamp_id})` : data.batteryColour}"
+                            display="${!config.battery.linear_gradient ? 'none' : ''}"
+                            d="${data.batteryCharge}"/>
+                    </svg>
+                </a>
             </svg>
             <svg id="battery2_icon" 
                 style="overflow: visible; display: ${config.wide && data.batteryCount === 2 ? 'inline' : 'none'};" 
