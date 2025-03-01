@@ -27,7 +27,8 @@ export const renderAuxLoadElements = (data: DataDto, config: sunsynkPowerFlowCar
 
     return html`
         <!-- Aux Load Elements -->
-        <svg id="Aux Load" style="overflow: visible" x="${config.wide ? '30%' : '3%'}" y="2.5%">
+        <svg id="Aux Load" style="overflow: visible; display: ${!showAux ? 'none' : 'inline'};" 
+             x="${config.wide ? '30%' : '3%'}" y="2.5%">
             <rect x="237" y="32" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                 stroke="${auxDynamicColour}" pointer-events="all"
                 class="${!showAux ? 'st12' : ''}"/>
