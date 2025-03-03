@@ -116,14 +116,18 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
                     (e) => Utils.handlePopup(e, config.entities.battery_soh),
                     true
                 )}
-                <text x="101" y="378" class="st3"
-                    display="${!config.battery.show_remaining_energy ? 'none' : ''}"
-                    fill="${batteryColour}">
-                    ${!config.battery.remaining_energy_to_shutdown
+                ${renderText(
+                    'battery_remaining_energy',
+                    101,
+                    378,
+                    !config.battery.show_remaining_energy,
+                    'remaining-energy',
+                    batteryColour,
+                    !config.battery.remaining_energy_to_shutdown
                         ? `${Utils.toNum((data.batteryEnergy * (data.stateBatterySoc.toNum() / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`
-                        : `${Utils.toNum((data.batteryEnergy * ((data.stateBatterySoc?.toNum() - data.batteryOneShutdown) / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`
-                    }
-                </text>
+                        : `${Utils.toNum((data.batteryEnergy * ((data.stateBatterySoc?.toNum() - data.batteryOneShutdown) / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`,
+                    true
+                )}
             </svg>
             <svg id="battery2_icon" 
                 style="overflow: visible; display: ${batteryCount === 2  ? 'inline' : 'none'};"
@@ -197,7 +201,7 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
                     101,
                     378,
                     !config.battery2.show_remaining_energy,
-                    'st3',
+                    'remaining-energy',
                     battery2Colour,
                     !config.battery2.remaining_energy_to_shutdown
                         ? `${Utils.toNum((data.battery2Energy * (data.stateBattery2Soc.toNum() / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`

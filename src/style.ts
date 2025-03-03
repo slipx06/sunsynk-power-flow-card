@@ -37,6 +37,7 @@ export const styles: CSSResultGroup = css`
     .st12{display:none;}
     .st13{font-size:22px;}
     .st14{font-size:12px;}
+    .remaining-energy{font-size:9px;}
     `;
 
 export const getDynamicStyles = (data) => html`

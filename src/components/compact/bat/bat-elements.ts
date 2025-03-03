@@ -127,7 +127,7 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
                     compactMode ? 270 : !config.entities?.battery_status ? 193 : 169,
                     compactMode ? 338 : 323,
                     !config.battery.show_remaining_energy || (compactMode && batteryCount === 2),
-                    !config.entities?.battery_status && !compactMode ? 'st3' : 'st3 left-align',
+                    !config.entities?.battery_status && !compactMode ? 'remaining-energy' : 'remaining-energy left-align',
                     batteryColour,
                     !config.battery.remaining_energy_to_shutdown
                         ? `${Utils.toNum((data.batteryEnergy * (data.stateBatterySoc.toNum() / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`
@@ -235,7 +235,7 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
                     225,
                     338,
                     !config.battery2.show_remaining_energy,
-                    'st3 left-align',
+                    'remaining-energy left-align',
                     battery2Colour,
                     !config.battery2.remaining_energy_to_shutdown
                         ? `${Utils.toNum((data.battery2Energy * (data.stateBattery2Soc.toNum() / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`
@@ -295,7 +295,7 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
                     !config.entities?.battery2_status ? 193 : 169,
                     323,
                     !config.show_battery || !config.battery2.show_remaining_energy,
-                    !config.entities?.battery2_status ? 'st3' : 'st3 left-align',
+                    !config.entities?.battery2_status ? 'remaining-energy' : 'remaining-energy left-align',
                     battery2Colour,
                     !config.battery2.remaining_energy_to_shutdown
                         ? `${Utils.toNum((data.battery2Energy * (data.stateBattery2Soc.toNum() / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`
@@ -740,7 +740,7 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
                     393,
                     338,
                     !config.battery.show_remaining_energy,
-                    'st3 right-align',
+                    'remaining-energy right-align',
                     batteryColour,
                     !config.battery.remaining_energy_to_shutdown
                         ? `${Utils.toNum((data.batteryEnergy * (data.stateBatterySoc.toNum() / 100) / 1000), 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`
