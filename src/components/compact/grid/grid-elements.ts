@@ -7,6 +7,7 @@ import {icons} from '../../../helpers/icons';
 import {UnitOfPower, validGridConnected, validGridDisconnected} from '../../../const';
 import {createTextWithPopup, renderText} from '../../../helpers/text-utils';
 import {renderPath} from '../../../helpers/render-path';
+import {renderCircle} from '../../../helpers/render-circle';
 
 
 const renderGridIcons = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
@@ -93,7 +94,8 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 
     return html`
         <!-- Grid Elements -->
-        <svg id="Grid" style="overflow: visible">
+        <svg id="Grid" 
+        style="overflow: visible; display: ${!config.show_grid ? 'none' : 'inline'};">
             <rect x="103" y="203.5" width="70" height="30" rx="4.5" ry="4.5" fill="none"
                 stroke="${gridColour}" pointer-events="all"
                 display="${!config.show_grid ? 'none' : ''}"/>
@@ -135,16 +137,14 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     gridColour,
                     data.gridLineWidth
                 )}
-                <circle id="grid-dot" cx="0" cy="0"
-                        r="${Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        fill="${totalGridPower === 0 ? 'transparent' : `${gridColour}`}"
-                        display="${!config.show_grid ? 'none' : ''}">
-                    <animateMotion dur="${data.durationCur['grid']}s" repeatCount="indefinite"
-                                keyPoints=${gridFlowKeyPoints}
-                                keyTimes="0;1" calcMode="linear">
-                        <mpath xlink:href="#grid-line"/>
-                    </animateMotion>
-                </circle>
+                ${renderCircle(
+                    'grid-dot',
+                    Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+                    totalGridPower === 0 ? 'transparent' : gridColour,
+                    data.durationCur['grid'],
+                    gridFlowKeyPoints,
+                    '#grid-line'
+                )}
             </svg>
             <svg id="grid1-flow">
                 ${renderPath(
@@ -154,16 +154,15 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     gridColour,
                     data.gridLineWidth
                 )}
-                <circle id="grid-dot1" cx="0" cy="0"
-                        r="${Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        fill="${totalGridPower === 0 ? 'transparent' : `${gridColour}`}"
-                        display="${!config.show_grid ? 'none' : ''}">
-                    <animateMotion dur="${data.durationCur['grid']}s" repeatCount="indefinite"
-                                keyPoints=${grid1FlowKeyPoints}
-                                keyTimes="0;1" calcMode="linear">
-                        <mpath xlink:href="#grid-line1"/>
-                    </animateMotion>
-                </circle>
+                ${renderCircle(
+                    'grid-dot1',
+                    Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+                    totalGridPower === 0 ? 'transparent' : gridColour,
+                    data.durationCur['grid'],
+                    grid1FlowKeyPoints,
+                    '#grid-line1',
+                    invert_flow
+                )}
             </svg>
             ${config.grid?.navigate
                 ? svg`

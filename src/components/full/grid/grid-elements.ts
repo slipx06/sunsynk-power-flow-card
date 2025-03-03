@@ -233,16 +233,18 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
                     totalGridPower <= 0 ? 'transparent' : gridColour,
                     data.durationCur['grid'],
-                    invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0",
-                    "#grid-line"
+                    "1;0",
+                    "#grid-line",
+                    invert_flow === true
                 )}
                 ${renderCircle(
                     'grid-dot',
                     Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
                     totalGridPower >= 0 ? 'transparent' : gridColour,
                     data.durationCur['grid'],
-                    invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1",
-                    "#grid-line"
+                    "0;1",
+                    "#grid-line",
+                    invert_flow === true
                 )}
             </svg>
             <svg id="grid1-flow">
@@ -258,16 +260,18 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
                     totalGridPower <= 0 ? 'transparent' : gridColour,
                     data.durationCur['grid'] / 1.5,
-                    invert_flow ? Utils.invertKeyPoints("1;0") : "1;0",
-                    "#grid-line1"
+                    "1;0",
+                    "#grid-line1",
+                    invert_flow === true
                 )}
                 ${renderCircle(
                     'grid-dot',
                     Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
                     totalGridPower >= 0 ? 'transparent' : gridColour,
                     data.durationCur['grid'] / 1.5,
-                    invert_flow ? Utils.invertKeyPoints("0;1") : "0;1",
-                    "#grid-line1"
+                    "0;1",
+                    "#grid-line1",
+                    invert_flow === true
                 )}
             </svg>
             <svg id="ne1-flow">
@@ -283,8 +287,9 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     Math.min(2 + data.nonessLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
                     data.nonessentialPower <= 0 || !showNonessential ? 'transparent' : gridColour,
                     data.durationCur['ne'] / 1.5,
-                    invert_flow ? Utils.invertKeyPoints("0;1") : "0;1",
-                    "#ne-line1"
+                    "0;1",
+                    "#ne-line1",
+                    invert_flow === true
                 )}
             </svg>
             <svg id="ne-flow">
@@ -300,8 +305,9 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     Math.min(2 + data.nonessLineWidth + Math.max(data.minLineWidth - 2, 0), 5),
                     data.nonessentialPower <= 0 || !showNonessential ? 'transparent' : gridColour,
                     data.durationCur['ne'],
-                    invert_flow ? Utils.invertKeyPoints("1;0") : "1;0",
-                    "#ne-line"
+                    "1;0",
+                    "#ne-line",
+                    invert_flow === true
                 )}
             </svg>
             <svg id="grid2-flow">
@@ -317,16 +323,18 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
                     autoScaledGridPower < 0 || autoScaledGridPower === 0 ? 'transparent' : gridColour,
                     data.durationCur['grid'],
-                    invert_flow ? Utils.invertKeyPoints("1;0") : "1;0",
-                    "#grid2-line"
+                    "1;0",
+                    "#grid2-line",
+                    invert_flow === true
                 )}
                 ${renderCircle(
                     'grid-dot',
                     Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
                     autoScaledGridPower > 0 || autoScaledGridPower === 0 ? 'transparent' : gridColour,
                     data.durationCur['grid'],
-                    invert_flow ? Utils.invertKeyPoints("0;1") : "0;1",
-                    "#grid2-line"
+                    "0;1",
+                    "#grid2-line",
+                    invert_flow === true
                 )}
             </svg>
             ${config.grid?.navigate

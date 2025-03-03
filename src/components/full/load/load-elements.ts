@@ -278,16 +278,18 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
                     essentialPower  <= 0 ? 'transparent' : (dynamic_colour ? flowColour : loadColour),
                     data.durationCur['load'],
-                    config.load.invert_flow ? Utils.invertKeyPoints("0;1") : "0;1",
-                    "#es-line2"
+                    "0;1",
+                    "#es-line2",
+                    config.load.invert_flow === true
                 )}
                 ${renderCircle(
                     'es-dot',
                     Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
                     essentialPower >= 0 ? 'transparent' : (dynamic_colour ? flowColour : loadColour),
                     data.durationCur['load'],
-                    config.load.invert_flow ? Utils.invertKeyPoints("1;0") : "1;0",
-                    "#es-line2"
+                    "1;0",
+                    "#es-line2",
+                    config.load.invert_flow === true
                 )}
             </svg>
             <svg id="load1-flow">
@@ -303,16 +305,18 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
                     essentialPower  <= 0 ? 'transparent' : (dynamic_colour ? flowColour : loadColour),
                     data.durationCur['load'],
-                    config.load.invert_flow ? Utils.invertKeyPoints("1;0") : "1;0",
-                    "#es-line"
+                    "1;0",
+                    "#es-line",
+                    config.load.invert_flow === true
                 )}
                 ${renderCircle(
                     'es-dot',
                     Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
                     essentialPower >= 0 ? 'transparent' : (dynamic_colour ? flowColour : loadColour),
                     data.durationCur['load'],
-                    config.load.invert_flow ? Utils.invertKeyPoints("0;1") : "0;1",
-                    "#es-line"
+                    "0;1",
+                    "#es-line",
+                    config.load.invert_flow === true
                 )}
             </svg>
             <!-- Essential Icon -->

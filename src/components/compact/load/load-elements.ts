@@ -9,6 +9,7 @@ import {renderStaticLoadIcon} from '../../shared/load/render-static-load-icon';
 import {getCompactLayoutIconConfigs} from '../../shared/load/icon-configs';
 import {createTextWithPopup, renderText} from '../../../helpers/text-utils';
 import {renderPath} from '../../../helpers/render-path';
+import {renderCircle} from '../../../helpers/render-circle';
 
 
 
@@ -461,24 +462,24 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     dynamic_colour ? flowColour : loadColour,
                     data.loadLineWidth
                 )}
-                <circle id="es-dot" cx="0" cy="0"
-                        r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        fill="${essentialPower === 0 || essentialPower < 0 ? 'transparent' : `${dynamic_colour ? flowColour : loadColour}`}">
-                    <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
-                                keyPoints=${config.load.invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"}
-                                keyTimes="0;1" calcMode="linear">
-                        <mpath xlink:href="#es-line"/>
-                    </animateMotion>
-                </circle>
-                <circle id="es-dot" cx="0" cy="0"
-                        r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        fill="${essentialPower === 0 || essentialPower > 0 ? 'transparent' : `${dynamic_colour ? flowColour : loadColour}`}">
-                    <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
-                                keyPoints=${config.load.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
-                                keyTimes="0;1" calcMode="linear">
-                        <mpath xlink:href="#es-line"/>
-                    </animateMotion>
-                </circle>
+                ${renderCircle(
+                    'es-dot',
+                    Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+                    essentialPower === 0 || essentialPower < 0 ? 'transparent' : `${dynamic_colour ? flowColour : loadColour}`,
+                    data.durationCur['load'],
+                    "1;0",
+                    '#es-line',
+                    config.load.invert_flow === true
+                )}
+                ${renderCircle(
+                    'es-dot',
+                    Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+                    essentialPower === 0 || essentialPower > 0 ? 'transparent' : `${dynamic_colour ? flowColour : loadColour}`,
+                    data.durationCur['load'],
+                    "0;1",
+                    '#es-line',
+                    config.load.invert_flow
+                )}
             </svg>
             <svg id="load-flow1">
                 ${renderPath(
@@ -488,24 +489,24 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     dynamic_colour ? flowColour : loadColour,
                     data.loadLineWidth
                 )}
-                <circle id="es-dot" cx="0" cy="0"
-                        r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        fill="${essentialPower === 0 || essentialPower < 0 ? 'transparent' : `${dynamic_colour ? flowColour : loadColour}`}">
-                    <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
-                                keyPoints=${config.load.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
-                                keyTimes="0;1" calcMode="linear">
-                        <mpath xlink:href="#es-line1"/>
-                    </animateMotion>
-                </circle>
-                <circle id="es-dot" cx="0" cy="0"
-                        r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        fill="${essentialPower === 0 || essentialPower > 0 ? 'transparent' : `${dynamic_colour ? flowColour : loadColour}`}">
-                    <animateMotion dur="${data.durationCur['load']}s" repeatCount="indefinite"
-                                keyPoints=${config.load.invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"}
-                                keyTimes="0;1" calcMode="linear">
-                        <mpath xlink:href="#es-line1"/>
-                    </animateMotion>
-                </circle>
+                ${renderCircle(
+                    'es-dot',
+                    Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+                    essentialPower === 0 || essentialPower < 0 ? 'transparent' : `${dynamic_colour ? flowColour : loadColour}`,
+                    data.durationCur['load'],
+                    "0;1",
+                    '#es-line1',
+                    config.load.invert_flow === true
+                )}
+                ${renderCircle(
+                    'es-dot',
+                    Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+                    essentialPower === 0 || essentialPower > 0 ? 'transparent' : `${dynamic_colour ? flowColour : loadColour}`,
+                    data.durationCur['load'],
+                    "1;0",
+                    '#es-line1',
+                    config.load.invert_flow === true
+                )}
             </svg>
             ${renderPath(
                 'es-load1',
