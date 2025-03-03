@@ -10,6 +10,7 @@ import {Utils} from './utils';
  * @param y - The y-coordinate of the icon.
  * @param width - The width of the icon container (default: 30).
  * @param height - The height of the icon container (default: 30).
+ * @param show - Whether the icon should be visible (default: true).
  * @returns A Lit SVG template or an empty string if no icon is provided.
  */
 export function renderIcon(
@@ -19,12 +20,13 @@ export function renderIcon(
     x: number | string, 
     y: number | string, 
     width: number = 30, 
-    height: number = 30
+    height: number = 30,
+    show: boolean = true
 ) {
     if (icon && entity) {
         return svg`
             <a href="#" @click=${(e) => Utils.handlePopup(e, entity)}>
-                <foreignObject x="${x}" y="${y}" width="${width}" height="${height}">
+                <foreignObject x="${x}" y="${y}" width="${width}" height="${height}" display="${show ? '' : 'none'}">
                     <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: ${width}px; height: ${height}px;">
                         <ha-icon icon="${icon}" class="${className}"></ha-icon>
                     </div>
@@ -32,7 +34,7 @@ export function renderIcon(
             </a>`;
     } else if (icon) {
         return svg`
-            <foreignObject x="${x}" y="${y}" width="${width}" height="${height}">
+            <foreignObject x="${x}" y="${y}" width="${width}" height="${height}" display="${show ? '' : 'none'}">
                 <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: ${width}px; height: ${height}px;">
                     <ha-icon icon="${icon}" class="${className}"></ha-icon>
                 </div>

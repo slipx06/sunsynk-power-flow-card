@@ -28,7 +28,8 @@ export function renderPVFlow(
                     class="${className}">
                 <animateMotion dur="${duration}s" repeatCount="indefinite"
                             keyPoints=${finalKeyPoints}
-                            keyTimes="0;1" calcMode="linear" rotate="auto" path="${path}">
+                            keyTimes="0;1" calcMode="linear" rotate="auto">
+                            <mpath href="#${lineId}"/>
                 </animateMotion>
             </circle>
         </svg>

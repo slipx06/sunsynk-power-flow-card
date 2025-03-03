@@ -6,6 +6,7 @@ import {DataDto, sunsynkPowerFlowCardConfig} from '../../../types';
 import {UnitOfElectricalCurrent, UnitOfElectricPotential, UnitOfPower, UnitOfEnergy} from '../../../const';
 import {createTextWithPopup, renderText} from '../../../helpers/text-utils';
 import {renderPath} from '../../../helpers/render-path';
+import {renderCircle} from '../../../helpers/render-circle';
 
 
 export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
@@ -700,24 +701,24 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
                     config.battery.dynamic_colour ? data.flowBatColour : batteryColour,
                     data.batLineWidth
                 )}
-                <circle id="power-dot-discharge" cx="0" cy="0"
-                        r="${Math.min(2 + data.batLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        fill="${data.batteryPowerTotal < 0 || data.batteryPowerTotal === 0 ? 'transparent' : `${batteryColour}`}">
-                    <animateMotion dur="${data.durationCur['battery']}s" repeatCount="indefinite"
-                                keyPoints=${config.battery.invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"} 
-                                keyTimes="0;1" calcMode="linear">
-                        <mpath xlink:href="#bat-line"/>
-                    </animateMotion>
-                </circle>
-                <circle id="power-dot-charge" cx="0" cy="0"
-                        r="${Math.min(2 + data.batLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        fill="${data.batteryPowerTotal > 0 || data.batteryPowerTotal === 0 ? 'transparent' : `${config.battery.dynamic_colour ? data.flowBatColour : batteryColour}`}">
-                    <animateMotion dur="${data.durationCur['battery']}s" repeatCount="indefinite"
-                                keyPoints=${config.battery.invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"} 
-                                keyTimes="0;1" calcMode="linear">
-                        <mpath xlink:href="#bat-line"/>
-                    </animateMotion>
-                </circle>
+                ${renderCircle(
+                    'power-dot-discharge',
+                    Math.min(2 + data.batLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+                    data.batteryPowerTotal < 0 || data.batteryPowerTotal === 0 ? 'transparent' : batteryColour,
+                    data.durationCur['battery'],
+                    "1;0",
+                    "#bat-line",
+                    config.battery.invert_flow
+                )}
+                ${renderCircle(
+                    'power-dot-charge',
+                    Math.min(2 + data.batLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+                    data.batteryPowerTotal > 0 || data.batteryPowerTotal === 0 ? 'transparent' : (config.battery.dynamic_colour ? data.flowBatColour : batteryColour),
+                    data.durationCur['battery'],
+                    "0;1",
+                    "#bat-line",
+                    config.battery.invert_flow
+                )}
             </svg>
         </svg>
     `;

@@ -10,6 +10,7 @@ import {renderStaticGridIcon} from '../../shared/grid/render-static-grid-icon';
 import {renderIcon} from '../../../helpers/render-icon';
 import {createTextWithPopup, renderText} from '../../../helpers/text-utils';
 import {renderPath} from '../../../helpers/render-path';
+import {renderCircle} from '../../../helpers/render-circle';
 
 const renderGridIcons = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
     const isGridConnected = validGridConnected.includes(data.gridStatus.toLowerCase());
@@ -95,12 +96,16 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     true
                 )}
                 <g display="${!showNonessential || [0, 1, 2].includes(nonessentialLoads) ? 'none' : ''}">
-                    <foreignObject x="269" y="341" width="30" height="30" 
-                        display="${(config.battery.hide_soc || config.wide) && nonessentialLoads === 3 ? '' : 'none'}">
-                        <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 30px; height: 30px;">
-                            <ha-icon icon="${data.iconNonessentialLoad3}" class="nonessload3-icon"></ha-icon>
-                        </div>
-                    </foreignObject>
+                    ${renderIcon(
+                        undefined,
+                        data.iconNonessentialLoad3,
+                        'nonessload3-icon',
+                        269,
+                        341,
+                        30,
+                        30,
+                        (config.battery.hide_soc || config.wide) && nonessentialLoads === 3
+                    )}
                 </g>
                 ${createTextWithPopup(
                     'noness3_value',
@@ -223,24 +228,22 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     gridColour,
                     data.gridLineWidth
                 )}
-                <circle id="grid-dot" cx="0" cy="0"
-                        r="${Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        fill="${totalGridPower < 0 || totalGridPower === 0 ? 'transparent' : `${gridColour}`}">
-                    <animateMotion dur="${data.durationCur['grid']}s" repeatCount="indefinite"
-                                keyPoints=${invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"}
-                                keyTimes="0;1" calcMode="linear">
-                        <mpath xlink:href="#grid-line"/>
-                    </animateMotion>
-                </circle>
-                <circle id="grid-dot" cx="0" cy="0"
-                        r="${Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        fill="${totalGridPower > 0 || totalGridPower === 0 ? 'transparent' : `${gridColour}`}">
-                    <animateMotion dur="${data.durationCur['grid']}s" repeatCount="indefinite"
-                                keyPoints=${invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
-                                keyTimes="0;1" calcMode="linear">
-                        <mpath xlink:href="#grid-line"/>
-                    </animateMotion>
-                </circle>
+                ${renderCircle(
+                    'grid-dot',
+                    Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+                    totalGridPower <= 0 ? 'transparent' : gridColour,
+                    data.durationCur['grid'],
+                    invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0",
+                    "#grid-line"
+                )}
+                ${renderCircle(
+                    'grid-dot',
+                    Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+                    totalGridPower >= 0 ? 'transparent' : gridColour,
+                    data.durationCur['grid'],
+                    invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1",
+                    "#grid-line"
+                )}
             </svg>
             <svg id="grid1-flow">
                 ${renderPath(
@@ -250,24 +253,22 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     gridColour,
                     data.gridLineWidth
                 )}
-                <circle id="grid-dot" cx="0" cy="0"
-                        r="${Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        fill="${totalGridPower < 0 || totalGridPower === 0 ? 'transparent' : `${gridColour}`}">
-                    <animateMotion dur="${data.durationCur['grid'] / 1.5}s" repeatCount="indefinite"
-                                keyPoints=${invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"} 
-                                keyTimes="0;1" calcMode="linear">
-                        <mpath xlink:href="#grid-line1"/>
-                    </animateMotion>
-                </circle>
-                <circle id="grid-dot" cx="0" cy="0"
-                        r="${Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        fill="${totalGridPower > 0 || totalGridPower === 0 ? 'transparent' : `${gridColour}`}">
-                    <animateMotion dur="${data.durationCur['grid'] / 1.5}s" repeatCount="indefinite"
-                                keyPoints=${invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"} 
-                                keyTimes="0;1" calcMode="linear">
-                        <mpath xlink:href="#grid-line1"/>
-                    </animateMotion>
-                </circle>
+                ${renderCircle(
+                    'grid-dot',
+                    Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+                    totalGridPower <= 0 ? 'transparent' : gridColour,
+                    data.durationCur['grid'] / 1.5,
+                    invert_flow ? Utils.invertKeyPoints("1;0") : "1;0",
+                    "#grid-line1"
+                )}
+                ${renderCircle(
+                    'grid-dot',
+                    Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+                    totalGridPower >= 0 ? 'transparent' : gridColour,
+                    data.durationCur['grid'] / 1.5,
+                    invert_flow ? Utils.invertKeyPoints("0;1") : "0;1",
+                    "#grid-line1"
+                )}
             </svg>
             <svg id="ne1-flow">
                 ${renderPath(
@@ -277,16 +278,14 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     gridColour,
                     data.nonessLineWidth
                 )}
-                <circle id="ne-dot1" cx="0" cy="0"
-                        r="${Math.min(2 + data.nonessLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        class="${!showNonessential ? 'st12' : ''}"
-                        fill="${data.nonessentialPower <= 0 ? 'transparent' : gridColour}">
-                    <animateMotion dur="${data.durationCur['ne'] / 1.5}s" repeatCount="indefinite"
-                                keyPoints=${invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
-                                keyTimes="0;1" calcMode="linear">
-                        <mpath xlink:href="#ne-line1"/>
-                    </animateMotion>
-                </circle>
+                ${renderCircle(
+                    'ne-dot1',
+                    Math.min(2 + data.nonessLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+                    data.nonessentialPower <= 0 || !showNonessential ? 'transparent' : gridColour,
+                    data.durationCur['ne'] / 1.5,
+                    invert_flow ? Utils.invertKeyPoints("0;1") : "0;1",
+                    "#ne-line1"
+                )}
             </svg>
             <svg id="ne-flow">
                 ${renderPath(
@@ -296,16 +295,14 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     gridColour,
                     data.nonessLineWidth
                 )}
-                <circle id="ne-dot" cx="0" cy="0"
-                        r="${Math.min(2 + data.nonessLineWidth + Math.max(data.minLineWidth - 2, 0), 5)}"
-                        class="${!showNonessential ? 'st12' : ''}"
-                        fill="${data.nonessentialPower <= 0 ? 'transparent' : gridColour}">
-                    <animateMotion dur="${data.durationCur['ne']}s" repeatCount="indefinite"
-                                keyPoints=${invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"}
-                                keyTimes="0;1" calcMode="linear">
-                        <mpath xlink:href="#ne-line"/>
-                    </animateMotion>
-                </circle>
+                ${renderCircle(
+                    'ne-dot',
+                    Math.min(2 + data.nonessLineWidth + Math.max(data.minLineWidth - 2, 0), 5),
+                    data.nonessentialPower <= 0 || !showNonessential ? 'transparent' : gridColour,
+                    data.durationCur['ne'],
+                    invert_flow ? Utils.invertKeyPoints("1;0") : "1;0",
+                    "#ne-line"
+                )}
             </svg>
             <svg id="grid2-flow">
                 ${renderPath(
@@ -315,24 +312,22 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     gridColour,
                     data.grid169LineWidth
                 )}
-                <circle id="grid-dot" cx="0" cy="0"
-                        r="${Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        fill="${autoScaledGridPower < 0 || autoScaledGridPower === 0 ? 'transparent' : gridColour}">
-                    <animateMotion dur="${data.durationCur['grid']}s" repeatCount="indefinite"
-                                keyPoints=${invert_flow === true ? Utils.invertKeyPoints("1;0") : "1;0"}
-                                keyTimes="0;1" calcMode="linear">
-                        <mpath xlink:href="#grid2-line"/>
-                    </animateMotion>
-                </circle>
-                <circle id="grid-dot" cx="0" cy="0"
-                        r="${Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        fill="${autoScaledGridPower > 0 || autoScaledGridPower === 0 ? 'transparent' : gridColour}">
-                    <animateMotion dur="${data.durationCur['grid']}s" repeatCount="indefinite"
-                                keyPoints=${invert_flow === true ? Utils.invertKeyPoints("0;1") : "0;1"}
-                                keyTimes="0;1" calcMode="linear">
-                        <mpath xlink:href="#grid2-line"/>
-                    </animateMotion>
-                </circle>
+                ${renderCircle(
+                    'grid-dot',
+                    Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+                    autoScaledGridPower < 0 || autoScaledGridPower === 0 ? 'transparent' : gridColour,
+                    data.durationCur['grid'],
+                    invert_flow ? Utils.invertKeyPoints("1;0") : "1;0",
+                    "#grid2-line"
+                )}
+                ${renderCircle(
+                    'grid-dot',
+                    Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+                    autoScaledGridPower > 0 || autoScaledGridPower === 0 ? 'transparent' : gridColour,
+                    data.durationCur['grid'],
+                    invert_flow ? Utils.invertKeyPoints("0;1") : "0;1",
+                    "#grid2-line"
+                )}
             </svg>
             ${config.grid?.navigate
                 ? svg`
@@ -348,29 +343,31 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 ? svg`
                     <a href="#" @click=${(e) => Utils.handleNavigation(e, config.grid.navigate)}>
                         <g display="${config.show_grid && (config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon) ? '' : 'none'}">
-                            <foreignObject x="${three_phase ? '404' : '389'}" 
-                                        y="${three_phase ? '339' : '308'}" 
-                                        width="${three_phase ? '34' : '65'}" 
-                                        height="${three_phase ? '34' : '65'}">
-                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; 
-                                        width: ${three_phase ? '34px' : '65px'}; height: ${three_phase ? '34px' : '65px'};">
-                                    <ha-icon icon="${data.customGridIcon}" class="${three_phase ? 'grid-icon-small' : 'grid-icon'}"></ha-icon>
-                                </div>
-                            </foreignObject>
+                            ${renderIcon(
+                                undefined,
+                                data.customGridIcon,
+                                three_phase ? 'grid-icon-small' : 'grid-icon',
+                                three_phase ? '404' : '389',
+                                three_phase ? '339' : '308',
+                                three_phase ? 34 : 65,
+                                three_phase ? 34 : 65,
+                                true
+                            )}
                         </g>
                     </a>`
                 : svg`
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_connected_status_194)}>
                         <g display="${config.show_grid && (config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon) ? '' : 'none'}">
-                            <foreignObject x="${three_phase ? '404' : '389'}" 
-                                        y="${three_phase ? '339' : '308'}" 
-                                        width="${three_phase ? '34' : '65'}" 
-                                        height="${three_phase ? '34' : '65'}" style="position: fixed; ">
-                                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; 
-                                        width: ${three_phase ? '34px' : '65px'}; height: ${three_phase ? '34px' : '65px'};">
-                                    <ha-icon icon="${data.customGridIcon}" class="${three_phase ? 'grid-icon-small' : 'grid-icon'}"></ha-icon>
-                                </div>
-                            </foreignObject>
+                            ${renderIcon(
+                                undefined,
+                                data.customGridIcon,
+                                three_phase ? 'grid-icon-small' : 'grid-icon',
+                                three_phase ? '404' : '389',
+                                three_phase ? '339' : '308',
+                                three_phase ? 34 : 65,
+                                three_phase ? 34 : 65,
+                                true
+                            )}
                         </g>
                     </a>`
             }

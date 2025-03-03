@@ -10,6 +10,7 @@ import {getAuxIconConfigs} from './icon-configs';
 import {renderStaticAuxIcon} from './render-static-aux-icons';
 import {renderIcon} from '../../../helpers/render-icon';
 import {renderPath} from '../../../helpers/render-path';
+import {renderCircle} from '../../../helpers/render-circle';
 
 export const renderAuxLoadElements = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
     const {
@@ -99,26 +100,22 @@ export const renderAuxLoadElements = (data: DataDto, config: sunsynkPowerFlowCar
                     auxDynamicColour,
                     data.auxLineWidth
                 )}
-                <circle id="aux-dot" cx="0" cy="0"
-                        r="${Math.min(2 + data.auxLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        class="${!showAux || auxPower === 0 ? 'st12' : ''}"
-                        fill="${auxPower < 0 ? 'transparent' : `${auxDynamicColour}`}">
-                    <animateMotion dur="${data.durationCur['aux']}s" repeatCount="indefinite"
-                                keyPoints="0;1"
-                                keyTimes="0;1" calcMode="linear">
-                        <mpath xlink:href="#aux-line"/>
-                    </animateMotion>
-                </circle>
-                <circle id="aux-dot" cx="0" cy="0"
-                        r="${Math.min(2 + data.auxLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        class="${!showAux || auxPower === 0 ? 'st12' : ''}"
-                        fill="${auxPower > 0 ? 'transparent' : `${auxDynamicColour}`}">
-                    <animateMotion dur="${data.durationCur['aux']}s" repeatCount="indefinite"
-                                keyPoints="1;0"
-                                keyTimes="0;1" calcMode="linear">
-                        <mpath xlink:href="#aux-line"/>
-                    </animateMotion>
-                </circle>
+                ${renderCircle(
+                    'aux-dot',
+                    Math.min(2 + data.auxLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+                    auxPower < 0 ? 'transparent' : auxDynamicColour,
+                    data.durationCur['aux'],
+                    "0;1",
+                    "#aux-line"
+                )}
+                ${renderCircle(
+                    'aux-dot',
+                    Math.min(2 + data.auxLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+                    auxPower > 0 ? 'transparent' : auxDynamicColour,
+                    data.durationCur['aux'],
+                    "1;0",
+                    "#aux-line"
+                )}
             </svg>
             <svg id="aux1-flow">
                 ${renderPath(
@@ -128,26 +125,22 @@ export const renderAuxLoadElements = (data: DataDto, config: sunsynkPowerFlowCar
                     auxDynamicColour,
                     data.auxLineWidth
                 )}
-                <circle id="aux-dot" cx="0" cy="0"
-                        r="${Math.min(2 + data.auxLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        class="${!showAux || auxPower === 0 ? 'st12' : ''}"
-                        fill="${auxPower < 0 ? 'transparent' : `${auxDynamicColour}`}">
-                    <animateMotion dur="${data.durationCur['aux']}s" repeatCount="indefinite"
-                                keyPoints="0;1"
-                                keyTimes="0;1" calcMode="linear">
-                        <mpath xlink:href="#aux-line2"/>
-                    </animateMotion>
-                </circle>
-                <circle id="aux-dot" cx="0" cy="0"
-                        r="${Math.min(2 + data.auxLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
-                        class="${!showAux || auxPower === 0 ? 'st12' : ''}"
-                        fill="${auxPower > 0 ? 'transparent' : `${auxDynamicColour}`}">
-                    <animateMotion dur="${data.durationCur['aux']}s" repeatCount="indefinite"
-                                keyPoints="1;0"
-                                keyTimes="0;1" calcMode="linear">
-                        <mpath xlink:href="#aux-line2"/>
-                    </animateMotion>
-                </circle>
+                ${renderCircle(
+                    'aux-dot',
+                    Math.min(2 + data.auxLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+                    auxPower <= 0 ? 'transparent' : auxDynamicColour,
+                    data.durationCur['aux'],
+                    "0;1",
+                    "#aux-line2"
+                )}
+                ${renderCircle(
+                    'aux-dot',
+                    Math.min(2 + data.auxLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+                    auxPower >= 0 ? 'transparent' : auxDynamicColour,
+                    data.durationCur['aux'],
+                    "1;0",
+                    "#aux-line2"
+                )}
             </svg>
             <!-- Aux Icon -->
             <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.aux_connected_status)}>
