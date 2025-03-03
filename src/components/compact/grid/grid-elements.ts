@@ -5,7 +5,8 @@ import {Utils} from '../../../helpers/utils';
 import {DataDto, sunsynkPowerFlowCardConfig} from '../../../types';
 import {icons} from '../../../helpers/icons';
 import {UnitOfPower, validGridConnected, validGridDisconnected} from '../../../const';
-import {createTextWithPopup, renderText} from '../../shared/text-utils';
+import {createTextWithPopup, renderText} from '../../../helpers/text-utils';
+import {renderPath} from '../../../helpers/render-path';
 
 
 const renderGridIcons = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
@@ -127,9 +128,13 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 true
             )}
             <svg id="grid-flow">
-                <path id="grid-line" d="${config.wide ? 'M 173 218 L 287 218': 'M 173 218 L 214 218'}" fill="none" stroke="${gridColour}"
-                    stroke-width="${data.gridLineWidth}" stroke-miterlimit="10" pointer-events="stroke"
-                    display="${!config.show_grid ? 'none' : ''}"/>
+                ${renderPath(
+                    'grid-line',
+                    config.wide ? 'M 173 218 L 287 218' : 'M 173 218 L 214 218',
+                    config.show_grid,
+                    gridColour,
+                    data.gridLineWidth
+                )}
                 <circle id="grid-dot" cx="0" cy="0"
                         r="${Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
                         fill="${totalGridPower === 0 ? 'transparent' : `${gridColour}`}"
@@ -142,9 +147,13 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 </circle>
             </svg>
             <svg id="grid1-flow">
-                <path id="grid-line1" d="M 103 218 L 64.5 218" fill="none" stroke="${gridColour}"
-                    stroke-width="${data.gridLineWidth}" stroke-miterlimit="10" pointer-events="stroke"
-                    display="${!config.show_grid ? 'none' : ''}"/>
+                ${renderPath(
+                    'grid-line1',
+                    'M 103 218 L 64.5 218',
+                    config.show_grid,
+                    gridColour,
+                    data.gridLineWidth
+                )}
                 <circle id="grid-dot1" cx="0" cy="0"
                         r="${Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
                         fill="${totalGridPower === 0 ? 'transparent' : `${gridColour}`}"

@@ -258,10 +258,10 @@ export class SunsynkPowerFlowCard extends LitElement {
         const stateTotalPVGeneration = this.getEntity('entities.total_pv_generation');
 
         //Set defaults
-        const {invert_aux} = config.load;
+        const invert_aux = config.load?.invert_aux ?? false;
         const auxPower = stateAuxPower.toPower(invert_aux);
 
-        const {invert_grid} = config.grid;
+        const invert_grid = config.grid?.invert_grid ?? false;;
         const gridPower = stateGridCTPower.toPower(invert_grid);
         const gridPowerL2 = stateGridCTPowerL2.toPower(invert_grid);
         const gridPowerL3 = stateGridCTPowerL3.toPower(invert_grid);

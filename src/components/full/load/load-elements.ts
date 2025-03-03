@@ -6,8 +6,9 @@ import {DataDto, sunsynkPowerFlowCardConfig} from '../../../types';
 import {UnitOfPower} from '../../../const';
 import {getFullLayoutIconConfigs} from '../../shared/load/icon-configs';
 import {renderStaticLoadIcon} from '../../shared/load/render-static-load-icon';
-import {createTextWithPopup, renderText} from '../../shared/text-utils';
-import {renderIcon} from '../../shared/render-icon';
+import {createTextWithPopup, renderText} from '../../../helpers/text-utils';
+import {renderIcon} from '../../../helpers/render-icon';
+import {renderPath} from '../../../helpers/render-path';
 
 export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
     const {
@@ -235,20 +236,34 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 loadColour,
                 `${config.inverter.three_phase && config.entities?.load_power_L1 ? data.loadPowerL1 : '0'} ${config.inverter.three_phase && config.entities?.load_power_L2 ? '| ' + data.loadPowerL2 : ''} ${config.inverter.three_phase && config.entities?.load_power_L3 ? '| ' + data.loadPowerL3 : ''} ${UnitOfPower.WATT}`
             )}
-            <path id="es-load1" d="M 409 143 L 409 135" display="${showAux ? '' : 'none'}"
-                class="${[1, 2].includes(additionalLoad) ? '' : 'st12'}" fill="none"
-                stroke="${data.load1Colour}" stroke-width="1" stroke-miterlimit="10"
-                pointer-events="stroke"/>
-            <path id="es-load1" d="M 412 143 L 412 135" display="${!showAux ? '' : 'none'}"
-                class="${[4, 5, 6].includes(additionalLoad) ? '' : 'st12'}" fill="none"
-                stroke="${data.load2Colour}" stroke-width="1" stroke-miterlimit="10"
-                pointer-events="stroke"/>
-            <path id="es-load1" d="M 412 80 L 412 60" display="${!showAux ? '' : 'none'}"
-                class="${additionalLoad === 1 ? '' : 'st12'}" fill="none" stroke="${data.load1Colour}"
-                stroke-width="1" stroke-miterlimit="10" pointer-events="stroke"/>
-            <path id="es-load2" d="M 412 80 L 412 53" display="${!showAux ? '' : 'none'}"
-                class="${[2, 4, 5, 6].includes(additionalLoad) ? '' : 'st12'}" fill="none" stroke="${data.load1Colour}"
-                stroke-width="1" stroke-miterlimit="10" pointer-events="stroke"/>
+            ${renderPath(
+                'es-load1',
+                'M 409 143 L 409 135',
+                showAux && [1, 2].includes(additionalLoad),
+                data.load1Colour,
+                1
+            )}
+            ${renderPath(
+                'es-load1',
+                'M 412 143 L 412 135',
+                !showAux && [4, 5, 6].includes(additionalLoad),
+                data.load2Colour,
+                1
+            )}
+            ${renderPath(
+                'es-load1',
+                'M 412 80 L 412 60',
+                !showAux && additionalLoad === 1,
+                data.load1Colour,
+                1
+            )}
+            ${renderPath(
+                'es-load2',
+                'M 412 80 L 412 53',
+                !showAux && [2, 4, 5, 6].includes(additionalLoad),
+                data.load1Colour,
+                1
+            )}
             <svg id="load-flow">
                 <circle id="es-dot" cx="0" cy="0"
                         r="${Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
@@ -268,8 +283,13 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                         <mpath xlink:href="#es-line2"/>
                     </animateMotion>
                 </circle>
-                <path id="es-line2" d="M 306 118 L 371 118" fill="none" stroke="${dynamic_colour ? flowColour : loadColour}"
-                stroke-width="${data.loadLineWidth}" stroke-miterlimit="10" pointer-events="stroke"/>
+                ${renderPath(
+                    'es-line2',
+                    'M 306 118 L 371 118',
+                    true,
+                    dynamic_colour ? flowColour : loadColour,
+                    data.loadLineWidth
+                )}
             </svg>
             <svg id="load1-flow">
                 <circle id="es-dot" cx="0" cy="0"
@@ -290,9 +310,13 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                         <mpath xlink:href="#es-line"/>
                     </animateMotion>
                 </circle>
-                <path id="es-line" d="${config.wide ? 'M 236 118 L 118 118 Q 108 118 108 128 L 108 162': 'M 236 118 L 190 118 Q 180 118 180 128 L 180 162'}" fill="none"
-                    stroke="${dynamic_colour ? flowColour : loadColour}" stroke-width="${data.loadLineWidth}" stroke-miterlimit="10"
-                    pointer-events="stroke"/>
+                ${renderPath(
+                    'es-line',
+                    config.wide ? 'M 236 118 L 118 118 Q 108 118 108 128 L 108 162' : 'M 236 118 L 190 118 Q 180 118 180 128 L 180 162',
+                    true,
+                    dynamic_colour ? flowColour : loadColour,
+                    data.loadLineWidth
+                )}
             </svg>
             <!-- Essential Icon -->
             

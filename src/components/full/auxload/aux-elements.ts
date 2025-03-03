@@ -5,10 +5,11 @@ import {Utils} from '../../../helpers/utils';
 import {DataDto, sunsynkPowerFlowCardConfig} from '../../../types';
 import {icons} from '../../../helpers/icons';
 import {UnitOfPower} from '../../../const';
-import {createTextWithPopup, renderText} from '../../shared/text-utils';
+import {createTextWithPopup, renderText} from '../../../helpers/text-utils';
 import {getAuxIconConfigs} from './icon-configs';
 import {renderStaticAuxIcon} from './render-static-aux-icons';
-import {renderIcon} from '../../shared/render-icon';
+import {renderIcon} from '../../../helpers/render-icon';
+import {renderPath} from '../../../helpers/render-path';
 
 export const renderAuxLoadElements = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
     const {
@@ -91,10 +92,13 @@ export const renderAuxLoadElements = (data: DataDto, config: sunsynkPowerFlowCar
                 true
             )}
             <svg id="aux-flow">
-                <path id="aux-line" d="M 307 47 L 371 47" fill="none"
-                    class="${!showAux ? 'st12' : ''}" stroke="${auxDynamicColour}"
-                    stroke-width="${data.auxLineWidth}"
-                    stroke-miterlimit="10" pointer-events="stroke"/>
+                ${renderPath(
+                    'aux-line',
+                    'M 307 47 L 371 47',
+                    showAux,
+                    auxDynamicColour,
+                    data.auxLineWidth
+                )}
                 <circle id="aux-dot" cx="0" cy="0"
                         r="${Math.min(2 + data.auxLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
                         class="${!showAux || auxPower === 0 ? 'st12' : ''}"
@@ -117,10 +121,13 @@ export const renderAuxLoadElements = (data: DataDto, config: sunsynkPowerFlowCar
                 </circle>
             </svg>
             <svg id="aux1-flow">
-                <path id="aux-line2" d="${config.wide ? 'M 108 162 L 108 57 Q 108 47 118 47 L 237 47': 'M 180 162 L 180 57 Q 180 47 190 47 L 237 47'}" fill="none"
-                    class="${!showAux ? 'st12' : ''}" stroke="${auxDynamicColour}"
-                    stroke-width="${data.auxLineWidth}"
-                    stroke-miterlimit="10" pointer-events="stroke"/>
+                ${renderPath(
+                    'aux-line2',
+                    config.wide ? 'M 108 162 L 108 57 Q 108 47 118 47 L 237 47' : 'M 180 162 L 180 57 Q 180 47 190 47 L 237 47',
+                    showAux,
+                    auxDynamicColour,
+                    data.auxLineWidth
+                )}
                 <circle id="aux-dot" cx="0" cy="0"
                         r="${Math.min(2 + data.auxLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
                         class="${!showAux || auxPower === 0 ? 'st12' : ''}"

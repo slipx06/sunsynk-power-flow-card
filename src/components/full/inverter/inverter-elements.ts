@@ -5,7 +5,8 @@ import {Utils} from '../../../helpers/utils';
 import {AutarkyType, DataDto, sunsynkPowerFlowCardConfig} from '../../../types';
 import {icons} from '../../../helpers/icons';
 import {UnitOfElectricalCurrent, UnitOfPower} from '../../../const';
-import {createTextWithPopup, renderText} from '../../shared/text-utils';
+import {createTextWithPopup, renderText} from '../../../helpers/text-utils';
+import {renderPath} from '../../../helpers/render-path';
 
 export const renderInverterElements = (data: DataDto, inverterImg: string, config: sunsynkPowerFlowCardConfig) => {
     const {
@@ -91,9 +92,13 @@ export const renderInverterElements = (data: DataDto, inverterImg: string, confi
                 true
             )}
             <circle id="standby" cx="160" cy="304" r="3.5" fill="${data.inverterStateColour}"/>
-            <path d="${three_phase ? 'M 180 223 L 180 235' : 'M 180 212 L 180 235'}"
-                fill="none" stroke="${config.battery.dynamic_colour && config.load.dynamic_colour ? data.flowInvColour : inverterColour}" stroke-width="${data.minLineWidth}" stroke-miterlimit="10"
-                pointer-events="stroke"/>
+            ${renderPath(
+                'inverter-path',
+                three_phase ? 'M 180 223 L 180 235' : 'M 180 212 L 180 235',
+                true,
+                config.battery.dynamic_colour && config.load.dynamic_colour ? data.flowInvColour : inverterColour,
+                data.minLineWidth
+            )}
             ${config.inverter?.navigate
                 ? svg`
                     <a href="#" @click=${(e) => Utils.handleNavigation(e, config.inverter.navigate)}>

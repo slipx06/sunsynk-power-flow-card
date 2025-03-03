@@ -5,7 +5,7 @@ import {Utils} from '../../../helpers/utils';
 import {AutarkyType, DataDto, sunsynkPowerFlowCardConfig} from '../../../types';
 import {icons} from '../../../helpers/icons';
 import {UnitOfElectricalCurrent, UnitOfElectricPotential} from '../../../const';
-import {createTextWithPopup, renderText} from '../../shared/text-utils';
+import {createTextWithPopup, renderText} from '../../../helpers/text-utils';
 
 export const renderInverterElements = (data: DataDto, inverterImg: string, config: sunsynkPowerFlowCardConfig) => {
     const {

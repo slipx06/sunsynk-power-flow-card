@@ -7,8 +7,9 @@ import {icons} from '../../../helpers/icons';
 import {UnitOfElectricPotential, UnitOfPower, validGridConnected, validGridDisconnected} from '../../../const';
 import {getNonEssentialIconConfigs} from '../../shared/grid/icon-configs';
 import {renderStaticGridIcon} from '../../shared/grid/render-static-grid-icon';
-import {renderIcon} from '../../shared/render-icon';
-import {createTextWithPopup, renderText} from '../../shared/text-utils';
+import {renderIcon} from '../../../helpers/render-icon';
+import {createTextWithPopup, renderText} from '../../../helpers/text-utils';
+import {renderPath} from '../../../helpers/render-path';
 
 const renderGridIcons = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
     const isGridConnected = validGridConnected.includes(data.gridStatus.toLowerCase());
@@ -215,9 +216,13 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 true
             )}
             <svg id="grid-flow">
-                <path id="grid-line" d="M 304 188 L 411 188 Q 421 188 421 198 L421 265" fill="none"
-                    stroke="${gridColour}" stroke-width="${data.gridLineWidth}" stroke-miterlimit="10"
-                    pointer-events="stroke"/>
+                ${renderPath(
+                    'grid-line',
+                    'M 304 188 L 411 188 Q 421 188 421 198 L421 265',
+                    true,
+                    gridColour,
+                    data.gridLineWidth
+                )}
                 <circle id="grid-dot" cx="0" cy="0"
                         r="${Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
                         fill="${totalGridPower < 0 || totalGridPower === 0 ? 'transparent' : `${gridColour}`}">
@@ -238,11 +243,13 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 </circle>
             </svg>
             <svg id="grid1-flow">
-                <path id="grid-line1"
-                    d="${three_phase ? 'M 421 295 L 421 337' : 'M 421 295 L 421 310.5'}"
-                    fill="none" stroke="${gridColour}" stroke-width="${data.gridLineWidth}"
-                    stroke-miterlimit="10"
-                    pointer-events="stroke"/>
+                ${renderPath(
+                    'grid-line1',
+                    three_phase ? 'M 421 295 L 421 337' : 'M 421 295 L 421 310.5',
+                    true,
+                    gridColour,
+                    data.gridLineWidth
+                )}
                 <circle id="grid-dot" cx="0" cy="0"
                         r="${Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
                         fill="${totalGridPower < 0 || totalGridPower === 0 ? 'transparent' : `${gridColour}`}">
@@ -263,9 +270,13 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 </circle>
             </svg>
             <svg id="ne1-flow">
-                <path id="ne-line1" d="M 339 295 L 339 310" fill="none" stroke="${gridColour}"
-                    stroke-width="${data.nonessLineWidth}" stroke-miterlimit="10"
-                    class="${!showNonessential ? 'st12' : ''}" pointer-events="stroke"/>
+                ${renderPath(
+                    'ne-line1',
+                    'M 339 295 L 339 310',
+                    showNonessential,
+                    gridColour,
+                    data.nonessLineWidth
+                )}
                 <circle id="ne-dot1" cx="0" cy="0"
                         r="${Math.min(2 + data.nonessLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
                         class="${!showNonessential ? 'st12' : ''}"
@@ -278,9 +289,13 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 </circle>
             </svg>
             <svg id="ne-flow">
-                <path id="ne-line" d="M 339 265 L 339 188" fill="none" stroke="${gridColour}"
-                    stroke-width="${data.nonessLineWidth}" stroke-miterlimit="10"
-                    class="${!showNonessential ? 'st12' : ''}" pointer-events="stroke"/>
+                ${renderPath(
+                    'ne-line',
+                    'M 339 265 L 339 188',
+                    showNonessential,
+                    gridColour,
+                    data.nonessLineWidth
+                )}
                 <circle id="ne-dot" cx="0" cy="0"
                         r="${Math.min(2 + data.nonessLineWidth + Math.max(data.minLineWidth - 2, 0), 5)}"
                         class="${!showNonessential ? 'st12' : ''}"
@@ -293,9 +308,13 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 </circle>
             </svg>
             <svg id="grid2-flow">
-                <path id="grid2-line" d="${config.wide ? 'M143 187 234 187': 'M215 187 234 187'}" fill="none"
-                    stroke="${gridColour}" stroke-width="${data.grid169LineWidth}" stroke-miterlimit="10"
-                    pointer-events="stroke"/>
+                ${renderPath(
+                    'grid2-line',
+                    config.wide ? 'M143 187 234 187' : 'M215 187 234 187',
+                    true,
+                    gridColour,
+                    data.grid169LineWidth
+                )}
                 <circle id="grid-dot" cx="0" cy="0"
                         r="${Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
                         fill="${autoScaledGridPower < 0 || autoScaledGridPower === 0 ? 'transparent' : gridColour}">

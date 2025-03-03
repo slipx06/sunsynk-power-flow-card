@@ -7,7 +7,7 @@ import {UnitOfElectricalCurrent, UnitOfElectricPotential, UnitOfPower,} from '..
 import {icons} from '../../../helpers/icons';
 import {renderPV} from '../../shared/pv/render-pv';
 import {renderPVFlow} from '../../shared/pv/render-pv-flow';
-import {createTextWithPopup, renderText} from '../../shared/text-utils';
+import {createTextWithPopup, renderText} from '../../../helpers/text-utils';
 
 export const renderSolarElements = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
     const {

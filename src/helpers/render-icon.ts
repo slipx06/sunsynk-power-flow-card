@@ -1,5 +1,5 @@
 import {svg} from 'lit';
-import {Utils} from '../../helpers/utils';
+import {Utils} from './utils';
 
 /**
  * Renders a load icon with optional popup functionality.

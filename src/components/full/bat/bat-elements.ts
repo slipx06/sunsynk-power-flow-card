@@ -4,7 +4,8 @@ import {localize} from '../../../localize/localize';
 import {Utils} from '../../../helpers/utils';
 import {DataDto, sunsynkPowerFlowCardConfig} from '../../../types';
 import {UnitOfElectricalCurrent, UnitOfElectricPotential, UnitOfPower, UnitOfEnergy} from '../../../const';
-import {createTextWithPopup, renderText} from '../../shared/text-utils';
+import {createTextWithPopup, renderText} from '../../../helpers/text-utils';
+import {renderPath} from '../../../helpers/render-path';
 
 
 export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
@@ -457,7 +458,6 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
                     `${config.battery2.hide_soc ? 'st12' : 'st14 left-align'}`,
                     battery2Colour,
                     `${data.shutdownOffGrid2}%`,
-                    true
                 )}
                 <svg id="Battery2_SOC" 
                     style="overflow: visible; 
@@ -685,15 +685,17 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
                 )}
             </svg>
             <svg id="battery-flow">
-                <path id="bat-line" 
-                    d="${config.wide 
-                            ? (batteryCount === 2 
-                                ? 'M 279 280 L 156 281' 
-                                : 'M 279 280 L 96 280 Q 86 280 86 290 L 86 297') 
-                            : 'M 155 280 L 96 280 Q 86 280 86 290 L 86 297'}"
-                    fill="none"
-                    stroke="${config.battery.dynamic_colour ? data.flowBatColour : batteryColour}" stroke-width="${data.batLineWidth}" stroke-miterlimit="10"
-                    pointer-events="stroke"/>
+                ${renderPath(
+                    'bat-line',
+                    config.wide 
+                        ? (batteryCount === 2 
+                            ? 'M 279 280 L 156 281' 
+                            : 'M 279 280 L 96 280 Q 86 280 86 290 L 86 297') 
+                        : 'M 155 280 L 96 280 Q 86 280 86 290 L 86 297',
+                    true,
+                    config.battery.dynamic_colour ? data.flowBatColour : batteryColour,
+                    data.batLineWidth
+                )}
                 <circle id="power-dot-discharge" cx="0" cy="0"
                         r="${Math.min(2 + data.batLineWidth + Math.max(data.minLineWidth - 2, 0), 8)}"
                         fill="${data.batteryPowerTotal < 0 || data.batteryPowerTotal === 0 ? 'transparent' : `${batteryColour}`}">
