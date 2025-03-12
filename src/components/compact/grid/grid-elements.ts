@@ -160,8 +160,7 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     totalGridPower === 0 ? 'transparent' : gridColour,
                     data.durationCur['grid'],
                     grid1FlowKeyPoints,
-                    '#grid-line1',
-                    invert_flow
+                    '#grid-line1'
                 )}
             </svg>
             ${config.grid?.navigate

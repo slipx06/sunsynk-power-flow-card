@@ -103,7 +103,7 @@ export const renderAuxLoadElements = (data: DataDto, config: sunsynkPowerFlowCar
                 ${renderCircle(
                     'aux-dot',
                     Math.min(2 + data.auxLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
-                    auxPower < 0 ? 'transparent' : auxDynamicColour,
+                    auxPower <= 0 ? 'transparent' : auxDynamicColour,
                     data.durationCur['aux'],
                     "0;1",
                     "#aux-line"
@@ -111,7 +111,7 @@ export const renderAuxLoadElements = (data: DataDto, config: sunsynkPowerFlowCar
                 ${renderCircle(
                     'aux-dot',
                     Math.min(2 + data.auxLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
-                    auxPower > 0 ? 'transparent' : auxDynamicColour,
+                    auxPower >= 0 ? 'transparent' : auxDynamicColour,
                     data.durationCur['aux'],
                     "1;0",
                     "#aux-line"
