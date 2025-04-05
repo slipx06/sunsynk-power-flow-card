@@ -21,7 +21,10 @@ import {MPPSolar} from './brands/mpp-solar';
 import {SMASolar} from './brands/sma-solar';
 import {E3dc} from './brands/e3dc';
 import {Sungrow} from './brands/sungrow';
-
+import {Sigenergy} from './brands/sigenergy';
+import {Linky} from './brands/linky';
+import {Ferroamp} from './brands/ferroamp';
+import {Easun} from './brands/easun';
 
 
 export class InverterFactory {
@@ -36,6 +39,14 @@ export class InverterFactory {
 
     private static createInstance(brand: InverterModel): InverterSettingsDto {
         switch (brand) {
+            case InverterModel.Sigenergy:
+                return new Sigenergy();
+            case InverterModel.Linky:
+                return new Linky();
+            case InverterModel.Ferroamp:
+                return new Ferroamp();
+            case InverterModel.Easun:
+                return new Easun();
             case InverterModel.Azzurro:
                 return new Azzurro();
             case InverterModel.Solis:

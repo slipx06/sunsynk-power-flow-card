@@ -342,8 +342,13 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 )}
             </svg>
             <svg id="Esential-Load5" 
-                    viewBox="${config.wide && [5, 6].includes(additionalLoad) ? "0 0 720 405" : "0 0 0 0"}" 
-                    style="overflow: visible" x="-5%">
+                 style="overflow: visible; display: ${
+                    [5, 6].includes(additionalLoad)
+                        ? (config.wide || (!config.wide && [1, 2, 3].includes(config.solar.mppts))) 
+                            ? 'inline' 
+                            : 'none'
+                        : `none`};"
+                 x="${config.wide ? '-5%' : '-7.35%'}">
                 <rect id="es-load5" x="405" y="107" width="35" height="20" rx="4.5" ry="4.5" fill="none"
                     stroke="${data.dynamicColourEssentialLoad5}" pointer-events="all"
                     display="${[5, 6].includes(additionalLoad) ? '' : 'none'}"/>
@@ -380,7 +385,14 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     (e) => Utils.handlePopup(e, config.entities.essential_load5)
                 )}
             </svg>
-            <svg id="Esential-Load6" viewBox="${config.wide && additionalLoad === 6  ? '0 0 720 405' : '0 0 0 0'}" style="overflow: visible" x="-5%">
+            <svg id="Esential-Load6"
+                 style="overflow: visible; display: ${
+                    [5, 6].includes(additionalLoad)
+                        ? (config.wide || (!config.wide && [1, 2, 3].includes(config.solar.mppts))) 
+                            ? 'inline' 
+                            : 'none'
+                        : `none`};" 
+                 x="${config.wide ? '-5%' : '-7.35%'}">
                 <rect id="es-load6" x="405" y="290" width="35" height="20" rx="4.5" ry="4.5" fill="none"
                     stroke="${data.dynamicColourEssentialLoad6}" pointer-events="all"
                     display="${additionalLoad === 6 ? '' : 'none'}"/>

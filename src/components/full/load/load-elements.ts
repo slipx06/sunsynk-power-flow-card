@@ -52,9 +52,13 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
         <!-- Load Elements -->
         <svg id="Load" style="overflow: visible; border: 1px solid red;" x="${config.wide ? '30%' : '3%'}" y="2.5%">
             <svg id="es-load5" 
-                    style="overflow: visible" 
-                    viewBox="${config.wide && [5, 6].includes(additionalLoad) ? "0 0 720 405" : "0 0 0 0"}" 
-                    x="5%">
+                 style="overflow: visible; display: ${
+                    [5, 6].includes(additionalLoad)
+                        ? (config.wide || !config.load.show_aux) 
+                            ? 'inline' 
+                            : 'none'
+                        : `none`};" 
+                 x="${config.wide ? '5%' : '-15.25%'}">
                 <rect id="es-load5" x="413"
                     y="30" width="35" height="20" rx="4.5" ry="4.5"
                     fill="none" stroke="${dynamicColourEssentialLoad5}" pointer-events="all"
@@ -93,9 +97,13 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 )}
             </svg>
             <svg id="es-load6" 
-                    style="overflow: visible" 
-                    viewBox="${config.wide && [6].includes(additionalLoad) ? "0 0 720 405" : "0 0 0 0"}" 
-                    x="5%">
+                 style="overflow: visible; display: ${
+                    [5, 6].includes(additionalLoad)
+                        ? (config.wide || !config.load.show_aux) 
+                            ? 'inline' 
+                            : 'none'
+                        : `none`};" 
+                 x="${config.wide ? '5%' : '-15.25%'}">
                 <rect id="es-load6" x="413"
                     y="149" width="35" height="20" rx="4.5" ry="4.5"
                     fill="none" stroke="${dynamicColourEssentialLoad6}" pointer-events="all"
@@ -116,7 +124,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     'ess_load6_value_extra',
                     418,
                     190,
-                    !!config.entities?.essential_load6_extra && [5, 6].includes(additionalLoad) && !showAux && data.stateEssentialLoad6Extra.isValid(),
+                    !!config.entities?.essential_load6_extra && [5, 6].includes(additionalLoad) && !showAux && !!config.wide && data.stateEssentialLoad6Extra.isValid(),
                     'st3 left-align',
                     dynamicColourEssentialLoad6,
                     `${data.stateEssentialLoad6Extra.toNum(1)} ${data.stateEssentialLoad6Extra?.getUOM()}`,

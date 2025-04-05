@@ -415,7 +415,7 @@ export class SunsynkPowerFlowCard extends LitElement {
             !validLoadValues.includes(additionalLoad) ||
             (this.isFullCard && [3, 4, 5, 6].includes(additionalLoad) && showAux) ||
             (this.isFullCard && additionalLoad === 3) ||
-            (!config.wide && additionalLoad >= 5); // New condition
+            (this.isCompactCard && !config.wide && additionalLoad >= 5 && [4, 5, 6].includes(config.solar.mppts));
 
         if (invalidLoad) {
         additionalLoad = 0;
