@@ -98,7 +98,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
             </svg>
             <svg id="es-load6" 
                  style="overflow: visible; display: ${
-                    [5, 6].includes(additionalLoad)
+                    [6].includes(additionalLoad)
                         ? (config.wide || !config.load.show_aux) 
                             ? 'inline' 
                             : 'none'

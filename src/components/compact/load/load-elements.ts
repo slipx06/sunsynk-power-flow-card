@@ -387,7 +387,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
             </svg>
             <svg id="Esential-Load6"
                  style="overflow: visible; display: ${
-                    [5, 6].includes(additionalLoad)
+                    [6].includes(additionalLoad)
                         ? (config.wide || (!config.wide && [1, 2, 3].includes(config.solar.mppts))) 
                             ? 'inline' 
                             : 'none'
