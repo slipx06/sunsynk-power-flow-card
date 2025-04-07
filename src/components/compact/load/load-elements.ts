@@ -370,7 +370,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     147,
                     !!config.entities?.essential_load5_extra && [5, 6].includes(additionalLoad) && data.stateEssentialLoad5Extra.isValid(),
                     'st3 right-align',
-                    dynamicColourEssentialLoad1,
+                    dynamicColourEssentialLoad5,
                     `${data.stateEssentialLoad5Extra.toNum(1)} ${data.stateEssentialLoad5Extra.getUOM()}`,
                     (e) => Utils.handlePopup(e, config.entities.essential_load5_extra)
                 )}
