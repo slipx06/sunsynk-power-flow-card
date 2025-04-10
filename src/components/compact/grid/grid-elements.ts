@@ -277,14 +277,14 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 (e) => Utils.handlePopup(e, config.entities.prepaid_units),
                 true
             )}
-            ${createTextWithPopup(
+			${createTextWithPopup(
                 'grid-power-L1',
                 80,
                 241,
                 three_phase,
                 !config.show_grid ? 'st12' : 'st3 left-align',
                 gridColour,
-                config.load.auto_scale ? `${Utils.convertValue(data.gridPower, decimalPlaces) || 0}` : `${data.gridPower || 0} ${UnitOfPower.WATT}`,
+                auto_scale ? `${Utils.convertValue(data.gridPower, decimalPlaces) || 0}` : `${data.gridPower || 0} ${UnitOfPower.WATT}`,
                 (e) => Utils.handlePopup(e, config.entities.grid_ct_power_172),
             )}
             ${createTextWithPopup(
@@ -294,7 +294,7 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 !!(three_phase && config.entities?.grid_ct_power_L2),
                 !config.show_grid ? 'st12' : 'st3 left-align',
                 gridColour,
-                config.load.auto_scale ? `${Utils.convertValue(data.gridPowerL2, decimalPlaces) || 0}` : `${data.gridPowerL2 || 0} ${UnitOfPower.WATT}`,
+                auto_scale ? `${Utils.convertValue(data.gridPowerL2, decimalPlaces) || 0}` : `${data.gridPowerL2 || 0} ${UnitOfPower.WATT}`,
                 (e) => Utils.handlePopup(e, config.entities.grid_ct_power_L2),
             )}
             ${createTextWithPopup(
@@ -304,7 +304,7 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 !!(three_phase && config.entities?.grid_ct_power_L3),
                 !config.show_grid ? 'st12' : 'st3 left-align',
                 gridColour,
-                config.load.auto_scale ? `${Utils.convertValue(data.gridPowerL3, decimalPlaces) || 0}` : `${data.gridPowerL3 || 0} ${UnitOfPower.WATT}`,
+                auto_scale ? `${Utils.convertValue(data.gridPowerL3, decimalPlaces) || 0}` : `${data.gridPowerL3 || 0} ${UnitOfPower.WATT}`,
                 (e) => Utils.handlePopup(e, config.entities.grid_ct_power_L3),
             )}
         </svg>

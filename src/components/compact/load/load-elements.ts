@@ -440,32 +440,26 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 true
             )}
             ${renderText(
-                'load-power-L1',
-                config.wide ? '304' : '375',
+                'load-power-3P',
+                304,
                 241,
-                !!(config.inverter.three_phase && config.entities?.load_power_L1),
+                config.inverter.three_phase && !!config.entities?.load_power_L1,
                 'st3 left-align',
                 loadColour,
-                auto_scale ? `${Utils.convertValue(data.loadPowerL1, decimalPlaces) || 0}` : `${data.loadPowerL1 || 0} ${UnitOfPower.WATT}`
-            )}
-            ${renderText(
-                'load-power-L2',
-                config.wide ? '304' : '375',
-                254,
-                !!(config.inverter.three_phase && config.entities?.load_power_L2),
-                'st3 left-align',
-                loadColour,
-                auto_scale ? `${Utils.convertValue(data.loadPowerL2, decimalPlaces) || 0}` : `${data.loadPowerL2 || 0} ${UnitOfPower.WATT}`
-            )}
-            ${renderText(
-                'load-power-L3',
-                config.wide ? '304' : '375',
-                267,
-                !!(config.inverter.three_phase && config.entities?.load_power_L3),
-                'st3 left-align',
-                loadColour,
-                auto_scale ? `${Utils.convertValue(data.loadPowerL3, decimalPlaces) || 0}` : `${data.loadPowerL3 || 0} ${UnitOfPower.WATT}`
-            )}
+                config.inverter.three_phase && config.entities?.load_power_L1 
+                    ? `${auto_scale ? Utils.convertValue(data.loadPowerL1, decimalPlaces) || 0 : `${data.loadPowerL1 || 0}`}${
+                        config.inverter.three_phase && config.entities?.load_power_L2 
+                            ? ` | ${auto_scale ? Utils.convertValue(data.loadPowerL2, decimalPlaces) || 0 : `${data.loadPowerL2 || 0}`}`
+                            : ''
+                    }${
+                        config.inverter.three_phase && config.entities?.load_power_L3 
+                            ? ` | ${auto_scale ? Utils.convertValue(data.loadPowerL3, decimalPlaces) || 0 : `${data.loadPowerL3 || 0}`}`
+                            : ''
+                    }${
+                        auto_scale ? '' : ` ${UnitOfPower.WATT}`
+                    }`
+                    : '0'
+            )}     
             <svg id="load-flow">
                 ${renderPath(
                     'es-line',
