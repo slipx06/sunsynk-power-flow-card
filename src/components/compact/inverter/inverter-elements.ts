@@ -196,7 +196,10 @@ export const renderInverterElements = (data: DataDto, inverterImg: string, confi
                 config.entities.inverter_voltage_154 === 'none' || !config.entities.inverter_voltage_154,
                 'st3 left-align',
                 inverterColour,
-                `${data.inverterVoltage}${three_phase && config.entities?.inverter_voltage_L2 ? '| ' + data.inverterVoltageL2 : ''}${three_phase && config.entities?.inverter_voltage_L3 ? '| ' + data.inverterVoltageL3 : ''} ${UnitOfElectricPotential.VOLT}`,
+                `${data.inverterVoltage}`
+                + `${three_phase && config.entities?.inverter_voltage_L2 ? ' | ' + data.inverterVoltageL2 : ''}`
+                + `${three_phase && config.entities?.inverter_voltage_L3 ? ' | ' + data.inverterVoltageL3 : ''}`
+                + ` ${UnitOfElectricPotential.VOLT}`,
                 (e) => Utils.handlePopup(e, config.entities.inverter_voltage_154),
                 true
             )}
@@ -218,7 +221,10 @@ export const renderInverterElements = (data: DataDto, inverterImg: string, confi
                 config.entities.inverter_current_164 === 'none' || !config.entities.inverter_current_164,
                 'st3 left-align',
                 inverterColour,
-                `${data.inverterCurrent}${three_phase && config.entities?.inverter_current_L2 ? '| ' + data.inverterCurrentL2 : ''}${three_phase && config.entities?.inverter_current_L3 ? '| ' + data.inverterCurrentL3 : ''} ${UnitOfElectricalCurrent.AMPERE}`,
+                `${data.inverterCurrent}`
+                + `${three_phase && config.entities?.inverter_current_L2 ? ' | ' + data.inverterCurrentL2 : ''}`
+                + `${three_phase && config.entities?.inverter_current_L3 ? ' | ' + data.inverterCurrentL3 : ''}`
+                + ` ${UnitOfElectricalCurrent.AMPERE}`,
                 (e) => Utils.handlePopup(e, config.entities.inverter_current_164),
                 true
             )}
