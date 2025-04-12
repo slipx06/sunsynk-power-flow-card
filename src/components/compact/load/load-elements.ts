@@ -136,7 +136,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     display="${additionalLoad === 3 ? '' : 'none'}"/>
                 ${renderText(
                     'es-load2',
-                    433,
+                    438,
                     320,
                     additionalLoad === 3,
                     'st3 st8 right-align',
@@ -145,7 +145,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 )}
                 ${renderText(
                     'es-load3',
-                    448,
+                    444,
                     320,
                     additionalLoad === 3,
                     'st3 st8 left-align',
@@ -160,7 +160,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 </g>
                 ${createTextWithPopup(
                     'ess_load2_extra',
-                    435,
+                    438,
                     332,
                     !!config.entities?.essential_load2_extra && additionalLoad === 3 && data.stateEssentialLoad2Extra.isValid(),
                     'st3 right-align',
@@ -170,7 +170,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 )}
                 ${createTextWithPopup(
                     'ess_load3_extra',
-                    448,
+                    444,
                     332,
                     !!config.entities?.essential_load3_extra && additionalLoad === 3 && data.stateEssentialLoad3Extra.isValid(),
                     'st3 left-align',
@@ -214,7 +214,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     display="${additionalLoad >= 4 ? '' : 'none'}"/>
                 ${renderText(
                     'es-load1',
-                    435,
+                    438,
                     136,
                     additionalLoad >= 4,
                     'st3 st8 right-align',
@@ -223,7 +223,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 )}
                 ${renderText(
                     'es-load2',
-                    448,
+                    444,
                     136,
                     additionalLoad >= 4,
                     'st3 st8 left-align',
@@ -232,7 +232,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 )}
                 ${renderText(
                     'es-load3',
-                    435,
+                    438,
                     320,
                     additionalLoad >= 4,
                     'st3 st8 right-align',
@@ -241,7 +241,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 )}
                 ${renderText(
                     'es-load4',
-                    448,
+                    444,
                     320,
                     additionalLoad >= 4,
                     'st3 st8 left-align',
@@ -262,7 +262,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 </g>
                 ${createTextWithPopup(
                     'ess_load1_extra',
-                    435,
+                    438,
                     147,
                     !!config.entities?.essential_load1_extra && additionalLoad >= 4 && data.stateEssentialLoad1Extra.isValid(),
                     'st3 right-align',
@@ -272,7 +272,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 )}
                 ${createTextWithPopup(
                     'ess_load2_extra',
-                    448,
+                    444,
                     147,
                     !!config.entities?.essential_load2_extra && additionalLoad >= 4 && data.stateEssentialLoad2Extra.isValid(),
                     'st3 left-align',
@@ -282,7 +282,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 )}                   
                 ${createTextWithPopup(
                     'ess_load3_extra',
-                    435,
+                    438,
                     332,
                     !!config.entities?.essential_load3_extra && additionalLoad >= 4 && data.stateEssentialLoad3Extra.isValid(),
                     'st3 right-align',
@@ -292,7 +292,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 )}
                 ${createTextWithPopup(
                     'ess_load4_extra',
-                    448,
+                    444,
                     332,
                     !!config.entities?.essential_load4_extra && additionalLoad >= 4 && data.stateEssentialLoad4Extra.isValid(),
                     'st3 left-align',
@@ -354,7 +354,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     display="${[5, 6].includes(additionalLoad) ? '' : 'none'}"/>
                 ${renderText(
                     'es-load5',
-                    435,
+                    437,
                     136,
                     [5, 6].includes(additionalLoad),
                     'st3 st8 right-align',
@@ -366,7 +366,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 </g>
                 ${createTextWithPopup(
                     'ess_load5_extra',
-                    435,
+                    437,
                     147,
                     !!config.entities?.essential_load5_extra && [5, 6].includes(additionalLoad) && data.stateEssentialLoad5Extra.isValid(),
                     'st3 right-align',
@@ -398,7 +398,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     display="${additionalLoad === 6 ? '' : 'none'}"/>
                 ${renderText(
                     'es-load6',
-                    435,
+                    437,
                     320,
                     additionalLoad === 6,
                     'st3 st8 right-align',
@@ -410,7 +410,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 </g>
                 ${createTextWithPopup(
                     'ess_load6_extra',
-                    435,
+                    437,
                     332,
                     !!config.entities?.essential_load6_extra && additionalLoad === 6 && data.stateEssentialLoad6Extra.isValid(),
                     'st3 right-align',

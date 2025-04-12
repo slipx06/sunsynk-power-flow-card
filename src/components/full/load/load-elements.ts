@@ -65,10 +65,10 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     display="${[5, 6].includes(additionalLoad) ? '' : 'none'}"/>
                 ${renderText(
                     'ess-load5',
-                    418,
+                    config.wide ? 416 : 445,
                     59,
                     [5, 6].includes(additionalLoad),
-                    'st3 st8 left-align',
+                    config.wide ? 'st3 st8 left-align' : 'st3 st8 right-align',
                     dynamicColourEssentialLoad5,
                     load5_name
                 )}
@@ -77,10 +77,10 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 </g>
                 ${createTextWithPopup(
                     'ess_load5_value_extra',
-                    418,
+                    config.wide ? 416 : 445,
                     70,
                     !!config.entities?.essential_load5_extra && [5, 6].includes(additionalLoad) && !showAux && data.stateEssentialLoad5Extra.isValid(),
-                    'st3 left-align',
+                    config.wide ? 'st3 left-align' : 'st3 right-align',
                     dynamicColourEssentialLoad5,
                     `${data.stateEssentialLoad5Extra.toNum(1)} ${data.stateEssentialLoad5Extra?.getUOM()}`,
                     (e) => Utils.handlePopup(e, config.entities.essential_load5_extra)
@@ -110,10 +110,10 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                     display="${[5, 6].includes(additionalLoad) ? '' : 'none'}"/>
                 ${renderText(
                     'ess-load6',
-                    418,
+                    config.wide ? 416 : 445,
                     178,
                     [5, 6].includes(additionalLoad),
-                    'st3 st8 left-align',
+                    config.wide ? 'st3 st8 left-align' : 'st3 st8 right-align',
                     dynamicColourEssentialLoad6,
                     load6_name
                 )}
@@ -122,10 +122,10 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 </g>
                 ${createTextWithPopup(
                     'ess_load6_value_extra',
-                    418,
+                    config.wide ? 416 : 445,
                     190,
                     !!config.entities?.essential_load6_extra && [5, 6].includes(additionalLoad) && !showAux && !!config.wide && data.stateEssentialLoad6Extra.isValid(),
-                    'st3 left-align',
+                    config.wide ? 'st3 left-align' : 'st3 right-align',
                     dynamicColourEssentialLoad6,
                     `${data.stateEssentialLoad6Extra.toNum(1)} ${data.stateEssentialLoad6Extra?.getUOM()}`,
                     (e) => Utils.handlePopup(e, config.entities.essential_load6_extra)
@@ -174,7 +174,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
             )}
             ${renderText(
                 'ess_load',
-                411,
+                !showAux && [4, 5, 6].includes(additionalLoad) ? 411 : 409,
                 130,
                 ([1, 2].includes(additionalLoad) && showAux) || (!showAux && [4, 5, 6].includes(additionalLoad)),
                 'st3 st8',
@@ -183,16 +183,16 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
             )}
             ${renderText(
                 'ess-load1',
-                416,
-                !showAux ? 70 : 181,
+                409,
+                !showAux ? 23 : 181,
                 additionalLoad === 1,
-                'st3 left-align',
+                'st3',
                 dynamicColourEssentialLoad1,
                 load1_name
             )}
             ${renderText(
                 'ess-load2',
-                !showAux ? 405 : 402,
+                !showAux ? 408 : 406,
                 !showAux ? 59 : 178,
                 [2, 4, 5, 6].includes(additionalLoad),
                 'st3 st8 right-align',
@@ -201,7 +201,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
             )}
             ${renderText(
                 'ess-load2',
-                !showAux ? 418 : 415,
+                !showAux ? 414 : 412,
                 !showAux ? 59 : 178,
                 [2, 4, 5, 6].includes(additionalLoad),
                 'st3 st8 left-align',
@@ -210,7 +210,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
             )}
             ${renderText(
                 'ess-load4',
-                405,
+                408,
                 178,
                 [4, 5, 6].includes(additionalLoad),
                 'st3 st8 right-align',
@@ -219,7 +219,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
             )}
             ${renderText(
                 'ess-load4',
-                418,
+                414,
                 178,
                 [4, 5, 6].includes(additionalLoad),
                 'st3 st8 left-align',
@@ -477,10 +477,10 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
             )}
             ${createTextWithPopup(
                 'ess_load1_value_extra',
-                430,
-                23,
+                416,
+                70,
                 !!config.entities?.essential_load1_extra && additionalLoad === 1 && !showAux && data.stateEssentialLoad1Extra.isValid(),
-                'st3 right-align',
+                'st3 left-align',
                 dynamicColourEssentialLoad1,
                 `${data.stateEssentialLoad1Extra.toNum(1)} ${data.stateEssentialLoad1Extra?.getUOM()}`,
                 (e) => Utils.handlePopup(e, config.entities.essential_load1_extra)
@@ -496,8 +496,8 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
                 (e) => Utils.handlePopup(e, config.entities.essential_load1_extra)
             )}
             ${createTextWithPopup(
-                'ess_load2_value_extra',
-                405,
+                'ess_load1_value_extra',
+                408,
                 70,
                 !!config.entities?.essential_load1_extra && [2, 4, 5, 6].includes(additionalLoad) && !showAux && data.stateEssentialLoad1Extra.isValid(),
                 'st3 right-align',
@@ -507,7 +507,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
             )}
             ${createTextWithPopup(
                 'ess_load2_value_extra',
-                418,
+                414,
                 70,
                 !!config.entities?.essential_load2_extra && [2, 4, 5, 6].includes(additionalLoad) && !showAux && data.stateEssentialLoad2Extra.isValid(),
                 'st3 left-align',
@@ -547,7 +547,7 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
             ${createTextWithPopup(
                 'ess_load1_value',
                 409,
-                showAux ? 158 : 47,
+                showAux ? 160 : 47,
                 additionalLoad === 1 && data.stateEssentialLoad1.isValid(),
                 `${largeFont !== true ? 'st14' : 'st4'} st8`,
                 dynamicColourEssentialLoad1,
