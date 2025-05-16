@@ -17,6 +17,7 @@ import {CesBatteryBox} from './brands/ces-battery-box';
 import {SolarEdge} from './brands/solar-edge';
 import {Deye} from './brands/deye';
 import {Azzurro} from './brands/azzurro';
+import {MakeSkyBlue} from './brands/makeskyblue';
 import {MPPSolar} from './brands/mpp-solar';
 import {SMASolar} from './brands/sma-solar';
 import {E3dc} from './brands/e3dc';
@@ -87,6 +88,8 @@ export class InverterFactory {
                 return new SMASolar();
             case InverterModel.Sungrow: 
                 return new Sungrow();
+            case InverterModel.MakeSkyBlue:
+                return new MakeSkyBlue();
             case InverterModel.Sunsynk:
             default:
                 return new Sunsynk()
