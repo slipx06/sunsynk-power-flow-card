@@ -1,5 +1,6 @@
 import {unitOfEnergyConversionRules, UnitOfEnergyOrPower, UnitOfPower, UnitOfEnergy} from '../const';
 import { navigate } from 'custom-card-helpers';
+import { globalData } from './globals';
 
 export class Utils {
     static toNum(val: string | number, decimals: number = -1, invert: boolean = false): number {
@@ -80,6 +81,12 @@ export class Utils {
           return;
         }
         event.preventDefault();
+		const navUpper = navigationPath.toUpperCase();
+		if (navUpper.startsWith("BA") || navUpper.startsWith("BG")) {
+			globalData.hass?.callService("luxpower", "luxpower_refresh_registers", { dongle: navigationPath });
+			event.stopPropagation();
+			return;
+		}
         this._handleClick(event, { action: 'navigate', navigation_path: navigationPath }, null);
       }
 
