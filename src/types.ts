@@ -22,6 +22,7 @@ export enum InverterModel {
 	Huawei = 'huawei',
 	Lux = 'lux',
 	Linky = 'linky',
+	MakeSkyBlue = 'makeskyblue',
 	MPPSolar = 'mppsolar',
 	PowMr = 'powmr',
 	Sigenergy = 'sigenergy',
