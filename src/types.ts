@@ -34,6 +34,7 @@ export enum InverterModel {
 	Sungrow = `sungrow`,
 	Sunsynk = 'sunsynk',
 	Victron = 'victron',
+	Solinteg = 'solinteg',	
 }
 
 export enum CardStyle {

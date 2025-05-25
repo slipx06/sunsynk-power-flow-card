@@ -26,7 +26,7 @@ import {Sigenergy} from './brands/sigenergy';
 import {Linky} from './brands/linky';
 import {Ferroamp} from './brands/ferroamp';
 import {Easun} from './brands/easun';
-
+import {Solinteg} from './brands/solinteg';
 
 export class InverterFactory {
     static instance: InverterSettingsDto;
@@ -90,6 +90,8 @@ export class InverterFactory {
                 return new Sungrow();
             case InverterModel.MakeSkyBlue:
                 return new MakeSkyBlue();
+            case InverterModel.Solinteg:
+                return new Solinteg();                
             case InverterModel.Sunsynk:
             default:
                 return new Sunsynk()
