@@ -450,7 +450,9 @@ export class SunsynkPowerFlowCard extends LitElement {
         const largeFont = config.large_font;
         const inverterColour = this.colourConvert(config.inverter?.colour);
         const enableAutarky = config.inverter?.autarky;
+        stateUseTimer.state = stateUseTimer.state === 'Disabled' ? 'off' : stateUseTimer.state === 'Enabled' || stateUseTimer.state.match(/Week|day/) ? 'on' : stateUseTimer.state;
         const enableTimer = !config.entities.use_timer_248 ? false : stateUseTimer.state;
+        statePriorityLoad.state = statePriorityLoad.state === 'Battery First' ? 'off' : statePriorityLoad.state === 'Load First' ? 'on' : statePriorityLoad.state;
         const priorityLoad = !config.entities.priority_load_243 ? false : statePriorityLoad.state;
         let batteryPower = stateBatteryPower.toPower(config.battery?.invert_power);
         let battery2Power = stateBattery2Power.toPower(config.battery2?.invert_power);
@@ -678,7 +680,7 @@ export class SunsynkPowerFlowCard extends LitElement {
                 }
         
                 function assignInverterProgValues(prog, entityID) {
-                    if (prog.charge.state === 'No Grid or Gen' || prog.charge.state === '0' || prog.charge.state === 'off') {
+                    if (prog.charge.state === 'No Grid or Gen' || prog.charge.state === '0' || prog.charge.state === 'off' || prog.charge.state === 'Disabled') {
                         inverterProg.charge = 'none';
                     } else {
                         inverterProg.charge = 'both';
