@@ -1,4 +1,5 @@
 import * as ca from './languages/ca.json';
+import * as cn from './languages/cn.json';
 import * as cs from './languages/cs.json';
 import * as da from './languages/da.json';
 import * as de from './languages/de.json';
@@ -18,6 +19,7 @@ import {globalData} from '../helpers/globals';
 
 const languages: any = {
     ca: ca,
+    zh_Hans: cn,
     cs: cs,
     da: da,
     de: de,
