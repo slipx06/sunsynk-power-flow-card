@@ -19,7 +19,7 @@ import {globalData} from '../helpers/globals';
 
 const languages: any = {
     ca: ca,
-    zh_Hans: cn,
+    "zh-Hant": cn,  // Traditional Chinese
     cs: cs,
     da: da,
     de: de,
