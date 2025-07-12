@@ -20,7 +20,7 @@ import {globalData} from '../helpers/globals';
 
 const languages: any = {
     ca: ca,
-    "zh-Hant": cn,  // Traditional Chinese
+    "zh-Hans": cn,  // Simplified Chinese
     cs: cs,
     da: da,
     de: de,
@@ -39,12 +39,25 @@ const languages: any = {
     uk: uk,
 };
 
+
+
 export function localize(string: string, search = '', replace = '') {
     const langFromLocalStorage = (localStorage.getItem('selectedLanguage') || 'en')
         .replace(/['"]+/g, '')
         .replace('-', '_');
 
     const lang = `${globalData.hass?.selectedLanguage || globalData.hass?.locale?.language || globalData.hass?.language || langFromLocalStorage}`;
+
+    // Add logging to track language selection
+    console.log('=== Language Selection Debug ===');
+    console.log('Home Assistant selectedLanguage:', globalData.hass?.selectedLanguage);
+    console.log('Home Assistant locale.language:', globalData.hass?.locale?.language);
+    console.log('Home Assistant language:', globalData.hass?.language);
+    console.log('LocalStorage selectedLanguage:', langFromLocalStorage);
+    console.log('Selected language:', lang);
+    console.log('Available languages:', Object.keys(languages));
+    console.log('Language object exists:', !!languages[lang]);
+    console.log('================================');
 
     let translated: string;
 
