@@ -48,17 +48,6 @@ export function localize(string: string, search = '', replace = '') {
 
     const lang = `${globalData.hass?.selectedLanguage || globalData.hass?.locale?.language || globalData.hass?.language || langFromLocalStorage}`;
 
-    // Add logging to track language selection
-    console.log('=== Language Selection Debug ===');
-    console.log('Home Assistant selectedLanguage:', globalData.hass?.selectedLanguage);
-    console.log('Home Assistant locale.language:', globalData.hass?.locale?.language);
-    console.log('Home Assistant language:', globalData.hass?.language);
-    console.log('LocalStorage selectedLanguage:', langFromLocalStorage);
-    console.log('Selected language:', lang);
-    console.log('Available languages:', Object.keys(languages));
-    console.log('Language object exists:', !!languages[lang]);
-    console.log('================================');
-
     let translated: string;
 
     try {
