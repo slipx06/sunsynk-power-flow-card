@@ -68,7 +68,9 @@
         "powerassist": "Power Assist",
         "powersupply": "Джерело живлення",
         "sustain": "Підтримка",
-        "externalcontrol": "Зовнішній контроль"
+        "externalcontrol": "Зовнішній контроль",
+        "recharge": "Перезарядка",
+        "scheduledrecharge": "Запланована перезарядка"
         },
     "errors": {
         "battery": {

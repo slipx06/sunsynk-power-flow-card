@@ -68,7 +68,9 @@
         "powerassist": "Power Assist",
         "powersupply": "Power Supply",
         "sustain": "Sustain",
-        "externalcontrol": "External Control"
+        "externalcontrol": "External Control",
+        "recharge": "Recharge",
+        "scheduledrecharge": "Recharge Programmée"
     },
     "errors": {
         "battery": {

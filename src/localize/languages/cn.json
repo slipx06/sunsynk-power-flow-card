@@ -68,7 +68,9 @@
     "powerassist": "功率辅助",
     "powersupply": "电源供应",
     "sustain": "维持",
-    "externalcontrol": "外部控制"
+    "externalcontrol": "外部控制",
+    "recharge": "充电",
+    "scheduledrecharge": "定时充电"
   },
   "errors": {
     "battery": {

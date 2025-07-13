@@ -67,7 +67,9 @@ export enum InverterStatuses {
     PowerAssist = 'powerassist',
     PowerSupply = 'powersupply',
     Sustain = 'sustain',
-    ExternalControl = 'externalcontrol'
+    ExternalControl = 'externalcontrol',
+    Recharge = 'recharge',
+    ScheduledRecharge = 'scheduledrecharge'
 }
 
 export interface InverterStatusConfig {

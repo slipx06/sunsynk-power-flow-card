@@ -68,7 +68,9 @@
         "powerassist": "Power Assist",
         "powersupply": "Power Supply",
         "sustain": "Sustain",
-        "externalcontrol": "External Control"
+        "externalcontrol": "External Control",
+        "recharge": "Dobíjanie",
+        "scheduledrecharge": "Naplánované dobíjanie"
     },
     "errors": {
         "battery": {

@@ -68,7 +68,9 @@
       "powerassist": "pomaganje z močjo",
       "powersupply": "napajanje",
       "sustain": "vzdrževanje",
-      "externalcontrol": "zunanje upravljanje"
+      "externalcontrol": "zunanje upravljanje",
+      "recharge": "polnjenje",
+      "scheduledrecharge": "načrtovano polnjenje"
     },
     "errors": {
       "battery": {

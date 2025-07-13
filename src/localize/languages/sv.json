@@ -68,7 +68,9 @@
       "powerassist": "Ström Assistans",
       "powersupply": "Strömförsörjning",
       "sustain": "Upprätthålla",
-      "externalcontrol": "Extern Kontroll"
+      "externalcontrol": "Extern Kontroll",
+      "recharge": "Laddning",
+      "scheduledrecharge": "Schemalagd laddning"
     },
     "errors": {
       "battery": {
