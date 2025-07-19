@@ -68,7 +68,9 @@
 		"powerassist": "Wspomaganie zasilania",
 		"powersupply": "Zasilanie",
 		"sustain": "Podtrzymanie",
-		"externalcontrol": "Sterowanie zewnętrzne"
+    	"externalcontrol": "Sterowanie zewnętrzne",
+    	"recharge": "Ładowanie",
+    	"scheduledrecharge": "Zaplanowane ładowanie"
 	},
 	"errors": {
 		"battery": {
