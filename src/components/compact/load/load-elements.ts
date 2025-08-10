@@ -1,5 +1,6 @@
 // load-elements.ts
 import { svg, html } from 'lit';
+import { repeat } from 'lit/directives/repeat.js';
 import { localize } from '../../../localize/localize';
 import { Utils } from '../../../helpers/utils';
 import { DataDto, sunsynkPowerFlowCardConfig } from '../../../types';
@@ -853,8 +854,10 @@ export const renderLoadElements = (
 												: `${essentialPower || 0} ${UnitOfPower.WATT}`,
 										)}`}
 			<!-- Render Static Icons e.g. Boiler, Aircon, Oven and Pump etc -->
-			${getCompactLayoutIconConfigs(data).map((iconConfig) =>
-				renderStaticLoadIcon(data, iconConfig),
+			${repeat(
+				getCompactLayoutIconConfigs(data),
+				(iconConfig) => iconConfig.id,
+				(iconConfig) => renderStaticLoadIcon(data, iconConfig),
 			)}
 		</svg>
 	`;

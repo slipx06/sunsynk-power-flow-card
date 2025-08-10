@@ -1,5 +1,6 @@
 // load-elements.ts
 import { svg, html } from 'lit';
+import { repeat } from 'lit/directives/repeat.js';
 import { localize } from '../../../localize/localize';
 import { Utils } from '../../../helpers/utils';
 import { DataDto, sunsynkPowerFlowCardConfig } from '../../../types';
@@ -735,8 +736,10 @@ export const renderLoadElements = (
 			</a>
 			}
 			<!-- Render Static Icons e.g. Boiler, Aircon, Oven and Pump etc -->
-			${getFullLayoutIconConfigs(data).map((iconConfig) =>
-				renderStaticLoadIcon(data, iconConfig),
+			${repeat(
+				getFullLayoutIconConfigs(data),
+				(iconConfig) => iconConfig.id,
+				(iconConfig) => renderStaticLoadIcon(data, iconConfig),
 			)}
 
 			<g display="${[2, 4, 5, 6].includes(additionalLoad) ? '' : 'none'}">

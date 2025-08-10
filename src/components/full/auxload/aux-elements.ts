@@ -1,5 +1,6 @@
 // aux-elements.ts
 import { svg, html } from 'lit';
+import { repeat } from 'lit/directives/repeat.js';
 import { localize } from '../../../localize/localize';
 import { Utils } from '../../../helpers/utils';
 import { DataDto, sunsynkPowerFlowCardConfig } from '../../../types';
@@ -198,8 +199,10 @@ export const renderAuxLoadElements = (
 				@click=${(e) =>
 					Utils.handlePopup(e, config.entities.aux_connected_status)}
 			>
-				${getAuxIconConfigs(data).map((iconConfig) =>
-					renderStaticAuxIcon(iconConfig),
+				${repeat(
+					getAuxIconConfigs(data),
+					(iconConfig) => iconConfig.id,
+					(iconConfig) => renderStaticAuxIcon(iconConfig),
 				)}
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
