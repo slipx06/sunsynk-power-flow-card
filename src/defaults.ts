@@ -22,7 +22,7 @@ export default {
 		model: InverterModel.Sunsynk,
 		auto_scale: true,
 		three_phase: false,
-		navigate:'',
+		navigate: '',
 	},
 	battery: {
 		count: 1,
@@ -43,7 +43,7 @@ export default {
 		linear_gradient: true,
 		animate: true,
 		path_threshold: 100,
-		navigate:'',
+		navigate: '',
 		invert_flow: false,
 	},
 	battery2: {
@@ -61,7 +61,7 @@ export default {
 		linear_gradient: true,
 		animate: true,
 		path_threshold: 100,
-		navigate:'',
+		navigate: '',
 		invert_flow: false,
 	},
 	solar: {
@@ -81,7 +81,7 @@ export default {
 		dynamic_colour: true,
 		efficiency: 3,
 		off_threshold: 10,
-		navigate:'',
+		navigate: '',
 		invert_flow: false,
 	},
 	load: {
@@ -117,7 +117,7 @@ export default {
 		load6_name: '',
 		auto_scale: true,
 		path_threshold: 100,
-		navigate:'',
+		navigate: '',
 		invert_flow: false,
 		label_daily_load: localize('common.daily_load'),
 	},
@@ -145,7 +145,7 @@ export default {
 		energy_cost_decimals: 2,
 		show_absolute: false,
 		off_threshold: 0,
-		navigate:'',
+		navigate: '',
 		invert_flow: false,
 	},
 };

@@ -195,7 +195,7 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 									{name: 'animation_speed', selector: {number: {}}},
 									{name: 'max_power', selector: {number: {}}},
 									{name: 'path_threshold', selector: {number: {}}},
-								]
+								],
 							},
 							{
 								type: 'expandable',
@@ -211,7 +211,10 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 												name: 'shutdown_soc_offgrid',
 												selector: {number: {mode: 'box', min: 0, max: 100}},
 											},
-											{name: 'soc_end_of_charge', selector: {number: {mode: 'box', min: 80, max: 100}}},
+											{
+												name: 'soc_end_of_charge',
+												selector: {number: {mode: 'box', min: 80, max: 100}},
+											},
 											{name: 'soc_decimal_places', selector: {number: {}}},
 											{name: 'auto_scale', selector: {boolean: {}}},
 											{name: 'invert_power', selector: {boolean: {}}},
@@ -261,7 +264,10 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 												name: 'shutdown_soc_offgrid',
 												selector: {number: {mode: 'box', min: 0, max: 100}},
 											},
-											{name: 'soc_end_of_charge', selector: {number: {mode: 'box', min: 80, max: 100}}},
+											{
+												name: 'soc_end_of_charge',
+												selector: {number: {mode: 'box', min: 80, max: 100}},
+											},
 											{name: 'soc_decimal_places', selector: {number: {}}},
 											{name: 'auto_scale', selector: {boolean: {}}},
 											{name: 'invert_power', selector: {boolean: {}}},
@@ -295,7 +301,7 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 										],
 									},
 								],
-							},		
+							},
 						],
 					},
 					{
@@ -604,7 +610,9 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 													},
 													{
 														name: 'battery_temp_182',
-														selector: {entity: {device_class: SensorDeviceClass.TEMPERATURE}},
+														selector: {
+															entity: {device_class: SensorDeviceClass.TEMPERATURE},
+														},
 													},
 													{
 														name: 'battery_voltage_183',
@@ -640,7 +648,9 @@ export class SunSynkCardEditor extends LitElement implements LovelaceCardEditor 
 													},
 													{
 														name: 'battery2_temp_182',
-														selector: {entity: {device_class: SensorDeviceClass.TEMPERATURE}},
+														selector: {
+															entity: {device_class: SensorDeviceClass.TEMPERATURE},
+														},
 													},
 													{
 														name: 'battery2_voltage_183',

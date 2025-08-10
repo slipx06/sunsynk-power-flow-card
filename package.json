@@ -1,62 +1,65 @@
 {
-  "name": "sunsynk-power-flow-card",
-  "version": "6.9.2",
-  "description": "A customizable Home Assistant card to emulate the Sunsynk System flow that's displayed on the Inverter screen.",
-  "main": "sunsynk-power-flow-card.js",
-  "scripts": {
-    "lint": "eslint src/*.ts | more ",
-    "lintindex": "eslint src/index.ts | more",
-    "lintindexfix": "eslint src/index.ts --fix",
-    "lintfixall": "eslint src/*.ts --fix",
-    "rollup": "rollup -c",
-    "build": "rollup -c --bundleConfigAsCjs",
-    "watch": "rollup -c --watch",
-    "docs-build": "sphinx-autobuild docs docs/_build/html"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/slipx06/sunsynk-power-flow-card.git"
-  },
-  "author": "slipx06 <slipx06@users.noreply.github.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/slipx06/sunsynk-power-flow-card/issues"
-  },
-  "homepage": "https://github.com/slipx06/sunsynk-power-flow-card#readme",
-  "dependencies": {
-    "@lit-labs/scoped-registry-mixin": "^1.0.3",
-    "custom-card-helpers": "^1.9.0",
-    "lit": "^3.1.3",
-    "lodash.merge": "^4.6.2"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.24.6",
-    "@babel/core": "^7.24.6",
-    "@babel/plugin-proposal-class-properties": "^7.18.6",
-    "@babel/plugin-proposal-decorators": "^7.24.1",
-    "@babel/plugin-transform-template-literals": "^7.24.1",
-    "@babel/preset-env": "^7.24.6",
-    "@eslint/js": "^9.3.0",
-    "@rollup/plugin-babel": "^6.0.4",
-    "@rollup/plugin-commonjs": "^28.0.0",
-    "@rollup/plugin-eslint": "^9.0.5",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^16.0.0",
-    "@rollup/plugin-terser": "^0.4.4",
-    "@types/lodash.merge": "^4.6.9",
-    "@typescript-eslint/eslint-plugin": "^8.1.0",
-    "@typescript-eslint/parser": "^8.2.0",
-    "babel-preset-minify": "^0.5.2",
-    "eslint": "^9.31.0",
-    "eslint-config-prettier": "^10.0.1",
-    "eslint-plugin-prettier": "^5.1.3",
-    "globals": "^16.0.0",
-    "npm": "^11.0.0",
-    "prettier": "^3.6.2",
-    "rollup": "^4.17.2",
-    "rollup-plugin-serve": "^3.0.0",
-    "rollup-plugin-typescript2": "^0.36.0",
-    "typescript": "^5.4.5",
-    "typescript-eslint": "^8.1.0"
-  }
+	"name": "sunsynk-power-flow-card",
+	"version": "6.9.2",
+	"description": "A customizable Home Assistant card to emulate the Sunsynk System flow that's displayed on the Inverter screen.",
+	"main": "sunsynk-power-flow-card.js",
+	"scripts": {
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix",
+		"lintindex": "eslint src/index.ts | more",
+		"lintindexfix": "eslint src/index.ts --fix",
+		"lintfixall": "eslint src/*.ts --fix",
+		"format": "prettier . --write",
+		"format:check": "prettier . --check",
+		"rollup": "rollup -c",
+		"build": "rollup -c --bundleConfigAsCjs",
+		"watch": "rollup -c --watch",
+		"docs-build": "sphinx-autobuild docs docs/_build/html"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/slipx06/sunsynk-power-flow-card.git"
+	},
+	"author": "slipx06 <slipx06@users.noreply.github.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/slipx06/sunsynk-power-flow-card/issues"
+	},
+	"homepage": "https://github.com/slipx06/sunsynk-power-flow-card#readme",
+	"dependencies": {
+		"@lit-labs/scoped-registry-mixin": "^1.0.3",
+		"custom-card-helpers": "^1.9.0",
+		"lit": "^3.1.3",
+		"lodash.merge": "^4.6.2"
+	},
+	"devDependencies": {
+		"@babel/cli": "^7.24.6",
+		"@babel/core": "^7.24.6",
+		"@babel/plugin-proposal-class-properties": "^7.18.6",
+		"@babel/plugin-proposal-decorators": "^7.24.1",
+		"@babel/plugin-transform-template-literals": "^7.24.1",
+		"@babel/preset-env": "^7.24.6",
+		"@eslint/js": "^9.3.0",
+		"@rollup/plugin-babel": "^6.0.4",
+		"@rollup/plugin-commonjs": "^28.0.0",
+		"@rollup/plugin-eslint": "^9.0.5",
+		"@rollup/plugin-json": "^6.1.0",
+		"@rollup/plugin-node-resolve": "^16.0.0",
+		"@rollup/plugin-terser": "^0.4.4",
+		"@types/lodash.merge": "^4.6.9",
+		"@typescript-eslint/eslint-plugin": "^8.1.0",
+		"@typescript-eslint/parser": "^8.2.0",
+		"babel-preset-minify": "^0.5.2",
+		"eslint": "^9.31.0",
+		"eslint-config-prettier": "^10.0.1",
+		"eslint-plugin-prettier": "^5.5.4",
+		"globals": "^16.0.0",
+		"npm": "^11.0.0",
+		"prettier": "^3.6.2",
+		"rollup": "^4.17.2",
+		"rollup-plugin-serve": "^3.0.0",
+		"rollup-plugin-typescript2": "^0.36.0",
+		"typescript": "^5.4.5",
+		"typescript-eslint": "^8.1.0"
+	}
 }

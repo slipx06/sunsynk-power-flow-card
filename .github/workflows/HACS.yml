@@ -1,15 +1,15 @@
 name: HACS Action
 
 on:
-  push:
-  pull_request:
-  
+    push:
+    pull_request:
+
 jobs:
-  validate-hacs:
-    runs-on: "ubuntu-latest"
-    steps:
-      - uses: "actions/checkout@v4"
-      - name: HACS validation
-        uses: "hacs/action@main"
-        with:
-          category: "plugin"
+    validate-hacs:
+        runs-on: 'ubuntu-latest'
+        steps:
+            - uses: 'actions/checkout@v4'
+            - name: HACS validation
+              uses: 'hacs/action@main'
+              with:
+                  category: 'plugin'

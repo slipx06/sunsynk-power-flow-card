@@ -14,17 +14,17 @@ import {Utils} from './utils';
  * @returns A Lit SVG template or an empty string if no icon is provided.
  */
 export function renderIcon(
-    entity: string | undefined, 
-    icon: string | undefined, 
-    className: string, 
-    x: number | string, 
-    y: number | string, 
-    width: number = 30, 
-    height: number = 30,
-    show: boolean = true
+	entity: string | undefined,
+	icon: string | undefined,
+	className: string,
+	x: number | string,
+	y: number | string,
+	width: number = 30,
+	height: number = 30,
+	show: boolean = true,
 ) {
-    if (icon && entity) {
-        return svg`
+	if (icon && entity) {
+		return svg`
             <a href="#" @click=${(e) => Utils.handlePopup(e, entity)}>
                 <foreignObject x="${x}" y="${y}" width="${width}" height="${height}" display="${show ? '' : 'none'}">
                     <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: ${width}px; height: ${height}px;">
@@ -32,13 +32,13 @@ export function renderIcon(
                     </div>
                 </foreignObject>
             </a>`;
-    } else if (icon) {
-        return svg`
+	} else if (icon) {
+		return svg`
             <foreignObject x="${x}" y="${y}" width="${width}" height="${height}" display="${show ? '' : 'none'}">
                 <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: ${width}px; height: ${height}px;">
                     <ha-icon icon="${icon}" class="${className}"></ha-icon>
                 </div>
             </foreignObject>`;
-    }
-    return '';
+	}
+	return '';
 }
