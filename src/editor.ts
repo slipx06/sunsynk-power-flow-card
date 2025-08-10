@@ -41,16 +41,24 @@ export class SunSynkCardEditor
 				flex-wrap: wrap;
 				align-items: center;
 				margin: 0 0 8px 0;
-				position: sticky;
-				top: 0;
-				z-index: 1;
 				padding: 8px 0;
-				background: var(
-					--dialog-surface-background,
-					var(--card-background-color, transparent)
-				);
-				backdrop-filter: saturate(120%) blur(2px);
 				border-bottom: 1px solid var(--divider-color, rgba(127, 127, 127, 0.2));
+			}
+			/* Improve visibility of header buttons/icons, especially in dark mode */
+			.header-actions mwc-button,
+			.header-actions ha-button,
+			.header-actions ha-icon-button,
+			.header-actions button {
+				color: var(--primary-text-color);
+				--mdc-theme-primary: var(--accent-color);
+				opacity: 0.95;
+			}
+			.header-actions mwc-button:hover,
+			.header-actions ha-button:hover,
+			.header-actions ha-icon-button:hover,
+			.header-actions button:hover {
+				opacity: 1;
+				filter: saturate(110%);
 			}
 			.color-chips {
 				margin-left: auto;
@@ -68,6 +76,8 @@ export class SunSynkCardEditor
 				.header-actions {
 					gap: 10px;
 					padding: 10px 0;
+					border-bottom: 1px solid
+						var(--divider-color, rgba(127, 127, 127, 0.2));
 				}
 			}
 		`;
@@ -86,7 +96,74 @@ export class SunSynkCardEditor
 		} catch {
 			// fall through to defaults below when localization lookup fails
 		}
+
+		// Pattern-based helper hints for dynamic load/aux subfields
+		if (/^load\d+_name$/.test(name)) return 'Label for additional load.';
+		if (/^load\d+_icon$/.test(name))
+			return 'Entity whose icon will be used for this additional load.';
+		if (/^load\d+_switch$/.test(name))
+			return 'Switch entity to control this additional load (optional).';
+		if (/^load\d+_max_threshold$/.test(name))
+			return 'Maximum threshold used for progress/flow scaling for this load.';
+		if (/^aux_load\d+_name$/.test(name)) return 'Label for auxiliary load.';
+		if (/^aux_load\d+_icon$/.test(name))
+			return 'Entity whose icon will be used for this auxiliary load.';
+
+		// Global patterns across sections (safe and generic)
+		if (/^pv[1-6]_name$/.test(name)) return 'Custom label for a PV input.';
+		if (/^mppts$/.test(name))
+			return 'Number of MPPT inputs available on your inverter.';
+		if (/^three_phase$/.test(name))
+			return 'Enable if your system/card should display in three-phase mode.';
+		if (/^show_(inverter|battery|battery2|solar|load|grid)$/.test(name))
+			return 'Show or hide this section in the card.';
+		if (/^show_daily(_.*)?$/.test(name))
+			return 'Display daily energy beneath this section.';
+		if (/^auto_scale$/.test(name))
+			return 'Automatically scale values based on recent ranges.';
+		if (/^.*_name$/.test(name)) return 'Custom label shown in the UI.';
+		if (/^.*_icon$/.test(name))
+			return 'Entity whose icon (and sometimes state) represents this element.';
+		if (/^.*_switch$/.test(name))
+			return 'Optional switch entity to control this element.';
+		if (/^.*_max_threshold$/.test(name))
+			return 'Maximum threshold used for progress/flow scaling.';
+		if (/^.*_colour$/.test(name)) return 'Primary colour for this element.';
+		if (/^.*_off_colour$/.test(name))
+			return 'Colour used when the element is off/idle.';
+		if (/^.*_dynamic_colour$/.test(name))
+			return 'Change colour dynamically based on power level.';
 		switch (name) {
+			case 'additional_loads':
+				return 'Number of additional loads to configure (0–6).';
+			case 'aux_loads':
+				return 'Number of auxiliary loads to configure (0–2).';
+			case 'show_aux':
+				return 'Show the Aux subsection (separate auxiliary load configuration).';
+			case 'invert_flow':
+				return 'Invert the direction of load flow arrows.';
+			case 'label_daily_load':
+				return 'Alternate label for the daily load value displayed under Load.';
+			case 'navigate':
+				return 'Optional navigation path to open when the card/header is clicked.';
+			case 'aux_name':
+				return 'Aux group title shown in the UI.';
+			case 'aux_daily_name':
+				return 'Label used for daily Aux value.';
+			case 'aux_type':
+				return 'Icon shown for the Aux group.';
+			case 'invert_aux':
+				return 'Invert the direction of Aux flow arrows.';
+			case 'show_absolute_aux':
+				return 'Show Aux values as absolute (no sign) for clarity.';
+			case 'aux_dynamic_colour':
+				return 'Change Aux colour dynamically based on power level.';
+			case 'aux_colour':
+				return 'Primary colour for Aux flow.';
+			case 'aux_off_colour':
+				return 'Colour used when Aux path is off/idle.';
+			case 'show_daily_aux':
+				return 'Display daily Aux energy beneath the Aux section.';
 			case 'decimal_places':
 				return 'Number of decimal places for power values (0-3).';
 			case 'decimal_places_energy':
