@@ -1,5 +1,5 @@
-import {html} from 'lit';
-import {icons} from '../../../helpers/icons';
+import { html } from "lit";
+import { icons } from "../../../helpers/icons";
 
 export interface LoadIconConfig {
 	id: string;
@@ -9,7 +9,7 @@ export interface LoadIconConfig {
 	height: number;
 	displayCondition: boolean;
 	opacityCondition: boolean;
-	iconType: 'boiler' | 'aircon' | 'pump' | 'oven' | 'nonEss';
+	iconType: "boiler" | "aircon" | "pump" | "oven" | "nonEss";
 	prefix: string;
 	viewBoxSize?: number;
 	dynamicColor?: string;
@@ -30,9 +30,13 @@ export const renderStaticGridIcon = (config: LoadIconConfig) => {
 			width="${config.width}"
 			height="${config.height}"
 			viewBox="0 0 ${config.viewBoxSize || 24} ${config.viewBoxSize || 24}"
-			opacity="${config.opacityCondition ? '1' : '0'}"
+			opacity="${config.opacityCondition ? "1" : "0"}"
 		>
-			<path display="${config.displayCondition ? 'none' : ''}" fill="${config.dynamicColor}" d="${iconPath}" />
+			<path
+				display="${config.displayCondition ? "none" : ""}"
+				fill="${config.dynamicColor}"
+				d="${iconPath}"
+			/>
 		</svg>
 	`;
 };

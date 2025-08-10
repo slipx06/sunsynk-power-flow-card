@@ -1,8 +1,17 @@
-import {unitOfEnergyConversionRules, UnitOfEnergyOrPower, UnitOfPower, UnitOfEnergy} from '../const';
-import {navigate} from 'custom-card-helpers';
+import {
+	unitOfEnergyConversionRules,
+	UnitOfEnergyOrPower,
+	UnitOfPower,
+	UnitOfEnergy,
+} from "../const";
+import { navigate } from "custom-card-helpers";
 
 export class Utils {
-	static toNum(val: string | number, decimals: number = -1, invert: boolean = false): number {
+	static toNum(
+		val: string | number,
+		decimals: number = -1,
+		invert: boolean = false,
+	): number {
 		let numberValue = Number(val);
 		if (Number.isNaN(numberValue)) {
 			return 0;
@@ -17,7 +26,7 @@ export class Utils {
 	}
 
 	static invertKeyPoints(keyPoints: string) {
-		return keyPoints.split(';').reverse().join(';');
+		return keyPoints.split(";").reverse().join(";");
 	}
 
 	static convertValue(value, decimal = 2) {
@@ -31,7 +40,11 @@ export class Utils {
 		}
 	}
 
-	static convertValueNew(value: string | number, unit: UnitOfEnergyOrPower | string = '', decimal: number = 2) {
+	static convertValueNew(
+		value: string | number,
+		unit: UnitOfEnergyOrPower | string = "",
+		decimal: number = 2,
+	) {
 		decimal = isNaN(decimal) ? 2 : decimal;
 		const numberValue = Number(value);
 		if (isNaN(numberValue)) return 0;
@@ -57,7 +70,9 @@ export class Utils {
 
 		for (const rule of rules) {
 			if (Math.abs(numberValue) >= rule.threshold) {
-				const convertedValue = (numberValue / rule.divisor).toFixed(rule.decimal || decimal);
+				const convertedValue = (numberValue / rule.divisor).toFixed(
+					rule.decimal || decimal,
+				);
 				return `${convertedValue} ${rule.targetUnit}`;
 			}
 		}
@@ -72,7 +87,7 @@ export class Utils {
 			return;
 		}
 		event.preventDefault();
-		this._handleClick(event, {action: 'more-info'}, entityId);
+		this._handleClick(event, { action: "more-info" }, entityId);
 	}
 
 	static handleNavigation(event, navigationPath) {
@@ -80,7 +95,11 @@ export class Utils {
 			return;
 		}
 		event.preventDefault();
-		this._handleClick(event, {action: 'navigate', navigation_path: navigationPath}, null);
+		this._handleClick(
+			event,
+			{ action: "navigate", navigation_path: navigationPath },
+			null,
+		);
 	}
 
 	private static _handleClick(event, actionConfig, entityId) {
@@ -92,11 +111,11 @@ export class Utils {
 
 		// Handle different actions based on actionConfig
 		switch (actionConfig.action) {
-			case 'more-info':
+			case "more-info":
 				this._dispatchMoreInfoEvent(event, entityId);
 				break;
 
-			case 'navigate':
+			case "navigate":
 				this._handleNavigationEvent(event, actionConfig.navigation_path);
 				break;
 
@@ -112,35 +131,37 @@ export class Utils {
 
 		Utils.isPopupOpen = true;
 
-		const moreInfoEvent = new CustomEvent('hass-more-info', {
+		const moreInfoEvent = new CustomEvent("hass-more-info", {
 			composed: true,
-			detail: {entityId},
+			detail: { entityId },
 		});
 
-		history.pushState({popupOpen: true}, '', window.location.href);
+		history.pushState({ popupOpen: true }, "", window.location.href);
 
 		event.target.dispatchEvent(moreInfoEvent);
 
 		const closePopup = () => {
 			if (Utils.isPopupOpen) {
 				Utils.isPopupOpen = false;
-				window.removeEventListener('popstate', closePopup);
+				window.removeEventListener("popstate", closePopup);
 				//history.back(); // Optionally close the popup with history.back() if needed
 			}
 		};
 
-		window.addEventListener('popstate', closePopup, {once: true});
+		window.addEventListener("popstate", closePopup, { once: true });
 	}
 
 	static toHexColor(color: string): string {
 		if (!color) {
-			return 'grey';
+			return "grey";
 		}
 		if (/^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(color)) {
 			return color.toUpperCase();
 		}
 
-		const match = color.match(/^rgb\s*\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/);
+		const match = color.match(
+			/^rgb\s*\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/,
+		);
 		if (match) {
 			const [r, g, b] = match.slice(1, 4).map(Number);
 			return `#${((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1).toUpperCase()}`;
@@ -154,7 +175,7 @@ export class Utils {
 		if (navigationPath) {
 			navigate(event.target, navigationPath); // Assuming 'navigate' is a function available in your environment
 		} else {
-			console.warn('Navigation path is not provided.');
+			console.warn("Navigation path is not provided.");
 		}
 	}
 }

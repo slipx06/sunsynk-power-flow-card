@@ -1,4 +1,4 @@
-import {svg} from 'lit';
+import { svg } from "lit";
 
 export const createTextWithPopup = (
 	id: string,
@@ -14,7 +14,7 @@ export const createTextWithPopup = (
 	return svg`
         <a href="#" @click=${onClick}>
             <text id="${id}" x="${x}" y="${y}" 
-                display="${hideOnCondition ? (displayCondition ? 'none' : '') : displayCondition ? '' : 'none'}" 
+                display="${hideOnCondition ? (displayCondition ? "none" : "") : displayCondition ? "" : "none"}" 
                 class="${className}" 
                 fill="${fill}">
                 ${text}
@@ -35,7 +35,7 @@ export const renderText = (
 ) => {
 	return svg`
         <text id="${id}" x="${x}" y="${y}" 
-            display="${hideOnCondition ? (displayCondition ? 'none' : '') : displayCondition ? '' : 'none'}"
+            display="${hideOnCondition ? (displayCondition ? "none" : "") : displayCondition ? "" : "none"}"
             class="${className}" 
             fill="${fill}">
             ${text}

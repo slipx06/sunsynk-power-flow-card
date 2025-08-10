@@ -1,6 +1,9 @@
-import {InverterSettingsDto, InverterStatus} from '../dto/inverter-settings.dto';
-import {InverterModel} from '../../types';
-import {localize} from '../../localize/localize';
+import {
+	InverterSettingsDto,
+	InverterStatus,
+} from '../dto/inverter-settings.dto';
+import { InverterModel } from '../../types';
+import { localize } from '../../localize/localize';
 
 export class Solinteg extends InverterSettingsDto {
 	brand = InverterModel.Solinteg;

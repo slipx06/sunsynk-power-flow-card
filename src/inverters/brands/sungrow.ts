@@ -1,6 +1,9 @@
-import {InverterSettingsDto, InverterStatus} from '../dto/inverter-settings.dto';
-import {InverterModel} from '../../types';
-import {localize} from '../../localize/localize';
+import {
+	InverterSettingsDto,
+	InverterStatus,
+} from '../dto/inverter-settings.dto';
+import { InverterModel } from '../../types';
+import { localize } from '../../localize/localize';
 
 /* Sungrow Status Codes
  * source https://github.com/mkaiser/Sungrow-SHx-Inverter-Modbus-Home-Assistant
@@ -34,10 +37,26 @@ import {localize} from '../../localize/localize';
 export class Sungrow extends InverterSettingsDto {
 	brand = InverterModel.Sungrow;
 	statusGroups: InverterStatus = {
-		standby: {states: ['standby', 'initial standby'], color: 'blue', message: localize('common.standby')},
-		selftest: {states: ['startup'], color: 'blue', message: localize('common.selftest')},
-		running: {states: ['running'], color: 'green', message: localize('common.running')},
-		offgrid: {states: ['off-grid mode'], color: 'orange', message: localize('common.offgrid')},
+		standby: {
+			states: ['standby', 'initial standby'],
+			color: 'blue',
+			message: localize('common.standby'),
+		},
+		selftest: {
+			states: ['startup'],
+			color: 'blue',
+			message: localize('common.selftest'),
+		},
+		running: {
+			states: ['running'],
+			color: 'green',
+			message: localize('common.running'),
+		},
+		offgrid: {
+			states: ['off-grid mode'],
+			color: 'orange',
+			message: localize('common.offgrid'),
+		},
 		externalcontrol: {
 			states: ['external ems mode', 'forced mode'],
 			color: 'green',
@@ -48,9 +67,21 @@ export class Sungrow extends InverterSettingsDto {
 			color: 'red',
 			message: localize('common.shutdown'),
 		},
-		normalstop: {states: ['stop'], color: 'yellow', message: localize('common.normalstop')},
-		alarm: {states: ['warn running'], color: 'orange', message: localize('common.alarm')},
-		sustain: {states: ['de-rating running'], color: 'red', message: localize('common.sustain')},
+		normalstop: {
+			states: ['stop'],
+			color: 'yellow',
+			message: localize('common.normalstop'),
+		},
+		alarm: {
+			states: ['warn running'],
+			color: 'orange',
+			message: localize('common.alarm'),
+		},
+		sustain: {
+			states: ['de-rating running'],
+			color: 'red',
+			message: localize('common.sustain'),
+		},
 		fault: {
 			states: [
 				'update failed',

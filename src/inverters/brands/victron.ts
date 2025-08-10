@@ -1,30 +1,93 @@
-import {InverterSettingsDto, InverterStatus} from '../dto/inverter-settings.dto';
-import {InverterModel} from '../../types';
-import {localize} from '../../localize/localize';
+import {
+	InverterSettingsDto,
+	InverterStatus,
+} from '../dto/inverter-settings.dto';
+import { InverterModel } from '../../types';
+import { localize } from '../../localize/localize';
 
 export class Victron extends InverterSettingsDto {
 	brand = InverterModel.Victron;
 	statusGroups: InverterStatus = {
-		off: {states: ['0', 'off'], color: 'red', message: localize('common.off')},
-		lowpower: {states: ['1', 'low power'], color: 'yellow', message: localize('common.lowpower')},
-		fault: {states: ['2', 'fault'], color: 'red', message: localize('common.fault')},
-		bulk: {states: ['3', 'bulk'], color: 'green', message: localize('common.bulk')},
-		absorption: {states: ['4', 'absorption'], color: 'green', message: localize('common.absorption')},
-		float: {states: ['5', 'float'], color: 'green', message: localize('common.float')},
-		storage: {states: ['6', 'storage'], color: 'green', message: localize('common.storage')},
-		equalize: {states: ['7', 'equalize'], color: 'green', message: localize('common.equalize')},
-		passthru: {states: ['8', 'passthru'], color: 'green', message: localize('common.passthru')},
-		inverting: {states: ['9', 'inverting'], color: 'blue', message: localize('common.inverting')},
-		powerassist: {states: ['10', 'power assist'], color: 'blue', message: localize('common.powerassist')},
-		powersupply: {states: ['11', 'power supply'], color: 'blue', message: localize('common.powersupply')},
-		sustain: {states: ['244', 'sustain'], color: 'green', message: localize('common.sustain')},
+		off: {
+			states: ['0', 'off'],
+			color: 'red',
+			message: localize('common.off'),
+		},
+		lowpower: {
+			states: ['1', 'low power'],
+			color: 'yellow',
+			message: localize('common.lowpower'),
+		},
+		fault: {
+			states: ['2', 'fault'],
+			color: 'red',
+			message: localize('common.fault'),
+		},
+		bulk: {
+			states: ['3', 'bulk'],
+			color: 'green',
+			message: localize('common.bulk'),
+		},
+		absorption: {
+			states: ['4', 'absorption'],
+			color: 'green',
+			message: localize('common.absorption'),
+		},
+		float: {
+			states: ['5', 'float'],
+			color: 'green',
+			message: localize('common.float'),
+		},
+		storage: {
+			states: ['6', 'storage'],
+			color: 'green',
+			message: localize('common.storage'),
+		},
+		equalize: {
+			states: ['7', 'equalize'],
+			color: 'green',
+			message: localize('common.equalize'),
+		},
+		passthru: {
+			states: ['8', 'passthru'],
+			color: 'green',
+			message: localize('common.passthru'),
+		},
+		inverting: {
+			states: ['9', 'inverting'],
+			color: 'blue',
+			message: localize('common.inverting'),
+		},
+		powerassist: {
+			states: ['10', 'power assist'],
+			color: 'blue',
+			message: localize('common.powerassist'),
+		},
+		powersupply: {
+			states: ['11', 'power supply'],
+			color: 'blue',
+			message: localize('common.powersupply'),
+		},
+		sustain: {
+			states: ['244', 'sustain'],
+			color: 'green',
+			message: localize('common.sustain'),
+		},
 		externalcontrol: {
 			states: ['252', 'external control'],
 			color: 'green',
 			message: localize('common.externalcontrol'),
 		},
-		discharging: {states: ['256', 'discharging'], color: 'green', message: localize('common.discharging')},
-		recharge: {states: ['258', 'recharge'], color: 'green', message: localize('common.recharge')},
+		discharging: {
+			states: ['256', 'discharging'],
+			color: 'green',
+			message: localize('common.discharging'),
+		},
+		recharge: {
+			states: ['258', 'recharge'],
+			color: 'green',
+			message: localize('common.recharge'),
+		},
 		scheduledrecharge: {
 			states: ['259', 'scheduled recharge'],
 			color: 'green',

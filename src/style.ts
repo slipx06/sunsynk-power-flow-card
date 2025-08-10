@@ -1,4 +1,4 @@
-import {CSSResultGroup, css, html} from 'lit';
+import { CSSResultGroup, css, html } from 'lit';
 
 export const styles: CSSResultGroup = css`
 	.container {

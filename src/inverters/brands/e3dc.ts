@@ -1,5 +1,5 @@
-import {InverterSettingsDto} from '../dto/inverter-settings.dto';
-import {InverterModel} from '../../types';
+import { InverterSettingsDto } from '../dto/inverter-settings.dto';
+import { InverterModel } from '../../types';
 
 export class E3dc extends InverterSettingsDto {
 	brand = InverterModel.E3dc;

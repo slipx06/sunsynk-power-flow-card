@@ -1,20 +1,35 @@
 // inverter-elements.ts
-import {svg, html} from 'lit';
-import {localize} from '../../../localize/localize';
-import {Utils} from '../../../helpers/utils';
-import {AutarkyType, DataDto, sunsynkPowerFlowCardConfig} from '../../../types';
-import {icons} from '../../../helpers/icons';
-import {UnitOfElectricalCurrent, UnitOfElectricPotential} from '../../../const';
-import {createTextWithPopup, renderText} from '../../../helpers/text-utils';
+import { svg, html } from 'lit';
+import { localize } from '../../../localize/localize';
+import { Utils } from '../../../helpers/utils';
+import {
+	AutarkyType,
+	DataDto,
+	sunsynkPowerFlowCardConfig,
+} from '../../../types';
+import { icons } from '../../../helpers/icons';
+import {
+	UnitOfElectricalCurrent,
+	UnitOfElectricPotential,
+} from '../../../const';
+import { createTextWithPopup, renderText } from '../../../helpers/text-utils';
 
-export const renderInverterElements = (data: DataDto, inverterImg: string, config: sunsynkPowerFlowCardConfig) => {
-	const {inverterColour, enableAutarky, enableTimer, priorityLoad} = data;
+export const renderInverterElements = (
+	data: DataDto,
+	inverterImg: string,
+	config: sunsynkPowerFlowCardConfig,
+) => {
+	const { inverterColour, enableAutarky, enableTimer, priorityLoad } = data;
 
-	const {three_phase} = config.inverter;
+	const { three_phase } = config.inverter;
 
 	return html`
 		<!-- Inverter Elements -->
-		<svg id="Inverter" style="overflow: visible" x="${config.wide ? '10%' : '0%'}">
+		<svg
+			id="Inverter"
+			style="overflow: visible"
+			x="${config.wide ? '10%' : '0%'}"
+		>
 			${renderText(
 				'autarkye_value',
 				127,
@@ -75,7 +90,13 @@ export const renderInverterElements = (data: DataDto, inverterImg: string, confi
 				localize('common.ratio'),
 				true,
 			)}
-			<circle id="standby" cx="220" cy="260" r="3.5" fill="${data.inverterStateColour}" />
+			<circle
+				id="standby"
+				cx="220"
+				cy="260"
+				r="3.5"
+				fill="${data.inverterStateColour}"
+			/>
 			${config.inverter?.navigate
 				? svg`
                         <a href="#" @click=${(e) => Utils.handleNavigation(e, config.inverter.navigate)}>
@@ -97,17 +118,38 @@ export const renderInverterElements = (data: DataDto, inverterImg: string, confi
                                 <path d="${icons.inverter}"/>
                             </g>
                         </svg>`}
-			<a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.use_timer_248)}>
-				<svg id="timer" x="267.7" y="243.3" width="18" height="18" viewBox="0 0 24 24">
+			<a
+				href="#"
+				@click=${(e) => Utils.handlePopup(e, config.entities.use_timer_248)}
+			>
+				<svg
+					id="timer"
+					x="267.7"
+					y="243.3"
+					width="18"
+					height="18"
+					viewBox="0 0 24 24"
+				>
 					<path
-						display="${data.stateUseTimer.state == 'on' && enableTimer !== 'no' ? '' : 'none'}"
+						display="${data.stateUseTimer.state == 'on' && enableTimer !== 'no'
+							? ''
+							: 'none'}"
 						fill="${inverterColour}"
 						d="${icons.timerOn}"
 					/>
 				</svg>
-				<svg id="timer_off" x="267.7" y="243.3" width="18" height="18" viewBox="0 0 24 24">
+				<svg
+					id="timer_off"
+					x="267.7"
+					y="243.3"
+					width="18"
+					height="18"
+					viewBox="0 0 24 24"
+				>
 					<path
-						display="${data.stateUseTimer.state == 'off' && enableTimer !== 'no' ? '' : 'none'}"
+						display="${data.stateUseTimer.state == 'off' && enableTimer !== 'no'
+							? ''
+							: 'none'}"
 						fill="${inverterColour}"
 						d="${icons.timerOff}"
 					/>
@@ -131,17 +173,40 @@ export const renderInverterElements = (data: DataDto, inverterImg: string, confi
 					localize('common.timer_on'),
 				)}
 			</a>
-			<a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.priority_load_243)}>
-				<svg id="pbat" x="267.7" y="262.5" width="18" height="18" viewBox="0 0 24 24">
+			<a
+				href="#"
+				@click=${(e) => Utils.handlePopup(e, config.entities.priority_load_243)}
+			>
+				<svg
+					id="pbat"
+					x="267.7"
+					y="262.5"
+					width="18"
+					height="18"
+					viewBox="0 0 24 24"
+				>
 					<path
-						display="${priorityLoad === 'off' && (priorityLoad !== 'no' || !priorityLoad) ? '' : 'none'}"
+						display="${priorityLoad === 'off' &&
+						(priorityLoad !== 'no' || !priorityLoad)
+							? ''
+							: 'none'}"
 						fill="${inverterColour}"
 						d="${icons.priorityLoadOff}"
 					/>
 				</svg>
-				<svg id="pload" x="267.7" y="262.5" width="18" height="18" viewBox="0 0 24 24">
+				<svg
+					id="pload"
+					x="267.7"
+					y="262.5"
+					width="18"
+					height="18"
+					viewBox="0 0 24 24"
+				>
 					<path
-						display="${priorityLoad === 'on' && (priorityLoad !== 'no' || !priorityLoad) ? '' : 'none'}"
+						display="${priorityLoad === 'on' &&
+						(priorityLoad !== 'no' || !priorityLoad)
+							? ''
+							: 'none'}"
 						fill="${inverterColour}"
 						d="${icons.priorityLoadOn}"
 					/>
@@ -151,7 +216,10 @@ export const renderInverterElements = (data: DataDto, inverterImg: string, confi
 					x="287"
 					y="273"
 					class="st3 left-align"
-					display="${priorityLoad === 'off' && (priorityLoad !== 'no' || !priorityLoad) ? '' : 'none'}"
+					display="${priorityLoad === 'off' &&
+					(priorityLoad !== 'no' || !priorityLoad)
+						? ''
+						: 'none'}"
 					fill="${inverterColour}"
 				>
 					${localize('common.priority_batt')}
@@ -161,7 +229,10 @@ export const renderInverterElements = (data: DataDto, inverterImg: string, confi
 					x="287"
 					y="273"
 					class="st3 left-align"
-					display="${priorityLoad === 'on' && (priorityLoad !== 'no' || !priorityLoad) ? '' : 'none'}"
+					display="${priorityLoad === 'on' &&
+					(priorityLoad !== 'no' || !priorityLoad)
+						? ''
+						: 'none'}"
 					fill="${inverterColour}"
 				>
 					${localize('common.priority_load')}
@@ -180,23 +251,46 @@ export const renderInverterElements = (data: DataDto, inverterImg: string, confi
                         class="${!data.genericInverterImage ? '' : 'st12'}"
                         href="${inverterImg}"
                         preserveAspectRatio="none"/>`}
-			<a href="#" @click=${(e) => Utils.handlePopup(e, data.inverterProg.entityID)}>
-				<svg id="prog_grid_on" x="323" y="243" width="20" height="18" viewBox="0 0 24 24">
+			<a
+				href="#"
+				@click=${(e) => Utils.handlePopup(e, data.inverterProg.entityID)}
+			>
+				<svg
+					id="prog_grid_on"
+					x="323"
+					y="243"
+					width="20"
+					height="18"
+					viewBox="0 0 24 24"
+				>
 					<path
-						display="${data.inverterProg.show === false || enableTimer === 'no' ? 'none' : ''}"
+						display="${data.inverterProg.show === false || enableTimer === 'no'
+							? 'none'
+							: ''}"
 						class="${data.inverterProg.charge === 'none' ||
-						(data.stateUseTimer.state != 'off' && data.stateUseTimer.state != 'on')
+						(data.stateUseTimer.state != 'off' &&
+							data.stateUseTimer.state != 'on')
 							? 'st12'
 							: ''}"
 						fill="${inverterColour}"
 						d="${icons.progGridOn}"
 					/>
 				</svg>
-				<svg id="prog_grid_off" x="323" y="243" width="20" height="18" viewBox="0 0 24 24">
+				<svg
+					id="prog_grid_off"
+					x="323"
+					y="243"
+					width="20"
+					height="18"
+					viewBox="0 0 24 24"
+				>
 					<path
-						display="${data.inverterProg.show === false || enableTimer === 'no' ? 'none' : ''}"
+						display="${data.inverterProg.show === false || enableTimer === 'no'
+							? 'none'
+							: ''}"
 						class="${data.inverterProg.charge === 'none' &&
-						(data.stateUseTimer.state === 'off' || data.stateUseTimer.state === 'on')
+						(data.stateUseTimer.state === 'off' ||
+							data.stateUseTimer.state === 'on')
 							? ''
 							: 'st12'}"
 						fill="${inverterColour}"
@@ -208,7 +302,8 @@ export const renderInverterElements = (data: DataDto, inverterImg: string, confi
 				'inverter_voltage_154',
 				270.2,
 				168.2,
-				config.entities.inverter_voltage_154 === 'none' || !config.entities.inverter_voltage_154,
+				config.entities.inverter_voltage_154 === 'none' ||
+					!config.entities.inverter_voltage_154,
 				'st3 left-align',
 				inverterColour,
 				`${data.inverterVoltage}` +
@@ -222,7 +317,8 @@ export const renderInverterElements = (data: DataDto, inverterImg: string, confi
 				'load_frequency_192',
 				270.2,
 				192.6,
-				config.entities.load_frequency_192 === 'none' || !config.entities.load_frequency_192,
+				config.entities.load_frequency_192 === 'none' ||
+					!config.entities.load_frequency_192,
 				'st3 left-align',
 				inverterColour,
 				`${data.loadFrequency} Hz`,
@@ -233,7 +329,8 @@ export const renderInverterElements = (data: DataDto, inverterImg: string, confi
 				'inverter_current_164',
 				270.2,
 				180.4,
-				config.entities.inverter_current_164 === 'none' || !config.entities.inverter_current_164,
+				config.entities.inverter_current_164 === 'none' ||
+					!config.entities.inverter_current_164,
 				'st3 left-align',
 				inverterColour,
 				`${data.inverterCurrent}` +
@@ -247,7 +344,9 @@ export const renderInverterElements = (data: DataDto, inverterImg: string, confi
 				'ac_temp',
 				173,
 				168.2,
-				!!(config.entities?.radiator_temp_91 && data.stateRadiatorTemp.isValid()),
+				!!(
+					config.entities?.radiator_temp_91 && data.stateRadiatorTemp.isValid()
+				),
 				'st3 left-align',
 				inverterColour,
 				`AC: ${data.stateRadiatorTemp.toNum(1)}°`,
@@ -257,7 +356,10 @@ export const renderInverterElements = (data: DataDto, inverterImg: string, confi
 				'dc_temp',
 				173,
 				180.4,
-				!!(config.entities?.dc_transformer_temp_90 && data.stateDCTransformerTemp.isValid()),
+				!!(
+					config.entities?.dc_transformer_temp_90 &&
+					data.stateDCTransformerTemp.isValid()
+				),
 				'st3 left-align',
 				inverterColour,
 				`DC: ${data.stateDCTransformerTemp.toNum(1)}°`,

@@ -1,5 +1,5 @@
-import {html} from 'lit';
-import {icons} from '../../../helpers/icons';
+import { html } from 'lit';
+import { icons } from '../../../helpers/icons';
 
 export interface AuxIconConfig {
 	id: string;
@@ -9,7 +9,14 @@ export interface AuxIconConfig {
 	height: number;
 	displayCondition: boolean;
 	opacityCondition: boolean;
-	iconType: 'boiler' | 'aircon' | 'pump' | 'oven' | 'generator' | 'inverter' | 'aux';
+	iconType:
+		| 'boiler'
+		| 'aircon'
+		| 'pump'
+		| 'oven'
+		| 'generator'
+		| 'inverter'
+		| 'aux';
 	prefix: string;
 	dynamicColor: string;
 	viewBoxSize: number;
@@ -29,7 +36,11 @@ export const renderStaticAuxIcon = (config: AuxIconConfig) => {
 			viewBox="0 0 ${config.viewBoxSize || 24} ${config.viewBoxSize || 24}"
 			opacity="${config.opacityCondition ? '1' : '0'}"
 		>
-			<path display="${config.displayCondition ? 'none' : ''}" fill="${config.dynamicColor}" d="${iconPath}" />
+			<path
+				display="${config.displayCondition ? 'none' : ''}"
+				fill="${config.dynamicColor}"
+				d="${iconPath}"
+			/>
 		</svg>
 	`;
 };

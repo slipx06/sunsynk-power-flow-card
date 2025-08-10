@@ -1,14 +1,22 @@
 // bat-elements.ts
-import {html} from 'lit';
-import {localize} from '../../../localize/localize';
-import {Utils} from '../../../helpers/utils';
-import {DataDto, sunsynkPowerFlowCardConfig} from '../../../types';
-import {UnitOfElectricalCurrent, UnitOfElectricPotential, UnitOfPower, UnitOfEnergy} from '../../../const';
-import {createTextWithPopup, renderText} from '../../../helpers/text-utils';
-import {renderPath} from '../../../helpers/render-path';
-import {renderCircle} from '../../../helpers/render-circle';
+import { html } from 'lit';
+import { localize } from '../../../localize/localize';
+import { Utils } from '../../../helpers/utils';
+import { DataDto, sunsynkPowerFlowCardConfig } from '../../../types';
+import {
+	UnitOfElectricalCurrent,
+	UnitOfElectricPotential,
+	UnitOfPower,
+	UnitOfEnergy,
+} from '../../../const';
+import { createTextWithPopup, renderText } from '../../../helpers/text-utils';
+import { renderPath } from '../../../helpers/render-path';
+import { renderCircle } from '../../../helpers/render-circle';
 
-export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
+export const renderBatteryElements = (
+	data: DataDto,
+	config: sunsynkPowerFlowCardConfig,
+) => {
 	const {
 		batteryCount,
 		batteryColour,
@@ -24,19 +32,23 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 		batteryShutdown2,
 	} = data;
 
-	const {auto_scale, show_absolute} = config.battery;
+	const { auto_scale, show_absolute } = config.battery;
 
 	return html`
 		<!-- Battery Elements -->
 		<svg
 			id="battery_main"
-			style="overflow: visible; display: ${!config.show_battery ? 'none' : 'inline'};"
+			style="overflow: visible; display: ${!config.show_battery
+				? 'none'
+				: 'inline'};"
 			x="${config.wide ? '10%' : '0%'}"
 		>
 			<g>
 				<svg
 					id="battery_total_power"
-					style="overflow: visible; display: ${config.wide && batteryCount === 2 ? 'inline' : 'none'};"
+					style="overflow: visible; display: ${config.wide && batteryCount === 2
+						? 'inline'
+						: 'none'};"
 				>
 					<rect
 						x="205"
@@ -62,7 +74,11 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 							: `${Utils.toNum(data.batteryPowerTotal || 0, 0)} ${UnitOfPower.WATT}`,
 					)}
 				</svg>
-				<svg id="battery_data" style="overflow: visible;" x="${batteryCount === 2 ? '-6.5%' : '0%'}">
+				<svg
+					id="battery_data"
+					style="overflow: visible;"
+					x="${batteryCount === 2 ? '-6.5%' : '0%'}"
+				>
 					<rect
 						x="205"
 						y="290"
@@ -147,7 +163,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						'data.batteryPower_190',
 						compactMode ? 239 : 193,
 						compactMode ? 307 : 386,
-						config.entities.battery_power_190 === 'none' || (compactMode && batteryCount === 2),
+						config.entities.battery_power_190 === 'none' ||
+							(compactMode && batteryCount === 2),
 						`${largeFont !== true ? 'st14' : 'st4'} st8`,
 						batteryColour,
 						auto_scale
@@ -168,7 +185,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						'battery_remaining_energy',
 						compactMode ? 270 : !config.entities?.battery_status ? 193 : 169,
 						compactMode ? 338 : 323,
-						!config.battery.show_remaining_energy || (compactMode && batteryCount === 2),
+						!config.battery.show_remaining_energy ||
+							(compactMode && batteryCount === 2),
 						!config.entities?.battery_status && !compactMode
 							? 'remaining-energy'
 							: 'remaining-energy left-align',
@@ -191,7 +209,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 				</svg>
 				<svg
 					id="two_batteries_data_compact_bat1"
-					style="overflow: visible; display: ${config.wide && batteryCount === 2 && compactMode
+					style="overflow: visible; display: ${config.wide &&
+					batteryCount === 2 &&
+					compactMode
 						? 'inline'
 						: 'none'};"
 					x="-2.5%"
@@ -200,7 +220,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						'battery_voltage_183',
 						215,
 						295,
-						config.entities.battery_voltage_183 === 'none' || !config.entities.battery_voltage_183,
+						config.entities.battery_voltage_183 === 'none' ||
+							!config.entities.battery_voltage_183,
 						'st3 right-align',
 						batteryColour,
 						`${data.batteryVoltage} ${UnitOfElectricPotential.VOLT}`,
@@ -244,7 +265,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 				</svg>
 				<svg
 					id="two_batteries_data_compact_bat2"
-					style="overflow: visible; display: ${config.wide && batteryCount === 2 && compactMode
+					style="overflow: visible; display: ${config.wide &&
+					batteryCount === 2 &&
+					compactMode
 						? 'inline'
 						: 'none'};"
 					x="9.5%"
@@ -253,7 +276,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						'battery2_voltage_183',
 						213.5,
 						295,
-						config.entities.battery2_voltage_183 === 'none' || !config.entities.battery2_voltage_183,
+						config.entities.battery2_voltage_183 === 'none' ||
+							!config.entities.battery2_voltage_183,
 						'st3 left-align',
 						battery2Colour,
 						`${data.battery2Voltage} ${UnitOfElectricPotential.VOLT}`,
@@ -309,7 +333,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 				</svg>
 				<svg
 					id="battery2_data_lite"
-					style="overflow: visible; display: ${config.wide && batteryCount === 2 && !compactMode
+					style="overflow: visible; display: ${config.wide &&
+					batteryCount === 2 &&
+					!compactMode
 						? 'inline'
 						: 'none'};"
 					x="19%"
@@ -357,7 +383,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						'data.battery2Power_190',
 						193,
 						386,
-						config.entities.battery2_power_190 === 'none' || !config.show_battery,
+						config.entities.battery2_power_190 === 'none' ||
+							!config.show_battery,
 						`${largeFont !== true ? 'st14' : 'st4'} st8`,
 						battery2Colour,
 						config.battery2.auto_scale
@@ -379,7 +406,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						!config.entities?.battery2_status ? 193 : 169,
 						323,
 						!config.show_battery || !config.battery2.show_remaining_energy,
-						!config.entities?.battery2_status ? 'remaining-energy' : 'remaining-energy left-align',
+						!config.entities?.battery2_status
+							? 'remaining-energy'
+							: 'remaining-energy left-align',
 						battery2Colour,
 						!config.battery2.remaining_energy_to_shutdown
 							? `${Utils.toNum((data.battery2Energy * (data.stateBattery2Soc.toNum() / 100)) / 1000, 2)} ${UnitOfEnergy.KILO_WATT_HOUR}`
@@ -399,7 +428,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 				</svg>
 				<svg
 					id="battery_1_runtime"
-					style="overflow: visible; display: ${batteryCount === 2 ? 'none' : 'inline'};"
+					style="overflow: visible; display: ${batteryCount === 2
+						? 'none'
+						: 'inline'};"
 				>
 					${renderText(
 						'duration',
@@ -407,7 +438,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						377.5,
 						compactMode && batteryCount === 2,
 						`${largeFont !== true ? 'st14' : 'st4'} left-align`,
-						data.batteryEnergy === 0 || isFloating || batteryPower === 0 ? 'transparent' : batteryColour,
+						data.batteryEnergy === 0 || isFloating || batteryPower === 0
+							? 'transparent'
+							: batteryColour,
 						data.batteryDuration,
 						true,
 					)}
@@ -418,7 +451,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						compactMode && batteryCount === 2,
 						'st3 left-align',
 						data.batteryEnergy === 0 ||
-							(config.battery.invert_flow === true ? batteryPower >= 0 : batteryPower <= 0) ||
+							(config.battery.invert_flow === true
+								? batteryPower >= 0
+								: batteryPower <= 0) ||
 							isFloating
 							? 'transparent'
 							: batteryColour,
@@ -432,7 +467,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						compactMode && batteryCount === 2,
 						'st3 left-align',
 						data.batteryEnergy === 0 ||
-							(config.battery.invert_flow === true ? batteryPower <= 0 : batteryPower >= 0) ||
+							(config.battery.invert_flow === true
+								? batteryPower <= 0
+								: batteryPower >= 0) ||
 							isFloating
 							? 'transparent'
 							: batteryColour,
@@ -445,7 +482,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						393.7,
 						compactMode && batteryCount === 2,
 						'st3 left-align',
-						data.batteryEnergy === 0 || !isFloating ? 'transparent' : batteryColour,
+						data.batteryEnergy === 0 || !isFloating
+							? 'transparent'
+							: batteryColour,
 						localize('common.battery_floating'),
 						true,
 					)}
@@ -510,7 +549,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 							'battery_soc_184',
 							compactMode ? 270 : 290,
 							358,
-							config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid(),
+							config.entities.battery_soc_184 === 'none' ||
+								!data.stateBatterySoc.isValid(),
 							'st13 st8 left-align',
 							batteryColour,
 							`${data.stateBatterySoc.toNum(0)}% | ${data.inverterProg.capacity || 0}%`,
@@ -534,7 +574,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 							'battery_soc_184',
 							compactMode ? 270 : 290,
 							358,
-							config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid(),
+							config.entities.battery_soc_184 === 'none' ||
+								!data.stateBatterySoc.isValid(),
 							'st13 st8 left-align',
 							batteryColour,
 							`${data.stateBatterySoc.toNum(0)}% | ${batteryShutdown || 0}%`,
@@ -545,7 +586,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 				</svg>
 				<svg
 					id="two_batteries_battery1_runtime_lite"
-					style="overflow: visible; display: ${config.wide && batteryCount === 2 && !compactMode
+					style="overflow: visible; display: ${config.wide &&
+					batteryCount === 2 &&
+					!compactMode
 						? 'inline'
 						: 'none'};"
 					x="-43.5%"
@@ -556,7 +599,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						377.5,
 						true,
 						`${largeFont !== true ? 'st14' : 'st4'} right-align`,
-						data.batteryEnergy === 0 || isFloating || batteryPower === 0 ? 'transparent' : batteryColour,
+						data.batteryEnergy === 0 || isFloating || batteryPower === 0
+							? 'transparent'
+							: batteryColour,
 						data.batteryDuration,
 					)}
 					${renderText(
@@ -566,7 +611,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						true,
 						'st3 right-align',
 						data.batteryEnergy === 0 ||
-							(config.battery.invert_flow ? batteryPower >= 0 : batteryPower <= 0) ||
+							(config.battery.invert_flow
+								? batteryPower >= 0
+								: batteryPower <= 0) ||
 							isFloating
 							? 'transparent'
 							: batteryColour,
@@ -579,7 +626,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						true,
 						'st3 right-align',
 						data.batteryEnergy === 0 ||
-							(config.battery.invert_flow === true ? batteryPower <= 0 : batteryPower >= 0) ||
+							(config.battery.invert_flow === true
+								? batteryPower <= 0
+								: batteryPower >= 0) ||
 							isFloating
 							? 'transparent'
 							: batteryColour,
@@ -591,7 +640,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						393.7,
 						true,
 						'st3 right-align',
-						data.batteryEnergy === 0 || !isFloating ? 'transparent' : batteryColour,
+						data.batteryEnergy === 0 || !isFloating
+							? 'transparent'
+							: batteryColour,
 						localize('common.battery_floating'),
 					)}
 					${renderText(
@@ -655,7 +706,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 							'battery_soc_184',
 							413,
 							358,
-							config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid(),
+							config.entities.battery_soc_184 === 'none' ||
+								!data.stateBatterySoc.isValid(),
 							'st13 st8 right-align',
 							batteryColour,
 							`${data.inverterProg.capacity || 0}% | ${data.stateBatterySoc.toNum(0)}%`,
@@ -679,7 +731,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 							'battery_soc_184',
 							413,
 							358,
-							config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid(),
+							config.entities.battery_soc_184 === 'none' ||
+								!data.stateBatterySoc.isValid(),
 							'st13 st8 right-align',
 							batteryColour,
 							`${batteryShutdown || 0}% | ${data.stateBatterySoc.toNum(0)}%`,
@@ -690,7 +743,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 				</svg>
 				<svg
 					id="two_batteries_battery_2_runtime_lite"
-					style="overflow: visible; display: ${config.wide && batteryCount === 2 && !compactMode
+					style="overflow: visible; display: ${config.wide &&
+					batteryCount === 2 &&
+					!compactMode
 						? 'inline'
 						: 'none'};"
 					x="12%"
@@ -713,7 +768,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						true,
 						'st3 left-align',
 						data.battery2Energy === 0 ||
-							(config.battery2.invert_flow === true ? battery2Power >= 0 : battery2Power <= 0) ||
+							(config.battery2.invert_flow === true
+								? battery2Power >= 0
+								: battery2Power <= 0) ||
 							isFloating2
 							? 'transparent'
 							: battery2Colour,
@@ -726,7 +783,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						true,
 						'st3 left-align',
 						data.battery2Energy === 0 ||
-							(config.battery2.invert_flow === true ? battery2Power <= 0 : battery2Power >= 0) ||
+							(config.battery2.invert_flow === true
+								? battery2Power <= 0
+								: battery2Power >= 0) ||
 							isFloating2
 							? 'transparent'
 							: battery2Colour,
@@ -738,7 +797,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						393.7,
 						true,
 						'st3 left-align',
-						data.battery2Energy === 0 || !isFloating2 ? 'transparent' : battery2Colour,
+						data.battery2Energy === 0 || !isFloating2
+							? 'transparent'
+							: battery2Colour,
 						localize('common.battery_floating'),
 					)}
 					${renderText(
@@ -762,7 +823,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 					<svg
 						id="Battery2_SOC"
 						style="overflow: visible; 
-                        display: ${config.entities.battery2_soc_184 === 'none' || !data.stateBattery2Soc.isValid()
+                        display: ${config.entities.battery2_soc_184 ===
+							'none' || !data.stateBattery2Soc.isValid()
 							? 'none'
 							: 'inline'};"
 					>
@@ -770,7 +832,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 							'battery_soc_184',
 							290,
 							358,
-							config.entities.battery2_soc_184 === 'none' || !data.stateBattery2Soc.isValid(),
+							config.entities.battery2_soc_184 === 'none' ||
+								!data.stateBattery2Soc.isValid(),
 							'st13 st8 left-align',
 							battery2Colour,
 							!data.inverterProg.show && config.battery2.shutdown_soc_offgrid
@@ -787,7 +850,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 					<svg
 						id="Battery2_SOC_Program_Capacity"
 						style="overflow: visible; 
-                        display: ${config.entities.battery2_soc_184 === 'none' ||
+                        display: ${config.entities.battery2_soc_184 ===
+							'none' ||
 						!data.stateBattery2Soc.isValid() ||
 						config.battery2.hide_soc ||
 						!data.inverterProg.show
@@ -798,7 +862,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 							'battery_soc_184',
 							290,
 							358,
-							config.entities.battery2_soc_184 === 'none' || !data.stateBattery2Soc.isValid(),
+							config.entities.battery2_soc_184 === 'none' ||
+								!data.stateBattery2Soc.isValid(),
 							'st13 st8 left-align',
 							battery2Colour,
 							`${data.stateBattery2Soc.toNum(0)}% | ${data.inverterProg.capacity || 0}%`,
@@ -809,7 +874,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 					<svg
 						id="Battery2_SOC_Shutdown"
 						style="overflow: visible; 
-                        display: ${config.entities.battery2_soc_184 !== 'none' &&
+                        display: ${config.entities.battery2_soc_184 !==
+							'none' &&
 						data.stateBattery2Soc.isValid() &&
 						!config.battery2.hide_soc &&
 						!data.inverterProg.show &&
@@ -822,7 +888,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 							'battery_soc_184',
 							290,
 							358,
-							config.entities.battery2_soc_184 === 'none' || !data.stateBattery2Soc.isValid(),
+							config.entities.battery2_soc_184 === 'none' ||
+								!data.stateBattery2Soc.isValid(),
 							'st13 st8 left-align',
 							battery2Colour,
 							`${data.stateBattery2Soc.toNum(0)}% | ${batteryShutdown2 || 0}%`,
@@ -833,7 +900,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 				</svg>
 				<svg
 					id="two_batteries_runtime_compact_bat1"
-					style="overflow: visible; display: ${config.wide && batteryCount === 2 && compactMode
+					style="overflow: visible; display: ${config.wide &&
+					batteryCount === 2 &&
+					compactMode
 						? 'inline'
 						: 'none'};"
 					x="-29%"
@@ -844,7 +913,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						377.5,
 						true,
 						`${largeFont !== true ? 'st14' : 'st4'} right-align`,
-						data.batteryEnergy === 0 || isFloating || batteryPower === 0 ? 'transparent' : batteryColour,
+						data.batteryEnergy === 0 || isFloating || batteryPower === 0
+							? 'transparent'
+							: batteryColour,
 						data.batteryDuration,
 					)}
 					${renderText(
@@ -854,7 +925,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						batteryCount === 1,
 						'st3 right-align',
 						data.batteryEnergy === 0 ||
-							(config.battery.invert_flow === true ? batteryPower >= 0 : batteryPower <= 0) ||
+							(config.battery.invert_flow === true
+								? batteryPower >= 0
+								: batteryPower <= 0) ||
 							isFloating
 							? 'transparent'
 							: batteryColour,
@@ -868,7 +941,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						true,
 						'st3 right-align',
 						data.batteryEnergy === 0 ||
-							(config.battery.invert_flow === true ? batteryPower <= 0 : batteryPower >= 0) ||
+							(config.battery.invert_flow === true
+								? batteryPower <= 0
+								: batteryPower >= 0) ||
 							isFloating
 							? 'transparent'
 							: batteryColour,
@@ -880,7 +955,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						393.7,
 						true,
 						'st3 right-align',
-						data.batteryEnergy === 0 || !isFloating ? 'transparent' : batteryColour,
+						data.batteryEnergy === 0 || !isFloating
+							? 'transparent'
+							: batteryColour,
 						localize('common.battery_floating'),
 					)}
 					${renderText(
@@ -904,7 +981,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 					<svg
 						id="Battery1_SOC"
 						style="overflow: visible; 
-                        display: ${config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid()
+                        display: ${config.entities.battery_soc_184 === 'none' ||
+						!data.stateBatterySoc.isValid()
 							? 'none'
 							: 'inline'};"
 					>
@@ -912,7 +990,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 							'battery_soc_184',
 							393,
 							358,
-							config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid(),
+							config.entities.battery_soc_184 === 'none' ||
+								!data.stateBatterySoc.isValid(),
 							'st13 st8 right-align',
 							batteryColour,
 							!data.inverterProg.show && config.battery.shutdown_soc_offgrid
@@ -940,7 +1019,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 							'battery_soc_184',
 							393,
 							358,
-							config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid(),
+							config.entities.battery_soc_184 === 'none' ||
+								!data.stateBatterySoc.isValid(),
 							'st13 st8 right-align',
 							batteryColour,
 							`${data.inverterProg.capacity || 0}% | ${data.stateBatterySoc.toNum(0)}%`,
@@ -964,7 +1044,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 							'battery_soc_184',
 							393,
 							358,
-							config.entities.battery_soc_184 === 'none' || !data.stateBatterySoc.isValid(),
+							config.entities.battery_soc_184 === 'none' ||
+								!data.stateBatterySoc.isValid(),
 							'st13 st8 right-align',
 							batteryColour,
 							`${batteryShutdown || 0}% | ${data.stateBatterySoc.toNum(0)}%`,
@@ -987,7 +1068,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 				</svg>
 				<svg
 					id="two_batteries_runtime_compact_bat2"
-					style="overflow: visible; display: ${config.wide && batteryCount === 2 && compactMode
+					style="overflow: visible; display: ${config.wide &&
+					batteryCount === 2 &&
+					compactMode
 						? 'inline'
 						: 'none'};"
 					x="0.3%"
@@ -1010,7 +1093,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						true,
 						'st3 left-align',
 						data.battery2Energy === 0 ||
-							(config.battery2.invert_flow === true ? battery2Power >= 0 : battery2Power <= 0) ||
+							(config.battery2.invert_flow === true
+								? battery2Power >= 0
+								: battery2Power <= 0) ||
 							isFloating2
 							? 'transparent'
 							: battery2Colour,
@@ -1023,7 +1108,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						true,
 						'st3 left-align',
 						data.battery2Energy === 0 ||
-							(config.battery2.invert_flow === true ? battery2Power <= 0 : battery2Power >= 0) ||
+							(config.battery2.invert_flow === true
+								? battery2Power <= 0
+								: battery2Power >= 0) ||
 							isFloating2
 							? 'transparent'
 							: battery2Colour,
@@ -1035,7 +1122,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						393.7,
 						true,
 						'st3 left-align',
-						data.battery2Energy === 0 || !isFloating2 ? 'transparent' : battery2Colour,
+						data.battery2Energy === 0 || !isFloating2
+							? 'transparent'
+							: battery2Colour,
 						localize('common.battery_floating'),
 					)}
 					${renderText(
@@ -1059,7 +1148,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 					<svg
 						id="Battery2_SOC"
 						style="overflow: visible; 
-                        display: ${config.entities.battery2_soc_184 === 'none' || !data.stateBattery2Soc.isValid()
+                        display: ${config.entities.battery2_soc_184 ===
+							'none' || !data.stateBattery2Soc.isValid()
 							? 'none'
 							: 'inline'};"
 					>
@@ -1067,7 +1157,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 							'battery_soc_184',
 							290,
 							358,
-							config.entities.battery2_soc_184 === 'none' || !data.stateBattery2Soc.isValid(),
+							config.entities.battery2_soc_184 === 'none' ||
+								!data.stateBattery2Soc.isValid(),
 							'st13 st8 left-align',
 							battery2Colour,
 							!data.inverterProg.show && config.battery2.shutdown_soc_offgrid
@@ -1084,7 +1175,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 					<svg
 						id="Battery2_SOC_Program_Capacity"
 						style="overflow: visible; 
-                        display: ${config.entities.battery2_soc_184 === 'none' ||
+                        display: ${config.entities.battery2_soc_184 ===
+							'none' ||
 						!data.stateBattery2Soc.isValid() ||
 						config.battery2.hide_soc ||
 						!data.inverterProg.show
@@ -1095,7 +1187,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 							'battery_soc_184',
 							290,
 							358,
-							config.entities.battery2_soc_184 === 'none' || !data.stateBattery2Soc.isValid(),
+							config.entities.battery2_soc_184 === 'none' ||
+								!data.stateBattery2Soc.isValid(),
 							'st13 st8 left-align',
 							battery2Colour,
 							`${data.stateBattery2Soc.toNum(0)}% | ${data.inverterProg.capacity || 0}%`,
@@ -1106,7 +1199,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 					<svg
 						id="Battery2_SOC_Shutdown"
 						style="overflow: visible; 
-                        display: ${config.entities.battery2_soc_184 !== 'none' &&
+                        display: ${config.entities.battery2_soc_184 !==
+							'none' &&
 						data.stateBattery2Soc.isValid() &&
 						!config.battery2.hide_soc &&
 						!data.inverterProg.show &&
@@ -1119,7 +1213,8 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 							'battery_soc_184',
 							290,
 							358,
-							config.entities.battery2_soc_184 === 'none' || !data.stateBattery2Soc.isValid(),
+							config.entities.battery2_soc_184 === 'none' ||
+								!data.stateBattery2Soc.isValid(),
 							'st13 st8 left-align',
 							battery2Colour,
 							`${data.stateBattery2Soc.toNum(0)}% | ${batteryShutdown2 || 0}%`,
@@ -1142,8 +1237,13 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 					)}
 					${renderCircle(
 						'power-dot-discharge',
-						Math.min(2 + data.batLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
-						data.batteryPowerTotal < 0 || data.batteryPowerTotal === 0 ? 'transparent' : batteryColour,
+						Math.min(
+							2 + data.batLineWidth + Math.max(data.minLineWidth - 2, 0),
+							8,
+						),
+						data.batteryPowerTotal < 0 || data.batteryPowerTotal === 0
+							? 'transparent'
+							: batteryColour,
 						data.durationCur['battery'],
 						'1;0',
 						'#bat-line',
@@ -1151,7 +1251,10 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 					)}
 					${renderCircle(
 						'power-dot-charge',
-						Math.min(2 + data.batLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+						Math.min(
+							2 + data.batLineWidth + Math.max(data.minLineWidth - 2, 0),
+							8,
+						),
 						data.batteryPowerTotal >= 0
 							? 'transparent'
 							: `${config.battery.dynamic_colour ? data.flowBatColour : batteryColour}`,
@@ -1161,12 +1264,17 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 						config.battery.invert_flow === true,
 					)}
 				</svg>
-				<svg id="battery_icon" style="overflow: visible;" x="${batteryCount === 2 ? '-6.25%' : '0%'}">
+				<svg
+					id="battery_icon"
+					style="overflow: visible;"
+					x="${batteryCount === 2 ? '-6.25%' : '0%'}"
+				>
 					${createTextWithPopup(
 						'battery_temp_182',
 						compactMode ? 205 : 250,
 						compactMode ? 332 : 324.5,
-						!data.stateBatteryTemp.isValid() || (compactMode && batteryCount === 2),
+						!data.stateBatteryTemp.isValid() ||
+							(compactMode && batteryCount === 2),
 						config.entities?.battery_temp_182 ? 'st3 left-align' : 'st12',
 						batteryColour,
 						`${data.stateBatteryTemp.toNum(1)}°`,
@@ -1189,7 +1297,11 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 					<circle
 						id="bat"
 						cx="${compactMode ? '238.5' : '162'}"
-						cy="${compactMode ? '326' : !config.battery.show_remaining_energy ? '319' : '310'}"
+						cy="${compactMode
+							? '326'
+							: !config.battery.show_remaining_energy
+								? '319'
+								: '310'}"
 						r="3.5"
 						display="${config.entities?.battery_status === 'none' ||
 						!config.entities?.battery_status ||
@@ -1202,7 +1314,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 					<a
 						href="#"
 						@click=${(e) =>
-							config.battery.navigate ? Utils.handleNavigation(e, config.battery.navigate) : null}
+							config.battery.navigate
+								? Utils.handleNavigation(e, config.battery.navigate)
+								: null}
 					>
 						<svg
 							id="bat_outter"
@@ -1214,7 +1328,13 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 							viewBox="0 0 24 24"
 						>
 							<defs>
-								<linearGradient id="bLg-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
+								<linearGradient
+									id="bLg-${data.timestamp_id}"
+									x1="0%"
+									x2="0%"
+									y1="100%"
+									y2="0%"
+								>
 									<stop
 										offset="0%"
 										stop-color="${data.gridPercentageBat > 0
@@ -1224,7 +1344,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 												: batteryColour}"
 									/>
 									<stop
-										offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
+										offset="${data.gridPercentageBat < 2
+											? 0
+											: data.gridPercentageBat}%"
 										stop-color="${data.gridPercentageBat > 0
 											? data.gridColour
 											: data.pvPercentageBat > 0
@@ -1232,16 +1354,26 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 												: batteryColour}"
 									/>
 									<stop
-										offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
-										stop-color="${data.pvPercentageBat > 0 ? data.solarColour : batteryColour}"
+										offset="${data.gridPercentageBat < 2
+											? 0
+											: data.gridPercentageBat}%"
+										stop-color="${data.pvPercentageBat > 0
+											? data.solarColour
+											: batteryColour}"
 									/>
 									<stop
-										offset="${(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat) +
+										offset="${(data.gridPercentageBat < 2
+											? 0
+											: data.gridPercentageBat) +
 										(data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat)}%"
-										stop-color="${data.pvPercentageBat > 0 ? data.solarColour : batteryColour}"
+										stop-color="${data.pvPercentageBat > 0
+											? data.solarColour
+											: batteryColour}"
 									/>
 									<stop
-										offset="${(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat) +
+										offset="${(data.gridPercentageBat < 2
+											? 0
+											: data.gridPercentageBat) +
 										(data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat)}%"
 										stop-color="${batteryColour}"
 									/>
@@ -1252,7 +1384,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 								fill="${config.battery.dynamic_colour
 									? `url(#bLg-${data.timestamp_id})`
 									: batteryColour}"
-								d="${config.battery.linear_gradient ? data.battery0 : data.batteryIcon}"
+								d="${config.battery.linear_gradient
+									? data.battery0
+									: data.batteryIcon}"
 							/>
 						</svg>
 						<svg
@@ -1265,7 +1399,13 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 							viewBox="0 0 24 24"
 						>
 							<defs>
-								<linearGradient id="sLg-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
+								<linearGradient
+									id="sLg-${data.timestamp_id}"
+									x1="0%"
+									x2="0%"
+									y1="100%"
+									y2="0%"
+								>
 									<stop offset="0%" stop-color="red" />
 									<stop offset="100%" stop-color="${data.stopColour}" />
 									<animate
@@ -1288,14 +1428,17 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 				</svg>
 				<svg
 					id="battery2_icon"
-					style="overflow: visible; display: ${config.wide && batteryCount === 2 ? 'inline' : 'none'};"
+					style="overflow: visible; display: ${config.wide && batteryCount === 2
+						? 'inline'
+						: 'none'};"
 					x="0.75%"
 				>
 					${createTextWithPopup(
 						'battery2_temp_182',
 						250,
 						324.5,
-						!data.stateBattery2Temp.isValid() || (compactMode && batteryCount === 2),
+						!data.stateBattery2Temp.isValid() ||
+							(compactMode && batteryCount === 2),
 						config.entities?.battery2_temp_182 ? 'st3 left-align' : 'st12',
 						battery2Colour,
 						`${data.stateBattery2Temp.toNum(1)}°`,
@@ -1318,7 +1461,11 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 					<circle
 						id="bat"
 						cx="295"
-						cy="${compactMode ? '326' : !config.battery2.show_remaining_energy ? '319' : '310'}"
+						cy="${compactMode
+							? '326'
+							: !config.battery2.show_remaining_energy
+								? '319'
+								: '310'}"
 						r="3.5"
 						display="${config.entities?.battery2_status === 'none' ||
 						!config.entities?.battery2_status ||
@@ -1331,7 +1478,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 					<a
 						href="#"
 						@click=${(e) =>
-							config.battery2.navigate ? Utils.handleNavigation(e, config.battery2.navigate) : null}
+							config.battery2.navigate
+								? Utils.handleNavigation(e, config.battery2.navigate)
+								: null}
 					>
 						<svg
 							id="bat"
@@ -1343,7 +1492,13 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 							viewBox="0 0 24 24"
 						>
 							<defs>
-								<linearGradient id="b2Lg-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
+								<linearGradient
+									id="b2Lg-${data.timestamp_id}"
+									x1="0%"
+									x2="0%"
+									y1="100%"
+									y2="0%"
+								>
 									<stop
 										offset="0%"
 										stop-color="${data.gridPercentageBat > 0
@@ -1353,7 +1508,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 												: battery2Colour}"
 									/>
 									<stop
-										offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
+										offset="${data.gridPercentageBat < 2
+											? 0
+											: data.gridPercentageBat}%"
 										stop-color="${data.gridPercentageBat > 0
 											? data.gridColour
 											: data.pvPercentageBat > 0
@@ -1361,16 +1518,26 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 												: battery2Colour}"
 									/>
 									<stop
-										offset="${data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat}%"
-										stop-color="${data.pvPercentageBat > 0 ? data.solarColour : battery2Colour}"
+										offset="${data.gridPercentageBat < 2
+											? 0
+											: data.gridPercentageBat}%"
+										stop-color="${data.pvPercentageBat > 0
+											? data.solarColour
+											: battery2Colour}"
 									/>
 									<stop
-										offset="${(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat) +
+										offset="${(data.gridPercentageBat < 2
+											? 0
+											: data.gridPercentageBat) +
 										(data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat)}%"
-										stop-color="${data.pvPercentageBat > 0 ? data.solarColour : batteryColour}"
+										stop-color="${data.pvPercentageBat > 0
+											? data.solarColour
+											: batteryColour}"
 									/>
 									<stop
-										offset="${(data.gridPercentageBat < 2 ? 0 : data.gridPercentageBat) +
+										offset="${(data.gridPercentageBat < 2
+											? 0
+											: data.gridPercentageBat) +
 										(data.pvPercentageBat < 2 ? 0 : data.pvPercentageBat)}%"
 										stop-color="${battery2Colour}"
 									/>
@@ -1381,7 +1548,9 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 								fill="${config.battery2.dynamic_colour
 									? `url(#b2Lg-${data.timestamp_id})`
 									: battery2Colour}"
-								d="${config.battery2.linear_gradient ? data.battery20 : data.battery2Icon}"
+								d="${config.battery2.linear_gradient
+									? data.battery20
+									: data.battery2Icon}"
 							/>
 						</svg>
 						<svg
@@ -1394,7 +1563,13 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 							viewBox="0 0 24 24"
 						>
 							<defs>
-								<linearGradient id="s2Lg-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
+								<linearGradient
+									id="s2Lg-${data.timestamp_id}"
+									x1="0%"
+									x2="0%"
+									y1="100%"
+									y2="0%"
+								>
 									<stop offset="0%" stop-color="red" />
 									<stop offset="100%" stop-color="${data.stop2Colour}" />
 									<animate
@@ -1436,11 +1611,16 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 							'daily_bat_charge_value',
 							compactMode && batteryCount === 1 ? 132 : 77.2,
 							343,
-							data.batteryShowDaily !== true || !data.stateDayBatteryCharge.isValid(),
+							data.batteryShowDaily !== true ||
+								!data.stateDayBatteryCharge.isValid(),
 							'st10 left-align',
 							batteryColour,
-							data.stateDayBatteryCharge?.toPowerString(true, data.decimalPlacesEnergy),
-							(e) => Utils.handlePopup(e, config.entities.day_battery_charge_70),
+							data.stateDayBatteryCharge?.toPowerString(
+								true,
+								data.decimalPlacesEnergy,
+							),
+							(e) =>
+								Utils.handlePopup(e, config.entities.day_battery_charge_70),
 							true,
 						)}
 					</svg>
@@ -1464,11 +1644,16 @@ export const renderBatteryElements = (data: DataDto, config: sunsynkPowerFlowCar
 							'daily_bat_discharge_value',
 							compactMode && batteryCount === 1 ? 132 : 77.2,
 							380.1,
-							data.batteryShowDaily !== true || !data.stateDayBatteryDischarge.isValid(),
+							data.batteryShowDaily !== true ||
+								!data.stateDayBatteryDischarge.isValid(),
 							'st10 left-align',
 							batteryColour,
-							data.stateDayBatteryDischarge?.toPowerString(true, data.decimalPlacesEnergy),
-							(e) => Utils.handlePopup(e, config.entities.day_battery_discharge_71),
+							data.stateDayBatteryDischarge?.toPowerString(
+								true,
+								data.decimalPlacesEnergy,
+							),
+							(e) =>
+								Utils.handlePopup(e, config.entities.day_battery_discharge_71),
 							true,
 						)}
 					</svg>

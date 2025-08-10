@@ -1,6 +1,6 @@
-import {InverterSettingsDto} from '../dto/inverter-settings.dto';
-import {InverterModel} from '../../types';
-import {localize} from '../../localize/localize';
+import { InverterSettingsDto } from '../dto/inverter-settings.dto';
+import { InverterModel } from '../../types';
+import { localize } from '../../localize/localize';
 
 /* Solis Status Codes
  * Page 22-23: https://www.scss.tcd.ie/Brian.Coghlan/Elios4you/RS485_MODBUS-Hybrid-BACoghlan-201811228-1854.pdf
@@ -59,7 +59,18 @@ export class Solis extends InverterSettingsDto {
 			message: localize('common.alarm'),
 		},
 		fault: {
-			states: ['4117', '4118', '4119', '4121', '4131', '4134', '4135', '4164', '4167', '4144'],
+			states: [
+				'4117',
+				'4118',
+				'4119',
+				'4121',
+				'4131',
+				'4134',
+				'4135',
+				'4164',
+				'4167',
+				'4144',
+			],
 			color: 'red',
 			message: localize('common.fault'),
 		},

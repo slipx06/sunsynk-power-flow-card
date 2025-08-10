@@ -16,7 +16,7 @@ import * as sk from './languages/sk.json';
 import * as sl from './languages/sl.json';
 import * as sv from './languages/sv.json';
 import * as uk from './languages/uk.json';
-import {globalData} from '../helpers/globals';
+import { globalData } from '../helpers/globals';
 
 const languages: any = {
 	ca: ca,
@@ -40,7 +40,9 @@ const languages: any = {
 };
 
 export function localize(string: string, search = '', replace = '') {
-	const langFromLocalStorage = (localStorage.getItem('selectedLanguage') || 'en')
+	const langFromLocalStorage = (
+		localStorage.getItem('selectedLanguage') || 'en'
+	)
 		.replace(/['"]+/g, '')
 		.replace('-', '_');
 

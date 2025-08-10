@@ -1,6 +1,6 @@
-import {html} from 'lit';
-import {DataDto} from '../../../types';
-import {icons} from '../../../helpers/icons';
+import { html } from "lit";
+import { DataDto } from "../../../types";
+import { icons } from "../../../helpers/icons";
 
 export interface LoadIconConfig {
 	id: string;
@@ -11,7 +11,7 @@ export interface LoadIconConfig {
 	loadNumber: 1 | 2;
 	displayCondition: boolean;
 	opacityCondition: boolean;
-	iconType: 'boiler' | 'aircon' | 'pump' | 'oven';
+	iconType: "boiler" | "aircon" | "pump" | "oven";
 	prefix: string;
 	viewBoxSize?: number; // Optional parameter, defaults to 24 if not specified
 }
@@ -23,7 +23,10 @@ export interface LoadIconConfig {
  * @returns A lit-html template for the SVG icon
  */
 export const renderStaticLoadIcon = (data: DataDto, config: LoadIconConfig) => {
-	const dynamicColor = config.loadNumber === 1 ? data.dynamicColourEssentialLoad1 : data.dynamicColourEssentialLoad2;
+	const dynamicColor =
+		config.loadNumber === 1
+			? data.dynamicColourEssentialLoad1
+			: data.dynamicColourEssentialLoad2;
 
 	const iconPath = icons[config.iconType];
 	const viewBoxSize = config.viewBoxSize || 24; // Default to 24 if not specified
@@ -37,9 +40,13 @@ export const renderStaticLoadIcon = (data: DataDto, config: LoadIconConfig) => {
 			width="${config.width}"
 			height="${config.height}"
 			viewBox="0 0 ${viewBoxSize} ${viewBoxSize}"
-			opacity="${config.opacityCondition ? '1' : '0'}"
+			opacity="${config.opacityCondition ? "1" : "0"}"
 		>
-			<path display="${config.displayCondition ? '' : 'none'}" fill="${dynamicColor}" d="${iconPath}" />
+			<path
+				display="${config.displayCondition ? "" : "none"}"
+				fill="${dynamicColor}"
+				d="${iconPath}"
+			/>
 		</svg>
 	`;
 };

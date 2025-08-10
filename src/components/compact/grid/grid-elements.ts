@@ -1,17 +1,25 @@
 // grid-elements.ts
-import {svg, html} from 'lit';
-import {localize} from '../../../localize/localize';
-import {Utils} from '../../../helpers/utils';
-import {DataDto, sunsynkPowerFlowCardConfig} from '../../../types';
-import {icons} from '../../../helpers/icons';
-import {UnitOfPower, validGridConnected, validGridDisconnected} from '../../../const';
-import {createTextWithPopup, renderText} from '../../../helpers/text-utils';
-import {renderPath} from '../../../helpers/render-path';
-import {renderCircle} from '../../../helpers/render-circle';
+import { svg, html } from 'lit';
+import { localize } from '../../../localize/localize';
+import { Utils } from '../../../helpers/utils';
+import { DataDto, sunsynkPowerFlowCardConfig } from '../../../types';
+import { icons } from '../../../helpers/icons';
+import {
+	UnitOfPower,
+	validGridConnected,
+	validGridDisconnected,
+} from '../../../const';
+import { createTextWithPopup, renderText } from '../../../helpers/text-utils';
+import { renderPath } from '../../../helpers/render-path';
+import { renderCircle } from '../../../helpers/render-circle';
 
 const renderGridIcons = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
-	const isGridConnected = validGridConnected.includes(data.gridStatus.toLowerCase());
-	const isGridDisconnected = validGridDisconnected.includes(data.gridStatus.toLowerCase());
+	const isGridConnected = validGridConnected.includes(
+		data.gridStatus.toLowerCase(),
+	);
+	const isGridDisconnected = validGridDisconnected.includes(
+		data.gridStatus.toLowerCase(),
+	);
 	const showGrid = config.show_grid;
 	const totalGridPower = data.totalGridPower;
 	const gridColour = data.gridColour;
@@ -37,7 +45,10 @@ const renderGridIcons = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
     `;
 };
 
-const renderGridTotalPower = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
+const renderGridTotalPower = (
+	data: DataDto,
+	config: sunsynkPowerFlowCardConfig,
+) => {
 	const totalGridPower = data.totalGridPower;
 	const auto_scale = config.grid.auto_scale;
 	const show_absolute = config.grid.show_absolute;
@@ -65,12 +76,15 @@ const renderGridTotalPower = (data: DataDto, config: sunsynkPowerFlowCardConfig)
     `;
 };
 
-export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
-	const {decimalPlaces, gridColour, totalGridPower} = data;
+export const renderGridElements = (
+	data: DataDto,
+	config: sunsynkPowerFlowCardConfig,
+) => {
+	const { decimalPlaces, gridColour, totalGridPower } = data;
 
-	const {auto_scale, invert_flow} = config.grid;
+	const { auto_scale, invert_flow } = config.grid;
 
-	const {three_phase} = config.inverter;
+	const { three_phase } = config.inverter;
 
 	const gridFlowKeyPoints = invert_flow
 		? Utils.invertKeyPoints(totalGridPower < 0 ? '1;0' : '0;1')
@@ -86,7 +100,12 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 
 	return html`
 		<!-- Grid Elements -->
-		<svg id="Grid" style="overflow: visible; display: ${!config.show_grid ? 'none' : 'inline'};">
+		<svg
+			id="Grid"
+			style="overflow: visible; display: ${!config.show_grid
+				? 'none'
+				: 'inline'};"
+		>
 			<rect
 				x="103"
 				y="203.5"
@@ -139,7 +158,10 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 				)}
 				${renderCircle(
 					'grid-dot',
-					Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+					Math.min(
+						2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0),
+						8,
+					),
 					totalGridPower === 0 ? 'transparent' : gridColour,
 					data.durationCur['grid'],
 					gridFlowKeyPoints,
@@ -147,10 +169,19 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 				)}
 			</svg>
 			<svg id="grid1-flow">
-				${renderPath('grid-line1', 'M 103 218 L 64.5 218', config.show_grid, gridColour, data.gridLineWidth)}
+				${renderPath(
+					'grid-line1',
+					'M 103 218 L 64.5 218',
+					config.show_grid,
+					gridColour,
+					data.gridLineWidth,
+				)}
 				${renderCircle(
 					'grid-dot1',
-					Math.min(2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+					Math.min(
+						2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0),
+						8,
+					),
 					totalGridPower === 0 ? 'transparent' : gridColour,
 					data.durationCur['grid'],
 					grid1FlowKeyPoints,
@@ -191,7 +222,9 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 				'daily_grid_buy_value',
 				5,
 				267.9,
-				!config.show_grid || data.gridShowDailyBuy !== true || !data.stateDayGridImport.isValid(),
+				!config.show_grid ||
+					data.gridShowDailyBuy !== true ||
+					!data.stateDayGridImport.isValid(),
 				'st10 left-align',
 				gridColour,
 				data.stateDayGridImport?.toPowerString(true, data.decimalPlacesEnergy),
@@ -202,7 +235,9 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 				'daily_grid_sell_value',
 				5,
 				165,
-				!config.show_grid || data.gridShowDailySell !== true || !data.stateDayGridExport.isValid(),
+				!config.show_grid ||
+					data.gridShowDailySell !== true ||
+					!data.stateDayGridExport.isValid(),
 				'st10 left-align',
 				gridColour,
 				data.stateDayGridExport?.toPowerString(true, data.decimalPlacesEnergy),
@@ -213,7 +248,9 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 				'max_sell_power',
 				5,
 				150,
-				!config.show_grid || !data.stateMaxSellPower.isValid || !config.entities?.max_sell_power,
+				!config.show_grid ||
+					!data.stateMaxSellPower.isValid ||
+					!config.entities?.max_sell_power,
 				'st3 left-align',
 				['off', '0'].includes(data.stateSolarSell.state) ? 'grey' : gridColour,
 				`${localize('common.limit')}: ${data.stateMaxSellPower.toPowerString(auto_scale, decimalPlaces)}`,
@@ -235,27 +272,35 @@ export const renderGridElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 			${totalGridPower >= 0
 				? svg`
                     ${createTextWithPopup(
-						'energy_cost',
-						105,
-						195,
-						!!(config.entities?.energy_cost_buy && data.stateEnergyCostBuy.isValid()),
-						`${!config.show_grid ? 'st12' : 'st3 left-align'}`,
-						gridColour,
-						`${data.energyCost} ${data.stateEnergyCostBuy.getUOM()}`,
-						(e) => Utils.handlePopup(e, config.entities.energy_cost_buy),
-					)}`
+											'energy_cost',
+											105,
+											195,
+											!!(
+												config.entities?.energy_cost_buy &&
+												data.stateEnergyCostBuy.isValid()
+											),
+											`${!config.show_grid ? 'st12' : 'st3 left-align'}`,
+											gridColour,
+											`${data.energyCost} ${data.stateEnergyCostBuy.getUOM()}`,
+											(e) =>
+												Utils.handlePopup(e, config.entities.energy_cost_buy),
+										)}`
 				: svg`
                     ${createTextWithPopup(
-						'energy_cost',
-						105,
-						195,
-						!!(config.entities?.energy_cost_sell && data.stateEnergyCostSell.isValid()),
-						`${!config.show_grid ? 'st12' : 'st3 left-align'}`,
-						gridColour,
-						`${data.energyCost} ${data.stateEnergyCostSell.getUOM()}`,
-						(e) => Utils.handlePopup(e, config.entities.energy_cost_sell),
-						false,
-					)}`}
+											'energy_cost',
+											105,
+											195,
+											!!(
+												config.entities?.energy_cost_sell &&
+												data.stateEnergyCostSell.isValid()
+											),
+											`${!config.show_grid ? 'st12' : 'st3 left-align'}`,
+											gridColour,
+											`${data.energyCost} ${data.stateEnergyCostSell.getUOM()}`,
+											(e) =>
+												Utils.handlePopup(e, config.entities.energy_cost_sell),
+											false,
+										)}`}
 			${createTextWithPopup(
 				'prepaid',
 				31.5,

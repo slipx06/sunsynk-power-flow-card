@@ -1,6 +1,11 @@
-import {HassEntity} from 'home-assistant-js-websocket/dist/types';
-import {Utils} from '../../helpers/utils';
-import {Percentage, UnitOfElectricalCurrent, UnitOfEnergy, UnitOfPower} from '../../const';
+import { HassEntity } from 'home-assistant-js-websocket/dist/types';
+import { Utils } from '../../helpers/utils';
+import {
+	Percentage,
+	UnitOfElectricalCurrent,
+	UnitOfEnergy,
+	UnitOfPower,
+} from '../../const';
 
 /**
  * CustomEntity interface represents a custom entity in Home Assistant.
@@ -9,7 +14,12 @@ import {Percentage, UnitOfElectricalCurrent, UnitOfEnergy, UnitOfPower} from '..
 export interface CustomEntity extends HassEntity {
 	state: string;
 	decimals: number;
-	measurement: UnitOfPower | UnitOfEnergy | UnitOfElectricalCurrent | Percentage | 'NA';
+	measurement:
+		| UnitOfPower
+		| UnitOfEnergy
+		| UnitOfElectricalCurrent
+		| Percentage
+		| 'NA';
 
 	/**
 	 * Extension of Utils.toNum, returns the state in a number
@@ -57,15 +67,25 @@ export interface CustomEntity extends HassEntity {
 // Function to convert HassEntity to CustomEntity
 export function convertToCustomEntity(
 	entity: any,
-	measurement: UnitOfPower | UnitOfEnergy | UnitOfElectricalCurrent | Percentage | 'NA' = 'NA',
+	measurement:
+		| UnitOfPower
+		| UnitOfEnergy
+		| UnitOfElectricalCurrent
+		| Percentage
+		| 'NA' = 'NA',
 	decimals: number = -1,
 ): CustomEntity {
 	return {
 		...entity,
 		measurement: measurement,
 		decimals: decimals,
-		toNum: (decimals?: number, invert?: boolean) => Utils.toNum(entity?.state, decimals, invert),
-		isValid: () => (entity?.state !== null && entity.state !== undefined && entity.state !== 'unknown') || false,
+		toNum: (decimals?: number, invert?: boolean) =>
+			Utils.toNum(entity?.state, decimals, invert),
+		isValid: () =>
+			(entity?.state !== null &&
+				entity.state !== undefined &&
+				entity.state !== 'unknown') ||
+			false,
 		notEmpty: () =>
 			(entity?.state !== '' &&
 				entity?.state !== null &&
@@ -85,7 +105,11 @@ export function convertToCustomEntity(
 		},
 		toPowerString: (scale?: boolean, decimals?: number, invert?: boolean) =>
 			scale
-				? Utils.convertValueNew(entity?.state, entity?.attributes?.unit_of_measurement, decimals || 0)
+				? Utils.convertValueNew(
+						entity?.state,
+						entity?.attributes?.unit_of_measurement,
+						decimals || 0,
+					)
 				: `${Utils.toNum(entity?.state, 0, invert)} ${entity?.attributes?.unit_of_measurement || ''}`,
 		toString: () => entity?.state?.toString() || '',
 		getUOM: () => entity?.attributes?.unit_of_measurement || '',
@@ -95,13 +119,21 @@ export function convertToCustomEntity(
 
 function toDisplayFunction(
 	state: string,
-	measurement: UnitOfPower | UnitOfEnergy | UnitOfElectricalCurrent | Percentage | 'NA',
+	measurement:
+		| UnitOfPower
+		| UnitOfEnergy
+		| UnitOfElectricalCurrent
+		| Percentage
+		| 'NA',
 	decimals?: number,
 ): string {
 	//console.log(state, measurement, decimals);
 	if (state == null) return state;
 	if (Number.isNaN(state)) return `${state}${measurement}`;
-	const stateDec = decimals != null && decimals >= 0 ? parseFloat(state).toFixed(decimals) : state;
+	const stateDec =
+		decimals != null && decimals >= 0
+			? parseFloat(state).toFixed(decimals)
+			: state;
 	const suffix = measurement != 'NA' && measurement ? measurement : '';
 	return `${stateDec}${suffix}`;
 }

@@ -1,5 +1,5 @@
-import {LovelaceCard, LovelaceCardConfig} from 'custom-card-helpers';
-import {CustomEntity} from './inverters/dto/custom-entity';
+import { LovelaceCard, LovelaceCardConfig } from 'custom-card-helpers';
+import { CustomEntity } from './inverters/dto/custom-entity';
 
 declare global {
 	interface HTMLElementTagNameMap {

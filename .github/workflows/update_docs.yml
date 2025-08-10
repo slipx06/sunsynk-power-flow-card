@@ -2,19 +2,19 @@
 name: Generate and Deploy Documentation
 
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
 
 jobs:
-    build-and-deploy-docs:
-        runs-on: ubuntu-latest
+  build-and-deploy-docs:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            - name: Deploy to GitHub Pages
-              uses: totaldebug/sphinx-publish-action@master
-              with:
-                  token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy to GitHub Pages
+        uses: totaldebug/sphinx-publish-action@master
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}

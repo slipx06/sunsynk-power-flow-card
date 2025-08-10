@@ -1,6 +1,6 @@
 ---
 myst:
-    enable_extensions: ['colon_fence']
+  enable_extensions: ["colon_fence"]
 ---
 
 # Configuration

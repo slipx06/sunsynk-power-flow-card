@@ -1,19 +1,50 @@
-import {InverterSettingsDto, InverterStatus} from '../dto/inverter-settings.dto';
-import {InverterModel} from '../../types';
-import {localize} from '../../localize/localize';
+import {
+	InverterSettingsDto,
+	InverterStatus,
+} from '../dto/inverter-settings.dto';
+import { InverterModel } from '../../types';
+import { localize } from '../../localize/localize';
 
 export class Huawei extends InverterSettingsDto {
 	brand = InverterModel.Huawei;
 	batteryStatusGroups: InverterStatus = {
-		offline: {states: ['0', 'offline'], color: 'yellow', message: localize('common.offline')},
-		standby: {states: ['1', 'standby'], color: 'blue', message: localize('common.standby')},
-		running: {states: ['2', 'running'], color: 'green', message: localize('common.running')},
-		fault: {states: ['3', 'fault'], color: 'red', message: localize('common.fault')},
-		sleepmode: {states: ['4', 'sleep_mode'], color: 'yellow', message: localize('common.sleepmode')},
+		offline: {
+			states: ['0', 'offline'],
+			color: 'yellow',
+			message: localize('common.offline'),
+		},
+		standby: {
+			states: ['1', 'standby'],
+			color: 'blue',
+			message: localize('common.standby'),
+		},
+		running: {
+			states: ['2', 'running'],
+			color: 'green',
+			message: localize('common.running'),
+		},
+		fault: {
+			states: ['3', 'fault'],
+			color: 'red',
+			message: localize('common.fault'),
+		},
+		sleepmode: {
+			states: ['4', 'sleep_mode'],
+			color: 'yellow',
+			message: localize('common.sleepmode'),
+		},
 	};
 	statusGroups: InverterStatus = {
-		standby: {states: ['standby'], color: 'blue', message: localize('common.standby')},
-		selftest: {states: ['spot check'], color: 'yellow', message: localize('common.selftest')},
+		standby: {
+			states: ['standby'],
+			color: 'blue',
+			message: localize('common.standby'),
+		},
+		selftest: {
+			states: ['spot check'],
+			color: 'yellow',
+			message: localize('common.selftest'),
+		},
 		normal: {
 			states: [
 				'grid-connected, grid-connected normally',
@@ -22,10 +53,20 @@ export class Huawei extends InverterSettingsDto {
 			color: 'green',
 			message: localize('common.normal'),
 		},
-		shutdown: {states: ['shutdown'], color: 'red', message: localize('common.shutdown')},
-		normalstop: {states: ['normal stop'], color: 'yellow', message: localize('common.normalstop')},
+		shutdown: {
+			states: ['shutdown'],
+			color: 'red',
+			message: localize('common.shutdown'),
+		},
+		normalstop: {
+			states: ['normal stop'],
+			color: 'yellow',
+			message: localize('common.normalstop'),
+		},
 		alarm: {
-			states: ['grid-connected, grid connection with derating due to internal causes of the solar inverter'],
+			states: [
+				'grid-connected, grid connection with derating due to internal causes of the solar inverter',
+			],
 			color: 'orange',
 			message: localize('common.alarm'),
 		},

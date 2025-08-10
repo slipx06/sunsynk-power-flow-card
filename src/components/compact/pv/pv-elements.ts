@@ -1,33 +1,54 @@
 // solar-elements.ts
-import {html, svg} from 'lit';
-import {localize} from '../../../localize/localize';
-import {Utils} from '../../../helpers/utils';
-import {DataDto, sunsynkPowerFlowCardConfig} from '../../../types';
-import {UnitOfElectricalCurrent, UnitOfElectricPotential, UnitOfPower} from '../../../const';
-import {icons} from '../../../helpers/icons';
-import {renderPV} from '../../shared/pv/render-pv';
-import {renderPVFlow} from '../../shared/pv/render-pv-flow';
-import {createTextWithPopup, renderText} from '../../../helpers/text-utils';
+import { html, svg } from 'lit';
+import { localize } from '../../../localize/localize';
+import { Utils } from '../../../helpers/utils';
+import { DataDto, sunsynkPowerFlowCardConfig } from '../../../types';
+import {
+	UnitOfElectricalCurrent,
+	UnitOfElectricPotential,
+	UnitOfPower,
+} from '../../../const';
+import { icons } from '../../../helpers/icons';
+import { renderPV } from '../../shared/pv/render-pv';
+import { renderPVFlow } from '../../shared/pv/render-pv-flow';
+import { createTextWithPopup, renderText } from '../../../helpers/text-utils';
 
-export const renderSolarElements = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
-	const {solarColour, decimalPlaces, totalPV, minLineWidth, solarShowDaily, largeFont, durationCur} = data;
+export const renderSolarElements = (
+	data: DataDto,
+	config: sunsynkPowerFlowCardConfig,
+) => {
+	const {
+		solarColour,
+		decimalPlaces,
+		totalPV,
+		minLineWidth,
+		solarShowDaily,
+		largeFont,
+		durationCur,
+	} = data;
 
-	const {auto_scale, efficiency, mppts, display_mode, invert_flow} = config.solar;
+	const { auto_scale, efficiency, mppts, display_mode, invert_flow } =
+		config.solar;
 
 	return html`
 		<!-- Solar Elements -->
 		<svg
 			id="Solar"
-			style="overflow: visible; display: ${!config.show_solar ? 'none' : 'inline'};"
+			style="overflow: visible; display: ${!config.show_solar
+				? 'none'
+				: 'inline'};"
 			x="${config.wide ? '10%' : '0%'}"
 		>
 			${renderPV('pvtotal', '205', '116.5', data, config)}
 			${renderPV('pv1', mppts === 1 ? '205' : '154', '54.5', data, config)}
-			${renderPV('pv2', '254', '54.5', data, config)} ${renderPV('pv3', '78', '54.5', data, config)}
+			${renderPV('pv2', '254', '54.5', data, config)}
+			${renderPV('pv3', '78', '54.5', data, config)}
 			${renderPV('pv4', '330', '54.5', data, config)}
 			<svg
 				id="PV5"
-				style="overflow: visible; display: ${config.show_solar && config.wide && [5, 6].includes(mppts)
+				style="overflow: visible; display: ${config.show_solar &&
+				config.wide &&
+				[5, 6].includes(mppts)
 					? 'inline'
 					: 'none'};"
 				x="-10.5%"
@@ -104,7 +125,9 @@ export const renderSolarElements = (data: DataDto, config: sunsynkPowerFlowCardC
 			</svg>
 			<svg
 				id="PV6"
-				style="overflow: visible; display: ${config.show_solar && config.wide && mppts === 6
+				style="overflow: visible; display: ${config.show_solar &&
+				config.wide &&
+				mppts === 6
 					? 'inline'
 					: 'none'};"
 				x="10.5%"
@@ -298,7 +321,9 @@ export const renderSolarElements = (data: DataDto, config: sunsynkPowerFlowCardC
 			)}
 			${renderPVFlow(
 				'pv1',
-				mppts === 1 ? 'M 239.23 84 L 239 190' : 'M 187 84 L 187 122 Q 187 132 195 132 L 205 132.03',
+				mppts === 1
+					? 'M 239.23 84 L 239 190'
+					: 'M 187 84 L 187 122 Q 187 132 195 132 L 205 132.03',
 				solarColour,
 				data.pv1LineWidth,
 				data.pv1PowerWatts,
@@ -366,8 +391,18 @@ export const renderSolarElements = (data: DataDto, config: sunsynkPowerFlowCardC
                         <path fill="${solarColour}"
                             d="${icons.sun}"/>
                     </svg>`}
-			<a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.solar_sell_247)}>
-				<svg id="solar_sell_on" x="245" y="150" width="18" height="18" viewBox="0 0 30 30">
+			<a
+				href="#"
+				@click=${(e) => Utils.handlePopup(e, config.entities.solar_sell_247)}
+			>
+				<svg
+					id="solar_sell_on"
+					x="245"
+					y="150"
+					width="18"
+					height="18"
+					viewBox="0 0 30 30"
+				>
 					<path
 						display="${!config.entities.solar_sell_247 ||
 						data.stateSolarSell.state === 'off' ||
@@ -380,7 +415,14 @@ export const renderSolarElements = (data: DataDto, config: sunsynkPowerFlowCardC
 						d="${icons.solarSellOn}"
 					/>
 				</svg>
-				<svg id="solar_sell_off" x="245" y="150" width="18" height="18" viewBox="0 0 30 30">
+				<svg
+					id="solar_sell_off"
+					x="245"
+					y="150"
+					width="18"
+					height="18"
+					viewBox="0 0 30 30"
+				>
 					<path
 						display="${!config.entities.solar_sell_247 ||
 						data.stateSolarSell.state === 'on' ||
@@ -548,35 +590,35 @@ export const renderSolarElements = (data: DataDto, config: sunsynkPowerFlowCardC
 			${config.entities?.pv_total
 				? svg`
                     ${createTextWithPopup(
-						'pvtotal_power',
-						238.8,
-						133.9,
-						mppts === 1 || !data.statePVTotal.isValid(),
-						`${largeFont !== true ? 'st14' : 'st4'} st8`,
-						solarColour,
-						auto_scale
-							? config.entities?.pv_total
-								? `${Utils.convertValueNew(totalPV, data.statePVTotal.getUOM(), decimalPlaces)}`
-								: `${Utils.convertValue(totalPV, decimalPlaces) || 0}`
-							: `${Utils.toNum(totalPV || 0, 0)} ${UnitOfPower.WATT}`,
-						(e) => Utils.handlePopup(e, config.entities.pv_total),
-						true,
-					)}`
+											'pvtotal_power',
+											238.8,
+											133.9,
+											mppts === 1 || !data.statePVTotal.isValid(),
+											`${largeFont !== true ? 'st14' : 'st4'} st8`,
+											solarColour,
+											auto_scale
+												? config.entities?.pv_total
+													? `${Utils.convertValueNew(totalPV, data.statePVTotal.getUOM(), decimalPlaces)}`
+													: `${Utils.convertValue(totalPV, decimalPlaces) || 0}`
+												: `${Utils.toNum(totalPV || 0, 0)} ${UnitOfPower.WATT}`,
+											(e) => Utils.handlePopup(e, config.entities.pv_total),
+											true,
+										)}`
 				: svg`
                     ${renderText(
-						'pvtotal_power',
-						238.8,
-						133.9,
-						mppts === 1 || !data.statePVTotal.isValid(),
-						`${largeFont !== true ? 'st14' : 'st4'} st8`,
-						solarColour,
-						auto_scale
-							? config.entities?.pv_total
-								? `${Utils.convertValueNew(totalPV, data.statePVTotal.getUOM(), decimalPlaces)}`
-								: `${Utils.convertValue(totalPV, decimalPlaces) || 0}`
-							: `${Utils.toNum(totalPV || 0, 0)} ${UnitOfPower.WATT}`,
-						true,
-					)}`}
+											'pvtotal_power',
+											238.8,
+											133.9,
+											mppts === 1 || !data.statePVTotal.isValid(),
+											`${largeFont !== true ? 'st14' : 'st4'} st8`,
+											solarColour,
+											auto_scale
+												? config.entities?.pv_total
+													? `${Utils.convertValueNew(totalPV, data.statePVTotal.getUOM(), decimalPlaces)}`
+													: `${Utils.convertValue(totalPV, decimalPlaces) || 0}`
+												: `${Utils.toNum(totalPV || 0, 0)} ${UnitOfPower.WATT}`,
+											true,
+										)}`}
 			${createTextWithPopup(
 				'pv1_power_186',
 				mppts === 1 ? '238.8' : '188.1',

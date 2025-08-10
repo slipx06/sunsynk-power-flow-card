@@ -1,4 +1,4 @@
-import {InverterModel} from '../../types';
+import { InverterModel } from '../../types';
 
 export class InverterSettingsDto {
 	brand!: InverterModel;

@@ -1,17 +1,20 @@
 // load-elements.ts
-import {svg, html} from 'lit';
-import {localize} from '../../../localize/localize';
-import {Utils} from '../../../helpers/utils';
-import {DataDto, sunsynkPowerFlowCardConfig} from '../../../types';
-import {UnitOfPower} from '../../../const';
-import {renderIcon} from '../../../helpers/render-icon';
-import {renderStaticLoadIcon} from '../../shared/load/render-static-load-icon';
-import {getCompactLayoutIconConfigs} from '../../shared/load/icon-configs';
-import {createTextWithPopup, renderText} from '../../../helpers/text-utils';
-import {renderPath} from '../../../helpers/render-path';
-import {renderCircle} from '../../../helpers/render-circle';
+import { svg, html } from 'lit';
+import { localize } from '../../../localize/localize';
+import { Utils } from '../../../helpers/utils';
+import { DataDto, sunsynkPowerFlowCardConfig } from '../../../types';
+import { UnitOfPower } from '../../../const';
+import { renderIcon } from '../../../helpers/render-icon';
+import { renderStaticLoadIcon } from '../../shared/load/render-static-load-icon';
+import { getCompactLayoutIconConfigs } from '../../shared/load/icon-configs';
+import { createTextWithPopup, renderText } from '../../../helpers/text-utils';
+import { renderPath } from '../../../helpers/render-path';
+import { renderCircle } from '../../../helpers/render-circle';
 
-export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
+export const renderLoadElements = (
+	data: DataDto,
+	config: sunsynkPowerFlowCardConfig,
+) => {
 	const {
 		additionalLoad,
 		largeFont,
@@ -87,7 +90,8 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 					'ess_load1',
 					440,
 					133,
-					[1, 2, 3].includes(additionalLoad) && data.stateEssentialLoad1.isValid(),
+					[1, 2, 3].includes(additionalLoad) &&
+						data.stateEssentialLoad1.isValid(),
 					`${largeFont !== true ? 'st14' : 'st4'} st8`,
 					dynamicColourEssentialLoad1,
 					data.stateEssentialLoad1?.toPowerString(auto_scale, decimalPlaces),
@@ -106,7 +110,13 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 					(e) => Utils.handlePopup(e, config.entities.essential_load1_extra),
 				)}
 				<g display="${[0, 4, 5, 6].includes(additionalLoad) ? 'none' : ''}">
-					${renderIcon(load1_switch, data.iconEssentialLoad1, 'essload1-icon', 371, 114)}
+					${renderIcon(
+						load1_switch,
+						data.iconEssentialLoad1,
+						'essload1-icon',
+						371,
+						114,
+					)}
 				</g>
 			</svg>
 			<svg id="Esential-Load2" style="overflow: visible">
@@ -155,7 +165,13 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 					(e) => Utils.handlePopup(e, config.entities.essential_load2_extra),
 				)}
 				<g display="${additionalLoad === 2 ? '' : 'none'}">
-					${renderIcon(config.load.load2_switch, data.iconEssentialLoad2, 'essload2-icon', 371, 288)}
+					${renderIcon(
+						config.load.load2_switch,
+						data.iconEssentialLoad2,
+						'essload2-icon',
+						371,
+						288,
+					)}
 				</g>
 			</svg>
 			<svg id="Esential-Load3" style="overflow: visible">
@@ -204,10 +220,22 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 					load3_name,
 				)}
 				<g display="${additionalLoad === 3 ? '' : 'none'}">
-					${renderIcon(config.load.load2_switch, data.iconEssentialLoad2, 'essload2-small-icon', 412, 264)}
+					${renderIcon(
+						config.load.load2_switch,
+						data.iconEssentialLoad2,
+						'essload2-small-icon',
+						412,
+						264,
+					)}
 				</g>
 				<g display="${additionalLoad === 3 ? '' : 'none'}">
-					${renderIcon(config.load.load3_switch, data.iconEssentialLoad3, 'essload3-small-icon', 449, 264)}
+					${renderIcon(
+						config.load.load3_switch,
+						data.iconEssentialLoad3,
+						'essload3-small-icon',
+						449,
+						264,
+					)}
 				</g>
 				${createTextWithPopup(
 					'ess_load2_extra',
@@ -344,16 +372,40 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 					load4_name,
 				)}
 				<g display="${additionalLoad >= 4 ? '' : 'none'}">
-					${renderIcon(load1_switch, data.iconEssentialLoad1, 'essload1-small-icon', 412, 81)}
+					${renderIcon(
+						load1_switch,
+						data.iconEssentialLoad1,
+						'essload1-small-icon',
+						412,
+						81,
+					)}
 				</g>
 				<g display="${additionalLoad >= 4 ? '' : 'none'}">
-					${renderIcon(load2_switch, data.iconEssentialLoad2, 'essload2-small-icon', 449, 81)}
+					${renderIcon(
+						load2_switch,
+						data.iconEssentialLoad2,
+						'essload2-small-icon',
+						449,
+						81,
+					)}
 				</g>
 				<g display="${additionalLoad >= 4 ? '' : 'none'}">
-					${renderIcon(load3_switch, data.iconEssentialLoad3, 'essload3-small-icon', 412, 264)}
+					${renderIcon(
+						load3_switch,
+						data.iconEssentialLoad3,
+						'essload3-small-icon',
+						412,
+						264,
+					)}
 				</g>
 				<g display="${additionalLoad >= 4 ? '' : 'none'}">
-					${renderIcon(load4_switch, data.iconEssentialLoad4, 'essload4-small-icon', 449, 264)}
+					${renderIcon(
+						load4_switch,
+						data.iconEssentialLoad4,
+						'essload4-small-icon',
+						449,
+						264,
+					)}
 				</g>
 				${createTextWithPopup(
 					'ess_load1_extra',
@@ -447,7 +499,8 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 			<svg
 				id="Esential-Load5"
 				style="overflow: visible; display: ${[5, 6].includes(additionalLoad)
-					? config.wide || (!config.wide && [1, 2, 3].includes(config.solar.mppts))
+					? config.wide ||
+						(!config.wide && [1, 2, 3].includes(config.solar.mppts))
 						? 'inline'
 						: 'none'
 					: `none`};"
@@ -476,7 +529,13 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 					load5_name,
 				)}
 				<g display="${[5, 6].includes(additionalLoad) ? '' : 'none'}">
-					${renderIcon(load5_switch, data.iconEssentialLoad5, 'essload5-small-icon', 412, 81)}
+					${renderIcon(
+						load5_switch,
+						data.iconEssentialLoad5,
+						'essload5-small-icon',
+						412,
+						81,
+					)}
 				</g>
 				${createTextWithPopup(
 					'ess_load5_extra',
@@ -504,7 +563,8 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 			<svg
 				id="Esential-Load6"
 				style="overflow: visible; display: ${[6].includes(additionalLoad)
-					? config.wide || (!config.wide && [1, 2, 3].includes(config.solar.mppts))
+					? config.wide ||
+						(!config.wide && [1, 2, 3].includes(config.solar.mppts))
 						? 'inline'
 						: 'none'
 					: `none`};"
@@ -533,7 +593,13 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 					load6_name,
 				)}
 				<g display="${additionalLoad === 6 ? '' : 'none'}">
-					${renderIcon(load6_switch, data.iconEssentialLoad6, 'essload6-small-icon', 412, 264)}
+					${renderIcon(
+						load6_switch,
+						data.iconEssentialLoad6,
+						'essload6-small-icon',
+						412,
+						264,
+					)}
 				</g>
 				${createTextWithPopup(
 					'ess_load6_extra',
@@ -597,7 +663,10 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 				)}
 				${renderCircle(
 					'es-dot',
-					Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+					Math.min(
+						2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0),
+						8,
+					),
 					essentialPower === 0 || essentialPower < 0
 						? 'transparent'
 						: `${dynamic_colour ? flowColour : loadColour}`,
@@ -608,7 +677,10 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 				)}
 				${renderCircle(
 					'es-dot',
-					Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+					Math.min(
+						2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0),
+						8,
+					),
 					essentialPower === 0 || essentialPower > 0
 						? 'transparent'
 						: `${dynamic_colour ? flowColour : loadColour}`,
@@ -628,7 +700,10 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 				)}
 				${renderCircle(
 					'es-dot',
-					Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+					Math.min(
+						2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0),
+						8,
+					),
 					essentialPower === 0 || essentialPower < 0
 						? 'transparent'
 						: `${dynamic_colour ? flowColour : loadColour}`,
@@ -639,7 +714,10 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 				)}
 				${renderCircle(
 					'es-dot',
-					Math.min(2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+					Math.min(
+						2 + data.loadLineWidth + Math.max(data.minLineWidth - 2, 0),
+						8,
+					),
 					essentialPower === 0 || essentialPower > 0
 						? 'transparent'
 						: `${dynamic_colour ? flowColour : loadColour}`,
@@ -649,7 +727,13 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 					config.load.invert_flow === true,
 				)}
 			</svg>
-			${renderPath('es-load1', 'M 441 180 L 441 147', additionalLoad === 1, data.load1Colour, 1)}
+			${renderPath(
+				'es-load1',
+				'M 441 180 L 441 147',
+				additionalLoad === 1,
+				data.load1Colour,
+				1,
+			)}
 			${renderPath(
 				'es-load1',
 				'M 441 180 L 441 147',
@@ -664,7 +748,12 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 				data.load2Colour,
 				1,
 			)}
-			<a href="#" @click=${config.load?.navigate ? (e) => Utils.handleNavigation(e, config.load.navigate) : null}>
+			<a
+				href="#"
+				@click=${config.load?.navigate
+					? (e) => Utils.handleNavigation(e, config.load.navigate)
+					: null}
+			>
 				<svg
 					id="essen"
 					x="${data.essIconSize === 1 ? '405' : '402'}"
@@ -674,7 +763,13 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 					viewBox="0 0 24 24"
 				>
 					<defs>
-						<linearGradient id="Lg-${data.timestamp_id}" x1="0%" x2="0%" y1="100%" y2="0%">
+						<linearGradient
+							id="Lg-${data.timestamp_id}"
+							x1="0%"
+							x2="0%"
+							y1="100%"
+							y2="0%"
+						>
 							<stop
 								offset="0%"
 								stop-color="${data.gridPercentage > 0
@@ -693,11 +788,15 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 							/>
 							<stop
 								offset="${data.gridPercentage}%"
-								stop-color="${data.batteryPercentage > 0 ? batteryColour : solarColour}"
+								stop-color="${data.batteryPercentage > 0
+									? batteryColour
+									: solarColour}"
 							/>
 							<stop
 								offset="${data.gridPercentage + data.batteryPercentage}%"
-								stop-color="${data.batteryPercentage > 0 ? batteryColour : solarColour}"
+								stop-color="${data.batteryPercentage > 0
+									? batteryColour
+									: solarColour}"
 							/>
 							<stop
 								offset="${data.gridPercentage + data.batteryPercentage}%"
@@ -706,7 +805,12 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 							<stop offset="100%" stop-color="${solarColour}" />
 						</linearGradient>
 					</defs>
-					<path fill="${dynamic_colour ? `url(#Lg-${data.timestamp_id})` : loadColour}" d="${data.essIcon}" />
+					<path
+						fill="${dynamic_colour
+							? `url(#Lg-${data.timestamp_id})`
+							: loadColour}"
+						d="${data.essIcon}"
+					/>
 				</svg>
 			</a>
 			${createTextWithPopup(
@@ -720,34 +824,38 @@ export const renderLoadElements = (data: DataDto, config: sunsynkPowerFlowCardCo
 				(e) => Utils.handlePopup(e, config.entities.day_load_energy_84),
 				true,
 			)}
-			${config.entities?.essential_power && config.entities.essential_power !== 'none'
+			${config.entities?.essential_power &&
+			config.entities.essential_power !== 'none'
 				? svg`
                     ${createTextWithPopup(
-						'ess_power',
-						340.1,
-						219.2,
-						true,
-						`${largeFont !== true ? 'st14' : 'st4'} st8`,
-						loadColour,
-						auto_scale
-							? `${Utils.convertValue(essentialPower, decimalPlaces) || 0}`
-							: `${essentialPower || 0} ${UnitOfPower.WATT}`,
-						(e) => Utils.handlePopup(e, config.entities.essential_power),
-					)}`
+											'ess_power',
+											340.1,
+											219.2,
+											true,
+											`${largeFont !== true ? 'st14' : 'st4'} st8`,
+											loadColour,
+											auto_scale
+												? `${Utils.convertValue(essentialPower, decimalPlaces) || 0}`
+												: `${essentialPower || 0} ${UnitOfPower.WATT}`,
+											(e) =>
+												Utils.handlePopup(e, config.entities.essential_power),
+										)}`
 				: svg`
                     ${renderText(
-						'ess_power',
-						340.1,
-						219.2,
-						true,
-						`${largeFont !== true ? 'st14' : 'st4'} st8`,
-						loadColour,
-						auto_scale
-							? `${Utils.convertValue(essentialPower, decimalPlaces) || 0}`
-							: `${essentialPower || 0} ${UnitOfPower.WATT}`,
-					)}`}
+											'ess_power',
+											340.1,
+											219.2,
+											true,
+											`${largeFont !== true ? 'st14' : 'st4'} st8`,
+											loadColour,
+											auto_scale
+												? `${Utils.convertValue(essentialPower, decimalPlaces) || 0}`
+												: `${essentialPower || 0} ${UnitOfPower.WATT}`,
+										)}`}
 			<!-- Render Static Icons e.g. Boiler, Aircon, Oven and Pump etc -->
-			${getCompactLayoutIconConfigs(data).map((iconConfig) => renderStaticLoadIcon(data, iconConfig))}
+			${getCompactLayoutIconConfigs(data).map((iconConfig) =>
+				renderStaticLoadIcon(data, iconConfig),
+			)}
 		</svg>
 	`;
 };

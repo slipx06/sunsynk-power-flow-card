@@ -1,6 +1,9 @@
-import {InverterSettingsDto, InverterStatus} from '../dto/inverter-settings.dto';
-import {InverterModel} from '../../types';
-import {localize} from '../../localize/localize';
+import {
+	InverterSettingsDto,
+	InverterStatus,
+} from '../dto/inverter-settings.dto';
+import { InverterModel } from '../../types';
+import { localize } from '../../localize/localize';
 
 export class Solax extends InverterSettingsDto {
 	brand = InverterModel.Solax;
@@ -11,7 +14,18 @@ export class Solax extends InverterSettingsDto {
 			message: localize('common.normal'),
 		},
 		standby: {
-			states: ['0', 'waiting', 'waitmode', '9', 'idle', 'idlemode', 'idle mode', '10', 'standby', 'standbymode'],
+			states: [
+				'0',
+				'waiting',
+				'waitmode',
+				'9',
+				'idle',
+				'idlemode',
+				'idle mode',
+				'10',
+				'standby',
+				'standbymode',
+			],
 			color: 'blue',
 			message: localize('common.standby'),
 		},
@@ -21,17 +35,42 @@ export class Solax extends InverterSettingsDto {
 			message: localize('common.selftest'),
 		},
 		offgrid: {
-			states: ['6', 'off-grid waiting', 'epscheckmode', '7', 'off-grid', 'epsmode', 'eps mode'],
+			states: [
+				'6',
+				'off-grid waiting',
+				'epscheckmode',
+				'7',
+				'off-grid',
+				'epsmode',
+				'eps mode',
+			],
 			color: 'green',
 			message: localize('common.offgrid'),
 		},
 		fault: {
-			states: ['4', 'permanent fault', 'permanentfaultmode', 'permanent fault mode', '3', 'fault', 'faultmode'],
+			states: [
+				'4',
+				'permanent fault',
+				'permanentfaultmode',
+				'permanent fault mode',
+				'3',
+				'fault',
+				'faultmode',
+			],
 			color: 'red',
 			message: localize('common.fault'),
 		},
 		check: {
-			states: ['1', 'checking', 'checkmode', '5', 'update', 'updatemode', 'update mode', 'eps check mode'],
+			states: [
+				'1',
+				'checking',
+				'checkmode',
+				'5',
+				'update',
+				'updatemode',
+				'update mode',
+				'eps check mode',
+			],
 			color: 'orange',
 			message: localize('common.check'),
 		},

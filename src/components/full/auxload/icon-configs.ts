@@ -1,5 +1,5 @@
-import {DataDto} from '../../../types';
-import {AuxIconConfig} from './render-static-aux-icons';
+import { DataDto } from '../../../types';
+import { AuxIconConfig } from './render-static-aux-icons';
 
 export const getAuxIconConfigs = (data: DataDto): AuxIconConfig[] => [
 	{
@@ -12,7 +12,10 @@ export const getAuxIconConfigs = (data: DataDto): AuxIconConfig[] => [
 		opacityCondition: data.auxType === 'default',
 		iconType: 'aux',
 		prefix: 'aux',
-		dynamicColor: data.auxStatus === 'on' || data.auxStatus === '1' ? data.auxDynamicColour : data.auxOffColour,
+		dynamicColor:
+			data.auxStatus === 'on' || data.auxStatus === '1'
+				? data.auxDynamicColour
+				: data.auxOffColour,
 		viewBoxSize: 24,
 	},
 	{
@@ -25,7 +28,10 @@ export const getAuxIconConfigs = (data: DataDto): AuxIconConfig[] => [
 		opacityCondition: data.auxType === 'gen',
 		iconType: 'generator',
 		prefix: 'aux',
-		dynamicColor: data.auxStatus === 'on' || data.auxStatus === '1' ? data.auxDynamicColour : data.auxOffColour,
+		dynamicColor:
+			data.auxStatus === 'on' || data.auxStatus === '1'
+				? data.auxDynamicColour
+				: data.auxOffColour,
 		viewBoxSize: 24,
 	},
 	{
@@ -38,7 +44,10 @@ export const getAuxIconConfigs = (data: DataDto): AuxIconConfig[] => [
 		opacityCondition: data.auxType === 'oven',
 		iconType: 'oven',
 		prefix: 'aux',
-		dynamicColor: data.auxStatus === 'on' || data.auxStatus === '1' ? data.auxDynamicColour : data.auxOffColour,
+		dynamicColor:
+			data.auxStatus === 'on' || data.auxStatus === '1'
+				? data.auxDynamicColour
+				: data.auxOffColour,
 		viewBoxSize: 32,
 	},
 	{
@@ -51,7 +60,10 @@ export const getAuxIconConfigs = (data: DataDto): AuxIconConfig[] => [
 		opacityCondition: data.auxType === 'boiler',
 		iconType: 'boiler',
 		prefix: 'aux',
-		dynamicColor: data.auxStatus === 'on' || data.auxStatus === '1' ? data.auxDynamicColour : data.auxOffColour,
+		dynamicColor:
+			data.auxStatus === 'on' || data.auxStatus === '1'
+				? data.auxDynamicColour
+				: data.auxOffColour,
 		viewBoxSize: 24,
 	},
 	{
@@ -64,7 +76,10 @@ export const getAuxIconConfigs = (data: DataDto): AuxIconConfig[] => [
 		opacityCondition: data.auxType === 'aircon',
 		iconType: 'aircon',
 		prefix: 'aux',
-		dynamicColor: data.auxStatus === 'on' || data.auxStatus === '1' ? data.auxDynamicColour : data.auxOffColour,
+		dynamicColor:
+			data.auxStatus === 'on' || data.auxStatus === '1'
+				? data.auxDynamicColour
+				: data.auxOffColour,
 		viewBoxSize: 24,
 	},
 	{
@@ -77,7 +92,10 @@ export const getAuxIconConfigs = (data: DataDto): AuxIconConfig[] => [
 		opacityCondition: data.auxType === 'pump',
 		iconType: 'pump',
 		prefix: 'aux',
-		dynamicColor: data.auxStatus === 'on' || data.auxStatus === '1' ? data.auxDynamicColour : data.auxOffColour,
+		dynamicColor:
+			data.auxStatus === 'on' || data.auxStatus === '1'
+				? data.auxDynamicColour
+				: data.auxOffColour,
 		viewBoxSize: 24,
 	},
 ];
