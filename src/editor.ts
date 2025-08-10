@@ -40,6 +40,7 @@ export class SunSynkCardEditor
 				.hass=${this.hass}
 				.data=${this._config}
 				.computeLabel=${this._computeLabelCallback.bind(this)}
+				.computeHelper=${this._computeHelperCallback.bind(this)}
 				.schema=${[
 					{
 						type: 'expandable',
@@ -80,11 +81,31 @@ export class SunSynkCardEditor
 									{ name: 'show_solar', selector: { boolean: {} } },
 									{ name: 'show_battery', selector: { boolean: {} } },
 									{ name: 'show_grid', selector: { boolean: {} } },
-									{ name: 'decimal_places', selector: { number: {} } },
-									{ name: 'decimal_places_energy', selector: { number: {} } },
+									{
+										name: 'decimal_places',
+										selector: {
+											number: { min: 0, max: 3, step: 1, mode: 'box' },
+										},
+									},
+									{
+										name: 'decimal_places_energy',
+										selector: {
+											number: { min: 0, max: 3, step: 1, mode: 'box' },
+										},
+									},
 									{ name: 'dynamic_line_width', selector: { boolean: {} } },
-									{ name: 'max_line_width', selector: { number: {} } },
-									{ name: 'min_line_width', selector: { number: {} } },
+									{
+										name: 'max_line_width',
+										selector: {
+											number: { min: 1, max: 8, step: 1, mode: 'box' },
+										},
+									},
+									{
+										name: 'min_line_width',
+										selector: {
+											number: { min: 1, max: 8, step: 1, mode: 'box' },
+										},
+									},
 								],
 							},
 							{
@@ -244,7 +265,12 @@ export class SunSynkCardEditor
 													number: { mode: 'box', min: 80, max: 100 },
 												},
 											},
-											{ name: 'soc_decimal_places', selector: { number: {} } },
+											{
+												name: 'soc_decimal_places',
+												selector: {
+													number: { min: 0, max: 3, step: 1, mode: 'box' },
+												},
+											},
 											{ name: 'auto_scale', selector: { boolean: {} } },
 											{ name: 'invert_power', selector: { boolean: {} } },
 											{ name: 'show_absolute', selector: { boolean: {} } },

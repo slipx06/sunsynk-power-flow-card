@@ -102,6 +102,9 @@ export class SunsynkPowerFlowCard extends LitElement {
 	private _pendingSpeedUpdates: Map<string, number> = new Map();
 	private _speedRafId: number | null = null;
 
+	// Per-render memoization cache for dynamic line widths
+	private _lineWidthCache: Map<string, number> = new Map();
+
 	// Performance: track only entities we care about and last seen states
 	private _trackedEntityIds: Set<string> = new Set();
 	private _lastEntityStates: Map<string, string> = new Map();
@@ -375,6 +378,8 @@ export class SunsynkPowerFlowCard extends LitElement {
 	}
 
 	render() {
+		// Clear per-render caches
+		this._lineWidthCache.clear();
 		// Clear per-render cache and rebuild tracked entities for this render
 		this._entityCache.clear();
 		this._trackedEntityIds.clear();
@@ -2916,17 +2921,22 @@ export class SunsynkPowerFlowCard extends LitElement {
 		width: number,
 		defaultLineWidth: number = 1,
 	) {
+		const key = `${power}|${maxpower}|${width}|${defaultLineWidth}|${this._config.dynamic_line_width ? 1 : 0}`;
+		const cached = this._lineWidthCache.get(key);
+		if (cached !== undefined) return cached;
+
 		let lineWidth: number;
 		// Check if dynamic_line_width is disabled in the config
 		if (!this._config.dynamic_line_width) {
 			lineWidth = Math.min(defaultLineWidth, 8);
 		} else {
 			lineWidth = Math.min(
-				defaultLineWidth + Math.min(power / maxpower, 1) * width,
+				defaultLineWidth + Math.min(power / Math.max(maxpower, 1), 1) * width,
 				8,
 			);
 		}
 
+		this._lineWidthCache.set(key, lineWidth);
 		return lineWidth;
 	}
 
