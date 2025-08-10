@@ -6,6 +6,8 @@ import terser from "@rollup/plugin-terser";
 import json from '@rollup/plugin-json';
 import eslint from '@rollup/plugin-eslint';
 
+const isWatch = process.env.ROLLUP_WATCH === 'true';
+
 const plugins = [
     nodeResolve({
         jsnext: true,
@@ -47,8 +49,9 @@ const plugins = [
             ]
         ]
     }),
-    terser()
-];
+    // Only minify in non-watch (build) mode for better dev experience
+    !isWatch && terser()
+].filter(Boolean);
 
 export default {
     input: ['./src/index.ts'],
@@ -57,6 +60,7 @@ export default {
         format: 'esm',
         name: 'SunsynkPowerFlowCard',
         inlineDynamicImports: true,
+        sourcemap: true,
     },
     watch: {
         clearScreen: false,

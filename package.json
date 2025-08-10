@@ -10,7 +10,7 @@
     "lintfixall": "eslint src/*.ts --fix",
     "rollup": "rollup -c",
     "build": "rollup -c --bundleConfigAsCjs",
-    "watch": "rollup -c --watch --config rollup-dev.config.js",
+    "watch": "rollup -c --watch",
     "docs-build": "sphinx-autobuild docs docs/_build/html"
   },
   "repository": {
@@ -59,7 +59,5 @@
     "typescript": "^5.4.5",
     "typescript-eslint": "^8.1.0"
   },
-  "resolutions": {
-    "rollup": "^3.24.0"
-  }
+  
 }
