@@ -300,6 +300,10 @@ export class SunsynkPowerFlowCard extends LitElement {
 			}
 		});
 		this._animationsPaused = false;
+		// Apply any pending speed updates immediately after resuming
+		if (this._pendingSpeedUpdates.size > 0) {
+			this._flushAnimationSpeedUpdates();
+		}
 	}
 
 	// Safely read the current HA theme name without strict typing issues
@@ -2839,6 +2843,12 @@ export class SunsynkPowerFlowCard extends LitElement {
 	changeAnimationSpeed(el: string, speedRaw: number) {
 		const speed = speedRaw >= 1 ? Utils.toNum(speedRaw, 3) : 1;
 		this.durationCur[el] = speed;
+		const prev = this.durationPrev[el] ?? 1;
+		// If unchanged, avoid enqueueing work
+		if (prev === speed) {
+			this._pendingSpeedUpdates.delete(el);
+			return;
+		}
 		// Defer DOM mutation: queue update and flush once per frame
 		if (this._isVisible) {
 			this._pendingSpeedUpdates.set(el, speed);
