@@ -1,5 +1,6 @@
 // aux-elements.ts
 import { svg, html } from 'lit';
+import { guard } from 'lit/directives/guard.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { localize } from '../../../localize/localize';
 import { Utils } from '../../../helpers/utils';
@@ -199,10 +200,20 @@ export const renderAuxLoadElements = (
 				@click=${(e) =>
 					Utils.handlePopup(e, config.entities.aux_connected_status)}
 			>
-				${repeat(
-					getAuxIconConfigs(data),
-					(iconConfig) => iconConfig.id,
-					(iconConfig) => renderStaticAuxIcon(iconConfig),
+				${guard(
+					[
+						data.additionalAuxLoad,
+						data.showAux,
+						data.auxType,
+						data.iconAuxLoad1,
+						data.iconAuxLoad2,
+					],
+					() =>
+						repeat(
+							getAuxIconConfigs(data),
+							(iconConfig) => iconConfig.id,
+							(iconConfig) => renderStaticAuxIcon(iconConfig),
+						),
 				)}
 				<svg
 					xmlns="http://www.w3.org/2000/svg"

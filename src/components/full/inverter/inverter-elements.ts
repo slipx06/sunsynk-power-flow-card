@@ -1,5 +1,6 @@
 // inverter-elements.ts
 import { svg, html } from 'lit';
+import { guard } from 'lit/directives/guard.js';
 import { localize } from '../../../localize/localize';
 import { Utils } from '../../../helpers/utils';
 import {
@@ -125,27 +126,35 @@ export const renderInverterElements = (
 					: inverterColour,
 				data.minLineWidth,
 			)}
-			${config.inverter?.navigate
-				? svg`
-                    <a href="#" @click=${(e) => Utils.handleNavigation(e, config.inverter.navigate)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" x="154.5" y="224.75" width="54"
-                            height="79" viewBox="0 0 74 91" preserveAspectRatio="xMidYMid meet"
-                            opacity="${!data.genericInverterImage ? 0 : 1}">
-                            <g transform="translate(0.000000,91.000000) scale(0.100000,-0.100000)"
-                            fill="${inverterColour}" stroke="none">
-                                <path d="${icons.inverter}"/>
-                            </g>
-                        </svg>
-                    </a>`
-				: svg`
-                    <svg xmlns="http://www.w3.org/2000/svg" x="154.5" y="224.75" width="54"
-                        height="79" viewBox="0 0 74 91" preserveAspectRatio="xMidYMid meet"
-                        opacity="${!data.genericInverterImage ? 0 : 1}">
-                        <g transform="translate(0.000000,91.000000) scale(0.100000,-0.100000)"
-                        fill="${inverterColour}" stroke="none">
-                            <path d="${icons.inverter}"/>
-                        </g>
-                    </svg>`}
+			${guard(
+				[
+					inverterColour,
+					data.genericInverterImage,
+					Boolean(config.inverter?.navigate),
+				],
+				() =>
+					config.inverter?.navigate
+						? svg`
+							<a href="#" @click=${(e) => Utils.handleNavigation(e, config.inverter.navigate)}>
+								<svg xmlns="http://www.w3.org/2000/svg" x="154.5" y="224.75" width="54"
+									height="79" viewBox="0 0 74 91" preserveAspectRatio="xMidYMid meet"
+									opacity="${!data.genericInverterImage ? 0 : 1}">
+									<g transform="translate(0.000000,91.000000) scale(0.100000,-0.100000)"
+									fill="${inverterColour}" stroke="none">
+										<path d="${icons.inverter}"/>
+									</g>
+								</svg>
+							</a>`
+						: svg`
+							<svg xmlns="http://www.w3.org/2000/svg" x="154.5" y="224.75" width="54"
+								height="79" viewBox="0 0 74 91" preserveAspectRatio="xMidYMid meet"
+								opacity="${!data.genericInverterImage ? 0 : 1}">
+								<g transform="translate(0.000000,91.000000) scale(0.100000,-0.100000)"
+								fill="${inverterColour}" stroke="none">
+									<path d="${icons.inverter}"/>
+								</g>
+							</svg>`,
+			)}
 			<a
 				href="#"
 				@click=${(e) => Utils.handlePopup(e, config.entities.use_timer_248)}

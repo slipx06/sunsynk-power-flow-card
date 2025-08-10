@@ -1,5 +1,6 @@
 // inverter-elements.ts
 import { svg, html } from 'lit';
+import { guard } from 'lit/directives/guard.js';
 import { localize } from '../../../localize/localize';
 import { Utils } from '../../../helpers/utils';
 import {
@@ -97,27 +98,35 @@ export const renderInverterElements = (
 				r="3.5"
 				fill="${data.inverterStateColour}"
 			/>
-			${config.inverter?.navigate
-				? svg`
-                        <a href="#" @click=${(e) => Utils.handleNavigation(e, config.inverter.navigate)}>
-                            <svg x="213.5" y="179.5" width="54"
-                                height="79" viewBox="0 0 74 91" preserveAspectRatio="xMidYMid meet"
-                                opacity="${!data.genericInverterImage ? 0 : 1}">
-                                <g transform="translate(0.000000,91.000000) scale(0.100000,-0.100000)"
-                                fill="${inverterColour}" stroke="none">
-                                    <path d="${icons.inverter}"/>
-                                </g>
-                            </svg>
-                        </a>`
-				: svg`
-                        <svg x="213.5" y="179.5" width="54"
-                            height="79" viewBox="0 0 74 91" preserveAspectRatio="xMidYMid meet"
-                            opacity="${!data.genericInverterImage ? 0 : 1}">
-                            <g transform="translate(0.000000,91.000000) scale(0.100000,-0.100000)"
-                            fill="${inverterColour}" stroke="none">
-                                <path d="${icons.inverter}"/>
-                            </g>
-                        </svg>`}
+			${guard(
+				[
+					inverterColour,
+					data.genericInverterImage,
+					Boolean(config.inverter?.navigate),
+				],
+				() =>
+					config.inverter?.navigate
+						? svg`
+							<a href="#" @click=${(e) => Utils.handleNavigation(e, config.inverter.navigate)}>
+								<svg x="213.5" y="179.5" width="54"
+									height="79" viewBox="0 0 74 91" preserveAspectRatio="xMidYMid meet"
+									opacity="${!data.genericInverterImage ? 0 : 1}">
+									<g transform="translate(0.000000,91.000000) scale(0.100000,-0.100000)"
+									fill="${inverterColour}" stroke="none">
+										<path d="${icons.inverter}"/>
+									</g>
+								</svg>
+							</a>`
+						: svg`
+							<svg x="213.5" y="179.5" width="54"
+								height="79" viewBox="0 0 74 91" preserveAspectRatio="xMidYMid meet"
+								opacity="${!data.genericInverterImage ? 0 : 1}">
+								<g transform="translate(0.000000,91.000000) scale(0.100000,-0.100000)"
+								fill="${inverterColour}" stroke="none">
+									<path d="${icons.inverter}"/>
+								</g>
+							</svg>`,
+			)}
 			<a
 				href="#"
 				@click=${(e) => Utils.handlePopup(e, config.entities.use_timer_248)}
@@ -238,19 +247,27 @@ export const renderInverterElements = (
 					${localize('common.priority_load')}
 				</text>
 			</a>
-			${config.inverter?.navigate
-				? svg`
-                        <a href="#" @click=${(e) => Utils.handleNavigation(e, config.inverter.navigate)}>
-                            <image x="212" y="180" width="54" height="72"
-                            class="${!data.genericInverterImage ? '' : 'st12'}"
-                            href="${inverterImg}"
-                            preserveAspectRatio="none"/>
-                        </a>`
-				: svg`
-                        <image x="212" y="180" width="54" height="72"
-                        class="${!data.genericInverterImage ? '' : 'st12'}"
-                        href="${inverterImg}"
-                        preserveAspectRatio="none"/>`}
+			${guard(
+				[
+					inverterImg,
+					data.genericInverterImage,
+					Boolean(config.inverter?.navigate),
+				],
+				() =>
+					config.inverter?.navigate
+						? svg`
+							<a href="#" @click=${(e) => Utils.handleNavigation(e, config.inverter.navigate)}>
+								<image x="212" y="180" width="54" height="72"
+								class="${!data.genericInverterImage ? '' : 'st12'}"
+								href="${inverterImg}"
+								preserveAspectRatio="none"/>
+							</a>`
+						: svg`
+							<image x="212" y="180" width="54" height="72"
+							class="${!data.genericInverterImage ? '' : 'st12'}"
+							href="${inverterImg}"
+							preserveAspectRatio="none"/>`,
+			)}
 			<a
 				href="#"
 				@click=${(e) => Utils.handlePopup(e, data.inverterProg.entityID)}

@@ -1,6 +1,7 @@
 // grid-elements.ts
 import { svg, html } from 'lit';
 import { repeat } from 'lit/directives/repeat.js';
+import { guard } from 'lit/directives/guard.js';
 import { localize } from '../../../localize/localize';
 import { Utils } from '../../../helpers/utils';
 import { DataDto, sunsynkPowerFlowCardConfig } from '../../../types';
@@ -508,10 +509,20 @@ export const renderGridElements = (
                         </g>
                     </a>`}
 			<!-- Nonessential Icons-->
-			${repeat(
-				getNonEssentialIconConfigs(data),
-				(iconConfig) => iconConfig.id,
-				(iconConfig) => renderStaticGridIcon(iconConfig),
+			${guard(
+				[
+					data.nonessentialLoads,
+					data.showNonessential,
+					data.iconNonessentialLoad1,
+					data.iconNonessentialLoad2,
+					data.nonessentialIcon,
+				],
+				() =>
+					repeat(
+						getNonEssentialIconConfigs(data),
+						(iconConfig) => iconConfig.id,
+						(iconConfig) => renderStaticGridIcon(iconConfig),
+					),
 			)}
 
 			<g

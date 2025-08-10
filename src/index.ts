@@ -84,6 +84,12 @@ export class SunsynkPowerFlowCard extends LitElement {
 	@query('#ne-flow') neFlow?: SVGSVGElement;
 	@query('#ne1-flow') ne1Flow?: SVGSVGElement;
 
+	// Visibility/animation management
+	private _intersection?: IntersectionObserver;
+	private _onVisibilityChange?: () => void;
+	private _animationsPaused = false;
+	private _isVisible = true;
+
 	// Internal backing field for hass and rAF-based coalescing state
 	private _hass?: HomeAssistant;
 	private _updateScheduled = false;
@@ -169,6 +175,8 @@ export class SunsynkPowerFlowCard extends LitElement {
 
 		// If hass changed, compare tracked entity states
 		if (changedProps.has('hass')) {
+			// Skip hass-driven rerenders while the card is not visible
+			if (!this._isVisible) return false;
 			if (this._trackedEntityIds.size === 0) return true; // nothing tracked yet
 			let changed = false;
 			for (const id of this._trackedEntityIds) {
@@ -196,7 +204,99 @@ export class SunsynkPowerFlowCard extends LitElement {
 			clearTimeout(this._timeoutId);
 			this._timeoutId = undefined;
 		}
+		// Clean up visibility listeners/observers
+		if (this._intersection) {
+			this._intersection.disconnect();
+			this._intersection = undefined;
+		}
+		if (this._onVisibilityChange) {
+			document.removeEventListener(
+				'visibilitychange',
+				this._onVisibilityChange,
+			);
+			this._onVisibilityChange = undefined;
+		}
 		super.disconnectedCallback();
+	}
+
+	public connectedCallback(): void {
+		super.connectedCallback();
+		// Observe visibility of the card element in the viewport
+		if (this._intersection) this._intersection.disconnect();
+		this._intersection = new IntersectionObserver(
+			(entries) => {
+				const visible = entries[0]?.isIntersecting ?? true;
+				this._isVisible = visible;
+				if (visible) {
+					this._resumeAnimations();
+					// Ensure we render any queued updates once visible again
+					this.requestUpdate();
+				} else {
+					this._pauseAnimations();
+				}
+			},
+			{ root: null, rootMargin: '0px', threshold: 0.01 },
+		);
+		this._intersection.observe(this);
+
+		// Also react to page/tab visibility
+		this._onVisibilityChange = () => {
+			const visible = document.visibilityState === 'visible';
+			this._isVisible = visible;
+			if (visible) {
+				this._resumeAnimations();
+				this.requestUpdate();
+			} else {
+				this._pauseAnimations();
+			}
+		};
+		document.addEventListener('visibilitychange', this._onVisibilityChange);
+	}
+
+	private _forEachFlow(fn: (el: SVGSVGElement) => void): void {
+		const flows = [
+			this.gridFlow,
+			this.grid1Flow,
+			this.solarFlow,
+			this.pv1Flow,
+			this.pv2Flow,
+			this.pv3Flow,
+			this.pv4Flow,
+			this.pv5Flow,
+			this.pv6Flow,
+			this.batteryFlow,
+			this.loadFlow,
+			this.auxFlow,
+			this.neFlow,
+			this.ne1Flow,
+		];
+		for (const f of flows) {
+			if (f) fn(f);
+		}
+	}
+
+	private _pauseAnimations(): void {
+		if (this._animationsPaused) return;
+		this._forEachFlow((f) => {
+			try {
+				f.pauseAnimations();
+			} catch {
+				/* noop */
+			}
+		});
+		this._animationsPaused = true;
+	}
+
+	private _resumeAnimations(): void {
+		if (!this._animationsPaused) return;
+		this._forEachFlow((f) => {
+			try {
+				f.unpauseAnimations();
+			} catch {
+				/* noop */
+			}
+		});
+		this._animationsPaused = false;
 	}
 
 	// Safely read the current HA theme name without strict typing issues
