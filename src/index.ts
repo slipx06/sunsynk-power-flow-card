@@ -98,6 +98,9 @@ export class SunsynkPowerFlowCard extends LitElement {
 
 	private durationPrev: { [name: string]: number } = {};
 	private durationCur: { [name: string]: number } = {};
+	// Batch animation speed changes to minimize DOM work
+	private _pendingSpeedUpdates: Map<string, number> = new Map();
+	private _speedRafId: number | null = null;
 
 	// Performance: track only entities we care about and last seen states
 	private _trackedEntityIds: Set<string> = new Set();
@@ -2835,19 +2838,40 @@ export class SunsynkPowerFlowCard extends LitElement {
 
 	changeAnimationSpeed(el: string, speedRaw: number) {
 		const speed = speedRaw >= 1 ? Utils.toNum(speedRaw, 3) : 1;
-		const flow = this[`${el}Flow`] as SVGSVGElement;
 		this.durationCur[el] = speed;
-		if (flow && this._isVisible && this.durationPrev[el] != speed) {
-			// console.log(`${el} found, duration change ${this.durationPrev[el]} -> ${this.durationCur[el]}`);
-			// this.gridFlow.pauseAnimations();
-			requestAnimationFrame(() => {
-				flow.setCurrentTime(
-					flow.getCurrentTime() * (speed / this.durationPrev[el]),
-				);
-			});
-			// this.gridFlow.unpauseAnimations();
+		// Defer DOM mutation: queue update and flush once per frame
+		if (this._isVisible) {
+			this._pendingSpeedUpdates.set(el, speed);
+			if (this._speedRafId == null) {
+				this._speedRafId = requestAnimationFrame(() => {
+					this._flushAnimationSpeedUpdates();
+				});
+			}
+		} else {
+			// If hidden, just record the new duration; apply when visible
+			this.durationPrev[el] = this.durationCur[el];
 		}
-		this.durationPrev[el] = this.durationCur[el];
+	}
+
+	private _flushAnimationSpeedUpdates() {
+		this._speedRafId = null;
+		if (!this._isVisible || this._pendingSpeedUpdates.size === 0) {
+			this._pendingSpeedUpdates.clear();
+			return;
+		}
+		for (const [el, speed] of this._pendingSpeedUpdates) {
+			const flow = this[`${el}Flow`] as SVGSVGElement | undefined;
+			const prev = this.durationPrev[el] ?? 1;
+			if (flow && prev !== speed) {
+				try {
+					flow.setCurrentTime(flow.getCurrentTime() * (speed / prev));
+				} catch {
+					// ignore if SVG is not ready
+				}
+			}
+			this.durationPrev[el] = this.durationCur[el];
+		}
+		this._pendingSpeedUpdates.clear();
 	}
 
 	get isCompactCard() {
