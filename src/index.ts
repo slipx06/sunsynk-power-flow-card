@@ -49,7 +49,7 @@ import { icons } from './helpers/icons';
 
 console.groupCollapsed(
 	`%c ⚡ SUNSYNK-POWER-FLOW-CARD %c ${localize('common.version')}: ${CARD_VERSION} `,
-	'color: green; font-weight: bold; background: black',
+	'color: pink; font-weight: bold; background: black',
 	'color: white; font-weight: bold; background: dimgray',
 );
 console.log('Readme:', 'https://github.com/slipx06/sunsynk-power-flow-card');
@@ -2837,12 +2837,14 @@ export class SunsynkPowerFlowCard extends LitElement {
 		const speed = speedRaw >= 1 ? Utils.toNum(speedRaw, 3) : 1;
 		const flow = this[`${el}Flow`] as SVGSVGElement;
 		this.durationCur[el] = speed;
-		if (flow && this.durationPrev[el] != speed) {
+		if (flow && this._isVisible && this.durationPrev[el] != speed) {
 			// console.log(`${el} found, duration change ${this.durationPrev[el]} -> ${this.durationCur[el]}`);
 			// this.gridFlow.pauseAnimations();
-			flow.setCurrentTime(
-				flow.getCurrentTime() * (speed / this.durationPrev[el]),
-			);
+			requestAnimationFrame(() => {
+				flow.setCurrentTime(
+					flow.getCurrentTime() * (speed / this.durationPrev[el]),
+				);
+			});
 			// this.gridFlow.unpauseAnimations();
 		}
 		this.durationPrev[el] = this.durationCur[el];
