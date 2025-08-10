@@ -1,4 +1,4 @@
-import {CSSResultGroup, LitElement} from 'lit';
+import {CSSResultGroup, LitElement, PropertyValues} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
 import {HomeAssistant, LovelaceCardEditor} from 'custom-card-helpers';
 import {styles} from './style';
@@ -61,8 +61,41 @@ export class SunsynkPowerFlowCard extends LitElement {
 	private durationPrev: {[name: string]: number} = {};
 	private durationCur: {[name: string]: number} = {};
 
+	// Performance: track only entities we care about and last seen states
+	private _trackedEntityIds: Set<string> = new Set();
+	private _lastEntityStates: Map<string, string> = new Map();
+	// Per-render cache to avoid repeated convertToCustomEntity work
+	private _entityCache: Map<string, CustomEntity> = new Map();
+	// Cache for colour conversions
+	private _colorCache: Map<string, string> = new Map();
+
 	static get styles(): CSSResultGroup {
 		return styles;
+	}
+
+	// Only re-render when config changes or any tracked entity state changes
+	protected shouldUpdate(changedProps: PropertyValues<this>): boolean {
+		// Always update if first render
+		if (!this._lastEntityStates.size) {
+			return true;
+		}
+
+		// If hass changed, compare tracked entity states
+		if (changedProps.has('hass')) {
+			if (this._trackedEntityIds.size === 0) return true; // nothing tracked yet
+			let changed = false;
+			for (const id of this._trackedEntityIds) {
+				const cur = this.hass?.states?.[id]?.state ?? '';
+				const prev = this._lastEntityStates.get(id) ?? '';
+				if (cur !== prev) {
+					changed = true;
+					break;
+				}
+			}
+			return changed;
+		}
+
+		return true;
 	}
 
 	public static async getConfigElement() {
@@ -126,6 +159,9 @@ export class SunsynkPowerFlowCard extends LitElement {
 	}
 
 	render() {
+		// Clear per-render cache and rebuild tracked entities for this render
+		this._entityCache.clear();
+		this._trackedEntityIds.clear();
 		globalData.hass = this.hass;
 		const config = this._config;
 		//Energy
@@ -1987,24 +2023,48 @@ export class SunsynkPowerFlowCard extends LitElement {
 		decimals = 0,
 		measurement: UnitOfPower | UnitOfEnergy | UnitOfElectricalCurrent | Percentage | 'NA' = 'NA',
 	): CustomEntity {
-		let entityString;
+		// Per-render cache key keeps conversion stable across multiple calls this render
+		const cacheKey = `${String(entity)}|${decimals}|${String(measurement)}`;
+		const cached = this._entityCache.get(cacheKey);
+		if (cached) return cached;
 
+		let entityString: string | undefined;
 		const props = String(entity).split('.');
-
 		if (props.length > 1) {
-			entityString = this._config[props[0]][props[1]];
+			const group = props[0];
+			const key = props[1];
+			const groupObj = (this._config as unknown as Record<string, unknown>)[group] as
+				| Record<string, unknown>
+				| undefined;
+			const value = groupObj ? (groupObj[key] as unknown) : undefined;
+			entityString = typeof value === 'string' ? value : undefined;
 		} else if (props.length > 0) {
-			entityString = this._config[props[0]];
+			const group = props[0];
+			const value = (this._config as unknown as Record<string, unknown>)[group] as unknown;
+			entityString = typeof value === 'string' ? value : undefined;
 		}
 
-		const state = entityString ? this.hass.states[entityString] : undefined;
-		return (
-			state !== undefined
-				? convertToCustomEntity(state, measurement, decimals)
+		// Track real HA entities only (ignore 'none' or empty)
+		if (entityString && entityString !== 'none') {
+			this._trackedEntityIds.add(entityString);
+		}
+
+		const haState = entityString ? this.hass.states[entityString] : undefined;
+		const converted = (
+			haState !== undefined
+				? convertToCustomEntity(haState, measurement, decimals)
 				: defaultValue
 					? convertToCustomEntity(defaultValue, measurement, decimals)
 					: convertToCustomEntity({state: undefined}, measurement, decimals)
 		) as CustomEntity;
+
+		// Update last seen state for tracked entities
+		if (entityString && haState !== undefined) {
+			this._lastEntityStates.set(entityString, String(haState.state ?? ''));
+		}
+
+		this._entityCache.set(cacheKey, converted);
+		return converted;
 	}
 
 	changeAnimationSpeed(el: string, speedRaw: number) {
@@ -2033,7 +2093,17 @@ export class SunsynkPowerFlowCard extends LitElement {
 	}
 
 	colourConvert(colour: string) {
-		return colour && Array.isArray(colour) ? Utils.toHexColor(`rgb(${colour})`) : Utils.toHexColor(colour);
+		const key = Array.isArray(colour) ? `arr:${colour}` : `str:${colour}`;
+		const cached = this._colorCache.get(key);
+		if (cached) return cached;
+		let converted: string;
+		if (colour && Array.isArray(colour)) {
+			converted = Utils.toHexColor(`rgb(${colour})`);
+		} else {
+			converted = Utils.toHexColor(colour);
+		}
+		this._colorCache.set(key, converted);
+		return converted;
 	}
 
 	dynamicLineWidth(power: number, maxpower: number, width: number, defaultLineWidth: number = 1) {

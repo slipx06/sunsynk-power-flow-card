@@ -4,7 +4,6 @@ import {nodeResolve} from '@rollup/plugin-node-resolve';
 import babel from '@rollup/plugin-babel';
 import terser from '@rollup/plugin-terser';
 import json from '@rollup/plugin-json';
-import eslint from '@rollup/plugin-eslint';
 
 const isWatch = process.env.ROLLUP_WATCH === 'true';
 
@@ -13,7 +12,6 @@ const plugins = [
 		jsnext: true,
 		main: true,
 	}),
-	eslint(),
 	commonjs(),
 	typescript(),
 	json(),
