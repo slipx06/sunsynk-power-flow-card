@@ -46,14 +46,8 @@ export default [
       prettier: prettierPlugin,
     },
     rules: {
-      'prettier/prettier': [
-        'error',
-        {
-          singleQuote: true,
-          jsxSingleQuote: false,
-          endOfLine: 'lf',
-        },
-      ],
+      // Defer to Prettier config in package.json for options (singleQuote, etc.)
+      'prettier/prettier': 'error',
     },
   },
 

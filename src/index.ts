@@ -88,6 +88,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 	private _hass?: HomeAssistant;
 	private _updateScheduled = false;
 	private _rafId = 0;
+	private _timeoutId: number | undefined;
 
 	private durationPrev: { [name: string]: number } = {};
 	private durationCur: { [name: string]: number } = {};
@@ -134,10 +135,29 @@ export class SunsynkPowerFlowCard extends LitElement {
 	private _scheduleUpdateFromHass(old?: HomeAssistant): void {
 		if (this._updateScheduled) return;
 		this._updateScheduled = true;
-		this._rafId = window.requestAnimationFrame(() => {
+		let done = false;
+		const finish = () => {
+			if (done) return;
+			done = true;
 			this._updateScheduled = false;
+			if (this._timeoutId !== undefined) {
+				clearTimeout(this._timeoutId);
+				this._timeoutId = undefined;
+			}
 			super.requestUpdate('hass', old);
+		};
+		this._rafId = window.requestAnimationFrame(() => {
+			finish();
 		});
+		// Fallback: cap max delay when rAF is throttled (e.g., background tabs)
+		this._timeoutId = window.setTimeout(() => {
+			// Cancel pending rAF if any, we'll finish via timeout
+			if (this._rafId) {
+				cancelAnimationFrame(this._rafId);
+				this._rafId = 0;
+			}
+			finish();
+		}, 50);
 	}
 
 	// Only re-render when config changes or any tracked entity state changes
@@ -165,12 +185,16 @@ export class SunsynkPowerFlowCard extends LitElement {
 		return true;
 	}
 
-	// Ensure we cancel any pending animation frame when detached
+	// Ensure we cancel any pending animation frame/timeout when detached
 	public disconnectedCallback(): void {
 		if (this._rafId) {
 			cancelAnimationFrame(this._rafId);
 			this._rafId = 0;
 			this._updateScheduled = false;
+		}
+		if (this._timeoutId !== undefined) {
+			clearTimeout(this._timeoutId);
+			this._timeoutId = undefined;
 		}
 		super.disconnectedCallback();
 	}
