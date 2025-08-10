@@ -6,7 +6,12 @@ import prettierPlugin from 'eslint-plugin-prettier';
 export default [
   // Ignore build artifacts and dependencies
   {
-    ignores: ['dist/**', 'node_modules/**', 'docs/_build/**'],
+    ignores: [
+      'dist/**',
+      'node_modules/**',
+      'docs/_build/**',
+      'rollup.config-*.cjs',
+    ],
   },
 
   // Base JS rules

@@ -471,11 +471,33 @@ export const renderGridElements = (
 			${config.grid?.navigate
 				? svg`
                     <a href="#" @click=${(e) => Utils.handleNavigation(e, config.grid.navigate)}>
-                        ${renderGridIcons(data, config)}
+							${guard(
+								[
+									data.gridStatus,
+									data.totalGridPower >= 0,
+									data.gridColour,
+									three_phase,
+									config.grid.import_icon,
+									config.grid.export_icon,
+									config.grid.disconnected_icon,
+								],
+								() => renderGridIcons(data, config),
+							)}
                     </a>`
 				: svg`
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_connected_status_194)}>
-                        ${renderGridIcons(data, config)}
+							${guard(
+								[
+									data.gridStatus,
+									data.totalGridPower >= 0,
+									data.gridColour,
+									three_phase,
+									config.grid.import_icon,
+									config.grid.export_icon,
+									config.grid.disconnected_icon,
+								],
+								() => renderGridIcons(data, config),
+							)}
                     </a>`}
 			${config.grid?.navigate
 				? svg`
