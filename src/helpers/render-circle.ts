@@ -1,5 +1,5 @@
-import { svg } from "lit";
-import { Utils } from "./utils";
+import { svg } from 'lit';
+import { Utils } from './utils';
 
 /**
  * Renders an animated circle element.

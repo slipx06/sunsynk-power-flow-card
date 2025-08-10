@@ -1,5 +1,5 @@
-import { html } from "lit";
-import { Utils } from "../../../helpers/utils";
+import { html } from 'lit';
+import { Utils } from '../../../helpers/utils';
 
 export function renderPVFlow(
 	id: string,
@@ -10,8 +10,8 @@ export function renderPVFlow(
 	duration: number,
 	invertFlow: boolean,
 	minLineWidth: number,
-	className: string = "",
-	keyPoints: string = "0;1",
+	className: string = '',
+	keyPoints: string = '0;1',
 ) {
 	const lineId = `${id}-line`;
 	const finalKeyPoints =
@@ -32,7 +32,7 @@ export function renderPVFlow(
 			<circle
 				id="${id}-dot"
 				r="${Math.min(2 + lineWidth + Math.max(minLineWidth - 2, 0), 8)}"
-				fill="${Math.round(powerWatts) <= 0 ? "transparent" : `${color}`}"
+				fill="${Math.round(powerWatts) <= 0 ? 'transparent' : `${color}`}"
 				class="${className}"
 			>
 				<animateMotion

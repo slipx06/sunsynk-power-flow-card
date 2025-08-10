@@ -1,4 +1,4 @@
-import { svg } from "lit";
+import { svg } from 'lit';
 
 /**
  * Renders an SVG path element with display and stroke attributes.
@@ -17,7 +17,7 @@ export const renderPath = (
 	lineWidth: number,
 ) => {
 	return svg`
-        <path id="${id}" d="${d}" fill="none" display="${display ? "" : "none"}"
+        <path id="${id}" d="${d}" fill="none" display="${display ? '' : 'none'}"
             stroke="${color}" stroke-width="${lineWidth}"
             stroke-miterlimit="10" pointer-events="stroke"/>
     `;
