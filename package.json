@@ -14,7 +14,8 @@
 		"rollup": "rollup -c",
 		"build": "rollup -c --bundleConfigAsCjs",
 		"watch": "rollup -c --watch",
-		"docs-build": "sphinx-autobuild docs docs/_build/html"
+		"docs-build": "sphinx-autobuild docs docs/_build/html",
+		"prepare": "husky"
 	},
 	"repository": {
 		"type": "git",
@@ -54,6 +55,8 @@
 		"eslint-config-prettier": "^10.0.1",
 		"eslint-plugin-prettier": "^5.5.4",
 		"globals": "^16.0.0",
+		"husky": "^9.0.0",
+		"lint-staged": "^15.2.10",
 		"npm": "^11.0.0",
 		"prettier": "^3.6.2",
 		"rollup": "^4.17.2",
@@ -61,5 +64,13 @@
 		"rollup-plugin-typescript2": "^0.36.0",
 		"typescript": "^5.4.5",
 		"typescript-eslint": "^8.1.0"
+	},
+	"lint-staged": {
+		"*.{js,ts,json,md,yml,yaml}": [
+			"prettier --write"
+		],
+		"*.{js,ts}": [
+			"eslint --fix"
+		]
 	}
 }
