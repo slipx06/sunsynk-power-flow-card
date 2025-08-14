@@ -49,7 +49,7 @@ import { icons } from './helpers/icons';
 
 console.groupCollapsed(
 	`%c ⚡ SUNSYNK-POWER-FLOW-CARD %c ${localize('common.version')}: ${CARD_VERSION} `,
-	'color: pink; font-weight: bold; background: black',
+	'color: orange; font-weight: bold; background: black',
 	'color: white; font-weight: bold; background: dimgray',
 );
 console.log('Readme:', 'https://github.com/slipx06/sunsynk-power-flow-card');
@@ -2828,6 +2828,11 @@ export class SunsynkPowerFlowCard extends LitElement {
 		}
 
 		const haState = entityString ? this.hass.states[entityString] : undefined;
+
+		// Track entity ids actually used during this render so shouldUpdate can be precise
+		if (entityString) {
+			this._trackedEntityIds.add(entityString);
+		}
 		const converted = (
 			haState !== undefined
 				? convertToCustomEntity(haState, measurement, decimals)
