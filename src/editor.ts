@@ -13,7 +13,6 @@ import {
 } from './types';
 import { customElement, property } from 'lit/decorators.js';
 import { localize } from './localize/localize';
-import defaults from './defaults';
 import { capitalize } from 'lodash';
 import { EDITOR_NAME, SensorDeviceClass } from './const';
 import { LovelaceConfig } from 'custom-card-helpers/src/types';
@@ -35,51 +34,10 @@ export class SunSynkCardEditor
 				width: 100%;
 				max-width: 100%;
 			}
-			.header-actions {
-				display: flex;
-				gap: 8px;
-				flex-wrap: wrap;
-				align-items: center;
-				margin: 0 0 8px 0;
-				padding: 8px 0;
-				border-bottom: 1px solid var(--divider-color, rgba(127, 127, 127, 0.2));
-			}
-			/* Improve visibility of header buttons/icons, especially in dark mode */
-			.header-actions mwc-button,
-			.header-actions ha-button,
-			.header-actions ha-icon-button,
-			.header-actions button {
-				color: var(--primary-text-color);
-				--mdc-theme-primary: var(--accent-color);
-				opacity: 0.95;
-			}
-			.header-actions mwc-button:hover,
-			.header-actions ha-button:hover,
-			.header-actions ha-icon-button:hover,
-			.header-actions button:hover {
-				opacity: 1;
-				filter: saturate(110%);
-			}
-			.color-chips {
-				margin-left: auto;
-				display: flex;
-				gap: 6px;
-				align-items: center;
-			}
 			ha-form {
 				width: 100%;
 			}
-			@media (min-width: 1200px) {
-				:host {
-					padding-right: 0;
-				}
-				.header-actions {
-					gap: 10px;
-					padding: 10px 0;
-					border-bottom: 1px solid
-						var(--divider-color, rgba(127, 127, 127, 0.2));
-				}
-			}
+			/* No global grid column override; Entities section is scoped via schema */
 		`;
 	}
 
@@ -100,14 +58,14 @@ export class SunSynkCardEditor
 		// Pattern-based helper hints for dynamic load/aux subfields
 		if (/^load\d+_name$/.test(name)) return 'Label for additional load.';
 		if (/^load\d+_icon$/.test(name))
-			return 'Entity whose icon will be used for this additional load.';
+			return 'Additional load icon (Can be set via template sensor).';
 		if (/^load\d+_switch$/.test(name))
 			return 'Switch entity to control this additional load (optional).';
 		if (/^load\d+_max_threshold$/.test(name))
 			return 'Maximum threshold used for progress/flow scaling for this load.';
 		if (/^aux_load\d+_name$/.test(name)) return 'Label for auxiliary load.';
 		if (/^aux_load\d+_icon$/.test(name))
-			return 'Entity whose icon will be used for this auxiliary load.';
+			return 'Icon will be used for this auxiliary load.';
 
 		// Global patterns across sections (safe and generic)
 		if (/^pv[1-6]_name$/.test(name)) return 'Custom label for a PV input.';
@@ -118,34 +76,89 @@ export class SunSynkCardEditor
 		if (/^show_(inverter|battery|battery2|solar|load|grid)$/.test(name))
 			return 'Show or hide this section in the card.';
 		if (/^show_daily(_.*)?$/.test(name))
-			return 'Display daily energy beneath this section.';
+			return 'Display daily energy on the card.';
 		if (/^auto_scale$/.test(name))
 			return 'Automatically scale values based on recent ranges.';
 		if (/^.*_name$/.test(name)) return 'Custom label shown in the UI.';
-		if (/^.*_icon$/.test(name))
-			return 'Entity whose icon (and sometimes state) represents this element.';
+		if (/dynamic_icon$/.test(name))
+			return 'The icon will change to represent power source.';
 		if (/^.*_switch$/.test(name))
 			return 'Optional switch entity to control this element.';
 		if (/^.*_max_threshold$/.test(name))
 			return 'Maximum threshold used for progress/flow scaling.';
+		// Must come before the generic *_colour rule; match both 'dynamic_colour' and '*_dynamic_colour'
+		if (/dynamic_colour$/.test(name))
+			return 'Change colour dynamically based on power level.';
 		if (/^.*_colour$/.test(name)) return 'Primary colour for this element.';
 		if (/^.*_off_colour$/.test(name))
 			return 'Colour used when the element is off/idle.';
-		if (/^.*_dynamic_colour$/.test(name))
-			return 'Change colour dynamically based on power level.';
+		if (/^.*_max_power$/.test(name))
+			return 'Optional cap used for scaling and progress calculations.';
 		switch (name) {
+			case 'large_font':
+				return 'Use a larger font for card entities.';
+			case 'wide':
+				return 'Use a wide layout for the card.';
 			case 'additional_loads':
 				return 'Number of additional loads to configure (0–6).';
+			case 'colour':
+				return 'Primary colour for this element.';
+			case 'efficiency':
+				return 'Show the effeciency of the mppts strings based on their max power.';
+			case 'display_mode':
+				return 'Chose how to display solar information next to the sun icon.';
+			case 'custom_label':
+				return 'Custom label shown in the UI.';
+			case 'label_daily_grid_buy':
+				return 'Label for daily grid buy.';
+			case 'label_daily_grid_sell':
+				return 'Label for daily grid sell.';
+			case 'count	':
+				return 'Number of batteries to display.';
+			case 'energy':
+				return 'Total available energy of the battery in Wh.';
+			case 'shutdown_soc':
+				return 'State of charge below which the battery is considered off.';
+			case 'shutdown_soc_offgrid':
+				return 'State of charge below which the battery is considered off when off-grid.';
+			case 'soc_end_of_charge':
+				return 'State of charge at which the battery is considered fully charged.';
+			case 'invert_power':
+				return 'Invert the direction of power flow animation.';
+			case 'hide_soc':
+				return 'Hide the State of Charge display.';
+			case 'show_absolute':
+				return 'Show absolute values for battery power.';
+			case 'show_remaining_energy':
+				return 'Show remaining energy of the battery.';
+			case 'remaining_energy_to_shutdown':
+				return 'Show remaining energy of the battery until it shuts down.';
+			case 'invert_flow':
+				return 'Invert the direction of power flow.';
+			case 'linear_gradient':
+				return 'Display battery SOC as a linear gradient.';
+			case 'invert_load':
+				return 'Set to true if your sensor provides a negative number when the load is drawing power';
+			case 'modern':
+				return 'Change inverter icon.';
+			case 'invert_grid':
+				return 'Enable if your sensor provides a negative number for grid import and positive number for grid export.';
 			case 'aux_loads':
 				return 'Number of auxiliary loads to configure (0–2).';
+			case 'show_nonessential':
+				return 'Show non-essential loads.';
 			case 'show_aux':
 				return 'Show the Aux subsection (separate auxiliary load configuration).';
-			case 'invert_flow':
-				return 'Invert the direction of load flow arrows.';
 			case 'label_daily_load':
 				return 'Alternate label for the daily load value displayed under Load.';
 			case 'navigate':
-				return 'Optional navigation path to open when the card/header is clicked.';
+				return 'Optional navigation path to open when the icon is clicked.';
+			case 'import_icon':
+				return 'Icon shown for the import flow. Can be set using a template sensor.';
+			case 'export_icon':
+				return 'Icon shown for the export flow. Can be set using a template sensor.';
+			case 'disconnected_icon':
+				return 'Icon shown when the grid is disconnected. Can be set using a template sensor.';
 			case 'aux_name':
 				return 'Aux group title shown in the UI.';
 			case 'aux_daily_name':
@@ -157,7 +170,7 @@ export class SunSynkCardEditor
 			case 'show_absolute_aux':
 				return 'Show Aux values as absolute (no sign) for clarity.';
 			case 'aux_dynamic_colour':
-				return 'Change Aux colour dynamically based on power level.';
+				return 'Aux elements on the card will be greyed out if aux power is 0.';
 			case 'aux_colour':
 				return 'Primary colour for Aux flow.';
 			case 'aux_off_colour':
@@ -465,8 +478,13 @@ export class SunSynkCardEditor
 			if (!obj || typeof obj !== 'object') return obj;
 			const rec = obj as Record<string, unknown>;
 			for (const [k, val] of Object.entries(rec)) {
-				if (typeof k === 'string' && /colour$/i.test(k)) {
-					rec[k] = this._normalizeColor(val) ?? rec[k];
+				if (
+					typeof k === 'string' &&
+					/colour$/i.test(k) &&
+					!/dynamic_colour$/i.test(k)
+				) {
+					const hex = this._normalizeColor(val);
+					rec[k] = hex ?? undefined;
 				} else if (val && typeof val === 'object') {
 					rec[k] = visit(val) as unknown;
 				}
@@ -518,50 +536,6 @@ export class SunSynkCardEditor
 		}
 
 		return html`
-			<!-- Quick actions and previews -->
-			<div class="header-actions">
-				<mwc-button dense @click=${() => this._resetGeneral()}>
-					${this._t('editor.reset_general', 'Reset General')}
-				</mwc-button>
-				<mwc-button dense @click=${() => this._resetSection('inverter')}>
-					${this._t('editor.reset_inverter', 'Reset Inverter')}
-				</mwc-button>
-				<mwc-button dense @click=${() => this._resetSection('battery')}>
-					${this._t('editor.reset_battery', 'Reset Battery')}
-				</mwc-button>
-				<mwc-button dense @click=${() => this._resetSection('battery2')}>
-					${this._t('editor.reset_battery2', 'Reset Battery2')}
-				</mwc-button>
-				<mwc-button dense @click=${() => this._resetSection('solar')}>
-					${this._t('editor.reset_solar', 'Reset Solar')}
-				</mwc-button>
-				<mwc-button dense @click=${() => this._resetSection('load')}>
-					${this._t('editor.reset_load', 'Reset Load')}
-				</mwc-button>
-				<mwc-button dense @click=${() => this._resetSection('grid')}>
-					${this._t('editor.reset_grid', 'Reset Grid')}
-				</mwc-button>
-				<!-- Color previews -->
-				<div class="color-chips">
-					${this._renderChip(
-						'Title',
-						(this._config as Record<string, unknown>)?.['title_colour'],
-					)}
-					${this._renderChip('Inv', this._config.inverter?.colour)}
-					${this._renderChip('Sol', this._config.solar?.colour)}
-					${this._renderChip('Bat', this._config.battery?.colour)}
-					${this._renderChip('Charge', this._config.battery?.charge_colour)}
-					${this._renderChip('Bat2', this._config.battery2?.colour)}
-					${this._renderChip('Charge2', this._config.battery2?.charge_colour)}
-					${this._renderChip('Load', this._config.load?.colour)}
-					${this._renderChip('Load Off', this._config.load?.off_colour)}
-					${this._renderChip('Load Max', this._config.load?.max_colour)}
-					${this._renderChip('Grid', this._config.grid?.colour)}
-					${this._renderChip('No Grid', this._config.grid?.no_grid_colour)}
-					${this._renderChip('Export', this._config.grid?.export_colour)}
-					${this._renderChip('Grid Off', this._config.grid?.grid_off_colour)}
-				</div>
-			</div>
 			<ha-form
 				.hass=${this.hass}
 				.data=${this._sanitizedConfig()}
@@ -596,17 +570,19 @@ export class SunSynkCardEditor
 					{
 						type: 'expandable',
 						title: this._title('general'),
-						schema: [{ type: 'grid', schema: generalGridSchema }],
-					},
-					{
-						type: 'expandable',
-						title: this._title('sensor'),
 						schema: [
+							{ type: 'grid', schema: generalGridSchema },
 							{
-								type: 'grid',
+								type: 'expandable',
+								title: this._title('sensor'),
 								schema: [
-									{ name: 'card_height', selector: { entity: {} } },
-									{ name: 'card_width', selector: { entity: {} } },
+									{
+										type: 'grid',
+										schema: [
+											{ name: 'card_height', selector: { entity: {} } },
+											{ name: 'card_width', selector: { entity: {} } },
+										],
+									},
 								],
 							},
 						],
@@ -1871,54 +1847,16 @@ export class SunSynkCardEditor
 		`;
 	}
 
-	private _renderChip(label: string, colour?: unknown): TemplateResult {
-		const css = this._toCssColor(colour);
-		if (!css) return html``;
-		return html`
-			<div style="display:flex; align-items:center; gap:4px;">
-				<span
-					style="width:12px; height:12px; border-radius:50%; background:${css}; display:inline-block; border:1px solid rgba(0,0,0,0.2);"
-				></span>
-				<span style="font-size:0.8em; opacity:0.8;">${label}</span>
-			</div>
-		`;
-	}
+	// (header removed)
 
 	private _emitConfig(config: sunsynkPowerFlowCardConfig): void {
 		this._config = config;
 		fireEvent(this, 'config-changed', { config });
 	}
 
-	private _resetGeneral(): void {
-		const d = defaults as unknown as sunsynkPowerFlowCardConfig;
-		const updated: sunsynkPowerFlowCardConfig = {
-			...this._config,
-			large_font: d.large_font,
-			wide: d.wide,
-			card_height: d.card_height,
-			card_width: d.card_width,
-			show_solar: d.show_solar,
-			show_battery: d.show_battery,
-			show_grid: d.show_grid,
-			decimal_places: d.decimal_places,
-			decimal_places_energy: d.decimal_places_energy,
-			dynamic_line_width: d.dynamic_line_width,
-			max_line_width: d.max_line_width,
-			min_line_width: d.min_line_width,
-		};
-		this._emitConfig(updated);
-	}
+	// (header reset actions removed)
 
-	private _resetSection(
-		section: 'inverter' | 'battery' | 'battery2' | 'solar' | 'load' | 'grid',
-	): void {
-		const d = defaults as unknown as Record<string, unknown>;
-		const updated = {
-			...this._config,
-			[section]: d[section] as unknown,
-		} as sunsynkPowerFlowCardConfig;
-		this._emitConfig(updated);
-	}
+	// (header reset actions removed)
 
 	private _computeLabelCallback = (data: {
 		name?: string;
@@ -2010,7 +1948,11 @@ export class SunSynkCardEditor
 			if (!obj || typeof obj !== 'object') return obj;
 			const rec = obj as Record<string, unknown>;
 			for (const [k, val] of Object.entries(rec)) {
-				if (typeof k === 'string' && /colour$/i.test(k)) {
+				if (
+					typeof k === 'string' &&
+					/colour$/i.test(k) &&
+					!/dynamic_colour$/i.test(k)
+				) {
 					const hex = this._normalizeColor(val);
 					rec[k] = hex ?? undefined;
 				} else if (val && typeof val === 'object') {
