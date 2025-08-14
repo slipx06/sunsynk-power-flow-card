@@ -8,6 +8,8 @@ export function renderPV(
 	data: DataDto,
 	config: sunsynkPowerFlowCardConfig,
 ) {
+	// Only vary gradient id when efficiency > 0 and gradient is used.
+	// When efficiency is 0, we render a stable grey stroke without a gradient to avoid paint churn.
 	const gradientId = `${id}LG-${data.timestamp_id}`;
 	const efficiencyMap = {
 		pvtotal: 'totalPVEfficiency',
@@ -21,8 +23,10 @@ export function renderPV(
 	const efficiencyPropertyName = efficiencyMap[id] || 'totalPVEfficiency';
 	const efficiency = data[efficiencyPropertyName] || 0;
 	const solarColour = data.solarColour;
-	const useGradient = [1, 3].includes(config.solar.efficiency);
-	const gradientUrl = useGradient ? `url(#${gradientId})` : solarColour;
+	const useGradient =
+		[1, 3].includes(config.solar.efficiency) && efficiency > 0;
+	const strokeColor = efficiency === 0 ? 'grey' : solarColour;
+	const gradientUrl = useGradient ? `url(#${gradientId})` : strokeColor;
 	let className = '';
 
 	if (id === 'pv2' && config.solar.mppts === 1) {
@@ -50,26 +54,22 @@ export function renderPV(
 			viewBox="0 0 70 30"
 			overflow="visible"
 		>
-			<defs>
-				<linearGradient id="${gradientId}" x1="0%" x2="0%" y1="100%" y2="0%">
-					<stop
-						offset="0%"
-						stop-color="${efficiency === 0 ? 'grey' : solarColour}"
-					/>
-					<stop
-						offset="${efficiency}%"
-						stop-color="${efficiency === 0 ? 'grey' : solarColour}"
-					/>
-					<stop
-						offset="${efficiency}%"
-						stop-color="${efficiency < 100 ? 'grey' : solarColour}"
-					/>
-					<stop
-						offset="100%"
-						stop-color="${efficiency < 100 ? 'grey' : solarColour}"
-					/>
-				</linearGradient>
-			</defs>
+			${useGradient
+				? html`<defs>
+						<linearGradient
+							id="${gradientId}"
+							x1="0%"
+							x2="0%"
+							y1="100%"
+							y2="0%"
+						>
+							<stop offset="0%" stop-color="${solarColour}" />
+							<stop offset="${efficiency}%" stop-color="${solarColour}" />
+							<stop offset="${efficiency}%" stop-color="grey" />
+							<stop offset="100%" stop-color="grey" />
+						</linearGradient>
+					</defs>`
+				: html``}
 			<rect
 				id="${id}"
 				width="70"

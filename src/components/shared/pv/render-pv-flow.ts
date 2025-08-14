@@ -16,6 +16,7 @@ export function renderPVFlow(
 	const lineId = `${id}-line`;
 	const finalKeyPoints =
 		invertFlow === true ? Utils.invertKeyPoints(keyPoints) : keyPoints;
+	const showDot = Math.round(powerWatts) > 0;
 
 	return html`
 		<svg id="${id}-flow">
@@ -29,23 +30,25 @@ export function renderPVFlow(
 				pointer-events="stroke"
 				class="${className}"
 			/>
-			<circle
-				id="${id}-dot"
-				r="${Math.min(2 + lineWidth + Math.max(minLineWidth - 2, 0), 8)}"
-				fill="${Math.round(powerWatts) <= 0 ? 'transparent' : `${color}`}"
-				class="${className}"
-			>
-				<animateMotion
-					dur="${duration}s"
-					repeatCount="indefinite"
-					keyPoints=${finalKeyPoints}
-					keyTimes="0;1"
-					calcMode="linear"
-					rotate="auto"
-				>
-					<mpath href="#${lineId}" />
-				</animateMotion>
-			</circle>
+			${showDot
+				? html`<circle
+						id="${id}-dot"
+						r="${Math.min(2 + lineWidth + Math.max(minLineWidth - 2, 0), 8)}"
+						fill="${color}"
+						class="${className}"
+					>
+						<animateMotion
+							dur="${duration}s"
+							repeatCount="indefinite"
+							keyPoints=${finalKeyPoints}
+							keyTimes="0;1"
+							calcMode="linear"
+							rotate="auto"
+						>
+							<mpath href="#${lineId}" />
+						</animateMotion>
+					</circle>`
+				: html``}
 		</svg>
 	`;
 }

@@ -496,13 +496,7 @@ export const renderLoadElements = (
 					viewBox="0 0 24 24"
 				>
 					<defs>
-						<linearGradient
-							id="Lg-${data.timestamp_id}"
-							x1="0%"
-							x2="0%"
-							y1="100%"
-							y2="0%"
-						>
+						<linearGradient id="Lg-essen_aux" x1="0%" x2="0%" y1="100%" y2="0%">
 							<stop
 								offset="0%"
 								stop-color="${data.gridPercentage > 0
@@ -542,9 +536,7 @@ export const renderLoadElements = (
 						display="${[1, 2].includes(additionalLoad) && !showAux
 							? ''
 							: 'none'}"
-						fill="${dynamic_colour
-							? `url(#Lg-${data.timestamp_id})`
-							: loadColour}"
+						fill="${dynamic_colour ? `url(#Lg-essen_aux)` : loadColour}"
 						d="${data.essIcon}"
 					/>
 				</svg>
@@ -559,7 +551,7 @@ export const renderLoadElements = (
 				>
 					<defs>
 						<linearGradient
-							id="Lg-${data.timestamp_id}"
+							id="Lg-essen_noaux"
 							x1="0%"
 							x2="0%"
 							y1="100%"
@@ -604,9 +596,7 @@ export const renderLoadElements = (
 						display="${[1, 2].includes(additionalLoad) && showAux
 							? ''
 							: 'none'}"
-						fill="${dynamic_colour
-							? `url(#Lg-${data.timestamp_id})`
-							: loadColour}"
+						fill="${dynamic_colour ? `url(#Lg-essen_noaux)` : loadColour}"
 						d="${data.essIcon}"
 					/>
 				</svg>
@@ -621,7 +611,7 @@ export const renderLoadElements = (
 				>
 					<defs>
 						<linearGradient
-							id="Lg-${data.timestamp_id}"
+							id="Lg-essen_noaux_four"
 							x1="0%"
 							x2="0%"
 							y1="100%"
@@ -666,9 +656,7 @@ export const renderLoadElements = (
 						display="${[4, 5, 6].includes(additionalLoad) && !showAux
 							? ''
 							: 'none'}"
-						fill="${dynamic_colour
-							? `url(#Lg-${data.timestamp_id})`
-							: loadColour}"
+						fill="${dynamic_colour ? `url(#Lg-essen_noaux_four)` : loadColour}"
 						d="${data.essIcon}"
 					/>
 				</svg>
@@ -683,7 +671,7 @@ export const renderLoadElements = (
 				>
 					<defs>
 						<linearGradient
-							id="Lg-${data.timestamp_id}"
+							id="Lg-essen_default"
 							x1="0%"
 							x2="0%"
 							y1="100%"
@@ -728,9 +716,7 @@ export const renderLoadElements = (
 						display="${[1, 2, 3, 4, 5, 6].includes(additionalLoad)
 							? 'none'
 							: ''}"
-						fill="${dynamic_colour
-							? `url(#Lg-${data.timestamp_id})`
-							: loadColour}"
+						fill="${dynamic_colour ? `url(#Lg-essen_default)` : loadColour}"
 						d="${data.essIcon}"
 					/>
 				</svg>

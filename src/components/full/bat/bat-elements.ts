@@ -92,13 +92,7 @@ export const renderBatteryElements = (
 						viewBox="0 0 24 24"
 					>
 						<defs>
-							<linearGradient
-								id="bLg-${data.timestamp_id}"
-								x1="0%"
-								x2="0%"
-								y1="100%"
-								y2="0%"
-							>
+							<linearGradient id="bLg-bat1" x1="0%" x2="0%" y1="100%" y2="0%">
 								<stop
 									offset="0%"
 									stop-color="${data.gridPercentageBat > 0
@@ -146,7 +140,7 @@ export const renderBatteryElements = (
 						</defs>
 						<path
 							fill="${config.battery.dynamic_colour
-								? `url(#bLg-${data.timestamp_id})`
+								? `url(#bLg-bat1)`
 								: batteryColour}"
 							d="${config.battery.linear_gradient
 								? data.battery0
@@ -164,13 +158,7 @@ export const renderBatteryElements = (
 						viewBox="0 0 24 24"
 					>
 						<defs>
-							<linearGradient
-								id="sLg-${data.timestamp_id}"
-								x1="0%"
-								x2="0%"
-								y1="100%"
-								y2="0%"
-							>
+							<linearGradient id="sLg-bat1" x1="0%" x2="0%" y1="100%" y2="0%">
 								<stop offset="0%" stop-color="red" />
 								<stop offset="100%" stop-color="${data.stopColour}" />
 								<animate
@@ -183,7 +171,7 @@ export const renderBatteryElements = (
 						</defs>
 						<path
 							fill="${config.battery.linear_gradient
-								? `url(#sLg-${data.timestamp_id})`
+								? `url(#sLg-bat1)`
 								: batteryColour}"
 							display="${!config.battery.linear_gradient ? 'none' : ''}"
 							d="${data.batteryCharge}"
@@ -251,13 +239,7 @@ export const renderBatteryElements = (
 						viewBox="0 0 24 24"
 					>
 						<defs>
-							<linearGradient
-								id="b2Lg-${data.timestamp_id}"
-								x1="0%"
-								x2="0%"
-								y1="100%"
-								y2="0%"
-							>
+							<linearGradient id="b2Lg-bat2" x1="0%" x2="0%" y1="100%" y2="0%">
 								<stop
 									offset="0%"
 									stop-color="${data.gridPercentageBat > 0
@@ -305,7 +287,7 @@ export const renderBatteryElements = (
 						</defs>
 						<path
 							fill="${config.battery2.dynamic_colour
-								? `url(#b2Lg-${data.timestamp_id})`
+								? `url(#b2Lg-bat2)`
 								: battery2Colour}"
 							d="${config.battery2.linear_gradient
 								? data.battery20
@@ -323,13 +305,7 @@ export const renderBatteryElements = (
 						viewBox="0 0 24 24"
 					>
 						<defs>
-							<linearGradient
-								id="s2Lg-${data.timestamp_id}"
-								x1="0%"
-								x2="0%"
-								y1="100%"
-								y2="0%"
-							>
+							<linearGradient id="s2Lg-bat2" x1="0%" x2="0%" y1="100%" y2="0%">
 								<stop offset="0%" stop-color="red" />
 								<stop offset="100%" stop-color="${data.stop2Colour}" />
 								<animate
@@ -342,7 +318,7 @@ export const renderBatteryElements = (
 						</defs>
 						<path
 							fill="${config.battery2.linear_gradient
-								? `url(#s2Lg-${data.timestamp_id})`
+								? `url(#s2Lg-bat2)`
 								: battery2Colour}"
 							display="${!config.battery2.linear_gradient ? 'none' : ''}"
 							d="${data.battery2Charge}"

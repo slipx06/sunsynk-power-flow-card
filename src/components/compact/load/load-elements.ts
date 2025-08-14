@@ -766,7 +766,7 @@ export const renderLoadElements = (
 				>
 					<defs>
 						<linearGradient
-							id="Lg-${data.timestamp_id}"
+							id="Lg-esscompact"
 							x1="0%"
 							x2="0%"
 							y1="100%"
@@ -808,9 +808,7 @@ export const renderLoadElements = (
 						</linearGradient>
 					</defs>
 					<path
-						fill="${dynamic_colour
-							? `url(#Lg-${data.timestamp_id})`
-							: loadColour}"
+						fill="${dynamic_colour ? `url(#Lg-esscompact)` : loadColour}"
 						d="${data.essIcon}"
 					/>
 				</svg>

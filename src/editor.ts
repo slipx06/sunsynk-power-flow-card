@@ -126,9 +126,9 @@ export class SunSynkCardEditor
 			case 'invert_power':
 				return 'Invert the direction of power flow animation.';
 			case 'hide_soc':
-				return 'Hide the State of Charge display.';
+				return 'Hide additional current program capacity (SOC) or shutdown SOC.';
 			case 'show_absolute':
-				return 'Show absolute values for battery power.';
+				return 'Show absolute values for power.';
 			case 'show_remaining_energy':
 				return 'Show remaining energy of the battery.';
 			case 'remaining_energy_to_shutdown':
@@ -1918,15 +1918,6 @@ export class SunSynkCardEditor
 				);
 				const v = on ? '3P' : '1P';
 				return `${base} (${v})`;
-			}
-			case 'auto_scale': {
-				const on = Boolean(
-					cfg?.inverter && (cfg.inverter as Record<string, unknown>).auto_scale,
-				);
-				const suffix = on
-					? t('config.inline.enabled', 'enabled')
-					: t('config.inline.disabled', 'disabled');
-				return `${base} (${suffix})`;
 			}
 			default:
 				return base;

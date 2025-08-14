@@ -21,6 +21,12 @@ export const renderCircle = (
 	mpathHref: string,
 	invertFlow: boolean = false,
 ) => {
+	// If fill is transparent, skip rendering the animated dot entirely to avoid
+	// running animations and triggering paints when power is zero or the flow is hidden.
+	if (fill === 'transparent') {
+		return svg``;
+	}
+
 	return svg`
         <circle id="${id}" cx="0" cy="0" r="${radius}" fill="${fill}">
             <animateMotion dur="${duration}s" repeatCount="indefinite"
