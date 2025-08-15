@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { svg } from 'lit';
 import { Utils } from '../../../helpers/utils';
 
 export function renderPVFlow(
@@ -16,10 +16,17 @@ export function renderPVFlow(
 	const lineId = `${id}-line`;
 	const finalKeyPoints =
 		invertFlow === true ? Utils.invertKeyPoints(keyPoints) : keyPoints;
-	const showDot = Math.round(powerWatts) > 0;
+	// Show animation dot whenever power is strictly positive (avoid rounding to 0)
+	const showDot = powerWatts > 0;
+	// Ensure a valid positive duration; default to 1s if unset/invalid
+	const dur = Number.isFinite(duration) && duration > 0 ? duration : 1;
 
-	return html`
-		<svg id="${id}-flow">
+	return svg`
+		<svg
+			id="${id}-flow"
+			xmlns:xlink="http://www.w3.org/1999/xlink"
+			overflow="visible"
+		>
 			<path
 				id="${lineId}"
 				d="${path}"
@@ -30,25 +37,27 @@ export function renderPVFlow(
 				pointer-events="stroke"
 				class="${className}"
 			/>
-			${showDot
-				? html`<circle
+			${
+				showDot
+					? svg`<circle
 						id="${id}-dot"
 						r="${Math.min(2 + lineWidth + Math.max(minLineWidth - 2, 0), 8)}"
 						fill="${color}"
 						class="${className}"
 					>
 						<animateMotion
-							dur="${duration}s"
+							dur="${dur}s"
 							repeatCount="indefinite"
-							keyPoints=${finalKeyPoints}
+							keyPoints="${finalKeyPoints}"
 							keyTimes="0;1"
 							calcMode="linear"
 							rotate="auto"
 						>
-							<mpath href="#${lineId}" />
+							<mpath href="#${lineId}" xlink:href="#${lineId}" />
 						</animateMotion>
 					</circle>`
-				: html``}
+					: svg``
+			}
 		</svg>
 	`;
 }

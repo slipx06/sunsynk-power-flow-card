@@ -62,7 +62,7 @@ export class SunSynkCardEditor
 		if (/^load\d+_switch$/.test(name))
 			return 'Switch entity to control this additional load (optional).';
 		if (/^load\d+_max_threshold$/.test(name))
-			return 'Maximum threshold used for progress/flow scaling for this load.';
+			return 'Set the threshold that will activate the Max Colour.';
 		if (/^aux_load\d+_name$/.test(name)) return 'Label for auxiliary load.';
 		if (/^aux_load\d+_icon$/.test(name))
 			return 'Icon will be used for this auxiliary load.';
@@ -204,7 +204,7 @@ export class SunSynkCardEditor
 			case 'off_threshold':
 				return 'Below this power value the path is considered off/idle.';
 			case 'path_threshold':
-				return 'Minimum power required to show a flow path as active.';
+				return 'The colour of the path will change to the source colour if the percentage supply by a single source equals or exceeds this value.';
 			case 'max_power':
 				return 'Optional cap used for scaling and progress calculations.';
 			case 'title_size':
