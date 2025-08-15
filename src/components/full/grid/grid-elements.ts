@@ -538,6 +538,10 @@ export const renderGridElements = (
 					data.iconNonessentialLoad1,
 					data.iconNonessentialLoad2,
 					data.nonessentialIcon,
+					// Include colours that drive icon fill so updates are reflected
+					data.dynamicColourNonEssentialLoad1,
+					data.dynamicColourNonEssentialLoad2,
+					data.gridColour,
 				],
 				() =>
 					repeat(

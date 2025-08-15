@@ -386,23 +386,6 @@ export class SunsynkPowerFlowCard extends LitElement {
 		globalData.hass = this.hass;
 		const config = this._config;
 
-		// Theme-aware refresh: if HA theme changed, re-run colour conversions that depend on CSS vars
-		const currentTheme = this.getCurrentThemeName();
-		if (currentTheme !== this._lastTheme) {
-			const cfg = this._config;
-			const importColour = this.colourConvert(cfg.grid?.colour);
-			const exportColour = this.colourConvert(
-				cfg.grid?.export_colour || importColour,
-			);
-			const noGridColour = this.colourConvert(
-				cfg.grid?.no_grid_colour || importColour,
-			);
-			this._computed.grid.importColour = importColour;
-			this._computed.grid.exportColour = exportColour;
-			this._computed.grid.noGridColour = noGridColour;
-			this._lastTheme = currentTheme;
-		}
-
 		//Energy
 		const stateDayBatteryDischarge = this.getEntity(
 			'entities.day_battery_discharge_71',

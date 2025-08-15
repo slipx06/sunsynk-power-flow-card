@@ -858,6 +858,9 @@ export const renderLoadElements = (
 					data.showAux,
 					data.iconEssentialLoad1,
 					data.iconEssentialLoad2,
+					// Include dynamic colours so icon fill updates when they change
+					data.dynamicColourEssentialLoad1,
+					data.dynamicColourEssentialLoad2,
 				],
 				() =>
 					repeat(
