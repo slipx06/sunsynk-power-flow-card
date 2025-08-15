@@ -16,52 +16,111 @@ import * as sk from './languages/sk.json';
 import * as sl from './languages/sl.json';
 import * as sv from './languages/sv.json';
 import * as uk from './languages/uk.json';
-import {globalData} from '../helpers/globals';
+import { globalData } from '../helpers/globals';
 
 const languages: any = {
-    ca: ca,
-    "zh-Hans": cn,  // Simplified Chinese
-    cs: cs,
-    da: da,
-    de: de,
-    en: en,
-    es: es,
-    et: et,
-    fr: fr,
-    it: it,
-    nl: nl,
-    pl: pl,
-    pt_BR: pt_br,
-    ru: ru,
-    sk: sk,
-    sl: sl,
-    sv: sv,
-    uk: uk,
+	ca: ca,
+	'zh-Hans': cn, // Simplified Chinese
+	cs: cs,
+	da: da,
+	de: de,
+	en: en,
+	es: es,
+	et: et,
+	fr: fr,
+	it: it,
+	nl: nl,
+	pl: pl,
+	pt_BR: pt_br,
+	ru: ru,
+	sk: sk,
+	sl: sl,
+	sv: sv,
+	uk: uk,
 };
 
+// Lightweight memoization for i18n lookups
+// - Caches base translations by key (without search/replace) per language
+// - Invalidates when the active language changes
+// - Keeps a modest cap to avoid unbounded growth
+let __i18nMemoLang = '';
+const __i18nMemo = new Map<string, string>();
+const __I18N_MEMO_LIMIT = 500;
 
+function __getActiveLang(): string {
+	const langFromLocalStorage = (
+		localStorage.getItem('selectedLanguage') || 'en'
+	)
+		.replace(/['"]+/g, '')
+		.replace('-', '_');
+
+	// Preserve original resolution order
+	return `${
+		(globalData as any).hass?.selectedLanguage ||
+		(globalData as any).hass?.locale?.language ||
+		(globalData as any).hass?.language ||
+		langFromLocalStorage
+	}`;
+}
+
+function __memoGet(lang: string, key: string): string | undefined {
+	if (lang !== __i18nMemoLang) {
+		__i18nMemo.clear();
+		__i18nMemoLang = lang;
+	}
+	return __i18nMemo.get(`${lang}|${key}`);
+}
+
+function __memoSet(lang: string, key: string, value: string): void {
+	if (lang !== __i18nMemoLang) {
+		__i18nMemo.clear();
+		__i18nMemoLang = lang;
+	}
+	if (__i18nMemo.size >= __I18N_MEMO_LIMIT) {
+		// naive LRU-ish: delete first inserted entry
+		const firstKey = __i18nMemo.keys().next().value;
+		if (firstKey !== undefined) {
+			__i18nMemo.delete(firstKey);
+		}
+	}
+	__i18nMemo.set(`${lang}|${key}`, value);
+}
 
 export function localize(string: string, search = '', replace = '') {
-    const langFromLocalStorage = (localStorage.getItem('selectedLanguage') || 'en')
-        .replace(/['"]+/g, '')
-        .replace('-', '_');
+	const lang = __getActiveLang();
 
-    const lang = `${globalData.hass?.selectedLanguage || globalData.hass?.locale?.language || globalData.hass?.language || langFromLocalStorage}`;
+	// Cache base translation by lang and key (without replacement)
+	let base = __memoGet(lang, string);
+	if (base === undefined) {
+		try {
+			base = string
+				.split('.')
+				.reduce((o: any, i: string) => o[i], languages[lang]);
+		} catch (e) {
+			base = string
+				.split('.')
+				.reduce((o: any, i: string) => o[i], languages['en']);
+		}
 
-    let translated: string;
+		if (base === undefined) {
+			base = string
+				.split('.')
+				.reduce((o: any, i: string) => o[i], languages['en']);
+		}
 
-    try {
-        translated = string.split('.').reduce((o, i) => o[i], languages[lang]);
-    } catch (e) {
-        translated = string.split('.').reduce((o, i) => o[i], languages['en']);
-    }
+		// Only memoize successful string results
+		if (typeof base === 'string') {
+			__memoSet(lang, string, base);
+		}
+	}
 
-    if (translated === undefined) {
-        translated = string.split('.').reduce((o, i) => o[i], languages['en']);
-    }
+	let translated = base as string;
+	if (typeof translated !== 'string') {
+		translated = String(translated);
+	}
 
-    if (search !== '' && replace !== '') {
-        translated = translated.replace(search, replace);
-    }
-    return translated;
+	if (search !== '' && replace !== '') {
+		translated = translated.replace(search, replace);
+	}
+	return translated;
 }

@@ -10,13 +10,13 @@ import { svg } from 'lit';
  * @returns A Lit SVG template for the path element.
  */
 export const renderPath = (
-    id: string,
-    d: string,
-    display: boolean,
-    color: string,
-    lineWidth: number,
+	id: string,
+	d: string,
+	display: boolean,
+	color: string,
+	lineWidth: number,
 ) => {
-    return svg`
+	return svg`
         <path id="${id}" d="${d}" fill="none" display="${display ? '' : 'none'}"
             stroke="${color}" stroke-width="${lineWidth}"
             stroke-miterlimit="10" pointer-events="stroke"/>

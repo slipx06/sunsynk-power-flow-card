@@ -1,19 +1,23 @@
 <!--- Provide a general summary of your changes in the Title above. -->
 
 ## Description
+
 <!--- Describe your changes in detail. -->
 <!--- If the change is breaking, it must be detailed what breaks and what users need to do to fix it -->
 
 ## Related issues
+
 <!--- This project only accepts pull requests related to open issues. -->
 <!--- If suggesting a new feature or change, please discuss it in an issue first. -->
 <!--- If fixing a bug, there should be an issue describing it with steps to reproduce. -->
 <!--- Please link to the issue here. e.g. fixes #123 closes #123 -->
 
 ## Motivation and Context
+
 <!--- Why is this change required? What problem does it solve? What additions does it bring? -->
 
 ## How has this been tested
+
 <!--- Please describe in detail how you tested your changes. -->
 <!--- Include details of the tests you ran. -->
 
@@ -27,6 +31,7 @@ Please delete options that are not relevant.
 - [ ] This change requires a documentation update
 
 ## Checklist
+
 <!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
 
 - [ ] My code follows the style guidelines of this project
@@ -36,4 +41,3 @@ Please delete options that are not relevant.
 - [ ] My changes generate no new warnings
 - [ ] Any dependent changes have been merged and published in downstream modules
 - [ ] I have updated the version in `package.json` following [semver](https://semver.org/)
-

@@ -1,14 +1,18 @@
-import typescript from 'rollup-plugin-typescript2';
-import commonjs from '@rollup/plugin-commonjs';
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-import babel from '@rollup/plugin-babel';
-import terser from '@rollup/plugin-terser';
-import json from '@rollup/plugin-json';
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+var typescript = require('rollup-plugin-typescript2');
+var commonjs = require('@rollup/plugin-commonjs');
+var pluginNodeResolve = require('@rollup/plugin-node-resolve');
+var babel = require('@rollup/plugin-babel');
+var terser = require('@rollup/plugin-terser');
+var json = require('@rollup/plugin-json');
 
 const isWatch = process.env.ROLLUP_WATCH === 'true';
 
 const plugins = [
-  nodeResolve({
+  pluginNodeResolve.nodeResolve({
     jsnext: true,
     main: true,
   }),
@@ -44,7 +48,7 @@ const plugins = [
   !isWatch && terser(),
 ].filter(Boolean);
 
-export default {
+var rollup_config = {
   input: ['./src/index.ts'],
   output: {
     file: 'dist/sunsynk-power-flow-card.js',
@@ -66,3 +70,5 @@ export default {
     handler(warning);
   },
 };
+
+exports.default = rollup_config;
