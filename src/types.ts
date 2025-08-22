@@ -1,5 +1,5 @@
-import {LovelaceCard, LovelaceCardConfig} from 'custom-card-helpers';
-import {CustomEntity} from './inverters/dto/custom-entity';
+import { LovelaceCard, LovelaceCardConfig } from 'custom-card-helpers';
+import { CustomEntity } from './inverters/dto/custom-entity';
 
 declare global {
 	interface HTMLElementTagNameMap {
@@ -20,18 +20,19 @@ export enum InverterModel {
 	GoodweGridMode = 'goodwe_gridmode',
 	Growatt = 'growatt',
 	Huawei = 'huawei',
-	Lux = 'lux',
 	Linky = 'linky',
+	Lux = 'lux',
 	MakeSkyBlue = 'makeskyblue',
 	MPPSolar = 'mppsolar',
 	PowMr = 'powmr',
 	Sigenergy = 'sigenergy',
 	SMASolar = 'smasolar',
-	Solax = 'solax',
-	SolarEdge = 'solaredge',
 	Sofar = 'sofar',
+	SolarEdge = 'solaredge',
+	Solax = 'solax',
 	Solis = 'solis',
-	Sungrow = `sungrow`,
+	Solinteg = 'solinteg',
+	Sungrow = 'sungrow',
 	Sunsynk = 'sunsynk',
 	Victron = 'victron',
 }
@@ -376,7 +377,7 @@ export interface DataDto {
 	config: sunsynkPowerFlowCardConfig;
 	compactMode;
 	viewBoxYLite;
-    viewBoxHeightLite;
+	viewBoxHeightLite;
 	cardHeight;
 	cardWidth;
 	loadColour;
@@ -386,7 +387,7 @@ export interface DataDto {
 	battery2Colour;
 	gridColour;
 	isFloating;
-	isFloating2,
+	isFloating2;
 	isFloatingCombined;
 	inverterColour;
 	solarColour;
@@ -399,9 +400,9 @@ export interface DataDto {
 	battery2Power;
 	batteryPowerTotal;
 	batteryDuration;
-	batteryDuration2,
+	batteryDuration2;
 	batteryCapacity;
-	battery2Capacity,
+	battery2Capacity;
 	additionalLoad;
 	essIconSize;
 	essIcon;
@@ -426,7 +427,7 @@ export interface DataDto {
 	batteryShowDaily;
 	inverterModel;
 	batteryShutdown;
-	batteryShutdown2,
+	batteryShutdown2;
 	enableAutarky;
 	autarkyPower;
 	ratioPower;

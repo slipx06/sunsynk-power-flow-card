@@ -28,4 +28,4 @@ changelog:
         - dependencies
     - title: Other Changes
       labels:
-        - "*"
+        - '*'

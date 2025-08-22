@@ -1,5 +1,5 @@
-import {localize} from './localize/localize';
-import {InverterModel} from './types';
+import { localize } from './localize/localize';
+import { InverterModel } from './types';
 
 export default {
 	cardstyle: 'lite',
@@ -17,12 +17,12 @@ export default {
 	min_line_width: 1,
 	inverter: {
 		modern: true,
-		colour: 'grey',
+		colour: '#9e9e9e',
 		autarky: 'power',
 		model: InverterModel.Sunsynk,
 		auto_scale: true,
 		three_phase: false,
-		navigate:'',
+		navigate: '',
 	},
 	battery: {
 		count: 1,
@@ -31,7 +31,7 @@ export default {
 		soc_end_of_charge: 100,
 		invert_power: false,
 		hide_soc: false,
-		colour: 'pink',
+		colour: '#ffc0cb',
 		show_daily: false,
 		show_remaining_energy: true,
 		remaining_energy_to_shutdown: false,
@@ -43,7 +43,7 @@ export default {
 		linear_gradient: true,
 		animate: true,
 		path_threshold: 100,
-		navigate:'',
+		navigate: '',
 		invert_flow: false,
 	},
 	battery2: {
@@ -52,7 +52,7 @@ export default {
 		soc_end_of_charge: 100,
 		invert_power: false,
 		hide_soc: false,
-		colour: 'pink',
+		colour: '#ffc0cb',
 		show_remaining_energy: true,
 		remaining_energy_to_shutdown: false,
 		show_absolute: false,
@@ -61,11 +61,11 @@ export default {
 		linear_gradient: true,
 		animate: true,
 		path_threshold: 100,
-		navigate:'',
+		navigate: '',
 		invert_flow: false,
 	},
 	solar: {
-		colour: 'orange',
+		colour: '#ffa500',
 		show_daily: false,
 		mppts: 2,
 		animation_speed: 9,
@@ -81,12 +81,12 @@ export default {
 		dynamic_colour: true,
 		efficiency: 3,
 		off_threshold: 10,
-		navigate:'',
+		navigate: '',
 		invert_flow: false,
 	},
 	load: {
 		colour: '#5fb6ad',
-		off_colour: 'grey',
+		off_colour: '#9e9e9e',
 		dynamic_colour: true,
 		dynamic_icon: true,
 		aux_dynamic_colour: true,
@@ -117,7 +117,7 @@ export default {
 		load6_name: '',
 		auto_scale: true,
 		path_threshold: 100,
-		navigate:'',
+		navigate: '',
 		invert_flow: false,
 		label_daily_load: localize('common.daily_load'),
 	},
@@ -145,7 +145,7 @@ export default {
 		energy_cost_decimals: 2,
 		show_absolute: false,
 		off_threshold: 0,
-		navigate:'',
+		navigate: '',
 		invert_flow: false,
 	},
 };
