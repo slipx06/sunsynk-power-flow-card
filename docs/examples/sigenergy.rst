@@ -2,6 +2,10 @@
 Sigenergy Sigenstor with Gateway
 #################
 
+.. note::
+   The sensors utilised below are provided by the 'Sigenergy Local Modbus' integration, maintained at: https://github.com/TypQxQ/Sigenergy-Local-Modbus
+   If there is enough interest for a version using the MQTT version, maintained at: https://github.com/seud0nym/sigenergy2mqtt, I will see about adding.
+
 *****************************
 Minimal Configuration (Solar and Battery)
 *****************************
