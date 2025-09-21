@@ -4,7 +4,7 @@ import { localize } from '../../localize/localize';
 
 export class Sigenergy extends InverterSettingsDto {
 	brand = InverterModel.Sigenergy;
-	statusGroups: InverterStatus = {
+	statusGroups = {
 		standby: {
 			states: ['standby'],
 			color: 'blue',
@@ -64,11 +64,7 @@ export class Sigenergy extends InverterSettingsDto {
 			message: localize('common.alarm'),
 		},
 		fault: {
-			states: [
-				'fault',
-				'communication abnormal',
-				'environmental abnormality',
-			],
+			states: ['fault', 'communication abnormal', 'environmental abnormality'],
 			color: 'orange',
 			message: localize('common.fault'),
 		},
@@ -78,7 +74,7 @@ export class Sigenergy extends InverterSettingsDto {
 			message: localize('common.offgrid'),
 		},
 		offgrid: {
-			states: ['off grid (auto)','off grid (manual)'],
+			states: ['off grid (auto)', 'off grid (manual)'],
 			color: 'yellow',
 			message: localize('common.offgrid'),
 		},
