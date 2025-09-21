@@ -8,6 +8,7 @@ export default {
 	show_solar: true,
 	show_battery: true,
 	show_grid: true,
+	center_no_grid: false,
 	card_height: '100%',
 	card_width: '100%',
 	decimal_places: 2,

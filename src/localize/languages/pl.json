@@ -208,6 +208,7 @@
     "max_colour": "Kolor maksymalny",
     "custom_label": "Własna etykieta",
     "soc_decimal_places": "Miejsca po przecinku SOC",
+    "center_no_grid": "Center content when Grid is hidden",
     "cat_title": {
       "title": "Opcje tytułu",
       "general": "Opcje ogólne",

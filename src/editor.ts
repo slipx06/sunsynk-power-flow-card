@@ -213,6 +213,8 @@ export class SunSynkCardEditor
 				return 'Card height: text value (e.g. 360) or an entity providing a numeric height.';
 			case 'card_width':
 				return 'Card width: text value (e.g. 640) or an entity providing a numeric width.';
+			case 'center_no_grid':
+				return 'When Grid is hidden, shift and narrow the view to center Solar/Battery/Loads.';
 			default:
 				return undefined;
 		}
@@ -512,6 +514,7 @@ export class SunSynkCardEditor
 			{ name: 'show_solar', selector: { boolean: {} } },
 			{ name: 'show_battery', selector: { boolean: {} } },
 			{ name: 'show_grid', selector: { boolean: {} } },
+			{ name: 'center_no_grid', selector: { boolean: {} } },
 			{
 				name: 'decimal_places',
 				selector: { number: { min: 0, max: 3, step: 1, mode: 'box' } },

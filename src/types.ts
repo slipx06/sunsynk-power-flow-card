@@ -58,6 +58,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 	show_solar: boolean;
 	show_battery: boolean;
 	show_grid: boolean;
+	center_no_grid: boolean;
 	card_height?: string;
 	card_width?: string;
 	decimal_places?: number;
@@ -379,6 +380,8 @@ export interface DataDto {
 	compactMode;
 	viewBoxYLite;
 	viewBoxHeightLite;
+	viewBoxXLite;
+	viewBoxWidthLite;
 	cardHeight;
 	cardWidth;
 	loadColour;
