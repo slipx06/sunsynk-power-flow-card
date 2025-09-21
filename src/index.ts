@@ -2416,10 +2416,19 @@ export class SunsynkPowerFlowCard extends LitElement {
 
 		// Center content when grid is hidden (Compact/Lite)
 		if (!config.show_grid && config?.center_no_grid) {
-			const mppts = Utils.toNum(config.solar?.mppts, 0);
-			const [x, w] = mppts > 2 ? [77, 410] : [100, 400];
-			viewBoxXLite = String(x);
-			viewBoxWidthLite = String(w);
+			let defX = 50;
+			let defW = 460;
+			// Apply only to compact/lite styles as this affects the Lite/Compact viewBox
+			if (config.cardstyle === 'compact') {
+				const mppts = Utils.toNum(config.solar?.mppts, 0);
+				[defX, defW] = mppts > 2 ? [50, 460] : [70, 460];
+			} else if (config.cardstyle === 'lite') {
+				[defX, defW] = [50, 460];
+			}
+			//const x = config.center_no_grid_x ?? defX;
+			//const w = config.center_no_grid_width ?? defW;
+			viewBoxXLite = String(defX);
+			viewBoxWidthLite = String(defW);
 		}
 
 		const loadOffThreshold = Utils.toNum(config.load?.off_threshold, 0);
