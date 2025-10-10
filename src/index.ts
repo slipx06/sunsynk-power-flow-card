@@ -645,6 +645,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 		const stateTotalPVGeneration = this.getEntity(
 			'entities.total_pv_generation',
 		);
+		const stateTomorrowSolar = this.getEntity('entities.tomorrow_solar');
 
 		//Set defaults
 		const invert_aux = config.load?.invert_aux ?? false;
@@ -963,6 +964,13 @@ export class SunsynkPowerFlowCard extends LitElement {
 					stateTotalPVGeneration.state,
 					stateTotalPVGeneration.attributes?.unit_of_measurement,
 					2,
+				)
+			: false;
+		const tomorrowSolar = config.entities.tomorrow_solar
+			? Utils.convertValueNew(
+					stateTomorrowSolar.state,
+					stateTomorrowSolar.attributes?.unit_of_measurement,
+					decimalPlaces,
 				)
 			: false;
 		const largeFont = config.large_font;
@@ -2680,6 +2688,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 			inverterImg,
 			stateDayPVEnergy,
 			remainingSolar,
+			tomorrowSolar,
 			totalSolarGeneration,
 			stateDayLoadEnergy,
 			stateDayBatteryDischarge,
