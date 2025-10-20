@@ -49,7 +49,7 @@ The card can be configured through the following attributes:
 ### Battery
 
 To display battery power and current as absolute values set `show_absolute: true`. This is set to false by default and
-will return your sensor value. The animated dot will change the direction depending on the charging or discharging state.
+will return your sensor value. The animated dot will change direction depending on the charging or discharging state.
 The `invert_power` attribute can be used to reverse the direction if needed by your sensor.
 
 | Attribute        | Requirement | Default | Description                                                                                                                                                                                              |
