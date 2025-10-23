@@ -207,6 +207,9 @@ export const renderAuxLoadElements = (
 						data.auxType,
 						data.iconAuxLoad1,
 						data.iconAuxLoad2,
+						data.auxDynamicColour,
+						data.auxDynamicColourLoad1,
+						data.auxDynamicColourLoad2,
 					],
 					() =>
 						repeat(
