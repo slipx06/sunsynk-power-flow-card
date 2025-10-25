@@ -653,7 +653,7 @@ export class SunSynkCardEditor
 												{ name: 'auto_scale', selector: { boolean: {} } },
 												{
 													name: 'display_mode',
-													selector: { number: { mode: 'box', min: 1, max: 3 } },
+													selector: { number: { mode: 'box', min: 1, max: 4 } },
 												},
 												{ name: 'colour', selector: { color_rgb: {} } },
 												{ name: 'dynamic_colour', selector: { boolean: {} } },
@@ -1344,6 +1344,12 @@ export class SunSynkCardEditor
 											},
 											{
 												name: 'remaining_solar',
+												selector: {
+													entity: { device_class: SensorDeviceClass.ENERGY },
+												},
+											},
+											{
+												name: 'tomorrow_solar',
 												selector: {
 													entity: { device_class: SensorDeviceClass.ENERGY },
 												},

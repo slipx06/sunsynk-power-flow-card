@@ -165,6 +165,17 @@ export const renderSolarElements = (
 				config.solar.custom_label || localize('common.total_solar_generation'),
 				false,
 			)}
+			${renderText(
+				'tomorrow_solar',
+				43.5,
+				29,
+				display_mode === 4,
+				'st3 left-align',
+				!solarShowDaily ? 'transparent' : solarColour,
+				config.solar.custom_label ||
+					localize('common.daily_solar_left_tomorrow'),
+				false,
+			)}
 			${renderPVFlow(
 				'pv1',
 				mppts === 1
@@ -321,6 +332,16 @@ export const renderSolarElements = (
 				'st10 left-align',
 				!solarShowDaily ? 'transparent' : solarColour,
 				`${data.stateDayPVEnergy.toPowerString(true, data.decimalPlacesEnergy)} / ${data.totalSolarGeneration}`,
+				(e) => Utils.handlePopup(e, config.entities.day_pv_energy_108),
+			)}
+			${createTextWithPopup(
+				'tomorrow_solar_value',
+				43.5,
+				15,
+				display_mode === 4 && data.stateDayPVEnergy.isValid(),
+				'st10 left-align',
+				!solarShowDaily ? 'transparent' : solarColour,
+				`${data.stateDayPVEnergy.toPowerString(true, data.decimalPlacesEnergy)} / ${data.remainingSolar} / ${data.tomorrowSolar}`,
 				(e) => Utils.handlePopup(e, config.entities.day_pv_energy_108),
 			)}
 			${config.entities?.pv_total

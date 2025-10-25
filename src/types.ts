@@ -344,6 +344,7 @@ export interface CardConfigEntities {
 	load_power_L2: string;
 	load_power_L3: string;
 	total_pv_generation: string;
+	tomorrow_solar: string;
 	battery_current_direction: string;
 	prepaid_units: string;
 	prog1_time: string;
@@ -488,6 +489,7 @@ export interface DataDto {
 	inverterImg;
 	remainingSolar;
 	totalSolarGeneration;
+	tomorrowSolar;
 	minLineWidth;
 	stopColour;
 	stop2Colour;
