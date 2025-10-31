@@ -1,5 +1,5 @@
 #################
-Sunsynk Inverter
+Sunsynk and Deye Inverters
 #################
 
 
@@ -375,3 +375,161 @@ Full Configuration (All Options)
     battery_status: null
 
 
+*********************************************
+Deye SUN-10K-SG02LP1-EU-AM3 (Solar Assistant)
+*********************************************
+
+.. code-block:: yaml
+  :linenos:
+
+  type: custom:sunsynk-power-flow-card
+  cardstyle: full
+  title: Deye SUN-10k-SG02LP1-EU-AM3
+  title_colour: grey
+  title_size: 24px
+  show_battery: true
+  show_solar: true
+  show_grid: true
+  decimal_places: 1
+  dynamic_line_width: true
+  min_line_width: 2
+  max_line_width: 8
+  card_height: 100%
+  card_width: 100%
+  wide: true
+  large_font: true
+  inverter:
+    modern: true
+    colour: grey
+    autarky: power
+    auto_scale: true
+    three_phase: false
+    model: deye
+  decimal_places_energy: 1
+  battery:
+    count: 2
+    show_daily: true
+    max_power: 10000
+    show_remaining_energy: true
+    dynamic_colour: false
+    battery_rated_capacity: 560
+    soc_decimal_places: 1
+    invert_power: true
+    linear_gradient: true
+    shutdown_soc: number.deye_sunsynk_sol_ark_output_shutdown_capacity
+    energy: 12200
+    remaining_energy_to_shutdown: true
+    show_absolute: false
+    invert_flow: false
+  battery2:
+    energy: 12200
+    shutdown_soc: number.deye_sunsynk_sol_ark_output_shutdown_capacity
+    soc_decimal_places: 1
+    battery_soc: sensor.deye_sunsynk_sol_ark_state_of_charge_2
+    invert_power: true
+    linear_gradient: true
+    show_remaining_energy: true
+    invert_flow: true
+    remaining_energy_to_shutdown: true
+  solar:
+    show_daily: true
+    mppts: 3
+    max_power: 11100
+    pv1_name: porch
+    pv3_name: garden
+    pv2_name: roof
+    dynamic_colour: false
+    pv1_max_power: 3500
+    pv2_max_power: 4600
+    pv3_max_power: 3000
+    display_mode: 1
+    auto_scale: false
+  load:
+    show_daily: true
+    load1_name: Aircon
+    load1_icon: mdi:air-conditioner
+    load2_name: Aircon
+    load2_icon: ""
+    load1_switch: climate.local_daikin
+    dynamic_icon: true
+    essential_name: melwood home
+    dynamic_colour: false
+  grid:
+    show_daily_buy: true
+    show_daily_sell: false
+    show_nonessential: true
+    grid_name: PEA
+    nonessential_icon: mdi:radiator
+    load1_name: Sauna
+    load1_icon: mdi:radiator
+    nonessential_name: Sauna
+    energy_cost_decimals: 0
+    auto_scale: false
+    disconnected_icon: mdi:lan-disconnect
+  entities:
+    use_timer_248: switch.deye_sunsynk_sol_ark_use_timer
+    priority_load_243: switch.deye_sunsynk_sol_ark_prioritize_load
+    inverter_voltage_154: sensor.deye_sunsynk_sol_ark_grid_voltage
+    load_frequency_192: sensor.deye_sunsynk_sol_ark_ac_output_frequency
+    inverter_current_164: sensor.deye_sunsynk_sol_ark_current
+    inverter_power_175: sensor.deye_sunsynk_sol_ark_power
+    grid_connected_status_194: binary_sensor.deye_sunsynk_sol_ark_grid_connected_status
+    inverter_status_59: sensor.deye_sunsynk_sol_ark_device_mode
+    day_battery_charge_70: sensor.deye_sunsynk_sol_ark_battery_energy_in
+    day_battery_discharge_71: sensor.deye_sunsynk_sol_ark_battery_energy_out
+    battery_voltage_183: sensor.deye_sunsynk_sol_ark_voltage
+    battery_soc_184: sensor.deye_sunsynk_sol_ark_state_of_charge
+    battery_power_190: sensor.deye_sunsynk_sol_ark_power
+    battery_current_191: sensor.deye_sunsynk_sol_ark_current
+    battery2_voltage_183: sensor.deye_sunsynk_sol_ark_voltage_2
+    battery2_soc_184: sensor.deye_sunsynk_sol_ark_state_of_charge_2
+    battery2_power_190: sensor.deye_sunsynk_sol_ark_power_2
+    battery2_current_191: sensor.deye_sunsynk_sol_ark_current_2
+    grid_power_169: sensor.deye_sunsynk_sol_ark_grid_power
+    day_grid_import_76: sensor.deye_sunsynk_sol_ark_grid_energy_in
+    day_grid_export_77: sensor.deye_sunsynk_sol_ark_grid_energy_out
+    grid_ct_power_172: sensor.deye_sunsynk_sol_ark_grid_power_ct
+    day_load_energy_84: sensor.deye_sunsynk_sol_ark_load_energy
+    essential_power: sensor.deye_sunsynk_sol_ark_load_power_essential
+    nonessential_power: sensor.deye_sunsynk_sol_ark_load_power_non_essential
+    aux_power_166: sensor.deye_sunsynk_sol_ark_aux_power
+    day_pv_energy_108: sensor.deye_sunsynk_sol_ark_pv_energy
+    pv1_power_186: sensor.deye_sunsynk_sol_ark_pv_power_1
+    pv2_power_187: sensor.deye_sunsynk_sol_ark_pv_power_2
+    pv3_power_188: sensor.deye_sunsynk_sol_ark_pv_power_3
+    pv1_voltage_109: sensor.deye_sunsynk_sol_ark_pv_voltage_1
+    pv1_current_110: sensor.deye_sunsynk_sol_ark_pv_current_1
+    pv2_voltage_111: sensor.deye_sunsynk_sol_ark_pv_voltage_2
+    pv2_current_112: sensor.deye_sunsynk_sol_ark_pv_current_2
+    pv3_voltage_113: sensor.deye_sunsynk_sol_ark_pv_voltage_3
+    pv3_current_114: sensor.deye_sunsynk_sol_ark_pv_current_3
+    essential_load1: sensor.shelly_sauna_heater_power
+    grid_voltage: sensor.deye_sunsynk_sol_ark_grid_voltage
+    non_essential_load1: sensor.shelly_sauna_heater_power
+    energy_cost_buy: sensor.sdb_shala_energy_current_energy_price_cost
+    large_font: true
+    pv_total: sensor.deye_sunsynk_sol_ark_pv_power
+    remaining_solar: sensor.energy_production_today_remaining
+    environment_temp: sensor.dogatmo_temperature
+    battery_temp_182: sensor.deye_sunsynk_sol_ark_battery_temperature
+    battery2_temp_182: sensor.deye_sunsynk_sol_ark_temperature_2
+    battery_rated_capacity: sensor.deye_sunsynk_sol_ark_capacity
+    battery2_rated_capacity: sensor.deye_sunsynk_sol_ark_capacity_2
+    prog1_time: select.deye_sunsynk_sol_ark_time_point_1
+    prog2_time: select.deye_sunsynk_sol_ark_time_point_2
+    prog3_time: select.deye_sunsynk_sol_ark_time_point_3
+    prog4_time: select.deye_sunsynk_sol_ark_time_point_4
+    prog5_time: select.deye_sunsynk_sol_ark_time_point_5
+    prog6_time: select.deye_sunsynk_sol_ark_time_point_6
+    prog1_capacity: number.deye_sunsynk_sol_ark_capacity_point_1
+    prog2_capacity: number.deye_sunsynk_sol_ark_capacity_point_2
+    prog3_capacity: number.deye_sunsynk_sol_ark_capacity_point_3
+    prog4_capacity: number.deye_sunsynk_sol_ark_capacity_point_4
+    prog5_capacity: number.deye_sunsynk_sol_ark_capacity_point_5
+    prog6_capacity: number.deye_sunsynk_sol_ark_capacity_point_6
+    prog1_charge: number.deye_sunsynk_sol_ark_grid_charge_point_1
+    prog2_charge: number.deye_sunsynk_sol_ark_grid_charge_point_2
+    prog3_charge: number.deye_sunsynk_sol_ark_grid_charge_point_3
+    prog4_charge: number.deye_sunsynk_sol_ark_grid_charge_point_4
+    prog5_charge: number.deye_sunsynk_sol_ark_grid_charge_point_5
+    prog6_charge: number.deye_sunsynk_sol_ark_grid_charge_point_6

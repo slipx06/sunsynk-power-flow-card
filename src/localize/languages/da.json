@@ -208,6 +208,7 @@
     "max_colour": "Max Colour",
     "custom_label": "Custom Label",
     "soc_decimal_places": "SOC Decimal Places",
+    "center_no_grid": "Center content when Grid is hidden",
     "cat_title": {
       "title": "Titel Options",
       "general": "Generelle Options",

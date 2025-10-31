@@ -208,6 +208,7 @@
     "max_colour": "最大颜色",
     "custom_label": "自定义标签",
     "soc_decimal_places": "SOC小数位",
+    "center_no_grid": "Center content when Grid is hidden",
     "cat_title": {
       "title": "标题选项",
       "general": "常规选项",

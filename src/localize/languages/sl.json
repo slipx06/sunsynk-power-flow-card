@@ -200,6 +200,7 @@
     "label_daily_load": "oznaka dnevne obremenitve",
     "custom_label": "Custom Label",
     "soc_decimal_places": "SOC Decimal Places",
+    "center_no_grid": "Center content when Grid is hidden",
     "cat_title": {
       "title": "možnosti naslova",
       "general": "splošne možnosti",

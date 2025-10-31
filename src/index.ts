@@ -2384,6 +2384,8 @@ export class SunsynkPowerFlowCard extends LitElement {
 
 		let viewBoxYLite: string;
 		let viewBoxHeightLite: string;
+		let viewBoxXLite: string = '-2';
+		let viewBoxWidthLite: string = '490';
 		switch (true) {
 			case !config.show_solar && config.show_battery && additionalLoad === 0:
 				viewBoxYLite = '138';
@@ -2424,6 +2426,23 @@ export class SunsynkPowerFlowCard extends LitElement {
 			default:
 				viewBoxYLite = '0';
 				viewBoxHeightLite = '408';
+		}
+
+		// Center content when grid is hidden (Compact/Lite)
+		if (!config.show_grid && config?.center_no_grid) {
+			let defX = 50;
+			let defW = 460;
+			// Apply only to compact/lite styles as this affects the Lite/Compact viewBox
+			if (config.cardstyle === 'compact') {
+				const mppts = Utils.toNum(config.solar?.mppts, 0);
+				[defX, defW] = mppts > 2 ? [50, 460] : [70, 460];
+			} else if (config.cardstyle === 'lite') {
+				[defX, defW] = [50, 460];
+			}
+			//const x = config.center_no_grid_x ?? defX;
+			//const w = config.center_no_grid_width ?? defW;
+			viewBoxXLite = String(defX);
+			viewBoxWidthLite = String(defW);
 		}
 
 		const loadOffThreshold = Utils.toNum(config.load?.off_threshold, 0);
@@ -2525,6 +2544,8 @@ export class SunsynkPowerFlowCard extends LitElement {
 			compactMode,
 			viewBoxYLite,
 			viewBoxHeightLite,
+			viewBoxXLite,
+			viewBoxWidthLite,
 			cardHeight,
 			cardWidth,
 			loadColour,

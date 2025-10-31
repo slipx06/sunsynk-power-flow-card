@@ -27,6 +27,7 @@ import { Linky } from './brands/linky';
 import { Ferroamp } from './brands/ferroamp';
 import { Easun } from './brands/easun';
 import { Solinteg } from './brands/solinteg';
+import { DeyeNew } from './brands/deye-new';
 
 export class InverterFactory {
 	static instance: InverterSettingsDto;
@@ -80,6 +81,8 @@ export class InverterFactory {
 				return new SolarEdge();
 			case InverterModel.Deye:
 				return new Deye();
+			case InverterModel.DeyeNew:
+				return new DeyeNew();
 			case InverterModel.PowMr:
 				return new PowMr();
 			case InverterModel.MPPSolar:

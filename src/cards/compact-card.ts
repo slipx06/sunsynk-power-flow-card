@@ -40,7 +40,7 @@ export const compactCard = (
 				<svg
 					viewBox="${config.wide
 						? '0 0 720 405'
-						: `-2 ${data.viewBoxYLite} 490 ${data.viewBoxHeightLite}`}"
+						: `${data.viewBoxXLite} ${data.viewBoxYLite} ${data.viewBoxWidthLite} ${data.viewBoxHeightLite}`}"
 					preserveAspectRatio="xMidYMid meet"
 					height="${data.cardHeight}"
 					width="${data.cardWidth}"
