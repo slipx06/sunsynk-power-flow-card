@@ -9,6 +9,7 @@
    :titlesonly:
 
    examples/sunsynk
+   examples/ecoflow
    examples/foxess
    examples/goodwe
    examples/huawei
