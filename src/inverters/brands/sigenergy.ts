@@ -71,7 +71,7 @@ export class Sigenergy extends InverterSettingsDto {
 		ongrid: {
 			states: ['on grid'],
 			color: 'green',
-			message: localize('common.offgrid'),
+			message: localize('common.ongrid'),
 		},
 		offgrid: {
 			states: ['off grid (auto)', 'off grid (manual)'],
