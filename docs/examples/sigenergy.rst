@@ -130,7 +130,7 @@ Minimal Configuration (Solar and Battery)
     essential_load3: none                                                     # Update with an essential load power sensor
     essential_load3_extra: none                                               # Update with an essential load energy or other sensor
     essential_load4: none                                                     # Update with an essential load power sensor
-    essential_load5_extra: none                                               # Update with an essential load energy or other sensor
+    essential_load4_extra: none                                               # Update with an essential load energy or other sensor
     essential_load5: none                                                     # Update with an essential load power sensor
     essential_load5_extra: none                                               # Update with an essential load energy or other sensor
     essential_load6: none                                                     # Update with an essential load power sensor
