@@ -1,0 +1,654 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sunsynk and Deye Inverters &mdash; sunsynk-power-flow-card  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Ecoflow Inverters" href="ecoflow.html" />
+    <link rel="prev" title="Configuration" href="../configuration.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Sunsynk and Deye Inverters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ecoflow.html">Ecoflow Inverters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="foxess.html">FoxESS Inverter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="goodwe.html">Goodwe Inverter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="huawei.html">Huawei Inverter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lux.html">Lux Inverter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="powmr.html">PowMr Inverters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sigenergy.html">Sigenergy Sigenstor with Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solax.html">SolaX Inverter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solis.html">Solis Inverter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="victron.html">Victron Inverters</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/devcontainer.html">VS Code - DevContainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/devcycle.html">Development Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/docs.html">Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">sunsynk-power-flow-card</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Sunsynk and Deye Inverters</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/examples/sunsynk.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sunsynk-and-deye-inverters">
+<h1>Sunsynk and Deye Inverters<a class="headerlink" href="#sunsynk-and-deye-inverters" title="Link to this heading"></a></h1>
+<section id="minimum-configuration-no-solar-no-battery">
+<h2>Minimum Configuration (No Solar, No Battery)<a class="headerlink" href="#minimum-configuration-no-solar-no-battery" title="Link to this heading"></a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom:sunsynk-power-flow-card</span>
+<span class="linenos"> 2</span><span class="nt">cardstyle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">full</span>
+<span class="linenos"> 3</span><span class="nt">show_solar</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 4</span><span class="nt">show_battery</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 5</span><span class="nt">entities</span><span class="p">:</span>
+<span class="linenos"> 6</span><span class="w">  </span><span class="nt">inverter_power_175</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_inverter_power</span>
+<span class="linenos"> 7</span><span class="w">  </span><span class="nt">grid_power_169</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_grid_power</span>
+<span class="linenos"> 8</span><span class="w">  </span><span class="nt">battery_soc_184</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_soc</span>
+<span class="linenos"> 9</span><span class="w">  </span><span class="nt">battery_power_190</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_power</span>
+<span class="linenos">10</span><span class="w">  </span><span class="nt">battery_current_191</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_current</span>
+<span class="linenos">11</span><span class="w">  </span><span class="nt">grid_ct_power_172</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_grid_ct_power</span>
+</pre></div>
+</div>
+</section>
+<section id="minimum-configuration-solar">
+<h2>Minimum Configuration (Solar)<a class="headerlink" href="#minimum-configuration-solar" title="Link to this heading"></a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom:sunsynk-power-flow-card</span>
+<span class="linenos"> 2</span><span class="nt">cardstyle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">full</span>
+<span class="linenos"> 3</span><span class="nt">solar</span><span class="p">:</span>
+<span class="linenos"> 4</span><span class="w">  </span><span class="nt">mppts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="linenos"> 5</span><span class="nt">battery</span><span class="p">:</span>
+<span class="linenos"> 6</span><span class="w">  </span><span class="nt">energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15960</span>
+<span class="linenos"> 7</span><span class="w">  </span><span class="nt">shutdown_soc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="linenos"> 8</span><span class="nt">entities</span><span class="p">:</span>
+<span class="linenos"> 9</span><span class="w">  </span><span class="nt">inverter_power_175</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_inverter_power</span>
+<span class="linenos">10</span><span class="w">  </span><span class="nt">grid_power_169</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_grid_power</span>
+<span class="linenos">11</span><span class="w">  </span><span class="nt">battery_soc_184</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_soc</span>
+<span class="linenos">12</span><span class="w">  </span><span class="nt">battery_power_190</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_power</span>
+<span class="linenos">13</span><span class="w">  </span><span class="nt">battery_current_191</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_current</span>
+<span class="linenos">14</span><span class="w">  </span><span class="nt">grid_ct_power_172</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_grid_ct_power</span>
+<span class="linenos">15</span><span class="w">  </span><span class="nt">pv1_power_186</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_pv1_power</span>
+</pre></div>
+</div>
+</section>
+<section id="minimal-configuration-no-solar">
+<h2>Minimal Configuration (No Solar)<a class="headerlink" href="#minimal-configuration-no-solar" title="Link to this heading"></a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom:sunsynk-power-flow-card</span>
+<span class="linenos"> 2</span><span class="nt">cardstyle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">full</span>
+<span class="linenos"> 3</span><span class="nt">show_solar</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 4</span><span class="nt">battery</span><span class="p">:</span>
+<span class="linenos"> 5</span><span class="w">  </span><span class="nt">energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15960</span>
+<span class="linenos"> 6</span><span class="w">  </span><span class="nt">shutdown_soc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="linenos"> 7</span><span class="nt">entities</span><span class="p">:</span>
+<span class="linenos"> 8</span><span class="w">  </span><span class="nt">inverter_voltage_154</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_inverter_voltage</span>
+<span class="linenos"> 9</span><span class="w">  </span><span class="nt">load_frequency_192</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_load_frequency</span>
+<span class="linenos">10</span><span class="w">  </span><span class="nt">inverter_current_164</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_inverter_current</span>
+<span class="linenos">11</span><span class="w">  </span><span class="nt">inverter_power_175</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_inverter_power</span>
+<span class="linenos">12</span><span class="w">  </span><span class="nt">grid_power_169</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_grid_power</span>
+<span class="linenos">13</span><span class="w">  </span><span class="nt">battery_voltage_183</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_voltage</span>
+<span class="linenos">14</span><span class="w">  </span><span class="nt">battery_soc_184</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_soc</span>
+<span class="linenos">15</span><span class="w">  </span><span class="nt">battery_power_190</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_power</span>
+<span class="linenos">16</span><span class="w">  </span><span class="nt">battery_current_191</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_current</span>
+<span class="linenos">17</span><span class="w">  </span><span class="nt">grid_ct_power_172</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_grid_ct_power</span>
+<span class="linenos">18</span><span class="w">  </span><span class="nt">grid_connected_status_194</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary_sensor.sunsynk_grid_connected_status</span>
+<span class="linenos">19</span><span class="w">  </span><span class="nt">inverter_status_59</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.overall_state</span>
+</pre></div>
+</div>
+</section>
+<section id="minimal-configuration-no-battery">
+<h2>Minimal Configuration (No Battery)<a class="headerlink" href="#minimal-configuration-no-battery" title="Link to this heading"></a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom:sunsynk-power-flow-card</span>
+<span class="linenos"> 2</span><span class="nt">cardstyle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">full</span>
+<span class="linenos"> 3</span><span class="nt">show_battery</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 4</span><span class="nt">entities</span><span class="p">:</span>
+<span class="linenos"> 5</span><span class="w">  </span><span class="nt">inverter_voltage_154</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_inverter_voltage</span>
+<span class="linenos"> 6</span><span class="w">  </span><span class="nt">load_frequency_192</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_load_frequency</span>
+<span class="linenos"> 7</span><span class="w">  </span><span class="nt">inverter_current_164</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_inverter_current</span>
+<span class="linenos"> 8</span><span class="w">  </span><span class="nt">inverter_power_175</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_inverter_power</span>
+<span class="linenos"> 9</span><span class="w">  </span><span class="nt">grid_power_169</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_grid_power</span>
+<span class="linenos">10</span><span class="w">  </span><span class="nt">battery_voltage_183</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_voltage</span>
+<span class="linenos">11</span><span class="w">  </span><span class="nt">battery_soc_184</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_soc</span>
+<span class="linenos">12</span><span class="w">  </span><span class="nt">battery_power_190</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_power</span>
+<span class="linenos">13</span><span class="w">  </span><span class="nt">battery_current_191</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_current</span>
+<span class="linenos">14</span><span class="w">  </span><span class="nt">grid_ct_power_172</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_grid_ct_power</span>
+<span class="linenos">15</span><span class="w">  </span><span class="nt">grid_connected_status_194</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary_sensor.sunsynk_grid_connected_status</span>
+<span class="linenos">16</span><span class="w">  </span><span class="nt">inverter_status_59</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.overall_state</span>
+</pre></div>
+</div>
+</section>
+<section id="minimal-configuration-solar-and-battery">
+<h2>Minimal Configuration (Solar and Battery)<a class="headerlink" href="#minimal-configuration-solar-and-battery" title="Link to this heading"></a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom:sunsynk-power-flow-card</span>
+<span class="linenos"> 2</span><span class="nt">cardstyle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">full</span>
+<span class="linenos"> 3</span><span class="nt">solar</span><span class="p">:</span>
+<span class="linenos"> 4</span><span class="w">  </span><span class="nt">mppts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="linenos"> 5</span><span class="nt">battery</span><span class="p">:</span>
+<span class="linenos"> 6</span><span class="w">  </span><span class="nt">energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15960</span>
+<span class="linenos"> 7</span><span class="w">  </span><span class="nt">shutdown_soc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="linenos"> 8</span><span class="nt">load</span><span class="p">:</span>
+<span class="linenos"> 9</span><span class="w">  </span><span class="nt">show_aux</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos">10</span><span class="nt">entities</span><span class="p">:</span>
+<span class="linenos">11</span><span class="w">  </span><span class="nt">inverter_voltage_154</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_inverter_voltage</span>
+<span class="linenos">12</span><span class="w">  </span><span class="nt">load_frequency_192</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_load_frequency</span>
+<span class="linenos">13</span><span class="w">  </span><span class="nt">inverter_current_164</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_inverter_current</span>
+<span class="linenos">14</span><span class="w">  </span><span class="nt">inverter_power_175</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_inverter_power</span>
+<span class="linenos">15</span><span class="w">  </span><span class="nt">grid_power_169</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_grid_power</span>
+<span class="linenos">16</span><span class="w">  </span><span class="nt">battery_voltage_183</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_voltage</span>
+<span class="linenos">17</span><span class="w">  </span><span class="nt">battery_soc_184</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_soc</span>
+<span class="linenos">18</span><span class="w">  </span><span class="nt">battery_power_190</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_power</span>
+<span class="linenos">19</span><span class="w">  </span><span class="nt">battery_current_191</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_current</span>
+<span class="linenos">20</span><span class="w">  </span><span class="nt">grid_ct_power_172</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_grid_ct_power</span>
+<span class="linenos">21</span><span class="w">  </span><span class="nt">grid_connected_status_194</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary_sensor.sunsynk_grid_connected_status</span>
+<span class="linenos">22</span><span class="w">  </span><span class="nt">inverter_status_59</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_overall_state</span>
+<span class="linenos">23</span><span class="w">  </span><span class="nt">pv1_power_186</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_pv1_power</span>
+<span class="linenos">24</span><span class="w">  </span><span class="nt">pv2_power_187</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_pv2_power</span>
+<span class="linenos">25</span><span class="w">  </span><span class="nt">pv1_voltage_109</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_pv1_voltage</span>
+<span class="linenos">26</span><span class="w">  </span><span class="nt">pv1_current_110</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_pv1_current</span>
+<span class="linenos">27</span><span class="w">  </span><span class="nt">pv2_voltage_111</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_pv2_voltage</span>
+<span class="linenos">28</span><span class="w">  </span><span class="nt">pv2_current_112</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_pv2_current</span>
+</pre></div>
+</div>
+</section>
+<section id="minimal-configuration-solar-daily-totals">
+<h2>Minimal Configuration (Solar + Daily Totals)<a class="headerlink" href="#minimal-configuration-solar-daily-totals" title="Link to this heading"></a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom:sunsynk-power-flow-card</span>
+<span class="linenos"> 2</span><span class="nt">cardstyle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">full</span>
+<span class="linenos"> 3</span><span class="nt">solar</span><span class="p">:</span>
+<span class="linenos"> 4</span><span class="w">  </span><span class="nt">mppts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="linenos"> 5</span><span class="w">  </span><span class="nt">show_daily</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 6</span><span class="nt">battery</span><span class="p">:</span>
+<span class="linenos"> 7</span><span class="w">  </span><span class="nt">energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15960</span>
+<span class="linenos"> 8</span><span class="w">  </span><span class="nt">shutdown_soc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="linenos"> 9</span><span class="w">  </span><span class="nt">show_daily</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos">10</span><span class="nt">load</span><span class="p">:</span>
+<span class="linenos">11</span><span class="w">  </span><span class="nt">show_daily</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos">12</span><span class="nt">grid</span><span class="p">:</span>
+<span class="linenos">13</span><span class="w">  </span><span class="nt">show_daily_buy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos">14</span><span class="nt">entities</span><span class="p">:</span>
+<span class="linenos">15</span><span class="w">  </span><span class="nt">inverter_voltage_154</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_inverter_voltage</span>
+<span class="linenos">16</span><span class="w">  </span><span class="nt">load_frequency_192</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_load_frequency</span>
+<span class="linenos">17</span><span class="w">  </span><span class="nt">inverter_current_164</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_inverter_current</span>
+<span class="linenos">18</span><span class="w">  </span><span class="nt">inverter_power_175</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_inverter_power</span>
+<span class="linenos">19</span><span class="w">  </span><span class="nt">grid_power_169</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_grid_power</span>
+<span class="linenos">20</span><span class="w">  </span><span class="nt">battery_voltage_183</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_voltage</span>
+<span class="linenos">21</span><span class="w">  </span><span class="nt">battery_soc_184</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_soc</span>
+<span class="linenos">22</span><span class="w">  </span><span class="nt">battery_power_190</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_power</span>
+<span class="linenos">23</span><span class="w">  </span><span class="nt">battery_current_191</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_current</span>
+<span class="linenos">24</span><span class="w">  </span><span class="nt">grid_ct_power_172</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_grid_ct_power</span>
+<span class="linenos">25</span><span class="w">  </span><span class="nt">grid_connected_status_194</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary_sensor.sunsynk_grid_connected_status</span>
+<span class="linenos">26</span><span class="w">  </span><span class="nt">inverter_status_59</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_overall_state</span>
+<span class="linenos">27</span><span class="w">  </span><span class="nt">pv1_power_186</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_pv1_power</span>
+<span class="linenos">28</span><span class="w">  </span><span class="nt">pv2_power_187</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_pv2_power</span>
+<span class="linenos">29</span><span class="w">  </span><span class="nt">pv1_voltage_109</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_pv1_voltage</span>
+<span class="linenos">30</span><span class="w">  </span><span class="nt">pv1_current_110</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_pv1_current</span>
+<span class="linenos">31</span><span class="w">  </span><span class="nt">pv2_voltage_111</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_pv2_voltage</span>
+<span class="linenos">32</span><span class="w">  </span><span class="nt">pv2_current_112</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_pv2_current</span>
+<span class="linenos">33</span><span class="w">  </span><span class="nt">day_pv_energy_108</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_day_pv_energy</span>
+<span class="linenos">34</span><span class="w">  </span><span class="nt">day_battery_charge_70</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_day_battery_charge</span>
+<span class="linenos">35</span><span class="w">  </span><span class="nt">day_battery_discharge_71</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_day_battery_discharge</span>
+<span class="linenos">36</span><span class="w">  </span><span class="nt">day_load_energy_84</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_day_load_energy</span>
+<span class="linenos">37</span><span class="w">  </span><span class="nt">day_grid_import_76</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_day_grid_import</span>
+</pre></div>
+</div>
+</section>
+<section id="full-configuration-all-options">
+<h2>Full Configuration (All Options)<a class="headerlink" href="#full-configuration-all-options" title="Link to this heading"></a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom:sunsynk-power-flow-card</span>
+<span class="linenos">  2</span><span class="nt">cardstyle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">full</span>
+<span class="linenos">  3</span><span class="nt">large_font</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos">  4</span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Sunsynk Inverter</span>
+<span class="linenos">  5</span><span class="nt">title_colour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grey</span>
+<span class="linenos">  6</span><span class="nt">title_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32px</span>
+<span class="linenos">  7</span><span class="nt">show_solar</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos">  8</span><span class="nt">show_battery</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos">  9</span><span class="nt">show_grid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 10</span><span class="nt">decimal_places</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="linenos"> 11</span><span class="nt">dynamic_line_width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 12</span><span class="nt">min_line_width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="linenos"> 13</span><span class="nt">max_line_width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
+<span class="linenos"> 14</span><span class="nt">wide</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 15</span><span class="nt">inverter</span><span class="p">:</span>
+<span class="linenos"> 16</span><span class="w">  </span><span class="nt">modern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 17</span><span class="w">  </span><span class="nt">colour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grey</span>
+<span class="linenos"> 18</span><span class="w">  </span><span class="nt">autarky</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;power&#39;</span>
+<span class="linenos"> 19</span><span class="w">  </span><span class="nt">auto_scale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 20</span><span class="w">  </span><span class="nt">three_phase</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 21</span><span class="nt">battery</span><span class="p">:</span>
+<span class="linenos"> 22</span><span class="w">  </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="linenos"> 23</span><span class="w">  </span><span class="nt">energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">15960</span>
+<span class="linenos"> 24</span><span class="w">  </span><span class="nt">shutdown_soc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="linenos"> 25</span><span class="w">  </span><span class="nt">invert_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 26</span><span class="w">  </span><span class="nt">colour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pink</span>
+<span class="linenos"> 27</span><span class="w">  </span><span class="nt">show_daily</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 28</span><span class="w">  </span><span class="nt">animation_speed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span>
+<span class="linenos"> 29</span><span class="w">  </span><span class="nt">max_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4500</span>
+<span class="linenos"> 30</span><span class="w">  </span><span class="nt">show_absolute</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 31</span><span class="w">  </span><span class="nt">auto_scale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 32</span><span class="w">  </span><span class="nt">hide_soc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 33</span><span class="w">  </span><span class="nt">dynamic_colour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 34</span><span class="w">  </span><span class="nt">linear_gradient</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 35</span><span class="w">  </span><span class="nt">animate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 36</span><span class="w">  </span><span class="nt">path_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="linenos"> 37</span><span class="nt">solar</span><span class="p">:</span>
+<span class="linenos"> 38</span><span class="w">  </span><span class="nt">colour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">orange</span>
+<span class="linenos"> 39</span><span class="w">  </span><span class="nt">show_daily</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 40</span><span class="w">  </span><span class="nt">mppts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="linenos"> 41</span><span class="w">  </span><span class="nt">animation_speed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9</span>
+<span class="linenos"> 42</span><span class="w">  </span><span class="nt">max_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8000</span>
+<span class="linenos"> 43</span><span class="w">  </span><span class="nt">pv1_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">North</span>
+<span class="linenos"> 44</span><span class="w">  </span><span class="nt">pv1_max_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2750</span>
+<span class="linenos"> 45</span><span class="w">  </span><span class="nt">pv2_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">North</span>
+<span class="linenos"> 46</span><span class="w">  </span><span class="nt">pv2_max_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2750</span>
+<span class="linenos"> 47</span><span class="w">  </span><span class="nt">pv3_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">East</span>
+<span class="linenos"> 48</span><span class="w">  </span><span class="nt">pv3_max_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2750</span>
+<span class="linenos"> 49</span><span class="w">  </span><span class="nt">pv4_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">West</span>
+<span class="linenos"> 50</span><span class="w">  </span><span class="nt">pv4_max_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2750</span>
+<span class="linenos"> 51</span><span class="w">  </span><span class="nt">auto_scale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 52</span><span class="w">  </span><span class="nt">display_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="linenos"> 53</span><span class="w">  </span><span class="nt">dynamic_colour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 54</span><span class="w">  </span><span class="nt">efficiency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="linenos"> 55</span><span class="w">  </span><span class="nt">off_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="linenos"> 56</span><span class="nt">load</span><span class="p">:</span>
+<span class="linenos"> 57</span><span class="w">  </span><span class="nt">colour</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#5fb6ad&#39;</span>
+<span class="linenos"> 58</span><span class="w">  </span><span class="nt">show_daily</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 59</span><span class="w">  </span><span class="nt">show_daily_aux</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 60</span><span class="w">  </span><span class="nt">show_aux</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 61</span><span class="w">  </span><span class="nt">invert_aux</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 62</span><span class="w">  </span><span class="nt">show_absolute_aux</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 63</span><span class="w">  </span><span class="nt">aux_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Generator</span>
+<span class="linenos"> 64</span><span class="w">  </span><span class="nt">aux_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gen</span>
+<span class="linenos"> 65</span><span class="w">  </span><span class="nt">aux_colour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">green</span>
+<span class="linenos"> 66</span><span class="w">  </span><span class="nt">aux_off_colour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">red</span>
+<span class="linenos"> 67</span><span class="w">  </span><span class="nt">aux_loads</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="linenos"> 68</span><span class="w">  </span><span class="nt">aux_load1_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Aux load 1</span>
+<span class="linenos"> 69</span><span class="w">  </span><span class="nt">aux_load2_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Aux load 2</span>
+<span class="linenos"> 70</span><span class="w">  </span><span class="nt">aux_load1_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:air-filter</span>
+<span class="linenos"> 71</span><span class="w">  </span><span class="nt">aux_load2_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:stove</span>
+<span class="linenos"> 72</span><span class="w">  </span><span class="nt">animation_speed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="linenos"> 73</span><span class="w">  </span><span class="nt">max_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8000</span>
+<span class="linenos"> 74</span><span class="w">  </span><span class="nt">additional_loads</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="linenos"> 75</span><span class="w">  </span><span class="nt">load1_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Geyser</span>
+<span class="linenos"> 76</span><span class="w">  </span><span class="nt">load2_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pool</span>
+<span class="linenos"> 77</span><span class="w">  </span><span class="nt">load1_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">boiler</span>
+<span class="linenos"> 78</span><span class="w">  </span><span class="nt">load2_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:pool</span>
+<span class="linenos"> 79</span><span class="w">  </span><span class="nt">auto_scale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 80</span><span class="w">  </span><span class="nt">dynamic_colour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 81</span><span class="w">  </span><span class="nt">path_theshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="linenos"> 82</span><span class="w">  </span><span class="nt">off_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="linenos"> 83</span><span class="nt">grid</span><span class="p">:</span>
+<span class="linenos"> 84</span><span class="w">  </span><span class="nt">colour</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#5490c2&#39;</span>
+<span class="linenos"> 85</span><span class="w">  </span><span class="nt">export_colour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">brown</span>
+<span class="linenos"> 86</span><span class="w">  </span><span class="nt">grid_off_colour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">red</span>
+<span class="linenos"> 87</span><span class="w">  </span><span class="nt">show_daily_buy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 88</span><span class="w">  </span><span class="nt">show_daily_sell</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 89</span><span class="w">  </span><span class="nt">no_grid_colour</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#a40013&#39;</span>
+<span class="linenos"> 90</span><span class="w">  </span><span class="nt">show_nonessential</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 91</span><span class="w">  </span><span class="nt">invert_grid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 92</span><span class="w">  </span><span class="nt">nonessential_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Non Essential</span>
+<span class="linenos"> 93</span><span class="w">  </span><span class="nt">nonessential_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">oven</span>
+<span class="linenos"> 94</span><span class="w">  </span><span class="nt">additional_loads</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="linenos"> 95</span><span class="w">  </span><span class="nt">load1_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Load 1</span>
+<span class="linenos"> 96</span><span class="w">  </span><span class="nt">load2_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Load 2</span>
+<span class="linenos"> 97</span><span class="w">  </span><span class="nt">load1_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">boiler</span>
+<span class="linenos"> 98</span><span class="w">  </span><span class="nt">load2_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:ev-station</span>
+<span class="linenos"> 99</span><span class="w">  </span><span class="nt">animation_speed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="linenos">100</span><span class="w">  </span><span class="nt">max_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8000</span>
+<span class="linenos">101</span><span class="w">  </span><span class="nt">auto_scale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos">102</span><span class="w">  </span><span class="nt">off_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="linenos">103</span><span class="nt">entities</span><span class="p">:</span>
+<span class="linenos">104</span><span class="w">  </span><span class="nt">use_timer_248</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch.sunsynk_toggle_system_timer</span>
+<span class="linenos">105</span><span class="w">  </span><span class="nt">priority_load_243</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch.sunsynk_toggle_priority_load</span>
+<span class="linenos">106</span><span class="w">  </span><span class="nt">day_battery_charge_70</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_day_battery_charge</span>
+<span class="linenos">107</span><span class="w">  </span><span class="nt">day_battery_discharge_71</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_day_battery_discharge</span>
+<span class="linenos">108</span><span class="w">  </span><span class="nt">day_load_energy_84</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_day_load_energy</span>
+<span class="linenos">109</span><span class="w">  </span><span class="nt">day_grid_import_76</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_day_grid_import</span>
+<span class="linenos">110</span><span class="w">  </span><span class="nt">day_grid_export_77</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_day_grid_export</span>
+<span class="linenos">111</span><span class="w">  </span><span class="nt">day_pv_energy_108</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_day_pv_energy</span>
+<span class="linenos">112</span><span class="w">  </span><span class="nt">day_aux_energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_day_aux_energy</span>
+<span class="linenos">113</span><span class="w">  </span><span class="nt">inverter_voltage_154</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_inverter_voltage</span>
+<span class="linenos">114</span><span class="w">  </span><span class="nt">inverter_voltage_L2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="linenos">115</span><span class="w">  </span><span class="nt">inverter_voltage_L3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="linenos">116</span><span class="w">  </span><span class="nt">load_frequency_192</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_load_frequency</span>
+<span class="linenos">117</span><span class="w">  </span><span class="nt">inverter_current_164</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_inverter_current</span>
+<span class="linenos">118</span><span class="w">  </span><span class="nt">inverter_current_L2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="linenos">119</span><span class="w">  </span><span class="nt">inverter_current_L3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="linenos">120</span><span class="w">  </span><span class="nt">inverter_power_175</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_inverter_power</span>
+<span class="linenos">121</span><span class="w">  </span><span class="nt">grid_power_169</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_grid_power</span>
+<span class="linenos">122</span><span class="w">  </span><span class="nt">pv1_power_186</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_pv1_power</span>
+<span class="linenos">123</span><span class="w">  </span><span class="nt">pv2_power_187</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_pv2_power</span>
+<span class="linenos">124</span><span class="w">  </span><span class="nt">pv3_power_188</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span>
+<span class="linenos">125</span><span class="w">  </span><span class="nt">pv4_power_189</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span>
+<span class="linenos">126</span><span class="w">  </span><span class="nt">pv_total</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_totalsolar</span>
+<span class="linenos">127</span><span class="w">  </span><span class="nt">pv1_voltage_109</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_pv1_voltage</span>
+<span class="linenos">128</span><span class="w">  </span><span class="nt">pv1_current_110</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_pv1_current</span>
+<span class="linenos">129</span><span class="w">  </span><span class="nt">pv2_voltage_111</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_pv2_voltage</span>
+<span class="linenos">130</span><span class="w">  </span><span class="nt">pv2_current_112</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_pv2_current</span>
+<span class="linenos">131</span><span class="w">  </span><span class="nt">pv3_voltage_113</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span>
+<span class="linenos">132</span><span class="w">  </span><span class="nt">pv3_current_114</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span>
+<span class="linenos">133</span><span class="w">  </span><span class="nt">pv4_voltage_115</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span>
+<span class="linenos">134</span><span class="w">  </span><span class="nt">pv4_current_116</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span>
+<span class="linenos">135</span><span class="w">  </span><span class="nt">battery_voltage_183</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_voltage</span>
+<span class="linenos">136</span><span class="w">  </span><span class="nt">battery_soc_184</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_soc</span>
+<span class="linenos">137</span><span class="w">  </span><span class="nt">battery_power_190</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_power</span>
+<span class="linenos">138</span><span class="w">  </span><span class="nt">battery_current_191</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_current</span>
+<span class="linenos">139</span><span class="w">  </span><span class="nt">essential_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span>
+<span class="linenos">140</span><span class="w">  </span><span class="nt">essential_load1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.tuya_geyser_current_consumption</span>
+<span class="linenos">141</span><span class="w">  </span><span class="nt">essential_load2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.load2_power</span>
+<span class="linenos">142</span><span class="w">  </span><span class="nt">essential_load1_extra</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.daily_geyser_energy</span>
+<span class="linenos">143</span><span class="w">  </span><span class="nt">essential_load2_extra</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.load2_extra</span>
+<span class="linenos">144</span><span class="w">  </span><span class="nt">nonessential_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span>
+<span class="linenos">145</span><span class="w">  </span><span class="nt">non_essential_load1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.nonessential1_power</span>
+<span class="linenos">146</span><span class="w">  </span><span class="nt">non_essential_load2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.nonessential2_power</span>
+<span class="linenos">147</span><span class="w">  </span><span class="nt">grid_ct_power_172</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_grid_ct_power</span>
+<span class="linenos">148</span><span class="w">  </span><span class="nt">grid_ct_power_L2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="linenos">149</span><span class="w">  </span><span class="nt">grid_ct_power_L3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="linenos">150</span><span class="w">  </span><span class="nt">grid_connected_status_194</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary_sensor.sunsynk_grid_connected_status</span>
+<span class="linenos">151</span><span class="w">  </span><span class="nt">inverter_status_59</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_overall_state</span>
+<span class="linenos">152</span><span class="w">  </span><span class="nt">aux_power_166</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_aux_power</span>
+<span class="linenos">153</span><span class="w">  </span><span class="nt">aux_connected_status</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary_sensor.sunsynk_aux_connected_status</span>
+<span class="linenos">154</span><span class="w">  </span><span class="nt">remaining_solar</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.solcast_forecast_remaining_today</span>
+<span class="linenos">155</span><span class="w">  </span><span class="nt">battery_temp_182</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_battery_temperature</span>
+<span class="linenos">156</span><span class="w">  </span><span class="nt">radiator_temp_91</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_radiator_temperature</span>
+<span class="linenos">157</span><span class="w">  </span><span class="nt">dc_transformer_temp_90</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_dc_transformer_temperature</span>
+<span class="linenos">158</span><span class="w">  </span><span class="nt">environment_temp</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.home_realfeel_temperature</span>
+<span class="linenos">159</span><span class="w">  </span><span class="nt">prog1_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_time_slot_1</span>
+<span class="linenos">160</span><span class="w">  </span><span class="nt">prog1_capacity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number.sunsynk_prog1_capacity</span>
+<span class="linenos">161</span><span class="w">  </span><span class="nt">prog1_charge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch.sunsynk_prog1_grid_charge</span>
+<span class="linenos">162</span><span class="w">  </span><span class="nt">prog2_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_time_slot_2</span>
+<span class="linenos">163</span><span class="w">  </span><span class="nt">prog2_capacity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number.sunsynk_prog2_capacity</span>
+<span class="linenos">164</span><span class="w">  </span><span class="nt">prog2_charge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch.sunsynk_prog2_grid_charge</span>
+<span class="linenos">165</span><span class="w">  </span><span class="nt">prog3_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_time_slot_3</span>
+<span class="linenos">166</span><span class="w">  </span><span class="nt">prog3_capacity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number.sunsynk_prog3_capacity</span>
+<span class="linenos">167</span><span class="w">  </span><span class="nt">prog3_charge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch.sunsynk_prog3_grid_charge</span>
+<span class="linenos">168</span><span class="w">  </span><span class="nt">prog4_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_time_slot_4</span>
+<span class="linenos">169</span><span class="w">  </span><span class="nt">prog4_capacity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number.sunsynk_prog4_capacity</span>
+<span class="linenos">170</span><span class="w">  </span><span class="nt">prog4_charge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch.sunsynk_prog4_grid_charge</span>
+<span class="linenos">171</span><span class="w">  </span><span class="nt">prog5_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_time_slot_5</span>
+<span class="linenos">172</span><span class="w">  </span><span class="nt">prog5_capacity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number.sunsynk_prog5_capacity</span>
+<span class="linenos">173</span><span class="w">  </span><span class="nt">prog5_charge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch.sunsynk_prog5_grid_charge</span>
+<span class="linenos">174</span><span class="w">  </span><span class="nt">prog6_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sunsynk_time_slot_6</span>
+<span class="linenos">175</span><span class="w">  </span><span class="nt">prog6_capacity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number.sunsynk_prog6_capacity</span>
+<span class="linenos">176</span><span class="w">  </span><span class="nt">prog6_charge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch.sunsynk_prog6_grid_charge</span>
+<span class="linenos">177</span><span class="w">  </span><span class="nt">energy_cost_buy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.tibber_energy_cost_buy</span>
+<span class="linenos">178</span><span class="w">  </span><span class="nt">energy_cost_sell</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.tibber_energy_cost_sell</span>
+<span class="linenos">179</span><span class="w">  </span><span class="nt">solar_sell_247</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch.sunsynk_toggle_solar_sell</span>
+<span class="linenos">180</span><span class="w">  </span><span class="nt">aux_load1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.gesyer</span>
+<span class="linenos">181</span><span class="w">  </span><span class="nt">aux_load2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.pool_pump</span>
+<span class="linenos">182</span><span class="w">  </span><span class="nt">aux_load1_extra</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.daily_geyser_energy</span>
+<span class="linenos">183</span><span class="w">  </span><span class="nt">aux_load2_extra</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.pool_temperature</span>
+<span class="linenos">184</span><span class="w">  </span><span class="nt">load_power_L1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="linenos">185</span><span class="w">  </span><span class="nt">load_power_L2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="linenos">186</span><span class="w">  </span><span class="nt">load_power_L3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="linenos">187</span><span class="w">  </span><span class="nt">total_pv_generation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="linenos">188</span><span class="w">  </span><span class="nt">battery_status</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
+</pre></div>
+</div>
+</section>
+<section id="deye-sun-10k-sg02lp1-eu-am3-solar-assistant">
+<h2>Deye SUN-10K-SG02LP1-EU-AM3 (Solar Assistant)<a class="headerlink" href="#deye-sun-10k-sg02lp1-eu-am3-solar-assistant" title="Link to this heading"></a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom:sunsynk-power-flow-card</span>
+<span class="linenos">  2</span><span class="nt">cardstyle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">full</span>
+<span class="linenos">  3</span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deye SUN-10k-SG02LP1-EU-AM3</span>
+<span class="linenos">  4</span><span class="nt">title_colour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grey</span>
+<span class="linenos">  5</span><span class="nt">title_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">24px</span>
+<span class="linenos">  6</span><span class="nt">show_battery</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos">  7</span><span class="nt">show_solar</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos">  8</span><span class="nt">show_grid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos">  9</span><span class="nt">decimal_places</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="linenos"> 10</span><span class="nt">dynamic_line_width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 11</span><span class="nt">min_line_width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="linenos"> 12</span><span class="nt">max_line_width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="linenos"> 13</span><span class="nt">card_height</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100%</span>
+<span class="linenos"> 14</span><span class="nt">card_width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100%</span>
+<span class="linenos"> 15</span><span class="nt">wide</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 16</span><span class="nt">large_font</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 17</span><span class="nt">inverter</span><span class="p">:</span>
+<span class="linenos"> 18</span><span class="w">  </span><span class="nt">modern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 19</span><span class="w">  </span><span class="nt">colour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">grey</span>
+<span class="linenos"> 20</span><span class="w">  </span><span class="nt">autarky</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">power</span>
+<span class="linenos"> 21</span><span class="w">  </span><span class="nt">auto_scale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 22</span><span class="w">  </span><span class="nt">three_phase</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 23</span><span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deye</span>
+<span class="linenos"> 24</span><span class="nt">decimal_places_energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="linenos"> 25</span><span class="nt">battery</span><span class="p">:</span>
+<span class="linenos"> 26</span><span class="w">  </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="linenos"> 27</span><span class="w">  </span><span class="nt">show_daily</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 28</span><span class="w">  </span><span class="nt">max_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span>
+<span class="linenos"> 29</span><span class="w">  </span><span class="nt">show_remaining_energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 30</span><span class="w">  </span><span class="nt">dynamic_colour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 31</span><span class="w">  </span><span class="nt">battery_rated_capacity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">560</span>
+<span class="linenos"> 32</span><span class="w">  </span><span class="nt">soc_decimal_places</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="linenos"> 33</span><span class="w">  </span><span class="nt">invert_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 34</span><span class="w">  </span><span class="nt">linear_gradient</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 35</span><span class="w">  </span><span class="nt">shutdown_soc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number.deye_sunsynk_sol_ark_output_shutdown_capacity</span>
+<span class="linenos"> 36</span><span class="w">  </span><span class="nt">energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12200</span>
+<span class="linenos"> 37</span><span class="w">  </span><span class="nt">remaining_energy_to_shutdown</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 38</span><span class="w">  </span><span class="nt">show_absolute</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 39</span><span class="w">  </span><span class="nt">invert_flow</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 40</span><span class="nt">battery2</span><span class="p">:</span>
+<span class="linenos"> 41</span><span class="w">  </span><span class="nt">energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12200</span>
+<span class="linenos"> 42</span><span class="w">  </span><span class="nt">shutdown_soc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number.deye_sunsynk_sol_ark_output_shutdown_capacity</span>
+<span class="linenos"> 43</span><span class="w">  </span><span class="nt">soc_decimal_places</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="linenos"> 44</span><span class="w">  </span><span class="nt">battery_soc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_state_of_charge_2</span>
+<span class="linenos"> 45</span><span class="w">  </span><span class="nt">invert_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 46</span><span class="w">  </span><span class="nt">linear_gradient</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 47</span><span class="w">  </span><span class="nt">show_remaining_energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 48</span><span class="w">  </span><span class="nt">invert_flow</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 49</span><span class="w">  </span><span class="nt">remaining_energy_to_shutdown</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 50</span><span class="nt">solar</span><span class="p">:</span>
+<span class="linenos"> 51</span><span class="w">  </span><span class="nt">show_daily</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 52</span><span class="w">  </span><span class="nt">mppts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="linenos"> 53</span><span class="w">  </span><span class="nt">max_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">11100</span>
+<span class="linenos"> 54</span><span class="w">  </span><span class="nt">pv1_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">porch</span>
+<span class="linenos"> 55</span><span class="w">  </span><span class="nt">pv3_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">garden</span>
+<span class="linenos"> 56</span><span class="w">  </span><span class="nt">pv2_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">roof</span>
+<span class="linenos"> 57</span><span class="w">  </span><span class="nt">dynamic_colour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 58</span><span class="w">  </span><span class="nt">pv1_max_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3500</span>
+<span class="linenos"> 59</span><span class="w">  </span><span class="nt">pv2_max_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4600</span>
+<span class="linenos"> 60</span><span class="w">  </span><span class="nt">pv3_max_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3000</span>
+<span class="linenos"> 61</span><span class="w">  </span><span class="nt">display_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="linenos"> 62</span><span class="w">  </span><span class="nt">auto_scale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 63</span><span class="nt">load</span><span class="p">:</span>
+<span class="linenos"> 64</span><span class="w">  </span><span class="nt">show_daily</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 65</span><span class="w">  </span><span class="nt">load1_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Aircon</span>
+<span class="linenos"> 66</span><span class="w">  </span><span class="nt">load1_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:air-conditioner</span>
+<span class="linenos"> 67</span><span class="w">  </span><span class="nt">load2_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Aircon</span>
+<span class="linenos"> 68</span><span class="w">  </span><span class="nt">load2_icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="linenos"> 69</span><span class="w">  </span><span class="nt">load1_switch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">climate.local_daikin</span>
+<span class="linenos"> 70</span><span class="w">  </span><span class="nt">dynamic_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 71</span><span class="w">  </span><span class="nt">essential_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">melwood home</span>
+<span class="linenos"> 72</span><span class="w">  </span><span class="nt">dynamic_colour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 73</span><span class="nt">grid</span><span class="p">:</span>
+<span class="linenos"> 74</span><span class="w">  </span><span class="nt">show_daily_buy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 75</span><span class="w">  </span><span class="nt">show_daily_sell</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 76</span><span class="w">  </span><span class="nt">show_nonessential</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 77</span><span class="w">  </span><span class="nt">grid_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PEA</span>
+<span class="linenos"> 78</span><span class="w">  </span><span class="nt">nonessential_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:radiator</span>
+<span class="linenos"> 79</span><span class="w">  </span><span class="nt">load1_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Sauna</span>
+<span class="linenos"> 80</span><span class="w">  </span><span class="nt">load1_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:radiator</span>
+<span class="linenos"> 81</span><span class="w">  </span><span class="nt">nonessential_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Sauna</span>
+<span class="linenos"> 82</span><span class="w">  </span><span class="nt">energy_cost_decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="linenos"> 83</span><span class="w">  </span><span class="nt">auto_scale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 84</span><span class="w">  </span><span class="nt">disconnected_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:lan-disconnect</span>
+<span class="linenos"> 85</span><span class="nt">entities</span><span class="p">:</span>
+<span class="linenos"> 86</span><span class="w">  </span><span class="nt">use_timer_248</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch.deye_sunsynk_sol_ark_use_timer</span>
+<span class="linenos"> 87</span><span class="w">  </span><span class="nt">priority_load_243</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">switch.deye_sunsynk_sol_ark_prioritize_load</span>
+<span class="linenos"> 88</span><span class="w">  </span><span class="nt">inverter_voltage_154</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_grid_voltage</span>
+<span class="linenos"> 89</span><span class="w">  </span><span class="nt">load_frequency_192</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_ac_output_frequency</span>
+<span class="linenos"> 90</span><span class="w">  </span><span class="nt">inverter_current_164</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_current</span>
+<span class="linenos"> 91</span><span class="w">  </span><span class="nt">inverter_power_175</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_power</span>
+<span class="linenos"> 92</span><span class="w">  </span><span class="nt">grid_connected_status_194</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary_sensor.deye_sunsynk_sol_ark_grid_connected_status</span>
+<span class="linenos"> 93</span><span class="w">  </span><span class="nt">inverter_status_59</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_device_mode</span>
+<span class="linenos"> 94</span><span class="w">  </span><span class="nt">day_battery_charge_70</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_battery_energy_in</span>
+<span class="linenos"> 95</span><span class="w">  </span><span class="nt">day_battery_discharge_71</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_battery_energy_out</span>
+<span class="linenos"> 96</span><span class="w">  </span><span class="nt">battery_voltage_183</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_voltage</span>
+<span class="linenos"> 97</span><span class="w">  </span><span class="nt">battery_soc_184</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_state_of_charge</span>
+<span class="linenos"> 98</span><span class="w">  </span><span class="nt">battery_power_190</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_power</span>
+<span class="linenos"> 99</span><span class="w">  </span><span class="nt">battery_current_191</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_current</span>
+<span class="linenos">100</span><span class="w">  </span><span class="nt">battery2_voltage_183</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_voltage_2</span>
+<span class="linenos">101</span><span class="w">  </span><span class="nt">battery2_soc_184</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_state_of_charge_2</span>
+<span class="linenos">102</span><span class="w">  </span><span class="nt">battery2_power_190</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_power_2</span>
+<span class="linenos">103</span><span class="w">  </span><span class="nt">battery2_current_191</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_current_2</span>
+<span class="linenos">104</span><span class="w">  </span><span class="nt">grid_power_169</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_grid_power</span>
+<span class="linenos">105</span><span class="w">  </span><span class="nt">day_grid_import_76</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_grid_energy_in</span>
+<span class="linenos">106</span><span class="w">  </span><span class="nt">day_grid_export_77</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_grid_energy_out</span>
+<span class="linenos">107</span><span class="w">  </span><span class="nt">grid_ct_power_172</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_grid_power_ct</span>
+<span class="linenos">108</span><span class="w">  </span><span class="nt">day_load_energy_84</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_load_energy</span>
+<span class="linenos">109</span><span class="w">  </span><span class="nt">essential_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_load_power_essential</span>
+<span class="linenos">110</span><span class="w">  </span><span class="nt">nonessential_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_load_power_non_essential</span>
+<span class="linenos">111</span><span class="w">  </span><span class="nt">aux_power_166</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_aux_power</span>
+<span class="linenos">112</span><span class="w">  </span><span class="nt">day_pv_energy_108</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_pv_energy</span>
+<span class="linenos">113</span><span class="w">  </span><span class="nt">pv1_power_186</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_pv_power_1</span>
+<span class="linenos">114</span><span class="w">  </span><span class="nt">pv2_power_187</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_pv_power_2</span>
+<span class="linenos">115</span><span class="w">  </span><span class="nt">pv3_power_188</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_pv_power_3</span>
+<span class="linenos">116</span><span class="w">  </span><span class="nt">pv1_voltage_109</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_pv_voltage_1</span>
+<span class="linenos">117</span><span class="w">  </span><span class="nt">pv1_current_110</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_pv_current_1</span>
+<span class="linenos">118</span><span class="w">  </span><span class="nt">pv2_voltage_111</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_pv_voltage_2</span>
+<span class="linenos">119</span><span class="w">  </span><span class="nt">pv2_current_112</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_pv_current_2</span>
+<span class="linenos">120</span><span class="w">  </span><span class="nt">pv3_voltage_113</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_pv_voltage_3</span>
+<span class="linenos">121</span><span class="w">  </span><span class="nt">pv3_current_114</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_pv_current_3</span>
+<span class="linenos">122</span><span class="w">  </span><span class="nt">essential_load1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.shelly_sauna_heater_power</span>
+<span class="linenos">123</span><span class="w">  </span><span class="nt">grid_voltage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_grid_voltage</span>
+<span class="linenos">124</span><span class="w">  </span><span class="nt">non_essential_load1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.shelly_sauna_heater_power</span>
+<span class="linenos">125</span><span class="w">  </span><span class="nt">energy_cost_buy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sdb_shala_energy_current_energy_price_cost</span>
+<span class="linenos">126</span><span class="w">  </span><span class="nt">large_font</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos">127</span><span class="w">  </span><span class="nt">pv_total</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_pv_power</span>
+<span class="linenos">128</span><span class="w">  </span><span class="nt">remaining_solar</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.energy_production_today_remaining</span>
+<span class="linenos">129</span><span class="w">  </span><span class="nt">environment_temp</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.dogatmo_temperature</span>
+<span class="linenos">130</span><span class="w">  </span><span class="nt">battery_temp_182</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_battery_temperature</span>
+<span class="linenos">131</span><span class="w">  </span><span class="nt">battery2_temp_182</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_temperature_2</span>
+<span class="linenos">132</span><span class="w">  </span><span class="nt">battery_rated_capacity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_capacity</span>
+<span class="linenos">133</span><span class="w">  </span><span class="nt">battery2_rated_capacity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.deye_sunsynk_sol_ark_capacity_2</span>
+<span class="linenos">134</span><span class="w">  </span><span class="nt">prog1_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">select.deye_sunsynk_sol_ark_time_point_1</span>
+<span class="linenos">135</span><span class="w">  </span><span class="nt">prog2_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">select.deye_sunsynk_sol_ark_time_point_2</span>
+<span class="linenos">136</span><span class="w">  </span><span class="nt">prog3_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">select.deye_sunsynk_sol_ark_time_point_3</span>
+<span class="linenos">137</span><span class="w">  </span><span class="nt">prog4_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">select.deye_sunsynk_sol_ark_time_point_4</span>
+<span class="linenos">138</span><span class="w">  </span><span class="nt">prog5_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">select.deye_sunsynk_sol_ark_time_point_5</span>
+<span class="linenos">139</span><span class="w">  </span><span class="nt">prog6_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">select.deye_sunsynk_sol_ark_time_point_6</span>
+<span class="linenos">140</span><span class="w">  </span><span class="nt">prog1_capacity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number.deye_sunsynk_sol_ark_capacity_point_1</span>
+<span class="linenos">141</span><span class="w">  </span><span class="nt">prog2_capacity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number.deye_sunsynk_sol_ark_capacity_point_2</span>
+<span class="linenos">142</span><span class="w">  </span><span class="nt">prog3_capacity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number.deye_sunsynk_sol_ark_capacity_point_3</span>
+<span class="linenos">143</span><span class="w">  </span><span class="nt">prog4_capacity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number.deye_sunsynk_sol_ark_capacity_point_4</span>
+<span class="linenos">144</span><span class="w">  </span><span class="nt">prog5_capacity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number.deye_sunsynk_sol_ark_capacity_point_5</span>
+<span class="linenos">145</span><span class="w">  </span><span class="nt">prog6_capacity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number.deye_sunsynk_sol_ark_capacity_point_6</span>
+<span class="linenos">146</span><span class="w">  </span><span class="nt">prog1_charge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number.deye_sunsynk_sol_ark_grid_charge_point_1</span>
+<span class="linenos">147</span><span class="w">  </span><span class="nt">prog2_charge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number.deye_sunsynk_sol_ark_grid_charge_point_2</span>
+<span class="linenos">148</span><span class="w">  </span><span class="nt">prog3_charge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number.deye_sunsynk_sol_ark_grid_charge_point_3</span>
+<span class="linenos">149</span><span class="w">  </span><span class="nt">prog4_charge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number.deye_sunsynk_sol_ark_grid_charge_point_4</span>
+<span class="linenos">150</span><span class="w">  </span><span class="nt">prog5_charge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number.deye_sunsynk_sol_ark_grid_charge_point_5</span>
+<span class="linenos">151</span><span class="w">  </span><span class="nt">prog6_charge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number.deye_sunsynk_sol_ark_grid_charge_point_6</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../configuration.html" class="btn btn-neutral float-left" title="Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ecoflow.html" class="btn btn-neutral float-right" title="Ecoflow Inverters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, slipx06.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>  
+
+<style>
+	.wy-nav-content {
+		max-width: 1000px !important;
+	}
+
+	/* and fix wrap bug per https://rackerlabs.github.io/docs-rackspace/tools/rtd-tables.html */
+	.wy-table-responsive table td {
+		/* !important prevents the common CSS stylesheets from overriding
+        this as on RTD they are loaded after this stylesheet */
+		white-space: normal !important;
+	}
+
+	.wy-table-responsive {
+		overflow: visible !important;
+	}
+</style>
+
+
+
+</body>
+</html>

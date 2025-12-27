@@ -1,0 +1,336 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sigenergy Sigenstor with Gateway &mdash; sunsynk-power-flow-card  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SolaX Inverter" href="solax.html" />
+    <link rel="prev" title="PowMr Inverters" href="powmr.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="sunsynk.html">Sunsynk and Deye Inverters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ecoflow.html">Ecoflow Inverters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="foxess.html">FoxESS Inverter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="goodwe.html">Goodwe Inverter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="huawei.html">Huawei Inverter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lux.html">Lux Inverter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="powmr.html">PowMr Inverters</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Sigenergy Sigenstor with Gateway</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solax.html">SolaX Inverter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solis.html">Solis Inverter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="victron.html">Victron Inverters</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contribute</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/devcontainer.html">VS Code - DevContainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/devcycle.html">Development Cycle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute/docs.html">Documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">sunsynk-power-flow-card</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Sigenergy Sigenstor with Gateway</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/examples/sigenergy.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sigenergy-sigenstor-with-gateway">
+<h1>Sigenergy Sigenstor with Gateway<a class="headerlink" href="#sigenergy-sigenstor-with-gateway" title="Link to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The sensors utilised below are provided by the <a class="reference external" href="https://github.com/TypQxQ/Sigenergy-Local-Modbus">Sigenergy Local Modbus</a> integration.
+If there is enough interest for an example config using <a class="reference external" href="https://github.com/seud0nym/sigenergy2mqtt">sigenergy2mqtt</a>, I will see about adding one.</p>
+</div>
+<hr class="docutils" />
+<section id="minimal-configuration-solar-and-battery">
+<h2>Minimal Configuration (Solar and Battery)<a class="headerlink" href="#minimal-configuration-solar-and-battery" title="Link to this heading"></a></h2>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">custom:sunsynk-power-flow-card</span>
+<span class="linenos">  2</span><span class="nt">cardstyle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">full</span>
+<span class="linenos">  3</span><span class="nt">show_solar</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos">  4</span><span class="nt">wide</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos">  5</span><span class="nt">show_battery</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos">  6</span><span class="nt">show_grid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos">  7</span><span class="nt">dynamic_line_width</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos">  8</span><span class="nt">decimal_places_energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="linenos">  9</span><span class="nt">inverter</span><span class="p">:</span>
+<span class="linenos"> 10</span><span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sigenergy</span>
+<span class="linenos"> 11</span><span class="w">  </span><span class="nt">three_phase</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 12</span><span class="w">  </span><span class="nt">modern</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 13</span><span class="w">  </span><span class="nt">autarky</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">energy</span>
+<span class="linenos"> 14</span><span class="w">  </span><span class="nt">auto_scale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 15</span><span class="nt">battery</span><span class="p">:</span>
+<span class="linenos"> 16</span><span class="w">  </span><span class="nt">shutdown_soc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number.sigen_plant_ess_backup_state_of_charge</span>
+<span class="linenos"> 17</span><span class="w">  </span><span class="nt">show_daily</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 18</span><span class="w">  </span><span class="nt">invert_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 19</span><span class="w">  </span><span class="nt">dynamic_colour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 20</span><span class="w">  </span><span class="nt">animate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 21</span><span class="w">  </span><span class="nt">remaining_energy_to_shutdown</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 22</span><span class="w">  </span><span class="nt">show_remaining_energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 23</span><span class="w">  </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="linenos"> 24</span><span class="w">  </span><span class="nt">soc_decimal_places</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="linenos"> 25</span><span class="w">  </span><span class="nt">auto_scale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 26</span><span class="w">  </span><span class="nt">linear_gradient</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 27</span><span class="w">  </span><span class="nt">show_absolute</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 28</span><span class="w">  </span><span class="nt">max_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_plant_ess_rated_charging_power</span>
+<span class="linenos"> 29</span><span class="w">  </span><span class="nt">shutdown_soc_offgrid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_plant_discharge_cut_off_soc</span>
+<span class="linenos"> 30</span><span class="w">  </span><span class="nt">soc_end_of_charge</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_plant_charge_cut_off_soc</span>
+<span class="linenos"> 31</span><span class="w">  </span><span class="nt">energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_plant_rated_energy_capacity</span>
+<span class="linenos"> 32</span><span class="nt">solar</span><span class="p">:</span>
+<span class="linenos"> 33</span><span class="w">  </span><span class="nt">show_daily</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 34</span><span class="w">  </span><span class="nt">display_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="linenos"> 35</span><span class="w">  </span><span class="nt">mppts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="linenos"> 36</span><span class="w">  </span><span class="nt">max_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">29999</span><span class="w">                                                           </span><span class="c1"># Update with max power of your inverter, currently this is setup for a Sig 30kW EC</span>
+<span class="linenos"> 37</span><span class="w">  </span><span class="nt">auto_scale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 38</span><span class="w">  </span><span class="nt">pv1_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PV 1</span>
+<span class="linenos"> 39</span><span class="w">  </span><span class="nt">pv2_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PV 2</span>
+<span class="linenos"> 40</span><span class="w">  </span><span class="nt">pv3_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PV 3</span>
+<span class="linenos"> 41</span><span class="w">  </span><span class="nt">pv4_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PV 4</span>
+<span class="linenos"> 42</span><span class="w">  </span><span class="nt">pv1_max_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span><span class="w">                                                       </span><span class="c1"># Update with size in watts of your MPPT 1 string</span>
+<span class="linenos"> 43</span><span class="w">  </span><span class="nt">pv2_max_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5500</span><span class="w">                                                        </span><span class="c1"># Update with size in watts of your MPPT 2 string</span>
+<span class="linenos"> 44</span><span class="w">  </span><span class="nt">pv3_max_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span><span class="w">                                                       </span><span class="c1"># Update with size in watts of your MPPT 3 string</span>
+<span class="linenos"> 45</span><span class="w">  </span><span class="nt">pv4_max_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w">                                                           </span><span class="c1"># Update with size in watts of your MPPT 4 string</span>
+<span class="linenos"> 46</span><span class="w">  </span><span class="nt">dynamic_colour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 47</span><span class="w">  </span><span class="nt">efficiency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="linenos"> 48</span><span class="nt">load</span><span class="p">:</span>
+<span class="linenos"> 49</span><span class="w">  </span><span class="nt">show_daily</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 50</span><span class="w">  </span><span class="nt">auto_scale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 51</span><span class="w">  </span><span class="nt">invert_flow</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 52</span><span class="w">  </span><span class="nt">show_aux</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 53</span><span class="w">  </span><span class="nt">max_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12000</span>
+<span class="linenos"> 54</span><span class="w">  </span><span class="nt">additional_loads</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span>
+<span class="linenos"> 55</span><span class="w">  </span><span class="nt">load1_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Load 1</span>
+<span class="linenos"> 56</span><span class="w">  </span><span class="nt">load1_icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="linenos"> 57</span><span class="w">  </span><span class="nt">load2_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Load 2</span>
+<span class="linenos"> 58</span><span class="w">  </span><span class="nt">load2_icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="linenos"> 59</span><span class="w">  </span><span class="nt">load3_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Load 3</span>
+<span class="linenos"> 60</span><span class="w">  </span><span class="nt">load3_icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="linenos"> 61</span><span class="w">  </span><span class="nt">load4_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Load 4</span>
+<span class="linenos"> 62</span><span class="w">  </span><span class="nt">load4_icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="linenos"> 63</span><span class="w">  </span><span class="nt">load5_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Load 5</span>
+<span class="linenos"> 64</span><span class="w">  </span><span class="nt">load5_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:server-network</span>
+<span class="linenos"> 65</span><span class="w">  </span><span class="nt">load6_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Load 6</span>
+<span class="linenos"> 66</span><span class="w">  </span><span class="nt">load6_icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="linenos"> 67</span><span class="w">  </span><span class="nt">dynamic_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 68</span><span class="w">  </span><span class="nt">dynamic_colour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 69</span><span class="w">  </span><span class="nt">invert_load</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 70</span><span class="nt">grid</span><span class="p">:</span>
+<span class="linenos"> 71</span><span class="w">  </span><span class="nt">show_daily_buy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 72</span><span class="w">  </span><span class="nt">show_daily_sell</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 73</span><span class="w">  </span><span class="nt">show_nonessential</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="linenos"> 74</span><span class="w">  </span><span class="nt">auto_scale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="linenos"> 75</span><span class="w">  </span><span class="nt">grid_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Grid Name</span><span class="w">                                                       </span><span class="c1"># Update with the name of your energy retailer or grid</span>
+<span class="linenos"> 76</span><span class="w">  </span><span class="nt">colour</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#ff0000&quot;</span>
+<span class="linenos"> 77</span><span class="w">  </span><span class="nt">grid_off_colour</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;#9e9e9e&quot;</span>
+<span class="linenos"> 78</span><span class="w">  </span><span class="nt">export_colour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">limegreen</span>
+<span class="linenos"> 79</span><span class="w">  </span><span class="nt">energy_cost_decimals</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="linenos"> 80</span><span class="w">  </span><span class="nt">import_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:transmission-tower-import</span>
+<span class="linenos"> 81</span><span class="w">  </span><span class="nt">export_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:transmission-tower-export</span>
+<span class="linenos"> 82</span><span class="w">  </span><span class="nt">disconnected_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:transmission-tower-off</span>
+<span class="linenos"> 83</span><span class="w">  </span><span class="nt">nonessential_icon</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="linenos"> 84</span><span class="w">  </span><span class="nt">load1_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HVAC</span>
+<span class="linenos"> 85</span><span class="w">  </span><span class="nt">additional_loads</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="linenos"> 86</span><span class="w">  </span><span class="nt">load1_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:air-conditioner</span>
+<span class="linenos"> 87</span><span class="w">  </span><span class="nt">load2_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:tumble-dryer</span>
+<span class="linenos"> 88</span><span class="w">  </span><span class="nt">load2_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dryer</span>
+<span class="linenos"> 89</span><span class="w">  </span><span class="nt">load3_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Washer</span>
+<span class="linenos"> 90</span><span class="w">  </span><span class="nt">load3_icon</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdi:washing-machine</span>
+<span class="linenos"> 91</span><span class="nt">entities</span><span class="p">:</span>
+<span class="linenos"> 92</span><span class="w">  </span><span class="nt">aux_power_166</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span>
+<span class="linenos"> 93</span><span class="w">  </span><span class="nt">battery_current_191</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span>
+<span class="linenos"> 94</span><span class="w">  </span><span class="nt">battery_power_190</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_plant_battery_power</span>
+<span class="linenos"> 95</span><span class="w">  </span><span class="nt">battery_soc_184</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_plant_battery_state_of_charge</span>
+<span class="linenos"> 96</span><span class="w">  </span><span class="nt">battery_temp_182</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_battery_maximum_temperature</span>
+<span class="linenos"> 97</span><span class="w">  </span><span class="nt">battery_voltage_183</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_battery_average_cell_voltage</span>
+<span class="linenos"> 98</span><span class="w">  </span><span class="nt">day_aux_energy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.emhass_deferrable_loads_total</span>
+<span class="linenos"> 99</span><span class="w">  </span><span class="nt">day_battery_charge_70</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_plant_daily_battery_charge_energy</span>
+<span class="linenos">100</span><span class="w">  </span><span class="nt">day_battery_discharge_71</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_plant_daily_battery_discharge_energy</span>
+<span class="linenos">101</span><span class="w">  </span><span class="nt">day_grid_export_77</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_plant_daily_grid_export_energy</span>
+<span class="linenos">102</span><span class="w">  </span><span class="nt">day_grid_import_76</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_plant_daily_grid_import_energy</span>
+<span class="linenos">103</span><span class="w">  </span><span class="nt">day_load_energy_84</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_plant_daily_consumed_energy</span>
+<span class="linenos">104</span><span class="w">  </span><span class="nt">day_pv_energy_108</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_daily_pv_energy</span>
+<span class="linenos">105</span><span class="w">  </span><span class="nt">dc_transformer_temp_90</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_pcs_internal_temperature</span>
+<span class="linenos">106</span><span class="w">  </span><span class="nt">energy_cost_buy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.amber_general_forecast</span><span class="w">                            </span><span class="c1"># Update with your electricity BUY cost sensor</span>
+<span class="linenos">107</span><span class="w">  </span><span class="nt">energy_cost_sell</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.amber_feed_in_forecast</span><span class="w">                           </span><span class="c1"># Update with your electricity SELL cost sensor</span>
+<span class="linenos">108</span><span class="w">  </span><span class="nt">environment_temp</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.your_location_temp</span><span class="w">                               </span><span class="c1"># Update with your locations weather feed</span>
+<span class="linenos">109</span><span class="w">  </span><span class="nt">essential_load1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span><span class="w">                                                     </span><span class="c1"># Update with an essential load power sensor</span>
+<span class="linenos">110</span><span class="w">  </span><span class="nt">essential_load1_extra</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span><span class="w">                                               </span><span class="c1"># Update with an essential load energy or other sensor</span>
+<span class="linenos">111</span><span class="w">  </span><span class="nt">essential_load2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span><span class="w">                                                     </span><span class="c1"># Update with an essential load power sensor</span>
+<span class="linenos">112</span><span class="w">  </span><span class="nt">essential_load2_extra</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span><span class="w">                                               </span><span class="c1"># Update with an essential load energy or other sensor</span>
+<span class="linenos">113</span><span class="w">  </span><span class="nt">essential_load3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span><span class="w">                                                     </span><span class="c1"># Update with an essential load power sensor</span>
+<span class="linenos">114</span><span class="w">  </span><span class="nt">essential_load3_extra</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span><span class="w">                                               </span><span class="c1"># Update with an essential load energy or other sensor</span>
+<span class="linenos">115</span><span class="w">  </span><span class="nt">essential_load4</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span><span class="w">                                                     </span><span class="c1"># Update with an essential load power sensor</span>
+<span class="linenos">116</span><span class="w">  </span><span class="nt">essential_load4_extra</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span><span class="w">                                               </span><span class="c1"># Update with an essential load energy or other sensor</span>
+<span class="linenos">117</span><span class="w">  </span><span class="nt">essential_load5</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span><span class="w">                                                     </span><span class="c1"># Update with an essential load power sensor</span>
+<span class="linenos">118</span><span class="w">  </span><span class="nt">essential_load5_extra</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span><span class="w">                                               </span><span class="c1"># Update with an essential load energy or other sensor</span>
+<span class="linenos">119</span><span class="w">  </span><span class="nt">essential_load6</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span><span class="w">                                                     </span><span class="c1"># Update with an essential load power sensor</span>
+<span class="linenos">120</span><span class="w">  </span><span class="nt">essential_load6_extra</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span><span class="w">                                               </span><span class="c1"># Update with an essential load energy or other sensor</span>
+<span class="linenos">121</span><span class="w">  </span><span class="nt">essential_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_plant_consumed_power</span>
+<span class="linenos">122</span><span class="w">  </span><span class="nt">grid_connected_status_194</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sensor.sigen_plant_grid_connection_status</span>
+<span class="linenos">123</span><span class="w">  </span><span class="nt">grid_ct_power_172</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.none</span>
+<span class="linenos">124</span><span class="w">  </span><span class="nt">grid_ct_power_total</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_plant_grid_active_power</span>
+<span class="linenos">125</span><span class="w">  </span><span class="nt">grid_frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_grid_frequency</span>
+<span class="linenos">126</span><span class="w">  </span><span class="nt">grid_power_169</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_plant_grid_active_power</span>
+<span class="linenos">127</span><span class="w">  </span><span class="nt">grid_voltage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_rated_grid_voltage</span>
+<span class="linenos">128</span><span class="w">  </span><span class="nt">inverter_current_164</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_phase_a_current</span>
+<span class="linenos">129</span><span class="w">  </span><span class="nt">inverter_current_L2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_phase_b_current</span>
+<span class="linenos">130</span><span class="w">  </span><span class="nt">inverter_current_L3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_phase_c_current</span>
+<span class="linenos">131</span><span class="w">  </span><span class="nt">inverter_power_175</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_active_power</span>
+<span class="linenos">132</span><span class="w">  </span><span class="nt">inverter_status_59</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_plant_plant_running_state</span>
+<span class="linenos">133</span><span class="w">  </span><span class="nt">inverter_voltage_154</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_phase_a_voltage</span>
+<span class="linenos">134</span><span class="w">  </span><span class="nt">inverter_voltage_L2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_phase_b_voltage</span>
+<span class="linenos">135</span><span class="w">  </span><span class="nt">inverter_voltage_L3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_phase_c_voltage</span>
+<span class="linenos">136</span><span class="w">  </span><span class="nt">load_frequency_192</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_grid_frequency</span>
+<span class="linenos">137</span><span class="w">  </span><span class="nt">max_sell_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">number.sigen_plant_grid_export_limitation</span>
+<span class="linenos">138</span><span class="w">  </span><span class="nt">non_essential_load</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.gpo_clothes_dryer_active_power</span><span class="w">                 </span><span class="c1"># Update with a non-essential load you have a power sensor for.</span>
+<span class="linenos">139</span><span class="w">  </span><span class="nt">non_essential_load2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.gpo_clothes_dryer_active_power</span><span class="w">                </span><span class="c1"># Update with a non-essential load you have a power sensor for.</span>
+<span class="linenos">140</span><span class="w">  </span><span class="nt">non_essential_load3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.washing_machine_power</span><span class="w">                         </span><span class="c1"># Update with a non-essential load you have a power sensor for.</span>
+<span class="linenos">141</span><span class="w">  </span><span class="nt">nonessential_power</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.emhass_deferrable_loads_power</span><span class="w">                  </span><span class="c1"># Note: This is a Helper sensor group, you need to create with all your non-essential loads &#39;Power&#39; sensors as members.</span>
+<span class="linenos">142</span><span class="w">  </span><span class="nt">priority_load_243</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span>
+<span class="linenos">143</span><span class="w">  </span><span class="nt">pv1_current_110</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_pv1_current</span>
+<span class="linenos">144</span><span class="w">  </span><span class="nt">pv1_power_186</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_pv1_power</span>
+<span class="linenos">145</span><span class="w">  </span><span class="nt">pv1_voltage_109</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_pv1_voltage</span>
+<span class="linenos">146</span><span class="w">  </span><span class="nt">pv2_current_112</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_pv2_current</span>
+<span class="linenos">147</span><span class="w">  </span><span class="nt">pv2_power_187</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_pv2_power</span>
+<span class="linenos">148</span><span class="w">  </span><span class="nt">pv2_voltage_111</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_pv2_voltage</span>
+<span class="linenos">149</span><span class="w">  </span><span class="nt">pv3_current_114</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_pv3_current</span>
+<span class="linenos">150</span><span class="w">  </span><span class="nt">pv3_power_188</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_pv3_power</span>
+<span class="linenos">151</span><span class="w">  </span><span class="nt">pv3_voltage_113</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_pv3_voltage</span>
+<span class="linenos">152</span><span class="w">  </span><span class="nt">pv4_current_116</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_pv4_current</span>
+<span class="linenos">153</span><span class="w">  </span><span class="nt">pv4_power_189</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_pv4_power</span>
+<span class="linenos">154</span><span class="w">  </span><span class="nt">pv4_voltage_115</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_inverter_pv4_voltage</span>
+<span class="linenos">155</span><span class="w">  </span><span class="nt">remaining_solar</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.energy_production_today_remaining_total</span><span class="w">           </span><span class="c1"># Use Solcast or Forecast Solar integration to create a sensor such as this.</span>
+<span class="linenos">156</span><span class="w">  </span><span class="nt">solar_sell_247</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binary_sensor.sigen_plant_exporting_to_grid</span>
+<span class="linenos">157</span><span class="w">  </span><span class="nt">total_pv_generation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sensor.sigen_plant_total_pv_energy</span>
+<span class="linenos">158</span><span class="w">  </span><span class="nt">use_timer_248</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span>
+</pre></div>
+</div>
+</section>
+<section id="minimal-configuration-solar-battery-and-ac-ev-charger">
+<h2>Minimal Configuration (Solar, Battery and AC EV Charger)<a class="headerlink" href="#minimal-configuration-solar-battery-and-ac-ev-charger" title="Link to this heading"></a></h2>
+<blockquote>
+<div><p>PENDING Access to a Home Assistance instance with a Sigenergy AC EV charger to test against.</p>
+</div></blockquote>
+</section>
+<section id="minimal-configuration-solar-battery-and-dc-ev-charger">
+<h2>Minimal Configuration (Solar, Battery and DC EV Charger)<a class="headerlink" href="#minimal-configuration-solar-battery-and-dc-ev-charger" title="Link to this heading"></a></h2>
+<blockquote>
+<div><p>PENDING Access to a Home Assistance instance with a Sigenergy AC EV charger to test against.</p>
+</div></blockquote>
+</section>
+<section id="minimal-configuration-solar-battery-and-generator">
+<h2>Minimal Configuration (Solar, Battery and Generator)<a class="headerlink" href="#minimal-configuration-solar-battery-and-generator" title="Link to this heading"></a></h2>
+<blockquote>
+<div><p>PENDING Access to a Home Assistance instance with a Sigenergy Gateway with a Generator wired in, to test against.</p>
+</div></blockquote>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="powmr.html" class="btn btn-neutral float-left" title="PowMr Inverters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="solax.html" class="btn btn-neutral float-right" title="SolaX Inverter" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, slipx06.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>  
+
+<style>
+	.wy-nav-content {
+		max-width: 1000px !important;
+	}
+
+	/* and fix wrap bug per https://rackerlabs.github.io/docs-rackspace/tools/rtd-tables.html */
+	.wy-table-responsive table td {
+		/* !important prevents the common CSS stylesheets from overriding
+        this as on RTD they are loaded after this stylesheet */
+		white-space: normal !important;
+	}
+
+	.wy-table-responsive {
+		overflow: visible !important;
+	}
+</style>
+
+
+
+</body>
+</html>
