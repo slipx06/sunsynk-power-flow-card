@@ -46,7 +46,7 @@
     "@babel/plugin-transform-template-literals": "^7.24.1",
     "@babel/preset-env": "^7.24.6",
     "@eslint/js": "^10.0.1",
-    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-babel": "^7.0.0",
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-eslint": "^9.0.5",
     "@rollup/plugin-json": "^6.1.0",
