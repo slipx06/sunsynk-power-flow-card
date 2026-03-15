@@ -55,6 +55,8 @@
     "running": "Igång",
     "sleepmode": "Viloläge",
     "grid_name": "Nät",
+    "generator_name": "Generator",
+    "daily_generator_energy": "DAGLIG GENERATOR",
     "limit": "Begränsning",
     "off": "Av",
     "lowpower": "Låg Effekt",

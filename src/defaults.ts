@@ -125,6 +125,14 @@ export default {
 		invert_flow: false,
 		label_daily_load: '',
 	},
+	generator: {
+		colour: '#FFCD11',
+		name: '',
+		show_daily: false,
+		navigate: '',
+		active_states: ['generator', '1'],
+		max_power: 8000,
+	},
 	grid: {
 		colour: '#5490c2',
 		grid_name: '',

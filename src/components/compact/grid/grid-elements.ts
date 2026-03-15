@@ -23,6 +23,15 @@ const renderGridIcons = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
 	const showGrid = config.show_grid;
 	const totalGridPower = data.totalGridPower;
 	const gridColour = data.gridColour;
+	const { generatorActive, generatorColour } = data;
+
+	if (generatorActive) {
+		return svg`
+            <svg id="generator_icon" x="-0.5" y="187.5" width="64.5" height="64.5" viewBox="0 0 24 24">
+                <path fill="${generatorColour}" d="${icons.generator}"/>
+            </svg>
+        `;
+	}
 
 	return svg`
         <svg id="transmission_on" x="-0.5" y="187.5" width="64.5" height="64.5" viewBox="0 0 24 24">
@@ -54,11 +63,17 @@ const renderGridTotalPower = (
 	const show_absolute = config.grid.show_absolute;
 	const decimalPlaces = data.decimalPlaces;
 	const largeFont = data.largeFont;
-	const gridColour = data.gridColour;
+	const { generatorActive, generatorColour, stateGeneratorPower } = data;
+	const gridColour = generatorActive ? generatorColour : data.gridColour;
 
 	let powerValue: string | number;
 
-	if (auto_scale) {
+	if (generatorActive) {
+		const genPower = stateGeneratorPower.toPower();
+		powerValue = auto_scale
+			? Utils.convertValue(genPower, decimalPlaces) || '0'
+			: genPower || 0;
+	} else if (auto_scale) {
 		const convertedValue = Utils.convertValue(totalGridPower, decimalPlaces);
 		powerValue = show_absolute
 			? Utils.convertValue(Math.abs(totalGridPower), decimalPlaces) || '0'
@@ -69,7 +84,7 @@ const renderGridTotalPower = (
 
 	return svg`
         <text id="grid_total_power" x="135" y="219.2"
-            display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
+            display="${!config.show_grid || (!generatorActive && config.entities.grid_ct_power_172 === 'none') ? 'none' : ''}"
             class="${largeFont !== true ? 'st14' : 'st4'} st8" fill="${gridColour}">
             ${powerValue} ${!auto_scale ? UnitOfPower.WATT : ''}
         </text>
@@ -80,21 +95,36 @@ export const renderGridElements = (
 	data: DataDto,
 	config: sunsynkPowerFlowCardConfig,
 ) => {
-	const { decimalPlaces, gridColour, totalGridPower } = data;
+	const {
+		decimalPlaces,
+		totalGridPower,
+		generatorActive,
+		generatorColour,
+		stateGeneratorPower,
+		stateDayGeneratorEnergy,
+		stateGeneratorVoltage,
+		stateGeneratorFrequency,
+	} = data;
+
+	const gridColour = generatorActive ? generatorColour : data.gridColour;
 
 	const { auto_scale, invert_flow } = config.grid;
 
 	const { three_phase } = config.inverter;
 
+	const acFlowPower = generatorActive
+		? stateGeneratorPower.toPower() || 0
+		: totalGridPower;
+
 	const gridFlowKeyPoints = invert_flow
-		? Utils.invertKeyPoints(totalGridPower < 0 ? '1;0' : '0;1')
-		: totalGridPower < 0
+		? Utils.invertKeyPoints(acFlowPower < 0 ? '1;0' : '0;1')
+		: acFlowPower < 0
 			? '1;0'
 			: '0;1';
 
 	const grid1FlowKeyPoints = invert_flow
-		? Utils.invertKeyPoints(totalGridPower < 0 ? '0;1' : '1;0')
-		: totalGridPower < 0
+		? Utils.invertKeyPoints(acFlowPower < 0 ? '0;1' : '1;0')
+		: acFlowPower < 0
 			? '0;1'
 			: '1;0';
 
@@ -124,15 +154,24 @@ export const renderGridElements = (
 				282.1,
 				!config.show_grid,
 				'st3 left-align',
-				data.gridShowDailyBuy !== true ? 'transparent' : gridColour,
-				config.grid.label_daily_grid_buy || localize('common.daily_grid_buy'),
+				generatorActive
+					? config.generator?.show_daily && stateDayGeneratorEnergy.isValid()
+						? gridColour
+						: 'transparent'
+					: data.gridShowDailyBuy !== true
+						? 'transparent'
+						: gridColour,
+				generatorActive
+					? localize('common.daily_generator_energy')
+					: config.grid.label_daily_grid_buy ||
+							localize('common.daily_grid_buy'),
 				true,
 			)}
 			${renderText(
 				'daily_grid_sell',
 				5,
 				179,
-				!config.show_grid,
+				!config.show_grid || generatorActive,
 				'st3 left-align',
 				data.gridShowDailySell !== true ? 'transparent' : gridColour,
 				config.grid.label_daily_grid_sell || localize('common.daily_grid_sell'),
@@ -145,7 +184,9 @@ export const renderGridElements = (
 				!config.show_grid,
 				'st3 st8 left-align',
 				gridColour,
-				config.grid.grid_name || localize('common.grid_name'),
+				generatorActive
+					? config.generator?.name || localize('common.generator_name')
+					: config.grid.grid_name || localize('common.grid_name'),
 				true,
 			)}
 			<svg id="grid-flow">
@@ -162,7 +203,7 @@ export const renderGridElements = (
 						2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0),
 						8,
 					),
-					totalGridPower === 0 ? 'transparent' : gridColour,
+					acFlowPower === 0 ? 'transparent' : gridColour,
 					data.durationCur['grid'],
 					gridFlowKeyPoints,
 					'#grid-line',
@@ -182,7 +223,7 @@ export const renderGridElements = (
 						2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0),
 						8,
 					),
-					totalGridPower === 0 ? 'transparent' : gridColour,
+					acFlowPower === 0 ? 'transparent' : gridColour,
 					data.durationCur['grid'],
 					grid1FlowKeyPoints,
 					'#grid-line1',
@@ -194,7 +235,7 @@ export const renderGridElements = (
                         ${renderGridIcons(data, config)}
                     </a>`
 				: svg`
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_connected_status_194)}>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, generatorActive ? config.entities.generator_status : config.entities.grid_connected_status_194)}>
                         ${renderGridIcons(data, config)}
                     </a>`}
 			${config.grid?.navigate
@@ -223,12 +264,31 @@ export const renderGridElements = (
 				5,
 				267.9,
 				!config.show_grid ||
-					data.gridShowDailyBuy !== true ||
-					!data.stateDayGridImport.isValid(),
+					(generatorActive
+						? !(
+								config.generator?.show_daily &&
+								stateDayGeneratorEnergy.isValid()
+							)
+						: data.gridShowDailyBuy !== true ||
+							!data.stateDayGridImport.isValid()),
 				'st10 left-align',
 				gridColour,
-				data.stateDayGridImport?.toPowerString(true, data.decimalPlacesEnergy),
-				(e) => Utils.handlePopup(e, config.entities.day_grid_import_76),
+				generatorActive
+					? stateDayGeneratorEnergy?.toPowerString(
+							true,
+							data.decimalPlacesEnergy,
+						)
+					: data.stateDayGridImport?.toPowerString(
+							true,
+							data.decimalPlacesEnergy,
+						),
+				(e) =>
+					Utils.handlePopup(
+						e,
+						generatorActive
+							? config.entities.day_generator_energy
+							: config.entities.day_grid_import_76,
+					),
 				true,
 			)}
 			${createTextWithPopup(
@@ -236,12 +296,27 @@ export const renderGridElements = (
 				5,
 				165,
 				!config.show_grid ||
+					generatorActive ||
 					data.gridShowDailySell !== true ||
 					!data.stateDayGridExport.isValid(),
 				'st10 left-align',
 				gridColour,
 				data.stateDayGridExport?.toPowerString(true, data.decimalPlacesEnergy),
 				(e) => Utils.handlePopup(e, config.entities.day_grid_export_77),
+				true,
+			)}
+			${createTextWithPopup(
+				'generator_ac_compact',
+				5,
+				173,
+				!config.show_grid ||
+					!generatorActive ||
+					!config.entities?.generator_voltage ||
+					!stateGeneratorVoltage?.isValid(),
+				'st10 left-align',
+				generatorColour,
+				`${stateGeneratorVoltage?.toNum(1)} V / ${stateGeneratorFrequency?.toNum(2)} Hz`,
+				(e) => Utils.handlePopup(e, config.entities.generator_voltage),
 				true,
 			)}
 			${createTextWithPopup(
@@ -266,7 +341,7 @@ export const renderGridElements = (
 					: svg`
                             ${renderGridTotalPower(data, config)}`
 				: svg`
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_ct_power_172)}>
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, generatorActive ? config.entities.generator_power : config.entities.grid_ct_power_172)}>
                         ${renderGridTotalPower(data, config)}
                     </a>`}
 			${totalGridPower >= 0

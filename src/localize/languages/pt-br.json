@@ -55,6 +55,8 @@
     "running": "Rodando",
     "sleepmode": "Dormindo",
     "grid_name": "Rede",
+    "generator_name": "Gerador",
+    "daily_generator_energy": "GERADOR DIÁRIO",
     "limit": "Limit",
     "off": "Off",
     "lowpower": "Low Power",

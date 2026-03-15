@@ -55,6 +55,8 @@
     "running": "Работает",
     "sleepmode": "Спящий Режим",
     "grid_name": "Сеть",
+    "generator_name": "Генератор",
+    "daily_generator_energy": "ГЕНЕРАТОР ЗА ДЕНЬ",
     "limit": "Лимит",
     "off": "Off",
     "lowpower": "Low Power",

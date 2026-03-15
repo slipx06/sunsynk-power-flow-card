@@ -132,3 +132,118 @@ Example 2 using the lxp-bridge integration (https://github.com/celsworth/lxp-bri
 .. note::
 
    Replace ``baXXXXXXXX`` with your wifi dongle number
+
+*************************************************************************************
+Example 3 using the ant0nkr/luxpower-ha-integration with backup generator support
+*************************************************************************************
+
+.. code-block:: yaml
+  :linenos:
+
+  cardstyle: lite
+  path_threshold: 100
+  large_font: true
+  show_battery: true
+  show_grid: true
+  decimal_places: 2
+  inverter:
+    model: lux
+    modern: false
+  battery:
+    energy: 30000
+    shutdown_soc: number.lxp_off_grid_cut_off_soc
+    shutdown_soc_offgrid: number.lxp_on_grid_cut_off_soc
+    show_daily: true
+    invert_power: false
+    show_absolute: false
+    animate: false
+    max_power: 12000
+  solar:
+    show_daily: true
+    mppts: 2
+    pv1_name: PV1
+    pv1_max_power: 4920
+    pv2_name: PV2
+    pv2_max_power: 4920
+    auto_scale: true
+    max_power: 9000
+    efficiency: 2
+    display_mode: 3
+  load:
+    show_daily: true
+    additional_loads: 4
+    dynamic_icon: true
+    load1_name: Load 1
+    load2_name: Load 2
+    load3_name: Load 3
+    load4_name: Load 4
+    max_power: 38000
+    essential_name: Essential
+  grid:
+    show_daily_buy: true
+    show_daily_sell: true
+    show_nonessential: false
+    invert_grid: false
+    additional_loads: 2
+    grid_name: Grid
+    energy_cost_decimals: 2
+    max_power: 38000
+    grid_off_colour: "#ff0000"
+    no_grid_colour: "#a40013"
+  generator:
+    colour: "#FFCD11"
+    name: Generator
+    show_daily: true
+    active_states:
+      - Generator
+    max_power: 11000
+  type: custom:sunsynk-power-flow-card
+  entities:
+    inverter_voltage_154: sensor.lxp_eps_voltage
+    load_frequency_192: sensor.lxp_eps_frequency
+    inverter_current_164: sensor.lxp_inverter_current
+    inverter_status_59: sensor.lxp_inverter_state_code
+    inverter_power_175: sensor.lxp_battery_flow
+    day_battery_charge_70: sensor.lxp_charge_energy_today
+    day_battery_discharge_71: sensor.lxp_discharge_energy_today
+    battery_voltage_183: sensor.lxp_battery_voltage
+    battery_soc_184: sensor.lxp_battery_soc
+    battery_power_190: sensor.lxp_battery_flow
+    battery_current_191: sensor.lxp_bms_battery_current
+    grid_power_169: sensor.lxp_grid_flow
+    day_grid_import_76: sensor.lxp_energy_from_grid_today
+    day_grid_export_77: sensor.lxp_energy_to_grid_today
+    grid_ct_power_172: sensor.lxp_grid_flow
+    grid_connected_status_194: binary_sensor.lxp_grid_connected
+    day_load_energy_84: sensor.lxp_load_consumption_today
+    essential_power: sensor.lxp_load_power
+    nonessential_power: none
+    day_pv_energy_108: sensor.lxp_pv_energy_today
+    pv_total: sensor.lxp_pv_power
+    total_pv_generation: sensor.lxp_pv_energy_total
+    pv1_power_186: sensor.lxp_pv1_power
+    pv2_power_187: sensor.lxp_pv2_power
+    pv1_voltage_109: sensor.lxp_pv1_voltage
+    pv1_current_110: sensor.lxp_pv1_current
+    pv2_voltage_111: sensor.lxp_pv2_voltage
+    pv2_current_112: sensor.lxp_pv2_current
+    radiator_temp_91: sensor.lxp_radiator_temperature
+    dc_transformer_temp_90: sensor.lxp_radiator_temperature_2
+    battery_temp_182: sensor.lxp_bms_min_cell_temperature
+    remaining_solar: sensor.energy_production_today_remaining
+    essential_load1: sensor.load1_power
+    essential_load2: sensor.load2_power
+    essential_load3: sensor.load3_power
+    essential_load4: sensor.load4_power
+    generator_status: sensor.lxp_ac_input_type
+    generator_power: sensor.lxp_generator_power
+    generator_voltage: sensor.lxp_generator_voltage
+    generator_frequency: sensor.lxp_generator_frequency
+    day_generator_energy: sensor.lxp_generator_energy_today
+
+.. note::
+
+   This example uses the `ant0nkr/luxpower-ha-integration <https://github.com/ant0nkr/luxpower-ha-integration>`_.
+   The generator section replaces the grid display when ``sensor.lxp_ac_input_type`` reports ``Generator``.
+   PV strings are mapped to physical MPPT ports (pv1 → MPPT3, pv2 → MPPT2) to match the actual installation.
+   The ``binary_sensor.lxp_grid_connected`` entity is a calculated sensor derived from the inverter state register.

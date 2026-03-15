@@ -249,6 +249,14 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 		navigate: string;
 		invert_flow: boolean;
 	};
+	generator: {
+		colour: string;
+		name: string;
+		show_daily: boolean;
+		navigate: string;
+		active_states: string[];
+		max_power: number;
+	};
 	entities: CardConfigEntities;
 }
 
@@ -371,6 +379,12 @@ export interface CardConfigEntities {
 	prog5_charge: string;
 	prog6_charge: string;
 	max_sell_power: string;
+	generator_status: string;
+	generator_power: string;
+	generator_voltage: string;
+	generator_frequency: string;
+	generator_current: string;
+	day_generator_energy: string;
 }
 
 export interface InverterSettings {
@@ -619,4 +633,11 @@ export interface DataDto {
 	customGridIconColour;
 	maximumSOC;
 	batteryCount;
+	generatorActive: boolean;
+	generatorColour: string;
+	stateGeneratorPower: CustomEntity;
+	stateGeneratorVoltage: CustomEntity;
+	stateGeneratorFrequency: CustomEntity;
+	stateGeneratorCurrent: CustomEntity;
+	stateDayGeneratorEnergy: CustomEntity;
 }
