@@ -55,6 +55,8 @@
     "running": "delovanje",
     "sleepmode": "način spanja",
     "grid_name": "omrežje",
+    "generator_name": "Generator",
+    "daily_generator_energy": "DNEVNI GENERATOR",
     "limit": "omejitev",
     "off": "izklopljeno",
     "lowpower": "nizka moč",

@@ -29,6 +29,19 @@ const renderGridIcons = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
 	const totalGridPower = data.totalGridPower;
 	const gridColour = data.gridColour;
 	const three_phase = config.inverter.three_phase;
+	const { generatorActive, generatorColour } = data;
+
+	if (generatorActive) {
+		return svg`
+            <svg xmlns="http://www.w3.org/2000/svg" id="generator_icon"
+                x="${three_phase ? '404' : '389'}"
+                y="${three_phase ? '339' : '308'}"
+                width="${three_phase ? '34' : '65'}"
+                height="${three_phase ? '34' : '65'}" viewBox="0 0 24 24">
+                <path fill="${generatorColour}" d="${icons.generator}"/>
+            </svg>
+        `;
+	}
 
 	return svg`
         <svg xmlns="http://www.w3.org/2000/svg" id="transmission_on"
@@ -69,13 +82,25 @@ export const renderGridElements = (
 ) => {
 	const {
 		nonessentialLoads,
-		showNonessential,
 		decimalPlaces,
-		gridColour,
 		largeFont,
 		totalGridPower,
 		autoScaledGridPower,
+		generatorActive,
+		generatorColour,
+		stateGeneratorPower,
+		stateGeneratorVoltage,
+		stateGeneratorFrequency,
+		stateDayGeneratorEnergy,
 	} = data;
+
+	// When generator is active, use its colour and suppress nonessential loads
+	const activeColour = generatorActive ? generatorColour : data.gridColour;
+	const gridColour = activeColour;
+	const showNonessential = generatorActive ? false : data.showNonessential;
+	const acFlowPower = generatorActive
+		? stateGeneratorPower.toPower() || 0
+		: totalGridPower;
 
 	const { auto_scale, invert_flow } = config.grid;
 
@@ -282,7 +307,9 @@ export const renderGridElements = (
 				true,
 				'st3 st8',
 				gridColour,
-				config.grid.grid_name || localize('common.grid_name'),
+				generatorActive
+					? config.generator?.name || localize('common.generator_name')
+					: config.grid.grid_name || localize('common.grid_name'),
 			)}
 			${renderText(
 				'daily_grid_buy',
@@ -292,10 +319,15 @@ export const renderGridElements = (
 					: config.entities?.max_sell_power
 						? '256'
 						: '253',
-				data.gridShowDailyBuy !== true,
+				generatorActive
+					? !(config.generator?.show_daily && stateDayGeneratorEnergy.isValid())
+					: data.gridShowDailyBuy !== true,
 				'st3 left-align',
 				gridColour,
-				config.grid.label_daily_grid_buy || localize('common.daily_grid_buy'),
+				generatorActive
+					? localize('common.daily_generator_energy')
+					: config.grid.label_daily_grid_buy ||
+							localize('common.daily_grid_buy'),
 				true,
 			)}
 			${renderText(
@@ -306,7 +338,7 @@ export const renderGridElements = (
 					: config.entities?.max_sell_power
 						? '225'
 						: '222',
-				data.gridShowDailySell !== true,
+				generatorActive || data.gridShowDailySell !== true,
 				'st3 left-align',
 				gridColour,
 				config.grid.label_daily_grid_sell || localize('common.daily_grid_sell'),
@@ -336,7 +368,7 @@ export const renderGridElements = (
 						2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0),
 						8,
 					),
-					totalGridPower <= 0 ? 'transparent' : gridColour,
+					acFlowPower <= 0 ? 'transparent' : gridColour,
 					data.durationCur['grid'],
 					'1;0',
 					'#grid-line',
@@ -348,7 +380,7 @@ export const renderGridElements = (
 						2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0),
 						8,
 					),
-					totalGridPower >= 0 ? 'transparent' : gridColour,
+					acFlowPower >= 0 ? 'transparent' : gridColour,
 					data.durationCur['grid'],
 					'0;1',
 					'#grid-line',
@@ -369,7 +401,7 @@ export const renderGridElements = (
 						2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0),
 						8,
 					),
-					totalGridPower <= 0 ? 'transparent' : gridColour,
+					acFlowPower <= 0 ? 'transparent' : gridColour,
 					data.durationCur['grid'] / 1.5,
 					'1;0',
 					'#grid-line1',
@@ -381,7 +413,7 @@ export const renderGridElements = (
 						2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0),
 						8,
 					),
-					totalGridPower >= 0 ? 'transparent' : gridColour,
+					acFlowPower >= 0 ? 'transparent' : gridColour,
 					data.durationCur['grid'] / 1.5,
 					'0;1',
 					'#grid-line1',
@@ -448,9 +480,7 @@ export const renderGridElements = (
 						2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0),
 						8,
 					),
-					autoScaledGridPower < 0 || autoScaledGridPower === 0
-						? 'transparent'
-						: gridColour,
+					acFlowPower < 0 || acFlowPower === 0 ? 'transparent' : gridColour,
 					data.durationCur['grid'],
 					'1;0',
 					'#grid2-line',
@@ -462,9 +492,7 @@ export const renderGridElements = (
 						2 + data.gridLineWidth + Math.max(data.minLineWidth - 2, 0),
 						8,
 					),
-					autoScaledGridPower > 0 || autoScaledGridPower === 0
-						? 'transparent'
-						: gridColour,
+					acFlowPower > 0 || acFlowPower === 0 ? 'transparent' : gridColour,
 					data.durationCur['grid'],
 					'0;1',
 					'#grid2-line',
@@ -474,33 +502,37 @@ export const renderGridElements = (
 			${config.grid?.navigate
 				? svg`
                     <a href="#" @click=${(e) => Utils.handleNavigation(e, config.grid.navigate)}>
-							${guard(
-								[
-									data.gridStatus,
-									data.totalGridPower >= 0,
-									data.gridColour,
-									three_phase,
-									config.grid.import_icon,
-									config.grid.export_icon,
-									config.grid.disconnected_icon,
-								],
-								() => renderGridIcons(data, config),
-							)}
+						${guard(
+							[
+								data.gridStatus,
+								data.totalGridPower >= 0,
+								data.gridColour,
+								three_phase,
+								config.grid.import_icon,
+								config.grid.export_icon,
+								config.grid.disconnected_icon,
+								generatorActive,
+								generatorColour,
+							],
+							() => renderGridIcons(data, config),
+						)}
                     </a>`
 				: svg`
-                    <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_connected_status_194)}>
-							${guard(
-								[
-									data.gridStatus,
-									data.totalGridPower >= 0,
-									data.gridColour,
-									three_phase,
-									config.grid.import_icon,
-									config.grid.export_icon,
-									config.grid.disconnected_icon,
-								],
-								() => renderGridIcons(data, config),
-							)}
+                    <a href="#" @click=${(e) => Utils.handlePopup(e, generatorActive ? config.entities.generator_status : config.entities.grid_connected_status_194)}>
+						${guard(
+							[
+								data.gridStatus,
+								data.totalGridPower >= 0,
+								data.gridColour,
+								three_phase,
+								config.grid.import_icon,
+								config.grid.export_icon,
+								config.grid.disconnected_icon,
+								generatorActive,
+								generatorColour,
+							],
+							() => renderGridIcons(data, config),
+						)}
                     </a>`}
 			${config.grid?.navigate
 				? svg`
@@ -616,11 +648,28 @@ export const renderGridElements = (
 					: config.entities?.max_sell_power
 						? '242'
 						: '239',
-				data.gridShowDailyBuy !== true || !data.stateDayGridImport.isValid(),
+				generatorActive
+					? !(config.generator?.show_daily && stateDayGeneratorEnergy.isValid())
+					: data.gridShowDailyBuy !== true ||
+							!data.stateDayGridImport.isValid(),
 				'st10 left-align',
 				gridColour,
-				data.stateDayGridImport.toPowerString(true, data.decimalPlacesEnergy),
-				(e) => Utils.handlePopup(e, config.entities.day_grid_import_76),
+				generatorActive
+					? stateDayGeneratorEnergy.toPowerString(
+							true,
+							data.decimalPlacesEnergy,
+						)
+					: data.stateDayGridImport.toPowerString(
+							true,
+							data.decimalPlacesEnergy,
+						),
+				(e) =>
+					Utils.handlePopup(
+						e,
+						generatorActive
+							? config.entities.day_generator_energy
+							: config.entities.day_grid_import_76,
+					),
 				true,
 			)}
 			${createTextWithPopup(
@@ -631,7 +680,9 @@ export const renderGridElements = (
 					: config.entities?.max_sell_power
 						? '212'
 						: '209',
-				data.gridShowDailySell !== true || !data.stateDayGridExport.isValid(),
+				generatorActive ||
+					data.gridShowDailySell !== true ||
+					!data.stateDayGridExport.isValid(),
 				'st10 left-align',
 				gridColour,
 				data.stateDayGridExport.toPowerString(true, data.decimalPlacesEnergy),
@@ -663,18 +714,18 @@ export const renderGridElements = (
 														? `${
 																config.grid.show_absolute
 																	? Utils.convertValue(
-																			Math.abs(totalGridPower),
+																			Math.abs(acFlowPower),
 																			decimalPlaces,
 																		) || '0'
 																	: Utils.convertValue(
-																			totalGridPower,
+																			acFlowPower,
 																			decimalPlaces,
 																		) || 0
 															}`
 														: `${
 																config.grid.show_absolute
-																	? `${Math.abs(totalGridPower)} ${UnitOfPower.WATT}`
-																	: `${totalGridPower || 0} ${UnitOfPower.WATT}`
+																	? `${Math.abs(acFlowPower)} ${UnitOfPower.WATT}`
+																	: `${acFlowPower || 0} ${UnitOfPower.WATT}`
 															}`,
 													(e) =>
 														Utils.handlePopup(
@@ -695,18 +746,18 @@ export const renderGridElements = (
 														? `${
 																config.grid.show_absolute
 																	? Utils.convertValue(
-																			Math.abs(totalGridPower),
+																			Math.abs(acFlowPower),
 																			decimalPlaces,
 																		) || '0'
 																	: Utils.convertValue(
-																			totalGridPower,
+																			acFlowPower,
 																			decimalPlaces,
 																		) || 0
 															}`
 														: `${
 																config.grid.show_absolute
-																	? `${Math.abs(totalGridPower)} ${UnitOfPower.WATT}`
-																	: `${totalGridPower || 0} ${UnitOfPower.WATT}`
+																	? `${Math.abs(acFlowPower)} ${UnitOfPower.WATT}`
+																	: `${acFlowPower || 0} ${UnitOfPower.WATT}`
 															}`,
 													true,
 												)}`
@@ -722,21 +773,26 @@ export const renderGridElements = (
 												? `${
 														config.grid.show_absolute
 															? Utils.convertValue(
-																	Math.abs(totalGridPower),
+																	Math.abs(acFlowPower),
 																	decimalPlaces,
 																) || '0'
 															: Utils.convertValue(
-																	totalGridPower,
+																	acFlowPower,
 																	decimalPlaces,
 																) || 0
 													}`
 												: `${
 														config.grid.show_absolute
-															? `${Math.abs(totalGridPower)} ${UnitOfPower.WATT}`
-															: `${totalGridPower || 0} ${UnitOfPower.WATT}`
+															? `${Math.abs(acFlowPower)} ${UnitOfPower.WATT}`
+															: `${acFlowPower || 0} ${UnitOfPower.WATT}`
 													}`,
 											(e) =>
-												Utils.handlePopup(e, config.entities.grid_ct_power_172),
+												Utils.handlePopup(
+													e,
+													generatorActive
+														? config.entities.generator_power
+														: config.entities.grid_ct_power_172,
+												),
 											true,
 										)}`}
 			${config.entities?.nonessential_power &&
@@ -861,24 +917,37 @@ export const renderGridElements = (
 				'grid_power_169',
 				270,
 				three_phase ? 216 : 209,
-				config.entities.grid_power_169 === 'none',
+				!generatorActive && config.entities.grid_power_169 === 'none',
 				`${largeFont !== true ? 'st14' : 'st4'} st8`,
 				gridColour,
-				auto_scale
-					? `${
-							config.grid.show_absolute
-								? Utils.convertValue(
-										Math.abs(autoScaledGridPower),
-										decimalPlaces,
-									) || '0'
-								: Utils.convertValue(autoScaledGridPower, decimalPlaces) || 0
-						}`
-					: `${
-							config.grid.show_absolute
-								? `${Math.abs(autoScaledGridPower)} ${UnitOfPower.WATT}`
-								: `${autoScaledGridPower || 0} ${UnitOfPower.WATT}`
-						}`,
-				(e) => Utils.handlePopup(e, config.entities.grid_power_169),
+				generatorActive
+					? auto_scale
+						? Utils.convertValue(
+								stateGeneratorPower.toPower(),
+								decimalPlaces,
+							) || '0'
+						: `${stateGeneratorPower.toPower() || 0} ${UnitOfPower.WATT}`
+					: auto_scale
+						? `${
+								config.grid.show_absolute
+									? Utils.convertValue(
+											Math.abs(autoScaledGridPower),
+											decimalPlaces,
+										) || '0'
+									: Utils.convertValue(autoScaledGridPower, decimalPlaces) || 0
+							}`
+						: `${
+								config.grid.show_absolute
+									? `${Math.abs(autoScaledGridPower)} ${UnitOfPower.WATT}`
+									: `${autoScaledGridPower || 0} ${UnitOfPower.WATT}`
+							}`,
+				(e) =>
+					Utils.handlePopup(
+						e,
+						generatorActive
+							? config.entities.generator_power
+							: config.entities.grid_power_169,
+					),
 				true,
 			)}
 			${createTextWithPopup(
@@ -932,15 +1001,21 @@ export const renderGridElements = (
 				'inverter_voltage_154',
 				270,
 				three_phase ? 164 : 170.4,
-				config.entities.inverter_voltage_154 === 'none' ||
-					!config.entities.inverter_voltage_154,
+				!generatorActive &&
+					(config.entities.inverter_voltage_154 === 'none' ||
+						!config.entities.inverter_voltage_154),
 				`${largeFont !== true ? 'st14' : 'st4'} st8`,
 				gridColour,
-				`${Utils.formatNumberLocale(
-					data.inverterVoltage,
-					1,
-				)} ${UnitOfElectricPotential.VOLT}`,
-				(e) => Utils.handlePopup(e, config.entities.inverter_voltage_154),
+				generatorActive
+					? `${Utils.formatNumberLocale(stateGeneratorVoltage.toNum(1), 1)} ${UnitOfElectricPotential.VOLT}`
+					: `${Utils.formatNumberLocale(data.inverterVoltage, 1)} ${UnitOfElectricPotential.VOLT}`,
+				(e) =>
+					Utils.handlePopup(
+						e,
+						generatorActive
+							? config.entities.generator_voltage
+							: config.entities.inverter_voltage_154,
+					),
 				true,
 			)}
 			${createTextWithPopup(
@@ -973,12 +1048,21 @@ export const renderGridElements = (
 				'load_frequency_192',
 				270,
 				three_phase ? '203' : '189.5',
-				config.entities.load_frequency_192 === 'none' ||
-					!config.entities.load_frequency_192,
+				!generatorActive &&
+					(config.entities.load_frequency_192 === 'none' ||
+						!config.entities.load_frequency_192),
 				`${largeFont !== true ? 'st14' : 'st4'} st8`,
 				gridColour,
-				`${Utils.formatNumberLocale(data.loadFrequency, 2)} Hz`,
-				(e) => Utils.handlePopup(e, config.entities.load_frequency_192),
+				generatorActive
+					? `${Utils.formatNumberLocale(stateGeneratorFrequency.toNum(2), 2)} Hz`
+					: `${Utils.formatNumberLocale(data.loadFrequency, 2)} Hz`,
+				(e) =>
+					Utils.handlePopup(
+						e,
+						generatorActive
+							? config.entities.generator_frequency
+							: config.entities.load_frequency_192,
+					),
 				true,
 			)}
 			${createTextWithPopup(

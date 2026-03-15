@@ -239,6 +239,56 @@ These attributes are only needed if `show_solar` is set to `true`.
 | navigate:              | Optional    |                 | Sets the navigation path when clicking on the grid image. Can be used to link to other dashboards and views e.g. `/lovelace/1.                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | invert_flow:           | Optional    | `false`         | Inverts the animated flow.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 
+### Generator
+
+The generator section allows the card to display a backup generator as an alternative AC input source. When the generator is active (detected via a status sensor), the grid icon is replaced with a generator icon and all grid values are replaced with generator values. Non-essential loads are hidden as generator and grid are mutually exclusive AC sources.
+
+This works for both **on-grid with backup generator** (e.g. grid outage triggers generator) and **off-grid with generator only** setups.
+
+| Attribute      | Requirement | Default              | Description                                                                                                                                                                                                                                                                                                                                   |
+| -------------- | ----------- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| colour:        | Optional    | `'#FFCD11'`          | Sets the colour of all generator card objects when active. Hex codes (`'#66ff00'` etc) or names (`red`, `green`, `blue` etc).                                                                                                                                                                                                                 |
+| name:          | Optional    |                      | Set the display name for the generator (shown below the icon).                                                                                                                                                                                                                                                                                |
+| show_daily:    | Optional    | `false`              | Toggles the daily generator energy total. Requires `day_generator_energy` entity to be set.                                                                                                                                                                                                                                                   |
+| navigate:      | Optional    |                      | Sets the navigation path when clicking on the generator image.                                                                                                                                                                                                                                                                                |
+| active_states: | Optional    | `['generator', '1']` | List of state values (case insensitive) that indicate the generator is active. Works with any entity type — binary sensor (`on`/`off`), text sensor (e.g. `Generator`/`Grid`), or numeric register (e.g. `1`/`0`). No helper entity needed. The card switches to generator mode when `generator_status` state matches any value in this list. |
+| max_power:     | Optional    | `8000`               | Maximum generator power (W) used to calculate the flow animation speed.                                                                                                                                                                                                                                                                       |
+
+**Example configuration:**
+
+```yaml
+generator:
+  colour: '#FFCD11'
+  name: Generator
+  show_daily: true
+  active_states:
+    - Generator
+  max_power: 8000
+```
+
+The `active_states` list works with any entity type — no helper entity required:
+
+```yaml
+# Binary sensor (e.g. binary_sensor.generator_running)
+active_states:
+  - "on"
+
+# Text sensor (e.g. sensor.ac_input_type reporting "Generator" or "Grid")
+active_states:
+  - Generator
+
+# Numeric register (e.g. sensor reporting 1 when generator active)
+active_states:
+  - "1"
+```
+
+_Generator mode (active)_
+
+| Grid Mode                                                                                        | Generator Mode                                                                                        |
+| ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| ![full-grid](https://github.com/user-attachments/assets/a122a428-55a1-446d-a3b4-036790402af1)    | ![full-generator](https://github.com/user-attachments/assets/b4620424-c0f1-42d3-bead-75b27c671685)    |
+| ![compact-grid](https://github.com/user-attachments/assets/fa2da3c8-51a3-4fe9-bd88-17e4852a8562) | ![compact-generator](https://github.com/user-attachments/assets/6be5a6bd-60f7-416a-9d98-a608d9442e96) |
+
 ### Entities
 
 The entity attributes below have been appended with the Modbus register # e.g. `pv2_power_187` to indicate which Sunsynk
@@ -399,6 +449,17 @@ mappings if using other integration methods.
 | energy_cost_sell:          | Optional     |                                               | Sensor that provides current sell energy cost per kWh.                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | prepaid_units:             | Optional     |                                               | Account balance of prepaid electricity units.                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | max_sell_power:            | Optional     | `number.sunsynk_max_sell_power`               | Sets the maximum allowed output power to flow to the grid. Also known as "Export Control User Limit" (W).                                                                                                                                                                                                                                                                                                                                                                                 |
+
+#### Generator Entities
+
+| Attribute             | Requirement | Default | Description                                                                                                                                                   |
+| --------------------- | ----------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| generator_status:     | Optional    |         | Sensor whose state is compared against `generator.active_states` to determine if the generator is running. When matched, the card switches to generator mode. |
+| generator_power:      | Optional    |         | Generator output power (W). Displayed in place of grid power when generator is active.                                                                        |
+| generator_voltage:    | Optional    |         | Generator output voltage (V). Displayed in place of inverter voltage when generator is active.                                                                |
+| generator_frequency:  | Optional    |         | Generator output frequency (Hz). Displayed in place of load frequency when generator is active.                                                               |
+| generator_current:    | Optional    |         | Generator output current (A).                                                                                                                                 |
+| day_generator_energy: | Optional    |         | Daily generator energy production (kWh). Displayed when `generator.show_daily: true`.                                                                         |
 
 The card calculates the sensors below based on supplied attributes in the config, so you don't need to define them in Home
 Assistant. NOTE if your essential and non-essential readings are inaccurate, replace sensor 169 with 167. Alternatively,
