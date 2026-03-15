@@ -30,6 +30,7 @@ Refer to [https://slipx06.github.io/sunsynk-power-flow-card/index.html](https://
 - Display additional non-essential, essential and AUX loads.
 - Display energy cost per kWh and solar sell status.
 - Select your inverter model for custom inverter status and battery status messages i.e. Sunsynk, Lux, Goodwe, Solis.
+- Backup generator support: automatically replaces the grid display with a generator icon and data when a generator is detected as the active AC source. Supports both on-grid (backup) and off-grid setups.
 
 ## Screenshots
 
@@ -61,6 +62,13 @@ _Wide Lite Version (2 batteries)_
 _Wide Compact Version (2 batteries)_
 
 ![{B8CBC3C3-0E0A-4E37-B489-C41CB8EA4E7E}](https://github.com/user-attachments/assets/1cd5508d-33a0-4df9-9665-5a4d9e753178)
+
+_Backup Generator Mode_
+
+| Card Style  | Grid Mode                                                                                        | Generator Mode                                                                                        |
+| ----------- | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| **Full**    | ![full-grid](https://github.com/user-attachments/assets/a122a428-55a1-446d-a3b4-036790402af1)    | ![full-generator](https://github.com/user-attachments/assets/b4620424-c0f1-42d3-bead-75b27c671685)    |
+| **Compact** | ![compact-grid](https://github.com/user-attachments/assets/fa2da3c8-51a3-4fe9-bd88-17e4852a8562) | ![compact-generator](https://github.com/user-attachments/assets/6be5a6bd-60f7-416a-9d98-a608d9442e96) |
 
 ## Installation
 
