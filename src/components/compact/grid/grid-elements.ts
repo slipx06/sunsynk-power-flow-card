@@ -28,8 +28,14 @@ const renderGridIcons = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
         <svg id="transmission_on" x="-0.5" y="187.5" width="64.5" height="64.5" viewBox="0 0 24 24">
             <path class="${isGridDisconnected ? 'st12' : ''}"
                 fill="${gridColour}"
-                display="${!showGrid || totalGridPower < 0 || config.grid.import_icon ? 'none' : ''}"
+                display="${!showGrid || totalGridPower !== 0 || config.grid.import_icon ? 'none' : ''}"
                 d="${icons.gridOn}"/>
+        </svg>
+        <svg id="grid_import" x="-0.5" y="187.5" width="64.5" height="64.5" viewBox="0 0 24 24">
+            <path class="${isGridDisconnected ? 'st12' : ''}"
+                fill="${gridColour}"
+                display="${!showGrid || totalGridPower <= 0 || config.grid.import_icon ? 'none' : ''}"
+                d="${icons.gridImportCompact}"/>
         </svg>
         <svg id="transmission_off" x="-0.5" y="187.5" width="64.5" height="64.5" viewBox="0 0 24 24">
             <path class="${isGridConnected ? 'st12' : ''}"
