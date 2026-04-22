@@ -11,6 +11,7 @@ const plugins = [
   nodeResolve({
     jsnext: true,
     main: true,
+    extensions: ['.ts', '.js', '.mjs', '.json'],
   }),
   commonjs(),
   typescript(),
@@ -21,6 +22,7 @@ const plugins = [
     compact: true,
     extensions: ['.js', '.ts'],
     presets: [
+      '@babel/preset-typescript',
       [
         '@babel/env',
         {
