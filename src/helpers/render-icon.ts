@@ -27,16 +27,16 @@ export function renderIcon(
 		return svg`
             <a href="#" @click=${(e) => Utils.handlePopup(e, entity)}>
                 <foreignObject x="${x}" y="${y}" width="${width}" height="${height}" display="${show ? '' : 'none'}">
-                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: ${width}px; height: ${height}px;">
-                        <ha-icon icon="${icon}" class="${className}"></ha-icon>
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                        <ha-icon icon="${icon}" class="${className}" style="--mdc-icon-size: 100%; width: 100%; height: 100%;"></ha-icon>
                     </div>
                 </foreignObject>
             </a>`;
 	} else if (icon) {
 		return svg`
             <foreignObject x="${x}" y="${y}" width="${width}" height="${height}" display="${show ? '' : 'none'}">
-                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: ${width}px; height: ${height}px;">
-                    <ha-icon icon="${icon}" class="${className}"></ha-icon>
+                <div xmlns="http://www.w3.org/1999/xhtml" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                    <ha-icon icon="${icon}" class="${className}" style="--mdc-icon-size: 100%; width: 100%; height: 100%;"></ha-icon>
                 </div>
             </foreignObject>`;
 	}
