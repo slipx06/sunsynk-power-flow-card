@@ -639,6 +639,17 @@ export const renderGridElements = (
 				true,
 			)}
 			${createTextWithPopup(
+				'daily_grid_cost_value',
+				!showNonessential ? '311' : '347',
+				!showNonessential ? '385' : '275',
+				data.gridShowDailyCost !== true || !data.stateGridDailyCost.isValid(),
+				'st10 left-align',
+				gridColour,
+				`${data.gridDailyCostPrefix ?? ''}${Number(data.stateGridDailyCost.state ?? 0).toFixed(2)}${data.gridDailyCostSuffix ?? ''}`,
+				(e) => Utils.handlePopup(e, config.entities.grid_daily_cost),
+				true,
+			)}
+			${createTextWithPopup(
 				'max_sell_power',
 				!showNonessential ? '311' : '347',
 				!showNonessential ? '309' : '198',

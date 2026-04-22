@@ -45,6 +45,7 @@
     "@babel/plugin-proposal-decorators": "^7.24.1",
     "@babel/plugin-transform-template-literals": "^7.24.1",
     "@babel/preset-env": "^7.24.6",
+    "@babel/preset-typescript": "^7.28.5",
     "@eslint/js": "^10.0.1",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^29.0.0",

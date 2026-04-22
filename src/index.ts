@@ -404,6 +404,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 		const stateDayPVEnergy = this.getEntity('entities.day_pv_energy_108');
 		const stateDayGridExport = this.getEntity('entities.day_grid_export_77');
 		const stateDayAuxEnergy = this.getEntity('entities.day_aux_energy');
+		const stateGridDailyCost = this.getEntity('entities.grid_daily_cost');
 
 		//Inverter
 		const stateInverterVoltage = this.getEntity(
@@ -864,6 +865,9 @@ export class SunsynkPowerFlowCard extends LitElement {
 
 		const gridShowDailyBuy = config.grid?.show_daily_buy;
 		const gridShowDailySell = config.grid?.show_daily_sell;
+		const gridShowDailyCost = config.grid?.show_daily_cost;
+		const gridDailyCostPrefix = config.grid?.daily_cost_prefix ?? '£';
+		const gridDailyCostSuffix = config.grid?.daily_cost_suffix ?? '';
 
 		const batteryColourConfig = this.colourConvert(config.battery?.colour);
 		const batteryChargeColour = this.colourConvert(
@@ -2599,6 +2603,9 @@ export class SunsynkPowerFlowCard extends LitElement {
 			loadFrequency,
 			gridShowDailyBuy,
 			gridShowDailySell,
+			gridShowDailyCost,
+			gridDailyCostPrefix,
+			gridDailyCostSuffix,
 			batteryShowDaily,
 			inverterModel,
 			batteryShutdown,
@@ -2686,6 +2693,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 			stateDayGridImport,
 			stateDayBatteryCharge,
 			stateDayGridExport,
+			stateGridDailyCost,
 			statePVTotal,
 			statePV1Power,
 			statePV2Power,

@@ -1169,6 +1169,9 @@ export class SunSynkCardEditor
 											schema: [
 												{ name: 'show_daily_buy', selector: { boolean: {} } },
 												{ name: 'show_daily_sell', selector: { boolean: {} } },
+												{ name: 'show_daily_cost', selector: { boolean: {} } },
+												{ name: 'daily_cost_prefix', selector: { text: {} } },
+												{ name: 'daily_cost_suffix', selector: { text: {} } },
 												{ name: 'auto_scale', selector: { boolean: {} } },
 												{ name: 'invert_grid', selector: { boolean: {} } },
 												{ name: 'colour', selector: { color_rgb: {} } },
@@ -1812,6 +1815,10 @@ export class SunSynkCardEditor
 												selector: {
 													entity: { device_class: SensorDeviceClass.ENERGY },
 												},
+											},
+											{
+												name: 'grid_daily_cost',
+												selector: { entity: {} },
 											},
 											{
 												name: 'grid_ct_power_172',
