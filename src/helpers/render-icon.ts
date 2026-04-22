@@ -23,20 +23,28 @@ export function renderIcon(
 	height: number = 30,
 	show: boolean = true,
 ) {
+	// NOTE: the inner div deliberately does not use `position: fixed`.
+	// In WebKit (Safari / iPadOS) `position: fixed` inside a
+	// <foreignObject> anchors to the browser viewport rather than the
+	// SVG's scaled coordinate space, which keeps icons at their literal
+	// pixel size regardless of how the parent SVG is scaled down to fit
+	// narrow card containers. Using flow layout with width/height 100%
+	// ties each icon's box to the foreignObject's SVG-transformed
+	// bounds, so icons scale consistently in Chromium and WebKit.
 	if (icon && entity) {
 		return svg`
             <a href="#" @click=${(e) => Utils.handlePopup(e, entity)}>
                 <foreignObject x="${x}" y="${y}" width="${width}" height="${height}" display="${show ? '' : 'none'}">
-                    <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: ${width}px; height: ${height}px;">
-                        <ha-icon icon="${icon}" class="${className}"></ha-icon>
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="width: 100%; height: 100%;">
+                        <ha-icon icon="${icon}" class="${className}" style="--mdc-icon-size: ${width}px; display: block; width: 100%; height: 100%;"></ha-icon>
                     </div>
                 </foreignObject>
             </a>`;
 	} else if (icon) {
 		return svg`
             <foreignObject x="${x}" y="${y}" width="${width}" height="${height}" display="${show ? '' : 'none'}">
-                <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: ${width}px; height: ${height}px;">
-                    <ha-icon icon="${icon}" class="${className}"></ha-icon>
+                <div xmlns="http://www.w3.org/1999/xhtml" style="width: 100%; height: 100%;">
+                    <ha-icon icon="${icon}" class="${className}" style="--mdc-icon-size: ${width}px; display: block; width: 100%; height: 100%;"></ha-icon>
                 </div>
             </foreignObject>`;
 	}
