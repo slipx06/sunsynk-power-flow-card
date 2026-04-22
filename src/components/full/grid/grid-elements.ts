@@ -641,7 +641,7 @@ export const renderGridElements = (
 			${createTextWithPopup(
 				'daily_grid_cost_value',
 				!showNonessential ? '311' : '347',
-				!showNonessential ? '371' : '261',
+				!showNonessential ? '385' : '275',
 				data.gridShowDailyCost !== true || !data.stateGridDailyCost.isValid(),
 				'st10 left-align',
 				gridColour,
