@@ -226,6 +226,9 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 		grid_off_colour: string;
 		show_daily_buy: boolean;
 		show_daily_sell: boolean;
+		show_daily_cost: boolean;
+		daily_cost_prefix: string;
+		daily_cost_suffix: string;
 		show_nonessential: boolean;
 		nonessential_icon: string;
 		nonessential_name: string;
@@ -279,6 +282,7 @@ export interface CardConfigEntities {
 	grid_voltage: string;
 	day_grid_import_76: string;
 	day_grid_export_77: string;
+	grid_daily_cost: string;
 	grid_ct_power_172: string;
 	grid_ct_power_total: string;
 	day_load_energy_84: string;
@@ -434,6 +438,9 @@ export interface DataDto {
 	loadFrequency;
 	gridShowDailyBuy;
 	gridShowDailySell;
+	gridShowDailyCost;
+	gridDailyCostPrefix;
+	gridDailyCostSuffix;
 	batteryShowDaily;
 	inverterModel;
 	batteryShutdown;
@@ -534,6 +541,7 @@ export interface DataDto {
 	stateDayGridImport: CustomEntity;
 	stateDayBatteryCharge: CustomEntity;
 	stateDayGridExport: CustomEntity;
+	stateGridDailyCost: CustomEntity;
 	stateDayPVEnergy: CustomEntity;
 	stateDayAuxEnergy: CustomEntity;
 	inverterProg;
