@@ -2767,12 +2767,52 @@ export class SunsynkPowerFlowCard extends LitElement {
 
 		let template: TemplateResult | null = null;
 		let variantKey: 'full' | 'compact' | undefined;
+
+		// Resolve load name entities: if loadN_name_entity is set, use the entity's state as the name
+		const resolveLoadName = (nameEntity: string | undefined, fallback: string): string => {
+			if (nameEntity && nameEntity !== '' && nameEntity !== 'none') {
+				const state = this.hass?.states?.[nameEntity]?.state;
+				if (state !== undefined && state !== 'unavailable' && state !== 'unknown') {
+					return state;
+				}
+			}
+			return fallback;
+		};
+
+		const resolvedLoad = config.load ? {
+			...config.load,
+			load1_name: resolveLoadName(config.load.load1_name_entity, config.load.load1_name),
+			load2_name: resolveLoadName(config.load.load2_name_entity, config.load.load2_name),
+			load3_name: resolveLoadName(config.load.load3_name_entity, config.load.load3_name),
+			load4_name: resolveLoadName(config.load.load4_name_entity, config.load.load4_name),
+			load5_name: resolveLoadName(config.load.load5_name_entity, config.load.load5_name),
+			load6_name: resolveLoadName(config.load.load6_name_entity, config.load.load6_name),
+		} : config.load;
+
+		// Track load name entities for re-render on state change
+		[
+			config.load?.load1_name_entity,
+			config.load?.load2_name_entity,
+			config.load?.load3_name_entity,
+			config.load?.load4_name_entity,
+			config.load?.load5_name_entity,
+			config.load?.load6_name_entity,
+		].forEach((entityId) => {
+			if (entityId && entityId !== '' && entityId !== 'none') {
+				this._trackedEntityIds.add(entityId);
+			}
+		});
+
+		const configWithResolvedLoad = resolvedLoad !== config.load
+			? { ...config, load: resolvedLoad }
+			: config;
+
 		if (this.isFullCard) {
 			variantKey = 'full';
-			template = fullCard(config, inverterImg, data);
+			template = fullCard(configWithResolvedLoad, inverterImg, data);
 		} else if (this.isLiteCard || this.isCompactCard) {
 			variantKey = 'compact';
-			template = compactCard(config, inverterImg, data);
+			template = compactCard(configWithResolvedLoad, inverterImg, data);
 		}
 
 		if (template && variantKey) {

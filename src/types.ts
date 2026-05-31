@@ -195,6 +195,12 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 		load4_name: string;
 		load5_name: string;
 		load6_name: string;
+		load1_name_entity?: string;
+		load2_name_entity?: string;
+		load3_name_entity?: string;
+		load4_name_entity?: string;
+		load5_name_entity?: string;
+		load6_name_entity?: string;
 		load1_switch: string;
 		load2_switch: string;
 		load3_switch: string;
