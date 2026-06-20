@@ -30,6 +30,7 @@ export const renderBatteryElements = (
 		isFloating2,
 		batteryShutdown,
 		batteryShutdown2,
+		stateBatteryAcOut,
 	} = data;
 
 	const { auto_scale, show_absolute } = config.battery;
@@ -1750,6 +1751,63 @@ export const renderBatteryElements = (
 							true,
 						)}
 					</svg>
+				</svg>
+				<svg
+					id="bat_ac_out"
+					style="overflow: visible; display: ${
+						compactMode &&
+						batteryCount === 1 &&
+						config.entities?.battery_ac_out &&
+						config.entities.battery_ac_out !== 'none'
+							? ''
+							: 'none'
+					};"
+				>
+					${renderPath(
+						'bat-ac-line',
+						'M 212 365 L 185 365',
+						true,
+						batteryColour,
+						data.batLineWidth,
+					)}
+					${renderCircle(
+						'power-dot-bat-ac-out',
+						Math.min(2 + data.batLineWidth + Math.max(data.minLineWidth - 2, 0), 8),
+						stateBatteryAcOut.toNum(0) <= 0 ? 'transparent' : batteryColour,
+						data.durationCur['battery'],
+						'0;1',
+						'#bat-ac-line',
+						false,
+					)}
+					<svg x="149" y="347" width="36" height="36" viewBox="0 0 24 24">
+						<path
+							fill="${batteryColour}"
+							d="M16,7V3H14V7H10V3H8V7H8C7,7 6,8 6,9V14.5L9.5,18H11V21H13V18H14.5L18,14.5V9C18,8 17,7 16,7Z"
+						/>
+					</svg>
+					${createTextWithPopup(
+						'bat_ac_out_power',
+						167,
+						340,
+						!stateBatteryAcOut.isValid(),
+						`${largeFont !== true ? 'st14' : 'st4'} st8`,
+						batteryColour,
+						auto_scale
+							? `${Utils.convertValue(stateBatteryAcOut.toNum(decimalPlaces), decimalPlaces) || '0'}`
+							: `${stateBatteryAcOut.toNum(decimalPlaces) || 0} ${UnitOfPower.WATT}`,
+						(e) => Utils.handlePopup(e, config.entities.battery_ac_out),
+						true,
+					)}
+					${renderText(
+						'bat_ac_out_label',
+						167,
+						393,
+						false,
+						'st3 st8',
+						batteryColour,
+						'AC out',
+						false,
+					)}
 				</svg>
 			</g>
 		</svg>

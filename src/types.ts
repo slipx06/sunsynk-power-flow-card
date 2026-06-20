@@ -371,6 +371,7 @@ export interface CardConfigEntities {
 	prog5_charge: string;
 	prog6_charge: string;
 	max_sell_power: string;
+	battery_ac_out?: string;
 }
 
 export interface InverterSettings {
@@ -615,6 +616,7 @@ export interface DataDto {
 	dynamicColourNonEssentialLoad3;
 	stateBatterySOH: CustomEntity;
 	stateBattery2SOH: CustomEntity;
+	stateBatteryAcOut: CustomEntity;
 	customGridIcon;
 	customGridIconColour;
 	maximumSOC;

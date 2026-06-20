@@ -530,6 +530,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 		const stateBattery2SOH = this.getEntity('entities.battery2_soh', {
 			state: '',
 		});
+		const stateBatteryAcOut = this.getEntity('entities.battery_ac_out');
 		const stateSOCEndOfCharge2 = this.getEntity('battery2.soc_end_of_charge', {
 			state: config.battery2.soc_end_of_charge?.toString() ?? '',
 		});
@@ -2759,6 +2760,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 			dynamicColourNonEssentialLoad3,
 			stateBatterySOH,
 			stateBattery2SOH,
+			stateBatteryAcOut,
 			customGridIcon,
 			customGridIconColour,
 			maximumSOC,

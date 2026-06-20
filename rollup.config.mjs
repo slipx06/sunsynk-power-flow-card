@@ -1,4 +1,4 @@
-import typescript from 'rollup-plugin-typescript2';
+import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import babel from '@rollup/plugin-babel';
@@ -19,7 +19,7 @@ const plugins = [
     exclude: 'node_modules/**',
     babelHelpers: 'bundled',
     compact: true,
-    extensions: ['.js', '.ts'],
+    extensions: ['.js'],
     presets: [
       [
         '@babel/env',
@@ -30,12 +30,7 @@ const plugins = [
       ],
     ],
     plugins: [
-      [
-        '@babel/plugin-proposal-decorators',
-        {
-          legacy: true,
-        },
-      ],
+      ['@babel/plugin-proposal-decorators', { legacy: true }],
       ['@babel/plugin-proposal-class-properties'],
       ['@babel/plugin-transform-template-literals'],
     ],
