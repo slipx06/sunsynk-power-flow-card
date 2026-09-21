@@ -310,6 +310,9 @@ export interface CardConfigEntities {
 	dc_transformer_temp_90: string;
 	environment_temp: string;
 	radiator_temp_91: string;
+	inverter_temp_l1: string;
+	inverter_temp_l2: string;
+	inverter_temp_l3: string;
 	non_essential_load1: string;
 	non_essential_load2: string;
 	non_essential_load3: string;
@@ -350,6 +353,7 @@ export interface CardConfigEntities {
 	load_power_L2: string;
 	load_power_L3: string;
 	total_pv_generation: string;
+	tomorrow_solar: string;
 	battery_current_direction: string;
 	prepaid_units: string;
 	prog1_time: string;
@@ -494,6 +498,7 @@ export interface DataDto {
 	inverterImg;
 	remainingSolar;
 	totalSolarGeneration;
+	tomorrowSolar;
 	minLineWidth;
 	stopColour;
 	stop2Colour;
@@ -564,6 +569,9 @@ export interface DataDto {
 	statePV5Current: CustomEntity;
 	statePV6Current: CustomEntity;
 	stateRadiatorTemp: CustomEntity;
+	stateInverterTempL1: CustomEntity;
+	stateInverterTempL2: CustomEntity;
+	stateInverterTempL3: CustomEntity;
 	stateBatteryCurrent: CustomEntity;
 	stateBattery2Current: CustomEntity;
 	stateEnvironmentTemp: CustomEntity;
