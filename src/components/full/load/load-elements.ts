@@ -175,7 +175,6 @@ export const renderLoadElements = (
 					!!config.entities?.essential_load6_extra &&
 						[5, 6].includes(additionalLoad) &&
 						!showAux &&
-						!!config.wide &&
 						data.stateEssentialLoad6Extra.isValid(),
 					config.wide ? 'st3 left-align' : 'st3 right-align',
 					dynamicColourEssentialLoad6,
@@ -886,6 +885,38 @@ export const renderLoadElements = (
 					1,
 				)} ${data.stateEssentialLoad2Extra?.getUOM()}`,
 				(e) => Utils.handlePopup(e, config.entities.essential_load2_extra),
+			)}
+			${createTextWithPopup(
+				'ess_load3_value_extra',
+				408,
+				190,
+				!!config.entities?.essential_load3_extra &&
+					[4, 5, 6].includes(additionalLoad) &&
+					!showAux &&
+					data.stateEssentialLoad3Extra.isValid(),
+				'st3 right-align',
+				dynamicColourEssentialLoad3,
+				`${Utils.formatNumberLocale(
+					data.stateEssentialLoad3Extra.toNum(1),
+					1,
+				)} ${data.stateEssentialLoad3Extra?.getUOM()}`,
+				(e) => Utils.handlePopup(e, config.entities.essential_load3_extra),
+			)}
+			${createTextWithPopup(
+				'ess_load4_value_extra',
+				414,
+				190,
+				!!config.entities?.essential_load4_extra &&
+					[4, 5, 6].includes(additionalLoad) &&
+					!showAux &&
+					data.stateEssentialLoad4Extra.isValid(),
+				'st3 left-align',
+				dynamicColourEssentialLoad4,
+				`${Utils.formatNumberLocale(
+					data.stateEssentialLoad4Extra.toNum(1),
+					1,
+				)} ${data.stateEssentialLoad4Extra?.getUOM()}`,
+				(e) => Utils.handlePopup(e, config.entities.essential_load4_extra),
 			)}
 			${config.entities?.essential_power &&
 			config.entities.essential_power !== 'none'
