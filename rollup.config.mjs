@@ -11,6 +11,7 @@ const plugins = [
   nodeResolve({
     jsnext: true,
     main: true,
+    extensions: ['.mjs', '.js', '.json', '.node', '.ts'],
   }),
   commonjs(),
   typescript(),
