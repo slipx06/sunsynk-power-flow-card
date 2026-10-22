@@ -141,7 +141,7 @@ export class SunSynkCardEditor
 		soc_decimal_places: 'Decimal places for State of Charge display (0-3).',
 		dynamic_line_width:
 			'Animate line widths based on power level. Disable for a flatter look.',
-		animation_speed: 'Adjusts the speed of flow animations. Higher = faster.',
+		animation_speed: 'Adjusts the speed of flow animations. Lower = faster.',
 		off_threshold: 'Below this power value the path is considered off/idle.',
 		path_threshold:
 			'The colour of the path will change to the source colour if the percentage supply by a single source equals or exceeds this value.',
