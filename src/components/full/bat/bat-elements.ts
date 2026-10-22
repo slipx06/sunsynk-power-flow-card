@@ -175,7 +175,7 @@ export const renderBatteryElements = (
 							fill="${config.battery.linear_gradient
 								? `url(#sLg-bat1)`
 								: batteryColour}"
-							display="${!config.battery.linear_gradient ? 'none' : ''}"
+							display="${!config.battery.linear_gradient ? 'none' : 'inline'}"
 							d="${data.batteryCharge}"
 						/>
 					</svg>
@@ -338,7 +338,7 @@ export const renderBatteryElements = (
 							fill="${config.battery2.linear_gradient
 								? `url(#s2Lg-bat2)`
 								: battery2Colour}"
-							display="${!config.battery2.linear_gradient ? 'none' : ''}"
+							display="${!config.battery2.linear_gradient ? 'none' : 'inline'}"
 							d="${data.battery2Charge}"
 						/>
 					</svg>

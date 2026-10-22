@@ -17,7 +17,7 @@ export const renderPath = (
 	lineWidth: number,
 ) => {
 	return svg`
-        <path id="${id}" d="${d}" fill="none" display="${display ? '' : 'none'}"
+        <path id="${id}" d="${d}" fill="none" display="${display ? 'inline' : 'none'}"
             stroke="${color}" stroke-width="${lineWidth}"
             stroke-miterlimit="10" pointer-events="stroke"/>
     `;

@@ -37,7 +37,7 @@ export const renderStaticAuxIcon = (config: AuxIconConfig) => {
 			opacity="${config.opacityCondition ? '1' : '0'}"
 		>
 			<path
-				display="${config.displayCondition ? 'none' : ''}"
+				display="${config.displayCondition ? 'none' : 'inline'}"
 				fill="${config.dynamicColor}"
 				d="${iconPath}"
 			/>

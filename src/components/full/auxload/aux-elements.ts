@@ -61,7 +61,7 @@ export const renderAuxLoadElements = (
 				fill="none"
 				stroke="${data.auxDynamicColourLoad1}"
 				pointer-events="all"
-				display="${showAux ? '' : 'none'}"
+				display="${showAux ? 'inline' : 'none'}"
 				class="${[1, 2].includes(additionalAuxLoad) ? '' : 'st12'}"
 			/>
 			<rect
@@ -75,7 +75,7 @@ export const renderAuxLoadElements = (
 				fill="none"
 				stroke="${data.auxDynamicColourLoad2}"
 				pointer-events="all"
-				display="${!showAux ? 'none' : ''}"
+				display="${!showAux ? 'none' : 'inline'}"
 				class="${additionalAuxLoad === 2 ? '' : 'st12'}"
 			/>
 			${renderText(
@@ -260,7 +260,7 @@ export const renderAuxLoadElements = (
 					)}
 				</g>
 			</a>
-			<g display="${!showAux || additionalAuxLoad === 0 ? 'none' : ''}">
+			<g display="${!showAux || additionalAuxLoad === 0 ? 'none' : 'inline'}">
 				${renderIcon(
 					undefined,
 					data.iconAuxLoad1,

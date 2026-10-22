@@ -51,7 +51,7 @@ export const renderStaticLoadIcon = (data: DataDto, config: LoadIconConfig) => {
 			opacity="${config.opacityCondition ? '1' : '0'}"
 		>
 			<path
-				display="${config.displayCondition ? '' : 'none'}"
+				display="${config.displayCondition ? 'inline' : 'none'}"
 				fill="${dynamicColor}"
 				d="${iconPath}"
 			/>

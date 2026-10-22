@@ -38,7 +38,7 @@ const renderGridIcons = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
             height="${three_phase ? '34' : '65'}" viewBox="0 0 24 24">
             <path class="${isGridDisconnected ? 'st12' : ''}"
                 fill="${gridColour}"
-                display="${totalGridPower < 0 || config.grid.import_icon ? 'none' : ''}"
+                display="${totalGridPower < 0 || config.grid.import_icon ? 'none' : 'inline'}"
                 d="${icons.gridOn}"/>
         </svg>
         <svg xmlns="http://www.w3.org/2000/svg" id="transmission_off"
@@ -47,7 +47,7 @@ const renderGridIcons = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
             width="${three_phase ? '34' : '65'}"
             height="${three_phase ? '34' : '65'}" viewBox="0 0 24 24">
             <path class="${isGridConnected ? 'st12' : ''}"
-                fill="${data.gridOffColour}" display="${config.grid.disconnected_icon ? 'none' : ''}"
+                fill="${data.gridOffColour}" display="${config.grid.disconnected_icon ? 'none' : 'inline'}"
                 d="${icons.gridOff}"/>
         </svg>
         <svg xmlns="http://www.w3.org/2000/svg" id="grid_export"
@@ -57,7 +57,7 @@ const renderGridIcons = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
             height="${three_phase ? '34' : '65'}" viewBox="0 0 24 24">
             <path class="${isGridDisconnected ? 'st12' : ''}"
                 fill="${gridColour}"
-                display="${totalGridPower >= 0 || config.grid.export_icon ? 'none' : ''}"
+                display="${totalGridPower >= 0 || config.grid.export_icon ? 'none' : 'inline'}"
                 d="${icons.gridExport}"/>
         </svg>
     `;
@@ -211,7 +211,7 @@ export const renderGridElements = (
 				height="20"
 				rx="4.5"
 				ry="4.5"
-				display="${nonessentialLoads === 1 ? '' : 'none'}"
+				display="${nonessentialLoads === 1 ? 'inline' : 'none'}"
 				fill="none"
 				stroke="${data.dynamicColourNonEssentialLoad1}"
 				pointer-events="all"
@@ -225,7 +225,7 @@ export const renderGridElements = (
 				height="20"
 				rx="4.5"
 				ry="4.5"
-				display="${[2, 3].includes(nonessentialLoads) ? '' : 'none'}"
+				display="${[2, 3].includes(nonessentialLoads) ? 'inline' : 'none'}"
 				fill="none"
 				stroke="${data.dynamicColourNonEssentialLoad1}"
 				pointer-events="all"
@@ -239,7 +239,7 @@ export const renderGridElements = (
 				height="20"
 				rx="4.5"
 				ry="4.5"
-				display="${[2, 3].includes(nonessentialLoads) ? '' : 'none'}"
+				display="${[2, 3].includes(nonessentialLoads) ? 'inline' : 'none'}"
 				fill="none"
 				stroke="${data.dynamicColourNonEssentialLoad2}"
 				pointer-events="all"
@@ -505,7 +505,7 @@ export const renderGridElements = (
 			${config.grid?.navigate
 				? svg`
                     <a href="#" @click=${(e) => Utils.handleNavigation(e, config.grid.navigate)}>
-                        <g display="${config.show_grid && (config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon) ? '' : 'none'}">
+                        <g display="${config.show_grid && (config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon) ? 'inline' : 'none'}">
                             ${renderIcon(
 															undefined,
 															data.customGridIcon,
@@ -520,7 +520,7 @@ export const renderGridElements = (
                     </a>`
 				: svg`
                     <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_connected_status_194)}>
-                        <g display="${config.show_grid && (config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon) ? '' : 'none'}">
+                        <g display="${config.show_grid && (config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon) ? 'inline' : 'none'}">
                             ${renderIcon(
 															undefined,
 															data.customGridIcon,
