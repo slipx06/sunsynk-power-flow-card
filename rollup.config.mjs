@@ -28,6 +28,7 @@ const plugins = [
           targets: '> 2.5%, not dead',
         },
       ],
+      '@babel/preset-typescript',
     ],
     plugins: [
       [
