@@ -1,4 +1,5 @@
 import { svg } from 'lit';
+import { globalData } from './globals';
 import { Utils } from './utils';
 
 /**
@@ -21,9 +22,8 @@ export const renderCircle = (
 	mpathHref: string,
 	invertFlow: boolean = false,
 ) => {
-	// If fill is transparent, skip rendering the animated dot entirely to avoid
-	// running animations and triggering paints when power is zero or the flow is hidden.
-	if (fill === 'transparent') {
+	// Skip rendering animated dots when disabled to avoid SMIL animation and paint work.
+	if (globalData.disableAnimations || fill === 'transparent') {
 		return svg``;
 	}
 

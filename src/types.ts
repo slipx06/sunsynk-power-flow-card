@@ -66,6 +66,7 @@ export interface sunsynkPowerFlowCardConfig extends LovelaceCardConfig {
 	decimal_places?: number;
 	decimal_places_energy?: number;
 	dynamic_line_width?: boolean;
+	disable_animations?: boolean;
 	max_line_width: number;
 	min_line_width: number;
 	inverter: {

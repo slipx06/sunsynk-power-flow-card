@@ -141,6 +141,8 @@ export class SunSynkCardEditor
 		soc_decimal_places: 'Decimal places for State of Charge display (0-3).',
 		dynamic_line_width:
 			'Animate line widths based on power level. Disable for a flatter look.',
+		disable_animations:
+			'Disables moving power-flow dots to reduce resource usage. Battery fill animations remain enabled.',
 		animation_speed: 'Adjusts the speed of flow animations. Lower = faster.',
 		off_threshold: 'Below this power value the path is considered off/idle.',
 		path_threshold:
@@ -532,6 +534,7 @@ export class SunSynkCardEditor
 				selector: { number: { min: 0, max: 3, step: 1, mode: 'box' } },
 			},
 			{ name: 'dynamic_line_width', selector: { boolean: {} } },
+			{ name: 'disable_animations', selector: { boolean: {} } },
 		];
 		if (this._config.dynamic_line_width) {
 			generalGridSchema.push(

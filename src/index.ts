@@ -385,6 +385,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 		this._trackedEntityIds.clear();
 		globalData.hass = this.hass;
 		const config = this._config;
+		globalData.disableAnimations = config.disable_animations === true;
 
 		//Energy
 		const stateDayBatteryDischarge = this.getEntity(
@@ -2855,6 +2856,8 @@ export class SunsynkPowerFlowCard extends LitElement {
 	}
 
 	changeAnimationSpeed(el: string, speedRaw: number) {
+		if (this._config.disable_animations === true) return;
+
 		const speed = speedRaw >= 1 ? Utils.toNum(speedRaw, 3) : 1;
 		this.durationCur[el] = speed;
 		const prev = this.durationPrev[el] ?? 1;
@@ -2879,7 +2882,11 @@ export class SunsynkPowerFlowCard extends LitElement {
 
 	private _flushAnimationSpeedUpdates() {
 		this._speedRafId = null;
-		if (!this._isVisible || this._pendingSpeedUpdates.size === 0) {
+		if (
+			this._config.disable_animations === true ||
+			!this._isVisible ||
+			this._pendingSpeedUpdates.size === 0
+		) {
 			this._pendingSpeedUpdates.clear();
 			return;
 		}

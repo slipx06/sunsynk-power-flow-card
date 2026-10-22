@@ -1,4 +1,5 @@
 import { svg } from 'lit';
+import { globalData } from '../../../helpers/globals';
 import { Utils } from '../../../helpers/utils';
 
 export function renderPVFlow(
@@ -16,8 +17,8 @@ export function renderPVFlow(
 	const lineId = `${id}-line`;
 	const finalKeyPoints =
 		invertFlow === true ? Utils.invertKeyPoints(keyPoints) : keyPoints;
-	// Show animation dot whenever power is strictly positive (avoid rounding to 0)
-	const showDot = powerWatts > 0;
+	// Show animation dot whenever power is strictly positive (avoid rounding to 0).
+	const showDot = !globalData.disableAnimations && powerWatts > 0;
 	// Ensure a valid positive duration; default to 1s if unset/invalid
 	const dur = Number.isFinite(duration) && duration > 0 ? duration : 1;
 

@@ -13,6 +13,7 @@ export default {
 	decimal_places: 2,
 	decimal_places_energy: 1,
 	dynamic_line_width: true,
+	disable_animations: false,
 	max_line_width: 4,
 	min_line_width: 1,
 	inverter: {
