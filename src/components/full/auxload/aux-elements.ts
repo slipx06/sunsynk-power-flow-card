@@ -311,7 +311,10 @@ export const renderAuxLoadElements = (
 											auto_scale
 												? `${
 														config.load.show_absolute_aux
-															? `${Math.abs(parseFloat(Utils.convertValue(auxPower, decimalPlaces)))} ${Utils.convertValue(auxPower, decimalPlaces).split(' ')[1]}`
+															? Utils.convertValue(
+																	Math.abs(auxPower),
+																	decimalPlaces,
+																) || '0'
 															: Utils.convertValue(auxPower, decimalPlaces) ||
 																'0'
 													}`
@@ -335,7 +338,10 @@ export const renderAuxLoadElements = (
 											auto_scale
 												? `${
 														config.load.show_absolute_aux
-															? `${Math.abs(parseFloat(Utils.convertValue(auxPower, decimalPlaces)))} ${Utils.convertValue(auxPower, decimalPlaces).split(' ')[1]}`
+															? Utils.convertValue(
+																	Math.abs(auxPower),
+																	decimalPlaces,
+																) || '0'
 															: Utils.convertValue(auxPower, decimalPlaces) ||
 																'0'
 													}`
