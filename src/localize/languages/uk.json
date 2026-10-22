@@ -238,6 +238,7 @@
       "sensor": "Додаткові датчики",
       "bat1": "Батарея 1",
       "bat2": "Батарея 2"
-    }
+    },
+    "disable_animations": "Disable Flow Animations"
   }
 }
