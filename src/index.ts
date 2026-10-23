@@ -750,6 +750,28 @@ export class SunsynkPowerFlowCard extends LitElement {
 
 		const loadShowDaily = config.load?.show_daily;
 		const showNonessential = config.grid?.show_nonessential;
+		const loadEntitySet = (value?: string) => {
+			const normalized = (value ?? '').trim().toLowerCase();
+			return (
+				normalized !== '' &&
+				normalized !== 'none' &&
+				normalized !== 'no' &&
+				normalized !== 'zero'
+			);
+		};
+		const showEssential = [
+			config.entities?.essential_power,
+			config.entities?.load_power_L1,
+			config.entities?.load_power_L2,
+			config.entities?.load_power_L3,
+			config.entities?.essential_load1,
+			config.entities?.essential_load2,
+			config.entities?.essential_load3,
+			config.entities?.essential_load4,
+			config.entities?.essential_load5,
+			config.entities?.essential_load6,
+			config.entities?.day_load_energy_84,
+		].some(loadEntitySet);
 		let gridStatus = config.entities?.grid_connected_status_194
 			? stateGridConnectedStatus.state
 			: 'on';
@@ -2432,6 +2454,19 @@ export class SunsynkPowerFlowCard extends LitElement {
 			viewBoxWidthLite = String(defW);
 		}
 
+		// Compact/lite: the essential load is the block to the right of the
+		// inverter. With no load entity that strip is empty, so crop it the
+		// same way the viewBox already drops unused solar or battery space.
+		if (
+			!showEssential &&
+			!config.wide &&
+			(this.isLiteCard || this.isCompactCard)
+		) {
+			const mppts = Utils.toNum(config.solar?.mppts, 1);
+			const rightEdge = mppts >= 4 ? 455 : 400;
+			viewBoxWidthLite = String(rightEdge - Number(viewBoxXLite));
+		}
+
 		const loadOffThreshold = Utils.toNum(config.load?.off_threshold, 0);
 		const offColourTransparent = config.load?.off_colour === 'transparent';
 
@@ -2708,6 +2743,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 			showAux,
 			nonessentialIcon,
 			showNonessential,
+			showEssential,
 			auxStatus,
 			nonessentialLoads,
 			additionalAuxLoad,
