@@ -218,6 +218,7 @@
       "ld": "entitete obremenitve",
       "gri": "entitete omrežja",
       "sensor": "neobvezni senzorji"
-    }
+    },
+    "disable_animations": "Disable Flow Animations"
   }
 }

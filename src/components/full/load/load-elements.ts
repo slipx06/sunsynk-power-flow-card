@@ -57,7 +57,7 @@ export const renderLoadElements = (
 		<!-- Load Elements -->
 		<svg
 			id="Load"
-			style="overflow: visible; border: 1px solid red; display: ${data.showEssential ? 'inline' : 'none'};"
+			style="overflow: visible; display: ${data.showEssential ? 'inline' : 'none'};"
 			x="${config.wide ? '30%' : '3%'}"
 			y="2.5%"
 		>
@@ -81,7 +81,7 @@ export const renderLoadElements = (
 					fill="none"
 					stroke="${dynamicColourEssentialLoad5}"
 					pointer-events="all"
-					display="${[5, 6].includes(additionalLoad) ? '' : 'none'}"
+					display="${[5, 6].includes(additionalLoad) ? 'inline' : 'none'}"
 				/>
 				${renderText(
 					'ess-load5',
@@ -92,7 +92,7 @@ export const renderLoadElements = (
 					dynamicColourEssentialLoad5,
 					load5_name,
 				)}
-				<g display="${[5, 6].includes(additionalLoad) ? '' : 'none'}">
+				<g display="${[5, 6].includes(additionalLoad) ? 'inline' : 'none'}">
 					${renderIcon(
 						load5_switch,
 						data.iconEssentialLoad5,
@@ -148,7 +148,7 @@ export const renderLoadElements = (
 					fill="none"
 					stroke="${dynamicColourEssentialLoad6}"
 					pointer-events="all"
-					display="${[5, 6].includes(additionalLoad) ? '' : 'none'}"
+					display="${[5, 6].includes(additionalLoad) ? 'inline' : 'none'}"
 				/>
 				${renderText(
 					'ess-load6',
@@ -159,7 +159,7 @@ export const renderLoadElements = (
 					dynamicColourEssentialLoad6,
 					load6_name,
 				)}
-				<g display="${[5, 6].includes(additionalLoad) ? '' : 'none'}">
+				<g display="${[5, 6].includes(additionalLoad) ? 'inline' : 'none'}">
 					${renderIcon(
 						load6_switch,
 						data.iconEssentialLoad6,
@@ -218,7 +218,7 @@ export const renderLoadElements = (
 				fill="none"
 				stroke="${dynamicColourEssentialLoad1}"
 				pointer-events="all"
-				display="${additionalLoad === 1 ? '' : 'none'}"
+				display="${additionalLoad === 1 ? 'inline' : 'none'}"
 			/>
 			<rect
 				id="es-load2"
@@ -231,7 +231,7 @@ export const renderLoadElements = (
 				fill="none"
 				stroke="${dynamicColourEssentialLoad1}"
 				pointer-events="all"
-				display="${[2, 4, 5, 6].includes(additionalLoad) ? '' : 'none'}"
+				display="${[2, 4, 5, 6].includes(additionalLoad) ? 'inline' : 'none'}"
 			/>
 			<rect
 				id="es-load2"
@@ -244,7 +244,7 @@ export const renderLoadElements = (
 				fill="none"
 				stroke="${dynamicColourEssentialLoad2}"
 				pointer-events="all"
-				display="${[2, 4, 5, 6].includes(additionalLoad) ? '' : 'none'}"
+				display="${[2, 4, 5, 6].includes(additionalLoad) ? 'inline' : 'none'}"
 			/>
 			<rect
 				id="es-load4"
@@ -755,7 +755,7 @@ export const renderLoadElements = (
 					),
 			)}
 
-			<g display="${[2, 4, 5, 6].includes(additionalLoad) ? '' : 'none'}">
+			<g display="${[2, 4, 5, 6].includes(additionalLoad) ? 'inline' : 'none'}">
 				${renderIcon(
 					load1_switch,
 					data.iconEssentialLoad1,
@@ -764,7 +764,7 @@ export const renderLoadElements = (
 					showAux ? 123 : 5,
 				)}
 			</g>
-			<g display="${[2, 4, 5, 6].includes(additionalLoad) ? '' : 'none'}">
+			<g display="${[2, 4, 5, 6].includes(additionalLoad) ? 'inline' : 'none'}">
 				${renderIcon(
 					load2_switch,
 					data.iconEssentialLoad2,
@@ -773,7 +773,7 @@ export const renderLoadElements = (
 					showAux ? 123 : 5,
 				)}
 			</g>
-			<g display="${[4, 5, 6].includes(additionalLoad) ? '' : 'none'}">
+			<g display="${[4, 5, 6].includes(additionalLoad) ? 'inline' : 'none'}">
 				${renderIcon(
 					load3_switch,
 					data.iconEssentialLoad3,
@@ -782,7 +782,7 @@ export const renderLoadElements = (
 					123,
 				)}
 			</g>
-			<g display="${[4, 5, 6].includes(additionalLoad) ? '' : 'none'}">
+			<g display="${[4, 5, 6].includes(additionalLoad) ? 'inline' : 'none'}">
 				${renderIcon(
 					load4_switch,
 					data.iconEssentialLoad4,
@@ -791,7 +791,7 @@ export const renderLoadElements = (
 					123,
 				)}
 			</g>
-			<g display="${additionalLoad === 1 ? '' : 'none'}">
+			<g display="${additionalLoad === 1 ? 'inline' : 'none'}">
 				${renderIcon(
 					load1_switch,
 					data.iconEssentialLoad1,

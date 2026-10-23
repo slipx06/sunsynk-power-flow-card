@@ -61,7 +61,7 @@ export const renderAuxLoadElements = (
 				fill="none"
 				stroke="${data.auxDynamicColourLoad1}"
 				pointer-events="all"
-				display="${showAux ? '' : 'none'}"
+				display="${showAux ? 'inline' : 'none'}"
 				class="${[1, 2].includes(additionalAuxLoad) ? '' : 'st12'}"
 			/>
 			<rect
@@ -75,7 +75,7 @@ export const renderAuxLoadElements = (
 				fill="none"
 				stroke="${data.auxDynamicColourLoad2}"
 				pointer-events="all"
-				display="${!showAux ? 'none' : ''}"
+				display="${!showAux ? 'none' : 'inline'}"
 				class="${additionalAuxLoad === 2 ? '' : 'st12'}"
 			/>
 			${renderText(
@@ -260,7 +260,7 @@ export const renderAuxLoadElements = (
 					)}
 				</g>
 			</a>
-			<g display="${!showAux || additionalAuxLoad === 0 ? 'none' : ''}">
+			<g display="${!showAux || additionalAuxLoad === 0 ? 'none' : 'inline'}">
 				${renderIcon(
 					undefined,
 					data.iconAuxLoad1,
@@ -311,7 +311,10 @@ export const renderAuxLoadElements = (
 											auto_scale
 												? `${
 														config.load.show_absolute_aux
-															? `${Math.abs(parseFloat(Utils.convertValue(auxPower, decimalPlaces)))} ${Utils.convertValue(auxPower, decimalPlaces).split(' ')[1]}`
+															? Utils.convertValue(
+																	Math.abs(auxPower),
+																	decimalPlaces,
+																) || '0'
 															: Utils.convertValue(auxPower, decimalPlaces) ||
 																'0'
 													}`
@@ -335,7 +338,10 @@ export const renderAuxLoadElements = (
 											auto_scale
 												? `${
 														config.load.show_absolute_aux
-															? `${Math.abs(parseFloat(Utils.convertValue(auxPower, decimalPlaces)))} ${Utils.convertValue(auxPower, decimalPlaces).split(' ')[1]}`
+															? Utils.convertValue(
+																	Math.abs(auxPower),
+																	decimalPlaces,
+																) || '0'
 															: Utils.convertValue(auxPower, decimalPlaces) ||
 																'0'
 													}`

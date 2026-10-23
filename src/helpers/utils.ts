@@ -4,7 +4,6 @@ import {
 	UnitOfPower,
 	UnitOfEnergy,
 } from '../const';
-import { navigate } from 'custom-card-helpers';
 import { globalData } from './globals';
 import type { HomeAssistant } from 'custom-card-helpers';
 
@@ -41,7 +40,7 @@ export class Utils {
 		const langFromHass: string | undefined =
 			hass?.selectedLanguage || hass?.locale?.language || hass?.language;
 
-		let locale: string | undefined = undefined;
+		let locale: string | undefined;
 		let useGrouping = true;
 
 		switch (nf) {
@@ -138,8 +137,6 @@ export class Utils {
 		return `${Utils.formatNumberLocale(numberValue, decimal)} ${unit}`;
 	}
 
-	private static isPopupOpen = false;
-
 	static handlePopup(event, entityId) {
 		if (!entityId) {
 			return;
@@ -167,46 +164,18 @@ export class Utils {
 
 		event.stopPropagation();
 
-		// Handle different actions based on actionConfig
-		switch (actionConfig.action) {
-			case 'more-info':
-				this._dispatchMoreInfoEvent(event, entityId);
-				break;
-
-			case 'navigate':
-				this._handleNavigationEvent(event, actionConfig.navigation_path);
-				break;
-
-			default:
-				console.warn(`Action '${actionConfig.action}' is not supported.`);
-		}
-	}
-
-	private static _dispatchMoreInfoEvent(event, entityId) {
-		if (Utils.isPopupOpen) {
-			return;
-		}
-
-		Utils.isPopupOpen = true;
-
-		const moreInfoEvent = new CustomEvent('hass-more-info', {
-			composed: true,
-			detail: { entityId },
-		});
-
-		history.pushState({ popupOpen: true }, '', window.location.href);
-
-		event.target.dispatchEvent(moreInfoEvent);
-
-		const closePopup = () => {
-			if (Utils.isPopupOpen) {
-				Utils.isPopupOpen = false;
-				window.removeEventListener('popstate', closePopup);
-				//history.back(); // Optionally close the popup with history.back() if needed
-			}
-		};
-
-		window.addEventListener('popstate', closePopup, { once: true });
+		// Home Assistant runs the action itself, so the dialog and the page it
+		// opens know where they came from and their back button returns here.
+		event.target.dispatchEvent(
+			new CustomEvent('hass-action', {
+				bubbles: true,
+				composed: true,
+				detail: {
+					config: { entity: entityId ?? undefined, tap_action: actionConfig },
+					action: 'tap',
+				},
+			}),
+		);
 	}
 
 	static toHexColor(color: string): string {
@@ -226,14 +195,5 @@ export class Utils {
 		}
 		// probs a color name
 		return color;
-	}
-
-	private static _handleNavigationEvent(event, navigationPath) {
-		// Perform the navigation action
-		if (navigationPath) {
-			navigate(event.target, navigationPath); // Assuming 'navigate' is a function available in your environment
-		} else {
-			console.warn('Navigation path is not provided.');
-		}
 	}
 }

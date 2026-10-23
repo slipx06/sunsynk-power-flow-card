@@ -419,7 +419,7 @@ export const renderBatteryElements = (
 						fill="none"
 						stroke="${battery2Colour}"
 						pointer-events="all"
-						display="${!config.show_battery ? 'none' : ''}"
+						display="${!config.show_battery ? 'none' : 'inline'}"
 					/>
 					${createTextWithPopup(
 						'battery2_voltage_183',
@@ -1521,7 +1521,7 @@ export const renderBatteryElements = (
 								fill="${config.battery.linear_gradient
 									? `url(#sLg-bat1)`
 									: batteryColour}"
-								display="${!config.battery.linear_gradient ? 'none' : ''}"
+								display="${!config.battery.linear_gradient ? 'none' : 'inline'}"
 								d="${data.batteryCharge}"
 							/>
 						</svg>
@@ -1675,7 +1675,9 @@ export const renderBatteryElements = (
 								fill="${config.battery2.linear_gradient
 									? `url(#s2Lg)`
 									: battery2Colour}"
-								display="${!config.battery2.linear_gradient ? 'none' : ''}"
+								display="${!config.battery2.linear_gradient
+									? 'none'
+									: 'inline'}"
 								d="${data.battery2Charge}"
 							/>
 						</svg>

@@ -18,7 +18,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '20' # Specify node version to match project requirements
+          node-version: '24'
 
       - name: Get latest tag or fail
         id: get-latest-tag
@@ -34,13 +34,10 @@ jobs:
         id: get-version
         run: echo "version=$(node -pe "require('./package.json').version")" >> $GITHUB_ENV
 
-      - name: Install semver
-        run: npm install semver
-
       - name: Check if version is higher
         id: check-version
         run: |
-          is_higher=$(node -pe "const semver = require('semver'); semver.gt('${{ env.version }}', '${{ steps.get-latest-tag.outputs.tag }}')")
+          is_higher=$(node -e "const parse = version => version.split('.').map(Number); const compare = (a, b) => { const [aMajor, aMinor, aPatch] = parse(a); const [bMajor, bMinor, bPatch] = parse(b); return aMajor !== bMajor ? aMajor - bMajor : aMinor !== bMinor ? aMinor - bMinor : aPatch - bPatch; }; process.stdout.write(String(compare('${{ env.version }}', '${{ steps.get-latest-tag.outputs.tag }}') > 0));")
           if [ "$is_higher" != "true" ]; then
             echo "is_higher_version=false" >> $GITHUB_ENV
             echo "The version is not higher than the latest release"
@@ -64,7 +61,7 @@ jobs:
 
       - name: 🛎️ Create release
         if: env.is_higher_version == 'true'
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: dist/sunsynk-power-flow-card.js
           tag_name: v${{ env.version }}

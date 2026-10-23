@@ -28,18 +28,18 @@ const renderGridIcons = (data: DataDto, config: sunsynkPowerFlowCardConfig) => {
         <svg id="transmission_on" x="-0.5" y="187.5" width="64.5" height="64.5" viewBox="0 0 24 24">
             <path class="${isGridDisconnected ? 'st12' : ''}"
                 fill="${gridColour}"
-                display="${!showGrid || totalGridPower < 0 || config.grid.import_icon ? 'none' : ''}"
+                display="${!showGrid || totalGridPower < 0 || config.grid.import_icon ? 'none' : 'inline'}"
                 d="${icons.gridOn}"/>
         </svg>
         <svg id="transmission_off" x="-0.5" y="187.5" width="64.5" height="64.5" viewBox="0 0 24 24">
             <path class="${isGridConnected ? 'st12' : ''}"
-                fill="${data.gridOffColour}" display="${!showGrid || config.grid.disconnected_icon ? 'none' : ''}"
+                fill="${data.gridOffColour}" display="${!showGrid || config.grid.disconnected_icon ? 'none' : 'inline'}"
                 d="${icons.gridOff}"/>
         </svg>
         <svg id="grid_export" x="-0.5" y="187.5" width="64.5" height="64.5" viewBox="0 0 24 24">
             <path class="${isGridDisconnected ? 'st12' : ''}"
                 fill="${gridColour}"
-                display="${!showGrid || totalGridPower >= 0 || config.grid.export_icon ? 'none' : ''}"
+                display="${!showGrid || totalGridPower >= 0 || config.grid.export_icon ? 'none' : 'inline'}"
                 d="${icons.gridExportCompact}"/>
         </svg>
     `;
@@ -69,7 +69,7 @@ const renderGridTotalPower = (
 
 	return svg`
         <text id="grid_total_power" x="135" y="219.2"
-            display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : ''}"
+            display="${!config.show_grid || config.entities.grid_ct_power_172 === 'none' ? 'none' : 'inline'}"
             class="${largeFont !== true ? 'st14' : 'st4'} st8" fill="${gridColour}">
             ${powerValue} ${!auto_scale ? UnitOfPower.WATT : ''}
         </text>
@@ -116,7 +116,7 @@ export const renderGridElements = (
 				fill="none"
 				stroke="${gridColour}"
 				pointer-events="all"
-				display="${!config.show_grid ? 'none' : ''}"
+				display="${!config.show_grid ? 'none' : 'inline'}"
 			/>
 			${renderText(
 				'daily_grid_buy',
@@ -200,7 +200,7 @@ export const renderGridElements = (
 			${config.grid?.navigate
 				? svg`
                         <a href="#" @click=${(e) => Utils.handleNavigation(e, config.grid.navigate)}>
-                            <g display="${config.show_grid && (config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon) ? '' : 'none'}">
+                            <g display="${config.show_grid && (config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon) ? 'inline' : 'none'}">
                                 <foreignObject x="-0.5" y="187.5" width="70" height="70">
                                     <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 70px; height: 70px;">
                                         <ha-icon icon="${data.customGridIcon}" class="grid-icon"></ha-icon>
@@ -210,7 +210,7 @@ export const renderGridElements = (
                         </a>`
 				: svg`
                         <a href="#" @click=${(e) => Utils.handlePopup(e, config.entities.grid_connected_status_194)}>
-                            <g display="${config.show_grid && (config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon) ? '' : 'none'}">
+                            <g display="${config.show_grid && (config.grid.import_icon || config.grid.disconnected_icon || config.grid.export_icon) ? 'inline' : 'none'}">
                                 <foreignObject x="-0.5" y="187.5" width="70" height="70">
                                     <div xmlns="http://www.w3.org/1999/xhtml" style="position: fixed; width: 70px; height: 70px;">
                                         <ha-icon icon="${data.customGridIcon}" class="grid-icon"></ha-icon>

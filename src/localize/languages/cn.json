@@ -228,6 +228,7 @@
       "sensor": "可选传感器",
       "bat1": "电池1",
       "bat2": "电池2"
-    }
+    },
+    "disable_animations": "Disable Flow Animations"
   }
 }

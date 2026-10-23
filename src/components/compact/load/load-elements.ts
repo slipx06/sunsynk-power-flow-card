@@ -81,7 +81,7 @@ export const renderLoadElements = (
 					fill="none"
 					stroke="${dynamicColourEssentialLoad1}"
 					pointer-events="all"
-					display="${[1, 2, 3].includes(additionalLoad) ? '' : 'none'}"
+					display="${[1, 2, 3].includes(additionalLoad) ? 'inline' : 'none'}"
 				/>
 				${renderText(
 					'es-load1',
@@ -118,7 +118,9 @@ export const renderLoadElements = (
 					)} ${data.stateEssentialLoad1Extra?.getUOM()}`,
 					(e) => Utils.handlePopup(e, config.entities.essential_load1_extra),
 				)}
-				<g display="${[0, 4, 5, 6].includes(additionalLoad) ? 'none' : ''}">
+				<g
+					display="${[0, 4, 5, 6].includes(additionalLoad) ? 'none' : 'inline'}"
+				>
 					${renderIcon(
 						load1_switch,
 						data.iconEssentialLoad1,
@@ -140,7 +142,7 @@ export const renderLoadElements = (
 					fill="none"
 					stroke="${dynamicColourEssentialLoad2}"
 					pointer-events="all"
-					display="${additionalLoad === 2 ? '' : 'none'}"
+					display="${additionalLoad === 2 ? 'inline' : 'none'}"
 				/>
 				${renderText(
 					'es-load2',
@@ -176,7 +178,7 @@ export const renderLoadElements = (
 					)} ${data.stateEssentialLoad2Extra?.getUOM()}`,
 					(e) => Utils.handlePopup(e, config.entities.essential_load2_extra),
 				)}
-				<g display="${additionalLoad === 2 ? '' : 'none'}">
+				<g display="${additionalLoad === 2 ? 'inline' : 'none'}">
 					${renderIcon(
 						config.load.load2_switch,
 						data.iconEssentialLoad2,
@@ -198,7 +200,7 @@ export const renderLoadElements = (
 					fill="none"
 					stroke="${data.dynamicColourEssentialLoad2}"
 					pointer-events="all"
-					display="${additionalLoad === 3 ? '' : 'none'}"
+					display="${additionalLoad === 3 ? 'inline' : 'none'}"
 				/>
 				<rect
 					id="es-load3"
@@ -211,7 +213,7 @@ export const renderLoadElements = (
 					fill="none"
 					stroke="${data.dynamicColourEssentialLoad3}"
 					pointer-events="all"
-					display="${additionalLoad === 3 ? '' : 'none'}"
+					display="${additionalLoad === 3 ? 'inline' : 'none'}"
 				/>
 				${renderText(
 					'es-load2',
@@ -231,7 +233,7 @@ export const renderLoadElements = (
 					dynamicColourEssentialLoad3,
 					load3_name,
 				)}
-				<g display="${additionalLoad === 3 ? '' : 'none'}">
+				<g display="${additionalLoad === 3 ? 'inline' : 'none'}">
 					${renderIcon(
 						config.load.load2_switch,
 						data.iconEssentialLoad2,
@@ -240,7 +242,7 @@ export const renderLoadElements = (
 						264,
 					)}
 				</g>
-				<g display="${additionalLoad === 3 ? '' : 'none'}">
+				<g display="${additionalLoad === 3 ? 'inline' : 'none'}">
 					${renderIcon(
 						config.load.load3_switch,
 						data.iconEssentialLoad3,
@@ -312,7 +314,7 @@ export const renderLoadElements = (
 					fill="none"
 					stroke="${data.dynamicColourEssentialLoad3}"
 					pointer-events="all"
-					display="${additionalLoad >= 4 ? '' : 'none'}"
+					display="${additionalLoad >= 4 ? 'inline' : 'none'}"
 				/>
 				<rect
 					id="es-load1"
@@ -325,7 +327,7 @@ export const renderLoadElements = (
 					fill="none"
 					stroke="${data.dynamicColourEssentialLoad1}"
 					pointer-events="all"
-					display="${additionalLoad >= 4 ? '' : 'none'}"
+					display="${additionalLoad >= 4 ? 'inline' : 'none'}"
 				/>
 				<rect
 					id="es-load2"
@@ -338,7 +340,7 @@ export const renderLoadElements = (
 					fill="none"
 					stroke="${data.dynamicColourEssentialLoad2}"
 					pointer-events="all"
-					display="${additionalLoad >= 4 ? '' : 'none'}"
+					display="${additionalLoad >= 4 ? 'inline' : 'none'}"
 				/>
 				<rect
 					id="es-load4"
@@ -351,7 +353,7 @@ export const renderLoadElements = (
 					fill="none"
 					stroke="${data.dynamicColourEssentialLoad4}"
 					pointer-events="all"
-					display="${additionalLoad >= 4 ? '' : 'none'}"
+					display="${additionalLoad >= 4 ? 'inline' : 'none'}"
 				/>
 				${renderText(
 					'es-load1',
@@ -389,7 +391,7 @@ export const renderLoadElements = (
 					dynamicColourEssentialLoad4,
 					load4_name,
 				)}
-				<g display="${additionalLoad >= 4 ? '' : 'none'}">
+				<g display="${additionalLoad >= 4 ? 'inline' : 'none'}">
 					${renderIcon(
 						load1_switch,
 						data.iconEssentialLoad1,
@@ -398,7 +400,7 @@ export const renderLoadElements = (
 						81,
 					)}
 				</g>
-				<g display="${additionalLoad >= 4 ? '' : 'none'}">
+				<g display="${additionalLoad >= 4 ? 'inline' : 'none'}">
 					${renderIcon(
 						load2_switch,
 						data.iconEssentialLoad2,
@@ -407,7 +409,7 @@ export const renderLoadElements = (
 						81,
 					)}
 				</g>
-				<g display="${additionalLoad >= 4 ? '' : 'none'}">
+				<g display="${additionalLoad >= 4 ? 'inline' : 'none'}">
 					${renderIcon(
 						load3_switch,
 						data.iconEssentialLoad3,
@@ -416,7 +418,7 @@ export const renderLoadElements = (
 						264,
 					)}
 				</g>
-				<g display="${additionalLoad >= 4 ? '' : 'none'}">
+				<g display="${additionalLoad >= 4 ? 'inline' : 'none'}">
 					${renderIcon(
 						load4_switch,
 						data.iconEssentialLoad4,
@@ -547,7 +549,7 @@ export const renderLoadElements = (
 					fill="none"
 					stroke="${data.dynamicColourEssentialLoad5}"
 					pointer-events="all"
-					display="${[5, 6].includes(additionalLoad) ? '' : 'none'}"
+					display="${[5, 6].includes(additionalLoad) ? 'inline' : 'none'}"
 				/>
 				${renderText(
 					'es-load5',
@@ -558,7 +560,7 @@ export const renderLoadElements = (
 					dynamicColourEssentialLoad5,
 					load5_name,
 				)}
-				<g display="${[5, 6].includes(additionalLoad) ? '' : 'none'}">
+				<g display="${[5, 6].includes(additionalLoad) ? 'inline' : 'none'}">
 					${renderIcon(
 						load5_switch,
 						data.iconEssentialLoad5,
@@ -614,7 +616,7 @@ export const renderLoadElements = (
 					fill="none"
 					stroke="${data.dynamicColourEssentialLoad6}"
 					pointer-events="all"
-					display="${additionalLoad === 6 ? '' : 'none'}"
+					display="${additionalLoad === 6 ? 'inline' : 'none'}"
 				/>
 				${renderText(
 					'es-load6',
@@ -625,7 +627,7 @@ export const renderLoadElements = (
 					dynamicColourEssentialLoad6,
 					load6_name,
 				)}
-				<g display="${additionalLoad === 6 ? '' : 'none'}">
+				<g display="${additionalLoad === 6 ? 'inline' : 'none'}">
 					${renderIcon(
 						load6_switch,
 						data.iconEssentialLoad6,

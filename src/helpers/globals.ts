@@ -4,6 +4,7 @@ import { HomeAssistant } from 'custom-card-helpers';
 
 export const globalData = {
 	hass: null as HomeAssistant | null,
+	disableAnimations: false,
 };
 
 export function setHass(hass: HomeAssistant) {

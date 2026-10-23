@@ -228,6 +228,7 @@
       "sensor": "Opcjonalne sensory",
       "bat1": "Bateria 1",
       "bat2": "Bateria 2"
-    }
+    },
+    "disable_animations": "Disable Flow Animations"
   }
 }
