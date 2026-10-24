@@ -55,6 +55,8 @@
     "running": "Uruchomiony",
     "sleepmode": "Tryb uśpienia",
     "grid_name": "Sieć",
+    "generator_name": "Generator",
+    "daily_generator_energy": "GENERATOR DZIENNY",
     "limit": "Limit",
     "off": "Wyłączone",
     "lowpower": "Niskie zużycie",

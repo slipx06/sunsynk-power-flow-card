@@ -55,6 +55,8 @@
     "running": "Kører",
     "sleepmode": "Sleep Mode",
     "grid_name": "Grid",
+    "generator_name": "Generator",
+    "daily_generator_energy": "DAGLIG GENERATOR",
     "limit": "Limit",
     "off": "Off",
     "lowpower": "Low Power",

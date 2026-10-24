@@ -55,6 +55,8 @@
     "running": "Running",
     "sleepmode": "Sleep Mode",
     "grid_name": "Réseau",
+    "generator_name": "Génératrice",
+    "daily_generator_energy": "PROD. GÉNÉRATRICE",
     "limit": "Limit",
     "off": "Off",
     "lowpower": "Low Power",

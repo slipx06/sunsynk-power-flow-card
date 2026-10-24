@@ -55,6 +55,8 @@
     "running": "Running",
     "sleepmode": "Sleep Mode",
     "grid_name": "Grid",
+    "generator_name": "Generátor",
+    "daily_generator_energy": "DENNÝ GENERÁTOR",
     "limit": "Limit",
     "off": "Off",
     "lowpower": "Low Power",

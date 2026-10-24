@@ -55,6 +55,8 @@
     "running": "运行中",
     "sleepmode": "睡眠模式",
     "grid_name": "电网",
+    "generator_name": "发电机",
+    "daily_generator_energy": "每日发电量",
     "limit": "限制",
     "off": "关闭",
     "lowpower": "低功率",
