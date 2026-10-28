@@ -431,6 +431,15 @@ export class SunsynkPowerFlowCard extends LitElement {
 		const stateRadiatorTemp = this.getEntity('entities.radiator_temp_91', {
 			state: '',
 		});
+		const stateInverterTempL1 = this.getEntity('entities.inverter_temp_l1', {
+			state: '',
+		});
+		const stateInverterTempL2 = this.getEntity('entities.inverter_temp_l2', {
+			state: '',
+		});
+		const stateInverterTempL3 = this.getEntity('entities.inverter_temp_l3', {
+			state: '',
+		});
 		const stateInverterVoltageL2 = this.getEntity(
 			'entities.inverter_voltage_L2',
 			{ state: '' },
@@ -646,6 +655,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 		const stateTotalPVGeneration = this.getEntity(
 			'entities.total_pv_generation',
 		);
+		const stateTomorrowSolar = this.getEntity('entities.tomorrow_solar');
 
 		//Set defaults
 		const invert_aux = config.load?.invert_aux ?? false;
@@ -964,6 +974,13 @@ export class SunsynkPowerFlowCard extends LitElement {
 					stateTotalPVGeneration.state,
 					stateTotalPVGeneration.attributes?.unit_of_measurement,
 					2,
+				)
+			: false;
+		const tomorrowSolar = config.entities.tomorrow_solar
+			? Utils.convertValueNew(
+					stateTomorrowSolar.state,
+					stateTomorrowSolar.attributes?.unit_of_measurement,
+					decimalPlaces,
 				)
 			: false;
 		const largeFont = config.large_font;
@@ -2624,6 +2641,9 @@ export class SunsynkPowerFlowCard extends LitElement {
 			inverterCurrentL2,
 			inverterCurrentL3,
 			stateRadiatorTemp,
+			stateInverterTempL1,
+			stateInverterTempL2,
+			stateInverterTempL3,
 			inverterVoltage,
 			inverterVoltageL2,
 			inverterVoltageL3,
@@ -2681,6 +2701,7 @@ export class SunsynkPowerFlowCard extends LitElement {
 			inverterImg,
 			stateDayPVEnergy,
 			remainingSolar,
+			tomorrowSolar,
 			totalSolarGeneration,
 			stateDayLoadEnergy,
 			stateDayBatteryDischarge,

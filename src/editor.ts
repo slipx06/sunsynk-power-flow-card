@@ -666,7 +666,7 @@ export class SunSynkCardEditor
 												{ name: 'auto_scale', selector: { boolean: {} } },
 												{
 													name: 'display_mode',
-													selector: { number: { mode: 'box', min: 1, max: 3 } },
+													selector: { number: { mode: 'box', min: 1, max: 4 } },
 												},
 												{ name: 'colour', selector: { color_rgb: {} } },
 												{ name: 'dynamic_colour', selector: { boolean: {} } },
@@ -1393,6 +1393,12 @@ export class SunSynkCardEditor
 												},
 											},
 											{
+												name: 'tomorrow_solar',
+												selector: {
+													entity: { device_class: SensorDeviceClass.ENERGY },
+												},
+											},
+											{
 												name: 'environment_temp',
 												selector: {
 													entity: {
@@ -1636,6 +1642,30 @@ export class SunSynkCardEditor
 											},
 											{
 												name: 'radiator_temp_91',
+												selector: {
+													entity: {
+														device_class: SensorDeviceClass.TEMPERATURE,
+													},
+												},
+											},
+											{
+												name: 'inverter_temp_l1',
+												selector: {
+													entity: {
+														device_class: SensorDeviceClass.TEMPERATURE,
+													},
+												},
+											},
+											{
+												name: 'inverter_temp_l2',
+												selector: {
+													entity: {
+														device_class: SensorDeviceClass.TEMPERATURE,
+													},
+												},
+											},
+											{
+												name: 'inverter_temp_l3',
 												selector: {
 													entity: {
 														device_class: SensorDeviceClass.TEMPERATURE,

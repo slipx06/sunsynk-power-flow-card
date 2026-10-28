@@ -400,6 +400,45 @@ export const renderInverterElements = (
 				(e) => Utils.handlePopup(e, config.entities.radiator_temp_91),
 			)}
 			${createTextWithPopup(
+				'inverter_temp_l1',
+				[4, 5, 6].includes(config.solar?.mppts) && !config.wide ? 110 : 134,
+				[4, 5, 6].includes(config.solar?.mppts) && !config.wide ? 237 : 130,
+				!!(
+					config.entities?.inverter_temp_l1 &&
+					data.stateInverterTempL1.isValid()
+				),
+				'st3 left-align',
+				inverterColour,
+				`L1: ${data.stateInverterTempL1.toNum(1).toFixed(1)}°`,
+				(e) => Utils.handlePopup(e, config.entities.inverter_temp_l1),
+			)}
+			${createTextWithPopup(
+				'inverter_temp_l2',
+				[4, 5, 6].includes(config.solar?.mppts) && !config.wide ? 110 : 134,
+				[4, 5, 6].includes(config.solar?.mppts) && !config.wide ? 237 : 141.5,
+				!!(
+					config.entities?.inverter_temp_l2 &&
+					data.stateInverterTempL2.isValid()
+				),
+				'st3 left-align',
+				inverterColour,
+				`L2: ${data.stateInverterTempL2.toNum(1).toFixed(1)}°`,
+				(e) => Utils.handlePopup(e, config.entities.inverter_temp_l2),
+			)}
+			${createTextWithPopup(
+				'inverter_temp_l3',
+				[4, 5, 6].includes(config.solar?.mppts) && !config.wide ? 110 : 134,
+				[4, 5, 6].includes(config.solar?.mppts) && !config.wide ? 237 : 153,
+				!!(
+					config.entities?.inverter_temp_l3 &&
+					data.stateInverterTempL3.isValid()
+				),
+				'st3 left-align',
+				inverterColour,
+				`L3: ${data.stateInverterTempL3.toNum(1).toFixed(1)}°`,
+				(e) => Utils.handlePopup(e, config.entities.inverter_temp_l3),
+			)}
+			${createTextWithPopup(
 				'dc_temp',
 				110,
 				266,
