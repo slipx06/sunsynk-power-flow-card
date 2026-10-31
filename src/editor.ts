@@ -31,6 +31,7 @@ export class SunSynkCardEditor
 	private _cachedSanitizedConfig?: sunsynkPowerFlowCardConfig;
 	private _configVersion = 0;
 	private _lastCachedVersion = -1;
+	private _renderCount = 0;
 
 	private static readonly _labelCache = new Map<string, string>();
 
@@ -549,10 +550,38 @@ export class SunSynkCardEditor
 			);
 		}
 
+		const sanitizedConfig = this._sanitizedConfig();
+		const topLevelSchema = [
+			'title',
+			'cardstyle',
+			'general',
+			'inverter',
+			'load',
+			'entities',
+		];
+		this._renderCount += 1;
+		console.debug('SPFC editor pre-return', {
+			renderCount: this._renderCount,
+			hasHass: Boolean(this.hass),
+			topLevelKeys: Object.keys(sanitizedConfig ?? {}),
+			hasTitleColour: 'title_colour' in (sanitizedConfig ?? {}),
+			hasInverterSection: Boolean(
+				(sanitizedConfig as Record<string, unknown>)?.inverter,
+			),
+			hasSolarSection: Boolean(
+				(sanitizedConfig as Record<string, unknown>)?.solar,
+			),
+			hasBatterySection: Boolean(
+				(sanitizedConfig as Record<string, unknown>)?.battery,
+			),
+			topLevelSchemaCount: topLevelSchema.length,
+			topLevelSchema,
+		});
+
 		return html`
 			<ha-form
 				.hass=${this.hass}
-				.data=${this._sanitizedConfig()}
+				.data=${sanitizedConfig}
 				.computeLabel=${this._computeLabelCallback}
 				.computeHelper=${this._computeHelperCallback}
 				.schema=${[
@@ -2017,6 +2046,12 @@ export class SunSynkCardEditor
 	private _valueChanged = (ev: CustomEvent): void => {
 		// ha-form returns color_rgb as arrays or {r,g,b}; ensure all '*_colour' values become hex strings before emitting
 		const v = ev.detail.value as Record<string, unknown>;
+		console.debug('SPFC editor value-changed', {
+			topLevelKeys: Object.keys(v ?? {}),
+			hasInverterSection: Boolean(v?.inverter),
+			hasSolarSection: Boolean(v?.solar),
+			hasBatterySection: Boolean(v?.battery),
+		});
 		// IMPORTANT: do NOT mutate v (the form's live value). Clone before normalization to avoid breaking the picker UI.
 		const out = JSON.parse(JSON.stringify(v)) as Record<string, unknown>;
 		this._normalizeColorsInObject(out);
