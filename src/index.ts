@@ -2768,12 +2768,47 @@ export class SunsynkPowerFlowCard extends LitElement {
 
 		let template: TemplateResult | null = null;
 		let variantKey: 'full' | 'compact' | undefined;
+
+		// loadN_name doubles as either a literal label or an entity id (same pattern as loadN_icon):
+		// if the value resolves to a known entity, that entity's state is used as the name.
+		const resolveLoadName = (value: string): string => {
+			if (value && value !== 'none') {
+				const entity = this.hass?.states?.[value];
+				if (entity) {
+					// Keep the entity tracked even when unavailable so a later recovery
+					// triggers a render. Record its state to avoid redundant renders.
+					this._trackedEntityIds.add(value);
+					this._lastEntityStates.set(value, String(entity.state ?? ''));
+
+					if (entity.state !== 'unavailable' && entity.state !== 'unknown') {
+						return entity.state;
+					}
+				}
+			}
+			return value;
+		};
+
+		const resolvedLoad = config.load
+			? {
+					...config.load,
+					load1_name: resolveLoadName(config.load.load1_name),
+					load2_name: resolveLoadName(config.load.load2_name),
+					load3_name: resolveLoadName(config.load.load3_name),
+					load4_name: resolveLoadName(config.load.load4_name),
+					load5_name: resolveLoadName(config.load.load5_name),
+					load6_name: resolveLoadName(config.load.load6_name),
+				}
+			: config.load;
+
+		const configWithResolvedLoad =
+			resolvedLoad !== config.load ? { ...config, load: resolvedLoad } : config;
+
 		if (this.isFullCard) {
 			variantKey = 'full';
-			template = fullCard(config, inverterImg, data);
+			template = fullCard(configWithResolvedLoad, inverterImg, data);
 		} else if (this.isLiteCard || this.isCompactCard) {
 			variantKey = 'compact';
-			template = compactCard(config, inverterImg, data);
+			template = compactCard(configWithResolvedLoad, inverterImg, data);
 		}
 
 		if (template && variantKey) {
