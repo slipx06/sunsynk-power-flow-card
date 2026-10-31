@@ -33,6 +33,20 @@ export class SunSynkCardEditor
 	private _lastCachedVersion = -1;
 	private _renderCount = 0;
 
+	public constructor() {
+		super();
+		console.debug('SPFC editor constructor', {
+			editorName: EDITOR_NAME,
+		});
+	}
+
+	public connectedCallback(): void {
+		super.connectedCallback();
+		console.debug('SPFC editor connected', {
+			editorName: EDITOR_NAME,
+		});
+	}
+
 	private static readonly _labelCache = new Map<string, string>();
 
 	// Static color name mapping (avoid recreating on every call)
@@ -500,6 +514,15 @@ export class SunSynkCardEditor
 	}
 
 	public setConfig(config: sunsynkPowerFlowCardConfig): void {
+		console.debug('SPFC editor setConfig', {
+			editorName: EDITOR_NAME,
+			configKeys: Object.keys((config as Record<string, unknown>) ?? {}),
+			hasInverterSection: Boolean(
+				(config as Record<string, unknown>)?.inverter,
+			),
+			hasSolarSection: Boolean((config as Record<string, unknown>)?.solar),
+			hasBatterySection: Boolean((config as Record<string, unknown>)?.battery),
+		});
 		// Migrate any existing *_colour arrays/objects in incoming config to hex strings
 		const clone = JSON.parse(JSON.stringify(config)) as Record<string, unknown>;
 		this._normalizeColorsInObject(clone);
