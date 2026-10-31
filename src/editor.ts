@@ -31,21 +31,6 @@ export class SunSynkCardEditor
 	private _cachedSanitizedConfig?: sunsynkPowerFlowCardConfig;
 	private _configVersion = 0;
 	private _lastCachedVersion = -1;
-	private _renderCount = 0;
-
-	public constructor() {
-		super();
-		console.debug('SPFC editor constructor', {
-			editorName: EDITOR_NAME,
-		});
-	}
-
-	public connectedCallback(): void {
-		super.connectedCallback();
-		console.debug('SPFC editor connected', {
-			editorName: EDITOR_NAME,
-		});
-	}
 
 	private static readonly _labelCache = new Map<string, string>();
 
@@ -514,58 +499,16 @@ export class SunSynkCardEditor
 	}
 
 	public setConfig(config: sunsynkPowerFlowCardConfig): void {
-		console.debug('SPFC editor setConfig', {
-			editorName: EDITOR_NAME,
-			configKeys: Object.keys((config as Record<string, unknown>) ?? {}),
-			hasInverterSection: Boolean(
-				(config as Record<string, unknown>)?.inverter,
-			),
-			hasSolarSection: Boolean((config as Record<string, unknown>)?.solar),
-			hasBatterySection: Boolean((config as Record<string, unknown>)?.battery),
-		});
 		// Migrate any existing *_colour arrays/objects in incoming config to hex strings
 		const clone = JSON.parse(JSON.stringify(config)) as Record<string, unknown>;
 		this._normalizeColorsInObject(clone);
-		console.debug('SPFC editor setConfig normalized', {
-			editorName: EDITOR_NAME,
-			cloneKeys: Object.keys(clone ?? {}),
-			hasInverterSection: Boolean(clone?.inverter),
-			hasSolarSection: Boolean(clone?.solar),
-			hasBatterySection: Boolean(clone?.battery),
-		});
 		this._config = {
 			...defaults,
 			...this._config,
 			...(clone as unknown as sunsynkPowerFlowCardConfig),
 		};
-		console.debug('SPFC editor setConfig assigned', {
-			editorName: EDITOR_NAME,
-			configKeys: Object.keys((this._config as Record<string, unknown>) ?? {}),
-			hasInverterSection: Boolean(
-				(this._config as Record<string, unknown>)?.inverter,
-			),
-			hasSolarSection: Boolean(
-				(this._config as Record<string, unknown>)?.solar,
-			),
-			hasBatterySection: Boolean(
-				(this._config as Record<string, unknown>)?.battery,
-			),
-		});
 		this._configVersion++;
 		this.requestUpdate();
-		console.debug('SPFC editor setConfig complete', {
-			editorName: EDITOR_NAME,
-			configVersion: this._configVersion,
-		});
-	}
-
-	protected updated(): void {
-		console.debug('SPFC editor updated', {
-			editorName: EDITOR_NAME,
-			hasHass: Boolean(this.hass),
-			hasConfig: Boolean(this._config),
-			configVersion: this._configVersion,
-		});
 	}
 
 	protected render(): TemplateResult | void {
@@ -608,32 +551,6 @@ export class SunSynkCardEditor
 		}
 
 		const sanitizedConfig = this._sanitizedConfig();
-		const topLevelSchema = [
-			'title',
-			'cardstyle',
-			'general',
-			'inverter',
-			'load',
-			'entities',
-		];
-		this._renderCount += 1;
-		console.debug('SPFC editor pre-return', {
-			renderCount: this._renderCount,
-			hasHass: Boolean(this.hass),
-			topLevelKeys: Object.keys(sanitizedConfig ?? {}),
-			hasTitleColour: 'title_colour' in (sanitizedConfig ?? {}),
-			hasInverterSection: Boolean(
-				(sanitizedConfig as Record<string, unknown>)?.inverter,
-			),
-			hasSolarSection: Boolean(
-				(sanitizedConfig as Record<string, unknown>)?.solar,
-			),
-			hasBatterySection: Boolean(
-				(sanitizedConfig as Record<string, unknown>)?.battery,
-			),
-			topLevelSchemaCount: topLevelSchema.length,
-			topLevelSchema,
-		});
 
 		return html`
 			<ha-form
@@ -2104,12 +2021,6 @@ export class SunSynkCardEditor
 	private _valueChanged = (ev: CustomEvent): void => {
 		// ha-form returns color_rgb as arrays or {r,g,b}; ensure all '*_colour' values become hex strings before emitting
 		const v = ev.detail.value as Record<string, unknown>;
-		console.debug('SPFC editor value-changed', {
-			topLevelKeys: Object.keys(v ?? {}),
-			hasInverterSection: Boolean(v?.inverter),
-			hasSolarSection: Boolean(v?.solar),
-			hasBatterySection: Boolean(v?.battery),
-		});
 		// IMPORTANT: do NOT mutate v (the form's live value). Clone before normalization to avoid breaking the picker UI.
 		const out = JSON.parse(JSON.stringify(v)) as Record<string, unknown>;
 		this._normalizeColorsInObject(out);

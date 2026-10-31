@@ -53,11 +53,6 @@ console.groupCollapsed(
 	'color: white; font-weight: bold; background: dimgray',
 );
 console.log('Readme:', 'https://github.com/slipx06/sunsynk-power-flow-card');
-console.debug('SPFC module loaded', {
-	cardVersion: CARD_VERSION,
-	mainName: MAIN_NAME,
-	editorName: EDITOR_NAME,
-});
 console.groupEnd();
 
 @customElement(MAIN_NAME)
@@ -322,17 +317,8 @@ export class SunsynkPowerFlowCard extends LitElement {
 	}
 
 	public static async getConfigElement() {
-		console.debug('SPFC getConfigElement called', {
-			cardVersion: CARD_VERSION,
-			editorName: EDITOR_NAME,
-		});
 		await import('./editor');
-		const editor = document.createElement(EDITOR_NAME) as LovelaceCardEditor;
-		console.debug('SPFC getConfigElement created editor', {
-			editorName: EDITOR_NAME,
-			editorTag: editor?.localName,
-		});
-		return editor;
+		return document.createElement(EDITOR_NAME) as LovelaceCardEditor;
 	}
 
 	static getStubConfig() {
