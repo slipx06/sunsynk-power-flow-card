@@ -695,6 +695,7 @@ export class SunSynkCardEditor
 												{
 													name: 'solar',
 													type: 'grid',
+													column_min_width: '100%',
 													schema: [
 														{ name: 'max_power', selector: { entity: {} } },
 														{ name: 'pv1_max_power', selector: { entity: {} } },
@@ -814,6 +815,7 @@ export class SunSynkCardEditor
 														{
 															name: 'battery',
 															type: 'grid',
+															column_min_width: '100%',
 															schema: [
 																{ name: 'energy', selector: { entity: {} } },
 																{
@@ -933,6 +935,7 @@ export class SunSynkCardEditor
 																	{
 																		name: 'battery2',
 																		type: 'grid',
+																		column_min_width: '100%',
 																		schema: [
 																			{
 																				name: 'energy',
@@ -1134,6 +1137,7 @@ export class SunSynkCardEditor
 									{
 										name: 'load',
 										type: 'grid',
+										column_min_width: '100%',
 										schema: [
 											...((this._config.load?.additional_loads ?? 0) >= 1
 												? [
@@ -1252,6 +1256,7 @@ export class SunSynkCardEditor
 												{
 													name: 'grid',
 													type: 'grid',
+													column_min_width: '100%',
 													schema: [
 														{ name: 'load1_icon', selector: { entity: {} } },
 														{ name: 'load2_icon', selector: { entity: {} } },
@@ -1282,6 +1287,7 @@ export class SunSynkCardEditor
 									{
 										name: 'entities',
 										type: 'grid',
+										column_min_width: '100%',
 										schema: [
 											{
 												name: 'day_pv_energy_108',
@@ -1435,6 +1441,7 @@ export class SunSynkCardEditor
 									{
 										name: 'entities',
 										type: 'grid',
+										column_min_width: '100%',
 										schema: [
 											{
 												name: 'day_battery_charge_70',
@@ -1457,6 +1464,7 @@ export class SunSynkCardEditor
 											{
 												name: 'entities',
 												type: 'grid',
+												column_min_width: '100%',
 												schema: [
 													{
 														name: 'battery_power_190',
@@ -1519,6 +1527,7 @@ export class SunSynkCardEditor
 														{
 															name: 'entities',
 															type: 'grid',
+															column_min_width: '100%',
 															schema: [
 																{
 																	name: 'battery2_power_190',
@@ -1592,6 +1601,7 @@ export class SunSynkCardEditor
 									{
 										name: 'entities',
 										type: 'grid',
+										column_min_width: '100%',
 										schema: [
 											{ name: 'inverter_status_59', selector: { entity: {} } },
 											{ name: 'use_timer_248', selector: { entity: {} } },
@@ -1695,6 +1705,7 @@ export class SunSynkCardEditor
 									{
 										name: 'entities',
 										type: 'grid',
+										column_min_width: '100%',
 										schema: [
 											{
 												name: 'day_load_energy_84',
@@ -1827,6 +1838,7 @@ export class SunSynkCardEditor
 									{
 										name: 'entities',
 										type: 'grid',
+										column_min_width: '100%',
 										schema: [
 											{
 												name: 'day_grid_import_76',
