@@ -207,7 +207,7 @@ export class SunSynkCardEditor
 
 		// Pattern-based helper hints for dynamic load/aux subfields
 		if (SunSynkCardEditor.PATTERN_LOAD_NAME.test(name))
-			return 'Label for additional load.';
+			return 'Additional load label (can be set via sensor).';
 		if (SunSynkCardEditor.PATTERN_LOAD_ICON.test(name))
 			return 'Additional load icon (Can be set via template sensor).';
 		if (SunSynkCardEditor.PATTERN_LOAD_SWITCH.test(name))
@@ -1136,16 +1136,40 @@ export class SunSynkCardEditor
 										type: 'grid',
 										schema: [
 											...((this._config.load?.additional_loads ?? 0) >= 1
-												? [{ name: 'load1_icon', selector: { entity: {} } }]
+												? [
+														{ name: 'load1_name', selector: { entity: {} } },
+														{ name: 'load1_icon', selector: { entity: {} } },
+													]
 												: []),
 											...((this._config.load?.additional_loads ?? 0) >= 2
-												? [{ name: 'load2_icon', selector: { entity: {} } }]
+												? [
+														{ name: 'load2_name', selector: { entity: {} } },
+														{ name: 'load2_icon', selector: { entity: {} } },
+													]
 												: []),
 											...((this._config.load?.additional_loads ?? 0) >= 3
-												? [{ name: 'load3_icon', selector: { entity: {} } }]
+												? [
+														{ name: 'load3_name', selector: { entity: {} } },
+														{ name: 'load3_icon', selector: { entity: {} } },
+													]
 												: []),
 											...((this._config.load?.additional_loads ?? 0) >= 4
-												? [{ name: 'load4_icon', selector: { entity: {} } }]
+												? [
+														{ name: 'load4_name', selector: { entity: {} } },
+														{ name: 'load4_icon', selector: { entity: {} } },
+													]
+												: []),
+											...((this._config.load?.additional_loads ?? 0) >= 5
+												? [
+														{ name: 'load5_name', selector: { entity: {} } },
+														{ name: 'load5_icon', selector: { entity: {} } },
+													]
+												: []),
+											...((this._config.load?.additional_loads ?? 0) >= 6
+												? [
+														{ name: 'load6_name', selector: { entity: {} } },
+														{ name: 'load6_icon', selector: { entity: {} } },
+													]
 												: []),
 											...((this._config.load?.aux_loads ?? 0) >= 1
 												? [{ name: 'aux_load1_icon', selector: { entity: {} } }]
