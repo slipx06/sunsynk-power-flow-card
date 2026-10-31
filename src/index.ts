@@ -2773,14 +2773,16 @@ export class SunsynkPowerFlowCard extends LitElement {
 		// if the value resolves to a known entity, that entity's state is used as the name.
 		const resolveLoadName = (value: string): string => {
 			if (value && value !== 'none') {
-				const state = this.hass?.states?.[value]?.state;
-				if (
-					state !== undefined &&
-					state !== 'unavailable' &&
-					state !== 'unknown'
-				) {
+				const entity = this.hass?.states?.[value];
+				if (entity) {
+					// Keep the entity tracked even when unavailable so a later recovery
+					// triggers a render. Record its state to avoid redundant renders.
 					this._trackedEntityIds.add(value);
-					return state;
+					this._lastEntityStates.set(value, String(entity.state ?? ''));
+
+					if (entity.state !== 'unavailable' && entity.state !== 'unknown') {
+						return entity.state;
+					}
 				}
 			}
 			return value;
