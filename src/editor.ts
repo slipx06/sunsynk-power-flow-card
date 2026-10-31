@@ -24,7 +24,7 @@ export class SunSynkCardEditor
 	implements LovelaceCardEditor
 {
 	@property() public hass!: HomeAssistant;
-	@property() private _config!: sunsynkPowerFlowCardConfig;
+	private _config!: sunsynkPowerFlowCardConfig;
 	@property() lovelace?: LovelaceConfig;
 
 	// Cache for performance
@@ -552,6 +552,7 @@ export class SunSynkCardEditor
 			),
 		});
 		this._configVersion++;
+		this.requestUpdate();
 		console.debug('SPFC editor setConfig complete', {
 			editorName: EDITOR_NAME,
 			configVersion: this._configVersion,
@@ -2036,6 +2037,7 @@ export class SunSynkCardEditor
 		// Clear cache when config changes
 		this._cachedSanitizedConfig = undefined;
 		this._lastCachedVersion = -1;
+		this.requestUpdate();
 		fireEvent(this, 'config-changed', { config });
 	}
 
