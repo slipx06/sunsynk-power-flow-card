@@ -526,12 +526,45 @@ export class SunSynkCardEditor
 		// Migrate any existing *_colour arrays/objects in incoming config to hex strings
 		const clone = JSON.parse(JSON.stringify(config)) as Record<string, unknown>;
 		this._normalizeColorsInObject(clone);
+		console.debug('SPFC editor setConfig normalized', {
+			editorName: EDITOR_NAME,
+			cloneKeys: Object.keys(clone ?? {}),
+			hasInverterSection: Boolean(clone?.inverter),
+			hasSolarSection: Boolean(clone?.solar),
+			hasBatterySection: Boolean(clone?.battery),
+		});
 		this._config = {
 			...defaults,
 			...this._config,
 			...(clone as unknown as sunsynkPowerFlowCardConfig),
 		};
+		console.debug('SPFC editor setConfig assigned', {
+			editorName: EDITOR_NAME,
+			configKeys: Object.keys((this._config as Record<string, unknown>) ?? {}),
+			hasInverterSection: Boolean(
+				(this._config as Record<string, unknown>)?.inverter,
+			),
+			hasSolarSection: Boolean(
+				(this._config as Record<string, unknown>)?.solar,
+			),
+			hasBatterySection: Boolean(
+				(this._config as Record<string, unknown>)?.battery,
+			),
+		});
 		this._configVersion++;
+		console.debug('SPFC editor setConfig complete', {
+			editorName: EDITOR_NAME,
+			configVersion: this._configVersion,
+		});
+	}
+
+	protected updated(): void {
+		console.debug('SPFC editor updated', {
+			editorName: EDITOR_NAME,
+			hasHass: Boolean(this.hass),
+			hasConfig: Boolean(this._config),
+			configVersion: this._configVersion,
+		});
 	}
 
 	protected render(): TemplateResult | void {
