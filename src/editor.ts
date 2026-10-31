@@ -553,8 +553,8 @@ export class SunSynkCardEditor
 			<ha-form
 				.hass=${this.hass}
 				.data=${this._sanitizedConfig()}
-				.computeLabel=${this._computeLabelCallback.bind(this)}
-				.computeHelper=${this._computeHelperCallback.bind(this)}
+				.computeLabel=${this._computeLabelCallback}
+				.computeHelper=${this._computeHelperCallback}
 				.schema=${[
 					{
 						type: 'expandable',
@@ -1938,7 +1938,7 @@ export class SunSynkCardEditor
 						],
 					},
 				]}
-				@value-changed=${this._valueChanged.bind(this)}
+				@value-changed=${this._valueChanged}
 			></ha-form>
 		`;
 	}
@@ -2014,7 +2014,7 @@ export class SunSynkCardEditor
 		return this._t(`config.cat_title.${opt}`, opt);
 	}
 
-	private _valueChanged(ev: CustomEvent): void {
+	private _valueChanged = (ev: CustomEvent): void => {
 		// ha-form returns color_rgb as arrays or {r,g,b}; ensure all '*_colour' values become hex strings before emitting
 		const v = ev.detail.value as Record<string, unknown>;
 		// IMPORTANT: do NOT mutate v (the form's live value). Clone before normalization to avoid breaking the picker UI.
@@ -2050,5 +2050,5 @@ export class SunSynkCardEditor
 		}
 		// Update local config and emit cloned hex-normalized config; this keeps the form's RGB value intact
 		this._emitConfig(out as unknown as sunsynkPowerFlowCardConfig);
-	}
+	};
 }
